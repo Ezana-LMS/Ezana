@@ -1,5 +1,5 @@
 <?php
-require_once "../configs/config.php";
+    require_once "configs/config.php";
 
 $title = isset($_POST['title']) ? $_POST['title'] : "";
 $start = isset($_POST['start']) ? $_POST['start'] : "";

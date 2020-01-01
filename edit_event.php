@@ -1,5 +1,5 @@
 <?php
-require_once "../configs/config.php";
+    require_once "configs/config.php";
 
 $id = $_POST['id'];
 $title = $_POST['title'];
