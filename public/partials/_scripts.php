@@ -130,14 +130,6 @@
     });
 </script>
 
-<!-- fullCalendar 2.2.5 -->
-<script src="public/plugins/moment/moment.min.js"></script>
-<script src="public/plugins/fullcalendar/main.min.js"></script>
-<script src="public/plugins/fullcalendar-daygrid/main.min.js"></script>
-<script src="public/plugins/fullcalendar-timegrid/main.min.js"></script>
-<script src="public/plugins/fullcalendar-interaction/main.min.js"></script>
-<script src="public/plugins/fullcalendar-bootstrap/main.min.js"></script>
-
 <!-- Select2 -->
 <script src="public/plugins/select2/select2.min.js"></script>
 <script src="public/plugins/select2/custom-select2.js"></script>
