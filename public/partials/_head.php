@@ -52,11 +52,7 @@ while ($sys = $res->fetch_object()) {
         <!-- <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script> -->
         <!-- Scroll Bars -->
         <link rel="stylesheet" href="public/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-        <!-- Full Calendar Plug In -->
-        <link rel="stylesheet" href="public/plugins/fullcalendar/fullcalendar.min.css">
-        <script src="public/plugins/fullcalendar/lib/jquery.min.js"></script>
-        <script src="public/plugins/fullcalendar/lib/moment.min.js"></script>
-        <script src="public/plugins/fullcalendar/fullcalendar.min.js"></script>
+        
         <!-- FlatPickr PlugIn CSS -->
         <link href="public/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
         <link href="public/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">

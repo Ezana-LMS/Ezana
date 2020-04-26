@@ -7,6 +7,11 @@ require_once('public/partials/_head.php');
 ?>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <!-- Full Calendar Plug In -->
+    <link rel="stylesheet" href="public/plugins/fullcalendar/fullcalendar.min.css">
+    <script src="public/plugins/fullcalendar/lib/jquery.min.js"></script>
+    <script src="public/plugins/fullcalendar/lib/moment.min.js"></script>
+    <script src="public/plugins/fullcalendar/fullcalendar.min.js"></script>
     <script>
         /* Calendar Logic */
         $(document).ready(function() {
@@ -90,6 +95,24 @@ require_once('public/partials/_head.php');
             }, 1000);
         }
     </script>
+    <style>
+        /* Inline CSS */
+        #calendar {
+            width: 700px;
+            margin: 0 auto;
+        }
+
+        .response {
+            height: 60px;
+        }
+
+        .success {
+            background: #cdf3cd;
+            padding: 10px 60px;
+            border: #c3e6c3 1px solid;
+            display: inline-block;
+        }
+    </style>
 
     <div class="wrapper">
         <!-- Navbar -->
@@ -224,22 +247,21 @@ require_once('public/partials/_head.php');
                     <div class="row">
                         <div class="col-md-12">
                             <div class="response"></div>
-                            <div id='calendar'></div>
+                            <div id="calendar"></div>
                         </div>
                         <!-- /.nav-tabs-custom -->
                     </div>
                     <!-- /.col -->
                 </div>
                 <!-- /.row -->
-        </div><!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
-    </div>
+            </section>
+            <!-- /.content -->
+        </div>
 
-    <?php
-    require_once("public/partials/_footer.php");
-    require_once("public/partials/_scripts.php");
-    ?>
+        <?php
+        require_once("public/partials/_footer.php");
+        require_once("public/partials/_scripts.php");
+        ?>
 </body>
 
 </html>
