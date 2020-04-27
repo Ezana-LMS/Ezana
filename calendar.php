@@ -96,12 +96,7 @@ require_once('public/partials/_head.php');
         }
     </script>
     <style>
-        /* Inline CSS */
-        #calendar {
-            width: 700px;
-            margin: 0 auto;
-        }
-
+        
         .response {
             height: 60px;
         }
@@ -260,8 +255,12 @@ require_once('public/partials/_head.php');
 
         <?php
         require_once("public/partials/_footer.php");
-        require_once("public/partials/_scripts.php");
         ?>
+        <!-- Bootstrap 4 -->
+        <script src="public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Ezana App Js -->
+        <script src="public/dist/js/adminlte.min.js"></script>
+        <script src="public/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 </body>
 
 </html>
