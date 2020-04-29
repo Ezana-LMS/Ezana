@@ -96,7 +96,6 @@ require_once('public/partials/_head.php');
         }
     </script>
     <style>
-        
         .response {
             height: 60px;
         }
@@ -241,16 +240,18 @@ require_once('public/partials/_head.php');
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="response"></div>
-                            <div id="calendar"></div>
+                            <div class="card">
+                                <div class="card-body">
+                                        <div class="col-md-12">
+                                            <div class="response"></div>
+                                            <div id="calendar"></div>
+                                        </div>
+                                </div>
+                            </div>
                         </div>
-                        <!-- /.nav-tabs-custom -->
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
             </section>
-            <!-- /.content -->
         </div>
 
         <?php
