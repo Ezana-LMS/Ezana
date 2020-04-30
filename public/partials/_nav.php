@@ -47,7 +47,8 @@ while ($admin = $res->fetch_object()) {
                     <a href="calendar.php" class="dropdown-item">
                         <i class="fas fa-calendar mr-2"></i>
                         Calendar
-                    </a> 
+                    </a>
+                     
                     <div class="dropdown-divider"></div>
                     <a href="logout.php" class="dropdown-item">
                         <i class="fas fa-power-off mr-2"></i>
