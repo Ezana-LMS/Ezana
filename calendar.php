@@ -97,7 +97,7 @@ require_once('public/partials/_head.php');
     </script>
     <style>
         .response {
-            height: 60px;
+            height: 100px;
         }
 
         .success {
