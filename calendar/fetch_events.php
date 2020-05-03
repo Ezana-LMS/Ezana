@@ -1,5 +1,5 @@
 <?php
-    require_once "configs/config.php";
+    require_once "../configs/config.php";
 
     $json = array();
     $sqlQuery = "SELECT * FROM ezanaLMS_Events ORDER BY id";

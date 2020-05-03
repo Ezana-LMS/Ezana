@@ -17,7 +17,7 @@ require_once('public/partials/_head.php');
         $(document).ready(function() {
             var calendar = $('#calendar').fullCalendar({
                 editable: true,
-                events: "fetch_events.php",
+                events: "calendar/fetch_events.php",
                 displayEventTime: false,
                 eventRender: function(event, element, view) {
                     if (event.allDay === 'true') {
@@ -36,7 +36,7 @@ require_once('public/partials/_head.php');
                         var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
 
                         $.ajax({
-                            url: 'add_event.php',
+                            url: 'calendar/add_event.php',
                             data: 'title=' + title + '&start=' + start + '&end=' + end,
                             type: "POST",
                             success: function(data) {
@@ -60,7 +60,7 @@ require_once('public/partials/_head.php');
                     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
                     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
                     $.ajax({
-                        url: 'edit_event.php',
+                        url: 'calendar/edit_event.php',
                         data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id,
                         type: "POST",
                         success: function(response) {
@@ -73,7 +73,7 @@ require_once('public/partials/_head.php');
                     if (deleteMsg) {
                         $.ajax({
                             type: "POST",
-                            url: "delete_event.php",
+                            url: "calendar/delete_event.php",
                             data: "&id=" + event.id,
                             success: function(response) {
                                 if (parseInt(response) > 0) {
