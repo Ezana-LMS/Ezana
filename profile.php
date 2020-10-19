@@ -26,7 +26,7 @@ if (isset($_POST['change_profile'])) {
 }
 
 //Change Password
-if (isset($_POST['changePassword'])) {
+if (isset($_POST['change_password'])) {
 
     //Change Password
     $error = 0;
@@ -166,7 +166,7 @@ require_once('partials/_head.php');
                                     <div class="card-body">
                                         <div class="tab-content">
                                             <div class="active tab-pane" id="settings">
-                                                <form class="form-horizontal">
+                                                <form  method ='post' enctype="multipart/form-data" class="form-horizontal">
                                                     <div class="form-group row">
                                                         <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                                                         <div class="col-sm-10">
@@ -211,23 +211,23 @@ require_once('partials/_head.php');
                                             </div>
 
                                             <div class="tab-pane" id="changePassword">
-                                                <form class="form-horizontal">
+                                                <form  method ='post' class="form-horizontal">
                                                     <div class="form-group row">
                                                         <label for="inputName" class="col-sm-2 col-form-label">Old Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control" id="inputName">
+                                                            <input type="password" name="old_password" required class="form-control" id="inputName">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label for="inputEmail" class="col-sm-2 col-form-label">New Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control" id="inputEmail">
+                                                            <input type="password" name="new_password" required class="form-control" id="inputEmail">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label for="inputName2" class="col-sm-2 col-form-label">Confirm New Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="inputName2">
+                                                            <input type="password" name="confirm_password" required class="form-control" id="inputName2">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
