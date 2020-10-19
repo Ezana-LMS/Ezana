@@ -4,7 +4,8 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('partials/_analytics.php');
-require_once('partials/_head.php'); ?>
+require_once('partials/_head.php');
+?>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
@@ -198,7 +199,7 @@ require_once('partials/_head.php'); ?>
                                                             if($row->status =='Pending')
                                                             {
                                                                 echo "
-                                                                <a href='reset_$row->acc_type.php?email=$row->email' class='btn btn-success'>
+                                                                <a href='reset_$row->acc_type.php?email=$row->email' class='badge badge-success'>
                                                                     <i class='fas fa-cogs'></i>
                                                                     <i class='fas fa-user-lock'></i>
                                                                     Reset Password
@@ -206,7 +207,7 @@ require_once('partials/_head.php'); ?>
                                                             } 
                                                             else{
                                                                 echo "
-                                                                <a class='badge badge-success' href='mailto:$row->email&password=$row->dummy_pwd'>
+                                                                <a class='badge badge-primary' href='mailto:$row->email&password=$row->dummy_pwd'>
                                                                     <i class='fas fa-envelope'></i>
                                                                         <i class='fas fa-user-lock'></i>
                                                                             Email Password
