@@ -3,6 +3,28 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
+if (isset($_POST['change_profile'])) {
+
+    $id = $_SESSION['id'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $adr = $_POST['adr'];
+    $profile_pic = $_FILES['profile_pic']['name'];
+    move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "dist/img/system_admin/" . $_FILES["profile_pic"]["name"]);
+    $query = "UPDATE ezanaLMS_Admins  SET name =?, email =?, phone =?, adr =?, profile_pic =? WHERE id =?";
+    $stmt = $conn->prepare($query);
+    $rc = $stmt->bind_param('ssssss', $name, $email, $phone, $adr,  $profile_pic, $id);
+    $stmt->execute();
+    if ($stmt) {
+        //inject alert that profile is updated 
+        $success = "Profile Updated" && header("refresh:1; url=profile.php");
+    } else {
+        //inject alert that profile update task failed
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 require_once('partials/_head.php');
 ?>
 
@@ -135,19 +157,19 @@ require_once('partials/_head.php');
                                                     </div>
                                                 </form>
                                             </div>
-                                            
+
                                             <div class="tab-pane" id="changePassword">
                                                 <form class="form-horizontal">
                                                     <div class="form-group row">
                                                         <label for="inputName" class="col-sm-2 col-form-label">Old Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control" id="inputName" >
+                                                            <input type="email" class="form-control" id="inputName">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label for="inputEmail" class="col-sm-2 col-form-label">New Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control" id="inputEmail" >
+                                                            <input type="email" class="form-control" id="inputEmail">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
