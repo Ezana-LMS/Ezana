@@ -92,13 +92,9 @@ require_once('partials/_head.php');?>
                                     <span class="info-box-text">Modules</span>
                                     <span class="info-box-number"><?php echo $modules;?></span>
                                 </div>
-                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box -->
                         </div>
-                        <!-- /.col -->
                     </div>
-                    <!-- /.row -->
                     <div class="row">
                         <div class="col-12 col-sm-6 col-md-3">
                             <div class="info-box mb-3">
@@ -108,9 +104,7 @@ require_once('partials/_head.php');?>
                                     <span class="info-box-text">Administrators </span>
                                     <span class="info-box-number"><?php echo $admins;?></span>
                                 </div>
-                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box -->
                         </div>
                         <!-- /.col -->
                         <div class="col-12 col-sm-6 col-md-3">
