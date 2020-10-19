@@ -6,7 +6,7 @@ require_once('configs/codeGen.php');
 check_login();
 
 if (isset($_POST['add_admin'])) {
-
+    
     $id = $_POST['id'];
     $name = $_POST['name'];
     $email = $_POST['email'];
@@ -21,7 +21,7 @@ if (isset($_POST['add_admin'])) {
     $rc = $stmt->bind_param('sssssss', $id, $name, $email, $phone, $adr,  $profile_pic, $rank);
     $stmt->execute();
     if ($stmt) {
-        $success = "Administrator Added" && header("refresh:1; url=add_administrator.php");
+        $success = "Administrator Added"; // && header("refresh:1; url=add_administrator.php");
     } else {
         //inject alert that profile update task failed
         $info = "Please Try Again Or Try Later";
@@ -70,7 +70,7 @@ require_once('partials/_head.php');
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form role="form">
+                            <form method="post" enctype="multipart/form-data" role="form">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="form-group col-md-6">
@@ -112,10 +112,15 @@ require_once('partials/_head.php');
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleInputPassword1">Address</label>
+                                            <textarea required name="adr" rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
-
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" name="add_admin" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                         </div>

@@ -76,13 +76,12 @@ require_once('partials/_head.php');
                                             <th>Email</th>
                                             <th>Rank</th>
                                             <th>Phone No. </th>
-                                            <th>Address</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id ='$id' ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Admins`  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
@@ -96,7 +95,6 @@ require_once('partials/_head.php');
                                                 <td><?php echo $admin->email; ?></td>
                                                 <td><?php echo $admin->rank; ?></td>
                                                 <td><?php echo $admin->phone; ?></td>
-                                                <td><?php echo $admin->adr; ?></td>
                                                 <td>
                                                     <a class="badge badge-success" href="view_admin.php?view=<?php echo $admin->id; ?>">
                                                         <i class="fas fa-eye"></i>
