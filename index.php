@@ -1,4 +1,22 @@
 <?php
+session_start();
+include('configs/config.php');
+
+if (isset($_POST['login'])) {
+    $email = $_POST['email'];
+    $password = sha1(md5($_POST['password'])); //double encrypt to increase security
+    $stmt = $mysqli->prepare("SELECT email, password, id  FROM ezanaLMS_Admins  WHERE email =? AND password =?");
+    $stmt->bind_param('ss', $email, $password); //bind fetched parameters
+    $stmt->execute(); //execute bind 
+    $stmt->bind_result($email, $password, $id); //bind result
+    $rs = $stmt->fetch();
+    $_SESSION['id'] = $id;
+    if ($rs) {
+        header("location:dashboard.php");
+    } else {
+        $err = "Access Denied Please Check Your Credentials";
+    }
+}
 require_once('partials/_head.php')
 ?>
 
@@ -7,7 +25,7 @@ require_once('partials/_head.php')
         <div class="card">
             <div class="card-body login-card-body">
                 <div class="login-logo">
-                    <img  height="150" width="150" src="dist/img/logo.jpeg" alt="">
+                    <img height="150" width="150" src="dist/img/logo.jpeg" alt="">
                 </div>
                 <p class="login-box-msg">Sign In To Start Your Session</p>
 
