@@ -42,7 +42,7 @@ require_once('partials/_head.php'); ?>
                     <div class="row">
                         <div class="col-12 col-sm-6 col-md-3">
                             <div class="info-box mb-3">
-                                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-anchor"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Faculties</span>
@@ -55,7 +55,7 @@ require_once('partials/_head.php'); ?>
                         <!-- /.col -->
                         <div class="col-12 col-sm-6 col-md-3">
                             <div class="info-box">
-                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-bezier-curve"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Departments</span>
@@ -73,7 +73,7 @@ require_once('partials/_head.php'); ?>
 
                         <div class="col-12 col-sm-6 col-md-3">
                             <div class="info-box mb-3">
-                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-copy"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Courses</span>
@@ -86,7 +86,7 @@ require_once('partials/_head.php'); ?>
                         <!-- /.col -->
                         <div class="col-12 col-sm-6 col-md-3">
                             <div class="info-box mb-3">
-                                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-paste"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Modules</span>
@@ -98,7 +98,7 @@ require_once('partials/_head.php'); ?>
                     <div class="row">
                         <div class="col-12 col-sm-6 col-md-3">
                             <div class="info-box mb-3">
-                                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-user-secret"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Administrators </span>
@@ -109,7 +109,7 @@ require_once('partials/_head.php'); ?>
                         <!-- /.col -->
                         <div class="col-12 col-sm-6 col-md-3">
                             <div class="info-box">
-                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-user-tie"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Lecturers</span>
@@ -127,7 +127,7 @@ require_once('partials/_head.php'); ?>
 
                         <div class="col-12 col-sm-6 col-md-3">
                             <div class="info-box mb-3">
-                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Students</span>
@@ -140,7 +140,7 @@ require_once('partials/_head.php'); ?>
                         <!-- /.col -->
                         <div class="col-12 col-sm-6 col-md-3">
                             <div class="info-box mb-3">
-                                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users-cog"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Student Groups</span>
