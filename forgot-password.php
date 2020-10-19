@@ -8,7 +8,7 @@ require_once('partials/_head.php')
         <div class="card">
             <div class="card-body login-card-body">
                 <div class="login-logo">
-                    <img class="img-thumbnail" height="150" width="150" src="dist/img/logo.jpeg" alt="">
+                    <img  height="150" width="150" src="dist/img/logo.jpeg" alt="">
                 </div>
                 <p class="login-box-msg">Enter Your Email To Reset Password</p>
 
