@@ -35,7 +35,7 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>System Administrators</h1>
+                            <h1>Administrators Accounts</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -54,7 +54,17 @@ require_once('partials/_head.php');
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">System Administrators Accounts</h3>
+                                <h2 class="text-right">
+                                    <a class="btn btn-outline-success" href="add_administrator.php">
+                                        <i class="fas fa-user-plus"></i>
+                                        Register New Administrator
+                                    </a>
+
+                                    <a class="btn btn-outline-primary" href="">
+                                        <i class="fas fa-file-excel"></i>
+                                        Import From .XLS File
+                                    </a>
+                                </h2>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -65,7 +75,7 @@ require_once('partials/_head.php');
                                             <th>Names</th>
                                             <th>Email</th>
                                             <th>Rank</th>
-                                            <th>Phone No.</th>
+                                            <th>Phone No. </th>
                                             <th>Address</th>
                                             <th>Actions</th>
                                         </tr>
