@@ -37,15 +37,16 @@ if (isset($_POST['add_admin'])) {
             $phone = $_POST['phone'];
             $adr = $_POST['adr'];
             $rank = $_POST['rank'];
+            $password = sha1(md5($_POST['password']));
             $profile_pic = $_FILES['profile_pic']['name'];
             move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "dist/img/system_admin/" . $_FILES["profile_pic"]["name"]);
 
-            $query = "INSERT INTO ezanaLMS_Admins (id, name, email, phone, adr, profile_pic, rank) VALUES(?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Admins (id, name, email, phone, adr, profile_pic, rank, password) VALUES(?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssss', $id, $name, $email, $phone, $adr, $profile_pic, $rank);
+            $rc = $stmt->bind_param('ssssssss', $id, $name, $email, $phone, $adr, $profile_pic, $rank, $password);
             $stmt->execute();
             if ($stmt) {
-                $success = "Administrator Added"; // && header("refresh:1; url=add_administrator.php");
+                $success = "Administrator Added" && header("refresh:1; url=add_administrator.php");
             } else {
                 //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";

@@ -51,7 +51,7 @@ if (isset($_POST['change_password'])) {
 
     if (!$error) {
         $view = $_GET['view'];
-        $sql = "SELECT * FROM  ezanaLMS_Admins  WHERE id = '$id'";
+        $sql = "SELECT * FROM  ezanaLMS_Admins  WHERE id = '$view'";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
@@ -167,7 +167,7 @@ require_once('partials/_head.php');
                                     <div class="card-body">
                                         <div class="tab-content">
                                             <div class="active tab-pane" id="settings">
-                                                <form  method ='post' enctype="multipart/form-data" class="form-horizontal">
+                                                <form method='post' enctype="multipart/form-data" class="form-horizontal">
                                                     <div class="form-group row">
                                                         <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                                                         <div class="col-sm-10">
@@ -198,7 +198,7 @@ require_once('partials/_head.php');
                                                             <div class="input-group">
                                                                 <div class="custom-file">
                                                                     <input type="file" name="profile_pic" class="custom-file-input" id="exampleInputFile">
-                                                                    <label class="custom-file-label"  for="exampleInputFile">Choose file</label>
+                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -212,7 +212,7 @@ require_once('partials/_head.php');
                                             </div>
 
                                             <div class="tab-pane" id="changePassword">
-                                                <form  method ='post' class="form-horizontal">
+                                                <form method='post' class="form-horizontal">
                                                     <div class="form-group row">
                                                         <label for="inputName" class="col-sm-2 col-form-label">Old Password</label>
                                                         <div class="col-sm-10">
