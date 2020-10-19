@@ -3,8 +3,7 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
-/* require_once('partials/_analytics.php');
- */
+require_once('partials/_analytics.php');
 require_once('partials/_head.php');?>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -47,7 +46,7 @@ require_once('partials/_head.php');?>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Faculties</span>
-                                    <span class="info-box-number">41,410</span>
+                                    <span class="info-box-number"><?php echo $faculties;?></span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -61,7 +60,7 @@ require_once('partials/_head.php');?>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Departments</span>
                                     <span class="info-box-number">
-                                        10
+                                        <?php echo $departments;?>
                                     </span>
                                 </div>
                                 <!-- /.info-box-content -->
@@ -78,7 +77,7 @@ require_once('partials/_head.php');?>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Courses</span>
-                                    <span class="info-box-number">760</span>
+                                    <span class="info-box-number"><?php echo $courses;?></span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -91,7 +90,7 @@ require_once('partials/_head.php');?>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Modules</span>
-                                    <span class="info-box-number">2,000</span>
+                                    <span class="info-box-number"><?php echo $modules;?></span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -107,7 +106,7 @@ require_once('partials/_head.php');?>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Administrators </span>
-                                    <span class="info-box-number">41,410</span>
+                                    <span class="info-box-number"><?php echo $admins;?></span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -121,7 +120,7 @@ require_once('partials/_head.php');?>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Lecturers</span>
                                     <span class="info-box-number">
-                                        10
+                                        <?php echo $lecs;?>
                                     </span>
                                 </div>
                                 <!-- /.info-box-content -->
@@ -138,7 +137,7 @@ require_once('partials/_head.php');?>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Students</span>
-                                    <span class="info-box-number">760</span>
+                                    <span class="info-box-number"><?php echo $students;?></span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -151,7 +150,7 @@ require_once('partials/_head.php');?>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Student Groups</span>
-                                    <span class="info-box-number">2,000</span>
+                                    <span class="info-box-number"><?php echo $groups;?></span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
