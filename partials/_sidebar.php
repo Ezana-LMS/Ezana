@@ -375,7 +375,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-file-signature"></i>
+                        <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
                             Reports
                             <i class="fas fa-angle-left right"></i>
@@ -383,38 +383,37 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="add_past_exams.php" class="nav-link">
+                            <a href="lecs_reports.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p> Lecturers Reports</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="manage_past_exam_papers.php" class="nav-link">
+                            <a href="students_reports.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Students Reports</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="upload_solutions.php" class="nav-link">
+                            <a href="faculties_reports.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Faculties / Departments</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="manage_solutions.php" class="nav-link">
+                            <a href="allocation_reports.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Allocations Reports</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="manage_solutions.php" class="nav-link">
+                            <a href="perfomance_reports.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Perfomance Reports</p>
                             </a>
                         </li>
-
                     </ul>
                 </li>
             </ul>
