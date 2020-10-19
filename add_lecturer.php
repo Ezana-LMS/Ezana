@@ -91,14 +91,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Add New Administrator</h1>
+                            <h1>Add New Lecturer</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="system_admins.php">System Administrators</a></li>
-                                <li class="breadcrumb-item active">Register Administrator</li>
+                                <li class="breadcrumb-item"><a href="system_admins.php">Lecturers</a></li>
+                                <li class="breadcrumb-item active">Add</li>
                             </ol>
                         </div>
                     </div>
@@ -119,40 +119,41 @@ require_once('partials/_head.php');
                             <form method="post" enctype="multipart/form-data" role="form">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-3">
                                             <label for="exampleInputEmail1">Name</label>
                                             <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control" id="exampleInputEmail1">
+                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control" >
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="exampleInputEmail1">Email</label>
-                                            <input type="email" required name="email" class="form-control" id="exampleInputEmail1">
+                                        <div class="form-group col-md-3">
+                                            <label for="exampleInputEmail1">Number</label>
+                                            <input type="text" required name="number" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label for="exampleInputEmail1">ID / Passport Number</label>
+                                            <input type="text" required name="idno"  class="form-control" >
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="exampleInputEmail1">Phone Number</label>
-                                            <input type="text" required name="phone" class="form-control" id="exampleInputEmail1">
+                                            <label for="exampleInputEmail1">Email</label>
+                                            <input type="email" required name="email" class="form-control" >
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label>Ranks</label>
-                                            <select name="rank" class="form-control select2">
-                                                <option selected="selected">System Administrator</option>
-                                                <option>Education Administrator</option>
-                                            </select>
+                                            <label for="exampleInputEmail1">Phone Number</label>
+                                            <input type="text" required name="phone" class="form-control" >
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="exampleInputPassword1">Password</label>
-                                            <input type="password" required name="password" class="form-control" id="exampleInputPassword1">
+                                            <input type="password" required name="password" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="exampleInputFile">Profile Picture</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input required name="profile_pic" type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <input required name="profile_pic" type="file" class="custom-file-input">
                                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                 </div>
                                             </div>
