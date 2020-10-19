@@ -18,8 +18,11 @@
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
     <!-- Scroll Bars -->
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-       <!-- icheck bootstrap -->
+    <!-- icheck bootstrap -->
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
