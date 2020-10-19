@@ -4,9 +4,10 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-if (isset($_POST['profile_update'])) {
 
-    $view = $_GET['view'];
+if (isset($_POST['add_admin'])) {
+
+    $id = $_POST['id'];
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
@@ -14,12 +15,13 @@ if (isset($_POST['profile_update'])) {
     $rank = $_POST['rank'];
     $profile_pic = $_FILES['profile_pic']['name'];
     move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "dist/img/system_admin/" . $_FILES["profile_pic"]["name"]);
-    $query = "UPDATE ezanaLMS_Admins  SET name =?, email =?, phone =?, adr =?, profile_pic =?, rank =? WHERE id =?";
+
+    $query = "INSERT INTO ezanaLMS_Admins (id, name, email, phone, adr, profile_pic, rank) VALUES(?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssss', $name, $email, $phone, $adr,  $profile_pic, $rank,  $view);
+    $rc = $stmt->bind_param('sssssss', $id, $name, $email, $phone, $adr,  $profile_pic, $rank);
     $stmt->execute();
     if ($stmt) {
-        $success = "Profile Updated" && header("refresh:1; url=system_admins.php");
+        $success = "Administrator Added" && header("refresh:1; url=add_administrator.php");
     } else {
         //inject alert that profile update task failed
         $info = "Please Try Again Or Try Later";
