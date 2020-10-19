@@ -96,25 +96,25 @@ require_once('partials/_head.php');
                                                     <div class="form-group row">
                                                         <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control" value="<?php echo $admin->name; ?>" name="name" id="inputName">
+                                                            <input type="text" required class="form-control" value="<?php echo $admin->name; ?>" name="name" id="inputName">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control" value="<?php echo $admin->email; ?>" name="email" id="inputEmail">
+                                                            <input type="email" required class="form-control" value="<?php echo $admin->email; ?>" name="email" id="inputEmail">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label for="inputName2" class="col-sm-2 col-form-label">Phone Number</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control" value="<?php echo $admin->phone; ?>" name="phone" id="inputName2">
+                                                            <input type="text" required class="form-control" value="<?php echo $admin->phone; ?>" name="phone" id="inputName2">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label for="inputExperience" class="col-sm-2 col-form-label">Address</label>
                                                         <div class="col-sm-10">
-                                                            <textarea class="form-control" name="adr" id="inputExperience"><?php echo $admin->adr; ?></textarea>
+                                                            <textarea required class="form-control" name="adr" id="inputExperience"><?php echo $admin->adr; ?></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
@@ -130,55 +130,35 @@ require_once('partials/_head.php');
                                                     </div>
                                                     <div class="form-group row">
                                                         <div class="offset-sm-2 col-sm-10">
-                                                            <button type="submit" name="profile_update" class="btn btn-danger">Update Profile</button>
+                                                            <button type="submit" name="profile_update" class="btn btn-primary">Update Profile</button>
                                                         </div>
                                                     </div>
                                                 </form>
                                             </div>
+                                            
                                             <div class="tab-pane" id="changePassword">
                                                 <form class="form-horizontal">
                                                     <div class="form-group row">
-                                                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                                                        <label for="inputName" class="col-sm-2 col-form-label">Old Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control" id="inputName" placeholder="Name">
+                                                            <input type="email" class="form-control" id="inputName" >
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                                        <label for="inputEmail" class="col-sm-2 col-form-label">New Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                                                            <input type="email" class="form-control" id="inputEmail" >
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
+                                                        <label for="inputName2" class="col-sm-2 col-form-label">Confirm New Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="inputName2" placeholder="Name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-                                                        <div class="col-sm-10">
-                                                            <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                                                            <input type="text" class="form-control" id="inputName2">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <div class="offset-sm-2 col-sm-10">
-                                                            <div class="checkbox">
-                                                                <label>
-                                                                    <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <div class="offset-sm-2 col-sm-10">
-                                                            <button type="submit" class="btn btn-danger">Submit</button>
+                                                            <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
                                                         </div>
                                                     </div>
                                                 </form>
