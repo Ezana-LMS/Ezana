@@ -9,7 +9,7 @@ $length = 8;
 $rc = substr(str_shuffle("QWERTYUIOPLKJHGFDSAZXCVBNM1234567890"), 1, $length);
 
 // ------- ID--------------------------------------------------------------------//
-$length = 120;
+$length = date('y');
 $ID = bin2hex(random_bytes($length));
 
 // ------- Checksum--------------------------------------------------------------------//

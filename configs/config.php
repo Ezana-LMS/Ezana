@@ -2,6 +2,6 @@
     $dbuser="root";
     $dbpass="";
     $host="localhost";
-    $db="martdevelopers_UniSys";
+    $db="ezana_lms";
     $mysqli=new mysqli($host,$dbuser, $dbpass, $db);
 ?>
