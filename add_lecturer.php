@@ -20,7 +20,7 @@ if (isset($_POST['add_lec'])) {
         $err = "National ID / Passport Number Cannot Be Empty";
     }
     if (isset($_POST['email']) && !empty($_POST['email'])) {
-        $idno = mysqli_real_escape_string($mysqli, trim($_POST['email']));
+        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
     } else {
         $error = 1;
         $err = "Email Cannot Be Empty";
@@ -119,38 +119,38 @@ require_once('partials/_head.php');
                             <form method="post" enctype="multipart/form-data" role="form">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="form-group col-md-3">
-                                            <label for="exampleInputEmail1">Name</label>
+                                        <div class="form-group col-md-4">
+                                            <label for="">Name</label>
                                             <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control" >
                                         </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="exampleInputEmail1">Number</label>
+                                        <div class="form-group col-md-4">
+                                            <label for="">Number</label>
                                             <input type="text" required name="number" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                         </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="exampleInputEmail1">ID / Passport Number</label>
+                                        <div class="form-group col-md-4">
+                                            <label for="">ID / Passport Number</label>
                                             <input type="text" required name="idno"  class="form-control" >
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="exampleInputEmail1">Email</label>
+                                            <label for="">Email</label>
                                             <input type="email" required name="email" class="form-control" >
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="exampleInputEmail1">Phone Number</label>
+                                            <label for="">Phone Number</label>
                                             <input type="text" required name="phone" class="form-control" >
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="exampleInputPassword1">Password</label>
+                                            <label for="">Password</label>
                                             <input type="password" required name="password" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="exampleInputFile">Profile Picture</label>
+                                            <label for="">Profile Picture</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
                                                     <input required name="profile_pic" type="file" class="custom-file-input">
