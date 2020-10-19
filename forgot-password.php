@@ -1,4 +1,6 @@
 <?php
+session_start();
+include('configs/config.php');
 require_once('configs/codeGen.php');
 if (isset($_POST['reset_pwd'])) {
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -7,10 +9,9 @@ if (isset($_POST['reset_pwd'])) {
     $checkEmail = mysqli_query($mysqli, "SELECT `email` FROM `ezanaLMS_Admins` WHERE `email` = '" . $_POST['email'] . "'") or exit(mysqli_error($mysqli));
     if (mysqli_num_rows($checkEmail) > 0) {
         //exit('This email is already being used');
-        //Reset Password
         $token = $_POST['token'];
         $email = $_POST['email'];
-        $new_pass =$_POST['new_pass'];
+        $new_pass = $_POST['new_pass'];
         $acc_type = $_POST['acc_type'];
         $status = $_POST['status'];
         $query = "INSERT INTO ezanaLMS_PasswordResets (token, email, new_pass, acc_type, status) VALUES (?,?,?,?,?)";
@@ -58,7 +59,7 @@ require_once('partials/_head.php');
                     <div class="row">
 
                         <div class="col-12">
-                            <button type="submit" name="login" class="btn btn-primary btn-block">Reset Password</button>
+                            <button type="submit" name="reset_pwd" class="btn btn-primary btn-block">Reset Password</button>
                         </div>
                         <!-- /.col -->
                     </div>
