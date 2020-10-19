@@ -6,13 +6,13 @@ check_login();
 //Delete
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $adn = "DELETE FROM ezanaLMS_Admins WHERE id=?";
+    $adn = "DELETE FROM ezanaLMS_Lecturers WHERE id=?";
     $stmt = $conn->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=system_admins.php");
+        $success = "Deleted" && header("refresh:1; url=manage_lectures.php");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -35,13 +35,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Administrators Accounts</h1>
+                            <h1>Lecturer Accounts</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active">System Admins</li>
+                                <li class="breadcrumb-item"><a href="manage_lectures.php">Lecturers</a></li>
+                                <li class="breadcrumb-item active">Manage Accounts</li>
                             </ol>
                         </div>
                     </div>
@@ -55,9 +56,9 @@ require_once('partials/_head.php');
                         <div class="card">
                             <div class="card-header">
                                 <h2 class="text-right">
-                                    <a class="btn btn-outline-success" href="add_administrator.php">
+                                    <a class="btn btn-outline-success" href="add_lecturer.php">
                                         <i class="fas fa-user-plus"></i>
-                                        Register New Administrator
+                                        Register New Lecturer
                                     </a>
 
                                     <a class="btn btn-outline-primary" href="">
@@ -72,36 +73,43 @@ require_once('partials/_head.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Names</th>
+                                            <th>Lec Number</th>
+                                            <th>Name</th>
                                             <th>Email</th>
-                                            <th>Rank</th>
-                                            <th>Phone No. </th>
+                                            <th>Phone</th>
+                                            <th>ID / Passport No</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Admins`  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Lecturers`  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
-                                        while ($admin = $res->fetch_object()) {
+                                        while ($lec = $res->fetch_object()) {
                                             $cnt = 1;
                                         ?>
 
                                             <tr>
                                                 <td><?php echo $cnt; ?></td>
-                                                <td><?php echo $admin->name; ?></td>
-                                                <td><?php echo $admin->email; ?></td>
-                                                <td><?php echo $admin->rank; ?></td>
-                                                <td><?php echo $admin->phone; ?></td>
+                                                <td><?php echo $lec->number; ?></td>
+                                                <td><?php echo $lec->name; ?></td>
+                                                <td><?php echo $lec->email; ?></td>
+                                                <td><?php echo $lec->phone; ?></td>
+                                                <td><?php echo $lec->idno; ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="view_admin.php?view=<?php echo $admin->id; ?>">
+                                                    <a class="badge badge-success" href="view_lec.php?view=<?php echo $lec->id; ?>">
                                                         <i class="fas fa-eye"></i>
                                                         View
                                                     </a>
 
-                                                    <a class="badge badge-danger" href="system_admins.php?delete=<?php echo $admin->id; ?>">
+                                                    <a class="badge badge-primary" href="update_lec.php?update=<?php echo $lec->id; ?>">
+                                                        <i class="fas fa-edit"></i>
+                                                        Update
+                                                    </a>
+
+                                                    <a class="badge badge-danger" href="manage_lectures.php?delete=<?php echo $lec->id; ?>">
                                                         <i class="fas fa-trash"></i>
                                                         Delete
                                                     </a>

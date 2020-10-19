@@ -4,9 +4,21 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-if (isset($_POST['add_admin'])) {
+if (isset($_POST['add_lec'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
+    if (isset($_POST['number']) && !empty($_POST['number'])) {
+        $number = mysqli_real_escape_string($mysqli, trim($_POST['number']));
+    } else {
+        $error = 1;
+        $err = "Lecturer Number Cannot Be Empty";
+    }
+    if (isset($_POST['idno']) && !empty($_POST['idno'])) {
+        $idno = mysqli_real_escape_string($mysqli, trim($_POST['idno']));
+    } else {
+        $error = 1;
+        $err = "National ID / Passport Number Cannot Be Empty";
+    }
     if (isset($_POST['email']) && !empty($_POST['email'])) {
         $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
     } else {
@@ -19,34 +31,41 @@ if (isset($_POST['add_admin'])) {
         $error = 1;
         $err = "Phone Number Cannot Be Empty";
     }
+
     if (!$error) {
         //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Admins WHERE  email='$email' || phone ='$phone' ";
+        $sql = "SELECT * FROM  ezanaLMS_Lecturers WHERE  email='$email' || phone ='$phone' || idno = '$idno' || number ='$number' ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
             if ($email == $row['email']) {
                 $err =  "Account With This Email Already Exists";
-            } else {
+            } elseif ($phone == $row['phone']) {
                 $err = "Account With That Phone Number Exists";
+            } elseif ($idno == $row['idno']) {
+                $err = "National ID Number  / Passport Number Already Exists";
+            } else {
+                $err = "Lecturer Number Already Exists";
             }
         } else {
             $id = $_POST['id'];
             $name = $_POST['name'];
             $email = $_POST['email'];
             $phone = $_POST['phone'];
+            $number = $_POST['number'];
+            $idno  = $_POST['idno'];
             $adr = $_POST['adr'];
-            $rank = $_POST['rank'];
+            $created_at = date('d M Y');
             $password = sha1(md5($_POST['password']));
             $profile_pic = $_FILES['profile_pic']['name'];
-            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "dist/img/system_admin/" . $_FILES["profile_pic"]["name"]);
+            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "dist/img/lecturers/" . $_FILES["profile_pic"]["name"]);
 
-            $query = "INSERT INTO ezanaLMS_Admins (id, name, email, phone, adr, profile_pic, rank, password) VALUES(?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Lecturers (id, name, email, phone, idno, adr, profile_pic, created_at, password, number) VALUES(?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssss', $id, $name, $email, $phone, $adr, $profile_pic, $rank, $password);
+            $rc = $stmt->bind_param('ssssssssss', $id, $name, $email, $phone, $idno, $adr, $profile_pic, $created_at, $password, $number);
             $stmt->execute();
             if ($stmt) {
-                $success = "Administrator Added" && header("refresh:1; url=add_administrator.php");
+                $success = "Lecturer Added" && header("refresh:1; url=add_lecturer.php");
             } else {
                 //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";
@@ -72,14 +91,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Add New Administrator</h1>
+                            <h1>Add New Lecturer</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="system_admins.php">System Administrators</a></li>
-                                <li class="breadcrumb-item active">Register Administrator</li>
+                                <li class="breadcrumb-item"><a href="manage_lectures.php">Lecturers</a></li>
+                                <li class="breadcrumb-item active">Add</li>
                             </ol>
                         </div>
                     </div>
@@ -100,40 +119,41 @@ require_once('partials/_head.php');
                             <form method="post" enctype="multipart/form-data" role="form">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label for="exampleInputEmail1">Name</label>
+                                        <div class="form-group col-md-4">
+                                            <label for="">Name</label>
                                             <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control" id="exampleInputEmail1">
+                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="exampleInputEmail1">Email</label>
-                                            <input type="email" required name="email" class="form-control" id="exampleInputEmail1">
+                                        <div class="form-group col-md-4">
+                                            <label for="">Number</label>
+                                            <input type="text" required name="number" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="">ID / Passport Number</label>
+                                            <input type="text" required name="idno" class="form-control">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="exampleInputEmail1">Phone Number</label>
-                                            <input type="text" required name="phone" class="form-control" id="exampleInputEmail1">
+                                            <label for="">Email</label>
+                                            <input type="email" required name="email" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label>Ranks</label>
-                                            <select name="rank" class="form-control select2">
-                                                <option selected="selected">System Administrator</option>
-                                                <option>Education Administrator</option>
-                                            </select>
+                                            <label for="">Phone Number</label>
+                                            <input type="text" required name="phone" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="exampleInputPassword1">Password</label>
-                                            <input type="password" required name="password" class="form-control" id="exampleInputPassword1">
+                                            <label for="">Password</label>
+                                            <input type="password" required name="password" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="exampleInputFile">Profile Picture</label>
+                                            <label for="">Profile Picture</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input required name="profile_pic" type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <input required name="profile_pic" type="file" class="custom-file-input">
                                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                 </div>
                                             </div>
@@ -147,7 +167,7 @@ require_once('partials/_head.php');
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" name="add_admin" class="btn btn-primary">Submit</button>
+                                    <button type="submit" name="add_lec" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                         </div>
