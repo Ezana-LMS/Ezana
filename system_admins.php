@@ -3,7 +3,22 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
+//Delete
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $adn = "DELETE FROM ezanaLMS_Admins WHERE id=?";
+    $stmt = $conn->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=system_admins.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('partials/_head.php');
+
 ?>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -50,9 +65,8 @@ require_once('partials/_head.php');
                                             <th>Names</th>
                                             <th>Email</th>
                                             <th>Rank</th>
-                                            <th>Phone Number</th>
+                                            <th>Phone No.</th>
                                             <th>Address</th>
-                                            <th>Created At</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -63,7 +77,7 @@ require_once('partials/_head.php');
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
                                         while ($admin = $res->fetch_object()) {
-                                            $cnt = 0;
+                                            $cnt = 1;
                                         ?>
 
                                             <tr>
@@ -73,13 +87,12 @@ require_once('partials/_head.php');
                                                 <td><?php echo $admin->rank; ?></td>
                                                 <td><?php echo $admin->phone; ?></td>
                                                 <td><?php echo $admin->adr; ?></td>
-                                                <td><?php echo date('d M Y', strtotime($admin->created_at)); ?></td>
                                                 <td>
                                                     <a class="badge badge-success" href="view_admin.php?view=<?php echo $admin->id; ?>">
                                                         <i class="fas fa-eye"></i>
                                                         View
                                                     </a>
-                                                    
+
                                                     <a class="badge badge-danger" href="system_admins.php?delete=<?php echo $admin->id; ?>">
                                                         <i class="fas fa-trash"></i>
                                                         Delete
