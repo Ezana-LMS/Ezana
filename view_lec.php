@@ -76,9 +76,6 @@ require_once('partials/_head.php');
                                                 <b>Phone: </b> <a class="float-right"><?php echo $lec->phone; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Phone: </b> <a class="float-right"><?php echo $lec->phone; ?></a>
-                                            </li>
-                                            <li class="list-group-item">
                                                 <b>Address</b> <a class="float-right"><?php echo $lec->adr; ?></a>
                                             </li>
                                         </ul>

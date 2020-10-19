@@ -104,7 +104,7 @@ require_once('partials/_head.php');
                                                         View
                                                     </a>
 
-                                                    <a class="badge badge-primary" href="update_lec.php?view=<?php echo $lec->id; ?>">
+                                                    <a class="badge badge-primary" href="update_lec.php?update=<?php echo $lec->id; ?>">
                                                         <i class="fas fa-edit"></i>
                                                         Update
                                                     </a>
