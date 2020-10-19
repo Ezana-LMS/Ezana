@@ -13,7 +13,7 @@ if (isset($_POST['change_profile'])) {
     $profile_pic = $_FILES['profile_pic']['name'];
     move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "dist/img/system_admin/" . $_FILES["profile_pic"]["name"]);
     $query = "UPDATE ezanaLMS_Admins  SET name =?, email =?, phone =?, adr =?, profile_pic =? WHERE id =?";
-    $stmt = $conn->prepare($query);
+    $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('ssssss', $name, $email, $phone, $adr,  $profile_pic, $id);
     $stmt->execute();
     if ($stmt) {
@@ -24,6 +24,58 @@ if (isset($_POST['change_profile'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+
+//Change Password
+if (isset($_POST['changePassword'])) {
+
+    //Change Password
+    $error = 0;
+    if (isset($_POST['old_password']) && !empty($_POST['old_password'])) {
+        $old_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['old_password']))));
+    } else {
+        $error = 1;
+        $err = "Old Password Cannot Be Empty";
+    }
+    if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
+        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
+    } else {
+        $error = 1;
+        $err = "New Password Cannot Be Empty";
+    }
+    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
+        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
+    } else {
+        $error = 1;
+        $err = "Confirmation Password Cannot Be Empty";
+    }
+
+    if (!$error) {
+        $id = $_SESSION['id'];
+        $sql = "SELECT * FROM  ezanaLMS_Admins  WHERE id = '$id'";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($old_password != $row['password']) {
+                $err =  "Please Enter Correct Old Password";
+            } elseif ($new_password != $confirm_password) {
+                $err = "Confirmation Password Does Not Match";
+            } else {
+                $id = $_SESSION['id'];
+                $new_password  = sha1(md5($_POST['new_password']));
+                $query = "UPDATE ezanaLMS_Admins SET  password =? WHERE id =?";
+                $stmt = $mysqli->prepare($query);
+                $rc = $stmt->bind_param('ss', $new_password, $id);
+                $stmt->execute();
+                if ($stmt) {
+                    $success = "Password Changed" && header("refresh:1; url=profile.php");
+                } else {
+                    $err = "Please Try Again Or Try Later";
+                }
+            }
+        }
+    }
+}
+
 
 require_once('partials/_head.php');
 ?>
