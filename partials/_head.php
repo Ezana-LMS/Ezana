@@ -25,7 +25,6 @@
     <!-- SWAL ALERTS INJECTION-->
     <!--load swal js -->
     <script src="dist/js/swal.js"></script>
-
     <!--Inject SWAL-->
     <?php if (isset($success)) { ?>
         <!--This code for injecting success alert-->
