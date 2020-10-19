@@ -1,277 +1,347 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <a href="dashboard.php" class="brand-link">
+        <img src="dist/img/favcon.jpeg" alt="Ezana LMS Logo" class="brand-image img-circle elevation-3">
+        <span class="brand-text font-weight-light">Ezana LMS</span>
     </a>
-
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
-            </div>
-        </div>
-
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                <li class="nav-item has-treeview menu-open">
-                    <a href="#" class="nav-link active">
+                <li class="nav-item">
+                    <a href="dashboard.php" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
-                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="index.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v1</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="index2.html" class="nav-link active">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v2</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="index3.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v3</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                    <a href="system_admins.php" class="nav-link">
+                        <i class="nav-icon fas fa-user-secret"></i>
                         <p>
-                            Widgets
+                            System Admins
                             <span class="right badge badge-danger">New</span>
                         </p>
                     </a>
                 </li>
+
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-copy"></i>
+                        <i class="nav-icon fas fa-user-tie"></i>
                         <p>
-                            Layout Options
+                            Lecturers
                             <i class="fas fa-angle-left right"></i>
-                            <span class="badge badge-info right">6</span>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/layout/top-nav.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Top Navigation</p>
+                            <a href="add_lecturer.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Add Lecturer</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Top Navigation + Sidebar</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/layout/boxed.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Boxed</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/layout/fixed-sidebar.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Fixed Sidebar</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/layout/fixed-topnav.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Fixed Navbar</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/layout/fixed-footer.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Fixed Footer</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/layout/collapsed-sidebar.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Collapsed Sidebar</p>
+                            <a href="manage_lectures.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Manage Lecturers</p>
                             </a>
                         </li>
                     </ul>
                 </li>
+
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-chart-pie"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Charts
+                            Students
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="add_student.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Add Students</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="manage_students.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Manage Students</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-anchor"></i>
+                        <p>
+                            Faculties
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/charts/chartjs.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>ChartJS</p>
+                            <a href="add_faculties.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Add Faculty</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/charts/flot.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Flot</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/charts/inline.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Inline</p>
+                            <a href="manage_faculties.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Manage Faculties</p>
                             </a>
                         </li>
                     </ul>
                 </li>
+
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tree"></i>
+                        <i class="nav-icon fas fa-bezier-curve"></i>
                         <p>
-                            UI Elements
+                            Departments
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/UI/general.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>General</p>
+                            <a href="add_department.php" class="nav-link">
+                                <i class="fas fa-chevron-right  nav-icon"></i>
+                                <p>Add Department</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/UI/icons.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Icons</p>
+                            <a href="manage_departments.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Manage Departments</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a href="pages/UI/buttons.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Buttons</p>
+                            <a href="departmental_memos.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Dept Memos</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a href="pages/UI/sliders.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Sliders</p>
+                            <a href="departmental_notices.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Dept Notices</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="pages/UI/modals.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Modals & Alerts</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/UI/navbar.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Navbar & Tabs</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/UI/timeline.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Timeline</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/UI/ribbons.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Ribbons</p>
-                            </a>
-                        </li>
+
                     </ul>
                 </li>
+
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-edit"></i>
+                        <i class="nav-icon fas fa-copy"></i>
                         <p>
-                            Forms
+                            Courses
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/forms/general.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>General Elements</p>
+                            <a href="add_course.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Add Course</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/forms/advanced.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Advanced Elements</p>
+                            <a href="manage_courses.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Manage Courses</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/forms/editors.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Editors</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/forms/validation.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Validation</p>
+                            <a href="course_directory.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Course Directories</p>
                             </a>
                         </li>
                     </ul>
                 </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-paste"></i>
+                        <p>
+                            Modules
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="add_module.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Add Module</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="manage_modules.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Manage Module</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="assign_lecturer_module.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Assign Module</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="module_notices.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Module Notices</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="reading_materials.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Reading Materials</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
-                            Tables
+                            Time Tables
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/tables/simple.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Simple Tables</p>
+                            <a href="add_class.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Add Class </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/tables/data.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>DataTables</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/tables/jsgrid.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>jsGrid</p>
+                            <a href="generate_timetable.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Generate Table</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-header">EXAMPLES</li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-users-cog"></i>
+                        <p>
+                            Student Groups
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="add_groups.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Add Groups </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="manage_groups.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Manage Groups</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="assign_students.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Assign Students</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="group_projects.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Group Projects</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="group_announcements.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Group Announcements</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="group_feedbacks.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Group Feedbacks</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file-signature"></i>
+                        <p>
+                            Past Exam Papers
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="add_past_exams.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Upload Papers</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="manage_past_exam_papers.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Manage Exam Papers</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="upload_solutions.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Upload Solutions</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="manage_solutions.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Manage Solutions</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="school_calendar.php" class="nav-link">
+                        <i class="nav-icon fas fa-calendar-alt"></i>
+                        <p>
+                            School Calendar
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="class_recordings.php" class="nav-link">
+                        <i class="nav-icon fas fa-file-video"></i>
+                        <p>
+                            Class Recordings
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-header">Advaced Reporting</li>
                 <li class="nav-item">
                     <a href="pages/calendar.html" class="nav-link">
                         <i class="nav-icon fas fa-calendar-alt"></i>
                         <p>
-                            Calendar
+                            School Calendar
                             <span class="badge badge-info right">2</span>
                         </p>
                     </a>
