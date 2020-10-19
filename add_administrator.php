@@ -4,27 +4,53 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-
 if (isset($_POST['add_admin'])) {
-    
-    $id = $_POST['id'];
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $adr = $_POST['adr'];
-    $rank = $_POST['rank'];
-    $profile_pic = $_FILES['profile_pic']['name'];
-    move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "dist/img/system_admin/" . $_FILES["profile_pic"]["name"]);
-
-    $query = "INSERT INTO ezanaLMS_Admins (id, name, email, phone, adr, profile_pic, rank) VALUES(?,?,?,?,?,?,?)";
-    $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssss', $id, $name, $email, $phone, $adr,  $profile_pic, $rank);
-    $stmt->execute();
-    if ($stmt) {
-        $success = "Administrator Added"; // && header("refresh:1; url=add_administrator.php");
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['email']) && !empty($_POST['email'])) {
+        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
     } else {
-        //inject alert that profile update task failed
-        $info = "Please Try Again Or Try Later";
+        $error = 1;
+        $err = "Email Cannot Be Empty";
+    }
+    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
+        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
+    } else {
+        $error = 1;
+        $err = "Phone Number Cannot Be Empty";
+    }
+    if (!$error) {
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_Admins WHERE  email='$email' || phone ='$phone' ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($email == $row['email']) {
+                $err =  "Account With This Email Already Exists";
+            } else {
+                $err = "Account With That Phone Number Exists";
+            }
+        } else {
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $phone = $_POST['phone'];
+            $adr = $_POST['adr'];
+            $rank = $_POST['rank'];
+            $profile_pic = $_FILES['profile_pic']['name'];
+            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "dist/img/system_admin/" . $_FILES["profile_pic"]["name"]);
+
+            $query = "INSERT INTO ezanaLMS_Admins (id, name, email, phone, adr, profile_pic, rank) VALUES(?,?,?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('sssssss', $id, $name, $email, $phone, $adr, $profile_pic, $rank);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Administrator Added"; // && header("refresh:1; url=add_administrator.php");
+            } else {
+                //inject alert that profile update task failed
+                $info = "Please Try Again Or Try Later";
+            }
+        }
     }
 }
 require_once('partials/_head.php');
