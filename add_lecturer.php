@@ -97,7 +97,7 @@ require_once('partials/_head.php');
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="system_admins.php">Lecturers</a></li>
+                                <li class="breadcrumb-item"><a href="manage_lectures.php">Lecturers</a></li>
                                 <li class="breadcrumb-item active">Add</li>
                             </ol>
                         </div>
@@ -122,7 +122,7 @@ require_once('partials/_head.php');
                                         <div class="form-group col-md-4">
                                             <label for="">Name</label>
                                             <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control" >
+                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">Number</label>
@@ -130,17 +130,17 @@ require_once('partials/_head.php');
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">ID / Passport Number</label>
-                                            <input type="text" required name="idno"  class="form-control" >
+                                            <input type="text" required name="idno" class="form-control">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="">Email</label>
-                                            <input type="email" required name="email" class="form-control" >
+                                            <input type="email" required name="email" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="">Phone Number</label>
-                                            <input type="text" required name="phone" class="form-control" >
+                                            <input type="text" required name="phone" class="form-control">
                                         </div>
                                     </div>
 
