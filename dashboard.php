@@ -4,16 +4,16 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('partials/_analytics.php');
-require_once('partials/_head.php');?>
+require_once('partials/_head.php'); ?>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
         <!-- Navbar -->
-        <?php require_once('partials/_nav.php');?>
+        <?php require_once('partials/_nav.php'); ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php require_once('partials/_sidebar.php');?>
+        <?php require_once('partials/_sidebar.php'); ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
@@ -46,7 +46,7 @@ require_once('partials/_head.php');?>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Faculties</span>
-                                    <span class="info-box-number"><?php echo $faculties;?></span>
+                                    <span class="info-box-number"><?php echo $faculties; ?></span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -60,7 +60,7 @@ require_once('partials/_head.php');?>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Departments</span>
                                     <span class="info-box-number">
-                                        <?php echo $departments;?>
+                                        <?php echo $departments; ?>
                                     </span>
                                 </div>
                                 <!-- /.info-box-content -->
@@ -77,7 +77,7 @@ require_once('partials/_head.php');?>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Courses</span>
-                                    <span class="info-box-number"><?php echo $courses;?></span>
+                                    <span class="info-box-number"><?php echo $courses; ?></span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -90,7 +90,7 @@ require_once('partials/_head.php');?>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Modules</span>
-                                    <span class="info-box-number"><?php echo $modules;?></span>
+                                    <span class="info-box-number"><?php echo $modules; ?></span>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +102,7 @@ require_once('partials/_head.php');?>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Administrators </span>
-                                    <span class="info-box-number"><?php echo $admins;?></span>
+                                    <span class="info-box-number"><?php echo $admins; ?></span>
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@ require_once('partials/_head.php');?>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Lecturers</span>
                                     <span class="info-box-number">
-                                        <?php echo $lecs;?>
+                                        <?php echo $lecs; ?>
                                     </span>
                                 </div>
                                 <!-- /.info-box-content -->
@@ -131,7 +131,7 @@ require_once('partials/_head.php');?>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Students</span>
-                                    <span class="info-box-number"><?php echo $students;?></span>
+                                    <span class="info-box-number"><?php echo $students; ?></span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -144,7 +144,7 @@ require_once('partials/_head.php');?>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Student Groups</span>
-                                    <span class="info-box-number"><?php echo $groups;?></span>
+                                    <span class="info-box-number"><?php echo $groups; ?></span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -157,7 +157,7 @@ require_once('partials/_head.php');?>
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5 class="card-title">Accounts In Need For Password Resets</h5>
+                                    <h5 class="card-title">Students Accounts In Need For Password Resets</h5>
 
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -170,15 +170,55 @@ require_once('partials/_head.php');?>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <p class="text-center">
-                                            </p>
-                                            <div class="chart">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.row -->
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Email</th>
+                                                <th>New Password</th>
+                                                <th>Token</th>
+                                                <th>Account Type</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $ret = "SELECT * FROM `ezanaLMS_PasswordResets` WHERE acc_type = 'Student' ";
+                                            $stmt = $mysqli->prepare($ret);
+                                            $stmt->execute(); //ok
+                                            $res = $stmt->get_result();
+                                            while ($row = $res->fetch_object()) {
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $row->email;?></td>
+                                                    <td><?php echo $row->new_pass;?></td>
+                                                    <td><?php echo $row->token;?></td>
+                                                    <td><?php echo $row->acc_type;?> Account</td>
+                                                    <td>
+                                                        <?php
+                                                            if($row->status =='Pending')
+                                                            {
+                                                                echo "
+                                                                <a href='reset_$row->acc_type.php?email=$row->email' class='btn btn-success'>
+                                                                    <i class='fas fa-cogs'></i>
+                                                                    <i class='fas fa-user-lock'></i>
+                                                                    Reset Password
+                                                                </a>";
+                                                            } 
+                                                            else{
+                                                                echo "
+                                                                <a class='badge badge-success' href='mailto:$row->email&password=$row->dummy_pwd'>
+                                                                    <i class='fas fa-envelope'></i>
+                                                                        <i class='fas fa-user-lock'></i>
+                                                                            Email Password
+                                                                </a>
+                                                            ";
+                                                            }
+                                                        ?>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                            } ?>
+                                    </table>
                                 </div>
                             </div>
                             <!-- /.card -->
