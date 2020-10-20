@@ -3,16 +3,18 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
+
+
 //Delete
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $adn = "DELETE FROM ezanaLMS_Admins WHERE id=?";
+    $adn = "DELETE FROM ezanaLMS_Students WHERE id=?";
     $stmt = $conn->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=system_admins.php");
+        $success = "Deleted" && header("refresh:1; url=manage_students.php");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -35,13 +37,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Administrators Accounts</h1>
+                            <h1>Students' Accounts</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active">System Admins</li>
+                                <li class="breadcrumb-item"><a href="manage_students.php">Students</a></li>
+                                <li class="breadcrumb-item active">Manage  Accounts</li>
                             </ol>
                         </div>
                     </div>
@@ -55,14 +58,14 @@ require_once('partials/_head.php');
                         <div class="card">
                             <div class="card-header">
                                 <h2 class="text-right">
-                                    <a class="btn btn-outline-success" href="add_administrator.php">
+                                    <a class="btn btn-outline-success" href="add_lecturer.php">
                                         <i class="fas fa-user-plus"></i>
-                                        Register New Administrator
+                                        Register New Student
                                     </a>
 
                                     <a class="btn btn-outline-primary" href="">
                                         <i class="fas fa-file-excel"></i>
-                                        Import From .XLS File
+                                        Import Students From .XLS File
                                     </a>
                                 </h2>
                             </div>
@@ -72,42 +75,52 @@ require_once('partials/_head.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Names</th>
+                                            <th>Adm No</th>
+                                            <th>Name</th>
                                             <th>Email</th>
-                                            <th>Rank</th>
-                                            <th>Phone No. </th>
+                                            <th>Phone</th>
+                                            <th>ID / Passport No</th>
+                                            <th>Gender</th>
+                                            <th>DOB</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Admins`  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Students`  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
                                         $cnt = 1;
-                                        while ($admin = $res->fetch_object()) {
+                                        while ($std = $res->fetch_object()) {
                                         ?>
 
                                             <tr>
                                                 <td><?php echo $cnt; ?></td>
-                                                <td><?php echo $admin->name; ?></td>
-                                                <td><?php echo $admin->email; ?></td>
-                                                <td><?php echo $admin->rank; ?></td>
-                                                <td><?php echo $admin->phone; ?></td>
+                                                <td><?php echo $std->admno; ?></td>
+                                                <td><?php echo $std->name; ?></td>
+                                                <td><?php echo $std->email; ?></td>
+                                                <td><?php echo $std->phone; ?></td>
+                                                <td><?php echo $std->idno; ?></td>
+                                                <td><?php echo $std->gender;?></td>
+                                                <td><?php echo $std->dob;?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="view_admin.php?view=<?php echo $admin->id; ?>">
+                                                    <a class="badge badge-success" href="view_student.php?view=<?php echo $std->id; ?>">
                                                         <i class="fas fa-eye"></i>
                                                         View
                                                     </a>
 
-                                                    <a class="badge badge-danger" href="system_admins.php?delete=<?php echo $admin->id; ?>">
+                                                    <a class="badge badge-primary" href="update_student.php?update=<?php echo $std->id; ?>">
+                                                        <i class="fas fa-edit"></i>
+                                                        Update
+                                                    </a>
+
+                                                    <a class="badge badge-danger" href="manage_students.php?delete=<?php echo $std->id; ?>">
                                                         <i class="fas fa-trash"></i>
                                                         Delete
                                                     </a>
                                                 </td>
                                             </tr>
-
                                         <?php $cnt = $cnt + 1;
                                         } ?>
                                     </tbody>

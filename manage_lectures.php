@@ -117,7 +117,7 @@ require_once('partials/_head.php');
                                             </tr>
                                         <?php $cnt = $cnt + 1;
                                         } ?>
-
+                                    </tbody>
                                 </table>
                             </div>
                             <!-- /.card-body -->
