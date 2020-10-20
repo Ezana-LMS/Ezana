@@ -57,7 +57,7 @@ if (isset($_POST['add_std'])) {
             $adr = $_POST['adr'];
             $dob = $_POST['dob'];
             $gender = $_POST['gender'];
-            $acc_status = $_POST['acc_status'];
+            $acc_status = 'Active';
             $created_at = date('d M Y');
             $password = sha1(md5($_POST['password']));
             $profile_pic = $_FILES['profile_pic']['name'];
@@ -100,7 +100,7 @@ require_once('partials/_head.php');
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="manage_lectures.php">Lecturers</a></li>
+                                <li class="breadcrumb-item"><a href="">Students</a></li>
                                 <li class="breadcrumb-item active">Add</li>
                             </ol>
                         </div>
@@ -128,12 +128,25 @@ require_once('partials/_head.php');
                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="">Number</label>
-                                            <input type="text" required name="number" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                            <label for="">Admission Number</label>
+                                            <input type="text" required name="admno" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">ID / Passport Number</label>
                                             <input type="text" required name="idno" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="">Date Of Birth</label>
+                                            <input type="text" required name="dob" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="">Gender</label>
+                                            <select type="text" required name="gender" class="form-control">
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row">
