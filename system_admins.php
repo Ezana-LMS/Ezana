@@ -7,7 +7,7 @@ check_login();
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
     $adn = "DELETE FROM ezanaLMS_Admins WHERE id=?";
-    $stmt = $conn->prepare($adn);
+    $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();

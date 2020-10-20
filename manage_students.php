@@ -9,7 +9,7 @@ check_login();
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
     $adn = "DELETE FROM ezanaLMS_Students WHERE id=?";
-    $stmt = $conn->prepare($adn);
+    $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
@@ -81,7 +81,6 @@ require_once('partials/_head.php');
                                             <th>Phone</th>
                                             <th>ID / Passport No</th>
                                             <th>Gender</th>
-                                            <th>DOB</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -103,7 +102,6 @@ require_once('partials/_head.php');
                                                 <td><?php echo $std->phone; ?></td>
                                                 <td><?php echo $std->idno; ?></td>
                                                 <td><?php echo $std->gender;?></td>
-                                                <td><?php echo $std->dob;?></td>
                                                 <td>
                                                     <a class="badge badge-success" href="view_student.php?view=<?php echo $std->id; ?>">
                                                         <i class="fas fa-eye"></i>

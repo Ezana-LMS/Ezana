@@ -40,12 +40,12 @@ if (isset($_POST['add_student'])) {
             $row = mysqli_fetch_assoc($res);
             if ($email == $row['email']) {
                 $err =  "Account With This Email Already Exists";
-            } elseif ($phone == $row['phone']) {
-                $err = "Account With That Phone Number Exists";
+            } elseif ($admno == $row['admno']) {
+                $err = "Student Admission Number Already Exists";
             } elseif ($idno == $row['idno']) {
                 $err = "National ID Number  / Passport Number Already Exists";
             } else {
-                $err = "Student Admission Number Already Exists";
+                $err = "Account With That Phone Number Exists";
             }
         } else {
             $id = $_POST['id'];
