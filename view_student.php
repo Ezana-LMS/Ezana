@@ -112,6 +112,8 @@ require_once('partials/_head.php');
                                     <div class="card-header p-2">
                                         <ul class="nav nav-pills">
                                             <li class="nav-item"><a class="nav-link active" href="#modules" data-toggle="tab">Modules Enrolled</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#courses" data-toggle="tab">Courses Enrolled</a></li>
+
                                         </ul>
                                     </div>
                                     <div class="card-body">
@@ -141,6 +143,38 @@ require_once('partials/_head.php');
                                                                 <td><?php echo $mod->module_code; ?></td>
                                                                 <td><?php echo $mod->module_name; ?></td>
                                                                 <td><?php echo $mod->created_at; ?></td>
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="tab-pane" id="courses">
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Course Code</th>
+                                                            <th>Couse Name</th>
+                                                            <th>Academic Yr</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $admission_number = $std->admno;
+                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE student_adm = '$admission_number'  ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($mod = $res->fetch_object()) {
+                                                        ?>
+                                                            <tr>
+                                                                <td><?php echo $cnt; ?></td>
+                                                                <td><?php echo $mod->course_code; ?></td>
+                                                                <td><?php echo $mod->couse_name; ?></td>
+                                                                <td><?php echo $mod->academic_year_enrolled; ?></td>
                                                             </tr>
                                                         <?php $cnt = $cnt + 1;
                                                         } ?>
