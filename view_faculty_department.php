@@ -108,7 +108,6 @@ require_once('partials/_head.php');
                                                             <i class="fas fa-edit"></i>
                                                             Update
                                                         </a>
-
                                                         <a class="badge badge-danger" href="view_faculty_department.php?delete=<?php echo $dep->id; ?>">
                                                             <i class="fas fa-trash"></i>
                                                             Delete
