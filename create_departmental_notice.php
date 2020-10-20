@@ -17,7 +17,7 @@ if (isset($_POST['add_notice'])) {
 
     $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, departmental_memo, attachments, created_at, type) VALUES(?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss', $id, $department_id, $department_name, $departmental_memo, $attachments, $created_at, $type);
+    $rc = $stmt->bind_param('sssssss', $id, $department_id, $department_name, $departmental_memo, $attachments, $created_at, $type);
     $stmt->execute();
     if ($stmt) {
         $success = "Departmental Notice Added" && header("refresh:1; url=create_departmental_notice.php?department_name=$department_name&department_id=$department_id");
