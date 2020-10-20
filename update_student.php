@@ -52,13 +52,53 @@ if (isset($_POST['update_student'])) {
         $rc = $stmt->bind_param('ssssssssssss', $name, $email, $phone, $admno,  $idno, $adr, $dob, $gender, $acc_status, $updated_at, $profile_pic, $update);
         $stmt->execute();
         if ($stmt) {
-            $success = "Updated Profile"; // && header("refresh:1; url=manage_students.php");
+            $success = "Updated Profile" && header("refresh:1; url=manage_students.php");
         } else {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
         }
     }
 }
+
+//Change Password
+if (isset($_POST['change_password'])) {
+
+    //Change Password
+    $error = 0;
+    if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
+        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
+    } else {
+        $error = 1;
+        $err = "New Password Cannot Be Empty";
+    }
+    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
+        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
+    } else {
+        $error = 1;
+        $err = "Confirmation Password Cannot Be Empty";
+    }
+
+    if (!$error) {
+        if ($new_password != $confirm_password) {
+            $err = "Password Does Not Match";
+        } else {
+            $update = $_GET['update'];
+            $new_password  = sha1(md5($_POST['new_password']));
+            $query = "UPDATE ezanaLMS_Students SET  password =? WHERE id =?";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ss', $new_password, $update);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Password Changed" && header("refresh:1; url=manage_students.php");
+            } else {
+                $err = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+
+//Change Student Password
+
 
 require_once('partials/_head.php');
 ?>
@@ -142,7 +182,7 @@ require_once('partials/_head.php');
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="">Student Account Status</label>
-                                                <select type="text" required name="gender" class="form-control">
+                                                <select type="text" required name="acc_status" class="form-control">
                                                     <option selected><?php echo $std->acc_status; ?></option>
                                                     <option>Active</option>
                                                     <option>Disabled</option>
@@ -202,7 +242,7 @@ require_once('partials/_head.php');
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <button type="submit" name="change_passsword" class="btn btn-primary">Change Password</button>
+                                            <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
                                         </div>
                                     </div>
                                 </form>
