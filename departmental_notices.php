@@ -12,7 +12,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=departmental_memos.php");
+        $success = "Deleted" && header("refresh:1; url=departmental_notices.php");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -37,14 +37,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Departmental Memos</h1>
+                            <h1>Departmental Notices</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="departmental_memos.php">Departments</a></li>
-                                <li class="breadcrumb-item active">Departmental Memos</li>
+                                <li class="breadcrumb-item"><a href="departmental_notices.php">Departments</a></li>
+                                <li class="breadcrumb-item active">Departmental Notices</li>
                             </ol>
                         </div>
                     </div>
@@ -60,7 +60,7 @@ require_once('partials/_head.php');
                                 <h2 class="text-right">
                                     <a class="btn btn-outline-success" href="add_departmental_memo.php">
                                         <i class="fas fa-user-plus"></i>
-                                        Add New Departmental Memo
+                                        Add New Departmental Notice
                                     </a>
                                 </h2>
                             </div>
@@ -78,7 +78,7 @@ require_once('partials/_head.php');
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE type = ''  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE type = 'Notice'  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
@@ -92,15 +92,15 @@ require_once('partials/_head.php');
                                                 <td><?php echo $memo->department_id; ?></td>
                                                 <td><?php echo $memo->created_at; ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="view_departmental_memo.php?view=<?php echo $memo->id; ?>">
+                                                    <a class="badge badge-success" href="view_departmental_notice.php?view=<?php echo $memo->id; ?>">
                                                         <i class="fas fa-eye"></i>
                                                         View
                                                     </a>
-                                                    <a class="badge badge-primary" href="update_departmental_memo.php?update=<?php echo $memo->id; ?>">
+                                                    <a class="badge badge-primary" href="update_departmental_notice.php?update=<?php echo $memo->id; ?>">
                                                         <i class="fas fa-edit"></i>
                                                         Update
                                                     </a>
-                                                    <a class="badge badge-danger" href="departmental_memos.php?delete=<?php echo $memo->id; ?>">
+                                                    <a class="badge badge-danger" href="departmental_notices.php?delete=<?php echo $memo->id; ?>">
                                                         <i class="fas fa-trash"></i>
                                                         Delete
                                                     </a>
