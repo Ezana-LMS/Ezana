@@ -3,6 +3,21 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
+
+//delete
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $adn = "DELETE FROM ezanaLMS_Departments WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=manage_departments.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('partials/_head.php');
 
 ?>
@@ -29,7 +44,7 @@ require_once('partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Departments Under <?php echo $dep->faculty_name; ?></h1>
+                                <h1><?php echo $dep->faculty_name; ?> Departments</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -79,6 +94,7 @@ require_once('partials/_head.php');
                                             $stmt = $mysqli->prepare($ret);
                                             $stmt->execute(); //ok
                                             $res = $stmt->get_result();
+                                            $cnt = 1;
                                             while ($dep = $res->fetch_object()) {
                                             ?>
 
@@ -93,8 +109,8 @@ require_once('partials/_head.php');
                                                             Update
                                                         </a>
 
-                                                        <a class="badge badge-damger" href="view_faculty_department.php?delete=<?php echo $dep->id; ?>&faculty=<?php echo $dep->faculty_name; ?>">
-                                                            <i class="fas fa-tarsh"></i>
+                                                        <a class="badge badge-danger" href="view_faculty_department.php?delete=<?php echo $dep->id; ?>">
+                                                            <i class="fas fa-trash"></i>
                                                             Delete
                                                         </a>
                                                     </td>
