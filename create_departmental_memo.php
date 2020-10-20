@@ -81,7 +81,7 @@ require_once('partials/_head.php');
                                             <label for="">Upload Departmental Memo (PDF Or Docx)</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input required name="attachments" type="file" class="custom-file-input">
+                                                    <input name="attachments" type="file" class="custom-file-input">
                                                     <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                 </div>
                                             </div>
@@ -91,7 +91,7 @@ require_once('partials/_head.php');
                                     <div class="row">
                                         <div class="form-group col-md-12">
                                             <label for="exampleInputPassword1">Type Departmental Memo</label>
-                                            <textarea name="details" id="textarea" rows="10" class="form-control"></textarea>
+                                            <textarea name="departmental_memo" id="textarea" rows="10" class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </div>
