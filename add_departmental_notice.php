@@ -3,20 +3,6 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
-//Delete
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $adn = "DELETE FROM ezanaLMS_DepartmentalMemos WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=departmental_notices.php");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 require_once('partials/_head.php');
 
 ?>
@@ -37,7 +23,7 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Departmental Notices</h1>
+                            <h1>Departments</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -57,12 +43,16 @@ require_once('partials/_head.php');
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="text-right">
-                                    <a class="btn btn-outline-success" href="add_departmental_notice.php">
+                                <!-- <h2 class="text-right">
+                                    <a class="btn btn-outline-success" href="add_faculties.php">
                                         <i class="fas fa-user-plus"></i>
-                                        Add New Departmental Notice
+                                        Register New Faculty
                                     </a>
-                                </h2>
+                                    <a class="btn btn-outline-primary" href="">
+                                        <i class="fas fa-file-excel"></i>
+                                        Import Faculties From .XLS File
+                                    </a>
+                                </h2> -->
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -70,39 +60,33 @@ require_once('partials/_head.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Department Name</th>
-                                            <th>Department Code Number</th>
-                                            <th>Date Posted</th>
+                                            <th>Dep Code / Number</th>
+                                            <th>Dep Name</th>
+                                            <th>Faculty Name</th>
+                                            <th>Dep HOD</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE type = 'Notice'  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Departments`  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
                                         $cnt = 1;
-                                        while ($memo = $res->fetch_object()) {
+                                        while ($dep = $res->fetch_object()) {
                                         ?>
 
                                             <tr>
                                                 <td><?php echo $cnt; ?></td>
-                                                <td><?php echo $memo->department_name; ?></td>
-                                                <td><?php echo $memo->department_id; ?></td>
-                                                <td><?php echo $memo->created_at; ?></td>
+                                                <td><?php echo $dep->code; ?></td>
+                                                <td><?php echo $dep->name; ?></td>
+                                                <td><?php echo $dep->faculty_name; ?></td>
+                                                <td><?php echo $dep->hod; ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="view_departmental_notice.php?view=<?php echo $memo->id; ?>">
-                                                        <i class="fas fa-eye"></i>
-                                                        View
-                                                    </a>
-                                                    <a class="badge badge-primary" href="update_departmental_notice.php?update=<?php echo $memo->id; ?>">
+                                                    <a class="badge badge-success" href="create_departmental_notice.php?department_name=<?php echo $dep->name; ?>&department_id=<?php echo $dep->code; ?>">
                                                         <i class="fas fa-edit"></i>
-                                                        Update
-                                                    </a>
-                                                    <a class="badge badge-danger" href="departmental_notices.php?delete=<?php echo $memo->id; ?>">
-                                                        <i class="fas fa-trash"></i>
-                                                        Delete
+                                                        Create Departmental Notice
                                                     </a>
                                                 </td>
                                             </tr>
