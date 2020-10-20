@@ -4,7 +4,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-if (isset($_POST['add_faculty'])) {
+if (isset($_POST['update_faculty'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (isset($_POST['code']) && !empty($_POST['code'])) {
@@ -20,28 +20,17 @@ if (isset($_POST['add_faculty'])) {
         $err = "Faculty Name Cannot Be Empty";
     }
     if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Faculties WHERE  code='$code' || name ='$name' ";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if ($code == $row['code']) {
-                $err =  "Faculty With This Code Already Exists";
-            } else {
-                $err = "Faculty Name Already Exists";
-            }
-        } else {
-            $id = $_POST['id'];
+            $update = $_GETT['update'];
             $name = $_POST['name'];
             $code = $_POST['code'];
             $details = $_POST['details'];
 
-            $query = "INSERT INTO ezanaLMS_Faculties (id, code, name) VALUES(?,?,?)";
+            $query = "UPDATE  ezanaLMS_Faculties SET code =?, name =?, details =? WHERE id =?";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sss', $id, $code, $name);
+            $rc = $stmt->bind_param('ssss', $code, $name, $details, $update);
             $stmt->execute();
             if ($stmt) {
-                $success = "Faculty Added" && header("refresh:1; url=add_faculties.php");
+                $success = "Faculty Added" && header("refresh:1; url=manage_faculties.php");
             } else {
                 //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";
