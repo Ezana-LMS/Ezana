@@ -97,9 +97,6 @@ if (isset($_POST['change_password'])) {
     }
 }
 
-//Change Student Password
-
-
 require_once('partials/_head.php');
 ?>
 
@@ -226,7 +223,7 @@ require_once('partials/_head.php');
                             <!-- general form elements -->
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Student Authentication Credentials</h3>
+                                    <h3 class="card-title"><?php echo $std->name;?> Authentication Credentials</h3>
                                 </div>
                                 <!-- form start -->
                                 <form method="post" enctype="multipart/form-data" role="form">
