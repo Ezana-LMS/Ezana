@@ -29,7 +29,7 @@ if (isset($_POST['update_dept'])) {
 
         $query = "UPDATE ezanaLMS_Departments SET code =?, name =?, faculty_name =?, details =?, hod =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $code, $name, $faculty_name, $details, $hod, $update);
+        $rc = $stmt->bind_param('ssssss', $code, $name, $faculty_name, $details, $hod, $update);
         $stmt->execute();
         if ($stmt) {
             $success = "Faculty Department Updated" && header("refresh:1; url=manage_departments.php");
