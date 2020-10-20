@@ -87,8 +87,8 @@ require_once('partials/_head.php');
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
+                                        $cnt = 1;
                                         while ($lec = $res->fetch_object()) {
-                                            $cnt = 1;
                                         ?>
 
                                             <tr>
