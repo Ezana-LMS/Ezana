@@ -15,16 +15,16 @@ require_once('partials/_head.php');
         <?php
         require_once('partials/_sidebar.php');
         $view = $_GET['view'];
-        $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id ='$view' ";
+        $ret = "SELECT * FROM `ezanaLMS_Students` WHERE id ='$view' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($lec = $res->fetch_object()) {
+        while ($std = $res->fetch_object()) {
             //Get Default Profile Picture
-            if ($lec->profile_pic == '') {
+            if ($std->profile_pic == '') {
                 $dpic = "<img class='profile-user-img img-fluid img-circle' src='dist/img/logo.jpeg' alt='User profile picture'>";
             } else {
-                $dpic = "<img class='profile-user-img img-fluid img-circle' src='dist/img/lecturers/$lec->profile_pic' alt='User profile picture'>";
+                $dpic = "<img class='profile-user-img img-fluid img-circle' src='dist/img/students/$std->profile_pic' alt='User profile picture'>";
             }
         ?>
 
@@ -35,14 +35,14 @@ require_once('partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1><?php echo $lec->name; ?> Profile</h1>
+                                <h1><?php echo $std->name; ?> Profile</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                                     <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="manage_lectures.php">Lecturers</a></li>
-                                    <li class="breadcrumb-item active"><?php echo $lec->name; ?></li>
+                                    <li class="breadcrumb-item"><a href="manage_students.php">Students</a></li>
+                                    <li class="breadcrumb-item active"><?php echo $std->name; ?></li>
                                 </ol>
                             </div>
                         </div>
@@ -61,22 +61,46 @@ require_once('partials/_head.php');
                                             <?php echo $dpic; ?>
                                         </div>
 
-                                        <h3 class="profile-username text-center"><?php echo $lec->name; ?></h3>
+                                        <h3 class="profile-username text-center"><?php echo $std->name; ?></h3>
 
-                                        <p class="text-muted text-center"><?php echo $lec->number; ?></p>
+                                        <p class="text-muted text-center"><?php echo $std->admno; ?></p>
 
                                         <ul class="list-group list-group-unbordered mb-3">
                                             <li class="list-group-item">
-                                                <b>Email: </b> <a class="float-right"><?php echo $lec->email; ?></a>
+                                                <b>Email: </b> <a class="float-right"><?php echo $std->email; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>ID / Passport: </b> <a class="float-right"><?php echo $lec->idno; ?></a>
+                                                <b>ID / Passport: </b> <a class="float-right"><?php echo $std->idno; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Phone: </b> <a class="float-right"><?php echo $lec->phone; ?></a>
+                                                <b>Phone: </b> <a class="float-right"><?php echo $std->phone; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Address</b> <a class="float-right"><?php echo $lec->adr; ?></a>
+                                                <b>Address</b> <a class="float-right"><?php echo $std->adr; ?></a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>DOB</b> <a class="float-right"><?php echo $std->dob; ?></a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Gender</b> <a class="float-right"><?php echo $std->gender; ?></a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Added At </b> <a class="float-right"><?php echo $std->created_at; ?></a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Updated At </b> <a class="float-right"><?php echo $std->updated_at; ?></a>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b>Account Status</b>
+                                                <a class="float-right">
+                                                    <?php
+                                                    if ($std->acc_status == 'Active') {
+                                                        echo "<span class='badge badge-success'>$std->acc_status</span>";
+                                                    } else {
+                                                        echo "<span class='badge badge-danger'>$std->acc_status</span>";
+                                                    }
+                                                    ?>
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -87,7 +111,7 @@ require_once('partials/_head.php');
                                 <div class="card">
                                     <div class="card-header p-2">
                                         <ul class="nav nav-pills">
-                                            <li class="nav-item"><a class="nav-link active" href="#modules" data-toggle="tab">Modules Assigned</a></li>
+                                            <li class="nav-item"><a class="nav-link active" href="#modules" data-toggle="tab">Modules Enrolled</a></li>
                                         </ul>
                                     </div>
                                     <div class="card-body">
@@ -99,12 +123,13 @@ require_once('partials/_head.php');
                                                             <th>#</th>
                                                             <th>Module Code</th>
                                                             <th>Module Name</th>
-                                                            <th>Date Allocated</th>
+                                                            <th>Date Enrolled</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE lec_id ='$view'   ";
+                                                        $admission_number = $std->admno;
+                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE student_adm = '$admission_number'  ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
