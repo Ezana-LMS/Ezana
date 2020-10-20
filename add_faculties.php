@@ -36,9 +36,9 @@ if (isset($_POST['add_faculty'])) {
             $code = $_POST['code'];
             $details = $_POST['details'];
 
-            $query = "INSERT INTO ezanaLMS_Faculties (id, code, name) VALUES(?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Faculties (id, code, name, details) VALUES(?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sss', $id, $code, $name);
+            $rc = $stmt->bind_param('ssss', $id, $code, $name, $details);
             $stmt->execute();
             if ($stmt) {
                 $success = "Faculty Added" && header("refresh:1; url=add_faculties.php");

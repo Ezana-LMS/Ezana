@@ -20,7 +20,7 @@ if (isset($_POST['update_faculty'])) {
         $err = "Faculty Name Cannot Be Empty";
     }
     if (!$error) {
-        $update = $_GETT['update'];
+        $update = $_GET['update'];
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
