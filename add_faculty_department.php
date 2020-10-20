@@ -70,13 +70,13 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Add New Faculty</h1>
+                            <h1>Add New Faculty Department</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="manage_faculties.php">Faculties</a></li>
+                                <li class="breadcrumb-item"><a href="">Departments</a></li>
                                 <li class="breadcrumb-item active">Add</li>
                             </ol>
                         </div>
@@ -98,25 +98,29 @@ require_once('partials/_head.php');
                             <form method="post" enctype="multipart/form-data" role="form">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label for="">Faculty Name</label>
+                                        <div class="form-group col-md-4">
+                                            <label for="">Department Name</label>
                                             <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="">Faculty Number / Code</label>
+                                        <div class="form-group col-md-4">
+                                            <label for="">Department Number / Code</label>
                                             <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="">Department HOD</label>
+                                            <input type="text" required name="hod" class="form-control">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label for="exampleInputPassword1">Faculty Description</label>
-                                            <textarea required name="details" rows="10" class="form-control"></textarea>
+                                            <label for="exampleInputPassword1">Department Description</label>
+                                            <textarea name="details" rows="10" class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" name="add_faculty" class="btn btn-primary">Add Faculty</button>
+                                    <button type="submit" name="add_dept" class="btn btn-primary">Add Department</button>
                                 </div>
                             </form>
                         </div>
