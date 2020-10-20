@@ -90,8 +90,7 @@ require_once('partials/_head.php');
                                                 <td><?php echo $cnt; ?></td>
                                                 <td><?php echo $memo->department_name; ?></td>
                                                 <td><?php echo $memo->department_id; ?></td>
-                                                <td><?php echo $mdmo->created_at; ?></td>
-                                                <td><?php echo $dep->hod; ?></td>
+                                                <td><?php echo $memo->created_at; ?></td>
                                                 <td>
                                                     <a class="badge badge-success" href="view_departmental_memo.php?view=<?php echo $memo->id; ?>">
                                                         <i class="fas fa-eye"></i>
