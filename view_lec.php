@@ -104,21 +104,22 @@ require_once('partials/_head.php');
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns`  ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE lec_id ='$view'   ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
+                                                        $cnt = 1;
                                                         while ($mod = $res->fetch_object()) {
-                                                            $cnt = 1;
                                                         ?>
                                                             <tr>
                                                                 <td><?php echo $cnt; ?></td>
                                                                 <td><?php echo $mod->module_code; ?></td>
-                                                                <td><?php echo $lec->module_name; ?></td>
-                                                                <td><?php echo $lec->created_at; ?></td>
+                                                                <td><?php echo $mod->module_name; ?></td>
+                                                                <td><?php echo $mod->created_at; ?></td>
                                                             </tr>
                                                         <?php $cnt = $cnt + 1;
                                                         } ?>
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>

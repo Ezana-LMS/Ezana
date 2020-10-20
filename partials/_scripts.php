@@ -24,6 +24,7 @@
 <script>
     $(function() {
         $("#example1").DataTable();
+        $("#courses_enrolled").DataTable();
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -56,4 +57,9 @@
                 theme: 'bootstrap4'
             })
         })
+</script>
+<!-- CK Editor -->
+<script src="plugins/ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('textarea');
 </script>

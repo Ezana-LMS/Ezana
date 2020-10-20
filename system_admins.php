@@ -7,7 +7,7 @@ check_login();
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
     $adn = "DELETE FROM ezanaLMS_Admins WHERE id=?";
-    $stmt = $conn->prepare($adn);
+    $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
@@ -85,8 +85,8 @@ require_once('partials/_head.php');
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
+                                        $cnt = 1;
                                         while ($admin = $res->fetch_object()) {
-                                            $cnt = 1;
                                         ?>
 
                                             <tr>
@@ -107,9 +107,10 @@ require_once('partials/_head.php');
                                                     </a>
                                                 </td>
                                             </tr>
+
                                         <?php $cnt = $cnt + 1;
                                         } ?>
-
+                                    </tbody>
                                 </table>
                             </div>
                             <!-- /.card-body -->

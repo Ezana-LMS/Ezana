@@ -56,6 +56,44 @@ if (isset($_POST['update_lec'])) {
     }
 }
 
+
+
+//Change Password
+if (isset($_POST['change_password'])) {
+
+    $error = 0;
+    if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
+        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
+    } else {
+        $error = 1;
+        $err = "New Password Cannot Be Empty";
+    }
+    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
+        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
+    } else {
+        $error = 1;
+        $err = "Confirmation Password Cannot Be Empty";
+    }
+
+    if (!$error) {
+        if ($new_password != $confirm_password) {
+            $err = "Password Does Not Match";
+        } else {
+            $update = $_GET['update'];
+            $new_password  = sha1(md5($_POST['new_password']));
+            $query = "UPDATE ezanaLMS_Lecturers SET  password =? WHERE id =?";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ss', $new_password, $update);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Password Changed" && header("refresh:1; url=manage_lectures.php");
+            } else {
+                $err = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+
 require_once('partials/_head.php');
 ?>
 
@@ -153,6 +191,33 @@ require_once('partials/_head.php');
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <!-- general form elements -->
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title"><?php echo $lec->name; ?> Authentication Credentials</h3>
+                                </div>
+                                <!-- form start -->
+                                <form method="post" enctype="multipart/form-data" role="form">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="">New Password</label>
+                                                <input type="password" required name="new_password" class="form-control">
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label for="">Confirm Password</label>
+                                                <input type="password" required name="confirm_password" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
+                                        </div>
                                     </div>
                                 </form>
                             </div>
