@@ -151,7 +151,7 @@ require_once('partials/_head.php');
                                             </div>
 
                                             <div class="tab-pane" id="courses">
-                                                <table id="example1" class="table table-bordered table-striped">
+                                                <table id="courses_enrolled" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>

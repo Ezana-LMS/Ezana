@@ -24,6 +24,7 @@
 <script>
     $(function() {
         $("#example1").DataTable();
+        $("#courses_enrolled").DataTable();
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,
