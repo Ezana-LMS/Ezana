@@ -4,7 +4,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-if (isset($_POST['add_std'])) {
+if (isset($_POST['add_student'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (isset($_POST['admno']) && !empty($_POST['admno'])) {
@@ -94,13 +94,13 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Add New Lecturer</h1>
+                            <h1>Add New Student</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="">Students</a></li>
+                                <li class="breadcrumb-item"><a href="manage_students.php">Students</a></li>
                                 <li class="breadcrumb-item active">Add</li>
                             </ol>
                         </div>
@@ -183,7 +183,7 @@ require_once('partials/_head.php');
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" name="add_lec" class="btn btn-primary">Submit</button>
+                                    <button type="submit" name="add_student" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                         </div>
