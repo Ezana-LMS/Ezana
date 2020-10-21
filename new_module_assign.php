@@ -40,11 +40,18 @@ if (isset($_POST['assign_module'])) {
         $lec_name = $_POST['lec_name'];
         $created_at = date('d M Y');
 
+        //On Assign, Update Module Status to Assigned
+        $ass_status = 1;
+        
         $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?)";
+        $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
         $stmt = $mysqli->prepare($query);
+        $modstmt = $mysqli->prepare($modUpdate);
         $rc = $stmt->bind_param('ssssss', $id, $module_code, $module_name, $lec_id, $lec_name, $created_at);
+        $rc = $modstmt->bind_param('is', $ass_status, $module_code);
         $stmt->execute();
-        if ($stmt) {
+        $modstmt->execute();
+        if ($stmt && $modstmt) {
             $success = "Module Assignment Added" && header("refresh:1; url=new_module_assign.php");
         } else {
             $info = "Please Try Again Or Try Later";
