@@ -105,10 +105,10 @@ require_once('partials/_head.php');
                                                 <td><?php echo $ass->lec_name; ?></td>
                                                 <td><?php echo $ass->created_at; ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="view_module_assign.php?view=<?php echo $ass->id; ?>">
+                                                    <!-- <a class="badge badge-success" href="view_module_assign.php?view=<?php echo $ass->id; ?>">
                                                         <i class="fas fa-eye"></i>
                                                         View
-                                                    </a>
+                                                    </a> -->
 
                                                     <a class="badge badge-primary" href="update_module_assign.php?update=<?php echo $ass->id; ?>">
                                                         <i class="fas fa-edit"></i>

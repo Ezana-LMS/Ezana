@@ -33,7 +33,7 @@ if (isset($_POST['update_assign'])) {
     }
     if (!$error) {
 
-        $update = $_GET['id'];
+        $update = $_GET['update'];
         $module_code = $_POST['module_code'];
         $module_name = $_POST['module_name'];
         $lec_id = $_POST['lec_id'];
