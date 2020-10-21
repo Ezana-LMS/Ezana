@@ -26,7 +26,7 @@ if (isset($_POST['add_module'])) {
         $err = "Course ID Cannot Be Empty";
     }
     if (isset($_POST['name']) && !empty($_POST['name'])) {
-        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
     } else {
         $error = 1;
         $err = "Module Name Cannot Be Empty";
@@ -139,7 +139,8 @@ require_once('partials/_head.php');
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="">Course Code</label>
-                                            <input type="text" id="CourseCode" readonly required name="course_code" class="form-control">
+                                            <input type="text" id="CourseCode" readonly required name="" class="form-control">
+                                            <input type="hidden" id="CourseID" required name="course_id" class="form-control">
                                         </div>
                                     </div>
 

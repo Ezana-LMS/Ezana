@@ -90,5 +90,14 @@
                 $('#CourseCode').val(data);
             }
         });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'CourseCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#CourseID').val(data);
+            }
+        });
     }
 </script>
