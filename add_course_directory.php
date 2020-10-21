@@ -4,20 +4,14 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-if (isset($_POST['add_course_dir'])) {
+if (isset($_POST['add_course_directory'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['course_name']) && !empty($_POST['department_id'])) {
-        $department_id = mysqli_real_escape_string($mysqli, trim($_POST['department_id']));
+    if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
+        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['course_name']));
     } else {
         $error = 1;
         $err = "Course Name / ID  Cannot Be Empty";
-    }
-    if (isset($_POST['course_materials']) && !empty($_POST['course_materials'])) {
-        $course_materials  = mysqli_real_escape_string($mysqli, trim($_POST['course_materials']));
-    } else {
-        $error = 1;
-        $err = "Course Materials Cannot Be Empty";
     }
     if (!$error) {
         $id = $_POST['id'];
@@ -103,6 +97,8 @@ require_once('partials/_head.php');
                                         <div class="form-group col-md-6">
                                             <label for="">Course Code</label>
                                             <input type="text" id="CourseCode" readonly required name="course_code" class="form-control">
+                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+
                                         </div>
                                     </div>
                                     <div class="row">
@@ -110,7 +106,7 @@ require_once('partials/_head.php');
                                             <label for="">Course Materials</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input required name="course_materials " type="file" class="custom-file-input">
+                                                    <input required name="course_materials" type="file" class="custom-file-input">
                                                     <label class="custom-file-label" for="exampleInputFile">Choose File</label>
                                                 </div>
                                             </div>
