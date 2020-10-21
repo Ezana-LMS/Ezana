@@ -102,3 +102,31 @@
         });
     }
 </script>
+<!--Get Module Details -->
+<script>
+    function getModuleDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'ModuleName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#ModuleCode').val(data);
+            }
+        });
+    }
+</script>
+<!-- Get Lec Details -->
+<script>
+    function getLecDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'LecName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#lecID').val(data);
+            }
+        });
+    }
+</script>

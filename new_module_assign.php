@@ -124,13 +124,13 @@ require_once('partials/_head.php');
                                             <select class='form-control basic' id="ModuleName" onchange="getModuleDetails(this.value);" name="module_name">
                                                 <option selected>Select Module Name </option>
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers`  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE ass_status = '0'  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
-                                                while ($lec = $res->fetch_object()) {
+                                                while ($mod = $res->fetch_object()) {
                                                 ?>
-                                                    <option><?php echo $lec->name; ?></option>
+                                                    <option><?php echo $mod->name; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
