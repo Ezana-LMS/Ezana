@@ -64,7 +64,6 @@ require_once('partials/_head.php');
                                     </a>
                                 </h2>
                             </div>
-                            <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
