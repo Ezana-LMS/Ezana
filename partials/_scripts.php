@@ -63,3 +63,17 @@
 <script>
     CKEDITOR.replace('textarea');
 </script>
+<!-- Get Department Details Script -->
+<script>
+    function getDepartmentDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepartmentName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepartmentID').val(data);
+            }
+        });
+    }
+</script>

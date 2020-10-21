@@ -120,6 +120,7 @@ require_once('partials/_head.php');
                                                 ?>
                                                     <option><?php echo $dep->name; ?></option>
                                                 <?php } ?>
+                                            </select>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="">Department ID</label>
