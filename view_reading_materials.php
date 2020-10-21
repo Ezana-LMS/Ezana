@@ -72,7 +72,7 @@ require_once('partials/_head.php');
                                                 "
                                                 <a target='_blank' href='dist/Reading_Materials/$rm->readingMaterials' class='btn btn-outline-primary'>
                                                     <i class='fas fa-download'></i>
-                                                        Download Memo
+                                                        Download Reading Materials
                                                 </a>
                                                 ";
                                         } else {
@@ -86,12 +86,27 @@ require_once('partials/_head.php');
                                         }
                                         ?>
                                     </div>
-                                    <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                    <div class="tab-pane fade show " id="custom-content-below-links" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                         <br>
-                                        <a href='<?php echo $rm->external_link; ?>' class='btn btn-outline-success'>
-                                            <i class='fas fa-external-link-alt'></i>
-                                            Open Link
-                                        </a>
+                                        <?php
+                                        if ($rm->external_link != '') {
+                                            echo
+                                                "
+                                            <a target='_blank' href='$rm->external_link' class='btn btn-outline-success'>
+                                                <i class='fas fa-external-link-alt'></i>
+                                                Open Link
+                                            </a>
+                                            ";
+                                        } else {
+                                            echo
+                                                "
+                                                <a  class='btn btn-outline-danger'>
+                                                    <i class='fas fa-times'></i>
+                                                        External Link Not Available
+                                                </a>                                             
+                                            ";
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
