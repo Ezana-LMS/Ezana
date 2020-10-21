@@ -99,8 +99,8 @@ require_once('partials/_head.php');
                                                 <td><?php echo $tt->classlecturer; ?></td>
                                                 <td><?php echo $tt->classlocation; ?></td>
                                                 <td><?php echo $tt->classdate; ?></td>
-                                                <td><?php echo $tt->classlink; ?></td>
                                                 <td><?php echo $tt->classtime; ?></td>
+                                                <td><?php echo $tt->classlink; ?></td>
                                                 <td>
                                                     <a class="badge badge-primary" href="update_class.php?update=<?php echo $tt->id; ?>">
                                                         <i class="fas fa-edit"></i>
