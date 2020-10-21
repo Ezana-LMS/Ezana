@@ -59,12 +59,11 @@ require_once('partials/_head.php');
                             <div class="card-header">
                                 <h2 class="text-right">
                                     <a class="btn btn-outline-success" href="add_departmental_memo.php">
-                                        <i class="fas fa-user-plus"></i>
+                                        <i class="fas fa-plus"></i>
                                         Add New Departmental Memo
                                     </a>
                                 </h2>
                             </div>
-                            <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>

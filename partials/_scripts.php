@@ -25,6 +25,7 @@
     $(function() {
         $("#example1").DataTable();
         $("#courses_enrolled").DataTable();
+        $("#enrollment").DataTable();
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -62,4 +63,70 @@
 <script src="plugins/ckeditor/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('textarea');
+</script>
+
+<!-- Get Department Details Script -->
+<script>
+    function getDepartmentDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepartmentName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepartmentID').val(data);
+            }
+        });
+    }
+</script>
+<!-- Get Course Details -->
+<script>
+    function getCourseDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'CourseName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#CourseCode').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'CourseCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#CourseID').val(data);
+            }
+        });
+    }
+</script>
+<!--Get Module Details -->
+<script>
+    function getModuleDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'ModuleName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#ModuleCode').val(data);
+            }
+        });
+    }
+</script>
+<!-- Get Lec Details -->
+<script>
+    function getLecDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'LecName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#lecID').val(data);
+            }
+        });
+    }
 </script>
