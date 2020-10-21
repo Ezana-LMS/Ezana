@@ -69,7 +69,7 @@ require_once('partials/_head.php');
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="module_notices.php">Modules</a></li>
-                                <li class="breadcrumb-item active">Add Module</li>
+                                <li class="breadcrumb-item active">Add Module Notice</li>
                             </ol>
                         </div>
                     </div>
