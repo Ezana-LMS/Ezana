@@ -31,7 +31,7 @@ require_once('partials/_head.php');
                         <div class="row mb-2">
                             <div class="col-sm-6">
                                 <h1>
-                                    <?php echo $mod->name; ?> Details
+                                    Notice / Announcement
                                 </h1>
                             </div>
                             <div class="col-sm-6">

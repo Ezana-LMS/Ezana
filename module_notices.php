@@ -97,7 +97,7 @@ require_once('partials/_head.php');
                                                 <td><?php echo $not->created_by; ?></td>
                                                 <td><?php echo $not->created_at; ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="view_module_notices.php?view=<?php echo $mod->id; ?>">
+                                                    <a class="badge badge-success" href="view_module_notices.php?view=<?php echo $not->id; ?>">
                                                         <i class="fas fa-eye"></i>
                                                         View
                                                     </a>
