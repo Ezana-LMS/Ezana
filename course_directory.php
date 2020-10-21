@@ -76,6 +76,8 @@ require_once('partials/_head.php');
                                             <th>#</th>
                                             <th>Course Code</th>
                                             <th>Course Name</th>
+                                            <th>Date Created</th>
+                                            <th>Date Updated</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -93,6 +95,8 @@ require_once('partials/_head.php');
                                                 <td><?php echo $cnt; ?></td>
                                                 <td><?php echo $dir->course_code; ?></td>
                                                 <td><?php echo $dir->course_name; ?></td>
+                                                <td><?php echo $dir->created_at; ?></td>
+                                                <td><?php echo $dir->updated_at; ?></td>
                                                 <td>
                                                     <a class="badge badge-success" href="view_course_directories.php?view=<?php echo $dir->id; ?>">
                                                         <i class="fas fa-eye"></i>
