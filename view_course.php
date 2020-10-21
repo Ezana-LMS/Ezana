@@ -63,7 +63,7 @@ require_once('partials/_head.php');
                                         <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Course Modules</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Student's Enrollment</a>
+                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-enrollment" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Student's Enrollment</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="custom-content-below-tabContent">
@@ -79,7 +79,7 @@ require_once('partials/_head.php');
                                                     <th>#</th>
                                                     <th>Module Code</th>
                                                     <th>Module Name</th>
-                                                    <th>No Of Lectures</th>
+                                                    <th>Lectures Per Week</th>
                                                     <th>Date Created</th>
                                                 </tr>
                                             </thead>
@@ -94,8 +94,8 @@ require_once('partials/_head.php');
                                                 ?>
                                                     <tr>
                                                         <td><?php echo $cnt; ?></td>
-                                                        <td><?php echo $mod->module_code; ?></td>
-                                                        <td><?php echo $mod->module_name; ?></td>
+                                                        <td><?php echo $mod->code; ?></td>
+                                                        <td><?php echo $mod->name; ?></td>
                                                         <td><?php echo $mod->lectures_number; ?></td>
                                                         <td><?php echo $mod->created_at; ?></td>
                                                     </tr>
@@ -104,9 +104,9 @@ require_once('partials/_head.php');
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-enrollment-tab">
+                                    <div class="tab-pane fade" id="custom-content-below-enrollment" role="tabpanel" aria-labelledby="custom-content-below-enrollment-tab">
                                         <br>
-                                        <table id="example1" class="table table-bordered table-striped">
+                                        <table id="enrollment" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>

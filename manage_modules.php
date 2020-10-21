@@ -78,7 +78,7 @@ require_once('partials/_head.php');
                                             <th>Course</th>
                                             <th>Duration</th>
                                             <th>Weight Percentage</th>
-                                            <th>No Of Lectures</th>
+                                            <th>Lectures Per Week</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
