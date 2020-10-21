@@ -4,7 +4,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-if (isset($_POST['add_notice'])) {
+if (isset($_POST['add_reading_materials'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
@@ -65,14 +65,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Add New Module Notices / Announcements</h1>
+                            <h1>Add Reading Materials</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="module_notices.php">Modules</a></li>
-                                <li class="breadcrumb-item active">Add Module Notice</li>
+                                <li class="breadcrumb-item"><a href="reading_materials.php">Modules</a></li>
+                                <li class="breadcrumb-item active">Add Reading Materials</li>
                             </ol>
                         </div>
                     </div>
@@ -91,8 +91,9 @@ require_once('partials/_head.php');
                             <form method="post" enctype="multipart/form-data" role="form">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-6">
                                             <label for="">Module Name</label>
+                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                             <select class='form-control basic' id="ModuleName" onchange="getModuleDetails(this.value);" name="module_name">
                                                 <option selected>Select Module Name </option>
                                                 <?php
@@ -106,35 +107,29 @@ require_once('partials/_head.php');
                                                 <?php } ?>
                                             </select>
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-6">
                                             <label for="">Module Code</label>
                                             <input type="text" id="ModuleCode" readonly required name="module_code" class="form-control">
                                         </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="">Notice Posted By</label>
-                                            <?php
-                                            $id = $_SESSION['id'];
-                                            $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id = '$id'  ";
-                                            $stmt = $mysqli->prepare($ret);
-                                            $stmt->execute(); //ok
-                                            $res = $stmt->get_result();
-                                            while ($user = $res->fetch_object()) {
-                                            ?>
-                                                <input type="text" required name="created_by" value="<?php echo $user->name; ?>" class="form-control" id="exampleInputEmail1">
-                                            <?php
-                                            } ?>
-                                        </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <label for="exampleInputPassword1">Module Notices</label>
-                                            <textarea required id="textarea" name="announcements" rows="20" class="form-control"></textarea>
-                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                        <div class="form-group col-md-6">
+                                            <label for="exampleInputPassword1">Hyperlink</label>
+                                            <input type="text" name="external_link" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="exampleInputFile">Reading Materials (PDF, DOCX, PPTX)</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input required name="readingMaterials" type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" name="add_notice" class="btn btn-primary">Add Notice</button>
+                                    <button type="submit" name="add_reading_materials" class="btn btn-primary">Add Reading Materials</button>
                                 </div>
                             </form>
                         </div>
