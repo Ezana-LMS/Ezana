@@ -68,13 +68,13 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Add New Faculty</h1>
+                            <h1>Add New Course</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="manage_faculties.php">Faculties</a></li>
+                                <li class="breadcrumb-item"><a href="add_course.php">Courses</a></li>
                                 <li class="breadcrumb-item active">Add</li>
                             </ol>
                         </div>
@@ -97,13 +97,29 @@ require_once('partials/_head.php');
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="">Faculty Name</label>
+                                            <label for="">Course Name</label>
                                             <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="">Faculty Number / Code</label>
+                                            <label for="">Course Number / Code</label>
                                             <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="">Department Name</label>
+                                            <select type="text" required name="department_id" class="form-control">
+                                            <option>Select Department</option>
+                                                <?php
+                                                
+                                                ?>
+                                                <option><?php echo $dep->name; ?></option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="">Department ID</label>
+                                            <input type="text" id="DepartmentID" readonly required name="department_id" class="form-control">
                                         </div>
                                     </div>
                                     <div class="row">
