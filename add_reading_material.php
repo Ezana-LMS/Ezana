@@ -19,17 +19,10 @@ if (isset($_POST['add_reading_materials'])) {
         $error = 1;
         $err = "Module Name Cannot Be Empty";
     }
-    if (isset($_POST['readingMaterials']) && !empty($_POST['readingMaterials'])) {
-        $readingMaterials = mysqli_real_escape_string($mysqli, trim($_POST['readingMaterials']));
-    } else {
-        $error = 1;
-        $err = "Reading Materials Cannot Be Empty";
-    }
     if (!$error) {
         $id = $_POST['id'];
         $module_name  = $_POST['module_name'];
         $module_code = $_POST['module_code'];
-        $readingMaterials = $_POST['announcements'];
         $readingMaterials = $_FILES['readingMaterials']['name'];
         move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "dist/Reading_Materials/" . $_FILES["readingMaterials"]["name"]);
         $external_link = $_POST['external_link'];
