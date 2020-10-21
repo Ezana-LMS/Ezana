@@ -40,7 +40,7 @@ require_once('partials/_head.php');
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="course_directory.php">Courses</a></li>
-                                    <li class="breadcrumb-item active">View Directories / Materials</li>
+                                    <li class="breadcrumb-item active">View Directories And Materials</li>
                                 </ol>
                             </div>
                         </div>
@@ -61,11 +61,11 @@ require_once('partials/_head.php');
                                         <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Memo Content</a>
                                     </li> -->
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Download Memo Attachments</a>
+                                        <a class="nav-link active" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Download Course Materials</a>
                                     </li>
                                 </ul>
-                                <div class="tab-content" id="custom-content-below-tabContent">
-                                    <div class="tab-pane fade active" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                <div class="tab-content active" id="custom-content-below-tabContent">
+                                    <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                         <br>
                                         <?php
                                         if ($dir->course_materials != '') {
