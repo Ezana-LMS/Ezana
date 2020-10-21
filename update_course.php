@@ -25,7 +25,7 @@ if (isset($_POST['update_course'])) {
         $code = $_POST['code'];
         $details = $_POST['details'];
 
-        $query = "UPDATE ezanaLMS_Courses SET  code =?, name =?, details =?, WHERE id =?";
+        $query = "UPDATE ezanaLMS_Courses SET  code =?, name =?, details =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('ssss', $code, $name, $details, $update);
         $stmt->execute();
@@ -108,7 +108,7 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" name="update_course" class="btn btn-primary">Add Course</button>
+                                        <button type="submit" name="update_course" class="btn btn-primary">Update Course</button>
                                     </div>
                                 </form>
                             </div>
