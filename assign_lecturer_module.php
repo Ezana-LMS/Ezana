@@ -115,7 +115,7 @@ require_once('partials/_head.php');
                                                         Update
                                                     </a>
 
-                                                    <a class="badge badge-danger" href="assign_lecturer_module.php?delete=<?php echo $ass->id; ?>&code=<?php echo $as->module_code; ?>">
+                                                    <a class="badge badge-danger" href="assign_lecturer_module.php?delete=<?php echo $ass->id; ?>&code=<?php echo $ass->module_code; ?>">
                                                         <i class="fas fa-trash"></i>
                                                         Delete
                                                     </a>
