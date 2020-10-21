@@ -91,8 +91,8 @@ require_once('partials/_head.php');
 
                                             <tr>
                                                 <td><?php echo $cnt; ?></td>
-                                                <td><?php echo $dir->code; ?></td>
-                                                <td><?php echo $dir->name; ?></td>
+                                                <td><?php echo $dir->course_code; ?></td>
+                                                <td><?php echo $dir->course_name; ?></td>
                                                 <td>
                                                     <a class="badge badge-success" href="view_course_directories.php?view=<?php echo $dir->id; ?>">
                                                         <i class="fas fa-eye"></i>
