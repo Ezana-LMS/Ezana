@@ -63,6 +63,7 @@
 <script>
     CKEDITOR.replace('textarea');
 </script>
+
 <!-- Get Department Details Script -->
 <script>
     function getDepartmentDetails(val) {
@@ -73,6 +74,20 @@
             success: function(data) {
                 //alert(data);
                 $('#DepartmentID').val(data);
+            }
+        });
+    }
+</script>
+<!-- Get Course Details -->
+<script>
+    function getCourseDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'CourseName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#CourseCode').val(data);
             }
         });
     }
