@@ -109,13 +109,17 @@ require_once('partials/_head.php');
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="">Department Name</label>
-                                            <select type="text" required name="department_id" class="form-control">
-                                            <option>Select Department</option>
+                                            <select class='form-control basic' id="DepartmentName" onchange="getDepartmentDetails(this.value);" name="department_name">
+                                                <option selected>Select Department Name</option>
                                                 <?php
-                                                
+                                                $ret = "SELECT * FROM `ezanaLMS_Departments`  ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                while ($dep = $res->fetch_object()) {
                                                 ?>
-                                                <option><?php echo $dep->name; ?></option>
-                                            </select>
+                                                    <option><?php echo $dep->name; ?></option>
+                                                <?php } ?>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="">Department ID</label>
