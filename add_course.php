@@ -19,6 +19,12 @@ if (isset($_POST['add_course'])) {
         $error = 1;
         $err = "Course Name Cannot Be Empty";
     }
+    if (isset($_POST['department_id']) && !empty($_POST['department_id'])) {
+        $department_id = mysqli_real_escape_string($mysqli, trim($_POST['department_id']));
+    } else {
+        $error = 1;
+        $err = "Department Name / ID  Cannot Be Empty";
+    }
     if (!$error) {
         //prevent Double entries
         $sql = "SELECT * FROM  ezanaLMS_Courses WHERE  code='$code' || name ='$name' ";
@@ -129,13 +135,13 @@ require_once('partials/_head.php');
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label for="exampleInputPassword1">Faculty Description</label>
-                                            <textarea required name="details" rows="10" class="form-control"></textarea>
+                                            <label for="exampleInputPassword1">Course Description</label>
+                                            <textarea required name="details" id="textarea" rows="10" class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" name="add_faculty" class="btn btn-primary">Add Faculty</button>
+                                    <button type="submit" name="add_course" class="btn btn-primary">Add Course</button>
                                 </div>
                             </form>
                         </div>
