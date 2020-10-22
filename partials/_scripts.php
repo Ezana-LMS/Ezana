@@ -130,3 +130,17 @@
         });
     }
 </script>
+<!-- Get Student Details -->
+<script>
+    function getStudentDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'StudentAdmn=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#StudentName').val(data);
+            }
+        });
+    }
+</script>

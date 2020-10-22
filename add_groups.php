@@ -121,8 +121,8 @@ require_once('partials/_head.php');
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="">Student Admission Numbera</label>
-                                            <select class='form-control basic' id="LecName" onchange="getStudentDetails(this.value);" name="student_admno">
+                                            <label for="">Student Admission Number</label>
+                                            <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admno">
                                                 <option selected>Select Admission Number</option>
                                                 <?php
                                                 $ret = "SELECT * FROM `ezanaLMS_Students`  ";
