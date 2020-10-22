@@ -17,7 +17,7 @@ if (isset($_POST['add_notice'])) {
     $rc = $stmt->bind_param('ssssss', $id, $group_name, $group_code, $announcement, $created_by, $created_at);
     $stmt->execute();
     if ($stmt) {
-        $success = "Posted" && header("refresh:1; url=add_group_announcements.php?group_code=$group_code&group_name$group_name");
+        $success = "Posted" && header("refresh:1; url=add_group_announcements.php?group_code=$group_code&group_name=$group_name");
     } else {
         $info = "Please Try Again Or Try Later";
     }
