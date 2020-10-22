@@ -120,7 +120,12 @@ require_once('partials/_head.php');
                                             <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                         </div>
                                     </div>
-
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleInputPassword1">Group Description</label>
+                                            <textarea required id="textarea" name="details" rows="10" class="form-control"></textarea>
+                                        </div>
+                                    </div>
                                     <!-- <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="">Student Admission Number</label>
@@ -142,12 +147,6 @@ require_once('partials/_head.php');
                                             <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
                                         </div>
                                     </div> -->
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <label for="exampleInputPassword1">Group Description</label>
-                                        <textarea required id="textarea" name="details" rows="10" class="form-control"></textarea>
-                                    </div>
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" name="add_group" class="btn btn-primary">Add Group</button>
