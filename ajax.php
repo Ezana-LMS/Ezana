@@ -57,3 +57,17 @@ if (!empty($_POST["LecName"])) {
     }
 }
 
+
+/* Student Details */
+if (!empty($_POST["StudentAdmn"])) {
+    $id = $_POST['StudentAdmn'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Students WHERE admno = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['name']); ?>
+<?php
+    }
+}
