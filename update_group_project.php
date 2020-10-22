@@ -18,7 +18,7 @@ if (isset($_POST['update_group_project'])) {
     $rc = $stmt->bind_param('sssss', $attachments, $details, $updated_at, $submitted_on, $update);
     $stmt->execute();
     if ($stmt) {
-        $success = "Group Assignment / Project Updated" && header("refresh:1; url=manage_group_projects.php?group_code=$group_code");
+        $success = "Group Assignment / Project Updated" && header("refresh:1; url=view_group_project.php?view=$update");
     } else {
         $info = "Please Try Again Or Try Later";
     }
