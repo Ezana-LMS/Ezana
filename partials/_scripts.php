@@ -4,12 +4,11 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Ezana App Js -->
 <script src="dist/js/adminlte.min.js"></script>
-
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-
 <!-- OPTIONAL SCRIPTS -->
 <script src="dist/js/demo.js"></script>
-
+<!-- Dropify Plug in -->
+<script src="plugins/dropify/dropify.min.js"></script>
 <!-- jQuery Mapael -->
 <script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
 <script src="plugins/raphael/raphael.min.js"></script>
@@ -126,6 +125,20 @@
             success: function(data) {
                 //alert(data);
                 $('#lecID').val(data);
+            }
+        });
+    }
+</script>
+<!-- Get Student Details -->
+<script>
+    function getStudentDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'StudentAdmn=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#StudentName').val(data);
             }
         });
     }
