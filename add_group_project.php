@@ -100,7 +100,7 @@ require_once('partials/_head.php');
                                         <h2 class="text-center">Or</h2>
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                <label for="exampleInputPassword1">Type Group Project / Assignment</label>
+                                                <label for="exampleInputPassword1">Type Group Project / Assignment Or Project Description </label>
                                                 <textarea name="details" id="textarea" rows="10" class="form-control"></textarea>
                                             </div>
                                         </div>

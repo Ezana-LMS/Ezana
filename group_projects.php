@@ -45,6 +45,7 @@ require_once('partials/_head.php');
                                 <h2 class="text-right">
                                     <a class="btn btn-outline-success" href="add_groups.php">
                                         <i class="fas fa-plus"></i>
+                                        <i class="fas fa-users-cog"></i>
                                         Create New Group
                                     </a>
                                     <!-- <a class="btn btn-outline-primary" href="">
@@ -84,6 +85,10 @@ require_once('partials/_head.php');
                                                     <a class="badge badge-success" href="add_group_project.php?group_code=<?php echo $g->code; ?>&group_name=<?php echo $g->name; ?>&type=Project">
                                                         <i class="fas fa-file-upload"></i>
                                                         Add Group Project
+                                                    </a>
+                                                    <a class="badge badge-primary" href="manage_group_projects.php?group_code=<?php echo $g->code; ?>">
+                                                        <i class="fas fa-users-cog"></i>
+                                                        Manage Group Projects
                                                     </a>
                                                 </td>
                                             </tr>
