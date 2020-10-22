@@ -105,7 +105,7 @@ require_once('partials/_head.php');
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label for="">Class External Link <small class="text-danger">If In YouTube, Vimeo, Google Drive, etc</small></label>
+                                            <label for="">Class External Link *Recomended <small class="text-danger">If In YouTube, Vimeo, Google Drive, etc</small></label>
                                             <input type="text" name="external_link" class="form-control">
                                         </div>
                                         <h5 class="text-center"> Or </h5>
