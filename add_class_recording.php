@@ -30,12 +30,12 @@ if (isset($_POST['add_class_recording'])) {
         $class_name = $_POST['class_name'];
         $lecturer_name  = $_POST['lecturer_name'];
         $external_link = $_POST['external_link'];
-        $details  = $_POST['details '];
+        $details  = $_POST['details'];
         $created_at  = date('d M Y');
         $video = $_FILES['video']['name'];
         move_uploaded_file($_FILES["video"]["tmp_name"], "dist/ClassVideos/" . $_FILES["video"]["name"]);
 
-        $query = "INSERT INTO ezanaLMS_ClassRecordings (id, class_name, lecturer_name, external_link, details, created_at, video ) VALUES(?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_ClassRecordings (id, class_name, lecturer_name, external_link, details, created_at, video) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('sssssss', $id, $class_name, $lecturer_name, $external_link, $details, $created_at, $video);
         $stmt->execute();
@@ -113,7 +113,7 @@ require_once('partials/_head.php');
                                             <label for="exampleInputFile">Upload Video</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input required name="video" type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <input  name="video" type="file" class="custom-file-input" id="exampleInputFile">
                                                     <label class="custom-file-label" for="exampleInputFile">Choose Video File</label>
                                                 </div>
                                             </div>
@@ -122,7 +122,7 @@ require_once('partials/_head.php');
                                     <div class="row">
                                         <div class="form-group col-md-12">
                                             <label for="exampleInputPassword1">Description</label>
-                                            <textarea  id="textarea" type="text" rows="10" name="details" class="form-control"></textarea>
+                                            <textarea id="textarea" type="text" rows="10" name="details" class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </div>
