@@ -4,7 +4,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-if (isset($_POST['add_memebers'])) {
+if (isset($_POST['add_member'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (isset($_POST['student_admn']) && !empty($_POST['student_admn'])) {
@@ -42,7 +42,6 @@ if (isset($_POST['add_memebers'])) {
             $student_admn = $_POST['student_admn'];
             $student_name = $_POST['student_name'];
 
-
             $query = "INSERT INTO ezanaLMS_StudentsGroups (id, name, code, student_admn, student_name) VALUES(?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('sssss', $id, $name, $code, $student_admn, $student_name);
@@ -73,14 +72,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Add Student Group</h1>
+                            <h1>Add Students' </h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="add_groups.php">Groups</a></li>
-                                <li class="breadcrumb-item active">Add</li>
+                                <li class="breadcrumb-item"><a href="manage_groups.php">Groups</a></li>
+                                <li class="breadcrumb-item active">Add Members</li>
                             </ol>
                         </div>
                     </div>
@@ -102,24 +101,8 @@ require_once('partials/_head.php');
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="">Group Name</label>
-                                            <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="">Group Number / Code</label>
-                                            <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <label for="exampleInputPassword1">Group Description</label>
-                                            <textarea required id="textarea" name="details" rows="10" class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="row">
-                                        <div class="form-group col-md-6">
                                             <label for="">Student Admission Number</label>
+                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                             <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
                                                 <option selected>Select Admission Number</option>
                                                 <?php
@@ -137,10 +120,10 @@ require_once('partials/_head.php');
                                             <label for="">Student Name</label>
                                             <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
                                         </div>
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" name="add_group" class="btn btn-primary">Add Group</button>
+                                    <button type="submit" name="add_member" class="btn btn-primary">Add Member</button>
                                 </div>
                             </form>
                         </div>
