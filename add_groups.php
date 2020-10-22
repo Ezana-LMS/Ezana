@@ -19,6 +19,7 @@ if (isset($_POST['add_group'])) {
         $error = 1;
         $err = "Group Name Cannot Be Empty";
     }
+    /* 
     if (isset($_POST['student_admn']) && !empty($_POST['student_admn'])) {
         $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_admn']));
     } else {
@@ -30,33 +31,31 @@ if (isset($_POST['add_group'])) {
     } else {
         $error = 1;
         $err = "Student Name Number Cannot Be Empty";
-    }
+    } */
 
     if (!$error) {
         //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Groups WHERE  code='$code' || name ='$name' ";
+        $sql = "SELECT * FROM  ezanaLMS_Groups WHERE  code='$code'   ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
             if ($code == $row['code']) {
                 $err =  "Group With This Code Already Exists";
-            } else {
-                $err = "Group Name Already Exists";
-            }
+            } /* elseif (($code  && $student_admn) == ($row['code'] && $row['student_admn'])) {
+                $err = "Student Already Added To Group";
+            } */
         } else {
             $id = $_POST['id'];
             $name = $_POST['name'];
             $code = $_POST['code'];
-            $student_admn = $_POST['student_admn'];
-            $student_name = $_POST['student_name'];
             $created_at = date('d M Y');
 
-            $query = "INSERT INTO ezanaLMS_Groups (id, name, code, student_admn, student_name, created_at) VALUES(?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Groups (id, name, code, created_at) VALUES(?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssss', $id, $name, $code, $student_admn, $student_name, $created_at);
+            $rc = $stmt->bind_param('ssss', $id, $name, $code, $created_at);
             $stmt->execute();
             if ($stmt) {
-                $success = "Student Group  Added" && header("refresh:1; url=add_student_group.php");
+                $success = "Student Group  Added" && header("refresh:1; url=add_groups.php");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -119,7 +118,8 @@ require_once('partials/_head.php');
                                             <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="row">
+
+                                    <!-- <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="">Student Admission Number</label>
                                             <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
@@ -139,7 +139,7 @@ require_once('partials/_head.php');
                                             <label for="">Student Name</label>
                                             <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" name="add_group" class="btn btn-primary">Add Group</button>
