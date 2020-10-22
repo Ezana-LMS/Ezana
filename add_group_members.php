@@ -73,7 +73,6 @@ require_once('partials/_head.php');
         $res = $stmt->get_result();
         while ($g = $res->fetch_object()) {
         ?>
-            <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">

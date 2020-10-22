@@ -3,6 +3,21 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
+//Remove Member
+if (isset($_GET['remove'])) {
+    $view = $_GET['view'];
+    $remove = $_GET['remove'];
+    $adn = "DELETE FROM ezanaLMS_StudentsGroups WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $remove);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=view_group.php?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('partials/_head.php');
 ?>
 
@@ -86,6 +101,7 @@ require_once('partials/_head.php');
                                                     <th>Student Admission No</th>
                                                     <th>Student Name</th>
                                                     <th>Date Added</th>
+                                                    <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -103,6 +119,12 @@ require_once('partials/_head.php');
                                                         <td><?php echo $stdGroup->student_admn; ?></td>
                                                         <td><?php echo $stdGroup->student_name; ?></td>
                                                         <td><?php echo date('d M Y g:i', strtotime($stdGroup->created_at)); ?></td>
+                                                        <td>
+                                                            <a class="badge badge-danger" href="view_group.php?remove=<?php echo $stdGroup->id; ?>&view=<?php echo $g->id; ?>">
+                                                                <i class="fas fa-user-times"></i>
+                                                                Remove Member
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 <?php $cnt = $cnt + 1;
                                                 } ?>

@@ -96,7 +96,7 @@ require_once('partials/_head.php');
                                                 <td><?php echo $g->created_at; ?></td>
                                                 <td>
                                                     <a class="badge badge-success" href="view_group.php?view=<?php echo $g->id; ?>">
-                                                        <i class="fas fa-edit"></i>
+                                                        <i class="fas fa-eye"></i>
                                                         View Members
                                                     </a>
                                                     <a class="badge badge-primary" href="update_group.php?update=<?php echo $g->id; ?>">
