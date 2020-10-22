@@ -90,7 +90,7 @@ require_once('partials/_head.php');
                                                 <label for="">Upload Group Project / Assignment (PDF Or Docx)</label>
                                                 <div class="input-group">
                                                     <div class="custom-file">
-                                                        <input data-default-file="dist/Group_Projects/<?php echo $gcode->attachments;?>" data-max-file-size="5M" name="attachments" type="file" class="custom-file-input">
+                                                        <input data-default-file="dist/Group_Projects/<?php echo $gcode->attachments; ?>" required data-max-file-size="5M" name="attachments" type="file" class="custom-file-input">
                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                     </div>
                                                 </div>
@@ -100,7 +100,7 @@ require_once('partials/_head.php');
                                         <div class="row">
                                             <div class="form-group col-md-12">
                                                 <label for="exampleInputPassword1">Type Group Project / Assignment Or Project Description </label>
-                                                <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $gcode->details; ?></textarea>
+                                                <textarea name="details" id="textarea" rows="10" required class="form-control"><?php echo $gcode->details; ?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -118,4 +118,5 @@ require_once('partials/_head.php');
     </div>
     <?php require_once('partials/_scripts.php'); ?>
 </body>
+
 </html>
