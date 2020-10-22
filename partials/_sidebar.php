@@ -283,7 +283,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
+                <!-- <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-alt"></i>
                         <p>
@@ -304,7 +304,7 @@
                                 <p>Assignments</p>
                             </a>
                         </li>
-                        <!-- <li class="nav-item">
+                        <li class="nav-item">
                             <a href="results.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Results</p>
@@ -315,9 +315,9 @@
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Auto Grading</p>
                             </a>
-                        </li> -->
+                        </li>
                     </ul>
-                </li>
+                </li> -->
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
