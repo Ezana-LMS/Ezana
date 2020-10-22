@@ -45,24 +45,20 @@
 </script>
 
 <!-- Select2 -->
-<script src="plugins/select2/js/select2.full.min.js"></script>
+<script src="plugins/select2/select2.min.js"></script>
+<script src="plugins/select2/custom-select2.js"></script>
 <script>
-    script >
-        $(function() {
-            //Initialize Select2 Elements
-            $('.select2').select2()
-
-            //Initialize Select2 Elements
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
-        })
+    var ss = $(".basic").select2({
+        tags: true,
+    });
 </script>
+
 <!-- CK Editor -->
 <script src="plugins/ckeditor/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('textarea');
 </script>
+
 
 <!-- Get Department Details Script -->
 <script>

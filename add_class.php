@@ -23,13 +23,13 @@ if (isset($_POST['add_class'])) {
         $classlocation = mysqli_real_escape_string($mysqli, trim($_POST['classlocation']));
     } else {
         $error = 1;
-        $err = "Lecture Hall Be Empty";
+        $err = "Lecture Hall Cannot Be Empty";
     }
     if (isset($_POST['classlecturer']) && !empty($_POST['classlecturer'])) {
         $classlecturer = mysqli_real_escape_string($mysqli, trim($_POST['classlecturer']));
     } else {
         $error = 1;
-        $err = "Lecturer Name Be Empty";
+        $err = "Lecturer Cannot Name Be Empty";
     }
 
 
