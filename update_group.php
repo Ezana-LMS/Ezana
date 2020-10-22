@@ -34,33 +34,21 @@ if (isset($_POST['add_group'])) {
     } */
 
     if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Groups WHERE  code='$code'   ";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if ($code == $row['code']) {
-                $err =  "Group With This Code Already Exists";
-            } /* elseif (($code  && $student_admn) == ($row['code'] && $row['student_admn'])) {
-                $err = "Student Already Added To Group";
-            } */
+
+        $update = $_GET['update'];
+        $name = $_POST['name'];
+        $code = $_POST['code'];
+        $updated_at = date('d M Y');
+        $details = $_POST['details'];
+
+        $query = "UPDATE ezanaLMS_Groups SET name =?, code =?, updated_at=?, details =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssss', $name, $code, $updated_at, $details, $update);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Student Group  Updated" && header("refresh:1; url=manage_group.php");
         } else {
-            $id = $_POST['id'];
-            $name = $_POST['name'];
-            $code = $_POST['code'];
-            $created_at = date('d M Y');
-            $details = $_POST['details'];
-
-
-            $query = "INSERT INTO ezanaLMS_Groups (id, name, code, created_at, details) VALUES(?,?,?,?,?)";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssss', $id, $name, $code, $created_at, $details);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "Student Group  Added" && header("refresh:1; url=add_groups.php");
-            } else {
-                $info = "Please Try Again Or Try Later";
-            }
+            $info = "Please Try Again Or Try Later";
         }
     }
 }
@@ -82,14 +70,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Add Student Group</h1>
+                            <h1>Update <?php echo $g->name; ?></h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="add_groups.php">Groups</a></li>
-                                <li class="breadcrumb-item active">Add</li>
+                                <li class="breadcrumb-item"><a href="manage_groups.php">Groups</a></li>
+                                <li class="breadcrumb-item active">Update</li>
                             </ol>
                         </div>
                     </div>
@@ -112,36 +100,14 @@ require_once('partials/_head.php');
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="">Group Name</label>
-                                            <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                            <input type="text" value="<?php echo $g->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="">Group Number / Code</label>
-                                            <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                            <input type="text" required name="code" value="<?php echo $g->code; ?>" class="form-control">
                                         </div>
                                     </div>
-
-                                    <!-- <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label for="">Student Admission Number</label>
-                                            <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
-                                                <option selected>Select Admission Number</option>
-                                                <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Students`  ";
-                                                $stmt = $mysqli->prepare($ret);
-                                                $stmt->execute(); //ok
-                                                $res = $stmt->get_result();
-                                                while ($std = $res->fetch_object()) {
-                                                ?>
-                                                    <option><?php echo $std->admno; ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="">Student Name</label>
-                                            <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
-                                        </div>
-                                    </div> -->
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-md-12">
@@ -150,7 +116,7 @@ require_once('partials/_head.php');
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" name="add_group" class="btn btn-primary">Add Group</button>
+                                    <button type="submit" name="update_group" class="btn btn-primary">Update Group</button>
                                 </div>
                             </form>
                         </div>
