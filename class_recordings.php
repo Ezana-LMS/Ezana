@@ -37,7 +37,7 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Virtual Class Recordings</h1>
+                            <h1>Class Recordings</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -75,7 +75,7 @@ require_once('partials/_head.php');
                                             <th>#</th>
                                             <th>Class Name</th>
                                             <th>Lecturer </th>
-                                            <th>Date Recorded</th>
+                                            <th>Date Uploaded</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -94,7 +94,7 @@ require_once('partials/_head.php');
                                                 <td><?php echo $cr->lecturer_name; ?></td>
                                                 <td><?php echo date('d M Y', strtotime($cr->created_at)); ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="view_class_recording.php?update=<?php echo $cr->id; ?>">
+                                                    <a class="badge badge-success" href="view_class_recording.php?watch=<?php echo $cr->id; ?>">
                                                         <i class="fas fa-play"></i>
                                                         Watch Recording
                                                     </a>
