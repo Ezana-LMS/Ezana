@@ -4,50 +4,43 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-if (isset($_POST['add_class'])) {
+if (isset($_POST['add_class_recording'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['classdate']) && !empty($_POST['classdate'])) {
-        $classdate = mysqli_real_escape_string($mysqli, trim($_POST['classdate']));
+    if (isset($_POST['class_name']) && !empty($_POST['class_name'])) {
+        $class_name = mysqli_real_escape_string($mysqli, trim($_POST['class_name']));
     } else {
         $error = 1;
-        $err = "Date Cannot Be Empty";
+        $err = "Class Name Cannot Be Empty";
     }
-    if (isset($_POST['classtime']) && !empty($_POST['classtime'])) {
-        $classtime = mysqli_real_escape_string($mysqli, trim($_POST['classtime']));
+    if (isset($_POST['lecturer_name']) && !empty($_POST['lecturer_name'])) {
+        $lecturer_name = mysqli_real_escape_string($mysqli, trim($_POST['lecturer_name']));
     } else {
         $error = 1;
-        $err = "Time Cannot Be Empty";
+        $err = "Lectuer Name Cannot Be Empty";
     }
-    if (isset($_POST['classlocation']) && !empty($_POST['classlocation'])) {
-        $classlocation = mysqli_real_escape_string($mysqli, trim($_POST['classlocation']));
+    if (isset($_POST['details']) && !empty($_POST['details'])) {
+        $details = mysqli_real_escape_string($mysqli, trim($_POST['details']));
     } else {
         $error = 1;
-        $err = "Lecture Hall Cannot Be Empty";
+        $err = "Video Transcription Cannot Be Empty";
     }
-    if (isset($_POST['classlecturer']) && !empty($_POST['classlecturer'])) {
-        $classlecturer = mysqli_real_escape_string($mysqli, trim($_POST['classlecturer']));
-    } else {
-        $error = 1;
-        $err = "Lecturer Cannot Name Be Empty";
-    }
-
-
-
     if (!$error) {
         $id = $_POST['id'];
-        $classdate = $_POST['classdate'];
-        $classtime  = $_POST['classtime'];
-        $classlocation = $_POST['classlocation'];
-        $classlecturer = $_POST['classlecturer'];
-        $classname  = $_POST['classname'];
-        $classlink = $_POST['classlink'];
-        $query = "INSERT INTO ezanaLMS_TimeTable (id, classdate, classtime, classlocation, classlecturer, classname, classlink) VALUES(?,?,?,?,?,?,?)";
+        $class_name = $_POST['class_name'];
+        $lecturer_name  = $_POST['lecturer_name'];
+        $external_link = $_POST['external_link'];
+        $details  = $_POST['details '];
+        $created_at  = date('d M Y');
+        $video = $_FILES['video']['name'];
+        move_uploaded_file($_FILES["video"]["tmp_name"], "dist/ClassVideos/" . $_FILES["video"]["name"]);
+
+        $query = "INSERT INTO ezanaLMS_ClassRecordings (id, class_name, lecturer_name, external_link, details, created_at, video ) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $id, $classdate, $classtime, $classlocation, $classlecturer, $classname, $classlink);
+        $rc = $stmt->bind_param('sssssss', $id, $class_name, $lecturer_name, $external_link, $details, $created_at, $video);
         $stmt->execute();
         if ($stmt) {
-            $success = "Class Added" && header("refresh:1; url=add_class.php");
+            $success = "Class Recoding Added" && header("refresh:1; url=add_class_recording.php");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -72,14 +65,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Add Class</h1>
+                            <h1>Add Class Recording</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="add_class.php">TimeTables</a></li>
-                                <li class="breadcrumb-item active">Add Class</li>
+                                <li class="breadcrumb-item"><a href="class_recordings.php">Class Recordings</a></li>
+                                <li class="breadcrumb-item active">Add </li>
                             </ol>
                         </div>
                     </div>
@@ -100,39 +93,41 @@ require_once('partials/_head.php');
                             <form method="post" enctype="multipart/form-data" role="form">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-6">
                                             <label for="">Class Name</label>
-                                            <input type="text" required name="classname" class="form-control" id="exampleInputEmail1">
+                                            <input type="text" required name="class_name" class="form-control" id="exampleInputEmail1">
                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-6">
                                             <label for="">Lecturer Name</label>
-                                            <input type="text" required name="classlecturer" class="form-control">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="">Lecture Hall / Room / Location</label>
-                                            <input type="text" required name="classlocation" class="form-control" id="exampleInputEmail1">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label for="">Time</label>
-                                            <input type="text" required name="classtime" class="form-control">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="">Date</label>
-                                            <input type="text" required name="classdate" class="form-control">
+                                            <input type="text" required name="lecturer_name" class="form-control">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label for="exampleInputPassword1">Class Link <small class="text-danger">If Its Virtual Class </small></label>
-                                            <input type="text" name="classlink" class="form-control">
+                                            <label for="">Class External Link <small class="text-danger">If In YouTube, Vimeo, Google Drive, etc</small></label>
+                                            <input type="text" name="external_link" class="form-control">
+                                        </div>
+                                        <h5 class="text-center"> Or </h5>
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleInputFile">Upload Video</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input required name="video" type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose Video File</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label for="exampleInputPassword1">Description</label>
+                                            <textarea  id="textarea" type="text" rows="10" name="details" class="form-control"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" name="add_class" class="btn btn-primary">Create Class</button>
+                                    <button type="submit" name="add_class_recording" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                         </div>

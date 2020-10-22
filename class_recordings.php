@@ -37,7 +37,7 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Time Table</h1>
+                            <h1>Virtual Class Recordings</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -57,8 +57,9 @@ require_once('partials/_head.php');
                         <div class="card">
                             <div class="card-header">
                                 <h2 class="text-right">
-                                    <a class="btn btn-outline-success" href="add_class.php">
+                                    <a class="btn btn-outline-success" href="add_class_recording.php">
                                         <i class="fas fa-plus"></i>
+                                        <i class="fas fa-file-video"></i>
                                         Add Class Recoding
                                     </a>
                                     <!-- <a class="btn btn-outline-primary" href="">
