@@ -4,7 +4,6 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('partials/_head.php');
-
 ?>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -80,11 +79,11 @@ require_once('partials/_head.php');
                                                 <td><?php echo $g->name; ?></td>
                                                 <td><?php echo $g->created_at; ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="add_group_announcements.php?view=<?php echo $g->id; ?>">
-                                                        <i class="fas fa-eye"></i>
+                                                    <a class="badge badge-success" href="add_group_announcements.php?group_code=<?php echo $g->code; ?>&group_name=<?php echo $g->name; ?>">
+                                                        <i class="fas fa-bullhorn"></i>
                                                         Add Announcement
                                                     </a>
-                                                    <a class="badge badge-primary" href="manage_group_announcements.php?update=<?php echo $g->id; ?>">
+                                                    <a class="badge badge-primary" href="manage_group_announcements.php?manage=<?php echo $g->code; ?>">
                                                         <i class="fas fa-cogs"></i>
                                                         Manage Announcements
                                                     </a>
