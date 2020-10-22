@@ -79,7 +79,7 @@ require_once('partials/_head.php');
                                                 <td><?php echo $g->name; ?></td>
                                                 <td><?php echo $g->created_at; ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="add_group_members.php?name=<?php echo $g->name; ?>$code=<?php echo $g->code; ?>">
+                                                    <a class="badge badge-success" href="add_group_members.php?name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>">
                                                         <i class="fas fa-user-plus"></i>
                                                         Add Members
                                                     </a>

@@ -28,7 +28,7 @@ if (isset($_POST['add_member'])) {
 
     if (!$error) {
         //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_StudentsGroups  WHERE  student_admn='$student_admn' || code = $code   ";
+        $sql = "SELECT * FROM  ezanaLMS_StudentsGroups  WHERE  (code = '$code' AND student_admn ='$student_admn')   ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
