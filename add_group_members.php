@@ -64,74 +64,84 @@ require_once('partials/_head.php');
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php require_once('partials/_sidebar.php'); ?>
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>Add Students' </h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="manage_groups.php">Groups</a></li>
-                                <li class="breadcrumb-item active">Add Members</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section>
-
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="col-md-12">
-                        <!-- general form elements -->
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Fill All Required Fields</h3>
+        <?php
+        require_once('partials/_sidebar.php');
+        $code = $_GET['code'];
+        $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE code ='$code' ";
+        $stmt = $mysqli->prepare($ret);
+        $stmt->execute(); //ok
+        $res = $stmt->get_result();
+        while ($g = $res->fetch_object()) {
+        ?>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>Add Students' To <?php echo $g->name; ?> </h1>
                             </div>
-                            <!-- /.card-header -->
-                            <!-- form start -->
-                            <form method="post" enctype="multipart/form-data" role="form">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label for="">Student Admission Number</label>
-                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                            <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
-                                                <option selected>Select Admission Number</option>
-                                                <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Students`  ";
-                                                $stmt = $mysqli->prepare($ret);
-                                                $stmt->execute(); //ok
-                                                $res = $stmt->get_result();
-                                                while ($std = $res->fetch_object()) {
-                                                ?>
-                                                    <option><?php echo $std->admno; ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="">Student Name</label>
-                                            <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="manage_groups.php">Groups</a></li>
+                                    <li class="breadcrumb-item active">Add Members</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div><!-- /.container-fluid -->
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="col-md-12">
+                            <!-- general form elements -->
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Fill All Required Fields</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <!-- form start -->
+                                <form method="post" enctype="multipart/form-data" role="form">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="">Student Admission Number</label>
+                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
+                                                    <option selected>Select Admission Number</option>
+                                                    <?php
+                                                    $ret = "SELECT * FROM `ezanaLMS_Students`  ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    while ($std = $res->fetch_object()) {
+                                                    ?>
+                                                        <option><?php echo $std->admno; ?></option>
+                                                    <?php
+                                                    } ?>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="">Student Name</label>
+                                                <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="submit" name="add_member" class="btn btn-primary">Add Member</button>
-                                </div>
-                            </form>
+                                    <div class="card-footer">
+                                        <button type="submit" name="add_member" class="btn btn-primary">Add Member</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
-        <?php require_once('partials/_footer.php'); ?>
+                </section>
+            </div>
+        <?php require_once('partials/_footer.php');
+        } ?>
     </div>
     <?php require_once('partials/_scripts.php'); ?>
 </body>
