@@ -81,13 +81,13 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Add New Faculty Department</h1>
+                            <h1>Add Student Group</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="">Departments</a></li>
+                                <li class="breadcrumb-item"><a href="add_groups.php">Groups</a></li>
                                 <li class="breadcrumb-item active">Add</li>
                             </ol>
                         </div>
@@ -109,38 +109,47 @@ require_once('partials/_head.php');
                             <form method="post" enctype="multipart/form-data" role="form">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="form-group col-md-4">
-                                            <label for="">Department Name</label>
+                                        <div class="form-group col-md-6">
+                                            <label for="">Group Name</label>
                                             <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                         </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="">Department Number / Code</label>
+                                        <div class="form-group col-md-6">
+                                            <label for="">Group Number / Code</label>
                                             <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="">Department HOD</label>
-                                            <input type="text" required name="hod" class="form-control">
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <label for="exampleInputPassword1">Department Description</label>
-                                            <textarea name="details" id="textarea" rows="10" class="form-control"></textarea>
+                                        <div class="form-group col-md-6">
+                                            <label for="">Student Admission Numbera</label>
+                                            <select class='form-control basic' id="LecName" onchange="getStudentDetails(this.value);" name="student_admno">
+                                                <option selected>Select Admission Number</option>
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_Students`  ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                while ($std = $res->fetch_object()) {
+                                                ?>
+                                                    <option><?php echo $std->admno; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="">Student Name</label>
+                                            <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" name="add_dept" class="btn btn-primary">Add Department</button>
+                                    <button type="submit" name="add_group" class="btn btn-primary">Add Group</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </section>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
         <?php require_once('partials/_footer.php'); ?>
     </div>
     <?php require_once('partials/_scripts.php'); ?>
