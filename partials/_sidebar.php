@@ -274,12 +274,12 @@
                                 <p>Group Announcements</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="group_feedbacks.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Group Feedbacks</p>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
 
@@ -304,7 +304,7 @@
                                 <p>Assignments</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="results.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Results</p>
@@ -315,7 +315,7 @@
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Auto Grading</p>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
 
