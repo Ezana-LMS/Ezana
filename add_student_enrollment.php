@@ -13,6 +13,18 @@ if (isset($_POST['add_enroll'])) {
         $error = 1;
         $err = "Student Name Cannot Be Empty";
     }
+    if (isset($_POST['semester_enrolled']) && !empty($_POST['semester_enrolled'])) {
+        $semester_enrolled = mysqli_real_escape_string($mysqli, trim($_POST['semester_enrolled']));
+    } else {
+        $error = 1;
+        $err = "Semester Enrolled Number Cannot Be Empty";
+    }
+    if (isset($_POST['student_adm']) && !empty($_POST['student_adm'])) {
+        $student_adm = mysqli_real_escape_string($mysqli, trim($_POST['student_adm']));
+    } else {
+        $error = 1;
+        $err = "Student Admission Number Cannot Be Empty";
+    }
     if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
         $course_name = mysqli_real_escape_string($mysqli, trim($_POST['course_name']));
     } else {
@@ -30,6 +42,12 @@ if (isset($_POST['add_enroll'])) {
     } else {
         $error = 1;
         $err = "Semester Start / End Dates Cannot Be Empty";
+    }
+    if (isset($_POST['course_code']) && !empty($_POST['course_code'])) {
+        $course_code = mysqli_real_escape_string($mysqli, trim($_POST['course_code']));
+    } else {
+        $error = 1;
+        $err = "Course Code Cannot Be Empty";
     }
     if (!$error) {
         //prevent Double entries
@@ -112,8 +130,7 @@ require_once('partials/_head.php');
                                 <div class="card-body">
                                     <div class="row" style="display:none">
                                         <div class="form-group col-md-6">
-                                            <label for="">Module Name</label>
-                                            <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                            <label for=""> Name</label>
                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
@@ -122,7 +139,7 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-12">
                                             <label for="">Student Name</label>
                                             <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_adm">
                                                 <option selected>Select Student Admission Number</option>
@@ -137,14 +154,14 @@ require_once('partials/_head.php');
                                                 <?php } ?>
                                             </select>
                                         </div>
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-12">
                                             <label for="">Student Name</label>
                                             <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
                                         </div>
 
                                         <div class="form-group col-md-6">
                                             <label for="">Course Code</label>
-                                            <select class='form-control basic' id="CourseCode" onchange="getCourseDetails(this.value);" name="course_code">
+                                            <select class='form-control basic' name="course_code"  id="CourseCode" onchange="getCourseDetails(this.value);">
                                                 <option selected>Select Course Code</option>
                                                 <?php
                                                 $ret = "SELECT * FROM `ezanaLMS_Courses`   ";
@@ -187,13 +204,13 @@ require_once('partials/_head.php');
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">Semester Start Date</label>
-                                            <input type="text" required name="semester_start" class="form-control">
+                                            <input type="date" required name="semester_start" class="form-control">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">Semester End Date</label>
-                                            <input type="text" required name="semester_end" class="form-control">
+                                            <input type="date" required name="semester_end" class="form-control">
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-12">
                                             <label for="">Academic Year Enrolled</label>
                                             <input type="text" required name="academic_year_enrolled" class="form-control">
                                         </div>
