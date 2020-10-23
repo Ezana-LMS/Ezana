@@ -329,40 +329,28 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="add_past_exams.php" class="nav-link">
+                            <a href="past_exams.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Upload Papers</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="manage_past_exam_papers.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Manage Exam Papers</p>
+                                <p>Past Papers</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="upload_solutions.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Upload Solutions</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="manage_solutions.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Manage Solutions</p>
+                                <p>PastPapers Solutions</p>
                             </a>
                         </li>
                     </ul>
                 </li>
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="school_calendar.php" class="nav-link">
                         <i class="nav-icon fas fa-calendar-alt"></i>
                         <p>
                             School Calendar
                         </p>
                     </a>
-                </li>
+                </li> -->
 
                 <li class="nav-item">
                     <a href="class_recordings.php" class="nav-link">
