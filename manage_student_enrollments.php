@@ -74,10 +74,10 @@ require_once('partials/_head.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Adm No</th>
+                                            <th>Admission</th>
                                             <th>Name</th>
-                                            <th>Course Name</th>
-                                            <th>Module Name</th>
+                                            <th>Course</th>
+                                            <th>Module</th>
                                             <th>Academic Yr</th>
                                             <th>Sem Enrolled</th>
                                             <th>Sem Start</th>
