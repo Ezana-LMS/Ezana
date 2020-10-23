@@ -74,7 +74,7 @@ require_once('partials/_head.php');
                                         <tr>
                                             <th>#</th>
                                             <th>Course Name</th>
-                                            <th>Date Uploaded</th>
+                                            <th>Uploaded At </th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -90,9 +90,9 @@ require_once('partials/_head.php');
                                             <tr>
                                                 <td><?php echo $cnt; ?></td>
                                                 <td><?php echo $pastExas->course_name; ?></td>
-                                                <td><?php echo date('d M Y', strtotime($pastExas->created_at)); ?></td>
+                                                <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" target="_blank" href="dist/PastPapers/<?php echo $pastExas->id; ?>">
+                                                    <a class="badge badge-success" target="_blank" href="dist/PastPapers/<?php echo $pastExas->pastpaper; ?>">
                                                         <i class="fas fa-download"></i>
                                                         Download Papers
                                                     </a>

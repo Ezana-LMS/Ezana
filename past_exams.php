@@ -17,7 +17,7 @@ if (isset($_POST['add_paper'])) {
         $id = $_POST['id'];
         $course_name = $_POST['course_name'];
         $pastpaper_type = 'Past Paper';
-        $created_at = date('d M Y');
+        $created_at = date('d M Y h:m:s');
         $pastpaper = $_FILES['pastpaper']['name'];
         move_uploaded_file($_FILES["pastpaper"]["tmp_name"], "dist/PastPapers/" . $_FILES["pastpaper"]["name"]);
 
