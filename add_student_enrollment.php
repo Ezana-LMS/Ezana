@@ -139,8 +139,8 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <label for="">Student Name</label>
+                                        <div class="form-group col-md-6">
+                                            <label for="">Student Admission Number</label>
                                             <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_adm">
                                                 <option selected>Select Student Admission Number</option>
                                                 <?php
@@ -154,17 +154,17 @@ require_once('partials/_head.php');
                                                 <?php } ?>
                                             </select>
                                         </div>
-                                        <div class="form-group col-md-12">
+                                        <div class="form-group col-md-6">
                                             <label for="">Student Name</label>
                                             <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
                                         </div>
 
                                         <div class="form-group col-md-6">
                                             <label for="">Course Code</label>
-                                            <select class='form-control basic' name="course_code"  id="CourseCode" onchange="getCourseDetails(this.value);">
+                                            <select class='form-control basic' id="CourseCode" onchange="getCourseDetails(this.value);" name="course_code">
                                                 <option selected>Select Course Code</option>
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Courses`   ";
+                                                $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
@@ -174,6 +174,8 @@ require_once('partials/_head.php');
                                                 <?php } ?>
                                             </select>
                                         </div>
+
+
                                         <div class="form-group col-md-6">
                                             <label for="">Course Name</label>
                                             <input type="text" id="CourseName" readonly required name="course_name" class="form-control">
