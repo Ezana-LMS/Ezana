@@ -50,40 +50,31 @@ if (isset($_POST['update_enroll'])) {
         $err = "Course Code Cannot Be Empty";
     }
     if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Enrollments WHERE  student_adm ='$student_adm ' || semester_enrolled ='$semester_enrolled' ";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if (($student_adm && $semester_enrolled) == ($row['student_adm'] && $row['semester_enrolled'])) {
-                $err =  "Student $student_name Already Enrolled On $semester_enrolled ";
-            }
+        $update = $_GET['update'];
+        $code = $_POST['code'];
+        $student_adm = $_POST['student_adm'];
+        $student_name = $_POST['student_name'];
+        $semester_enrolled = $_POST['semester_enrolled'];
+        $created_at = date('d M Y');
+        $course_code = $_POST['course_code'];
+        $course_name = $_POST['course_name'];
+        $semester_start = $_POST['semester_start'];
+        $semester_end = $_POST['semester_end'];
+        $academic_year_enrolled = $_POST['academic_year_enrolled'];
+        $module_name = $_POST['module_name'];
+        $module_code = $_POST['module_code'];
+        $query = "UPDATE ezanaLMS_Enrollments SET code =?, student_adm =?, student_name =?, semester_enrolled =?, updated_at =?, course_code =?, course_name =?, semester_start =?, semester_end =?, academic_year_enrolled =?, module_name =?, module_code =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssssssssssss',  $code, $student_adm, $student_name, $semester_enrolled, $updated_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code, $update);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Student Enrolled" && header("refresh:1; url=manage_student_enrollments.php");
         } else {
-            $update = $_GET['update'];
-            $code = $_POST['code'];
-            $student_adm = $_POST['student_adm'];
-            $student_name = $_POST['student_name'];
-            $semester_enrolled = $_POST['semester_enrolled'];
-            $created_at = date('d M Y');
-            $course_code = $_POST['course_code'];
-            $course_name = $_POST['course_name'];
-            $semester_start = $_POST['semester_start'];
-            $semester_end = $_POST['semester_end'];
-            $academic_year_enrolled = $_POST['academic_year_enrolled'];
-            $module_name = $_POST['module_name'];
-            $module_code = $_POST['module_code'];
-            $query = "UPDATE ezanaLMS_Enrollments SET code =?, student_adm =?, student_name =?, semester_enrolled =?, updated_at =?, course_code =?, course_name =?, semester_start =?, semester_end =?, academic_year_enrolled =?, module_name =?, module_code =? WHERE id =?";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssssssssss',  $code, $student_adm, $student_name, $semester_enrolled, $updated_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code, $update);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "Student Enrolled" && header("refresh:1; url=manage_student_enrollments.php");
-            } else {
-                $info = "Please Try Again Or Try Later";
-            }
+            $info = "Please Try Again Or Try Later";
         }
     }
 }
+
 require_once('partials/_head.php');
 ?>
 
@@ -150,7 +141,7 @@ require_once('partials/_head.php');
                                             <div class="form-group col-md-6">
                                                 <label for="">Student Admission Number</label>
                                                 <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_adm">
-                                                    <option selected><?php echo $en->student_admn; ?></option>
+                                                    <option selected>Select Student Admission Number</option>
                                                     <?php
                                                     $ret = "SELECT * FROM `ezanaLMS_Students`  ";
                                                     $stmt = $mysqli->prepare($ret);
@@ -170,7 +161,7 @@ require_once('partials/_head.php');
                                             <div class="form-group col-md-6">
                                                 <label for="">Course Code</label>
                                                 <select class='form-control basic' id="Coursecode" onchange="getCourseDetails(this.value);" name="course_code">
-                                                    <option selected><?php echo $en->course_code; ?></option>
+                                                    <option selected>Select Course Code</option>
                                                     <?php
                                                     $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
                                                     $stmt = $mysqli->prepare($ret);
@@ -190,7 +181,7 @@ require_once('partials/_head.php');
                                             <div class="form-group col-md-6">
                                                 <label for="">Module Name</label>
                                                 <select class='form-control basic' id="ModuleName" onchange="getModuleDetails(this.value);" name="module_name">
-                                                    <option selected><?php echo $en->module_name; ?></option>
+                                                    <option selected>Select Module Name</option>
                                                     <?php
                                                     $ret = "SELECT * FROM `ezanaLMS_Modules`   ";
                                                     $stmt = $mysqli->prepare($ret);
