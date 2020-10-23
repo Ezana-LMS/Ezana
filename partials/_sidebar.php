@@ -36,12 +36,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="add_lecturer.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Add Lecturer</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="manage_lectures.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
@@ -60,12 +60,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="add_student.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Add Students</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="manage_students.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
