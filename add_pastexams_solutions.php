@@ -89,13 +89,13 @@ require_once('partials/_head.php');
                                             <select class='form-control basic' name="course_name">
                                                 <option selected>Select Course Name</option>
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_PastPapers`  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
                                                 while ($course = $res->fetch_object()) {
                                                 ?>
-                                                    <option><?php echo $course->course_name; ?></option>
+                                                    <option><?php echo $course->name; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>

@@ -108,12 +108,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="add_department.php" class="nav-link">
                                 <i class="fas fa-chevron-right  nav-icon"></i>
                                 <p>Add Department</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="manage_departments.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
@@ -147,12 +147,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="add_course.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Add Course</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="manage_courses.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
@@ -177,12 +177,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="add_module.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Add Module</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="manage_modules.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
@@ -244,12 +244,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="add_groups.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Add Groups </p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="manage_groups.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>

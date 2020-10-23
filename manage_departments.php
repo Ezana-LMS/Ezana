@@ -58,11 +58,12 @@ require_once('partials/_head.php');
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <!-- <h2 class="text-right">
-                                    <a class="btn btn-outline-success" href="add_faculties.php">
+                                <h2 class="text-right">
+                                    <a class="btn btn-outline-success" href="add_department.php">
                                         <i class="fas fa-user-plus"></i>
-                                        Register New Faculty
+                                        Register New Department
                                     </a>
+                                    <!--
                                     <a class="btn btn-outline-primary" href="">
                                         <i class="fas fa-file-excel"></i>
                                         Import Faculties From .XLS File
