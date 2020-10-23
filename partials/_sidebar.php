@@ -335,7 +335,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="upload_solutions.php" class="nav-link">
+                            <a href="pastpaper_solutions.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>PastPapers Solutions</p>
                             </a>

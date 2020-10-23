@@ -13,7 +13,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=past_papers.php");
+        $success = "Deleted" && header("refresh:1; url=pastpaper_solutions.php");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -37,13 +37,13 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Past Exam Papers</h1>
+                            <h1>Past Exam Papers Solutions</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Past Exam Papers</li>
+                                <li class="breadcrumb-item active">Past Exam Papers Solutions</li>
                             </ol>
                         </div>
                     </div>
@@ -58,9 +58,9 @@ require_once('partials/_head.php');
                             <div class="card-header">
                                 <h2 class="text-right">
                                     <a class="btn btn-outline-success" href="past_exams.php">
-                                        <i class="fas fa-plus"></i>
+                                        <i class="fas fa-check"></i>
                                         <i class="fas fa-file-upload"></i>
-                                        Upload Past Paper
+                                        Upload Past Paper Solutions
                                     </a>
                                     <!-- <a class="btn btn-outline-primary" href="">
                                         <i class="fas fa-file-excel"></i>
@@ -74,29 +74,29 @@ require_once('partials/_head.php');
                                         <tr>
                                             <th>#</th>
                                             <th>Course Name</th>
-                                            <th>Date Uploaded</th>
+                                            <th>Uploaded At </th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_PastPapers`  WHERE  pastpaper_type  != 'Solution' ";
+                                        $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE  pastpaper_type  = 'Solution'  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
                                         $cnt = 1;
-                                        while ($pastExas = $res->fetch_object()) {
+                                        while ($sol = $res->fetch_object()) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $cnt; ?></td>
-                                                <td><?php echo $pastExas->course_name; ?></td>
-                                                <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
+                                                <td><?php echo $sol->course_name; ?></td>
+                                                <td><?php echo date('d M Y - g:i', strtotime($sol->created_at)); ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" target="_blank" href="dist/PastPapers/<?php echo $pastExas->pastpaper; ?>">
+                                                    <a class="badge badge-success" target="_blank" href="dist/PastPapers/<?php echo $sol->pastpaper; ?>">
                                                         <i class="fas fa-download"></i>
-                                                        Download Papers
+                                                        Download Paper
                                                     </a>
-                                                    <a class="badge badge-danger" href="past_papers.php?delete=<?php echo $pastExas->id; ?>">
+                                                    <a class="badge badge-danger" href="past_papers.php?delete=<?php echo $sol->id; ?>">
                                                         <i class="fas fa-trash"></i>
                                                         Delete Paper
                                                     </a>
