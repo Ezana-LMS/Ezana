@@ -7,7 +7,7 @@ check_login();
 //delete
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $adn = "DELETE FROM ezanaLMS_ClassRecordings WHERE id=?";
+    $adn = "DELETE FROM ezanaLMS_PastPapers WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
@@ -92,7 +92,7 @@ require_once('partials/_head.php');
                                                 <td><?php echo $pastExas->course_name; ?></td>
                                                 <td><?php echo date('d M Y', strtotime($pastExas->created_at)); ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="view_class_pastpapers.php?download=<?php echo $pastExas->id; ?>">
+                                                    <a class="badge badge-success" target="_blank" href="dist/PastPapers/<?php echo $pastExas->id; ?>">
                                                         <i class="fas fa-download"></i>
                                                         Download Papers
                                                     </a>
