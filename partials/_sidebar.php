@@ -17,12 +17,21 @@
                         </p>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="system_admins.php" class="nav-link">
                         <i class="nav-icon fas fa-user-secret"></i>
                         <p>
                             System Admins
                             <span class="right badge badge-danger">New</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="school_calendar.php" class="nav-link">
+                        <i class="nav-icon fas fa-calendar-alt"></i>
+                        <p>
+                            School Calendar
                         </p>
                     </a>
                 </li>
@@ -36,16 +45,23 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="add_lecturer.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Add Lecturer</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="manage_lectures.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Manage Lecturers</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="lec_password_resets.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Password Resets</p>
                             </a>
                         </li>
                     </ul>
@@ -60,16 +76,22 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="add_student.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Add Students</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="manage_students.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Manage Students</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="student_password_resets.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Password Resets</p>
                             </a>
                         </li>
                     </ul>
@@ -84,15 +106,15 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="add_faculties.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Add Faculty</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="manage_faculties.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Manage Faculties</p>
                             </a>
                         </li>
@@ -108,29 +130,29 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="add_department.php" class="nav-link">
                                 <i class="fas fa-chevron-right  nav-icon"></i>
                                 <p>Add Department</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="manage_departments.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Manage Departments</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="departmental_memos.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Dept Memos</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="departmental_notices.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Dept Notices</p>
                             </a>
                         </li>
@@ -147,21 +169,21 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="add_course.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Add Course</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="manage_courses.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Manage Courses</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="course_directory.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Course Directories</p>
                             </a>
                         </li>
@@ -177,33 +199,33 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="add_module.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Add Module</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="manage_modules.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Manage Module</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="assign_lecturer_module.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Assign Module</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="module_notices.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Module Notices</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="reading_materials.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Reading Materials</p>
                             </a>
                         </li>
@@ -222,14 +244,32 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="add_class.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Add Class </p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="generate_timetable.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Generate Table</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-user-graduate"></i>
+                        <p>
+                            Enrollments
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="manage_student_enrollments.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Manage Enrollments</p>
                             </a>
                         </li>
                     </ul>
@@ -244,33 +284,33 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="add_groups.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Add Groups </p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="manage_groups.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Manage Groups</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="assign_students.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Assign Students</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="group_projects.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Group Projects</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="group_announcements.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Group Announcements</p>
                             </a>
                         </li>
@@ -329,39 +369,18 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="add_past_exams.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Upload Papers</p>
+                            <a href="past_papers.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Past Papers</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="manage_past_exam_papers.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Manage Exam Papers</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="upload_solutions.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Upload Solutions</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="manage_solutions.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Manage Solutions</p>
+                            <a href="pastpaper_solutions.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>PastPapers Solutions</p>
                             </a>
                         </li>
                     </ul>
-                </li>
-
-                <li class="nav-item">
-                    <a href="school_calendar.php" class="nav-link">
-                        <i class="nav-icon fas fa-calendar-alt"></i>
-                        <p>
-                            School Calendar
-                        </p>
-                    </a>
                 </li>
 
                 <li class="nav-item">
@@ -372,6 +391,8 @@
                         </p>
                     </a>
                 </li>
+
+
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -384,34 +405,33 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="lecs_reports.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p> Lecturers Reports</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="students_reports.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Students Reports</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="faculties_reports.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Faculties / Departments</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="allocation_reports.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Allocations Reports</p>
                             </a>
                         </li>
 
-
                         <li class="nav-item">
                             <a href="perfomance_reports.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Perfomance Reports</p>
                             </a>
                         </li>

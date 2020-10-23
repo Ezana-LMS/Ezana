@@ -95,6 +95,18 @@
                 $('#CourseID').val(data);
             }
         });
+        
+        /* Get course name*/
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'Coursecode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#CourseName').val(data);
+            }
+        });
+
     }
 </script>
 <!--Get Module Details -->

@@ -173,7 +173,7 @@ require_once('partials/_head.php');
                                                             <tr>
                                                                 <td><?php echo $cnt; ?></td>
                                                                 <td><?php echo $mod->course_code; ?></td>
-                                                                <td><?php echo $mod->couse_name; ?></td>
+                                                                <td><?php echo $mod->course_name; ?></td>
                                                                 <td><?php echo $mod->academic_year_enrolled; ?></td>
                                                             </tr>
                                                         <?php $cnt = $cnt + 1;
