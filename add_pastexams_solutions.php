@@ -26,7 +26,7 @@ if (isset($_POST['add_paper'])) {
         $rc = $stmt->bind_param('sssss', $id, $course_name, $pastpaper_type, $created_at, $pastpaper);
         $stmt->execute();
         if ($stmt) {
-            $success = "Past Paper Uploaded" && header("refresh:1; url=pastpaper_solutions.php");
+            $success = "Past Paper Uploaded" && header("refresh:1; url=add_pastexams_solutions.php");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -89,13 +89,13 @@ require_once('partials/_head.php');
                                             <select class='form-control basic' name="course_name">
                                                 <option selected>Select Course Name</option>
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_PastPapers`  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
                                                 while ($course = $res->fetch_object()) {
                                                 ?>
-                                                    <option><?php echo $course->name; ?></option>
+                                                    <option><?php echo $course->course_name; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
@@ -120,9 +120,7 @@ require_once('partials/_head.php');
                     </div>
                 </div>
             </section>
-            <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
         <?php require_once('partials/_footer.php'); ?>
     </div>
     <?php require_once('partials/_scripts.php'); ?>
