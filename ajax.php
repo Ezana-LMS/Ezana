@@ -73,8 +73,8 @@ if (!empty($_POST["StudentAdmn"])) {
 }
 
 /* Get course name */
-if (!empty($_POST["CourseCode"])) {
-    $id = $_POST['CourseCode'];
+if (!empty($_POST["Coursecode"])) {
+    $id = $_POST['Coursecode'];
     $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Courses WHERE code = :id");
     $stmt->execute(array(':id' => $id));
 ?>
