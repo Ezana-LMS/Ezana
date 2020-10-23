@@ -4,7 +4,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-if (isset($_POST['add_enroll'])) {
+if (isset($_POST['update_enroll'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (isset($_POST['student_name']) && !empty($_POST['student_name'])) {
@@ -102,14 +102,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Add New Student Enrollment</h1>
+                            <h1>Update Student Enrollment</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="manage_student_enrollments.php">Enrollments</a></li>
-                                <li class="breadcrumb-item active">Student Enrollments</li>
+                                <li class="breadcrumb-item active">Update Enrollments</li>
                             </ol>
                         </div>
                     </div>
@@ -130,7 +130,6 @@ require_once('partials/_head.php');
                                 <div class="card-body">
                                     <div class="row" style="display:none">
                                         <div class="form-group col-md-6">
-                                            <label for=""> Name</label>
                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
@@ -142,7 +141,7 @@ require_once('partials/_head.php');
                                         <div class="form-group col-md-6">
                                             <label for="">Student Admission Number</label>
                                             <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_adm">
-                                                <option selected>Select Student Admission Number</option>
+                                                <option selected><?php echo $en->student_admn;?></option>
                                                 <?php
                                                 $ret = "SELECT * FROM `ezanaLMS_Students`  ";
                                                 $stmt = $mysqli->prepare($ret);
@@ -162,7 +161,7 @@ require_once('partials/_head.php');
                                         <div class="form-group col-md-6">
                                             <label for="">Course Code</label>
                                             <select class='form-control basic' id="Coursecode" onchange="getCourseDetails(this.value);" name="course_code">
-                                                <option selected>Select Course Code</option>
+                                                <option selected><?php echo $en->course_code;?></option>
                                                 <?php
                                                 $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
                                                 $stmt = $mysqli->prepare($ret);
@@ -182,7 +181,7 @@ require_once('partials/_head.php');
                                         <div class="form-group col-md-6">
                                             <label for="">Module Name</label>
                                             <select class='form-control basic' id="ModuleName" onchange="getModuleDetails(this.value);" name="module_name">
-                                                <option selected>Select Module Name </option>
+                                                <option selected><?php echo $en->module_name;?></option>
                                                 <?php
                                                 $ret = "SELECT * FROM `ezanaLMS_Modules`   ";
                                                 $stmt = $mysqli->prepare($ret);
@@ -200,24 +199,24 @@ require_once('partials/_head.php');
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">Semester Enrolled</label>
-                                            <input type="text" required name="semester_enrolled" class="form-control">
+                                            <input type="text" value="<?php echo $en->semester_enrolled;?>" required name="semester_enrolled" class="form-control">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">Semester Start Date</label>
-                                            <input type="date" required name="semester_start" class="form-control">
+                                            <input type="date" value="<?php echo $en->semester_start;?>" required name="semester_start" class="form-control">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">Semester End Date</label>
-                                            <input type="date" required name="semester_end" class="form-control">
+                                            <input type="date" value="<?php echo $en->semester_end;?>" required name="semester_end" class="form-control">
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="">Academic Year Enrolled</label>
-                                            <input type="text" required name="academic_year_enrolled" class="form-control">
+                                            <input type="text" value="<?php echo $en->academic_year_enrolled;?>" required name="academic_year_enrolled" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" name="add_enroll" class="btn btn-primary">Submit</button>
+                                    <button type="submit" name="update_enroll" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                         </div>
