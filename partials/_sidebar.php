@@ -48,6 +48,13 @@
                                 <p>Manage Lecturers</p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="manage_lectures.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Password Resets</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -72,6 +79,12 @@
                                 <p>Manage Students</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="manage_lectures.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Password Resets</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -84,12 +97,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="add_faculties.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Add Faculty</p>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item">
                             <a href="manage_faculties.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
@@ -360,6 +373,8 @@
                         </p>
                     </a>
                 </li>
+
+
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
