@@ -329,7 +329,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="past_exams.php" class="nav-link">
+                            <a href="past_papers.php" class="nav-link">
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Past Papers</p>
                             </a>
