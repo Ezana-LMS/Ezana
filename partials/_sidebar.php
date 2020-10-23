@@ -92,7 +92,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user-graduate"></i>
                         <p>
-                            Students Enrollments
+                            Enrollments
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>

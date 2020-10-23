@@ -76,9 +76,7 @@ require_once('partials/_head.php');
                                             <th>#</th>
                                             <th>Adm No</th>
                                             <th>Name</th>
-                                            <th>Course Code</th>
                                             <th>Course Name</th>
-                                            <th>Module Code</th>
                                             <th>Module Name</th>
                                             <th>Academic Yr</th>
                                             <th>Sem Enrolled</th>
