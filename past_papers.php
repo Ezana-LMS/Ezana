@@ -80,30 +80,25 @@ require_once('partials/_head.php');
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_ClassRecordings`  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_PastPapers`  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
                                         $cnt = 1;
-                                        while ($cr = $res->fetch_object()) {
+                                        while ($pastExas = $res->fetch_object()) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $cnt; ?></td>
-                                                <td><?php echo $cr->class_name; ?></td>
-                                                <td><?php echo $cr->lecturer_name; ?></td>
-                                                <td><?php echo date('d M Y', strtotime($cr->created_at)); ?></td>
+                                                <td><?php echo $pastExas->course_name; ?></td>
+                                                <td><?php echo date('d M Y', strtotime($pastExas->created_at)); ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="view_class_recording.php?watch=<?php echo $cr->id; ?>">
-                                                        <i class="fas fa-play"></i>
-                                                        Watch Recording
+                                                    <a class="badge badge-success" href="view_class_pastpapers.php?download=<?php echo $pastExas->id; ?>">
+                                                        <i class="fas fa-download"></i>
+                                                        Download Papers
                                                     </a>
-                                                    <a class="badge badge-primary" href="update_class_recording.php?update=<?php echo $cr->id; ?>">
-                                                        <i class="fas fa-edit"></i>
-                                                        Update Recording
-                                                    </a>
-                                                    <a class="badge badge-danger" href="class_recording.php?delete=<?php echo $cr->id; ?>">
+                                                    <a class="badge badge-danger" href="past_papers.php?delete=<?php echo $pastExas->id; ?>">
                                                         <i class="fas fa-trash"></i>
-                                                        Delete Recording
+                                                        Delete Paper
                                                     </a>
                                                 </td>
                                             </tr>
