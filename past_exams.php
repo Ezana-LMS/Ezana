@@ -4,7 +4,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-if (isset($_POST['add_pastpaer'])) {
+if (isset($_POST['add_paper'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
@@ -12,12 +12,6 @@ if (isset($_POST['add_pastpaer'])) {
     } else {
         $error = 1;
         $err = "Course Name Cannot Be Empty";
-    }
-    if (isset($_POST['pastpaper']) && !empty($_POST['pastpaper'])) {
-        $pastpaper = mysqli_real_escape_string($mysqli, trim($_POST['pastpaper']));
-    } else {
-        $error = 1;
-        $err = "Past Paper Cannot Be Empty";
     }
     if (!$error) {
         $id = $_POST['id'];
@@ -108,7 +102,7 @@ require_once('partials/_head.php');
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label for="exampleInputFile">Upload Past Paper ( PDF / Docx )</label>
+                                            <label for="exampleInputFile">Upload Past Exam Paper ( PDF / Docx )</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
                                                     <input required name="" type="file" class="custom-file-input" id="exampleInputFile">
