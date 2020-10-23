@@ -167,7 +167,7 @@ require_once('partials/_head.php');
                                             <select class='form-control basic' id="ModuleName" onchange="getModuleDetails(this.value);" name="module_name">
                                                 <option selected>Select Module Name </option>
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE ass_status = '0'  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_Modules`   ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
@@ -181,10 +181,26 @@ require_once('partials/_head.php');
                                             <label for="">Module Code</label>
                                             <input type="text" id="ModuleCode" readonly required name="module_code" class="form-control">
                                         </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="">Semester Enrolled</label>
+                                            <input type="text" required name="semester_enrolled" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="">Semester Start Date</label>
+                                            <input type="text" required name="semester_start" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="">Semester End Date</label>
+                                            <input type="text" required name="semester_end" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="">Academic Year Enrolled</label>
+                                            <input type="text" required name="academic_year_enrolled" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" name="assign_module" class="btn btn-primary">Submit</button>
+                                    <button type="submit" name="add_enroll" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                         </div>
