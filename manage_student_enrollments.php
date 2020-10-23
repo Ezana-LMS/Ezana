@@ -122,15 +122,10 @@ require_once('partials/_head.php');
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
             </section>
-            <!-- /.content -->
         </div>
         <?php require_once('partials/_footer.php'); ?>
     </div>
