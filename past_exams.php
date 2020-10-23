@@ -57,14 +57,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Add New Module</h1>
+                            <h1>Upload Past Exam Papers</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="add_module.php">Modules</a></li>
-                                <li class="breadcrumb-item active">Add Module</li>
+                                <li class="breadcrumb-item"><a href="past_papers.php">Past Exam Papers</a></li>
+                                <li class="breadcrumb-item active">Add </li>
                             </ol>
                         </div>
                     </div>
@@ -86,19 +86,13 @@ require_once('partials/_head.php');
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="">Module Name</label>
-                                            <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="">Module Number / Code</label>
-                                            <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-12">
                                             <label for="">Course Name</label>
-                                            <select class='form-control basic' id="CourseName" onchange="getCourseDetails(this.value);" name="course_name">
+                                            <select class='form-control basic' name="course_name">
                                                 <option selected>Select Course Name</option>
                                                 <?php
                                                 $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
@@ -111,37 +105,21 @@ require_once('partials/_head.php');
                                                 <?php } ?>
                                             </select>
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="">Course Code</label>
-                                            <input type="text" id="CourseCode" readonly required name="" class="form-control">
-                                            <input type="hidden" id="CourseID" required name="course_id" class="form-control">
-                                        </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="form-group col-md-4">
-                                            <label for="">Teaching Duration</label>
-                                            <input type="text" required name="course_duration" class="form-control" id="exampleInputEmail1">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="">Number Of Lectures Per Week</label>
-                                            <input type="text" required name="lectures_number" class="form-control">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="">Module CAT / End Exam Weight Percentage</label>
-                                            <input type="text" required name="weight_percentage" class="form-control">
-                                        </div>
-                                    </div>
-
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label for="exampleInputPassword1">Module Details</label>
-                                            <textarea required id="textarea" name="details" rows="10" class="form-control"></textarea>
+                                            <label for="exampleInputFile">Upload Past Paper ( PDF / Docx )</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input required name="" type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" name="add_module" class="btn btn-primary">Add Module</button>
+                                    <button type="submit" name="add_paper" class="btn btn-primary">Upload Paper</button>
                                 </div>
                             </form>
                         </div>
