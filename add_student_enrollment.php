@@ -141,24 +141,25 @@ require_once('partials/_head.php');
                                             <label for="">Student Name</label>
                                             <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
                                         </div>
+
                                         <div class="form-group col-md-6">
                                             <label for="">Course Code</label>
-                                            <select class='form-control basic' id="CourseName" onchange="getCourseDetails(this.value);" name="course_code">
+                                            <select class='form-control basic' id="CourseCode" onchange="getCourseDetails(this.value);" name="course_code">
                                                 <option selected>Select Course Code</option>
                                                 <?php
                                                 $ret = "SELECT * FROM `ezanaLMS_Courses`   ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
-                                                while ($mod = $res->fetch_object()) {
+                                                while ($courses = $res->fetch_object()) {
                                                 ?>
-                                                    <option><?php echo $mod->code; ?></option>
+                                                    <option><?php echo $courses->code; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="">Course Name</label>
-                                            <input type="text" id="CourseCode" readonly required name="course_name" class="form-control">
+                                            <input type="text" id="CourseName" readonly required name="course_name" class="form-control">
                                         </div>
                                         <hr>
                                         <div class="form-group col-md-6">
