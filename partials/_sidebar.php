@@ -17,12 +17,21 @@
                         </p>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="system_admins.php" class="nav-link">
                         <i class="nav-icon fas fa-user-secret"></i>
                         <p>
                             System Admins
                             <span class="right badge badge-danger">New</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="school_calendar.php" class="nav-link">
+                        <i class="nav-icon fas fa-calendar-alt"></i>
+                        <p>
+                            School Calendar
                         </p>
                     </a>
                 </li>
@@ -373,15 +382,6 @@
                         </li>
                     </ul>
                 </li>
-
-                <!-- <li class="nav-item">
-                    <a href="school_calendar.php" class="nav-link">
-                        <i class="nav-icon fas fa-calendar-alt"></i>
-                        <p>
-                            School Calendar
-                        </p>
-                    </a>
-                </li> -->
 
                 <li class="nav-item">
                     <a href="class_recordings.php" class="nav-link">
