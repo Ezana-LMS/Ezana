@@ -106,11 +106,6 @@ require_once('partials/_head.php');
                                                 <td><?php echo $en->semester_start; ?></td>
                                                 <td><?php echo $en->semester_end; ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="view_student_enrollment.php?view=<?php echo $en->id; ?>">
-                                                        <i class="fas fa-eye"></i>
-                                                        View
-                                                    </a>
-
                                                     <a class="badge badge-primary" href="update_student_enrollment.php?update=<?php echo $en->id; ?>">
                                                         <i class="fas fa-edit"></i>
                                                         Update
