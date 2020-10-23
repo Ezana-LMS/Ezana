@@ -99,9 +99,7 @@ require_once('partials/_head.php');
                                                 <td><?php echo $cnt; ?></td>
                                                 <td><?php echo $en->student_adm; ?></td>
                                                 <td><?php echo $en->student_name; ?></td>
-                                                <td><?php echo $en->course_code; ?></td>
                                                 <td><?php echo $en->course_name; ?></td>
-                                                <td><?php echo $en->module_code; ?></td>
                                                 <td><?php echo $en->module_name; ?></td>
                                                 <td><?php echo $en->academic_year_enrolled; ?></td>
                                                 <td><?php echo $en->semester_enrolled; ?></td>
