@@ -95,6 +95,7 @@
                 $('#CourseID').val(data);
             }
         });
+        
         /* Get course name*/
         $.ajax({
             type: "POST",
