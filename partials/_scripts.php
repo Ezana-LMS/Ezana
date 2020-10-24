@@ -25,6 +25,7 @@
         $("#example1").DataTable();
         $("#courses_enrolled").DataTable();
         $("#enrollment").DataTable();
+        $("#admins").DataTable();
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -95,7 +96,7 @@
                 $('#CourseID').val(data);
             }
         });
-        
+
         /* Get course name*/
         $.ajax({
             type: "POST",
@@ -149,5 +150,38 @@
                 $('#StudentName').val(data);
             }
         });
+    }
+</script>
+<!-- Get Semester Details -->
+<script>
+    function getSemesterDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'SemesterEnrolled=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#SemesterStart').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'SemesterStart=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#SemesterEnd').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'SemesterEnd=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#AcademicYear').val(data);
+            }
+        });
+
     }
 </script>

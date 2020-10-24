@@ -3,17 +3,16 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
-
 //Delete
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $adn = "DELETE FROM ezanaLMS_Enrollments WHERE id=?";
+    $adn = "DELETE FROM ezanaLMS_Calendar WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=manage_student_enrollments.php");
+        $success = "Deleted" && header("refresh:1; url=school_calendar.php");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -36,14 +35,13 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Enrolled Students</h1>
+                            <h1>Important Academic Dates</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="manage_student_enrollemts.php">Students Emrollments</a></li>
-                                <li class="breadcrumb-item active">Manage Enrollments</li>
+                                <li class="breadcrumb-item active">School Calendar</li>
                             </ol>
                         </div>
                     </div>
@@ -57,14 +55,13 @@ require_once('partials/_head.php');
                         <div class="card">
                             <div class="card-header">
                                 <h2 class="text-right">
-                                    <a class="btn btn-outline-success" href="add_student_enrollment.php">
-                                        <i class="fas fa-user-plus"></i>
-                                        Add Enrollment
+                                    <a class="btn btn-outline-success" href="add_school_calendar.php">
+                                        <i class="fas fa-plus"></i>
+                                        Add Important Dates
                                     </a>
-
                                     <!-- <a class="btn btn-outline-primary" href="">
                                         <i class="fas fa-file-excel"></i>
-                                        Import Students From .XLS File
+                                        Import Faculties From .XLS File
                                     </a> -->
                                 </h2>
                             </div>
@@ -74,44 +71,36 @@ require_once('partials/_head.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Admission</th>
-                                            <th>Name</th>
-                                            <th>Course</th>
-                                            <th>Module</th>
-                                            <th>Academic Yr</th>
-                                            <th>Sem Enrolled</th>
-                                            <th>Sem Start</th>
-                                            <th>Sem End </th>
+                                            <th>Semester Name</th>
+                                            <th>Opening Dates</th>
+                                            <th>Closing Dates</th>
+                                            <th>Academic Year</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments`  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Calendar`  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
                                         $cnt = 1;
-                                        while ($en = $res->fetch_object()) {
+                                        while ($cal = $res->fetch_object()) {
                                         ?>
 
                                             <tr>
                                                 <td><?php echo $cnt; ?></td>
-                                                <td><?php echo $en->student_adm; ?></td>
-                                                <td><?php echo $en->student_name; ?></td>
-                                                <td><?php echo $en->course_name; ?></td>
-                                                <td><?php echo $en->module_name; ?></td>
-                                                <td><?php echo $en->academic_year_enrolled; ?></td>
-                                                <td><?php echo $en->semester_enrolled; ?></td>
-                                                <td><?php echo date('d M Y', strtotime($en->semester_start)); ?></td>
-                                                <td><?php echo date('d M Y', strtotime($en->semester_end)); ?></td>
+                                                <td><?php echo $cal->semester_name; ?></td>
+                                                <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
+                                                <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
+                                                <td><?php echo $cal->academic_yr; ?></td>
                                                 <td>
-                                                    <a class="badge badge-primary" href="update_student_enrollment.php?update=<?php echo $en->id; ?>">
+                                                    <a class="badge badge-primary" href="update_school_calendar.php?update=<?php echo $cal->id; ?>">
                                                         <i class="fas fa-edit"></i>
                                                         Update
                                                     </a>
 
-                                                    <a class="badge badge-danger" href="manage_student_enrollments.php?delete=<?php echo $en->id; ?>">
+                                                    <a class="badge badge-danger" href="school_calendar.php?delete=<?php echo $cal->id; ?>">
                                                         <i class="fas fa-trash"></i>
                                                         Delete
                                                     </a>
@@ -122,10 +111,15 @@ require_once('partials/_head.php');
                                     </tbody>
                                 </table>
                             </div>
+                            <!-- /.card-body -->
                         </div>
+                        <!-- /.card -->
                     </div>
+                    <!-- /.col -->
                 </div>
+                <!-- /.row -->
             </section>
+            <!-- /.content -->
         </div>
         <?php require_once('partials/_footer.php'); ?>
     </div>

@@ -171,7 +171,7 @@ require_once('partials/_head.php');
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="">Gender</label>
-                                                <select type="text" required name="gender" class="form-control">
+                                                <select type="text" required name="gender" class="basic form-control">
                                                     <option selected><?php echo $std->gender; ?></option>
                                                     <option>Male</option>
                                                     <option>Female</option>
@@ -179,7 +179,7 @@ require_once('partials/_head.php');
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="">Student Account Status</label>
-                                                <select type="text" required name="acc_status" class="form-control">
+                                                <select type="text" required name="acc_status" class="basic form-control">
                                                     <option selected><?php echo $std->acc_status; ?></option>
                                                     <option>Active</option>
                                                     <option>Disabled</option>
@@ -208,7 +208,7 @@ require_once('partials/_head.php');
                                         <div class="row">
                                             <div class="form-group col-md-12">
                                                 <label for="exampleInputPassword1">Address</label>
-                                                <textarea required name="adr" rows="5" class="form-control"><?php echo $std->adr; ?></textarea>
+                                                <textarea required  id ='textarea' name="adr" rows="5" class="form-control"><?php echo $std->adr; ?></textarea>
                                             </div>
                                         </div>
                                     </div>

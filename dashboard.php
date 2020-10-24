@@ -158,7 +158,67 @@ require_once('partials/_head.php');
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5 class="card-title">Students Accounts In Need For Password Resets</h5>
+                                    <h5 class="card-title">Administrators</h5>
+
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="admins" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Names</th>
+                                                <th>Email</th>
+                                                <th>Rank</th>
+                                                <th>Phone No. </th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $ret = "SELECT * FROM `ezanaLMS_Admins`  ";
+                                            $stmt = $mysqli->prepare($ret);
+                                            $stmt->execute(); //ok
+                                            $res = $stmt->get_result();
+                                            $cnt = 1;
+                                            while ($admin = $res->fetch_object()) {
+                                            ?>
+
+                                                <tr>
+                                                    <td><?php echo $cnt; ?></td>
+                                                    <td><?php echo $admin->name; ?></td>
+                                                    <td><?php echo $admin->email; ?></td>
+                                                    <td><?php echo $admin->rank; ?></td>
+                                                    <td><?php echo $admin->phone; ?></td>
+                                                    <td>
+                                                        <a class="badge badge-success" href="view_admin.php?view=<?php echo $admin->id; ?>">
+                                                            <i class="fas fa-eye"></i>
+                                                            View Account
+                                                        </a>
+
+                                                    </td>
+                                                </tr>
+
+                                            <?php $cnt = $cnt + 1;
+                                            } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Lecturers</h5>
 
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -174,51 +234,104 @@ require_once('partials/_head.php');
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
+                                                <th>#</th>
+                                                <th>Lec Number</th>
+                                                <th>Name</th>
                                                 <th>Email</th>
-                                                <th>New Password</th>
-                                                <th>Token</th>
-                                                <th>Account Type</th>
-                                                <th>Action</th>
+                                                <th>Phone</th>
+                                                <th>ID / Passport No</th>
+                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $ret = "SELECT * FROM `ezanaLMS_PasswordResets` WHERE acc_type = 'Student' ";
+                                            $ret = "SELECT * FROM `ezanaLMS_Lecturers`  ";
                                             $stmt = $mysqli->prepare($ret);
                                             $stmt->execute(); //ok
                                             $res = $stmt->get_result();
-                                            while ($row = $res->fetch_object()) {
+                                            $cnt = 1;
+                                            while ($lec = $res->fetch_object()) {
                                             ?>
+
                                                 <tr>
-                                                    <td><?php echo $row->email;?></td>
-                                                    <td><?php echo $row->new_pass;?></td>
-                                                    <td><?php echo $row->token;?></td>
-                                                    <td><?php echo $row->acc_type;?> Account</td>
+                                                    <td><?php echo $cnt; ?></td>
+                                                    <td><?php echo $lec->number; ?></td>
+                                                    <td><?php echo $lec->name; ?></td>
+                                                    <td><?php echo $lec->email; ?></td>
+                                                    <td><?php echo $lec->phone; ?></td>
+                                                    <td><?php echo $lec->idno; ?></td>
                                                     <td>
-                                                        <?php
-                                                            if($row->status =='Pending')
-                                                            {
-                                                                echo "
-                                                                <a href='reset_$row->acc_type.php?email=$row->email' class='badge badge-success'>
-                                                                    <i class='fas fa-cogs'></i>
-                                                                    <i class='fas fa-user-lock'></i>
-                                                                    Reset Password
-                                                                </a>";
-                                                            } 
-                                                            else{
-                                                                echo "
-                                                                <a class='badge badge-primary' href='mailto:$row->email&password=$row->dummy_pwd'>
-                                                                    <i class='fas fa-envelope'></i>
-                                                                        <i class='fas fa-user-lock'></i>
-                                                                            Email Password
-                                                                </a>
-                                                            ";
-                                                            }
-                                                        ?>
+                                                        <a class="badge badge-success" href="view_lec.php?view=<?php echo $lec->id; ?>">
+                                                            <i class="fas fa-eye"></i>
+                                                            View Account
+                                                        </a>
+
                                                     </td>
                                                 </tr>
-                                            <?php
+                                            <?php $cnt = $cnt + 1;
                                             } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Students</h5>
+
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="enrollment" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Adm No</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Phone</th>
+                                                <th>ID / Passport No</th>
+                                                <th>Gender</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $ret = "SELECT * FROM `ezanaLMS_Students`  ";
+                                            $stmt = $mysqli->prepare($ret);
+                                            $stmt->execute(); //ok
+                                            $res = $stmt->get_result();
+                                            $cnt = 1;
+                                            while ($std = $res->fetch_object()) {
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $cnt; ?></td>
+                                                    <td><?php echo $std->admno; ?></td>
+                                                    <td><?php echo $std->name; ?></td>
+                                                    <td><?php echo $std->email; ?></td>
+                                                    <td><?php echo $std->phone; ?></td>
+                                                    <td><?php echo $std->idno; ?></td>
+                                                    <td><?php echo $std->gender; ?></td>
+                                                    <td>
+                                                        <a class="badge badge-success" href="view_student.php?view=<?php echo $std->id; ?>">
+                                                            <i class="fas fa-eye"></i>
+                                                            View Account
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php $cnt = $cnt + 1;
+                                            } ?>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
