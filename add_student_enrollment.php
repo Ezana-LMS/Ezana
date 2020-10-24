@@ -200,19 +200,30 @@ require_once('partials/_head.php');
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">Semester Enrolled</label>
-                                            <input type="text" required name="semester_enrolled" class="form-control">
+                                            <select class='form-control basic' id="SemesterEnrolled" onchange="getSemesterDetails(this.value);" name="semester_enrolled">
+                                                <option selected>Select Semester Name</option>
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_Calendar`  ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                while ($cal = $res->fetch_object()) {
+                                                ?>
+                                                    <option><?php echo $cal->semester_name; ?></option>
+                                                <?php } ?>
+                                            </select>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">Semester Start Date</label>
-                                            <input type="date" required name="semester_start" class="form-control">
+                                            <input type="date" id="SemesterStart" readonly required name="semester_start" class="form-control">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">Semester End Date</label>
-                                            <input type="date" required name="semester_end" class="form-control">
+                                            <input type="date" id="SemesterEnd" readonly required name="semester_end" class="form-control">
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="">Academic Year Enrolled</label>
-                                            <input type="text" required name="academic_year_enrolled" class="form-control">
+                                            <input type="text" id="AcademicYear" readonly required name="academic_year_enrolled" class="form-control">
                                         </div>
                                     </div>
                                 </div>
