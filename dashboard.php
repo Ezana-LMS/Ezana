@@ -158,7 +158,67 @@ require_once('partials/_head.php');
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5 class="card-title">Lecturers'</h5>
+                                    <h5 class="card-title">Administrators</h5>
+
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="admins" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Names</th>
+                                                <th>Email</th>
+                                                <th>Rank</th>
+                                                <th>Phone No. </th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $ret = "SELECT * FROM `ezanaLMS_Admins`  ";
+                                            $stmt = $mysqli->prepare($ret);
+                                            $stmt->execute(); //ok
+                                            $res = $stmt->get_result();
+                                            $cnt = 1;
+                                            while ($admin = $res->fetch_object()) {
+                                            ?>
+
+                                                <tr>
+                                                    <td><?php echo $cnt; ?></td>
+                                                    <td><?php echo $admin->name; ?></td>
+                                                    <td><?php echo $admin->email; ?></td>
+                                                    <td><?php echo $admin->rank; ?></td>
+                                                    <td><?php echo $admin->phone; ?></td>
+                                                    <td>
+                                                        <a class="badge badge-success" href="view_admin.php?view=<?php echo $admin->id; ?>">
+                                                            <i class="fas fa-eye"></i>
+                                                            View
+                                                        </a>
+
+                                                    </td>
+                                                </tr>
+
+                                            <?php $cnt = $cnt + 1;
+                                            } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Lecturers</h5>
 
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -219,7 +279,7 @@ require_once('partials/_head.php');
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5 class="card-title">Lecturers'</h5>
+                                    <h5 class="card-title">Students</h5>
 
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
