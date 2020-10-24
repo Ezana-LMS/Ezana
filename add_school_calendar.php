@@ -77,7 +77,7 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Add Importtant Academic Dates</h1>
+                            <h1>Add Important Academic Dates</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -117,11 +117,11 @@ require_once('partials/_head.php');
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="">Semester Opening Dates</label>
-                                            <input type="text" required name="semester_start" class="form-control" id="exampleInputEmail1">
+                                            <input type="date" required name="semester_start" class="form-control" id="exampleInputEmail1">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="">Semester Closing Dates</label>
-                                            <input type="text" required name="semester_end" class="form-control">
+                                            <input type="date" required name="semester_end" class="form-control">
                                         </div>
                                     </div>
                                 </div>
