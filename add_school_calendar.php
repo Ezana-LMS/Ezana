@@ -39,14 +39,14 @@ if (isset($_POST['add_school_calendar'])) {
             $row = mysqli_fetch_assoc($res);
             if ($semester_name == $row['semester_name']) {
                 $err =  "Semester Name Already Exists";
-            } 
+            }
         } else {
             $id = $_POST['id'];
             $academic_yr = $_POST['academic_yr'];
             $semester_start = $_POST['semester_start'];
             $semester_name = $_POST['semester_name'];
             $semester_end = $_POST['semester_end'];
-            
+
             $query = "INSERT INTO ezanaLMS_Calendar (id, academic_yr, semester_start, semester_name, semester_end) VALUES(?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('sssss', $id, $academic_yr, $semester_start, $semester_name, $semester_end);
@@ -77,14 +77,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Add New Module</h1>
+                            <h1>Add Importtant Academic Dates</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="add_module.php">Modules</a></li>
-                                <li class="breadcrumb-item active">Add Module</li>
+                                <li class="breadcrumb-item"><a href="school_calendar.php">School Calendar</a></li>
+                                <li class="breadcrumb-item active">Add </li>
                             </ol>
                         </div>
                     </div>
@@ -100,68 +100,33 @@ require_once('partials/_head.php');
                             <div class="card-header">
                                 <h3 class="card-title">Fill All Required Fields</h3>
                             </div>
-                            <!-- /.card-header -->
                             <!-- form start -->
                             <form method="post" enctype="multipart/form-data" role="form">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="">Module Name</label>
-                                            <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                            <label for="">Semester Name</label>
+                                            <input type="text" required name="semester_name" class="form-control" id="exampleInputEmail1">
                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="">Module Number / Code</label>
-                                            <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                            <label for="">Academic Year Name</label>
+                                            <input type="text" required name="academic_yr" class="form-control">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-6">
-                                            <label for="">Course Name</label>
-                                            <select class='form-control basic' id="CourseName" onchange="getCourseDetails(this.value);" name="course_name">
-                                                <option selected>Select Course Name</option>
-                                                <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
-                                                $stmt = $mysqli->prepare($ret);
-                                                $stmt->execute(); //ok
-                                                $res = $stmt->get_result();
-                                                while ($course = $res->fetch_object()) {
-                                                ?>
-                                                    <option><?php echo $course->name; ?></option>
-                                                <?php } ?>
-                                            </select>
+                                            <label for="">Semester Opening Dates</label>
+                                            <input type="text" required name="semester_start" class="form-control" id="exampleInputEmail1">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="">Course Code</label>
-                                            <input type="text" id="CourseCode" readonly required name="" class="form-control">
-                                            <input type="hidden" id="CourseID" required name="course_id" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-group col-md-4">
-                                            <label for="">Teaching Duration</label>
-                                            <input type="text" required name="course_duration" class="form-control" id="exampleInputEmail1">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="">Number Of Lectures Per Week</label>
-                                            <input type="text" required name="lectures_number" class="form-control">
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label for="">Module CAT / End Exam Weight Percentage</label>
-                                            <input type="text" required name="weight_percentage" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <label for="exampleInputPassword1">Module Details</label>
-                                            <textarea required id="textarea" name="details" rows="10" class="form-control"></textarea>
+                                            <label for="">Semester Closing Dates</label>
+                                            <input type="text" required name="semester_end" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" name="add_module" class="btn btn-primary">Add Module</button>
+                                    <button type="submit" name="add_school_calendar" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                         </div>
