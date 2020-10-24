@@ -13,7 +13,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=lec_password_resets.php");
+        $success = "Deleted" && header("refresh:1; url=student_password_resets.php");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -81,7 +81,7 @@ require_once('partials/_head.php');
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_PasswordResets` WHERE acc_type = 'Lecturer'  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_PasswordResets` WHERE acc_type = 'Student'  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
@@ -111,13 +111,15 @@ require_once('partials/_head.php');
                                                                 </a>
                                                             ";
                                                     }
+
                                                     ?>
-                                                    <a class='badge badge-danger' href='lec_password_resets.php?delete=<?php echo $row->id; ?>'>
+                                                    <a class='badge badge-danger' href='student_password_resets.php?delete=<?php echo $row->id; ?>'>
                                                         <i class='fas fa-trash'></i>
                                                         Delete
                                                     </a>
                                                 </td>
                                             </tr>
+
                                         <?php
                                             $cnt = $cnt + 1;
                                         } ?>
