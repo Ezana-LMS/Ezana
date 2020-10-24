@@ -33,9 +33,9 @@ if (isset($_POST['change_password'])) {
             $id = $_GET['id'];
 
             $query = "UPDATE ezanaLMS_Students SET  password =? WHERE email =?";
-            $status = "UPDATE ezanaLMS_PasswordResets SET status = ?  WHERE id = ?";
+            $statusQry = "UPDATE ezanaLMS_PasswordResets SET status = ?  WHERE id = ?";
             $stmt = $mysqli->prepare($query);
-            $updateStmt = $mysqli->prepare(($status));
+            $updateStmt = $mysqli->prepare(($statusQry));
             $rc = $stmt->bind_param('ss', $new_password, $email);
             $rc = $updateStmt->bind_param('ss', $status, $id);
             $stmt->execute();
