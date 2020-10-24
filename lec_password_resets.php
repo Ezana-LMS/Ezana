@@ -104,7 +104,7 @@ require_once('partials/_head.php');
                                                                 </a>";
                                                     } else {
                                                         echo "
-                                                                <a class='badge badge-primary' href='mailto:$row->email&password=$row->dummy_pwd'>
+                                                                <a class='badge badge-primary' href='mailto:$row->email&password=$row->new_pass'>
                                                                     <i class='fas fa-envelope'></i>
                                                                         <i class='fas fa-user-lock'></i>
                                                                             Email Password
