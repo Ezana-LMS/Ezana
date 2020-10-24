@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 require_once('configs/config.php');
@@ -31,7 +32,7 @@ if (isset($_POST['change_password'])) {
             $status = 'Updated';
             $id = $_GET['id'];
 
-            $query = "UPDATE ezanaLMS_Lecturers SET  password =? WHERE email =?";
+            $query = "UPDATE ezanaLMS_Students SET  password =? WHERE email =?";
             $status = "UPDATE ezanaLMS_PasswordResets SET status = ?  WHERE id = ?";
             $stmt = $mysqli->prepare($query);
             $updateStmt = $mysqli->prepare(($status));
@@ -40,7 +41,7 @@ if (isset($_POST['change_password'])) {
             $stmt->execute();
             $updateStmt->execute();
             if ($stmt && $updateStmt) {
-                $success = "Password Changed" && header("refresh:1; url=lec_password_resets.php");
+                $success = "Password Changed" && header("refresh:1; url=student_password_resets.php");
             } else {
                 $err = "Please Try Again Or Try Later";
             }
@@ -80,8 +81,8 @@ require_once('partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="manage_lectures.php">Lecturers</a></li>
-                                    <li class="breadcrumb-item"><a href="lec_password_resets.php">Password Resets</a></li>
+                                    <li class="breadcrumb-item"><a href="student_password_resets.php">Students</a></li>
+                                    <li class="breadcrumb-item"><a href="student_password_resets.php">Password Resets</a></li>
                                     <li class="breadcrumb-item active">Reset Password</li>
                                 </ol>
                             </div>

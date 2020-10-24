@@ -38,13 +38,13 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Lecturer Accounts Password Resets</h1>
+                            <h1>Students Accounts Password Resets</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="manage_lectures.php">Lecturers</a></li>
+                                <li class="breadcrumb-item"><a href="student_password_resets.php">Students</a></li>
                                 <li class="breadcrumb-item active">Password Resets</li>
                             </ol>
                         </div>
@@ -97,7 +97,7 @@ require_once('partials/_head.php');
                                                     <?php
                                                     if ($row->status == 'Pending') {
                                                         echo "
-                                                                <a href='reset_lec_password.php?email=$row->email&id=$row->id' class='badge badge-success'>
+                                                                <a href='reset_student_password.php?email=$row->email&id=$row->id' class='badge badge-success'>
                                                                     <i class='fas fa-cogs'></i>
                                                                     <i class='fas fa-user-lock'></i>
                                                                     Reset Password
