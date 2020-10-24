@@ -96,12 +96,12 @@ require_once('partials/_head.php');
                                                 <td><?php echo $cal->academic_yr; ?></td>
                                                 <td>
 
-                                                    <a class="badge badge-primary" href="update_faculty.php?update=<?php echo $faculty->id; ?>">
+                                                    <a class="badge badge-primary" href="update_school_calendar.php?update=<?php echo $cal->id; ?>">
                                                         <i class="fas fa-edit"></i>
                                                         Update
                                                     </a>
 
-                                                    <a class="badge badge-danger" href="manage_faculties.php?delete=<?php echo $faculty->id; ?>">
+                                                    <a class="badge badge-danger" href="school_calendar.php?delete=<?php echo $cal->id; ?>">
                                                         <i class="fas fa-trash"></i>
                                                         Delete
                                                     </a>
