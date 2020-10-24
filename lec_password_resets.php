@@ -83,7 +83,7 @@ require_once('partials/_head.php');
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_PasswordResets` WHERE acc_type = 'Student' ";
+                                        $ret = "SELECT * FROM `ezanaLMS_PasswordResets`  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
@@ -99,7 +99,7 @@ require_once('partials/_head.php');
                                                     <?php
                                                     if ($row->status == 'Pending') {
                                                         echo "
-                                                                <a href='reset_lec_password.php?email=$row->email' class='badge badge-success'>
+                                                                <a href='reset_lec_password.php?email=$row->email&id=$row->id' class='badge badge-success'>
                                                                     <i class='fas fa-cogs'></i>
                                                                     <i class='fas fa-user-lock'></i>
                                                                     Reset Password
