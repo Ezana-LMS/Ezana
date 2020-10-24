@@ -85,3 +85,43 @@ if (!empty($_POST["Coursecode"])) {
 <?php
     }
 }
+
+/* Semester Details */
+if (!empty($_POST["SemesterEnrolled"])) {
+    $id = $_POST['SemesterEnrolled'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Calendar WHERE semester_name = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['semester_start']); ?>
+<?php
+    }
+}
+
+if (!empty($_POST["SemesterStart"])) {
+    $id = $_POST['SemesterStart'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Calendar WHERE semester_name = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['semester_end']); ?>
+<?php
+    }
+}
+
+if (!empty($_POST["SemesterEnd"])) {
+    $id = $_POST['SemesterEnd'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Calendar WHERE semester_name = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['academic_yr']); ?>
+<?php
+    }
+}
