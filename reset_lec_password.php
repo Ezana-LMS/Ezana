@@ -28,11 +28,18 @@ if (isset($_POST['change_password'])) {
         } else {
             $email = $_GET['email'];
             $new_password  = sha1(md5($_POST['new_password']));
+            $status = 'Updated';
+            $id = $_GET['id'];
+
             $query = "UPDATE ezanaLMS_Lecturers SET  password =? WHERE email =?";
+            $status = "UPDATE ezanaLMS_PasswordResets SET status = ?  WHERE id = ?";
             $stmt = $mysqli->prepare($query);
+            $updateStmt = $mysqli->prepare(($status));
             $rc = $stmt->bind_param('ss', $new_password, $email);
+            $rc = $updateStmt->bind_param('ss', $status, $id);
             $stmt->execute();
-            if ($stmt) {
+            $updateStmt->execute();
+            if ($stmt && $updateStmt) {
                 $success = "Password Changed" && header("refresh:1; url=lec_password_resets.php");
             } else {
                 $err = "Please Try Again Or Try Later";
@@ -54,7 +61,7 @@ require_once('partials/_head.php');
         <?php
         require_once('partials/_sidebar.php');
         $id = $_GET['id'];
-        $ret = "SELECT * FROM `ezanaLMS_PasswordResets` WHERE id ='$update' ";
+        $ret = "SELECT * FROM `ezanaLMS_PasswordResets` WHERE id ='$id' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();

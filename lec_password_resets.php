@@ -58,8 +58,6 @@ require_once('partials/_head.php');
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title">Lecturers' Accounts In Need For Password Resets</h5>
-
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                         <i class="fas fa-minus"></i>
@@ -83,7 +81,7 @@ require_once('partials/_head.php');
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_PasswordResets`  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_PasswordResets` WHERE acc_type = 'Lecturer'  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
