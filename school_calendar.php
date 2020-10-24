@@ -35,7 +35,7 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Academic Important Dates</h1>
+                            <h1>Important Academic Dates</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -91,11 +91,10 @@ require_once('partials/_head.php');
                                             <tr>
                                                 <td><?php echo $cnt; ?></td>
                                                 <td><?php echo $cal->semester_name; ?></td>
-                                                <td><?php echo $cal->semester_start; ?></td>
-                                                <td><?php echo $cal->semester_end; ?></td>
+                                                <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
+                                                <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
                                                 <td><?php echo $cal->academic_yr; ?></td>
                                                 <td>
-
                                                     <a class="badge badge-primary" href="update_school_calendar.php?update=<?php echo $cal->id; ?>">
                                                         <i class="fas fa-edit"></i>
                                                         Update
