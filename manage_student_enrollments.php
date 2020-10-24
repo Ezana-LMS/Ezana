@@ -103,8 +103,8 @@ require_once('partials/_head.php');
                                                 <td><?php echo $en->module_name; ?></td>
                                                 <td><?php echo $en->academic_year_enrolled; ?></td>
                                                 <td><?php echo $en->semester_enrolled; ?></td>
-                                                <td><?php echo $en->semester_start; ?></td>
-                                                <td><?php echo $en->semester_end; ?></td>
+                                                <td><?php echo date('d M Y', strtotime($en->semester_start)); ?></td>
+                                                <td><?php echo date('d M Y', strtotime($en->semester_end)); ?></td>
                                                 <td>
                                                     <a class="badge badge-primary" href="update_student_enrollment.php?update=<?php echo $en->id; ?>">
                                                         <i class="fas fa-edit"></i>
