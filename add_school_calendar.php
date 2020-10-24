@@ -42,21 +42,17 @@ if (isset($_POST['add_school_calendar'])) {
             } 
         } else {
             $id = $_POST['id'];
-            $name = $_POST['name'];
-            $code = $_POST['code'];
-            $details = $_POST['details'];
-            $course_name = $_POST['course_name'];
-            $course_id = $_POST['course_id'];
-            $course_duration = $_POST['course_duration'];
-            $weight_percentage = $_POST['weight_percentage'];
-            $lectures_number = $_POST['lectures_number'];
-            $created_at = date('d M Y');
-            $query = "INSERT INTO ezanaLMS_Modules (id, name, code, details, course_name, course_id, course_duration, weight_percentage, lectures_number, created_at) VALUES(?,?,?,?,?,?,?,?,?,?)";
+            $academic_yr = $_POST['academic_yr'];
+            $semester_start = $_POST['semester_start'];
+            $semester_name = $_POST['semester_name'];
+            $semester_end = $_POST['semester_end'];
+            
+            $query = "INSERT INTO ezanaLMS_Calendar (id, academic_yr, semester_start, semester_name, semester_end) VALUES(?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssssss', $id, $name, $code, $details, $course_name, $course_id, $course_duration, $weight_percentage, $lectures_number, $created_at);
+            $rc = $stmt->bind_param('sssss', $id, $academic_yr, $semester_start, $semester_name, $semester_end);
             $stmt->execute();
             if ($stmt) {
-                $success = "Module Created" && header("refresh:1; url=add_module.php");
+                $success = "Educational Dates Added" && header("refresh:1; url=add_school_calendar.php");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
