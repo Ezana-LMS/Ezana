@@ -215,11 +215,11 @@ require_once('partials/_head.php');
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">Semester Start Date</label>
-                                            <input type="date" id="SemesterStart" readonly required name="semester_start" class="form-control">
+                                            <input type="text" id="SemesterStart" readonly required name="semester_start" class="form-control">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="">Semester End Date</label>
-                                            <input type="date" id="SemesterEnd" readonly required name="semester_end" class="form-control">
+                                            <input type="text" id="SemesterEnd" readonly required name="semester_end" class="form-control">
                                         </div>
                                         <div class="form-group col-md-12">
                                             <label for="">Academic Year Enrolled</label>
