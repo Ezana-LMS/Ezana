@@ -201,7 +201,7 @@ require_once('partials/_head.php');
                                                     <td>
                                                         <a class="badge badge-success" href="view_admin.php?view=<?php echo $admin->id; ?>">
                                                             <i class="fas fa-eye"></i>
-                                                            View
+                                                            View Account
                                                         </a>
 
                                                     </td>
