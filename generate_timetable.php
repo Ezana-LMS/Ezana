@@ -70,7 +70,7 @@ require_once('partials/_head.php');
                                 </h2>
                             </div>
                             <div class="card-body">
-                                <table id="export-dt" class="table table-bordered table-striped">
+                                <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -127,4 +127,5 @@ require_once('partials/_head.php');
 
 </body>
 <?php require_once('partials/_scripts.php'); ?>
+
 </html>
