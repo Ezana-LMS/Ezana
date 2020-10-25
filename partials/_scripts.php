@@ -39,12 +39,12 @@
 
 <!-- Data Tables V2.01 -->
 <!-- NOTE TO Use Copy CSV Excel PDF Print Options You Must Include These Files  -->
-<script src="plugins/table/datatable/button-ext/dataTables.buttons.min.js"></script>
+<script src="plugins/datatable/button-ext/dataTables.buttons.min.js"></script>
 <script src="plugins/datatable/button-ext/jszip.min.js"></script>
 <script src="plugins/datatable/button-ext/buttons.html5.min.js"></script>
-<script src="plugins//datatable/button-ext/buttons.print.min.js"></script>
+<script src="plugins/datatable/button-ext/buttons.print.min.js"></script>
 <script>
-    $('#html5-extension').DataTable({
+    $('#export-dt').DataTable({
         dom: '<"row"<"col-md-12"<"row"<"col-md-6"B><"col-md-6"f> > ><"col-md-12"rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>> >',
         buttons: {
             buttons: [{
