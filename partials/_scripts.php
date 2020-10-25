@@ -36,6 +36,8 @@
         });
     });
 </script>
+<!-- Data Tables V2.01 -->
+
 
 <!-- File Uploads  -->
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
