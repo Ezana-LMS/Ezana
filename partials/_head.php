@@ -16,6 +16,10 @@
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- Data Tables -->
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/datatables.css"> -->
+    <link rel="stylesheet" type="text/css" href="plugins/datatable/custom_dt_html5.css">
+    <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/dt-global_style.css">  -->
+
     <!-- Scroll Bars -->
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- icheck bootstrap -->

@@ -124,7 +124,8 @@ require_once('partials/_head.php');
         </div>
         <?php require_once('partials/_footer.php'); ?>
     </div>
-    <?php require_once('partials/_scripts.php'); ?>
+
 </body>
+<?php require_once('partials/_scripts.php'); ?>
 
 </html>

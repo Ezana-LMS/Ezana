@@ -158,6 +158,8 @@ require_once('partials/_head.php');
                                                             <th>Course Code</th>
                                                             <th>Couse Name</th>
                                                             <th>Academic Yr</th>
+                                                            <th>Semester Enrolled</th>
+
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -175,6 +177,7 @@ require_once('partials/_head.php');
                                                                 <td><?php echo $mod->course_code; ?></td>
                                                                 <td><?php echo $mod->course_name; ?></td>
                                                                 <td><?php echo $mod->academic_year_enrolled; ?></td>
+                                                                <td><?php echo $mod->semester_enrolled;?></td>
                                                             </tr>
                                                         <?php $cnt = $cnt + 1;
                                                         } ?>
