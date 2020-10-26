@@ -52,7 +52,6 @@ require_once('partials/_head.php');
                                             <th>Location</th>
                                             <th>Date</th>
                                             <th>Time</th>
-                                            <th>Virtual Link</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -72,7 +71,6 @@ require_once('partials/_head.php');
                                                 <td><?php echo $tt->classlocation; ?></td>
                                                 <td><?php echo $tt->classdate; ?></td>
                                                 <td><?php echo $tt->classtime; ?></td>
-                                                <td><?php echo $tt->classlink; ?></td>
                                             </tr>
                                         <?php $cnt = $cnt + 1;
                                         } ?>

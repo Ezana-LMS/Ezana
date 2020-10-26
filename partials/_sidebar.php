@@ -248,11 +248,28 @@
                                 <p>Manage Classes</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="generate_timetable.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Generate Time Table</p>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="fas fas fa-angle-double-right nav-icon"></i>
+                                <p>
+                                    Generate Time Table
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="generate_virtual_timetable.php" class="nav-link">
+                                        <i class="fas fa-angle-double-right nav-icon"></i>
+                                        <p>Virtual Class TimeTable</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="generate_facetoface_timetable.php" class="nav-link">
+                                        <i class="fas fa-angle-double-right nav-icon"></i>
+                                        <p>Class Timetable</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>
