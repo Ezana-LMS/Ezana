@@ -3,6 +3,7 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
+
 require_once('partials/_head.php');
 
 ?>
@@ -13,9 +14,7 @@ require_once('partials/_head.php');
         <?php require_once('partials/_nav.php'); ?>
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
-        <?php
-        require_once('partials/_sidebar.php');
-        ?>
+        <?php require_once('partials/_sidebar.php'); ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -23,14 +22,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Geneate Time Table</h1>
+                            <h1>Faculties</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="generate_timetable.php">TimeTables</a></li>
-                                <li class="breadcrumb-item active">Generate Timetable</li>
+                                <li class="breadcrumb-item"><a href="faculties_reports.php">Advanced Reporting</a></li>
+                                <li class="breadcrumb-item active">Faculties</li>
                             </ol>
                         </div>
                     </div>
@@ -42,50 +41,62 @@ require_once('partials/_head.php');
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
+                            <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Class Name</th>
-                                            <th>Lecturer </th>
-                                            <th>Location</th>
-                                            <th>Date</th>
-                                            <th>Time</th>
+                                            <th>Faculty Code Number</th>
+                                            <th>Faculty Name</th>
+                                            <th>Number Of Departments</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_TimeTable` WHERE classlink =''  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
                                         $cnt = 1;
-                                        while ($tt = $res->fetch_object()) {
+                                        while ($faculty = $res->fetch_object()) {
                                         ?>
 
                                             <tr>
                                                 <td><?php echo $cnt; ?></td>
-                                                <td><?php echo $tt->classname; ?></td>
-                                                <td><?php echo $tt->classlecturer; ?></td>
-                                                <td><?php echo $tt->classlocation; ?></td>
-                                                <td><?php echo $tt->classdate; ?></td>
-                                                <td><?php echo $tt->classtime; ?></td>
+                                                <td><?php echo $faculty->code; ?></td>
+                                                <td><?php echo $faculty->name; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $query = "SELECT COUNT(*)  FROM `ezanaLMS_Departments` WHERE faculty_name ='$faculty->name' ";
+                                                    $stmt = $mysqli->prepare($query);
+                                                    $stmt->execute();
+                                                    $stmt->bind_result($departments);
+                                                    $stmt->fetch();
+                                                    $stmt->close();
+                                                    echo $departments;
+                                                    ?>
+                                                    Department(s)
+                                                </td>
                                             </tr>
                                         <?php $cnt = $cnt + 1;
                                         } ?>
                                     </tbody>
                                 </table>
                             </div>
+                            <!-- /.card-body -->
                         </div>
+                        <!-- /.card -->
                     </div>
+                    <!-- /.col -->
                 </div>
+                <!-- /.row -->
             </section>
+            <!-- /.content -->
         </div>
         <?php require_once('partials/_footer.php'); ?>
     </div>
-
+    <?php require_once('partials/_scripts.php'); ?>
 </body>
-<?php require_once('partials/_scripts.php'); ?>
 
 </html>

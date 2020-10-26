@@ -111,6 +111,10 @@ require_once('partials/_head.php');
                                                             <i class="fas fa-edit"></i>
                                                             Update
                                                         </a>
+                                                        <a class="badge badge-warning" href="grade_group_project.php?project_id=<?php echo $gcode->id; ?>&group_name=<?php echo $gcode->group_name; ?>&group_code=<?php echo $gcode->group_code; ?>">
+                                                            <i class="fas fa-check"></i>
+                                                            Grade Project
+                                                        </a>
                                                         <a class="badge badge-danger" href="manage_group_projects.php?delete=<?php echo $gcode->id; ?>&group_code=<?php echo $g->code; ?>">
                                                             <i class="fas fa-trash"></i>
                                                             Delete

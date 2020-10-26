@@ -3,6 +3,7 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
+
 require_once('partials/_head.php');
 
 ?>
@@ -23,14 +24,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Geneate Time Table</h1>
+                            <h1>Courses</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="generate_timetable.php">TimeTables</a></li>
-                                <li class="breadcrumb-item active">Generate Timetable</li>
+                                <li class="breadcrumb-item"><a href="manage_courses.php">Advanced Reporting</a></li>
+                                <li class="breadcrumb-item active">Courses</li>
                             </ol>
                         </div>
                     </div>
@@ -47,30 +48,39 @@ require_once('partials/_head.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Class Name</th>
-                                            <th>Lecturer </th>
-                                            <th>Location</th>
-                                            <th>Date</th>
-                                            <th>Time</th>
+                                            <th>Course Code</th>
+                                            <th>Course Name</th>
+                                            <th>Department Name</th>
+                                            <th>Number Of Modules</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_TimeTable` WHERE classlink =''  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
                                         $cnt = 1;
-                                        while ($tt = $res->fetch_object()) {
+                                        while ($course = $res->fetch_object()) {
                                         ?>
 
                                             <tr>
                                                 <td><?php echo $cnt; ?></td>
-                                                <td><?php echo $tt->classname; ?></td>
-                                                <td><?php echo $tt->classlecturer; ?></td>
-                                                <td><?php echo $tt->classlocation; ?></td>
-                                                <td><?php echo $tt->classdate; ?></td>
-                                                <td><?php echo $tt->classtime; ?></td>
+                                                <td><?php echo $course->code; ?></td>
+                                                <td><?php echo $course->name; ?></td>
+                                                <td><?php echo $course->department_name; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE course_name ='$course->name' ";
+                                                    $stmt = $mysqli->prepare($query);
+                                                    $stmt->execute();
+                                                    $stmt->bind_result($modules);
+                                                    $stmt->fetch();
+                                                    $stmt->close();
+                                                    echo $modules;
+                                                    ?>
+                                                    Modules
+                                                </td>
                                             </tr>
                                         <?php $cnt = $cnt + 1;
                                         } ?>
@@ -84,8 +94,7 @@ require_once('partials/_head.php');
         </div>
         <?php require_once('partials/_footer.php'); ?>
     </div>
-
+    <?php require_once('partials/_scripts.php'); ?>
 </body>
-<?php require_once('partials/_scripts.php'); ?>
 
 </html>
