@@ -4,7 +4,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-if (isset($_POST['grade_project'])) {
+if (isset($_POST['add_score'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (isset($_POST['group_name']) && !empty($_POST['group_name'])) {
@@ -32,7 +32,7 @@ if (isset($_POST['grade_project'])) {
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
             if ($project_id == $row['project_id']) {
-                $err =  "Project Already Graded";
+                $err =  "Group Work Already Graded";
             }
         } else {
             $id = $_POST['id'];
@@ -47,7 +47,7 @@ if (isset($_POST['grade_project'])) {
             $rc = $stmt->bind_param('ssssss', $id, $group_name, $group_code, $project_id, $group_score, $created_at);
             $stmt->execute();
             if ($stmt) {
-                $success = "Group Score Added" && header("refresh:1; url=manage_group_project.php?group_code=$group_code");
+                $success = "Group Score Added" && header("refresh:1; url=manage_group_projects.php?group_code=$group_code");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
