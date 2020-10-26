@@ -130,12 +130,6 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <!-- <li class="nav-item">
-                            <a href="add_department.php" class="nav-link">
-                                <i class="fas fa-chevron-right  nav-icon"></i>
-                                <p>Add Department</p>
-                            </a>
-                        </li> -->
                         <li class="nav-item">
                             <a href="manage_departments.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
@@ -169,12 +163,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <!-- <li class="nav-item">
-                            <a href="add_course.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Add Course</p>
-                            </a>
-                        </li> -->
+
                         <li class="nav-item">
                             <a href="manage_courses.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
@@ -199,12 +188,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <!-- <li class="nav-item">
-                            <a href="add_module.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Add Module</p>
-                            </a>
-                        </li> -->
+
                         <li class="nav-item">
                             <a href="manage_modules.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
@@ -319,19 +303,14 @@
                                 <p>Group Projects</p>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a href="group_announcements.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Group Announcements</p>
                             </a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a href="group_feedbacks.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Group Feedbacks</p>
-                            </a>
-                        </li> -->
+
                     </ul>
                 </li>
 
@@ -404,7 +383,7 @@
                     </a>
                 </li>
 
-                <!-- <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
@@ -414,43 +393,69 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="lecs_reports.php" class="nav-link">
+                            <a href="administrator_reports.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p> Lecturers Reports</p>
+                                <p>Administrators</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="students_reports.php" class="nav-link">
+                            <a href="lectureer_reports.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Students Reports</p>
+                                <p>Lecturers</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="faculties_reports.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Faculties / Departments</p>
+                                <p>Students</p>
                             </a>
                         </li>
-
                         <li class="nav-item">
                             <a href="allocation_reports.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Allocations Reports</p>
+                                <p>Faculties</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="perfomance_reports.php" class="nav-link">
+                            <a href="departments_reports.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Perfomance Reports</p>
+                                <p>Departments</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="courses_reports.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Courses</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="modules_reports.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Modules</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="allocation_reports.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Allocations</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="school_calendar_reports.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>School Calendar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="enrollment_reports.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Enrollments</p>
                             </a>
                         </li>
                     </ul>
-                </li> -->
-
+                </li>
             </ul>
         </nav>
-        <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
 </aside>
