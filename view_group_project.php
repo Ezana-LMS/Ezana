@@ -79,7 +79,7 @@ require_once('partials/_head.php');
                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-members" role="tab" aria-controls="custom-content-below-members" aria-selected="false">Project Attachements</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-score" role="tab" aria-controls="custom-content-below-members" aria-selected="false">Score / Marks</a>
+                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-score" role="tab" aria-controls="custom-content-below-members" aria-selected="false">Marks</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="custom-content-below-tabContent">
@@ -120,7 +120,7 @@ require_once('partials/_head.php');
                                                     <th>Group Name</th>
                                                     <th>Group Code</th>
                                                     <th>Graded On</th>
-                                                    <th>Grade / Score</th>
+                                                    <th>Marks</th>
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
@@ -141,7 +141,7 @@ require_once('partials/_head.php');
                                                         <td><?php echo $row->created_at; ?></td>
                                                         <td><?php echo $row->group_score; ?></td>
                                                         <td>
-                                                            <a class="badge badge-primary" href="update_group_score.php?update=<?php echo $row->id; ?>&view=<?php echo $row->project_id;?>">
+                                                            <a class="badge badge-primary" href="update_group_score.php?update=<?php echo $row->id; ?>&view=<?php echo $row->project_id; ?>">
                                                                 <i class="fas fa-edit"></i>
                                                                 Update Score
                                                             </a>
