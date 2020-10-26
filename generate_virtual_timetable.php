@@ -23,14 +23,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Geneate Time Table</h1>
+                            <h1>Geneate Virtual Class Time Table</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="generate_timetable.php">TimeTables</a></li>
-                                <li class="breadcrumb-item active">Generate Timetable</li>
+                                <li class="breadcrumb-item active">Generate </li>
                             </ol>
                         </div>
                     </div>
@@ -49,14 +49,14 @@ require_once('partials/_head.php');
                                             <th>#</th>
                                             <th>Class Name</th>
                                             <th>Lecturer </th>
-                                            <th>Location</th>
+                                            <th>Vitual Link</th>
                                             <th>Date</th>
                                             <th>Time</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_TimeTable` WHERE classlink =''  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_TimeTable` WHERE classlink != ''  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
@@ -68,7 +68,7 @@ require_once('partials/_head.php');
                                                 <td><?php echo $cnt; ?></td>
                                                 <td><?php echo $tt->classname; ?></td>
                                                 <td><?php echo $tt->classlecturer; ?></td>
-                                                <td><?php echo $tt->classlocation; ?></td>
+                                                <td><?php echo $tt->classlink; ?></td>
                                                 <td><?php echo $tt->classdate; ?></td>
                                                 <td><?php echo $tt->classtime; ?></td>
                                             </tr>

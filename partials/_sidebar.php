@@ -264,7 +264,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="generate_facetoface_timetable.php" class="nav-link">
+                                    <a href="generate_timetable.php" class="nav-link">
                                         <i class="fas fa-angle-double-right nav-icon"></i>
                                         <p>Class Timetable</p>
                                     </a>
