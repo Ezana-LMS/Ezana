@@ -96,7 +96,7 @@ require_once('partials/_head.php');
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group col-md-12">
                                                 <label for="">Group Project / Assignment Score</label>
                                                 <input type="text" value="<?php echo $gcode->group_score; ?>" required name="group_score" class="form-control">
                                             </div>

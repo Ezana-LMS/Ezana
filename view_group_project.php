@@ -141,7 +141,7 @@ require_once('partials/_head.php');
                                                         <td><?php echo $row->created_at; ?></td>
                                                         <td><?php echo $row->group_score; ?></td>
                                                         <td>
-                                                            <a class="badge badge-primary" href="update_group_score.php?update=<?php echo $row->id; ?>&view=<?php echo $row->group_code;?>">
+                                                            <a class="badge badge-primary" href="update_group_score.php?update=<?php echo $row->id; ?>&view=<?php echo $row->project_id;?>">
                                                                 <i class="fas fa-edit"></i>
                                                                 Update Score
                                                             </a>
