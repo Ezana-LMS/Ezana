@@ -51,6 +51,7 @@ require_once('partials/_head.php');
                                             <th>Course Code</th>
                                             <th>Course Name</th>
                                             <th>Department Name</th>
+                                            <th>Number Of Modules</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -68,6 +69,18 @@ require_once('partials/_head.php');
                                                 <td><?php echo $course->code; ?></td>
                                                 <td><?php echo $course->name; ?></td>
                                                 <td><?php echo $course->department_name; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE course_name ='$course->name' ";
+                                                    $stmt = $mysqli->prepare($query);
+                                                    $stmt->execute();
+                                                    $stmt->bind_result($modules);
+                                                    $stmt->fetch();
+                                                    $stmt->close();
+                                                    echo $modules;
+                                                    ?>
+                                                    Modules
+                                                </td>
                                             </tr>
                                         <?php $cnt = $cnt + 1;
                                         } ?>
