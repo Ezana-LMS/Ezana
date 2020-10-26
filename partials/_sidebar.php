@@ -405,7 +405,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="faculties_reports.php" class="nav-link">
+                            <a href="students_reports.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Students</p>
                             </a>
