@@ -63,6 +63,9 @@ require_once('partials/_head.php');
                                     <li class="nav-item">
                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-members" role="tab" aria-controls="custom-content-below-members" aria-selected="false">Project Attachements</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-score" role="tab" aria-controls="custom-content-below-members" aria-selected="false">Score</a>
+                                    </li>
                                 </ul>
                                 <div class="tab-content" id="custom-content-below-tabContent">
                                     <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
@@ -92,6 +95,51 @@ require_once('partials/_head.php');
                                                 ";
                                         }
                                         ?>
+                                    </div>
+                                    <div class="tab-pane fade" id="custom-content-below-score" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                        <br>
+                                        <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Group Name</th>
+                                                    <th>Group Code</th>
+                                                    <th>Graded On</th>
+                                                    <th>Grade / Score</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_GroupsAssignmentsGrades` WHERE project_id ='$view'  ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                $cnt = 1;
+                                                while ($row = $res->fetch_object()) {
+                                                ?>
+
+                                                    <tr>
+                                                        <td><?php echo $cnt; ?></td>
+                                                        <td><?php echo $row->group_name; ?></td>
+                                                        <td><?php echo $row->group_code; ?></td>
+                                                        <td><?php echo $row->created_at; ?></td>
+                                                        <td><?php echo $row->group_score; ?></td>
+                                                        <td>
+                                                            <a class="badge badge-primary" href="update_group_score.php?update=<?php echo $row->id; ?>">
+                                                                <i class="fas fa-edit"></i>
+                                                                Update Score
+                                                            </a>
+                                                            <a class="badge badge-danger" href="view_group_project.php?delete=<?php echo $row->id; ?>&view=<?php echo $row->project_id; ?>">
+                                                                <i class="fas fa-trash"></i>
+                                                                Delete Score
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                <?php $cnt = $cnt + 1;
+                                                } ?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
