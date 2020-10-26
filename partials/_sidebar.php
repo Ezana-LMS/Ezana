@@ -243,15 +243,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="add_class.php" class="nav-link">
+                            <a href="manage_classes.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Add Class </p>
+                                <p>Manage Classes</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="generate_timetable.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Generate Table</p>
+                                <p>Generate Time Table</p>
                             </a>
                         </li>
                     </ul>
