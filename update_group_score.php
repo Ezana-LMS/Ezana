@@ -21,7 +21,7 @@ if (isset($_POST['update_score'])) {
 
         $query = "UPDATE ezanaLMS_GroupsAssignmentsGrades SET group_score =?, created_at =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sss', $group_score, $created_at, $id);
+        $rc = $stmt->bind_param('sss', $group_score, $created_at, $update);
         $stmt->execute();
         if ($stmt) {
             $success = "Group Score Updated" && header("refresh:1; url=view_group_project.php?view=$view");
