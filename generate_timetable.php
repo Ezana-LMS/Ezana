@@ -3,21 +3,6 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
-
-//delete
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $adn = "DELETE FROM ezanaLMS_TimeTable WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=generate_timetable.php");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 require_once('partials/_head.php');
 
 ?>
@@ -38,7 +23,7 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Time Table</h1>
+                            <h1>Geneate Time Table</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -58,19 +43,9 @@ require_once('partials/_head.php');
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="text-right">
-                                    <a class="btn btn-outline-success" href="add_class.php">
-                                        <i class="fas fa-plus"></i>
-                                        Add New Class
-                                    </a>
-                                    <!-- <a class="btn btn-outline-primary" href="">
-                                        <i class="fas fa-file-excel"></i>
-                                        Import Faculties From .XLS File
-                                    </a> -->
-                                </h2>
                             </div>
                             <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -80,7 +55,6 @@ require_once('partials/_head.php');
                                             <th>Date</th>
                                             <th>Time</th>
                                             <th>Virtual Link</th>
-                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -101,16 +75,6 @@ require_once('partials/_head.php');
                                                 <td><?php echo $tt->classdate; ?></td>
                                                 <td><?php echo $tt->classtime; ?></td>
                                                 <td><?php echo $tt->classlink; ?></td>
-                                                <td>
-                                                    <a class="badge badge-primary" href="update_class.php?update=<?php echo $tt->id; ?>">
-                                                        <i class="fas fa-edit"></i>
-                                                        Update
-                                                    </a>
-                                                    <a class="badge badge-danger" href="generate_timetable.php?delete=<?php echo $tt->id; ?>">
-                                                        <i class="fas fa-trash"></i>
-                                                        Delete
-                                                    </a>
-                                                </td>
                                             </tr>
                                         <?php $cnt = $cnt + 1;
                                         } ?>
