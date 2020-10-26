@@ -42,8 +42,6 @@ require_once('partials/_head.php');
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                            </div>
                             <div class="card-body">
                                 <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
