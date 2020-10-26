@@ -3,6 +3,7 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
+
 require_once('partials/_head.php');
 
 ?>
@@ -21,15 +22,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Administrators Accounts</h1>
+                            <h1>Lecturer Accounts</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="administrator_reports.php">Advanced Reporting</a></li>
-                                <li class="breadcrumb-item active">Administrators</li>
+                                <li class="breadcrumb-item"><a href="lecturer_reports.php">Advanced Reporting</a></li>
+                                <li class="breadcrumb-item active">Lecturers</li>
                             </ol>
                         </div>
                     </div>
@@ -46,30 +46,31 @@ require_once('partials/_head.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Names</th>
+                                            <th>Lec Number</th>
+                                            <th>Name</th>
                                             <th>Email</th>
-                                            <th>Rank</th>
-                                            <th>Phone No. </th>
+                                            <th>Phone</th>
+                                            <th>ID / Passport No</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Admins`  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Lecturers`  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
                                         $cnt = 1;
-                                        while ($admin = $res->fetch_object()) {
+                                        while ($lec = $res->fetch_object()) {
                                         ?>
 
                                             <tr>
                                                 <td><?php echo $cnt; ?></td>
-                                                <td><?php echo $admin->name; ?></td>
-                                                <td><?php echo $admin->email; ?></td>
-                                                <td><?php echo $admin->rank; ?></td>
-                                                <td><?php echo $admin->phone; ?></td>
+                                                <td><?php echo $lec->number; ?></td>
+                                                <td><?php echo $lec->name; ?></td>
+                                                <td><?php echo $lec->email; ?></td>
+                                                <td><?php echo $lec->phone; ?></td>
+                                                <td><?php echo $lec->idno; ?></td>
                                             </tr>
-
                                         <?php $cnt = $cnt + 1;
                                         } ?>
                                     </tbody>

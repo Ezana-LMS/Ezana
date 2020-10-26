@@ -399,7 +399,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="lectureer_reports.php" class="nav-link">
+                            <a href="lecturer_reports.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Lecturers</p>
                             </a>
