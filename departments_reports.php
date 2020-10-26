@@ -14,7 +14,9 @@ require_once('partials/_head.php');
         <?php require_once('partials/_nav.php'); ?>
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
-        <?php require_once('partials/_sidebar.php'); ?>
+        <?php
+        require_once('partials/_sidebar.php');
+        ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -22,14 +24,14 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Faculties</h1>
+                            <h1>Departments</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="faculties_reports.php">Advanced Reporting</a></li>
-                                <li class="breadcrumb-item active">Faculties</li>
+                                <li class="breadcrumb-item"><a href="departments_reports.php">Advanced Reporting</a></li>
+                                <li class="breadcrumb-item active">Departments</li>
                             </ol>
                         </div>
                     </div>
@@ -41,58 +43,44 @@ require_once('partials/_head.php');
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Faculty Code Number</th>
+                                            <th>Dep Code / Number</th>
+                                            <th>Dep Name</th>
                                             <th>Faculty Name</th>
-                                            <th>Number Of Departments</th>
+                                            <th>Dep HOD</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Departments`  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
                                         $cnt = 1;
-                                        while ($faculty = $res->fetch_object()) {
+                                        while ($dep = $res->fetch_object()) {
                                         ?>
 
                                             <tr>
                                                 <td><?php echo $cnt; ?></td>
-                                                <td><?php echo $faculty->code; ?></td>
-                                                <td><?php echo $faculty->name; ?></td>
-                                                <td>
-                                                    <?php
-                                                    $query = "SELECT COUNT(*)  FROM `ezanaLMS_Departments` WHERE faculty_name ='$faculty->name' ";
-                                                    $stmt = $mysqli->prepare($query);
-                                                    $stmt->execute();
-                                                    $stmt->bind_result($departments);
-                                                    $stmt->fetch();
-                                                    $stmt->close();
-                                                    echo $departments;
-                                                    ?>
-                                                    Department(s)
-                                                </td>
+                                                <td><?php echo $dep->code; ?></td>
+                                                <td><?php echo $dep->name; ?></td>
+                                                <td><?php echo $dep->faculty_name; ?></td>
+                                                <td><?php echo $dep->hod; ?></td>
+
                                             </tr>
                                         <?php $cnt = $cnt + 1;
                                         } ?>
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
             </section>
-            <!-- /.content -->
         </div>
         <?php require_once('partials/_footer.php'); ?>
     </div>
