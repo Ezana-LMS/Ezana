@@ -87,7 +87,7 @@ require_once('partials/_head.php');
                                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                                     <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="manage_groups.php">Groups</a></li>
-                                    <li class="breadcrumb-item"><a href="manage_group_projects.php?group_code=<?php echo $g->code; ?>">Projects</a></li>
+                                    <li class="breadcrumb-item"><a href="manage_group_projects.php?group_code=<?php echo $gcode->group_code; ?>">Projects</a></li>
                                     <li class="breadcrumb-item active">Grade Project</li>
                                 </ol>
                             </div>
