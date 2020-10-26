@@ -301,12 +301,6 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <!-- <li class="nav-item">
-                            <a href="add_groups.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Add Groups </p>
-                            </a>
-                        </li> -->
                         <li class="nav-item">
                             <a href="manage_groups.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
@@ -325,6 +319,7 @@
                                 <p>Group Projects</p>
                             </a>
                         </li>
+                        
                         <li class="nav-item">
                             <a href="group_announcements.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
