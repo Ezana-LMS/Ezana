@@ -63,7 +63,7 @@ require_once('partials/_head.php');
                                         Register New Student
                                     </a>
 
-                                    <a class="btn btn-outline-primary" href="">
+                                    <a class="btn btn-outline-primary" href="import_students.php">
                                         <i class="fas fa-file-excel"></i>
                                         Import Students From .XLS File
                                     </a>

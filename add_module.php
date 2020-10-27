@@ -122,9 +122,9 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
                                             <label for="">Course Name</label>
-                                            <select class='form-control basic' id="CourseName" onchange="getCourseDetails(this.value);" name="course_name">
+                                            <select class='form-control basic' id="Cname" onchange="getCourseDetails(this.value);" name="course_name">
                                                 <option selected>Select Course Name</option>
                                                 <?php
                                                 $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
@@ -137,10 +137,13 @@ require_once('partials/_head.php');
                                                 <?php } ?>
                                             </select>
                                         </div>
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
                                             <label for="">Course Code</label>
                                             <input type="text" id="CourseCode" readonly required name="" class="form-control">
-                                            <input type="hidden" id="CourseID" required name="course_id" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="">Course ID</label>
+                                            <input type="text" readonly id="CourseID" required name="course_id" class="form-control">
                                         </div>
                                     </div>
 

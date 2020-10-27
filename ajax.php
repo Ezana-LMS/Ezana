@@ -16,8 +16,8 @@ if (!empty($_POST["DepartmentName"])) {
 }
 
 /* Course Details */
-if (!empty($_POST["CourseName"])) {
-    $id = $_POST['CourseName'];
+if (!empty($_POST["Cname"])) {
+    $id = $_POST['Cname'];
     $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Courses WHERE name = :id");
     $stmt->execute(array(':id' => $id));
 ?>
@@ -25,6 +25,19 @@ if (!empty($_POST["CourseName"])) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 ?>
 <?php echo htmlentities($row['code']); ?>
+<?php
+    }
+}
+
+if (!empty($_POST["CourseCode"])) {
+    $id = $_POST['CourseCode'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Courses WHERE name = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['id']); ?>
 <?php
     }
 }
