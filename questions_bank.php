@@ -96,7 +96,11 @@ require_once('partials/_head.php');
                                                 <td><?php echo $exam->exam_time; ?></td>
                                                 <td><?php echo date('d M Y - g:i', strtotime($exam->created_at)); ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="mark_exams.php?exam_id=<?php echo $exam->id; ?>">
+                                                    <a class="badge badge-success" href="view_exam.php?view=<?php echo $exam->id; ?>">
+                                                        <i class="fas fa-eye"></i>
+                                                        View Paper
+                                                    </a>
+                                                    <a class="badge badge-primary" href="mark_exams.php?exam_id=<?php echo $exam->id; ?>">
                                                         <i class="fas fa-check"></i>
                                                         Mark Exam
                                                     </a>

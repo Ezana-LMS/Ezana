@@ -133,7 +133,7 @@ require_once('partials/_head.php');
                                             <label for="exampleInputFile">Upload Past Exam Paper ( PDF / Docx )</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input required name="pastpaper" accept=".docx,.pdf,.doc" type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <input required name="attachment" accept=".docx,.pdf,.doc" type="file" class="custom-file-input" id="exampleInputFile">
                                                     <label class="custom-file-label" for="exampleInputFile">Select File</label>
                                                 </div>
                                             </div>
