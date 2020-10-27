@@ -125,7 +125,7 @@
         $.ajax({
             type: "POST",
             url: "ajax.php",
-            data: 'CourseName=' + val,
+            data: 'Cname=' + val,
             success: function(data) {
                 //alert(data);
                 $('#CourseCode').val(data);

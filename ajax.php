@@ -16,8 +16,8 @@ if (!empty($_POST["DepartmentName"])) {
 }
 
 /* Course Details */
-if (!empty($_POST["CourseName"])) {
-    $id = $_POST['CourseName'];
+if (!empty($_POST["Cname"])) {
+    $id = $_POST['Cname'];
     $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Courses WHERE name = :id");
     $stmt->execute(array(':id' => $id));
 ?>

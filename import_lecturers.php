@@ -132,7 +132,7 @@ require_once('partials/_head.php');
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="manage_lecturers.php">Lecturers</a></li>
+                                <li class="breadcrumb-item"><a href="manage_lectures.php">Lecturers</a></li>
                                 <li class="breadcrumb-item active">Import</li>
                             </ol>
                         </div>

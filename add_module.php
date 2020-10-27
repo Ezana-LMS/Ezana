@@ -124,7 +124,7 @@ require_once('partials/_head.php');
                                     <div class="row">
                                         <div class="form-group col-md-4">
                                             <label for="">Course Name</label>
-                                            <select class='form-control basic' id="CourseName" onchange="getCourseDetails(this.value);" name="course_name">
+                                            <select class='form-control basic' id="Cname" onchange="getCourseDetails(this.value);" name="course_name">
                                                 <option selected>Select Course Name</option>
                                                 <?php
                                                 $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
