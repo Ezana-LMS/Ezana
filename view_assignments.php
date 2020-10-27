@@ -80,7 +80,7 @@ require_once('partials/_head.php');
                                                 "
                                                 <a href='dist/Assignments/$exam->attachment' class='btn btn-outline-success'>
                                                     <i class='fas fa-download'></i>
-                                                        Download Exam Paper
+                                                        Download Assignment Attachment
                                                 </a>
                                                 ";
                                         } else {
