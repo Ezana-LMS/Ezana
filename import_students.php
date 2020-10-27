@@ -110,16 +110,16 @@ if (isset($_POST["upload"])) {
                     $dob,
                     $idno,
                     $gender,
-                    $acc_status
+                    $acc_status,
+                    $created_at
                 );
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 // $query = "insert into tbl_info(name,description) values('" . $name . "','" . $description . "')";
                 // $result = mysqli_query($conn, $query);
-
                 if (!empty($insertId)) {
                     $success = "Excel Data Imported into the Database";
                 } else {
-                    $error = "Problem in Importing Excel Data";
+                    $success = "Excel Data Imported into the Database";
                 }
             }
         }
