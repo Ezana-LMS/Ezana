@@ -314,7 +314,7 @@
                     </ul>
                 </li>
 
-                <!-- <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-alt"></i>
                         <p>
@@ -325,30 +325,30 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="questions_bank.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Question Bank</p>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Question Papers</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="assignments.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Assignments</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="results.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Results</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="auto_grading.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Auto Grading</p>
                             </a>
                         </li>
                     </ul>
-                </li> -->
+                </li>
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
