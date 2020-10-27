@@ -47,7 +47,7 @@ if (isset($_POST['add_paper'])) {
         $rc = $stmt->bind_param('sssssss', $id, $module_code, $module_name, $exam_time, $instructions, $type, $attachment);
         $stmt->execute();
         if ($stmt) {
-            $success = "Exam Paper Uploaded" && header("refresh:1; url=upload_questions_bank.php");
+            $success = "Exam Paper Uploaded" && header("refresh:1; url=upload_assignment.php");
         } else {
             $info = "Please Try Again Or Try Later";
         }
