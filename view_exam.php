@@ -38,7 +38,7 @@ require_once('partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                                     <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="">Tests</a></li>
+                                    <li class="breadcrumb-item"><a href="questions_bank.php">Tests</a></li>
                                     <li class="breadcrumb-item active">View Exam Paper</li>
                                 </ol>
                             </div>
@@ -66,17 +66,19 @@ require_once('partials/_head.php');
                                 <div class="tab-content" id="custom-content-below-tabContent">
                                     <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                         <br>
-                                        <?php echo $exam->exam_time; ?>
+                                        Exam Time : <?php echo $exam->exam_time; ?>
+                                        <br>
+                                        Instructions
                                         <br>
                                         <?php echo $exam->instructions; ?>
                                     </div>
                                     <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                         <br>
                                         <?php
-                                        if ($exam->attachments != '') {
+                                        if ($exam->attachment != '') {
                                             echo
                                                 "
-                                                <a href='dist/Exams/$exam->attachments' class='btn btn-outline-success'>
+                                                <a href='dist/Exams/$exam->attachment' class='btn btn-outline-success'>
                                                     <i class='fas fa-download'></i>
                                                         Download Exam Paper
                                                 </a>
