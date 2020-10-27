@@ -59,7 +59,6 @@ require_once('partials/_head.php');
                             <div class="card-header">
                                 <h2 class="text-right">
                                     <a class="btn btn-outline-success" href="upload_questions_bank.php">
-                                        <i class="fas fa-plus"></i>
                                         <i class="fas fa-file-upload"></i>
                                         Upload Exam Paper
                                     </a>
