@@ -9,7 +9,7 @@
  * Though not mandatory, you are requested to attribute this URL in your code or website.
  */
 
-namespace Phppot;
+namespace EzanaLmsAPI;
 
 /**
  * Generic datasource class for handling DB operations.

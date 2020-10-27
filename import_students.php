@@ -5,7 +5,7 @@ require_once('configs/config.php');
 require_once('configs/codeGen.php');
 check_login();
 
-use Phppot\DataSource;
+use EzanaLmsAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 require_once('configs/DataSource.php');
@@ -177,7 +177,7 @@ require_once('partials/_head.php');
                                             <label for="exampleInputFile">Select File</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input required name="student_file" accept=".xls,.xlsx" type="file" class="custom-file-input" id="exampleInputFile">
+                                                    <input required name="file" accept=".xls,.xlsx" type="file" class="custom-file-input" id="exampleInputFile">
                                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                 </div>
                                             </div>
