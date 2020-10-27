@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ezana Leanring Management System</title>
+    <title>Ezana Learning Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="dist/img/favicons/apple-touch-icon.png">

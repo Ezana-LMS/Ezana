@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (C) 2020 EzanaLMSAPI
+ * Copyright (C) 2020 EzanaLMSAPI - Martdevelopers Inc X DevLan
  *
  * Distributed under MIT license with an exception that,
  * you don’t have to include the full MIT License in your code.

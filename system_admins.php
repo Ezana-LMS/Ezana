@@ -60,10 +60,10 @@ require_once('partials/_head.php');
                                         Register New Administrator
                                     </a>
 
-                                    <a class="btn btn-outline-primary" href="">
+                                   <!--  <a class="btn btn-outline-primary" href="">
                                         <i class="fas fa-file-excel"></i>
                                         Import From .XLS File
-                                    </a>
+                                    </a> -->
                                 </h2>
                             </div>
                             <!-- /.card-header -->
