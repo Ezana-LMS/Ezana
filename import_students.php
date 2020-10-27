@@ -5,8 +5,11 @@ require_once('configs/codeGen.php');
 check_login();
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use EzanaLMSAPI\DataSource;
 
 require_once('vendor/autoload.php');
+require_once('configs/DataSource.php');
+
 
 if (isset($_POST["import"])) {
 
