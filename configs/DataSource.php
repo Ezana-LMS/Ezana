@@ -9,7 +9,7 @@
  * Though not mandatory, you are requested to attribute this URL in your code or website.
  */
 
-namespace EzanaLMSAPI;
+namespace Phppot;
 
 /**
  * Generic datasource class for handling DB operations.
@@ -17,6 +17,7 @@ namespace EzanaLMSAPI;
  *
  * @version 2.5 - recordCount function added
  */
+
 class DataSource
 {
 

@@ -1,17 +1,17 @@
 <?php
-
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use EzanaLMSAPI\DataSource;
 session_start();
 require_once('configs/checklogin.php');
 require_once('configs/config.php');
 require_once('configs/codeGen.php');
 check_login();
 
+use Phppot\DataSource;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
+require_once('configs/DataSource.php');
 $db = new DataSource();
 $conn = $db->getConnection();
 require_once('vendor/autoload.php');
-require_once('configs/DataSource.php');
 
 
 if (isset($_POST["upload"])) {
