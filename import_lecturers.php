@@ -42,28 +42,28 @@ if (isset($_POST["upload"])) {
                 $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
             }
 
-            $admno = "";
+            $number = "";
             if (isset($spreadSheetAry[$i][1])) {
-                $admno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
+                $number = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
             }
             $name = "";
             if (isset($spreadSheetAry[$i][2])) {
                 $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
             }
 
-            $email = "";
+            $idno = "";
             if (isset($spreadSheetAry[$i][3])) {
-                $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
-            }
-
-            $password = "";
-            if (isset($spreadSheetAry[$i][4])) {
-                $password = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
+                $idno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
             }
 
             $phone = "";
+            if (isset($spreadSheetAry[$i][4])) {
+                $phone = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
+            }
+
+            $email = "";
             if (isset($spreadSheetAry[$i][5])) {
-                $phone = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
+                $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
             }
 
             $adr = "";
@@ -71,53 +71,33 @@ if (isset($_POST["upload"])) {
                 $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
             }
 
-            $dob = "";
+            $password = "";
             if (isset($spreadSheetAry[$i][7])) {
-                $dob = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
-            }
-
-            $idno = "";
-            if (isset($spreadSheetAry[$i][8])) {
-                $idno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
-            }
-
-            $gender = "";
-            if (isset($spreadSheetAry[$i][9])) {
-                $gender = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
-            }
-
-            $acc_status = "";
-            if (isset($spreadSheetAry[$i][10])) {
-                $acc_status = mysqli_real_escape_string($conn, $spreadSheetAry[$i][10]);
+                $password = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
             }
 
             $created_at = "";
-            if (isset($spreadSheetAry[$i][11])) {
-                $created_at = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
+            if (isset($spreadSheetAry[$i][8])) {
+                $created_at = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
             }
 
             if (!empty($name) || !empty($admno) || !empty($idno) || !empty($gender) || !empty($email)) {
-                $query = "INSERT INTO ezanaLMS_Students (id, admno, name, email, password, phone, adr, dob, idno, gender, acc_status, created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-                $paramType = "ssssssssssss";
+                $query = "INSERT INTO ezanaLMS_Lecturers (id, number, name, idno, phone, email, adr, password, created_at) VALUES(?,?,?,?,?,?,?,?,?)";
+                $paramType = "sssssssss";
                 $paramArray = array(
                     $id,
-                    $admno,
+                    $number,
                     $name,
-                    $email,
-                    $password,
-                    $phone,
-                    $adr,
-                    $dob,
                     $idno,
-                    $gender,
-                    $acc_status,
+                    $phone,
+                    $email,
+                    $adr,
+                    $password,
                     $created_at
                 );
                 $insertId = $db->insert($query, $paramType, $paramArray);
-                // $query = "insert into tbl_info(name,description) values('" . $name . "','" . $description . "')";
-                // $result = mysqli_query($conn, $query);
                 if (!empty($insertId)) {
-                    $success = "Excel Data Imported into the Database";
+                    $err = "Failed TO Import Data";
                 } else {
                     $success = "Excel Data Imported into the Database";
                 }
@@ -146,13 +126,13 @@ require_once('partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Import Students Details From .xls (Spreadsheet) File</h1>
+                            <h1>Import Lecturer Details From .xls (Spreadsheet) File</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="manage_students.php">Students</a></li>
+                                <li class="breadcrumb-item"><a href="manage_lecturers.php">Lecturers</a></li>
                                 <li class="breadcrumb-item active">Import</li>
                             </ol>
                         </div>
