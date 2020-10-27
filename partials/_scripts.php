@@ -17,15 +17,6 @@
 <!-- ChartJS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
 <script src="dist/js/pages/dashboard2.js"></script>
-<!-- Load LoadGo Script -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/LoadGo/2.2/loadgo.min.js"></script>
-<script>
-    var ezanaLogo = document.getElementById('logo-loader');
-    ezanaLogo.src = 'dist/img/logo.jpeg';
-    ezanaLogo.onload = function() {
-        Loadgo.init(ezanaLogo);
-    };
-</script>
 <!-- Data Tables -->
 <script src="plugins/datatables/jquery.dataTables.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
