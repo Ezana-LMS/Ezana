@@ -320,6 +320,7 @@
                         <p>
                             Exams / Tests
                             <i class="fas fa-angle-left right"></i>
+                            <span class="right badge badge-danger">BETA</span>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -339,12 +340,6 @@
                             <a href="results.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Results</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="auto_grading.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Auto Grading</p>
                             </a>
                         </li>
                     </ul>
