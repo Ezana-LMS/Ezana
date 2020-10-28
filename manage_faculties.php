@@ -60,10 +60,10 @@ require_once('partials/_head.php');
                                         <i class="fas fa-plus"></i>
                                         Register New Faculty
                                     </a>
-                                    <a class="btn btn-outline-primary" href="">
+                                    <!-- <a class="btn btn-outline-primary" href="">
                                         <i class="fas fa-file-excel"></i>
                                         Import Faculties From .XLS File
-                                    </a>
+                                    </a> -->
                                 </h2>
                             </div>
                             <!-- /.card-header -->
