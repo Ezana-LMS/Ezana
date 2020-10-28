@@ -2,6 +2,7 @@
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
+require_once('configs/codeGen.php');
 check_login();
 
 if (isset($_POST['submit_marks'])) {
@@ -38,6 +39,7 @@ if (isset($_POST['submit_marks'])) {
         $err = "Marks Attained Cannot Be Empty";
     }
     if (!$error) {
+        $grade = $_GET['grade'];
         $exam_id = $_GET['exam_id'];
         $id = $_POST['id'];
         $module_code = $_POST['module_code'];
@@ -46,12 +48,17 @@ if (isset($_POST['submit_marks'])) {
         $student_name  = $_POST['student_name'];
         $marks_attained = $_POST['marks_attained'];
         $created_at = date('d M Y g:i');
-        $status = 'Marked';
+        $status = 'Graded';
+
         $query = "INSERT INTO ezanaLMS_StudentGrades (id, module_code,  module_name, student_regno, student_name, marks_attained, created_at, status) VALUES(?,?,?,?,?,?,?,?)";
+        $qry1 = " UPDATE ezanaLMS_StudentAnswers SET status =? WHERE id = ?";
         $stmt = $mysqli->prepare($query);
+        $stmt1 = $mysqli->prepare($qry1);
         $rc = $stmt->bind_param('ssssssss', $id, $module_code, $module_name, $student_regno, $student_name, $marks_attained, $created_at, $status);
+        $rc = $stmt1->bind_param('ss', $status, $grade);
         $stmt->execute();
-        if ($stmt) {
+        $stmt1->execute();
+        if ($stmt && $stmt1) {
             $success = "Marks Submitted" && header("refresh:1; url=mark_assignment.php?exam_id=$exam_id");
         } else {
             $info = "Please Try Again Or Try Later";
@@ -106,7 +113,7 @@ require_once('partials/_head.php');
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    <?php echo $exam->module_name; ?> Answer Sheet Uploaded On <span class='text-success'><?php echo date('d M Y, g:ia', strtotime($exam->created_at)); ?> </span> By <?php echo $exam->student_name;?>  <?php echo $exam->student_regno; ?>
+                                    <?php echo $exam->module_name; ?> Answer Sheet Uploaded On <span class='text-success'><?php echo date('d M Y, g:ia', strtotime($exam->created_at)); ?> </span> By <?php echo $exam->student_name; ?> <?php echo $exam->student_regno; ?>
                                 </h3>
                             </div>
                             <div class="card-body">

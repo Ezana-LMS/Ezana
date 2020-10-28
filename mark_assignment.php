@@ -86,7 +86,7 @@ require_once('partials/_head.php');
                                     <tbody>
                                         <?php
                                         $exam_id = $_GET['exam_id'];
-                                        $ret = "SELECT * FROM `ezanaLMS_StudentAnswers`  WHERE  exam_id  ='$exam_id' ";
+                                        $ret = "SELECT * FROM `ezanaLMS_StudentAnswers`  WHERE  exam_id  ='$exam_id' AND status !='Graded' ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
@@ -101,7 +101,7 @@ require_once('partials/_head.php');
                                                 <td><?php echo $exam->student_name; ?></td>
                                                 <td><?php echo date('d M Y - g:i', strtotime($exam->created_at)); ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="grade_assignment.php?grade=<?php echo $exam->id; ?>">
+                                                    <a class="badge badge-success" href="grade_assignment.php?grade=<?php echo $exam->id; ?>&exam_id=<?php echo $exam->exam_id; ?>">
                                                         <i class="fas fa-eye"></i>
                                                         Grade Assignment
                                                     </a>
