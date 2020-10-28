@@ -4,7 +4,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 
-if (isset($_POST['upload_attempted_assignment'])) {
+if (isset($_POST['submit_marks'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
@@ -31,7 +31,12 @@ if (isset($_POST['upload_attempted_assignment'])) {
         $error = 1;
         $err = "Student Name  Cannot Be Empty";
     }
-
+    if (isset($_POST['marks_attained']) && !empty($_POST['marks_attained'])) {
+        $marks_attained = mysqli_real_escape_string($mysqli, trim($_POST['marks_attained']));
+    } else {
+        $error = 1;
+        $err = "Marks Attained Cannot Be Empty";
+    }
     if (!$error) {
         $exam_id = $_GET['exam_id'];
         $id = $_POST['id'];
@@ -157,7 +162,7 @@ require_once('partials/_head.php');
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Student Admission Number</label>
-                                                            <input type="text" id="StudentName" readonly value="<?php echo $exam->student_regno; ?>" required name="student_name" class="form-control">
+                                                            <input type="text" id="StudentName" readonly value="<?php echo $exam->student_regno; ?>" required name="student_regno" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Module Code</label>
