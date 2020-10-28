@@ -82,14 +82,14 @@ require_once('partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Upload Assignment Answer Sheet</h1>
+                                <h1>Upload Exam Answer Sheet</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                                     <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                    <li class="breadcrumb-item"><a href="assignments.php">Tests</a></li>
-                                    <li class="breadcrumb-item active">Upload Assignments Answers</li>
+                                    <li class="breadcrumb-item"><a href="questions_bank.php">Tests</a></li>
+                                    <li class="breadcrumb-item active">Upload Answersheets</li>
                                 </ol>
                             </div>
                         </div>
