@@ -37,7 +37,6 @@ if (isset($_POST['upload_attempted_assignment'])) {
         $module_code = $_POST['module_code'];
         $module_name = $_POST['module_name'];
         $exam_id  = $_GET['exam_id'];
-        $instructions = $_POST['instructions'];
         $student_regno = $_POST['student_regno'];
         $student_name  = $_POST['student_name'];
         $attachments = $_FILES['attachments']['name'];
@@ -46,7 +45,7 @@ if (isset($_POST['upload_attempted_assignment'])) {
 
         $query = "INSERT INTO ezanaLMS_StudentAnswers (id, module_code, exam_id, module_name, student_regno, student_name, attachments, status) VALUES(?,?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $id, $module_code, $exam_id, $module_name, $student_regno, $student_name, $attachments, $status);
+        $rc = $stmt->bind_param('ssssssss', $id, $module_code, $exam_id, $module_name, $student_regno, $student_name, $attachments, $status);
         $stmt->execute();
         if ($stmt) {
             $success = "Uploaded" && header("refresh:1; url=mark_assignment.php?exam_id=$exam_id");
@@ -74,7 +73,7 @@ require_once('partials/_head.php');
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         $cnt = 1;
-        while ($exam = $res->fetch_object()) {
+        while ($exams = $res->fetch_object()) {
         ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -117,7 +116,7 @@ require_once('partials/_head.php');
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label for="">Student Admission Number</label>
-                                                <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_adm">
+                                                <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_regno">
                                                     <option selected>Select Student Admission Number</option>
                                                     <?php
                                                     $ret = "SELECT * FROM `ezanaLMS_Students`  ";
@@ -156,7 +155,7 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button type="submit" name="add_paper" class="btn btn-primary">Upload</button>
+                                        <button type="submit" name="upload_attempted_assignment" class="btn btn-primary">Upload</button>
                                     </div>
                                 </form>
                             </div>
