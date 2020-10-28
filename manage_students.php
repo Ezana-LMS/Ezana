@@ -58,7 +58,7 @@ require_once('partials/_head.php');
                         <div class="card">
                             <div class="card-header">
                                 <h2 class="text-right">
-                                    <a class="btn btn-outline-success" href="add_lecturer.php">
+                                    <a class="btn btn-outline-success" href="add_student.php">
                                         <i class="fas fa-user-plus"></i>
                                         Register New Student
                                     </a>
