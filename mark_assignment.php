@@ -29,6 +29,7 @@ require_once('partials/_head.php');
         <!-- Main Sidebar Container -->
         <?php
         require_once('partials/_sidebar.php');
+        $exam_id = $_GET['exam_id'];
         ?>
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
