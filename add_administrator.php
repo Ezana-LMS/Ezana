@@ -117,7 +117,7 @@ require_once('partials/_head.php');
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Ranks</label>
-                                            <select name="rank" class="form-control select2">
+                                            <select name="rank" class="form-control basic">
                                                 <option selected="selected">System Administrator</option>
                                                 <option>Education Administrator</option>
                                             </select>

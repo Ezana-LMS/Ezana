@@ -143,7 +143,7 @@ require_once('partials/_head.php');
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="">Gender</label>
-                                            <select type="text" required name="gender" class="form-control">
+                                            <select type="text" required name="gender" class="form-control basic">
                                                 <option>Male</option>
                                                 <option>Female</option>
                                             </select>
