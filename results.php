@@ -85,7 +85,7 @@ require_once('partials/_head.php');
                                                 <td><?php echo $exam->module_name; ?></td>
                                                 <td><?php echo $exam->student_regno; ?></td>
                                                 <td><?php echo $exam->student_name; ?></td>
-                                                <td><?php echo $exam->marks_scored; ?></td>
+                                                <td><?php echo $exam->marks_attained; ?></td>
                                                 <td><?php echo date('d M Y - g:i', strtotime($exam->created_at)); ?></td>
                                                 <td>
                                                     <a class="badge badge-success" href="update_marks.php?update=<?php echo $exam->id; ?>">

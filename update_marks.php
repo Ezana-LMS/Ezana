@@ -42,11 +42,10 @@ if (isset($_POST['submit_marks'])) {
         $update = $_GET['update'];
         $marks_attained = $_POST['marks_attained'];
         $qry1 = " UPDATE ezanaLMS_StudentGrades SET marks_attained =? WHERE id = ?";
-        $stmt = $mysqli->prepare($query);
         $stmt1 = $mysqli->prepare($qry1);
         $rc = $stmt1->bind_param('ss', $marks_attained, $update);
-        $stmt->execute();
-        if ($stmt) {
+        $stmt1->execute();
+        if ($stmt1) {
             $success = "Marks Updated" && header("refresh:1; url=results.php");
         } else {
             $info = "Please Try Again Or Try Later";
@@ -63,7 +62,7 @@ require_once('partials/_head.php');
         <!-- /.navbar -->
         <?php
         require_once('partials/_sidebar.php');
-        $update = $_GET['upate'];
+        $update = $_GET['update'];
         $ret = "SELECT * FROM `ezanaLMS_StudentGrades` WHERE id ='$update'  ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
