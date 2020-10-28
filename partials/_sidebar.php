@@ -134,12 +134,6 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="assign_lecturer_module.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Assign Module</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="module_notices.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Module Notices</p>
@@ -176,7 +170,12 @@
                                 <p>Manage Lecturers</p>
                             </a>
                         </li>
-
+                        <li class="nav-item">
+                            <a href="assign_lecturer_module.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Assign Module</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="lec_password_resets.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
