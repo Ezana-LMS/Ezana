@@ -320,6 +320,7 @@
                         <p>
                             Exams / Tests
                             <i class="fas fa-angle-left right"></i>
+                            <span class="right badge badge-danger">BETA</span>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
