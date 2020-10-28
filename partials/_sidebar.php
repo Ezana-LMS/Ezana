@@ -341,12 +341,6 @@
                                 <p>Results</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="auto_grading.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Auto Grading</p>
-                            </a>
-                        </li>
                     </ul>
                 </li>
 
