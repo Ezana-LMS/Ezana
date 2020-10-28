@@ -35,68 +35,6 @@
                         </p>
                     </a>
                 </li>
-
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-user-tie"></i>
-                        <p>
-                            Lecturers
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <!-- <li class="nav-item">
-                            <a href="add_lecturer.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Add Lecturer</p>
-                            </a>
-                        </li> -->
-                        <li class="nav-item">
-                            <a href="manage_lectures.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Manage Lecturers</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="lec_password_resets.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Password Resets</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Students
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <!-- <li class="nav-item">
-                            <a href="add_student.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Add Students</p>
-                            </a>
-                        </li> -->
-                        <li class="nav-item">
-                            <a href="manage_students.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Manage Students</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="student_password_resets.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Password Resets</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-anchor"></i>
@@ -214,6 +152,67 @@
                             </a>
                         </li>
 
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-user-tie"></i>
+                        <p>
+                            Lecturers
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <!-- <li class="nav-item">
+                            <a href="add_lecturer.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Add Lecturer</p>
+                            </a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a href="manage_lectures.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Manage Lecturers</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="lec_password_resets.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Password Resets</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Students
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <!-- <li class="nav-item">
+                            <a href="add_student.php" class="nav-link">
+                                <i class="fas fa-chevron-right nav-icon"></i>
+                                <p>Add Students</p>
+                            </a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a href="manage_students.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Manage Students</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="student_password_resets.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Password Resets</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
