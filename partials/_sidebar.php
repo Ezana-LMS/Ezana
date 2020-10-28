@@ -18,15 +18,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="system_admins.php" class="nav-link">
-                        <i class="nav-icon fas fa-user-secret"></i>
-                        <p>
-                            System Admins
-                            <!-- <span class="right badge badge-danger">New</span> -->
-                        </p>
-                    </a>
-                </li>
+
                 <li class="nav-item">
                     <a href="school_calendar.php" class="nav-link">
                         <i class="nav-icon fas fa-calendar-alt"></i>
@@ -148,6 +140,55 @@
 
                     </ul>
                 </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Time Tables
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="manage_classes.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Manage Classes</p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="fas fas fa-angle-double-right nav-icon"></i>
+                                <p>
+                                    Generate Time Table
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="generate_virtual_timetable.php" class="nav-link">
+                                        <i class="fas fa-angle-double-right nav-icon"></i>
+                                        <p>Virtual Class TimeTable</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="generate_timetable.php" class="nav-link">
+                                        <i class="fas fa-angle-double-right nav-icon"></i>
+                                        <p>Class Timetable</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="system_admins.php" class="nav-link">
+                        <i class="nav-icon fas fa-user-secret"></i>
+                        <p>
+                            System Admins
+                            <!-- <span class="right badge badge-danger">New</span> -->
+                        </p>
+                    </a>
+                </li>
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -211,47 +252,6 @@
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Password Resets</p>
                             </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            Time Tables
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="manage_classes.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Manage Classes</p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="fas fas fa-angle-double-right nav-icon"></i>
-                                <p>
-                                    Generate Time Table
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="generate_virtual_timetable.php" class="nav-link">
-                                        <i class="fas fa-angle-double-right nav-icon"></i>
-                                        <p>Virtual Class TimeTable</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="generate_timetable.php" class="nav-link">
-                                        <i class="fas fa-angle-double-right nav-icon"></i>
-                                        <p>Class Timetable</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                 </li>
