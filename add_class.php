@@ -95,7 +95,6 @@ require_once('partials/_head.php');
                             <div class="card-header">
                                 <h3 class="card-title">Fill All Required Fields</h3>
                             </div>
-                            <!-- /.card-header -->
                             <!-- form start -->
                             <form method="post" enctype="multipart/form-data" role="form">
                                 <div class="card-body">
@@ -121,7 +120,7 @@ require_once('partials/_head.php');
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="">Date</label>
-                                            <input type="text" required name="classdate" class="form-control">
+                                            <input type="date" required name="classdate" class="form-control">
                                         </div>
                                     </div>
                                     <div class="row">
