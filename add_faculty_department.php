@@ -76,7 +76,7 @@ require_once('partials/_head.php');
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="">Departments</a></li>
+                                <li class="breadcrumb-item"><a href="add_department.php">Departments</a></li>
                                 <li class="breadcrumb-item active">Add</li>
                             </ol>
                         </div>
@@ -114,7 +114,7 @@ require_once('partials/_head.php');
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-12">
-                                            <label for="exampleInputPassword1">Department Description</label>
+                                            <label for="exampleInputPassword1">Department Details</label>
                                             <textarea name="details" id="textarea" rows="10" class="form-control"></textarea>
                                         </div>
                                     </div>

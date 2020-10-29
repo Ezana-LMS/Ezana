@@ -107,7 +107,7 @@ require_once('partials/_head.php');
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="">Faculty Name</label>
-                                                <select type="text" required name="faculty_name" class="form-control">
+                                                <select type="text" required name="faculty_name" class="form-control basic">
                                                     <option><?php echo $dep->faculty_name; ?></option>
                                                     <?php
                                                     $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
@@ -125,7 +125,7 @@ require_once('partials/_head.php');
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                <label for="exampleInputPassword1">Department Description</label>
+                                                <label for="exampleInputPassword1">Department Details</label>
                                                 <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
                                             </div>
                                         </div>
