@@ -39,7 +39,7 @@ require_once('partials/_head.php');
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="module_notices.php">Modules Notices</a></li>
-                                    <li class="breadcrumb-item active"></li>
+                                    <li class="breadcrumb-item active"><?php echo $not->module_name;?></li>
                                 </ol>
                             </div>
                         </div>
