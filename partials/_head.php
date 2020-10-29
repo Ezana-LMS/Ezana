@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="plugins/datatable/custom_dt_html5.css">
     <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/dt-global_style.css">  -->
     <!-- CK Editor CDN -->
-    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
     <!-- Scroll Bars -->
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- icheck bootstrap -->
@@ -28,8 +28,6 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    <!-- Dropify CSS -->
-    <link rel="stylesheet" type="text/css" href="plugins/dropify/dropify.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->

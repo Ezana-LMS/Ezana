@@ -97,24 +97,10 @@
         tags: true,
     });
 </script>
-<!-- 
-<script src="plugins/ckeditor/ckeditor.js"></script>
+
 <script>
     CKEDITOR.replace('textarea');
-</script> -->
-
-<script>
-    ClassicEditor
-        .create(document.querySelector('#textarea'))
-        .then(editor => {
-            console.log(editor);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-</script>
-
-
+</script> 
 <!-- Get Department Details Script -->
 <script>
     function getDepartmentDetails(val) {
