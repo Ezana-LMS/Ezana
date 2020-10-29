@@ -99,11 +99,14 @@
 </script>
 
 <!-- CK Editor -->
-<script src="plugins/ckeditor/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/inline/ckeditor.js"></script>
 <script>
-    CKEDITOR.replace('textarea');
+    ClassicEditor
+        .create(document.querySelector('#textarea'))
+        .catch(error => {
+            console.error(error);
+        });
 </script>
-
 
 <!-- Get Department Details Script -->
 <script>
