@@ -27,7 +27,15 @@ require_once('partials/_head.php')
                 <div class="login-logo">
                     <img height="150" width="150" src="dist/img/logo.jpeg" alt="">
                 </div>
-                <p class="login-box-msg">Sign In To Start Your Session</p>
+                <p class="login-box-msg">
+                    Sign In To Start Your Session 
+                    <br>
+                    Demo Credentials
+                    <br>
+                    <span class="text-success"> Email   : sysadmin@ezana.org </span> 
+                    <br>
+                    <span class="text-success">Passsword: 123 </span>
+                </p>
 
                 <form method="post">
                     <div class="input-group mb-3">
