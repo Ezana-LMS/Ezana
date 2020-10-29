@@ -100,12 +100,12 @@
                                 <p>Manage Courses</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="course_directory.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Course Directories</p>
                             </a>
-                        </li>
+                        </li> -->
                     </ul>
                 </li>
 
