@@ -188,7 +188,7 @@ require_once('partials/_head.php');
                                                     <div class="form-group row">
                                                         <label for="inputExperience" class="col-sm-2 col-form-label">Address</label>
                                                         <div class="col-sm-10">
-                                                            <textarea required class="form-control" name="adr" id="inputExperience"><?php echo $admin->adr; ?></textarea>
+                                                            <textarea required class="form-control" name="adr" id="textarea"><?php echo $admin->adr; ?></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
