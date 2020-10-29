@@ -187,9 +187,19 @@ require_once('partials/_head.php');
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
+                                                        <label for="inputName2" class="col-sm-2 col-form-label">User Previledge</label>
+                                                        <div class="col-sm-10">
+                                                            <select name="rank" class="form-control basic">
+                                                                <option selected><?php echo $admin->rank; ?></option>
+                                                                <option>System Administrator</option>
+                                                                <option>Education Administrator</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
                                                         <label for="inputExperience" class="col-sm-2 col-form-label">Address</label>
                                                         <div class="col-sm-10">
-                                                            <textarea required class="form-control" name="adr" id="inputExperience"><?php echo $admin->adr; ?></textarea>
+                                                            <textarea required class="form-control" name="adr" id="textarea"><?php echo $admin->adr; ?></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">

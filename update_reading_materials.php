@@ -92,7 +92,7 @@ require_once('partials/_head.php');
                                 <form method="post" enctype="multipart/form-data" role="form">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="form-group col-md-6">
+                                            <!-- <div class="form-group col-md-6">
                                                 <label for="">Module Name</label>
                                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                 <select class='form-control basic' id="ModuleName" onchange="getModuleDetails(this.value);" name="module_name">
@@ -112,6 +112,14 @@ require_once('partials/_head.php');
                                             <div class="form-group col-md-6">
                                                 <label for="">Module Code</label>
                                                 <input type="text" id="ModuleCode" readonly required name="module_code" class="form-control">
+                                            </div> -->
+                                            <div class="form-group col-md-6">
+                                                <label for="">Module Name</label>
+                                                <input type="text" id="ModuleCode" value="<?php echo $rm->module_name; ?>" readonly required name="module_name" class="form-control">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="">Module Code</label>
+                                                <input type="text" id="ModuleCode" value="<?php echo $rm->module_code; ?>" readonly required name="module_code" class="form-control">
                                             </div>
                                         </div>
                                         <div class="row">

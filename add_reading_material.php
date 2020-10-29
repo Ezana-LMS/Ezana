@@ -90,7 +90,7 @@ require_once('partials/_head.php');
                                             <select class='form-control basic' id="ModuleName" onchange="getModuleDetails(this.value);" name="module_name">
                                                 <option selected>Select Module Name </option>
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE ass_status != '0'  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_Modules` ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();

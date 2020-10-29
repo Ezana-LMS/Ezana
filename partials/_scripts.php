@@ -98,13 +98,9 @@
     });
 </script>
 
-<!-- CK Editor -->
-<script src="plugins/ckeditor/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('textarea');
-</script>
-
-
+</script> 
 <!-- Get Department Details Script -->
 <script>
     function getDepartmentDetails(val) {

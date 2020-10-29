@@ -138,7 +138,7 @@ require_once('partials/_head.php');
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-6">
+                                            <!-- <div class="form-group col-md-6">
                                                 <label for="">Student Admission Number</label>
                                                 <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_adm">
                                                     <option selected>Select Student Admission Number</option>
@@ -156,6 +156,14 @@ require_once('partials/_head.php');
                                             <div class="form-group col-md-6">
                                                 <label for="">Student Name</label>
                                                 <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
+                                            </div> -->
+                                            <div class="form-group col-md-6">
+                                                <label for="">Student Admission Number</label>
+                                                <input type="text" id="StudentName" value="<?php echo $en->student_adm;?>" readonly required name="student_name" class="form-control">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="">Student Name</label>
+                                                <input type="text" id="StudentName" readonly value="<?php echo $en->student_name;?>" required name="student_name" class="form-control">
                                             </div>
 
                                             <div class="form-group col-md-6">

@@ -13,8 +13,8 @@ if (isset($_POST['update_module'])) {
         $error = 1;
         $err = "Module Code Cannot Be Empty";
     }
-    if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
-        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['course_name']));
+    if (isset($_POST['c_name']) && !empty($_POST['c_name'])) {
+        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['c_name']));
     } else {
         $error = 1;
         $err = "Course Name Cannot Be Empty";
@@ -36,7 +36,7 @@ if (isset($_POST['update_module'])) {
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
-        $course_name = $_POST['course_name'];
+        $course_name = $_POST['c_name'];
         $course_id = $_POST['course_id'];
         $course_duration = $_POST['course_duration'];
         $weight_percentage = $_POST['weight_percentage'];
@@ -108,20 +108,25 @@ require_once('partials/_head.php');
                                 <form method="post" enctype="multipart/form-data" role="form">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group col-md-4">
                                                 <label for="">Module Name</label>
                                                 <input type="text" value="<?php echo $mod->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
                                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                             </div>
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group col-md-4">
                                                 <label for="">Module Number / Code</label>
                                                 <input type="text" required name="code" value="<?php echo $mod->code; ?>" class="form-control">
                                             </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="">Course Name</label>
+                                                <input type="text" name="c_name" readonly required value="<?php echo $mod->course_name; ?>" class="form-control">
+                                                <input type="hidden" value="<?php echo $mod->course_id; ?>" required name="course_id" class="form-control">
+                                            </div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-6">
+                                            <!-- <div class="form-group col-md-6">
                                                 <label for="">Course Name</label>
-                                                <select class='form-control basic' id="CourseName" onchange="getCourseDetails(this.value);" name="course_name">
+                                                <select class='form-control basic' id="CourseName" onchange="getCourseDetails(this.value);" name="c_name">
                                                     <option selected>Select Course Name</option>
                                                     <?php
                                                     $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
@@ -138,8 +143,11 @@ require_once('partials/_head.php');
                                                 <label for="">Course Code</label>
                                                 <input type="text" id="CourseCode" readonly required name="" class="form-control">
                                                 <input type="hidden" id="CourseID" required name="course_id" class="form-control">
-                                            </div>
+                                            </div> -->
+
                                         </div>
+
+
 
                                         <div class="row">
                                             <div class="form-group col-md-4">

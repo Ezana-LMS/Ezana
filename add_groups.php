@@ -88,7 +88,7 @@ require_once('partials/_head.php');
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="add_groups.php">Groups</a></li>
+                                <li class="breadcrumb-item"><a href="manage_groups.php">Groups</a></li>
                                 <li class="breadcrumb-item active">Add</li>
                             </ol>
                         </div>
