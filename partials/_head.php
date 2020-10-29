@@ -19,7 +19,8 @@
     <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/datatables.css"> -->
     <link rel="stylesheet" type="text/css" href="plugins/datatable/custom_dt_html5.css">
     <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/dt-global_style.css">  -->
-
+    <!-- CK Editor CDN -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
     <!-- Scroll Bars -->
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- icheck bootstrap -->
