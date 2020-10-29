@@ -127,7 +127,7 @@ require_once('partials/_head.php');
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label for="exampleInputPassword1">Password</label>
-                                            <input type="password" required name="password" class="form-control" id="exampleInputPassword1">
+                                            <input type="text" required name="password" value="<?php echo $sysadminPass;?>" class="form-control" id="exampleInputPassword1">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="exampleInputFile">Profile Picture</label>
