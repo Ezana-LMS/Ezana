@@ -8,7 +8,7 @@
     <div class="sidebar">
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false"> 
                 <li class="nav-item">
                     <a href="dashboard.php" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -376,86 +376,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-chart-pie"></i>
-                        <p>
-                            Reports
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="faculties_reports.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Faculties</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="departments_reports.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Departments</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="courses_reports.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Courses</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="modules_reports.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Modules</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="allocation_reports.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Allocations</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="school_calendar_reports.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>School Calendar</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="enrollment_reports.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Enrollments</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="administrator_reports.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Administrators</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="lecturer_reports.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Lecturers</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="students_reports.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Students</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                <!--   -->
             </ul>
         </nav>
     </div>
