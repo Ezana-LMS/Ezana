@@ -154,7 +154,6 @@ require_once('partials/_head.php');
                         <!-- /.col -->
                     </div>
 
-                    
                 </div>
                 <!--/. container-fluid -->
             </section>

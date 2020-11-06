@@ -60,10 +60,6 @@ require_once('partials/_head.php');
                                         <i class="fas fa-plus"></i>
                                         Register New Faculty
                                     </a>
-                                    <!-- <a class="btn btn-outline-primary" href="">
-                                        <i class="fas fa-file-excel"></i>
-                                        Import Faculties From .XLS File
-                                    </a> -->
                                 </h2>
                             </div>
                             <!-- /.card-header -->
@@ -74,7 +70,6 @@ require_once('partials/_head.php');
                                             <th>#</th>
                                             <th>Faculty Code Number</th>
                                             <th>Faculty Name</th>
-                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -87,22 +82,10 @@ require_once('partials/_head.php');
                                         while ($faculty = $res->fetch_object()) {
                                         ?>
 
-                                            <tr>
+                                            <tr class='clickable-row' data-href='url://'>
                                                 <td><?php echo $cnt; ?></td>
                                                 <td><?php echo $faculty->code; ?></td>
                                                 <td><?php echo $faculty->name; ?></td>
-                                                <td>
-
-                                                    <a class="badge badge-primary" href="update_faculty.php?update=<?php echo $faculty->id; ?>">
-                                                        <i class="fas fa-edit"></i>
-                                                        Update
-                                                    </a>
-
-                                                    <a class="badge badge-danger" href="manage_faculties.php?delete=<?php echo $faculty->id; ?>">
-                                                        <i class="fas fa-trash"></i>
-                                                        Delete
-                                                    </a>
-                                                </td>
                                             </tr>
                                         <?php $cnt = $cnt + 1;
                                         } ?>

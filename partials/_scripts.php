@@ -96,11 +96,16 @@
     var ss = $(".basic").select2({
         tags: true,
     });
+    jQuery(document).ready(function($) {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("href");
+        });
+    });
 </script>
 
 <script>
     CKEDITOR.replace('textarea');
-</script> 
+</script>
 <!-- Get Department Details Script -->
 <script>
     function getDepartmentDetails(val) {
