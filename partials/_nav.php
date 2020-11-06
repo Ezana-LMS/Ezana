@@ -60,18 +60,7 @@ while ($admin = $res->fetch_object()) {
                         </ul>
                     </li>
                 </ul>
-
-                <!-- SEARCH FORM -->
-                <form class="form-inline ml-0 ml-md-3">
-                    <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-navbar" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                
             </div>
 
             <!-- Right navbar links -->
@@ -162,7 +151,7 @@ while ($admin = $res->fetch_object()) {
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i class="fas fa-th-large"></i></a>
+                    <a class="nav-link"  href="logout.php"><i class="fa fa-power-off" aria-hidden="true"></i></a>
                 </li>
             </ul>
         </div>

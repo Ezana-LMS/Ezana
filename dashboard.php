@@ -92,7 +92,6 @@ require_once('partials/_head.php');
                     <!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
-            <!-- /.content -->
         </div>
        
         <?php require_once('partials/_footer.php');?>
