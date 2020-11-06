@@ -13,28 +13,23 @@ require_once('partials/_head.php');
         <?php require_once('partials/_nav.php'); ?>
         <!-- /.navbar -->
 
-        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container">
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1 class="m-0 text-dark"> <?php echo $_SESSION['name'];?> Dashboard </h1>
-                        </div><!-- /.col -->
+                        </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Layout</a></li>
-                                <li class="breadcrumb-item active">Top Navigation</li>
+                                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                                <li class="breadcrumb-item active">Dashboard</li>
                             </ol>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- /.content-header -->
 
-            <!-- Main content -->
             <div class="content">
                 <div class="container">
                     <div class="row">
@@ -99,23 +94,8 @@ require_once('partials/_head.php');
             </div>
             <!-- /.content -->
         </div>
-        <!-- /.content-wrapper -->
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
-
-        <footer class="main-footer">
-            <div class="float-right d-none d-sm-inline">
-                Anything you want
-            </div>
-            <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io/">AdminLTE.io</a>.</strong> All rights reserved.
-        </footer>
+       
+        <?php require_once('partials/_footer.php');?>
     </div>
 
     <!-- REQUIRED SCRIPTS -->

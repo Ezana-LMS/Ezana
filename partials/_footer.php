@@ -1,7 +1,6 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2020 - <?php echo date('Y'); ?> EzanaLMS. Powered By <a target="_blank" href="https://martdev.info/">MartDevelopers Inc</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> 1.0.0
+    <div class="float-right d-none d-sm-inline">
+        A <a href="https://martdev.info">Mart Developers Inc</a>. Production
     </div>
+    <strong>Ezana LMS. &copy; 2020-<?php echo date('Y'); ?> </strong> All rights reserved.
 </footer>
