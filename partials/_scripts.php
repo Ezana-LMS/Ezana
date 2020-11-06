@@ -80,7 +80,14 @@
         "pageLength": 7
     });
 </script>
-
+<!-- Clickable Row Table -->
+<script>
+    $(document).ready(function($) {
+        $(".table-row").click(function() {
+            window.document.location = $(this).data("href");
+        });
+    });
+</script>
 <!-- File Uploads  -->
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script>
@@ -95,11 +102,6 @@
 <script>
     var ss = $(".basic").select2({
         tags: true,
-    });
-    jQuery(document).ready(function($) {
-        $(".clickable-row").click(function() {
-            window.location = $(this).data("href");
-        });
     });
 </script>
 

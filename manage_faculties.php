@@ -49,7 +49,6 @@ require_once('partials/_head.php');
                 </div><!-- /.container-fluid -->
             </section>
 
-            <!-- Main content -->
             <section class="content">
                 <div class="row">
                     <div class="col-12">
@@ -62,7 +61,6 @@ require_once('partials/_head.php');
                                     </a>
                                 </h2>
                             </div>
-                            <!-- /.card-header -->
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
@@ -81,9 +79,8 @@ require_once('partials/_head.php');
                                         $cnt = 1;
                                         while ($faculty = $res->fetch_object()) {
                                         ?>
-
-                                            <tr class='clickable-row' data-href='url://'>
-                                                <td><?php echo $cnt; ?></td>
+                                            <tr class="table-row" data-href="faculty_dashboard.php">
+                                                <td><?php echo $cnt; ?></a></td>
                                                 <td><?php echo $faculty->code; ?></td>
                                                 <td><?php echo $faculty->name; ?></td>
                                             </tr>
@@ -92,15 +89,10 @@ require_once('partials/_head.php');
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card -->
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
             </section>
-            <!-- /.content -->
         </div>
         <?php require_once('partials/_footer.php'); ?>
     </div>
