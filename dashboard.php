@@ -3,6 +3,7 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
+require_once('partials/_analytics.php');
 require_once('partials/_head.php');
 ?>
 
@@ -18,7 +19,7 @@ require_once('partials/_head.php');
                 <div class="container">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark"> <?php echo $_SESSION['name'];?> Dashboard </h1>
+                            <h1 class="m-0 text-dark"> <?php echo $_SESSION['name']; ?> Dashboard </h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -33,71 +34,67 @@ require_once('partials/_head.php');
             <div class="content">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
 
-                                    <p class="card-text">
-                                        Some quick example text to build on the card title and make up the bulk of the card's
-                                        content.
-                                    </p>
-
-                                    <a href="#" class="card-link">Card link</a>
-                                    <a href="#" class="card-link">Another link</a>
+                        <!-- Faculties -->
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="faculties.php">
+                                <div class="info-box mb-3">
+                                    <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-university"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Faculties</span>
+                                        <span class="info-box-number"><?php echo $faculties; ?></span>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="card card-primary card-outline">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                    <p class="card-text">
-                                        Some quick example text to build on the card title and make up the bulk of the card's
-                                        content.
-                                    </p>
-                                    <a href="#" class="card-link">Card link</a>
-                                    <a href="#" class="card-link">Another link</a>
-                                </div>
-                            </div><!-- /.card -->
+                            </a>
                         </div>
-                        <!-- /.col-md-6 -->
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5 class="card-title m-0">Featured</h5>
-                                </div>
-                                <div class="card-body">
-                                    <h6 class="card-title">Special title treatment</h6>
 
-                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
 
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h5 class="card-title m-0">Featured</h5>
+                        <!-- Departments -->
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="departments.php">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-info elevation-1"><i class="fa fa-building" aria-hidden="true"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Departments</span>
+                                        <span class="info-box-number">
+                                            <?php echo $departments; ?>
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <h6 class="card-title">Special title treatment</h6>
-
-                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
+                            </a>
                         </div>
-                        <!-- /.col-md-6 -->
+
+                        <!-- Courses  -->
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="courses.php">
+                                <div class="info-box mb-3">
+                                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard-teacher"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Total Courses</span>
+                                        <span class="info-box-number"><?php echo $courses; ?></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Modules -->
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="modules.php">
+                                <div class="info-box mb-3">
+                                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-chalkboard"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Total Modules</span>
+                                        <span class="info-box-number"><?php echo $modules; ?></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                    <!-- /.row -->
-                </div><!-- /.container-fluid -->
+                </div>
             </div>
         </div>
-       
-        <?php require_once('partials/_footer.php');?>
+        <?php require_once('partials/_footer.php'); ?>
     </div>
-
-    <!-- REQUIRED SCRIPTS -->
     <?php require_once('partials/_scripts.php'); ?>
 </body>
 
