@@ -11,6 +11,7 @@ if (isset($_POST['login'])) {
     $stmt->bind_result($email, $password, $id); //bind result
     $rs = $stmt->fetch();
     $_SESSION['id'] = $id;
+    $_SESSION['email'] = $email;
     if ($rs) {
         header("location:dashboard.php");
     } else {
