@@ -5,13 +5,14 @@ include('configs/config.php');
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = sha1(md5($_POST['password'])); //double encrypt to increase security
-    $stmt = $mysqli->prepare("SELECT email, password, id  FROM ezanaLMS_Admins  WHERE email =? AND password =?");
+    $stmt = $mysqli->prepare("SELECT email, password, id, name  FROM ezanaLMS_Admins  WHERE email =? AND password =?");
     $stmt->bind_param('ss', $email, $password); //bind fetched parameters
     $stmt->execute(); //execute bind 
-    $stmt->bind_result($email, $password, $id); //bind result
+    $stmt->bind_result($email, $password, $id, $name); //bind result
     $rs = $stmt->fetch();
     $_SESSION['id'] = $id;
     $_SESSION['email'] = $email;
+    $_SESSION['name'] = $name;
     if ($rs) {
         header("location:dashboard.php");
     } else {
@@ -29,11 +30,11 @@ require_once('partials/_head.php')
                     <img height="150" width="150" src="dist/img/logo.jpeg" alt="">
                 </div>
                 <p class="login-box-msg">
-                    Sign In To Start Your Session 
+                    Sign In To Start Your Session
                     <br>
                     Demo Credentials
                     <br>
-                    <span class="text-success"> Email   : sysadmin@ezana.org </span> 
+                    <span class="text-success"> Email : sysadmin@ezana.org </span>
                     <br>
                     <span class="text-success">Passsword: 123 </span>
                 </p>
@@ -89,10 +90,8 @@ require_once('partials/_head.php')
                     <a href="register.html" class="text-center">Register a new membership</a>
                 </p> -->
             </div>
-            <!-- /.login-card-body -->
         </div>
     </div>
-    <!-- /.login-box -->
     <?php require_once('partials/_scripts.php'); ?>
 </body>
 
