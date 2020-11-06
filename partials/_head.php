@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 
@@ -7,7 +6,29 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Ezana LMS </title>
+    <title>Ezana LMS</title>
+    <meta name="title" content="Ezana LMS">
+    <meta name="description" content="Ezana Learning Management System">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ezana.org">
+    <meta property="og:title" content="Ezana LMS">
+    <meta property="og:description" content="Ezana Learning Management System">
+    <meta property="og:image" content="dist/img/logo.jpeg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ezana.org">
+    <meta property="twitter:title" content="Ezana LMS">
+    <meta property="twitter:description" content="Ezana Learning Management System">
+    <meta property="twitter:image" content="dist/img/logo.jpeg">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="dist/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="dist/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="dist/img/favicons/favicon-16x16.png">
+    <link rel="manifest" href="dist/img/favicons/site.webmanifest">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
