@@ -8,7 +8,7 @@
     <div class="sidebar">
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false"> 
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="dashboard.php" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -51,7 +51,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
+               <!--  <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-bezier-curve"></i>
                         <p>
@@ -105,7 +105,7 @@
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Course Directories</p>
                             </a>
-                        </li> -->
+                        </li> 
                     </ul>
                 </li>
 
@@ -185,7 +185,7 @@
                         <i class="nav-icon fas fa-user-secret"></i>
                         <p>
                             System Admins
-                            <!-- <span class="right badge badge-danger">New</span> -->
+                             <span class="right badge badge-danger">New</span> 
                         </p>
                     </a>
                 </li>
@@ -204,7 +204,7 @@
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Add Lecturer</p>
                             </a>
-                        </li> -->
+                        </li> 
                         <li class="nav-item">
                             <a href="manage_lectures.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
@@ -240,7 +240,7 @@
                                 <i class="fas fa-chevron-right nav-icon"></i>
                                 <p>Add Students</p>
                             </a>
-                        </li> -->
+                        </li> 
                         <li class="nav-item">
                             <a href="manage_students.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
@@ -310,9 +310,9 @@
                         </li>
 
                     </ul>
-                </li>
+                </li> 
 
-                <!-- <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-alt"></i>
                         <p>
@@ -341,7 +341,7 @@
                             </a>
                         </li>
                     </ul>
-                </li> -->
+                </li> 
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -374,9 +374,7 @@
                             Class Recordings
                         </p>
                     </a>
-                </li>
-
-                <!--   -->
+                </li> -->
             </ul>
         </nav>
     </div>
