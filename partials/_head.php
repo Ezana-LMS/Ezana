@@ -14,6 +14,8 @@
     <link rel="manifest" href="dist/img/favicons/site.webmanifest">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- Tables CSS -->
+    <link rel="stylesheet" href="dist/css/tables.css">
     <!-- Data Tables -->
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
     <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/datatables.css"> -->
