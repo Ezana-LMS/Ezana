@@ -105,12 +105,7 @@ if (isset($_POST['update_non_teaching_staff'])) {
         $error = 1;
         $err = "Email Cannot Be Empty";
     }
-    if (isset($_POST['password']) && !empty($_POST['password'])) {
-        $password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['password']))));
-    } else {
-        $error = 1;
-        $err = "Password Cannot Be Empty";
-    }
+    
     if (isset($_POST['rank']) && !empty($_POST['rank'])) {
         $rank = mysqli_real_escape_string($mysqli, trim($_POST['rank']));
     } else {
@@ -455,14 +450,13 @@ require_once('public/partials/_head.php');
                                                                 <div class="card-body box-profile">
                                                                     <div class="text-center">
                                                                         <?php
-                                                                        if ($lec->profile_pic == '') {
+                                                                        if ($admin->profile_pic == '') {
                                                                             echo  "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/no-profile.png' alt='User profile picture'>";
                                                                         } else {
                                                                             echo  "<img class='profile-user-img img-fluid img-circle' src='public/uploads/UserImages/admins/$admin->profile_pic' alt='User profile picture'>";
                                                                         }
                                                                         ?>
                                                                     </div>
-
                                                                     <h3 class="profile-username text-center"><?php echo $admin->name; ?></h3>
 
                                                                     <ul class="list-group list-group-unbordered mb-3">
