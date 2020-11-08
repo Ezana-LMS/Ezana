@@ -194,6 +194,14 @@ require_once('public/partials/_head.php');
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="non_teaching_staff.php" class="nav-link">
+                                        <i class="nav-icon fas fa-user-secret"></i>
+                                        <p>
+                                            Non Teaching Staff
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="lecturers.php" class="nav-link">
                                         <i class="nav-icon fas fa-user-tie"></i>
                                         <p>
@@ -301,11 +309,11 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                     <div class="form-group col-md-4">
                                                                         <label for="">Module Name</label>
-                                                                        <input type="text" id="AllocatedModuleName"  required name="module_name" class="form-control">
+                                                                        <input type="text" id="AllocatedModuleName" required name="module_name" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-4">
                                                                         <label for="">Lecturer Name</label>
-                                                                        <input type="text" id="AllocatedLecturerName"  required name="lecturer" class="form-control">
+                                                                        <input type="text" id="AllocatedLecturerName" required name="lecturer" class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
@@ -573,10 +581,10 @@ require_once('public/partials/_head.php');
                 require_once('public/partials/_footer.php');
             }
         } ?>
-                    </div>
-                </div>
-                <!-- ./wrapper -->
-                <?php require_once('public/partials/_scripts.php'); ?>
+        </div>
+    </div>
+    <!-- ./wrapper -->
+    <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>

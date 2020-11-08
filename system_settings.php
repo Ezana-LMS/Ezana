@@ -68,7 +68,7 @@ if (isset($_POST['CurrentAcademicTerm'])) {
         $current_semester = $_POST['current_semester'];
         $start_date = $_POST['start_date'];
         $end_date = $_POST['end_date'];
-        
+
         $query = "UPDATE ezanaLMS_AcademicSettings SET current_academic_year =?, current_semester =?, start_date =?, end_date = ? WHERE id = ?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('sssss',  $current_academic_year,  $current_semester, $start_date, $end_date, $id);
@@ -140,6 +140,14 @@ require_once('public/partials/_head.php');
                                 <i class="nav-icon fas fa-chalkboard"></i>
                                 <p>
                                     Modules
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="non_teaching_staff.php" class="nav-link">
+                                <i class="nav-icon fas fa-user-secret"></i>
+                                <p>
+                                    Non Teaching Staff
                                 </p>
                             </a>
                         </li>

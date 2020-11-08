@@ -162,6 +162,14 @@ require_once('public/partials/_head.php');
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="non_teaching_staff.php" class="nav-link">
+                                    <i class="nav-icon fas fa-user-secret"></i>
+                                    <p>
+                                        Non Teaching Staff
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="lecturers.php" class="nav-link">
                                     <i class="nav-icon fas fa-user-tie"></i>
                                     <p>
@@ -406,7 +414,7 @@ require_once('public/partials/_head.php');
                                                                         /* If It Lacks upload_solutionSolution Give Option to upload else Download solution */
                                                                         if ($pastExas->solution == '') {
                                                                             echo
-                                                                                "
+                                                                            "
                                                                         <a  data-toggle='modal' href= '#solution-$pastExas->id' class='badge badge-primary'>
                                                                             <i class='fas fa-upload'></i>
                                                                             Upload Solution
@@ -414,7 +422,7 @@ require_once('public/partials/_head.php');
                                                                         ";
                                                                         } else {
                                                                             echo
-                                                                                "
+                                                                            "
                                                                         <a target='_blank' href= 'public/uploads/EzanaLMSData/PastPapers/$pastExas->solution' class='badge badge-success'>
                                                                         <i class='fas fa-eye'></i>
                                                                             View Solution
@@ -481,8 +489,8 @@ require_once('public/partials/_head.php');
                                                                             <i class="fas fa-edit"></i>
                                                                             Edit Visibility
                                                                         </a>
-                                                                       <!--  <div class="custom-control custom-switch">
-                                                                            <input type="checkbox" name="solution_visibility" value="<?php echo $pastExas->solution_visibility;?>" class="custom-control-input" id="customSwitch1">
+                                                                        <!--  <div class="custom-control custom-switch">
+                                                                            <input type="checkbox" name="solution_visibility" value="<?php echo $pastExas->solution_visibility; ?>" class="custom-control-input" id="customSwitch1">
                                                                             <label class="custom-control-label" for="customSwitch1">Visibility</label>
                                                                         </div>  -->
 

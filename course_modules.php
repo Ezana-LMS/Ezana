@@ -149,7 +149,7 @@ require_once('public/partials/_head.php');
             <!-- Main Sidebar Container -->
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
                 <!-- Brand Logo -->
-                    <?php require_once('public/partials/_brand.php'); ?>
+                <?php require_once('public/partials/_brand.php'); ?>
                 <!-- Sidebar -->
                 <div class="sidebar">
                     <!-- Sidebar Menu -->
@@ -180,6 +180,7 @@ require_once('public/partials/_head.php');
                                     </p>
                                 </a>
                             </li>
+
                             <li class="nav-item">
                                 <a href="courses.php" class=" nav-link">
                                     <i class="nav-icon fas fa-chalkboard-teacher"></i>
@@ -193,6 +194,14 @@ require_once('public/partials/_head.php');
                                     <i class="nav-icon fas fa-chalkboard"></i>
                                     <p>
                                         Modules
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="non_teaching_staff.php" class="nav-link">
+                                    <i class="nav-icon fas fa-user-secret"></i>
+                                    <p>
+                                        Non Teaching Staff
                                     </p>
                                 </a>
                             </li>
@@ -471,7 +480,7 @@ require_once('public/partials/_head.php');
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="exampleInputPassword1">Module Details</label>
-                                                                                                <textarea required  name="details" rows="10" class="form-control"><?php echo $mod->details; ?></textarea>
+                                                                                                <textarea required name="details" rows="10" class="form-control"><?php echo $mod->details; ?></textarea>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -531,10 +540,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
+                </div>
             </div>
-        </div>
-        <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php'); ?>
+            <!-- ./wrapper -->
+            <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>

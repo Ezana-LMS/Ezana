@@ -63,7 +63,7 @@ require_once('public/partials/_head.php');
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-                <?php require_once('public/partials/_brand.php'); ?>
+            <?php require_once('public/partials/_brand.php'); ?>
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar Menu -->
@@ -107,6 +107,14 @@ require_once('public/partials/_head.php');
                                 <i class="nav-icon fas fa-chalkboard"></i>
                                 <p>
                                     Modules
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="non_teaching_staff.php" class="nav-link">
+                                <i class="nav-icon fas fa-user-secret"></i>
+                                <p>
+                                    Non Teaching Staff
                                 </p>
                             </a>
                         </li>

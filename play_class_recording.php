@@ -150,6 +150,14 @@ require_once('public/partials/_head.php');
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="non_teaching_staff.php" class="nav-link">
+                                        <i class="nav-icon fas fa-user-secret"></i>
+                                        <p>
+                                            Non Teaching Staff
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="lecturers.php" class="nav-link">
                                         <i class="nav-icon fas fa-user-tie"></i>
                                         <p>
@@ -373,7 +381,7 @@ require_once('public/partials/_head.php');
                                                                                             /* Yall Know Silence Is Best Answer */
                                                                                         } else {
                                                                                             echo
-                                                                                                "
+                                                                                            "
                                                                                                     <a target='_blank' href= '$rm->external_link' class='btn btn-outline-success'>
                                                                                                         Open Link
                                                                                                     </a>
@@ -392,7 +400,7 @@ require_once('public/partials/_head.php');
                                                                     if ($cr->external_link == '') {
                                                                     } else {
                                                                         echo
-                                                                            "
+                                                                        "
                                                                         <a target='_blank' href= '$cr->external_link' class='btn btn-outline-success'>
                                                                             Clip External Link
                                                                         </a>

@@ -195,6 +195,14 @@ require_once('public/partials/_head.php');
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="non_teaching_staff.php" class="nav-link">
+                                <i class="nav-icon fas fa-user-secret"></i>
+                                <p>
+                                    Non Teaching Staff
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="lecturers.php" class="nav-link">
                                 <i class="nav-icon fas fa-user-tie"></i>
                                 <p>
@@ -286,11 +294,11 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Academic Year </label>
-                                                                    <input type="text" required value="<?php echo $academic_settings->current_academic_year;?>" name="academic_yr" class="form-control">
+                                                                    <input type="text" required value="<?php echo $academic_settings->current_academic_year; ?>" name="academic_yr" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Semester </label>
-                                                                    <input type="text" required value="<?php echo $academic_settings->current_semester;?>" name="semester_name" class="form-control" id="exampleInputEmail1">
+                                                                    <input type="text" required value="<?php echo $academic_settings->current_semester; ?>" name="semester_name" class="form-control" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                 </div>
                                                             </div>

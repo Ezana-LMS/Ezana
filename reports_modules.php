@@ -48,6 +48,7 @@ require_once('public/partials/_reportshead.php');
                                 </p>
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="courses.php" class="nav-link">
                                 <i class="nav-icon fas fa-chalkboard-teacher"></i>
@@ -61,6 +62,14 @@ require_once('public/partials/_reportshead.php');
                                 <i class="nav-icon fas fa-chalkboard"></i>
                                 <p>
                                     Modules
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="non_teaching_staff.php" class="nav-link">
+                                <i class="nav-icon fas fa-user-secret"></i>
+                                <p>
+                                    Non Teaching Staff
                                 </p>
                             </a>
                         </li>

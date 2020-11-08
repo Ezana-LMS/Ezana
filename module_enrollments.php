@@ -254,6 +254,14 @@ require_once('public/partials/_head.php');
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="non_teaching_staff.php" class="nav-link">
+                                        <i class="nav-icon fas fa-user-secret"></i>
+                                        <p>
+                                            Non Teaching Staff
+                                        </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="lecturers.php" class="nav-link">
                                         <i class="nav-icon fas fa-user-tie"></i>
                                         <p>
@@ -552,11 +560,11 @@ require_once('public/partials/_head.php');
                 require_once('public/partials/_footer.php');
             }
         }
-                ?>
-                    </div>
-                </div>
-                <!-- ./wrapper -->
-                <?php require_once('public/partials/_scripts.php'); ?>
+    ?>
+        </div>
+    </div>
+    <!-- ./wrapper -->
+    <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>

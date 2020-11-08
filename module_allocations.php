@@ -234,6 +234,14 @@ require_once('public/partials/_head.php');
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="non_teaching_staff.php" class="nav-link">
+                                    <i class="nav-icon fas fa-user-secret"></i>
+                                    <p>
+                                        Non Teaching Staff
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="lecturers.php" class="nav-link">
                                     <i class="nav-icon fas fa-user-tie"></i>
                                     <p>
@@ -519,7 +527,7 @@ require_once('public/partials/_head.php');
                                                                 /* Indicate This Lec Is A Guest */
                                                                 if ($assigns->status != '') {
                                                                     echo "<span class='text-success' title='Guest Lecturer'>$assigns->lec_name</span>";
-                                                                }else{
+                                                                } else {
                                                                     echo $assigns->lec_name;
                                                                 }
                                                                 ?>
