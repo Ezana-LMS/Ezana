@@ -25,12 +25,12 @@ while ($f = $res->fetch_object()) {
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $f->name; ?>  Departments</h1>
+                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Departments</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id;?>"><?php echo $f->name;?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
                                     <li class="breadcrumb-item active"> Departments </li>
                                 </ol>
                             </div>
@@ -47,7 +47,6 @@ while ($f = $res->fetch_object()) {
                                         <div class="card-header">
                                             <h2 class="text-right">
                                                 <a class="btn btn-outline-success" href="add_department.php?faculty=<?php echo $f->id; ?>">
-                                                    <i class="fas fa-plus"></i>
                                                     Register New Department
                                                 </a>
                                             </h2>
@@ -71,8 +70,7 @@ while ($f = $res->fetch_object()) {
                                                     $cnt = 1;
                                                     while ($dep = $res->fetch_object()) {
                                                     ?>
-
-                                                        <tr>
+                                                        <tr class="table-row" data-href="department_dashboard.php?department=<?php echo $dep->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $dep->code; ?></td>
                                                             <td><?php echo $dep->name; ?></td>
