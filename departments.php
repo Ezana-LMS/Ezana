@@ -70,7 +70,7 @@ while ($f = $res->fetch_object()) {
                                                     $cnt = 1;
                                                     while ($dep = $res->fetch_object()) {
                                                     ?>
-                                                        <tr class="table-row" data-href="department_dashboard.php?department=<?php echo $dep->id; ?>">
+                                                        <tr class="table-row" data-href="department_dashboard.php?department=<?php echo $dep->id; ?>&faculty=<?php echo $dep->faculty_id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $dep->code; ?></td>
                                                             <td><?php echo $dep->name; ?></td>

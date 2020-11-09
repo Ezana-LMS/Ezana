@@ -12,6 +12,7 @@ require_once('partials/_head.php');
         <?php
         require_once('partials/_faculty_nav.php');
         $department = $_GET['department'];
+        $faculty = $_GET['faculty'];
         $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE id = '$department' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
@@ -42,7 +43,7 @@ require_once('partials/_head.php');
                 <div class="content">
                     <div class="container">
                         <div class="row">
-                            
+
                         </div>
                     </div>
                 </div>
