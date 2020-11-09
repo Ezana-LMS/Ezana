@@ -20,12 +20,15 @@ while ($admin = $res->fetch_object()) {
             <div class="collapse navbar-collapse order-3" id="navbarCollapse">
                 <!-- Left navbar links -->
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    <!--  <li class="nav-item">
                         <a href="school_calendar.php" class="nav-link">School Calendar</a>
-                    </li>
+                    </li> -
                     <li class="nav-item">
                         <a href="faculties.php" class="nav-link">Faculties</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="administrators.php" class="nav-link">Administrators</a>
+                    </li> 
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Reports</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
@@ -33,11 +36,9 @@ while ($admin = $res->fetch_object()) {
                             <li><a href="#" class="dropdown-item"></a></li>
                         </ul>
                     </li>
+                    -->
                 </ul>
-
             </div>
-
-            <!-- Right navbar links -->
             <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" title="<?php echo $_SESSION['name']; ?> Profile" href="profile.php"><i class="fa fa-user-secret" aria-hidden="true"></i></a>
