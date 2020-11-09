@@ -29,23 +29,34 @@
     <link rel="icon" type="image/png" sizes="32x32" href="dist/img/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="dist/img/favicons/favicon-16x16.png">
     <link rel="manifest" href="dist/img/favicons/site.webmanifest">
-    <!-- Font Awesome Icons -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- Data Tables -->
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/datatables.css"> -->
+    <link rel="stylesheet" type="text/css" href="plugins/datatable/custom_dt_html5.css">
+    <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/dt-global_style.css">  -->
     <!-- CK Editor CDN -->
     <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+    <!-- Scroll Bars -->
+    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <!-- Swal Js -->
+    <!-- SWAL ALERTS INJECTION-->
+    <!--load swal js -->
     <script src="dist/js/swal.js"></script>
     <!--Inject SWAL-->
     <?php if (isset($success)) { ?>
+        <!--This code for injecting success alert-->
         <script>
             setTimeout(function() {
-                    /* Success */
                     swal("Success", "<?php echo $success; ?>", "success");
                 },
                 100);
@@ -54,9 +65,9 @@
     <?php } ?>
 
     <?php if (isset($err)) { ?>
+        <!--This code for injecting error alert-->
         <script>
             setTimeout(function() {
-                    /* Error */
                     swal("Failed", "<?php echo $err; ?>", "error");
                 },
                 100);
@@ -64,13 +75,13 @@
 
     <?php } ?>
     <?php if (isset($info)) { ?>
+        <!--This code for injecting info alert-->
         <script>
             setTimeout(function() {
-                    /* Info */
-
                     swal("Success", "<?php echo $info; ?>", "warning");
                 },
                 100);
         </script>
+
     <?php } ?>
 </head>

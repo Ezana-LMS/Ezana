@@ -86,8 +86,6 @@ require_once('partials/_head.php');
                                     <div class="card-header">
                                         <h3 class="card-title">Fill All Required Fields</h3>
                                     </div>
-                                    <!-- /.card-header -->
-                                    <!-- form start -->
                                     <form method="post" enctype="multipart/form-data" role="form">
                                         <div class="card-body">
                                             <div class="row">
