@@ -50,7 +50,6 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- SWAL ALERTS INJECTION-->
-    <!--load swal js -->
     <script src="dist/js/swal.js"></script>
     <!--Inject SWAL-->
     <?php if (isset($success)) { ?>
