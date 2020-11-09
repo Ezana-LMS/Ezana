@@ -34,10 +34,7 @@ while ($admin = $res->fetch_object()) {
                         </ul>
                     </li>
                 </ul>
-
             </div>
-
-            <!-- Right navbar links -->
             <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" title="<?php echo $_SESSION['name']; ?> Profile" href="profile.php"><i class="fa fa-user-secret" aria-hidden="true"></i></a>
