@@ -47,7 +47,65 @@ require_once('partials/_head.php');
 
             <div class="content">
                 <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 class="text-right">
+                                        <a class="btn btn-outline-success" href="add_school_calendar.php">
+                                            <i class="fas fa-plus"></i>
+                                            Add Important Dates
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div class="card-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Semester Name</th>
+                                                <th>Opening Dates</th>
+                                                <th>Closing Dates</th>
+                                                <th>Academic Year</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $ret = "SELECT * FROM `ezanaLMS_Calendar`  ";
+                                            $stmt = $mysqli->prepare($ret);
+                                            $stmt->execute(); //ok
+                                            $res = $stmt->get_result();
+                                            $cnt = 1;
+                                            while ($cal = $res->fetch_object()) {
+                                            ?>
 
+                                                <tr>
+                                                    <td><?php echo $cnt; ?></td>
+                                                    <td><?php echo $cal->semester_name; ?></td>
+                                                    <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
+                                                    <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
+                                                    <td><?php echo $cal->academic_yr; ?></td>
+                                                    <td>
+                                                        <a class="badge badge-primary" href="update_school_calendar.php?update=<?php echo $cal->id; ?>">
+                                                            <i class="fas fa-edit"></i>
+                                                            Update
+                                                        </a>
+
+                                                        <a class="badge badge-danger" href="school_calendar.php?delete=<?php echo $cal->id; ?>">
+                                                            <i class="fas fa-trash"></i>
+                                                            Delete
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php $cnt = $cnt + 1;
+                                            } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
