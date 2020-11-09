@@ -83,6 +83,122 @@ require_once('partials/_head.php');
                                 </a>
                             </div>
 
+                            <!-- School Calendar -->
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <a href="school_calendar.php">
+                                    <div class="info-box mb-3">
+                                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-calendar-alt"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">School Calendars</span>
+                                            <span class="info-box-number"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Time Table-->
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <a href="timetables.php">
+                                    <div class="info-box mb-3">
+                                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-calendar-week"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Time Tables</span>
+                                            <span class="info-box-number"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Class Recordings -->
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <a href="class_recordings.php">
+                                    <div class="info-box mb-3">
+                                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-file-video"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Class Recordings</span>
+                                            <span class="info-box-number"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Past Exam Papers -->
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <a href="past_exam_papers.php">
+                                    <div class="info-box mb-3">
+                                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-newspaper"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Past Exam Papers</span>
+                                            <span class="info-box-number"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Past Exam Papers Solutions -->
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <a href="past_exam_paper_solutions.php">
+                                    <div class="info-box mb-3">
+                                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-paste"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Past Exam Papers Solutions</span>
+                                            <span class="info-box-number"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Department Reports -->
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <a href="faculty_reports.php">
+                                    <div class="info-box mb-3">
+                                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-filter"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Faculty Reports</span>
+                                            <span class="info-box-number"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Lecturers -->
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <a href="lecturers.php">
+                                    <div class="info-box mb-3">
+                                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Lecturers</span>
+                                            <span class="info-box-number"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Students -->
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <a href="students.php">
+                                    <div class="info-box mb-3">
+                                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Students</span>
+                                            <span class="info-box-number"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <!-- Students Groups -->
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <a href="student_groups.php">
+                                    <div class="info-box mb-3">
+                                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Students Groups</span>
+                                            <span class="info-box-number"></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -27,15 +27,16 @@ while ($admin = $res->fetch_object()) {
                 <div class="collapse navbar-collapse order-3" id="navbarCollapse">
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-                        </li>
                         <!-- <li class="nav-item">
-                            <a href="school_calendar.php" class="nav-link">School Calendar</a>
-                        </li>
+                            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+                        </li> 
                         <li class="nav-item">
                             <a href="departments.php?faculty=<?php echo $faculty->name; ?>" class="nav-link">Departments</a>
-                        </li> -->
+                        </li>-->
+                        <li class="nav-item">
+                            <a href="school_calendar.php" class="nav-link">School Calendar</a>
+                        </li>
+                        
                         <li class="nav-item">
                             <a href="view_faculty.php?faculty=<?php echo $faculty->id; ?>" class="nav-link"><?php echo $faculty->name; ?> Profile</a>
                         </li>
