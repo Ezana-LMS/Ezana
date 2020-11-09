@@ -31,6 +31,8 @@
     <link rel="manifest" href="dist/img/favicons/site.webmanifest">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- Data Tables -->
+    <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- CK Editor CDN -->
