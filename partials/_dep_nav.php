@@ -38,7 +38,7 @@ while ($admin = $res->fetch_object()) {
                         </li> -->
 
                         <li class="nav-item">
-                            <a href="view_department.php?department=<?php echo $row->id; ?>" class="nav-link"><?php echo $row->name; ?> Details</a>
+                            <a href="view_department.php?department=<?php echo $row->id; ?>" class="nav-link"><?php echo $row->name; ?></a>
                         </li>
                     </ul>
                 </div>
