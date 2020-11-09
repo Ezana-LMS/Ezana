@@ -20,17 +20,17 @@ if (isset($_POST['update_faculty'])) {
         $err = "Faculty Name Cannot Be Empty";
     }
     if (!$error) {
-        $view = $_GET['view'];
+        $id = $_GET['id'];
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
 
         $query = "UPDATE  ezanaLMS_Faculties SET code =?, name =?, details =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssss', $code, $name, $details, $view);
+        $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Faculty Added" && header("refresh:1; url=faculty_dashboard.php?id=$view&faculty=$name");
+            $success = "Faculty Updated" && header("refresh:1; url=faculty_dashboard.php?id=$id&faculty=$name");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -44,9 +44,9 @@ require_once('partials/_head.php');
 
         <!-- Navbar -->
         <?php
-        require_once('partials/_nav.php');
-        $view = $_GET['view'];
-        $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id ='$view' ";
+        require_once('partials/_faculty_nav.php');
+        $id = $_GET['id'];
+        $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id ='$id' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
