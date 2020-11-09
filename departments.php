@@ -5,8 +5,8 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('partials/_head.php');
 
-$id = $_GET['id'];
-$ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$id' ";
+$faculty = $_GET['faculty'];
+$ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
@@ -30,7 +30,7 @@ while ($f = $res->fetch_object()) {
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?id=<?php echo $f->id;?>"><?php echo $f->name;?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id;?>"><?php echo $f->name;?></a></li>
                                     <li class="breadcrumb-item active"> Departments </li>
                                 </ol>
                             </div>
@@ -64,7 +64,7 @@ while ($f = $res->fetch_object()) {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$id'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$faculty'  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
