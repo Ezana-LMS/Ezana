@@ -26,6 +26,9 @@ while ($admin = $res->fetch_object()) {
                     <li class="nav-item">
                         <a href="faculties.php" class="nav-link">Faculties</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="administrators.php" class="nav-link">Administrators</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Reports</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
