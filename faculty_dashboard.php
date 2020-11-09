@@ -43,7 +43,7 @@ require_once('partials/_head.php');
                         <div class="row">
 
                             <!-- Departments -->
-                            <div class="col-12 col-sm-6 col-md-6">
+                            <div class="col-12 col-sm-6 col-md-4">
                                 <a href="departments.php?faculty=<?php echo $row->id; ?>">
                                     <div class="info-box">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fa fa-building" aria-hidden="true"></i></span>
@@ -58,7 +58,7 @@ require_once('partials/_head.php');
                             </div>
 
                             <!-- Courses  -->
-                            <div class="col-12 col-sm-6 col-md-6">
+                            <div class="col-12 col-sm-6 col-md-4">
                                 <a href="courses.php">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-book-reader"></i></span>
@@ -77,32 +77,6 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Modules</span>
-                                            <span class="info-box-number"></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- Students Enrolled -->
-                            <div class="col-12 col-sm-6 col-md-4">
-                                <a href="modules.php">
-                                    <div class="info-box mb-3">
-                                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-graduate"></i></span>
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">Students</span>
-                                            <span class="info-box-number"></span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- Lecturers -->
-                            <div class="col-12 col-sm-6 col-md-4">
-                                <a href="modules.php">
-                                    <div class="info-box mb-3">
-                                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard-teacher"></i></span>
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">Lecturers</span>
                                             <span class="info-box-number"></span>
                                         </div>
                                     </div>
