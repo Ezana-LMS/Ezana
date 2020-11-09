@@ -2,6 +2,7 @@
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
+require_once('configs/codeGen.php');
 check_login();
 if (isset($_POST['add_school_calendar'])) {
     //Error Handling and prevention of posting double entries
@@ -36,7 +37,7 @@ if (isset($_POST['add_school_calendar'])) {
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
-            if (($semester_name == $row['semester_name']) && ($academic_yr == $row['academic_year'])) {
+            if (($semester_name == $row['semester_name']) && ($academic_yr == $row['academic_yr'])) {
                 $err =  "Semester Already Exists";
             }
         } else {
