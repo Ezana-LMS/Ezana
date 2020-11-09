@@ -115,7 +115,7 @@ require_once('partials/_head.php');
                         </div>
                     </div>
                 </div>
-
+                <hr>
                 <div class="content">
                     <div class="container">
                         <div class="row">
