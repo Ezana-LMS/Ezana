@@ -53,19 +53,22 @@ if (isset($_POST['add_dept'])) {
     }
 }
 
-$faculty = $_GET['faculty'];
-$ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
-$stmt = $mysqli->prepare($ret);
-$stmt->execute(); //ok
-$res = $stmt->get_result();
-while ($f = $res->fetch_object()) {
-    require_once('partials/_head.php'); ?>
+require_once('partials/_head.php');
+?>
 
-    <body class="hold-transition sidebar-collapse layout-top-nav">
-        <div class="wrapper">
+<body class="hold-transition sidebar-collapse layout-top-nav">
+    <div class="wrapper">
 
-            <!-- Navbar -->
-            <?php require_once('partials/_faculty_sidebar.php'); ?>
+        <!-- Navbar -->
+        <?php
+        require_once('partials/_faculty_nav.php');
+        $faculty = $_GET['faculty'];
+        $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
+        $stmt = $mysqli->prepare($ret);
+        $stmt->execute(); //ok
+        $res = $stmt->get_result();
+        while ($f = $res->fetch_object()) {
+        ?>
             <!-- /.navbar -->
 
             <div class="content-wrapper">
@@ -132,9 +135,9 @@ while ($f = $res->fetch_object()) {
                 </div>
             </div>
         <?php require_once('partials/_footer.php');
-    } ?>
-        </div>
-        <?php require_once('partials/_scripts.php'); ?>
-    </body>
+        } ?>
+    </div>
+    <?php require_once('partials/_scripts.php'); ?>
+</body>
 
-    </html>
+</html>
