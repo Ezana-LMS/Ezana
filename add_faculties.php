@@ -49,6 +49,7 @@ if (isset($_POST['add_faculty'])) {
         }
     }
 }
+
 require_once('partials/_head.php');
 ?>
 
