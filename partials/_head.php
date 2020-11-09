@@ -36,6 +36,9 @@
     <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/datatables.css"> -->
     <link rel="stylesheet" type="text/css" href="plugins/datatable/custom_dt_html5.css">
     <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/dt-global_style.css">  -->
+
+    <!-- Clickable Table Css -->
+    <link rel="stylesheet" type="text/css" href="dist/css/clickable_table.css">
     <!-- CK Editor CDN -->
     <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
     <!-- Scroll Bars -->

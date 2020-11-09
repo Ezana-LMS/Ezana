@@ -46,7 +46,7 @@ require_once('partials/_head.php');
                                         </h2>
                                     </div>
                                     <div class="card-body">
-                                        <table id="example1" class="table table-bordered table-striped">
+                                        <table id="example1" class=" table table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -63,12 +63,12 @@ require_once('partials/_head.php');
                                                 $cnt = 1;
                                                 while ($faculty = $res->fetch_object()) {
                                                 ?>
-
-                                                    <tr>
+                                                    <tr class="table-row" data-href="faculty_dashboard.php?id=<?php echo $faculty->id; ?>">
                                                         <td><?php echo $cnt; ?></td>
                                                         <td><?php echo $faculty->code; ?></td>
                                                         <td><?php echo $faculty->name; ?></td>
                                                     </tr>
+                                                    
                                                 <?php $cnt = $cnt + 1;
                                                 } ?>
                                             </tbody>
