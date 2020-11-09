@@ -3,18 +3,51 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
-//Delete Calendar Details
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $adn = "DELETE FROM ezanaLMS_Calendar WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=school_calendar.php");
+
+if (isset($_POST['update_school_calendar'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['academic_yr']) && !empty($_POST['academic_yr'])) {
+        $academic_yr = mysqli_real_escape_string($mysqli, trim($_POST['academic_yr']));
     } else {
-        $info = "Please Try Again Or Try Later";
+        $error = 1;
+        $err = "Academic Year Cannot Be Empty";
+    }
+    if (isset($_POST['semester_name']) && !empty($_POST['semester_name'])) {
+        $semester_name = mysqli_real_escape_string($mysqli, trim($_POST['semester_name']));
+    } else {
+        $error = 1;
+        $err = "Semester Name Cannot Be Empty";
+    }
+    if (isset($_POST['semester_start']) && !empty($_POST['semester_start'])) {
+        $semester_start = mysqli_real_escape_string($mysqli, trim($_POST['semester_start']));
+    } else {
+        $error = 1;
+        $err = "Semester Opening Dates Cannot Be Empty";
+    }
+    if (isset($_POST['semester_end']) && !empty($_POST['semester_end'])) {
+        $semester_end = mysqli_real_escape_string($mysqli, trim($_POST['semester_end']));
+    } else {
+        $error = 1;
+        $err = "Semester Closing  Dates Cannot Be Empty";
+    }
+    if (!$error) {
+
+        $update = $_GET['update'];
+        $academic_yr = $_POST['academic_yr'];
+        $semester_start = $_POST['semester_start'];
+        $semester_name = $_POST['semester_name'];
+        $semester_end = $_POST['semester_end'];
+
+        $query = "UPDATE ezanaLMS_Calendar SET academic_yr =?, semester_start =?, semester_name =?, semester_end =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssss',  $academic_yr, $semester_start, $semester_name, $semester_end, $update);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Educational Dates Updated" && header("refresh:1; url=school_calendar.php");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
     }
 }
 require_once('partials/_head.php');
@@ -38,7 +71,8 @@ require_once('partials/_head.php');
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                <li class="breadcrumb-item active">School Calendar</li>
+                                <li class="breadcrumb-item"><a href="school_calendar.php">School Calendar</a></li>
+                                <li class="breadcrumb-item active">Update Calendar</li>
                             </ol>
                         </div>
                     </div>
