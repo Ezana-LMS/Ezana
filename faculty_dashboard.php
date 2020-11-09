@@ -64,7 +64,7 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-book-reader"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Courses</span>
-                                            <span class="info-box-number"></span>
+                                            <span class="info-box-number"><?php echo $courses;?></span>
                                         </div>
                                     </div>
                                 </a>
@@ -77,7 +77,7 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Modules</span>
-                                            <span class="info-box-number"></span>
+                                            <span class="info-box-number"><?php echo $modules;?></span>
                                         </div>
                                     </div>
                                 </a>
@@ -168,7 +168,7 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Lecturers</span>
-                                            <span class="info-box-number"></span>
+                                            <span class="info-box-number"><?php echo $lecs;?></span>
                                         </div>
                                     </div>
                                 </a>
@@ -181,7 +181,7 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Students</span>
-                                            <span class="info-box-number"></span>
+                                            <span class="info-box-number"><?php echo $students;?></span>
                                         </div>
                                     </div>
                                 </a>
