@@ -64,7 +64,7 @@ while ($f = $res->fetch_object()) {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$faculty'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$f->id'  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();

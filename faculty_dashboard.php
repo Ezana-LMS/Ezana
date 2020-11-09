@@ -3,7 +3,7 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
-require_once('partials/_analytics.php');
+require_once('partials/_faculties_analytics.php');
 require_once('partials/_head.php');
 ?>
 
@@ -44,7 +44,7 @@ require_once('partials/_head.php');
 
                             <!-- Departments -->
                             <div class="col-12 col-sm-6 col-md-6">
-                                <a href="departments.php?faculty=<?php echo $row->id;?>">
+                                <a href="departments.php?faculty=<?php echo $row->id; ?>">
                                     <div class="info-box">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fa fa-building" aria-hidden="true"></i></span>
                                         <div class="info-box-content">
@@ -64,7 +64,7 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-book-reader"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Courses</span>
-                                            <span class="info-box-number"><?php echo $courses; ?></span>
+                                            <span class="info-box-number"></span>
                                         </div>
                                     </div>
                                 </a>
@@ -77,7 +77,7 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Modules</span>
-                                            <span class="info-box-number"><?php echo $modules; ?></span>
+                                            <span class="info-box-number"></span>
                                         </div>
                                     </div>
                                 </a>
@@ -90,7 +90,7 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-graduate"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Students</span>
-                                            <span class="info-box-number"><?php echo $modules; ?></span>
+                                            <span class="info-box-number"></span>
                                         </div>
                                     </div>
                                 </a>
@@ -103,7 +103,7 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard-teacher"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Lecturers</span>
-                                            <span class="info-box-number"><?php echo $modules; ?></span>
+                                            <span class="info-box-number"></span>
                                         </div>
                                     </div>
                                 </a>
