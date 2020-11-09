@@ -65,7 +65,7 @@ while ($f = $res->fetch_object()) {
         <div class="wrapper">
 
             <!-- Navbar -->
-            <?php require_once('partials/_nav.php'); ?>
+            <?php require_once('partials/_faculty_sidebar.php'); ?>
             <!-- /.navbar -->
 
             <div class="content-wrapper">
@@ -79,7 +79,7 @@ while ($f = $res->fetch_object()) {
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="dashboard.php">Faculties</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?id=<?php echo $faculty;?>"><?php echo $f->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $faculty; ?>"><?php echo $f->name; ?></a></li>
                                     <li class="breadcrumb-item active">Add Department</li>
                                 </ol>
                             </div>
