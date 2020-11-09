@@ -6,12 +6,12 @@ $stmt->execute(); //ok
 $res = $stmt->get_result();
 while ($admin = $res->fetch_object()) {
 
-    $faculty = $_GET['faculty'];
-    $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
+    $department = $_GET['department'];
+    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE id = '$department' ";
     $stmt = $mysqli->prepare($ret);
     $stmt->execute(); //ok
     $res = $stmt->get_result();
-    while ($faculty = $res->fetch_object()) {
+    while ($row = $res->fetch_object()) {
 ?>
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
@@ -32,13 +32,13 @@ while ($admin = $res->fetch_object()) {
                         </li> 
                         <li class="nav-item">
                             <a href="departments.php?faculty=<?php echo $faculty->name; ?>" class="nav-link">Departments</a>
-                        </li>-->
+                        </li>
                         <li class="nav-item">
                             <a href="school_calendar.php" class="nav-link">School Calendar</a>
-                        </li>
-                        
+                        </li> -->
+
                         <li class="nav-item">
-                            <a href="view_faculty.php?faculty=<?php echo $faculty->id; ?>" class="nav-link"><?php echo $faculty->name; ?> Details</a>
+                            <a href="view_department.php?department=<?php echo $row->id; ?>" class="nav-link"><?php echo $row->name; ?> Details</a>
                         </li>
                     </ul>
                 </div>

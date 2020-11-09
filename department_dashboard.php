@@ -10,9 +10,8 @@ require_once('partials/_head.php');
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
         <?php
-        require_once('partials/_faculty_nav.php');
+        require_once('partials/_dep_nav.php');
         $department = $_GET['department'];
-        $faculty = $_GET['faculty'];
         $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE id = '$department' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
