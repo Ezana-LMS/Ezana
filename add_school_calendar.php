@@ -32,12 +32,12 @@ if (isset($_POST['add_school_calendar'])) {
     }
     if (!$error) {
         //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Calendar WHERE  semester_name='$semester_name'  ";
+        $sql = "SELECT * FROM  ezanaLMS_Calendar WHERE  (semester_name='$semester_name' AND academic_yr = '$academic_yr')   ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
-            if ($semester_name == $row['semester_name']) {
-                $err =  "Semester Name Already Exists";
+            if (($semester_name == $row['semester_name']) && ($academic_yr == $row['academic_year'])) {
+                $err =  "Semester Already Exists";
             }
         } else {
             $id = $_POST['id'];
