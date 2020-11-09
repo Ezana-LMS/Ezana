@@ -39,7 +39,7 @@ if (isset($_POST['add_dept'])) {
             $hod = $_POST['hod'];
             $created_at = date('d M Y');
 
-            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_name, details, hod, created_at) VALUES(?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, details, hod, created_at) VALUES(?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('sssssss', $id, $code, $name, $faculty, $details, $hod, $created_at);
             $stmt->execute();
@@ -54,7 +54,7 @@ if (isset($_POST['add_dept'])) {
 }
 
 $faculty = $_GET['faculty'];
-$ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE name = '$faculty' ";
+$ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
@@ -79,7 +79,7 @@ while ($f = $res->fetch_object()) {
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="dashboard.php">Faculties</a></li>
-                                    <li class="breadcrumb-item"><a href=""><?php echo $f->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?id=<?php echo $faculty;?>"><?php echo $f->name; ?></a></li>
                                     <li class="breadcrumb-item active">Add Department</li>
                                 </ol>
                             </div>

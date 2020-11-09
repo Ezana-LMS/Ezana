@@ -6,7 +6,7 @@ check_login();
 require_once('partials/_head.php');
 
 $faculty = $_GET['faculty'];
-$ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE name = '$faculty' ";
+$ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
@@ -46,7 +46,7 @@ while ($f = $res->fetch_object()) {
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_department.php?faculty=<?php echo $f->name; ?>">
+                                                <a class="btn btn-outline-success" href="add_department.php?faculty=<?php echo $f->id; ?>">
                                                     <i class="fas fa-plus"></i>
                                                     Register New Department
                                                 </a>
@@ -64,7 +64,7 @@ while ($f = $res->fetch_object()) {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_name = '$faculty'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$faculty'  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
