@@ -13,7 +13,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=manage_faculties.php");
+        $success = "Deleted" && header("refresh:1; url=faculties.php");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -55,51 +55,35 @@ require_once('partials/_head.php');
                                 <div class="card">
                                     <div class="card-header">
                                         <h2 class="text-right">
-                                            <a class="btn btn-outline-success" href="add_school_calendar.php">
+                                            <a class="btn btn-outline-success" href="add_faculties.php">
                                                 <i class="fas fa-plus"></i>
-                                                Add Important Dates
+                                                Register New Faculty
                                             </a>
                                         </h2>
                                     </div>
                                     <div class="card-body">
-                                        <table id="example2" class="table table-bordered table-striped">
+                                        <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Semester Name</th>
-                                                    <th>Opening Dates</th>
-                                                    <th>Closing Dates</th>
-                                                    <th>Academic Year</th>
-                                                    <th>Actions</th>
+                                                    <th>Faculty Code Number</th>
+                                                    <th>Faculty Name</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Calendar`  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
                                                 $cnt = 1;
-                                                while ($cal = $res->fetch_object()) {
+                                                while ($faculty = $res->fetch_object()) {
                                                 ?>
 
                                                     <tr>
                                                         <td><?php echo $cnt; ?></td>
-                                                        <td><?php echo $cal->semester_name; ?></td>
-                                                        <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
-                                                        <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
-                                                        <td><?php echo $cal->academic_yr; ?></td>
-                                                        <td>
-                                                            <a class="badge badge-primary" href="update_school_calendar.php?update=<?php echo $cal->id; ?>">
-                                                                <i class="fas fa-edit"></i>
-                                                                Update
-                                                            </a>
-
-                                                            <a class="badge badge-danger" href="school_calendar.php?delete=<?php echo $cal->id; ?>">
-                                                                <i class="fas fa-trash"></i>
-                                                                Delete
-                                                            </a>
-                                                        </td>
+                                                        <td><?php echo $faculty->code; ?></td>
+                                                        <td><?php echo $faculty->name; ?></td>
                                                     </tr>
                                                 <?php $cnt = $cnt + 1;
                                                 } ?>
