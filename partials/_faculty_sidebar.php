@@ -9,48 +9,14 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item">
-                    <a href="dashboard.php" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Dashboard
-                        </p>
-                    </a>
-                </li>
-
-
-                <li class="nav-item">
-                    <a href="school_calendar.php" class="nav-link">
+                <!-- <li class="nav-item">
+                    <a href="faculty_school_calendar.php" class="nav-link">
                         <i class="nav-icon fas fa-calendar-alt"></i>
                         <p>
-                            School Calendar
+                           Faculty  Calendar
                         </p>
                     </a>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-anchor"></i>
-                        <p>
-                            Faculties
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <!-- <li class="nav-item">
-                            <a href="add_faculties.php" class="nav-link">
-                                <i class="fas fa-chevron-right nav-icon"></i>
-                                <p>Add Faculty</p>
-                            </a>
-                        </li> -->
-                        <li class="nav-item">
-                            <a href="manage_faculties.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Manage Faculties</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
+                </li> -->                
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-bezier-curve"></i>
@@ -66,21 +32,18 @@
                                 <p>Manage Departments</p>
                             </a>
                         </li>
-
                         <li class="nav-item">
                             <a href="departmental_memos.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Dept Memos</p>
                             </a>
                         </li>
-
                         <li class="nav-item">
                             <a href="departmental_notices.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Dept Notices</p>
                             </a>
                         </li>
-
                     </ul>
                 </li>
 
@@ -137,7 +100,6 @@
                                 <p>Reading Materials</p>
                             </a>
                         </li>
-
                     </ul>
                 </li>
                 <li class="nav-item has-treeview">

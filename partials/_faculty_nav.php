@@ -27,18 +27,10 @@ while ($admin = $res->fetch_object()) {
                         <a href="school_calendar.php" class="nav-link">School Calendar</a>
                     </li>
                     <li class="nav-item">
-                        <a href="faculties.php" class="nav-link">Faculties</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Reports</a>
-                        <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                            <li><a href="#" class="dropdown-item"></a></li>
-                            <li><a href="#" class="dropdown-item"></a></li>
-                        </ul>
+                        <a href="departments.php" class="nav-link">Departments</a>
                     </li>
                 </ul>
             </div>
-
             <!-- Right navbar links -->
             <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                 <li class="nav-item">
