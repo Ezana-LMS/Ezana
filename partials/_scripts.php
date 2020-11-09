@@ -28,6 +28,12 @@
             "autoWidth": false,
         });
     });
+    /* Clickable Row  */
+    $(document).ready(function($) {
+        $(".table-row").click(function() {
+            window.document.location = $(this).data("href");
+        });
+    });
 </script>
 
 <!-- Data Tables V2.01 -->
