@@ -20,7 +20,7 @@ if (isset($_POST['update_faculty'])) {
         $err = "Faculty Name Cannot Be Empty";
     }
     if (!$error) {
-        $id = $_GET['id'];
+        $faculty = $_GET['faculty'];
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
@@ -30,7 +30,7 @@ if (isset($_POST['update_faculty'])) {
         $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Faculty Updated" && header("refresh:1; url=faculty_dashboard.php?id=$id&faculty=$name");
+            $success = "Faculty Updated" && header("refresh:1; url=faculty_dashboard.php?faculty=$faculty");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -45,12 +45,12 @@ require_once('partials/_head.php');
         <!-- Navbar -->
         <?php
         require_once('partials/_faculty_nav.php');
-        $id = $_GET['id'];
-        $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id ='$id' ";
+        $faculty = $_GET['faculty'];
+        $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id ='$faculty' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($faculty = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
         ?>
             <!-- /.navbar -->
             <div class="content-wrapper">
@@ -58,13 +58,13 @@ require_once('partials/_head.php');
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Details</h1>
+                                <h1 class="m-0 text-dark"><?php echo $row->name; ?> Details</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?id=<?php echo $id; ?>">Faculty Dashboard</a></li>
-                                    <li class="breadcrumb-item active"><?php echo $faculty->name; ?></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $faculty; ?>">Faculty Dashboard</a></li>
+                                    <li class="breadcrumb-item active"><?php echo $row->name; ?></li>
                                 </ol>
                             </div>
                         </div>
@@ -85,17 +85,17 @@ require_once('partials/_head.php');
                                                 <div class="row">
                                                     <div class="form-group col-md-6">
                                                         <label for="">Faculty Name</label>
-                                                        <input type="text" value="<?php echo $faculty->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
+                                                        <input type="text" value="<?php echo $row->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="">Faculty Number / Code</label>
-                                                        <input type="text" required name="code" value="<?php echo $faculty->code; ?>" class="form-control">
+                                                        <input type="text" required name="code" value="<?php echo $row->code; ?>" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-12">
                                                         <label for="exampleInputPassword1">Faculty Description</label>
-                                                        <textarea required name="details" id="textarea" rows="10" class="form-control"><?php echo $faculty->details; ?></textarea>
+                                                        <textarea required name="details" id="textarea" rows="10" class="form-control"><?php echo $row->details; ?></textarea>
                                                     </div>
                                                 </div>
                                             </div>

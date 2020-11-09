@@ -11,12 +11,12 @@ require_once('partials/_head.php');
     <div class="wrapper">
         <?php
         require_once('partials/_faculty_nav.php');
-        $id = $_GET['id'];
-        $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$id' ";
+        $faculty = $_GET['faculty'];
+        $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($faculty = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
 
             require_once('partials/_faculty_sidebar.php');
         ?>
@@ -26,13 +26,13 @@ require_once('partials/_head.php');
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"> <?php echo $faculty->name; ?> Dashboard</h1>
+                                <h1 class="m-0 text-dark"> <?php echo $row->name; ?> Dashboard</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item active"> <?php echo $faculty->name; ?></li>
+                                    <li class="breadcrumb-item active"> <?php echo $row->name; ?></li>
                                 </ol>
                             </div>
                         </div>
@@ -44,7 +44,7 @@ require_once('partials/_head.php');
 
                             <!-- Departments -->
                             <div class="col-12 col-sm-6 col-md-6">
-                                <a href="departments.php?id=<?php echo $faculty->id;?>">
+                                <a href="departments.php?id=<?php echo $row->id;?>">
                                     <div class="info-box">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fa fa-building" aria-hidden="true"></i></span>
                                         <div class="info-box-content">
