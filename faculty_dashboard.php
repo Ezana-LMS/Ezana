@@ -11,14 +11,16 @@ require_once('partials/_head.php');
     <div class="wrapper">
         <?php
         require_once('partials/_faculty_nav.php');
-        require_once('partials/_faculty_sidebar.php');
         $id = $_GET['id'];
         $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$id' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($faculty = $res->fetch_object()) {
+
+            require_once('partials/_faculty_sidebar.php');
         ?>
+
             <div class="content-wrapper">
                 <div class="content-header">
                     <div class="container">
