@@ -44,7 +44,7 @@ require_once('partials/_head.php');
 
                             <!-- Departments -->
                             <div class="col-12 col-sm-6 col-md-6">
-                                <a href="departments.php?faculty=<?php echo $faculty->id;?>">
+                                <a href="departments.php?id=<?php echo $faculty->id;?>">
                                     <div class="info-box">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fa fa-building" aria-hidden="true"></i></span>
                                         <div class="info-box-content">

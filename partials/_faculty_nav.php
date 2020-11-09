@@ -6,8 +6,8 @@ $stmt->execute(); //ok
 $res = $stmt->get_result();
 while ($admin = $res->fetch_object()) {
 
-    $id = $_GET['id'];
-    $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$id' ";
+    $faculty = $_GET['faculty'];
+    $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
     $stmt = $mysqli->prepare($ret);
     $stmt->execute(); //ok
     $res = $stmt->get_result();

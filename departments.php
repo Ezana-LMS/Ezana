@@ -5,8 +5,8 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('partials/_head.php');
 
-$faculty = $_GET['faculty'];
-$ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
+$id = $_GET['id'];
+$ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$id' ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
@@ -17,7 +17,7 @@ while ($f = $res->fetch_object()) {
         <div class="wrapper">
 
             <!-- Navbar -->
-            <?php require_once('partials/_nav.php'); ?>
+            <?php require_once('partials/_faculty_nav.php'); ?>
             <!-- /.navbar -->
 
             <div class="content-wrapper">
@@ -25,13 +25,13 @@ while ($f = $res->fetch_object()) {
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark">Departments</h1>
+                                <h1 class="m-0 text-dark"><?php echo $f->name; ?>  Departments</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item active"> <?php echo $f->name; ?> Departments</li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?id=<?php echo $f->id;?>"><?php echo $f->name;?></a></li>
+                                    <li class="breadcrumb-item active"> Departments </li>
                                 </ol>
                             </div>
                         </div>
@@ -46,7 +46,7 @@ while ($f = $res->fetch_object()) {
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_department.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-success" href="add_department.php?id=<?php echo $f->id; ?>">
                                                     <i class="fas fa-plus"></i>
                                                     Register New Department
                                                 </a>
@@ -57,14 +57,14 @@ while ($f = $res->fetch_object()) {
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Dep Code / Number</th>
-                                                        <th>Dep Name</th>
-                                                        <th>Dep HOD</th>
+                                                        <th>Department Code / Number</th>
+                                                        <th>Department Name</th>
+                                                        <th>Depeartment Head</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$faculty'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$id'  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();

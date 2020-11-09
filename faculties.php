@@ -63,7 +63,7 @@ require_once('partials/_head.php');
                                                 $cnt = 1;
                                                 while ($faculty = $res->fetch_object()) {
                                                 ?>
-                                                    <tr class="table-row" data-href="faculty_dashboard.php?id=<?php echo $faculty->id; ?>">
+                                                    <tr class="table-row" data-href="faculty_dashboard.php?faculty=<?php echo $faculty->id; ?>">
                                                         <td><?php echo $cnt; ?></td>
                                                         <td><?php echo $faculty->code; ?></td>
                                                         <td><?php echo $faculty->name; ?></td>
