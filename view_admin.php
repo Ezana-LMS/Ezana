@@ -18,7 +18,7 @@ if (isset($_POST['profile_update'])) {
     $rc = $stmt->bind_param('sssssss', $name, $email, $phone, $adr,  $profile_pic, $rank,  $view);
     $stmt->execute();
     if ($stmt) {
-        $success = "Profile Updated" && header("refresh:1; url=system_admins.php");
+        $success = "Profile Updated" && header("refresh:1; url=administrators.php");
     } else {
         //inject alert that profile update task failed
         $info = "Please Try Again Or Try Later";
