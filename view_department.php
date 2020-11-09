@@ -20,19 +20,18 @@ if (isset($_POST['update_dept'])) {
         $err = "Department Name Cannot Be Empty";
     }
     if (!$error) {
-        $update = $_GET['update'];
+        $department = $_GET['department'];
         $name = $_POST['name'];
         $code = $_POST['code'];
-        $faculty_name = $_POST['faculty_name'];
         $details = $_POST['details'];
         $hod = $_POST['hod'];
 
-        $query = "UPDATE ezanaLMS_Departments SET code =?, name =?, faculty_name =?, details =?, hod =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Departments SET code =?, name =?,  details =?, hod =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssss', $code, $name, $faculty_name, $details, $hod, $update);
+        $rc = $stmt->bind_param('sssss', $code, $name, $details, $hod, $department);
         $stmt->execute();
         if ($stmt) {
-            $success = "Faculty Department Updated" && header("refresh:1; url=manage_departments.php");
+            $success = "Faculty Department Updated" && header("refresh:1; url=view_department.php?department=$department");
         } else {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
@@ -123,9 +122,34 @@ require_once('partials/_head.php');
                                     <div class="card-body">
                                         <div class="tab-content">
                                             <div class="active tab-pane" id="settings">
-
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department Name</label>
+                                                                <input type="text" required name="name" value="<?php echo $dep->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department Number / Code</label>
+                                                                <input type="text" required name="code" value="<?php echo $dep->code; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department HOD</label>
+                                                                <input type="text" required value="<?php echo $dep->hod; ?>" name="hod" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="exampleInputPassword1">Department Details</label>
+                                                                <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <button type="submit" name="update_dept" class="btn btn-primary">Update Department</button>
+                                                    </div>
+                                                </form>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
