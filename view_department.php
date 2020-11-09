@@ -66,7 +66,7 @@ require_once('partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item"><a href=""><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="department_dashboard.php?department=<?php echo $department;?>"><?php echo $row->name; ?></a></li>
                                     <li class="breadcrumb-item active">View</li>
                                 </ol>
                             </div>
@@ -85,7 +85,7 @@ require_once('partials/_head.php');
                                         <div class="text-center">
                                             <img class='profile-user-img img-fluid img-circle' src='dist/img/logo.jpeg' alt='User profile picture'>
                                         </div>
-
+                                        <br>
                                         <ul class="list-group list-group-unbordered mb-3">
                                             <li class="list-group-item">
                                                 <b>Name: </b> <a class="float-right"><?php echo $row->name; ?></a>
@@ -127,21 +127,21 @@ require_once('partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-4">
                                                                 <label for="">Department Name</label>
-                                                                <input type="text" required name="name" value="<?php echo $dep->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                <input type="text" required name="name" value="<?php echo $row->name; ?>" class="form-control" id="exampleInputEmail1">
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label for="">Department Number / Code</label>
-                                                                <input type="text" required name="code" value="<?php echo $dep->code; ?>" class="form-control">
+                                                                <input type="text" required name="code" value="<?php echo $row->code; ?>" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label for="">Department HOD</label>
-                                                                <input type="text" required value="<?php echo $dep->hod; ?>" name="hod" class="form-control">
+                                                                <input type="text" required value="<?php echo $row->hod; ?>" name="hod" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Department Details</label>
-                                                                <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
+                                                                <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $row->details; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>

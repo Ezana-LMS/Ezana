@@ -59,6 +59,7 @@ while ($f = $res->fetch_object()) {
                                                         <th>Department Code / Number</th>
                                                         <th>Department Name</th>
                                                         <th>Depeartment Head</th>
+                                                        <th>Manage Departments</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -70,11 +71,17 @@ while ($f = $res->fetch_object()) {
                                                     $cnt = 1;
                                                     while ($dep = $res->fetch_object()) {
                                                     ?>
-                                                        <tr class="table-row" data-href="department_dashboard.php?department=<?php echo $dep->id; ?>&faculty=<?php echo $dep->faculty_id; ?>">
+                                                        <tr class="table-row" data-href="view_department.php?department=<?php echo $dep->id; ?>&faculty=<?php echo $dep->faculty_id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $dep->code; ?></td>
                                                             <td><?php echo $dep->name; ?></td>
                                                             <td><?php echo $dep->hod; ?></td>
+                                                            <td>
+                                                                <a class="badge badge-danger" href="departments.php?delete=<?php echo $dep->id; ?>&faculty=<?php echo $dep->faculty; ?>">
+                                                                    <i class="fas fa-trash"></i>
+                                                                    Delete
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                     <?php $cnt = $cnt + 1;
                                                     } ?>
