@@ -9,14 +9,7 @@
 <script src="dist/js/demo.js"></script>
 <!-- Dropify Plug in -->
 <script src="plugins/dropify/dropify.min.js"></script>
-<!-- jQuery Mapael -->
-<script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="plugins/raphael/raphael.min.js"></script>
-<script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
-<!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
-<script src="dist/js/pages/dashboard2.js"></script>
+
 <!-- Data Tables -->
 <script src="plugins/datatables/jquery.dataTables.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
@@ -36,6 +29,7 @@
         });
     });
 </script>
+
 
 <!-- Data Tables V2.01 -->
 <!-- NOTE TO Use Copy CSV Excel PDF Print Options You Must Include These Files  -->
