@@ -40,7 +40,7 @@ while ($f = $res->fetch_object()) {
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $f->name; ?>Modules Announcements </h1>
+                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Modules Announcements </h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -62,7 +62,7 @@ while ($f = $res->fetch_object()) {
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-primary" href="add_module_announcement.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-primary" href="add_module_notice.php?faculty=<?php echo $f->id; ?>">
                                                     Add New Module Announcement
                                                 </a>
                                             </h2>
@@ -89,7 +89,7 @@ while ($f = $res->fetch_object()) {
                                                     while ($not = $res->fetch_object()) {
                                                     ?>
 
-                                                        <tr class="table-row" data-href="view_departmental_notememo.php?view=<?php echo $memo->id; ?>&faculty=<?php echo $memo->faculty_id; ?>">
+                                                        <tr class="table-row" data-href="view_module_notices.php?view=<?php echo $memo->id; ?>&faculty=<?php echo $memo->faculty_id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $not->module_name; ?></td>
                                                             <td><?php echo $not->module_code; ?></td>
@@ -102,7 +102,7 @@ while ($f = $res->fetch_object()) {
                                                                     Update Announcement
                                                                 </a>
 
-                                                                <a class="badge badge-danger" href="module_notices.php?delete=<?php echo $not->id; ?>">
+                                                                <a class="badge badge-danger" href="module_notices.php?delete=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete Announcement
                                                                 </a>
