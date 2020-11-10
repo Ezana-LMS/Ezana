@@ -40,18 +40,19 @@ if (isset($_POST['update_course'])) {
 
 require_once('partials/_head.php');
 ?>
+
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
 
         <!-- Navbar -->
         <?php
         require_once('partials/_dep_nav.php');
-        $department = $_GET['department'];
-        $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE id = '$department' ";
+        $view = $_GET['view'];
+        $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE id ='$view'  ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($row = $res->fetch_object()) {
+        while ($course = $res->fetch_object()) {
         ?>
             <!-- /.navbar -->
             <div class="content-wrapper">
@@ -59,13 +60,13 @@ require_once('partials/_head.php');
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"> <?php echo $row->name; ?> Details </h1>
+                                <h1 class="m-0 text-dark"> <?php echo $course->name; ?> Details </h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item"><a href=""><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href=""><?php echo $course->name; ?></a></li>
                                     <li class="breadcrumb-item active">View</li>
                                 </ol>
                             </div>
@@ -87,13 +88,13 @@ require_once('partials/_head.php');
                                         <br>
                                         <ul class="list-group list-group-unbordered mb-3">
                                             <li class="list-group-item">
-                                                <b>Name: </b> <a class="float-right"><?php echo $row->name; ?></a>
+                                                <b>Course Name: </b> <a class="float-right"><?php echo $course->name; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Code / Number : </b> <a class="float-right"><?php echo $row->code; ?></a>
+                                                <b>Course Code : </b> <a class="float-right"><?php echo $course->code; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>HOD</b> <a class="float-right"><?php echo $row->hod; ?></a>
+                                                <b>Course Department</b> <a class="float-right"><?php echo $course->department_name; ?></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -103,10 +104,10 @@ require_once('partials/_head.php');
 
                                 <div class="card card-primary card-outline">
                                     <div class="card-header">
-                                        <h3 class="card-title">Department Details</h3>
+                                        <h3 class="card-title">Course Details</h3>
                                     </div>
                                     <div class="card-body box-profile">
-                                        <?php echo $row->details; ?>
+                                        <?php echo $course->details; ?>
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +116,7 @@ require_once('partials/_head.php');
                                 <div class="card">
                                     <div class="card-header p-2">
                                         <ul class="nav nav-pills">
-                                            <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Department Settings</a></li>
+                                            <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Course Settings</a></li>
                                         </ul>
                                     </div>
                                     <div class="card-body">
@@ -124,28 +125,24 @@ require_once('partials/_head.php');
                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                     <div class="card-body">
                                                         <div class="row">
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Department Name</label>
-                                                                <input type="text" required name="name" value="<?php echo $row->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Course Name</label>
+                                                                <input type="text" required name="name" value="<?php echo $course->name; ?>" class="form-control" id="exampleInputEmail1">
                                                             </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Department Number / Code</label>
-                                                                <input type="text" required name="code" value="<?php echo $row->code; ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Department HOD</label>
-                                                                <input type="text" required value="<?php echo $row->hod; ?>" name="hod" class="form-control">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Course Number / Code</label>
+                                                                <input type="text" required name="code" value="<?php echo $course->code; ?>"" class=" form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
-                                                                <label for="exampleInputPassword1">Department Details</label>
-                                                                <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $row->details; ?></textarea>
+                                                                <label for="exampleInputPassword1">Course Description</label>
+                                                                <textarea required name="details" id="textarea" rows="10" class="form-control"><?php echo $course->details; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="card-footer">
-                                                        <button type="submit" name="update_dept" class="btn btn-primary">Update Department</button>
+                                                        <button type="submit" name="update_course" class="btn btn-primary">Update Course</button>
                                                     </div>
                                                 </form>
                                             </div>
