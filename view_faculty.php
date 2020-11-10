@@ -44,7 +44,7 @@ require_once('partials/_head.php');
     <div class="wrapper">
         <!-- Navbar -->
         <?php
-        require_once('partials/_dep_nav.php');
+        require_once('partials/_faculty_nav.php');
         $faculty = $_GET['faculty'];
         $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id ='$faculty' ";
         $stmt = $mysqli->prepare($ret);
@@ -64,7 +64,7 @@ require_once('partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $faculty->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
                                     <li class="breadcrumb-item active">View</li>
                                 </ol>
                             </div>
@@ -75,7 +75,7 @@ require_once('partials/_head.php');
                 <div class="content">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
 
                                 <!-- Profile Image -->
                                 <div class="card card-primary card-outline">
@@ -91,14 +91,11 @@ require_once('partials/_head.php');
                                             <li class="list-group-item">
                                                 <b>Faculty Code / Number : </b> <a class="float-right"><?php echo $row->code; ?></a>
                                             </li>
-                                            <li class="list-group-item">
-                                                <b>Faculty HOD</b> <a class="float-right"><?php echo $row->hod; ?></a>
-                                            </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
 
                                 <div class="card card-primary card-outline">
                                     <div class="card-header">
