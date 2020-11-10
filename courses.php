@@ -91,18 +91,18 @@ while ($f = $res->fetch_object()) {
                                                     while ($course = $res->fetch_object()) {
                                                     ?>
 
-                                                        <tr>
+                                                        <tr class="table-row" data-href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $course->code; ?></td>
                                                             <td><?php echo $course->name; ?></td>
                                                             <td><?php echo $course->department_name; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_course.php?department=<?php echo $course->department_id;?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id;?>">
+                                                                <a class="badge badge-success" href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
                                                                     <i class="fas fa-eye"></i>
                                                                     View Course
                                                                 </a>
 
-                                                                <a class="badge badge-danger" href="manage_courses.php?delete=<?php echo $course->id; ?>&faculty=<?php echo $f->id;?>">
+                                                                <a class="badge badge-danger" href="manage_courses.php?delete=<?php echo $course->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
