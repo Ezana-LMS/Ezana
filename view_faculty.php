@@ -50,7 +50,7 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($faculty = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
         ?>
             <!-- /.navbar -->
             <div class="content-wrapper">
@@ -58,13 +58,13 @@ require_once('partials/_head.php');
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"> <?php echo $faculty->name; ?> Details </h1>
+                                <h1 class="m-0 text-dark"> <?php echo $row->name; ?> Details </h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $faculty->id;?>"><?php echo $faculty->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $faculty->name; ?></a></li>
                                     <li class="breadcrumb-item active">View</li>
                                 </ol>
                             </div>
@@ -86,13 +86,13 @@ require_once('partials/_head.php');
                                         <br>
                                         <ul class="list-group list-group-unbordered mb-3">
                                             <li class="list-group-item">
-                                                <b>Name: </b> <a class="float-right"><?php echo $row->name; ?></a>
+                                                <b>Faculty Name: </b> <a class="float-right"><?php echo $row->name; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Code / Number : </b> <a class="float-right"><?php echo $row->code; ?></a>
+                                                <b>Faculty Code / Number : </b> <a class="float-right"><?php echo $row->code; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>HOD</b> <a class="float-right"><?php echo $row->hod; ?></a>
+                                                <b>Faculty HOD</b> <a class="float-right"><?php echo $row->hod; ?></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -102,7 +102,7 @@ require_once('partials/_head.php');
 
                                 <div class="card card-primary card-outline">
                                     <div class="card-header">
-                                        <h3 class="card-title">Department Details</h3>
+                                        <h3 class="card-title">Faculty Details</h3>
                                     </div>
                                     <div class="card-body box-profile">
                                         <?php echo $row->details; ?>
@@ -123,28 +123,24 @@ require_once('partials/_head.php');
                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                     <div class="card-body">
                                                         <div class="row">
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Department Name</label>
-                                                                <input type="text" required name="name" value="<?php echo $row->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty Name</label>
+                                                                <input type="text" value="<?php echo $row->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
                                                             </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Department Number / Code</label>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty Number / Code</label>
                                                                 <input type="text" required name="code" value="<?php echo $row->code; ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Department HOD</label>
-                                                                <input type="text" required value="<?php echo $row->hod; ?>" name="hod" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
-                                                                <label for="exampleInputPassword1">Department Details</label>
-                                                                <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $row->details; ?></textarea>
+                                                                <label for="exampleInputPassword1">Faculty Description</label>
+                                                                <textarea required name="details" id="textarea" rows="10" class="form-control"><?php echo $row->details; ?></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="card-footer">
-                                                        <button type="submit" name="update_dept" class="btn btn-primary">Update Department</button>
+                                                        <button type="submit" name="update_faculty" class="btn btn-primary">Update Faculty</button>
                                                     </div>
                                                 </form>
                                             </div>
