@@ -43,13 +43,14 @@ if (isset($_POST['add_course'])) {
             $details = $_POST['details'];
             $department_id = $_POST['department_id'];
             $department_name = $_POST['department_name'];
+            $faculty = $_GET['faculty'];
 
-            $query = "INSERT INTO ezanaLMS_Courses (id, code, name, details, department_id, department_name) VALUES(?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Courses (id, code, name, details, department_id, faculty_id, department_name) VALUES(?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssss', $id, $code, $name, $details, $department_id, $department_name);
+            $rc = $stmt->bind_param('sssssss', $id, $code, $name, $details, $department_id, $faculty,  $department_name);
             $stmt->execute();
             if ($stmt) {
-                $success = "Course Added" && header("refresh:1; url=add_course.php");
+                $success = "Course Added" && header("refresh:1; url=add_course.php?faculty=$faculty");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
