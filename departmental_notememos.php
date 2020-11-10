@@ -40,7 +40,7 @@ while ($f = $res->fetch_object()) {
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Departmental Notices / Memos</h1>
+                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Departmental Notices & Memos</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -62,7 +62,7 @@ while ($f = $res->fetch_object()) {
                                         <div class="card-header">
                                             <h2 class="text-right">
                                                 <a class="btn btn-outline-primary" href="add_departmental_notememos.php?faculty=<?php echo $f->id; ?>">
-                                                    Add New Departmental Memos / Notices
+                                                    Add New Departmental Memos & Notices
                                                 </a>
                                             </h2>
                                         </div>
@@ -72,7 +72,6 @@ while ($f = $res->fetch_object()) {
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Department Name</th>
-                                                        <th>Department Code Number</th>
                                                         <th>Date Posted</th>
                                                         <th>Type</th>
                                                         <th>Actions</th>
@@ -88,12 +87,11 @@ while ($f = $res->fetch_object()) {
                                                     while ($memo = $res->fetch_object()) {
                                                     ?>
 
-                                                        <tr>
+                                                        <tr class="table-row" data-href="view_departmental_notememo.php?view=<?php echo $memo->id; ?>&faculty=<?php echo $memo->faculty_id;?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $memo->department_name; ?></td>
-                                                            <td><?php echo $memo->department_id; ?></td>
                                                             <td><?php echo $memo->created_at; ?></td>
-                                                            <td><?php echo $memo->type;?></td>
+                                                            <td>Departmental <?php echo $memo->type; ?></td>
                                                             <td>
                                                                 <a class="badge badge-primary" href="update_departmental_memo.php?update=<?php echo $memo->id; ?>">
                                                                     <i class="fas fa-edit"></i>

@@ -16,7 +16,7 @@ if (isset($_POST['add_memo'])) {
     }
     if (!$error) {
         $id = $_POST['id'];
-        $department_id = $_POST['dep_id'];
+        $department_id = $_POST['department_id'];
         $department_name  = $_POST['department_name'];
         $departmental_memo = $_POST['departmental_memo'];
         $attachments = $_FILES['attachments']['name'];
@@ -36,10 +36,8 @@ if (isset($_POST['add_memo'])) {
         }
     }
 }
-
 require_once('partials/_head.php');
 ?>
-
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
         <!-- Navbar -->
