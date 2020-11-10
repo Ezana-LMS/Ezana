@@ -20,6 +20,8 @@ if (isset($_POST['update_course'])) {
         $err = "Course Name Cannot Be Empty";
     }
     if (!$error) {
+
+        $department = $_GET['department'];
         $faculty = $_GET['faculty'];
         $view = $_GET['view'];
         $name = $_POST['name'];
@@ -31,7 +33,7 @@ if (isset($_POST['update_course'])) {
         $rc = $stmt->bind_param('ssss', $code, $name, $details, $view);
         $stmt->execute();
         if ($stmt) {
-            $success = "Course Updated" && header("refresh:1; url=view_course.php?view=$view&faculty=$faculty");
+            $success = "Course Updated" && header("refresh:1; url=view_course.php?department=$department&view=$view&faculty=$faculty");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -77,7 +79,7 @@ require_once('partials/_head.php');
                 <div class="content">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
 
                                 <!-- Profile Image -->
                                 <div class="card card-primary card-outline">
@@ -94,13 +96,13 @@ require_once('partials/_head.php');
                                                 <b>Course Code : </b> <a class="float-right"><?php echo $course->code; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Course Department</b> <a class="float-right"><?php echo $course->department_name; ?></a>
+                                                <b>Department : </b> <a class="float-right"><?php echo $course->department_name; ?></a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
 
                                 <div class="card card-primary card-outline">
                                     <div class="card-header">

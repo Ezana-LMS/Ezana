@@ -7,13 +7,14 @@ check_login();
 //delete
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
+    $faculty = $_GET['faculty'];
     $adn = "DELETE FROM ezanaLMS_Courses WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=manage_courses.php");
+        $success = "Deleted" && header("refresh:1; url=courses.php?faculty=$faculty");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -96,12 +97,12 @@ while ($f = $res->fetch_object()) {
                                                             <td><?php echo $course->name; ?></td>
                                                             <td><?php echo $course->department_name; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_course.php?view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id;?>">
+                                                                <a class="badge badge-success" href="view_course.php?department=<?php echo $course->department_id;?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id;?>">
                                                                     <i class="fas fa-eye"></i>
                                                                     View Course
                                                                 </a>
 
-                                                                <a class="badge badge-danger" href="manage_courses.php?delete=<?php echo $course->id; ?>">
+                                                                <a class="badge badge-danger" href="manage_courses.php?delete=<?php echo $course->id; ?>&faculty=<?php echo $f->id;?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
