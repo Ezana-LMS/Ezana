@@ -82,13 +82,13 @@ require_once('partials/_head.php');
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label for="">Type</label>
-                                                            <select class='form-control basic1' name="type">
+                                                            <select class='form-control basic' name="type">
                                                                 <option selected><?php echo $memo->type; ?></option>
                                                                 <option>Notice</option>
                                                                 <option>Memo</option>
                                                             </select>
                                                         </div>
-                                                        <div class="form-group col-md-12">
+                                                        <div class="form-group col-md-6">
                                                             <label for="">Upload Departmental Memo (PDF Or Docx)</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">

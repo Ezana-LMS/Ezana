@@ -75,7 +75,7 @@ require_once('partials/_head.php');
                                             if ($memo->attachments != '') {
                                                 echo
                                                     "
-                                                        <a href='dist/memos/$memo->attachments' class='btn btn-outline-success'>
+                                                        <a href='EzanaLMSData/memos/$memo->attachments' class='btn btn-outline-success'>
                                                             <i class='fas fa-download'></i>
                                                                 Download Memo
                                                         </a>
