@@ -43,7 +43,6 @@ require_once('partials/_head.php');
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
-
         <!-- Navbar -->
         <?php
         require_once('partials/_dep_nav.php');
@@ -60,13 +59,13 @@ require_once('partials/_head.php');
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"> <?php echo $row->name; ?> Details </h1>
+                                <h1 class="m-0 text-dark"> <?php echo $row->name; ?> </h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item"><a href="department_dashboard.php?department=<?php echo $department;?>"><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->faculty_id;?>"><?php echo $row->name; ?></a></li>
                                     <li class="breadcrumb-item active">View</li>
                                 </ol>
                             </div>
@@ -77,7 +76,7 @@ require_once('partials/_head.php');
                 <div class="content">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
 
                                 <!-- Profile Image -->
                                 <div class="card card-primary card-outline">
@@ -100,7 +99,7 @@ require_once('partials/_head.php');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
 
                                 <div class="card card-primary card-outline">
                                     <div class="card-header">

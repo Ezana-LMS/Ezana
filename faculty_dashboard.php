@@ -41,7 +41,6 @@ require_once('partials/_head.php');
                 <div class="content">
                     <div class="container">
                         <div class="row">
-
                             <!-- Departments -->
                             <div class="col-12 col-sm-6 col-md-4">
                                 <a href="departments.php?faculty=<?php echo $row->id; ?>">
@@ -56,10 +55,9 @@ require_once('partials/_head.php');
                                     </div>
                                 </a>
                             </div>
-
                             <!-- Courses  -->
                             <div class="col-12 col-sm-6 col-md-4">
-                                <a href="courses.php">
+                                <a href="courses.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-book-reader"></i></span>
                                         <div class="info-box-content">
@@ -72,7 +70,7 @@ require_once('partials/_head.php');
 
                             <!-- Modules -->
                             <div class="col-12 col-sm-6 col-md-4">
-                                <a href="modules.php">
+                                <a href="modules.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
                                         <div class="info-box-content">
@@ -98,7 +96,7 @@ require_once('partials/_head.php');
 
                             <!-- Time Table-->
                             <div class="col-12 col-sm-6 col-md-4">
-                                <a href="timetables.php">
+                                <a href="timetables.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-calendar-week"></i></span>
                                         <div class="info-box-content">
@@ -111,7 +109,7 @@ require_once('partials/_head.php');
 
                             <!-- Class Recordings -->
                             <div class="col-12 col-sm-6 col-md-4">
-                                <a href="class_recordings.php">
+                                <a href="class_recordings.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-file-video"></i></span>
                                         <div class="info-box-content">
