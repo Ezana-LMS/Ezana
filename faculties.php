@@ -40,7 +40,6 @@ require_once('partials/_head.php');
                                     <div class="card-header">
                                         <h2 class="text-right">
                                             <a class="btn btn-outline-success" href="add_faculties.php">
-                                                <i class="fas fa-plus"></i>
                                                 Register New Faculty
                                             </a>
                                         </h2>
