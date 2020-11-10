@@ -102,7 +102,7 @@ while ($f = $res->fetch_object()) {
                                                                     View Course
                                                                 </a>
 
-                                                                <a class="badge badge-danger" href="manage_courses.php?delete=<?php echo $course->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-danger" href="courses.php?delete=<?php echo $course->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
