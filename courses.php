@@ -77,12 +77,12 @@ while ($f = $res->fetch_object()) {
                                                         <th>Course Code</th>
                                                         <th>Course Name</th>
                                                         <th>Department Name</th>
-                                                        <th>Actions</th>
+                                                        <th>Manage Course</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$faculty'  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
@@ -100,10 +100,7 @@ while ($f = $res->fetch_object()) {
                                                                     <i class="fas fa-eye"></i>
                                                                     View Course
                                                                 </a>
-                                                                <a class="badge badge-primary" href="update_course.php?update=<?php echo $course->id; ?>">
-                                                                    <i class="fas fa-edit"></i>
-                                                                    Update
-                                                                </a>
+
                                                                 <a class="badge badge-danger" href="manage_courses.php?delete=<?php echo $course->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete

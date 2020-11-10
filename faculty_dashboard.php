@@ -59,7 +59,7 @@ require_once('partials/_head.php');
 
                             <!-- Courses  -->
                             <div class="col-12 col-sm-6 col-md-4">
-                                <a href="courses.php">
+                                <a href="courses.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-book-reader"></i></span>
                                         <div class="info-box-content">
