@@ -94,20 +94,15 @@ while ($f = $res->fetch_object()) {
                                                     while ($mod = $res->fetch_object()) {
                                                     ?>
 
-                                                        <tr>
+                                                        <tr class="table-row" data-href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $f->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $mod->name; ?></td>
                                                             <td><?php echo $mod->code; ?></td>
                                                             <td><?php echo $mod->course_name; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $f->id; ?>">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    View
-                                                                </a>
-
                                                                 <a class="badge badge-danger" href="modules.php?delete=<?php echo $mod->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-trash"></i>
-                                                                    Delete
+                                                                    Delete Module
                                                                 </a>
                                                             </td>
                                                         </tr>
