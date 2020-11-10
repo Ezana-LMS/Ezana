@@ -89,7 +89,7 @@ while ($f = $res->fetch_object()) {
                                                     while ($not = $res->fetch_object()) {
                                                     ?>
 
-                                                        <tr class="table-row" data-href="view_module_notices.php?view=<?php echo $memo->id; ?>&faculty=<?php echo $memo->faculty_id; ?>">
+                                                        <tr class="table-row" data-href="view_module_notices.php?view=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $not->module_name; ?></td>
                                                             <td><?php echo $not->module_code; ?></td>
