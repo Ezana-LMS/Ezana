@@ -97,7 +97,7 @@ while ($f = $res->fetch_object()) {
                                                             <td><?php echo $not->created_at; ?></td>
                                                             <td>
 
-                                                                <a class="badge badge-primary" href="update_module_notice.php?update=<?php echo $not->id; ?>">
+                                                                <a class="badge badge-primary" href="update_module_notice.php?update=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update Announcement
                                                                 </a>
