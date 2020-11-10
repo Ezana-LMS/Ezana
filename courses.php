@@ -96,7 +96,7 @@ while ($f = $res->fetch_object()) {
                                                             <td><?php echo $course->name; ?></td>
                                                             <td><?php echo $course->department_name; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_course.php?view=<?php echo $course->id; ?>">
+                                                                <a class="badge badge-success" href="view_course.php?view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id;?>">
                                                                     <i class="fas fa-eye"></i>
                                                                     View Course
                                                                 </a>
