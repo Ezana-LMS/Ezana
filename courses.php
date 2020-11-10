@@ -64,7 +64,7 @@ while ($f = $res->fetch_object()) {
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_department.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-success" href="add_course.php?faculty=<?php echo $f->id; ?>">
                                                     Register New Course
                                                 </a>
                                             </h2>
