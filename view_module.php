@@ -45,7 +45,7 @@ if (isset($_POST['update_module'])) {
         $faculty = $_GET['faculty'];
         $query = "UPDATE ezanaLMS_Modules SET  name =?, code =?, details =?, course_name =?, course_id =?, course_duration =?, weight_percentage =?, lectures_number =?, updated_at =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssssss', $name, $code, $details, $course_name, $course_id, $course_duration, $weight_percentage, $lectures_number, $updated_at, $update);
+        $rc = $stmt->bind_param('ssssssssss', $name, $code, $details, $course_name, $course_id, $course_duration, $weight_percentage, $lectures_number, $updated_at, $view);
         $stmt->execute();
         if ($stmt) {
             $success = "Module Updated" && header("refresh:1; url=view_module.php?view=$view&faculty=$faculty");

@@ -66,7 +66,7 @@ require_once('partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item"><a href=""><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->faculty_id;?>"><?php echo $row->name; ?></a></li>
                                     <li class="breadcrumb-item active">View</li>
                                 </ol>
                             </div>
@@ -77,7 +77,7 @@ require_once('partials/_head.php');
                 <div class="content">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
 
                                 <!-- Profile Image -->
                                 <div class="card card-primary card-outline">
@@ -100,7 +100,7 @@ require_once('partials/_head.php');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
 
                                 <div class="card card-primary card-outline">
                                     <div class="card-header">
