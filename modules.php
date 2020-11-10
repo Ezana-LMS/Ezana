@@ -74,13 +74,10 @@ while ($f = $res->fetch_object()) {
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Name</th>
-                                                        <th>Code</th>
-                                                        <th>Course</th>
-                                                        <th>Duration</th>
-                                                        <th>Weight Percentage</th>
-                                                        <th>Lectures Per Week</th>
-                                                        <th>Actions</th>
+                                                        <th>Module Name</th>
+                                                        <th>Module Code</th>
+                                                        <th>Course Name</th>
+                                                        <th>Manage Module</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -98,11 +95,8 @@ while ($f = $res->fetch_object()) {
                                                             <td><?php echo $mod->name; ?></td>
                                                             <td><?php echo $mod->code; ?></td>
                                                             <td><?php echo $mod->course_name; ?></td>
-                                                            <td><?php echo $mod->course_duration; ?></td>
-                                                            <td><?php echo $mod->weight_percentage; ?></td>
-                                                            <td><?php echo $mod->lectures_number; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $f->id;?>">
+                                                                <a class="badge badge-success" href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-eye"></i>
                                                                     View
                                                                 </a>
