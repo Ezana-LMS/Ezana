@@ -84,7 +84,7 @@ require_once('partials/_head.php');
                         <div class="container">
                             <div class="row mb-2">
                                 <div class="col-sm-6">
-                                    <h1 class="m-0 text-dark"> <?php echo $mod->name; ?> Details </h1>
+                                    <h1 class="m-0 text-dark"> <?php echo $mod->name; ?> </h1>
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">
@@ -124,7 +124,7 @@ require_once('partials/_head.php');
                                                     <b>Duration : </b> <a class="float-right"><?php echo $mod->course_duration; ?></a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>No Of Lecturers : </b> <a class="float-right"><?php echo $mod->lectures_number; ?></a>
+                                                    <b>No Of Lecturers Per Week : </b> <a class="float-right"><?php echo $mod->lectures_number; ?></a>
                                                 </li>
                                                 <li class="list-group-item">
                                                     <b>Weight Percentage : </b> <a class="float-right"><?php echo $mod->weight_percentage; ?></a>
