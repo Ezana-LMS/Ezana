@@ -111,10 +111,10 @@ require_once('partials/_head.php');
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="">Module Code</label>
-                                                        <input type="text" id="ModuleCode" readonly required name="module_code" class="form-control">
+                                                        <input type="text" id="ModuleCode"  required name="module_code" class="form-control">
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="">Notice Posted By</label>
+                                                        <label for="">Announcement  Posted By</label>
                                                         <?php
                                                         $id = $_SESSION['id'];
                                                         $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id = '$id'  ";
@@ -130,7 +130,7 @@ require_once('partials/_head.php');
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-12">
-                                                        <label for="exampleInputPassword1">Module Notices</label>
+                                                        <label for="exampleInputPassword1">Module Announcements</label>
                                                         <textarea required id="textarea" name="announcements" rows="20" class="form-control"></textarea>
                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                     </div>
