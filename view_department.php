@@ -66,7 +66,7 @@ require_once('partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item"><a href="department_dashboard.php?department=<?php echo $department;?>"><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href=""><?php echo $row->name; ?></a></li>
                                     <li class="breadcrumb-item active">View</li>
                                 </ol>
                             </div>
