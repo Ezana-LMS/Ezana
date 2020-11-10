@@ -7,7 +7,7 @@ check_login();
 if (isset($_POST['add_memo'])) {
     //Error Handling
     $error = 0;
-    
+
     if (isset($_POST['department_id']) && !empty($_POST['department_id'])) {
         $department_id = mysqli_real_escape_string($mysqli, trim($_POST['department_id']));
     } else {
@@ -16,7 +16,7 @@ if (isset($_POST['add_memo'])) {
     }
     if (!$error) {
         $id = $_POST['id'];
-        $department_id = $_POST['department_id'];
+        $department_id = $_POST['dep_id'];
         $department_name  = $_POST['department_name'];
         $departmental_memo = $_POST['departmental_memo'];
         $attachments = $_FILES['attachments']['name'];
@@ -30,7 +30,7 @@ if (isset($_POST['add_memo'])) {
         $rc = $stmt->bind_param('ssssssss', $id, $department_id, $department_name, $departmental_memo, $attachments, $created_at, $type, $faculty);
         $stmt->execute();
         if ($stmt) {
-            $success = "Departmental NoteMemo Added" && header("refresh:1; url=add_departmental_notememos.php");
+            $success = "Departmental NoteMemo Added" && header("refresh:1; url=add_departmental_notememos.php?faculty=$faculty");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -42,7 +42,6 @@ require_once('partials/_head.php');
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
-
         <!-- Navbar -->
         <?php
         require_once('partials/_faculty_nav.php');
@@ -108,7 +107,7 @@ require_once('partials/_head.php');
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="">Type</label>
-                                                        <select class='form-control basic1' id="DepartmentName" onchange="getDepartmentDetails(this.value);" name="department_name">
+                                                        <select class='form-control basic1' name="type">
                                                             <option selected>Select If Notice Or Memo</option>
                                                             <option>Notice</option>
                                                             <option>Memo</option>
