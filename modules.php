@@ -102,7 +102,7 @@ while ($f = $res->fetch_object()) {
                                                             <td><?php echo $mod->weight_percentage; ?></td>
                                                             <td><?php echo $mod->lectures_number; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_module.php?view=<?php echo $mod->id; ?>">
+                                                                <a class="badge badge-success" href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $f->id;?>">
                                                                     <i class="fas fa-eye"></i>
                                                                     View
                                                                 </a>

@@ -32,7 +32,7 @@ if (isset($_POST['update_module'])) {
         $err = "Module Name Cannot Be Empty";
     }
     if (!$error) {
-        $update = $_GET['update'];
+        $view = $_GET['view'];
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
@@ -42,12 +42,13 @@ if (isset($_POST['update_module'])) {
         $weight_percentage = $_POST['weight_percentage'];
         $lectures_number = $_POST['lectures_number'];
         $updated_at = date('d M Y');
+        $faculty = $_GET['faculty'];
         $query = "UPDATE ezanaLMS_Modules SET  name =?, code =?, details =?, course_name =?, course_id =?, course_duration =?, weight_percentage =?, lectures_number =?, updated_at =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('ssssssssss', $name, $code, $details, $course_name, $course_id, $course_duration, $weight_percentage, $lectures_number, $updated_at, $update);
         $stmt->execute();
         if ($stmt) {
-            $success = "Module Updated" && header("refresh:1; url=manage_modules.php");
+            $success = "Module Updated" && header("refresh:1; url=view_module.php?view=$view&faculty=$faculty");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -62,7 +63,7 @@ require_once('partials/_head.php');
 
         <!-- Navbar -->
         <?php
-        require_once('partials/_dep_nav.php');
+        require_once('partials/_faculty_nav.php');
         $view = $_GET['view'];
         $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE id ='$view'  ";
         $stmt = $mysqli->prepare($ret);
@@ -102,7 +103,6 @@ require_once('partials/_head.php');
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-4">
-
                                     <!-- Profile Image -->
                                     <div class="card card-primary card-outline">
                                         <div class="card-body box-profile">
@@ -115,7 +115,7 @@ require_once('partials/_head.php');
                                                     <b>Module Name: </b> <a class="float-right"><?php echo $mod->name; ?></a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Module Code: </b> <a class="float-right"><?php echo $mod->cpde; ?></a>
+                                                    <b>Module Code: </b> <a class="float-right"><?php echo $mod->code; ?></a>
                                                 </li>
                                                 <li class="list-group-item">
                                                     <b>Course Name: </b> <a class="float-right"><?php echo $mod->course_name; ?></a>
@@ -134,7 +134,7 @@ require_once('partials/_head.php');
 
                                     <div class="card card-primary card-outline">
                                         <div class="card-header">
-                                            <h3 class="card-title">MOdule Details</h3>
+                                            <h3 class="card-title">Module Details</h3>
                                         </div>
                                         <div class="card-body box-profile">
                                             <?php echo $mod->details; ?>
