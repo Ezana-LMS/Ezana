@@ -20,17 +20,17 @@ if (isset($_POST['update_faculty'])) {
         $err = "Faculty Name Cannot Be Empty";
     }
     if (!$error) {
-        $update = $_GET['update'];
+        $faculty = $_GET['faculty'];
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
 
         $query = "UPDATE  ezanaLMS_Faculties SET code =?, name =?, details =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssss', $code, $name, $details, $update);
+        $rc = $stmt->bind_param('ssss', $code, $name, $details, $faculty);
         $stmt->execute();
         if ($stmt) {
-            $success = "Faculty Added" && header("refresh:1; url=manage_faculties.php");
+            $success = "Faculty Updated" && header("refresh:1; url=view_faculty.php?faculty=$faculty");
         } else {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
@@ -42,16 +42,15 @@ require_once('partials/_head.php');
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
-
         <!-- Navbar -->
         <?php
         require_once('partials/_dep_nav.php');
-        $department = $_GET['department'];
-        $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE id = '$department' ";
+        $faculty = $_GET['faculty'];
+        $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id ='$faculty' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($row = $res->fetch_object()) {
+        while ($faculty = $res->fetch_object()) {
         ?>
             <!-- /.navbar -->
             <div class="content-wrapper">
@@ -59,13 +58,13 @@ require_once('partials/_head.php');
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"> <?php echo $row->name; ?> Details </h1>
+                                <h1 class="m-0 text-dark"> <?php echo $faculty->name; ?> Details </h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item"><a href=""><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $faculty->id;?>"><?php echo $faculty->name; ?></a></li>
                                     <li class="breadcrumb-item active">View</li>
                                 </ol>
                             </div>
