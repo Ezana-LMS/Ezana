@@ -3,7 +3,7 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
-//Delete
+
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
     $faculty = $_GET['faculty'];
@@ -74,7 +74,7 @@ while ($f = $res->fetch_object()) {
                                                         <th>Department Name</th>
                                                         <th>Date Posted</th>
                                                         <th>Type</th>
-                                                        <th>Actions</th>
+                                                        <th>Manage</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -93,11 +93,11 @@ while ($f = $res->fetch_object()) {
                                                             <td><?php echo $memo->created_at; ?></td>
                                                             <td>Departmental <?php echo $memo->type; ?></td>
                                                             <td>
-                                                                <a class="badge badge-primary" href="update_departmental_memo.php?update=<?php echo $memo->id; ?>">
+                                                                <a class="badge badge-primary" href="update_departmental_memo.php?update=<?php echo $memo->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
                                                                 </a>
-                                                                <a class="badge badge-danger" href="departmental_memos.php?delete=<?php echo $memo->id; ?>">
+                                                                <a class="badge badge-danger" href="departmental_memos.php?delete=<?php echo $memo->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
