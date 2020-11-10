@@ -67,6 +67,10 @@ while ($f = $res->fetch_object()) {
                                                 <a class="btn btn-outline-success" href="add_module.php?faculty=<?php echo $f->id; ?>">
                                                     Register New Module
                                                 </a>
+
+                                                <a class="btn btn-outline-primary" href="module_notices.php?faculty=<?php echo $f->id; ?>">
+                                                    Module Notices
+                                                </a>
                                             </h2>
                                         </div>
                                         <div class="card-body">

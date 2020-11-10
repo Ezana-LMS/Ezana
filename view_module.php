@@ -144,7 +144,6 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                 </div>
-                                <hr>
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-header p-2">
