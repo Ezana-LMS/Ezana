@@ -3,17 +3,17 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
-//delete
+//Delete
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
     $faculty = $_GET['faculty'];
-    $adn = "DELETE FROM ezanaLMS_Departments WHERE id=?";
+    $adn = "DELETE FROM ezanaLMS_DepartmentalMemos WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=departments.php?faculty=$faculty");
+        $success = "Deleted" && header("refresh:1; url=departmental_notememos.php?faculty=$faculty");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -40,13 +40,13 @@ while ($f = $res->fetch_object()) {
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Departments</h1>
+                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Departmental Notices / Memos</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                    <li class="breadcrumb-item active"> Departments </li>
+                                    <li class="breadcrumb-item active"> Notices & Memos </li>
                                 </ol>
                             </div>
                         </div>
@@ -61,14 +61,9 @@ while ($f = $res->fetch_object()) {
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_department.php?faculty=<?php echo $f->id; ?>">
-                                                    Register New Department
+                                                <a class="btn btn-outline-primary" href="add_departmental_notememos.php?faculty=<?php echo $f->id; ?>">
+                                                    Add New Departmental Memos / Notices
                                                 </a>
-
-                                                <a class="btn btn-outline-primary" href="departmental_notememos.php?faculty=<?php echo $f->id; ?>">
-                                                    Departmental Memos / Notices
-                                                </a>
-
                                             </h2>
                                         </div>
                                         <div class="card-body">
@@ -76,33 +71,35 @@ while ($f = $res->fetch_object()) {
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Department Code / Number</th>
                                                         <th>Department Name</th>
-                                                        <th>Depeartment Head</th>
-                                                        <th>Manage Departments</th>
+                                                        <th>Department Code Number</th>
+                                                        <th>Date Posted</th>
+                                                        <th>Type</th>
+                                                        <th>Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$f->id'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos`  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
                                                     $cnt = 1;
-                                                    while ($dep = $res->fetch_object()) {
+                                                    while ($memo = $res->fetch_object()) {
                                                     ?>
-                                                        <tr class="table-row" data-href="view_department.php?department=<?php echo $dep->id; ?>">
-                                                            <td><?php echo $cnt; ?></td>
-                                                            <td><?php echo $dep->code; ?></td>
-                                                            <td><?php echo $dep->name; ?></td>
-                                                            <td><?php echo $dep->hod; ?></td>
-                                                            <td>
-                                                                <a class="badge badge-success" href="view_department.php?department=<?php echo $dep->id; ?>">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    View Department
-                                                                </a>
 
-                                                                <a class="badge badge-danger" href="departments.php?delete=<?php echo $dep->id; ?>&faculty=<?php echo $dep->faculty_id; ?>">
+                                                        <tr>
+                                                            <td><?php echo $cnt; ?></td>
+                                                            <td><?php echo $memo->department_name; ?></td>
+                                                            <td><?php echo $memo->department_id; ?></td>
+                                                            <td><?php echo $memo->created_at; ?></td>
+                                                            <td><?php echo $memo->type;?></td>
+                                                            <td>
+                                                                <a class="badge badge-primary" href="update_departmental_memo.php?update=<?php echo $memo->id; ?>">
+                                                                    <i class="fas fa-edit"></i>
+                                                                    Update
+                                                                </a>
+                                                                <a class="badge badge-danger" href="departmental_memos.php?delete=<?php echo $memo->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
