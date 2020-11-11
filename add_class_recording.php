@@ -33,14 +33,15 @@ if (isset($_POST['add_class_recording'])) {
         $details  = $_POST['details'];
         $created_at  = date('d M Y');
         $video = $_FILES['video']['name'];
-        move_uploaded_file($_FILES["video"]["tmp_name"], "dist/ClassVideos/" . $_FILES["video"]["name"]);
+        move_uploaded_file($_FILES["video"]["tmp_name"], "dist/EzanaLMSData/" . $_FILES["video"]["name"]);
+        $faculty = $_GET['faculty'];
 
-        $query = "INSERT INTO ezanaLMS_ClassRecordings (id, class_name, lecturer_name, external_link, details, created_at, video) VALUES(?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_ClassRecordings (id, faculty_id, class_name, lecturer_name, external_link, details, created_at, video) VALUES(?,?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $id, $class_name, $lecturer_name, $external_link, $details, $created_at, $video);
+        $rc = $stmt->bind_param('ssssssss', $id, $faculty, $class_name, $lecturer_name, $external_link, $details, $created_at, $video);
         $stmt->execute();
         if ($stmt) {
-            $success = "Class Recoding Added" && header("refresh:1; url=add_class_recording.php");
+            $success = "Class Recoding Added" && header("refresh:1; url=add_class_recording.php?faculty=$faculty");
         } else {
             $info = "Please Try Again Or Try Later";
         }
