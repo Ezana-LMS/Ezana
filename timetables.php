@@ -106,7 +106,7 @@ require_once('partials/_head.php');
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
                                                                 </a>
-                                                                <a class="badge badge-danger" href="generate_timetable.php?delete=<?php echo $tt->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                <a class="badge badge-danger" href="timetables.php?delete=<?php echo $tt->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
