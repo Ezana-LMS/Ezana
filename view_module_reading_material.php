@@ -4,6 +4,43 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
+if (isset($_POST['update_reading_materials'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
+        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
+        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (!$error) {
+        $update = $_GET['update'];
+        $module_name  = $_POST['module_name'];
+        $module_code = $_POST['module_code'];
+        $readingMaterials = $_FILES['readingMaterials']['name'];
+        move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "dist/Reading_Materials/" . $_FILES["readingMaterials"]["name"]);
+        $external_link = $_POST['external_link'];
+        $created_at = date('d M Y');
+        $faculty = $_GET['faculty'];
+
+        $query = "UPDATE ezanaLMS_ModuleRecommended SET module_name =?, module_code =?, readingMaterials =?, created_at =?, external_link =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ssssss', $module_name, $module_code, $readingMaterials, $created_at, $external_link, $update);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Reading Materials Updated" && header("refresh:1; url=view_module_reading_material.php?faculty=$faculty");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
 require_once('partials/_head.php');
 ?>
 
@@ -33,15 +70,15 @@ require_once('partials/_head.php');
                         <div class="container">
                             <div class="row mb-2">
                                 <div class="col-sm-6">
-                                    <h1 class="m-0 text-dark"><?php echo $not->module_name; ?> Reading Materials</h1>
+                                    <h1 class="m-0 text-dark"><?php echo $rm->module_name; ?> Reading Materials</h1>
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">
                                         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                         <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"> <?php echo $row->name; ?></a></li>
-                                        <li class="breadcrumb-item"><a href="modules.php?faculty=<?php echo $row->id; ?>">Modules</a></li>
-                                        <li class="breadcrumb-item"><a href="module_reading_materials.php?faculty=<?php echo $row->id; ?>">Reading Materials</a></li>
+                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"> <?php echo $f->name; ?></a></li>
+                                        <li class="breadcrumb-item"><a href="modules.php?faculty=<?php echo $f->id; ?>">Modules</a></li>
+                                        <li class="breadcrumb-item"><a href="module_reading_materials.php?faculty=<?php echo $f->id; ?>">Reading Materials</a></li>
                                         <li class="breadcrumb-item active ">View</li>
                                     </ol>
                                 </div>
@@ -66,6 +103,9 @@ require_once('partials/_head.php');
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-links" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Reading Materials Extenal Link</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-update" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Update Reading Materials</a>
                                                 </li>
                                             </ul>
                                             <div class="tab-content" id="custom-content-below-tabContent">
@@ -112,6 +152,10 @@ require_once('partials/_head.php');
                                                             ";
                                                     }
                                                     ?>
+                                                </div>
+                                                <div class="tab-pane fade show " id="custom-content-below-update" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                    <br>
+
                                                 </div>
                                             </div>
                                         </div>
