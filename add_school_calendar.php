@@ -59,7 +59,7 @@ if (isset($_POST['add_school_calendar'])) {
             $rc = $stmt->bind_param('ssssss', $id, $faculty,  $academic_yr, $semester_start, $semester_name, $semester_end);
             $stmt->execute();
             if ($stmt) {
-                $success = "Educational Dates Added" && header("refresh:1; url=add_school_calendar.php?faculty_id=$faculty");
+                $success = "Educational Dates Added" && header("refresh:1; url=add_school_calendar.php?faculty=$faculty");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
