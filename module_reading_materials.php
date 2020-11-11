@@ -92,7 +92,7 @@ require_once('partials/_head.php');
                                                             <td><?php echo $rm->module_code; ?></td>
                                                             <td><?php echo $rm->created_at; ?></td>
                                                             <td>
-                                                                <a class="badge badge-danger" href="module_rading_materials.php?delete=<?php echo $rm->id; ?>&faculty=<?php echo  $row->id; ?>">
+                                                                <a class="badge badge-danger" href="module_reading_materials.php?delete=<?php echo $rm->id; ?>&faculty=<?php echo  $row->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
