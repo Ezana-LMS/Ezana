@@ -28,24 +28,6 @@ require_once('partials/_head.php');
         ?>
                 <!-- /.navbar -->
                 <div class="content-wrapper">
-                    <div class="content-header">
-                        <div class="container">
-                            <div class="row mb-2">
-                                <div class="col-sm-6">
-                                    <h1 class="m-0 text-dark">View Recording</h1>
-                                </div>
-                                <div class="col-sm-6">
-                                    <ol class="breadcrumb float-sm-right">
-                                        <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                        <li class="breadcrumb-item"><a href="class_recordings.php?faculty=<?php echo $f->id; ?>">Class Recordings</a></li>
-                                        <li class="breadcrumb-item active"> View </li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="content">
                         <div class="container">
                             <section class="content-header">
@@ -53,15 +35,14 @@ require_once('partials/_head.php');
                                     <div class="row mb-2">
                                         <div class="col-sm-6">
                                             <h1>
-                                                <?php echo $cr->class_name; ?>
-                                            </h1>
+                                                <?php echo $cr->class_name; ?> Recording
                                         </div>
                                         <div class="col-sm-6">
                                             <ol class="breadcrumb float-sm-right">
-                                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                                <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                                <li class="breadcrumb-item"><a href="class_recordings.php">Class Recordings</a></li>
-                                                <li class="breadcrumb-item active">View</li>
+                                                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                                                <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
+                                                <li class="breadcrumb-item"><a href="class_recordings.php?faculty=<?php echo $f->id; ?>">Class Recordings</a></li>
+                                                <li class="breadcrumb-item active"> View </li>
                                             </ol>
                                         </div>
                                     </div>
