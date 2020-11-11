@@ -6,13 +6,14 @@ check_login();
 //Delete Calendar Details
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
+    $faculty = $_GET['faculty'];
     $adn = "DELETE FROM ezanaLMS_Calendar WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=school_calendar.php");
+        $success = "Deleted" && header("refresh:1; url=school_calendar.php?faculty=$faculty");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -64,7 +65,7 @@ require_once('partials/_head.php');
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_school_calendar.php">
+                                                <a class="btn btn-outline-success" href="add_school_calendar.php?faculty=<?php echo $row->id; ?>">
                                                     <i class="fas fa-plus"></i>
                                                     Add Important Dates
                                                 </a>
@@ -99,12 +100,12 @@ require_once('partials/_head.php');
                                                             <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
                                                             <td><?php echo $cal->academic_yr; ?></td>
                                                             <td>
-                                                                <a class="badge badge-primary" href="update_school_calendar.php?update=<?php echo $cal->id; ?>">
+                                                                <a class="badge badge-primary" href="update_school_calendar.php?update=<?php echo $cal->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
                                                                 </a>
 
-                                                                <a class="badge badge-danger" href="school_calendar.php?delete=<?php echo $cal->id; ?>">
+                                                                <a class="badge badge-danger" href="school_calendar.php?delete=<?php echo $cal->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
