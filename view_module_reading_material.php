@@ -20,21 +20,21 @@ if (isset($_POST['update_reading_materials'])) {
         $err = "Module Name Cannot Be Empty";
     }
     if (!$error) {
-        $update = $_GET['update'];
+        $view = $_GET['view'];
         $module_name  = $_POST['module_name'];
         $module_code = $_POST['module_code'];
         $readingMaterials = $_FILES['readingMaterials']['name'];
-        move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "dist/Reading_Materials/" . $_FILES["readingMaterials"]["name"]);
+        move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "EzanaLMSData/Reading_Materials/" . $_FILES["readingMaterials"]["name"]);
         $external_link = $_POST['external_link'];
         $created_at = date('d M Y');
         $faculty = $_GET['faculty'];
 
         $query = "UPDATE ezanaLMS_ModuleRecommended SET module_name =?, module_code =?, readingMaterials =?, created_at =?, external_link =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssss', $module_name, $module_code, $readingMaterials, $created_at, $external_link, $update);
+        $rc = $stmt->bind_param('ssssss', $module_name, $module_code, $readingMaterials, $created_at, $external_link, $view);
         $stmt->execute();
         if ($stmt) {
-            $success = "Reading Materials Updated" && header("refresh:1; url=view_module_reading_material.php?faculty=$faculty");
+            $success = "Reading Materials Updated" && header("refresh:1; url=view_module_reading_material.php?view=$view&faculty=$faculty");
         } else {
             $info = "Please Try Again Or Try Later";
         }
