@@ -81,7 +81,8 @@ require_once('partials/_head.php');
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
                                     <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"> <?php echo $row->name; ?></a></li>
-                                    <li class="breadcrumb-item active ">Add TimeTable</li>
+                                    <li class="breadcrumb-item"><a href="timetables.php?faculty=<?php echo $row->id; ?>">TimeTable</a></li>
+                                    <li class="breadcrumb-item active ">Add </li>
                                 </ol>
                             </div>
                         </div>
