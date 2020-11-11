@@ -79,31 +79,20 @@ require_once('partials/_head.php');
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_ModuleRecommended`  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_ModuleRecommended` WHERE faculty_id ='$row->id' ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
                                                     $cnt = 1;
                                                     while ($rm = $res->fetch_object()) {
                                                     ?>
-
-                                                        <tr>
+                                                        <tr class="table-row" data-href="view_module_reading_material.php?view=<?php echo $rm->id; ?>&faculty=<?php echo $row->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $rm->module_name; ?></td>
                                                             <td><?php echo $rm->module_code; ?></td>
                                                             <td><?php echo $rm->created_at; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_reading_materials.php?view=<?php echo $rm->id; ?>">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    View
-                                                                </a>
-
-                                                                <a class="badge badge-primary" href="update_reading_materials.php?update=<?php echo $rm->id; ?>">
-                                                                    <i class="fas fa-edit"></i>
-                                                                    Update
-                                                                </a>
-
-                                                                <a class="badge badge-danger" href="reading_materials.php?delete=<?php echo $id->id; ?>">
+                                                                <a class="badge badge-danger" href="module_rading_materials.php?delete=<?php echo $rm->id; ?>&faculty=<?php echo  $row->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
