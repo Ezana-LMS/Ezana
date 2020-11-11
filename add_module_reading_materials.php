@@ -31,7 +31,7 @@ if (isset($_POST['add_reading_materials'])) {
 
         $query = "INSERT INTO ezanaLMS_ModuleRecommended (id, faculty_id, module_name, module_code, readingMaterials, created_at, external_link) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $id, $facult, $module_name, $module_code, $readingMaterials, $created_at, $external_link);
+        $rc = $stmt->bind_param('sssssss', $id, $faculty, $module_name, $module_code, $readingMaterials, $created_at, $external_link);
         $stmt->execute();
         if ($stmt) {
             $success = "Reading Materials Shared" && header("refresh:1; url=add_module_reading_materials.php?faculty=$faculty");
@@ -107,12 +107,12 @@ require_once('partials/_head.php');
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="">Module Code</label>
-                                                        <input type="text" id="ModuleCode" readonly required name="module_code" class="form-control">
+                                                        <input type="text" id="ModuleCode"  required name="module_code" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-6">
-                                                        <label for="exampleInputPassword1">Hyperlink</label>
+                                                        <label for="exampleInputPassword1">Hyperlink | Extenal Link</label>
                                                         <input type="text" name="external_link" class="form-control">
                                                     </div>
                                                     <div class="form-group col-md-6">
