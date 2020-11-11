@@ -43,10 +43,14 @@ require_once('partials/_head.php');
                                 <h1 class="m-0 text-dark">School Calendar / Important Dates</h1>
                             </div>
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item active">School Calendar</li>
-                                </ol>
+                                <div class="col-sm-6">
+                                    <ol class="breadcrumb float-sm-right">
+                                        <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
+                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"> <?php echo $row->name; ?></a></li>
+                                        <li class="breadcrumb-item ">School Calendar</li>
+                                    </ol>
+                                </div>
                             </div>
                         </div>
                     </div>
