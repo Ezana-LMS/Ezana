@@ -31,14 +31,20 @@ if (isset($_POST['add_school_calendar'])) {
         $error = 1;
         $err = "Semester Closing  Dates Cannot Be Empty";
     }
+    if (isset($_GET['faculty_id']) && !empty($_GET['faculty_id'])) {
+        $faculty_id = mysqli_real_escape_string($mysqli, trim($_GET['faculty_id']));
+    } else {
+        $error = 1;
+        $err = "Faculty ID  Dates Cannot Be Empty";
+    }
     if (!$error) {
         //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Calendar WHERE  (semester_name='$semester_name' AND academic_yr = '$academic_yr')   ";
+        $sql = "SELECT * FROM  ezanaLMS_Calendar WHERE  (semester_name='$semester_name' AND academic_yr = '$academic_yr' AND faculty_id = '$faculty_id')   ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
-            if (($semester_name == $row['semester_name']) && ($academic_yr == $row['academic_yr'])) {
-                $err =  "Semester Already Exists";
+            if (($semester_name == $row['semester_name']) && ($academic_yr == $row['academic_yr']) && ($faculty_id == $row['faculty_id'])) {
+                $err =  "Academic Dates Already Added";
             }
         } else {
             $id = $_POST['id'];
