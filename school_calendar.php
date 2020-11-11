@@ -66,7 +66,6 @@ require_once('partials/_head.php');
                                         <div class="card-header">
                                             <h2 class="text-right">
                                                 <a class="btn btn-outline-success" href="add_school_calendar.php?faculty=<?php echo $row->id; ?>">
-                                                    <i class="fas fa-plus"></i>
                                                     Add Important Dates
                                                 </a>
                                             </h2>
