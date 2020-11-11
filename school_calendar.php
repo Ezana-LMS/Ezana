@@ -77,7 +77,7 @@ require_once('partials/_head.php');
                                                         <th>Opening Dates</th>
                                                         <th>Closing Dates</th>
                                                         <th>Academic Year</th>
-                                                        <th>Actions</th>
+                                                        <th>Manage Dates</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>

@@ -80,7 +80,7 @@ require_once('partials/_head.php');
                                                         <th>Date</th>
                                                         <th>Time</th>
                                                         <th>Virtual Link</th>
-                                                        <th>Actions</th>
+                                                        <th>Manage Classes</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
