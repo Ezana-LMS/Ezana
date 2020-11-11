@@ -26,6 +26,7 @@ if (isset($_POST['update_class_recording'])) {
         $err = "Video Transcription Cannot Be Empty";
     }
     if (!$error) {
+        $faculty = $_GET['faculty'];
         $update = $_GET['update'];
         $class_name = $_POST['class_name'];
         $lecturer_name  = $_POST['lecturer_name'];
@@ -40,7 +41,7 @@ if (isset($_POST['update_class_recording'])) {
         $rc = $stmt->bind_param('sssssss', $class_name, $lecturer_name, $external_link, $details, $updated_at, $video, $update);
         $stmt->execute();
         if ($stmt) {
-            $success = "Class Recoding Added" && header("refresh:1; url=class_recordings.php");
+            $success = "Class Recoding Added" && header("refresh:1; url=class_recordings.php?faculty=$faculty");
         } else {
             $info = "Please Try Again Or Try Later";
         }

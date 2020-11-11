@@ -101,7 +101,7 @@ while ($f = $res->fetch_object()) {
                                                                     <i class="fas fa-edit"></i>
                                                                     Update Recording
                                                                 </a>
-                                                                <a class="badge badge-danger" href="class_recording.php?delete=<?php echo $cr->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-danger" href="class_recordings.php?delete=<?php echo $cr->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete Recording
                                                                 </a>
