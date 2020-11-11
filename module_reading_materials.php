@@ -94,7 +94,7 @@ require_once('partials/_head.php');
                                                             <td>
                                                                 <a class="badge badge-danger" href="module_reading_materials.php?delete=<?php echo $rm->id; ?>&faculty=<?php echo  $row->id; ?>">
                                                                     <i class="fas fa-trash"></i>
-                                                                    Delete
+                                                                    Delete Reading Materials
                                                                 </a>
                                                             </td>
                                                         </tr>
