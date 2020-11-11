@@ -155,7 +155,44 @@ require_once('partials/_head.php');
                                                 </div>
                                                 <div class="tab-pane fade show " id="custom-content-below-update" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                     <br>
+                                                    <div class="card card-primary">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">Fill All Required Fields</h3>
+                                                        </div>
+                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                            <div class="card-body">
+                                                                <div class="row">
 
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Module Name</label>
+                                                                        <input type="text" id="ModuleCode" value="<?php echo $rm->module_name; ?>" readonly required name="module_name" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Module Code</label>
+                                                                        <input type="text" id="ModuleCode" value="<?php echo $rm->module_code; ?>" readonly required name="module_code" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="exampleInputPassword1">Hyperlink</label>
+                                                                        <input type="text" name="external_link" value="<?php echo $rm->external_link; ?>" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="exampleInputFile">Reading Materials (PDF, DOCX, PPTX)</label>
+                                                                        <div class="input-group">
+                                                                            <div class="custom-file">
+                                                                                <input required name="readingMaterials" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer">
+                                                                <button type="submit" name="update_reading_materials" class="btn btn-primary">Update Reading Materials</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
