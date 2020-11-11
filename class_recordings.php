@@ -93,11 +93,11 @@ while ($f = $res->fetch_object()) {
                                                             <td><?php echo $cr->lecturer_name; ?></td>
                                                             <td><?php echo date('d M Y', strtotime($cr->created_at)); ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_class_recording.php?watch=<?php echo $cr->id; ?>">
+                                                                <a class="badge badge-success" href="view_class_recording.php?watch=<?php echo $cr->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-play"></i>
                                                                     Watch Recording
                                                                 </a>
-                                                                <a class="badge badge-primary" href="update_class_recording.php?update=<?php echo $cr->id; ?>">
+                                                                <a class="badge badge-primary" href="update_class_recording.php?update=<?php echo $cr->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update Recording
                                                                 </a>
