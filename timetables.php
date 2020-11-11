@@ -102,11 +102,11 @@ require_once('partials/_head.php');
                                                             <td><?php echo $tt->classtime; ?></td>
                                                             <td><?php echo $tt->classlink; ?></td>
                                                             <td>
-                                                                <a class="badge badge-primary" href="update_class.php?update=<?php echo $tt->id; ?>">
+                                                                <a class="badge badge-primary" href="update_class.php?update=<?php echo $tt->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
                                                                 </a>
-                                                                <a class="badge badge-danger" href="generate_timetable.php?delete=<?php echo $tt->id; ?>">
+                                                                <a class="badge badge-danger" href="generate_timetable.php?delete=<?php echo $tt->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
