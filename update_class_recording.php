@@ -76,14 +76,14 @@ require_once('partials/_head.php');
                         <div class="container">
                             <div class="row mb-2">
                                 <div class="col-sm-6">
-                                    <h1 class="m-0 text-dark">Upload Recordings</h1>
+                                    <h1 class="m-0 text-dark">Update <?php echo $cr->class_name; ?> Recordings</h1>
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">
                                         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                         <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
                                         <li class="breadcrumb-item"><a href="class_recordings.php?faculty=<?php echo $f->id; ?>">Class Recordings</a></li>
-                                        <li class="breadcrumb-item active"> Upload </li>
+                                        <li class="breadcrumb-item active"> Update </li>
                                     </ol>
                                 </div>
                             </div>
@@ -104,18 +104,18 @@ require_once('partials/_head.php');
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label for="">Class Name</label>
-                                                            <input type="text" required name="class_name" class="form-control" id="exampleInputEmail1">
+                                                            <input type="text" value="<?php echo $cr->class_name; ?>" required name="class_name" class="form-control" id="exampleInputEmail1">
                                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Lecturer Name</label>
-                                                            <input type="text" required name="lecturer_name" class="form-control">
+                                                            <input type="text" value="<?php echo $cr->lecturer_name; ?>" required name="lecturer_name" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label for="">Class External Link *Recomended <small class="text-danger">If In YouTube, Vimeo, Google Drive, etc</small></label>
-                                                            <input type="text" name="external_link" class="form-control">
+                                                            <label for="">Class External Link <small class="text-danger">If In YouTube, Vimeo, Google Drive, etc</small> *Recomended</label>
+                                                            <input type="text" name="external_link" value="<?php echo $cr->external_link; ?>" class="form-control">
                                                         </div>
                                                         <h5 class="text-center"> Or </h5>
                                                         <div class="form-group col-md-12">
@@ -131,12 +131,12 @@ require_once('partials/_head.php');
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label for="exampleInputPassword1">Description</label>
-                                                            <textarea id="textarea" type="text" rows="10" name="details" class="form-control"></textarea>
+                                                            <textarea id="textarea" type="text" rows="10" name="details" class="form-control"><?php echo $cr->details; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="card-footer">
-                                                    <button type="submit" name="add_class_recording" class="btn btn-primary">Submit</button>
+                                                    <button type="submit" name="update_class_recording" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </form>
                                         </div>
