@@ -83,7 +83,7 @@ require_once('partials/_head.php');
 
                             <!-- School Calendar -->
                             <div class="col-12 col-sm-6 col-md-4">
-                                <a href="school_calendar.php">
+                                <a href="school_calendar.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-calendar-alt"></i></span>
                                         <div class="info-box-content">
@@ -122,7 +122,7 @@ require_once('partials/_head.php');
 
                             <!-- Past Exam Papers -->
                             <div class="col-12 col-sm-6 col-md-4">
-                                <a href="past_exam_papers.php">
+                                <a href="past_exam_papers.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-newspaper"></i></span>
                                         <div class="info-box-content">
@@ -135,7 +135,7 @@ require_once('partials/_head.php');
 
                             <!-- Past Exam Papers Solutions -->
                             <div class="col-12 col-sm-6 col-md-4">
-                                <a href="past_exam_paper_solutions.php">
+                                <a href="past_exam_paper_solutions.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-paste"></i></span>
                                         <div class="info-box-content">
@@ -148,7 +148,7 @@ require_once('partials/_head.php');
 
                             <!-- Department Reports -->
                             <div class="col-12 col-sm-6 col-md-4">
-                                <a href="faculty_reports.php">
+                                <a href="faculty_reports.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-filter"></i></span>
                                         <div class="info-box-content">
@@ -161,7 +161,7 @@ require_once('partials/_head.php');
 
                             <!-- Lecturers -->
                             <div class="col-12 col-sm-6 col-md-4">
-                                <a href="lecturers.php">
+                                <a href="lecturers.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
                                         <div class="info-box-content">
@@ -174,7 +174,7 @@ require_once('partials/_head.php');
 
                             <!-- Students -->
                             <div class="col-12 col-sm-6 col-md-4">
-                                <a href="students.php">
+                                <a href="students.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
                                         <div class="info-box-content">
@@ -186,7 +186,7 @@ require_once('partials/_head.php');
                             </div>
                             <!-- Students Groups -->
                             <div class="col-12 col-sm-6 col-md-4">
-                                <a href="student_groups.php">
+                                <a href="student_groups.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
                                         <div class="info-box-content">
