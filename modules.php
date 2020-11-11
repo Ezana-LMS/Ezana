@@ -68,8 +68,12 @@ while ($f = $res->fetch_object()) {
                                                     Register New Module
                                                 </a>
 
-                                                <a class="btn btn-outline-primary" href="module_notices.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-success" href="module_notices.php?faculty=<?php echo $f->id; ?>">
                                                     Module Notices
+                                                </a>
+
+                                                <a class="btn btn-outline-success" href="module_reading_materials.php?faculty=<?php echo $f->id; ?>">
+                                                    Module Reading Materials
                                                 </a>
                                             </h2>
                                         </div>
