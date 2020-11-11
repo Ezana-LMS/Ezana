@@ -25,7 +25,14 @@ require_once('partials/_head.php');
     <div class="wrapper">
 
         <!-- Navbar -->
-        <?php require_once('partials/_nav.php'); ?>
+        <?php
+         $faculty = $_GET['faculty'];
+         $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
+         $stmt = $mysqli->prepare($ret);
+         $stmt->execute(); //ok
+         $res = $stmt->get_result();
+         while ($row = $res->fetch_object()) {
+             require_once('partials/_faculty_nav.php'); ?>
         <!-- /.navbar -->
 
         <div class="content-wrapper">
@@ -74,12 +81,12 @@ require_once('partials/_head.php');
                                             <tbody>
                                                 <?php
                                                 $ret = "SELECT * FROM `ezanaLMS_Calendar`  ";
-                                                $stmt = $mysqli->prepare($ret);
-                                                $stmt->execute(); //ok
-                                                $res = $stmt->get_result();
-                                                $cnt = 1;
-                                                while ($cal = $res->fetch_object()) {
-                                                ?>
+             $stmt = $mysqli->prepare($ret);
+             $stmt->execute(); //ok
+             $res = $stmt->get_result();
+             $cnt = 1;
+             while ($cal = $res->fetch_object()) {
+                 ?>
 
                                                     <tr>
                                                         <td><?php echo $cnt; ?></td>
@@ -100,7 +107,7 @@ require_once('partials/_head.php');
                                                         </td>
                                                     </tr>
                                                 <?php $cnt = $cnt + 1;
-                                                } ?>
+             } ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -111,7 +118,8 @@ require_once('partials/_head.php');
                 </div>
             </div>
         </div>
-        <?php require_once('partials/_footer.php'); ?>
+        <?php require_once('partials/_footer.php');
+         } ?>
     </div>
     <?php require_once('partials/_scripts.php'); ?>
 </body>
