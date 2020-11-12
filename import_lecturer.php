@@ -83,7 +83,7 @@ if (isset($_POST["upload"])) {
 
             $facuty_id = "";
             if (isset($spreadSheetAry[$i][9])) {
-                $created_at = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
+                $facuty_id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
             }
 
             if (!empty($name) || !empty($admno) || !empty($idno) || !empty($gender) || !empty($email)) {
