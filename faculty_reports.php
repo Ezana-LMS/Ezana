@@ -49,9 +49,6 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fa fa-building" aria-hidden="true"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Departments Reports</span>
-                                            <span class="info-box-number">
-                                                <?php echo $departments; ?>
-                                            </span>
                                         </div>
                                     </div>
                                 </a>
@@ -63,7 +60,6 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-book-reader"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Courses Reports</span>
-                                            <span class="info-box-number"><?php echo $courses; ?></span>
                                         </div>
                                     </div>
                                 </a>
@@ -76,7 +72,6 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Modules Reports</span>
-                                            <span class="info-box-number"><?php echo $modules; ?></span>
                                         </div>
                                     </div>
                                 </a>
@@ -89,7 +84,6 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-calendar-alt"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">School Calendars Reports</span>
-                                            <span class="info-box-number"></span>
                                         </div>
                                     </div>
                                 </a>
@@ -102,7 +96,6 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Lecturers Reports</span>
-                                            <span class="info-box-number"><?php echo $lecs; ?></span>
                                         </div>
                                     </div>
                                 </a>
@@ -115,7 +108,6 @@ require_once('partials/_head.php');
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">Students Reports</span>
-                                            <span class="info-box-number"><?php echo $students; ?></span>
                                         </div>
                                     </div>
                                 </a>
