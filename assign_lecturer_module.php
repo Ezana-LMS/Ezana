@@ -63,7 +63,68 @@ require_once('partials/_head.php');
 
                 <div class="content">
                     <div class="container">
-                        
+                        <section class="content">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h2 class="text-right">
+                                                <a class="btn btn-outline-success" href="new_module_assign.php">
+                                                    <i class="fas fa-plus"></i>
+                                                    Register New Module Assign
+                                                </a>
+                                            </h2>
+                                        </div>
+                                        <div class="card-body">
+                                            <table id="example1" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Module Code</th>
+                                                        <th>Module Name</th>
+                                                        <th>Lecturer Name</th>
+                                                        <th>Date Assigned</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE faculty_id = '$f->id'  ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($ass = $res->fetch_object()) {
+                                                    ?>
+
+                                                        <tr>
+                                                            <td><?php echo $cnt; ?></td>
+                                                            <td><?php echo $ass->module_code; ?></td>
+                                                            <td><?php echo $ass->module_name; ?></td>
+                                                            <td><?php echo $ass->lec_name; ?></td>
+                                                            <td><?php echo $ass->created_at; ?></td>
+                                                            <td>
+
+                                                                <a class="badge badge-primary" href="update_module_assign.php?update=<?php echo $ass->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                    <i class="fas fa-edit"></i>
+                                                                    Update
+                                                                </a>
+
+                                                                <a class="badge badge-danger" href="assign_lecturer_module.php?delete=<?php echo $ass->id; ?>&code=<?php echo $ass->module_code; ?>&faculty=<?php echo $f->id; ?>">
+                                                                    <i class="fas fa-trash"></i>
+                                                                    Delete
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php $cnt = $cnt + 1;
+                                                    } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
