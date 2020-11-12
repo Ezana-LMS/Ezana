@@ -204,10 +204,10 @@ require_once('partials/_head.php');
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="">Semester Enrolled</label>
-                                                        <select class='form-control basic' id="SemesterEnrolled" onchange="getSemesterDetails(this.value);" name="semester_enrolled">
+                                                        <select class='form-control basic' name="semester_enrolled">
                                                             <option selected>Select Semester Name</option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar`  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$f->id'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -219,15 +219,50 @@ require_once('partials/_head.php');
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="">Semester Start Date</label>
-                                                        <input type="text" id="SemesterStart" readonly required name="semester_start" class="form-control">
+                                                        <select class='form-control basic' name="semester_start">
+                                                            <option selected>Semester Start Date</option>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$f->id'  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($cal = $res->fetch_object()) {
+                                                            ?>
+                                                                <option><?php echo $cal->semester_start; ?></option>
+                                                            <?php } ?>
+                                                        </select>
                                                     </div>
+
                                                     <div class="form-group col-md-4">
                                                         <label for="">Semester End Date</label>
-                                                        <input type="text" id="SemesterEnd" readonly required name="semester_end" class="form-control">
+                                                        <select class='form-control basic' name="semester_start">
+                                                            <option selected>Semester End Date</option>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$f->id'  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($cal = $res->fetch_object()) {
+                                                            ?>
+                                                                <option><?php echo $cal->semester_end; ?></option>
+                                                            <?php } ?>
+                                                        </select>
                                                     </div>
-                                                    <div class="form-group col-md-12">
+
+                                                    <div class="form-group col-md-4">
                                                         <label for="">Academic Year Enrolled</label>
-                                                        <input type="text" id="AcademicYear" readonly required name="academic_year_enrolled" class="form-control">
+                                                        <select class='form-control basic' name="semester_start">
+                                                            <option selected>Academic Year Enrolled</option>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$f->id'  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($cal = $res->fetch_object()) {
+                                                            ?>
+                                                                <option><?php echo $cal->academic_yr; ?></option>
+                                                            <?php } ?>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
