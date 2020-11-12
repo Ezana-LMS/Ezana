@@ -64,11 +64,14 @@ require_once('partials/_head.php');
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_lecturer.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-primary" href="add_lecturer.php?faculty=<?php echo $f->id; ?>">
                                                     Add New Lecturer
                                                 </a>
                                                 <a class="btn btn-outline-primary" href="import_lecturer.php?faculty=<?php echo $f->id; ?>">
                                                     Import Lecturers Details
+                                                </a>
+                                                <a class="btn btn-outline-primary" href="assign_lecturer_module.php?faculty=<?php echo $f->id; ?>">
+                                                    Lecturers Modules Assigns
                                                 </a>
                                             </h2>
                                         </div>
@@ -102,12 +105,12 @@ require_once('partials/_head.php');
                                                             <td><?php echo $lec->phone; ?></td>
                                                             <td><?php echo $lec->idno; ?></td>
                                                             <td>
-                                                                <a class="badge badge-primary" href="update_lecturer.php?update=<?php echo $lec->id; ?>&faculty=<?php echo $f->id;?>">
+                                                                <a class="badge badge-primary" href="update_lecturer.php?update=<?php echo $lec->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update Lecturer
                                                                 </a>
 
-                                                                <a class="badge badge-danger" href="lecturers.php?delete=<?php echo $lec->id; ?>&faculty=<?php echo $f->id;?>">
+                                                                <a class="badge badge-danger" href="lecturers.php?delete=<?php echo $lec->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete Lecturer
                                                                 </a>
