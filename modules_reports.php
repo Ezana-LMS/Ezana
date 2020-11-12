@@ -56,6 +56,9 @@ require_once('partials/_head.php');
                                                         <th>#</th>
                                                         <th>Module Name</th>
                                                         <th>Module Code</th>
+                                                        <th>Teaching Duration</th>
+                                                        <th>Weight Percentage</th>
+                                                        <th>No Of Lecturers</th>
                                                         <th>Course Name</th>
                                                     </tr>
                                                 </thead>
@@ -68,11 +71,13 @@ require_once('partials/_head.php');
                                                     $cnt = 1;
                                                     while ($mod = $res->fetch_object()) {
                                                     ?>
-
                                                         <tr class="table-row" data-href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $f->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $mod->name; ?></td>
                                                             <td><?php echo $mod->code; ?></td>
+                                                            <td><?php echo $mod->course_duration; ?></td>
+                                                            <td><?php echo $mod->weight_percentage; ?></td>
+                                                            <td><?php echo $mod->lectures_number; ?></td>
                                                             <td><?php echo $mod->course_name; ?></td>
                                                         </tr>
                                                     <?php $cnt = $cnt + 1;
