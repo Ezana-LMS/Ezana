@@ -49,7 +49,7 @@ if (isset($_POST['update_lec'])) {
         $rc = $stmt->bind_param('ssssssss', $name, $email, $phone, $idno, $adr, $profile_pic, $number, $update);
         $stmt->execute();
         if ($stmt) {
-            $success = "Lecturer Updated" && header("refresh:1; url=lectures.php?faculty=$faculty");
+            $success = "Lecturer Updated" && header("refresh:1; url=lecturers.php?faculty=$faculty");
         } else {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
@@ -87,7 +87,7 @@ if (isset($_POST['change_password'])) {
             $rc = $stmt->bind_param('ss', $new_password, $update);
             $stmt->execute();
             if ($stmt) {
-                $success = "Password Changed" && header("refresh:1; url=lectures.php?faculty=$faculty");
+                $success = "Password Changed" && header("refresh:1; url=lecturers.php?faculty=$faculty");
             } else {
                 $err = "Please Try Again Or Try Later";
             }
@@ -120,7 +120,7 @@ require_once('partials/_head.php');
                         <div class="container">
                             <div class="row mb-2">
                                 <div class="col-sm-6">
-                                    <h1 class="m-0 text-dark">Add Lecturers</h1>
+                                    <h1 class="m-0 text-dark">Update <?php echo $lec->name;?></h1>
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">
@@ -189,6 +189,30 @@ require_once('partials/_head.php');
                                                 </div>
                                                 <div class="card-footer">
                                                     <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="card card-primary">
+                                            <div class="card-header">
+                                                <h3 class="card-title"><?php echo $lec->name; ?> Authentication Credentials</h3>
+                                            </div>
+                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="">New Password</label>
+                                                            <input type="password" required name="new_password" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label for="">Confirm Password</label>
+                                                            <input type="password" required name="confirm_password" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>

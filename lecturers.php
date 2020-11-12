@@ -14,7 +14,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=lectures.php?faculty=$faculty");
+        $success = "Deleted" && header("refresh:1; url=lecturers.php?faculty=$faculty");
     } else {
         $info = "Please Try Again Or Try Later";
     }
