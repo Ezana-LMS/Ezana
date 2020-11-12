@@ -91,6 +91,7 @@ if (isset($_POST["upload"])) {
                 $paramType = "ssssssssss";
                 $paramArray = array(
                     $id,
+                    $facuty_id,
                     $number,
                     $name,
                     $idno,
@@ -98,8 +99,7 @@ if (isset($_POST["upload"])) {
                     $email,
                     $adr,
                     $password,
-                    $created_at,
-                    $facuty_id
+                    $created_at                    
                 );
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
