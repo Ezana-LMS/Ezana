@@ -3,11 +3,10 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
-
 //Delete
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $faculty = $_GET['students'];
+    $faculty = $_GET['faculty'];
     $adn = "DELETE FROM ezanaLMS_Students WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
@@ -42,7 +41,7 @@ require_once('partials/_head.php');
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Lecturers</h1>
+                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Students</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -74,8 +73,8 @@ require_once('partials/_head.php');
                                                 </a>
 
                                                 <a class="btn btn-outline-primary" href="enrolled_students.php?faculty=<?php echo $f->id; ?>">
-                                                    <i class="fas fa-file-excel"></i>
-                                                    Enroll Students
+                                                    <i class="fas fa-user-tag"></i>
+                                                    Enrolled Students
                                                 </a>
                                             </h2>
                                         </div>
@@ -118,7 +117,7 @@ require_once('partials/_head.php');
                                                                 Update
                                                             </a>
 
-                                                            <a class="badge badge-danger" href="manage_students.php?delete=<?php echo $std->id; ?>">
+                                                            <a class="badge badge-danger" href="students.php?delete=<?php echo $std->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                 <i class="fas fa-trash"></i>
                                                                 Delete
                                                             </a>
