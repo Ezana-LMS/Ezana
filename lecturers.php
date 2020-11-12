@@ -65,7 +65,7 @@ require_once('partials/_head.php');
                                         <div class="card-header">
                                             <h2 class="text-right">
                                                 <a class="btn btn-outline-success" href="add_lecturer.php?faculty=<?php echo $f->id; ?>">
-                                                    Register New Lecturer
+                                                    Add New Lecturer
                                                 </a>
                                                 <a class="btn btn-outline-primary" href="import_lecturer.php?faculty=<?php echo $f->id; ?>">
                                                     Import Lecturers Details
@@ -82,20 +82,19 @@ require_once('partials/_head.php');
                                                         <th>Email</th>
                                                         <th>Phone</th>
                                                         <th>ID / Passport No</th>
-                                                        <th>Actions</th>
+                                                        <th>Manage </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers`  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$f->id'  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
                                                     $cnt = 1;
                                                     while ($lec = $res->fetch_object()) {
                                                     ?>
-
-                                                        <tr>
+                                                        <tr class="table-row" data-href="view_lecturer.php?view=<?php echo $lec->id; ?>&faculty=$<?php echo $f->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $lec->number; ?></td>
                                                             <td><?php echo $lec->name; ?></td>
@@ -107,7 +106,7 @@ require_once('partials/_head.php');
                                                                     <i class="fas fa-edit"></i>
                                                                     Update Lecturer
                                                                 </a>
-
+                                                                
                                                                 <a class="badge badge-danger" href="manage_lectures.php?delete=<?php echo $lec->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete Lecturer
