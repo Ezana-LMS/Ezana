@@ -73,7 +73,51 @@ require_once('partials/_head.php');
                                             </h2>
                                         </div>
                                         <div class="card-body">
+                                            <table id="example1" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Lec Number</th>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+                                                        <th>ID / Passport No</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers`  ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($lec = $res->fetch_object()) {
+                                                    ?>
 
+                                                        <tr>
+                                                            <td><?php echo $cnt; ?></td>
+                                                            <td><?php echo $lec->number; ?></td>
+                                                            <td><?php echo $lec->name; ?></td>
+                                                            <td><?php echo $lec->email; ?></td>
+                                                            <td><?php echo $lec->phone; ?></td>
+                                                            <td><?php echo $lec->idno; ?></td>
+                                                            <td>
+                                                                <a class="badge badge-primary" href="update_lec.php?update=<?php echo $lec->id; ?>">
+                                                                    <i class="fas fa-edit"></i>
+                                                                    Update Lecturer
+                                                                </a>
+
+                                                                <a class="badge badge-danger" href="manage_lectures.php?delete=<?php echo $lec->id; ?>">
+                                                                    <i class="fas fa-trash"></i>
+                                                                    Delete Lecturer
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php $cnt = $cnt + 1;
+                                                    } ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
