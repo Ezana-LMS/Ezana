@@ -25,7 +25,6 @@ require_once('partials/_head.php');
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
-
         <!-- Navbar -->
         <?php
         $faculty = $_GET['faculty'];
@@ -37,7 +36,6 @@ require_once('partials/_head.php');
             require_once('partials/_faculty_nav.php');
         ?>
             <!-- /.navbar -->
-
             <div class="content-wrapper">
                 <div class="content-header">
                     <div class="container">
@@ -55,10 +53,64 @@ require_once('partials/_head.php');
                         </div>
                     </div>
                 </div>
-
                 <div class="content">
                     <div class="container">
-
+                        <section class="content">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h2 class="text-right">
+                                                <a class="btn btn-outline-success" href="past_exams.php">
+                                                    <i class="fas fa-plus"></i>
+                                                    <i class="fas fa-file-upload"></i>
+                                                    Upload Past Paper
+                                                </a>
+                                            </h2>
+                                        </div>
+                                        <div class="card-body">
+                                            <table id="example1" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Module Name</th>
+                                                        <th>Date Uploaded</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $ret = "SELECT * FROM `ezanaLMS_PastPapers`  WHERE  pastpaper_type  != 'Solution' ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($pastExas = $res->fetch_object()) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $cnt; ?></td>
+                                                            <td><?php echo $pastExas->course_name; ?></td>
+                                                            <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
+                                                            <td>
+                                                                <a class="badge badge-success" target="_blank" href="dist/PastPapers/<?php echo $pastExas->pastpaper; ?>">
+                                                                    <i class="fas fa-download"></i>
+                                                                    Download Papers
+                                                                </a>
+                                                                <a class="badge badge-danger" href="past_papers.php?delete=<?php echo $pastExas->id; ?>">
+                                                                    <i class="fas fa-trash"></i>
+                                                                    Delete Paper
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php $cnt = $cnt + 1;
+                                                    } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
