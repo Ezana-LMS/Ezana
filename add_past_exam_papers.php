@@ -82,40 +82,40 @@ require_once('partials/_head.php');
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="form-group col-md-6">
-                                                        <label for="">Class Name</label>
-                                                        <input type="text" required name="class_name" class="form-control" id="exampleInputEmail1">
                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label for="">Lecturer Name</label>
-                                                        <input type="text" required name="lecturer_name" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="form-group col-md-12">
-                                                        <label for="">Class External Link *Recomended <small class="text-danger">If In YouTube, Vimeo, Google Drive, etc</small></label>
-                                                        <input type="text" name="external_link" class="form-control">
+                                                        <label for="">Course Name</label>
+                                                        <select class='form-control basic' name="course_name">
+                                                            <option selected>Select Course Name</option>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$f->id'  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($course = $res->fetch_object()) {
+                                                            ?>
+                                                                <option><?php echo $course->name; ?></option>
+                                                            <?php } ?>
+                                                        </select>
                                                     </div>
-                                                    <h5 class="text-center"> Or </h5>
+                                                </div>
+                                                <div class="row">
                                                     <div class="form-group col-md-12">
-                                                        <label for="exampleInputFile">Upload Video</label>
+                                                        <label for="exampleInputFile">Upload Past Exam Paper ( PDF / Docx )</label>
                                                         <div class="input-group">
                                                             <div class="custom-file">
-                                                                <input name="video" type="file" class="custom-file-input" id="exampleInputFile">
-                                                                <label class="custom-file-label" for="exampleInputFile">Choose Video File</label>
+                                                                <input required name="pastpaper" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="form-group col-md-12">
-                                                        <label for="exampleInputPassword1">Description</label>
-                                                        <textarea id="textarea" type="text" rows="10" name="details" class="form-control"></textarea>
-                                                    </div>
-                                                </div>
                                             </div>
                                             <div class="card-footer">
-                                                <button type="submit" name="add_class_recording" class="btn btn-primary">Submit</button>
+                                                <button type="submit" name="add_paper" class="btn btn-primary">Upload Paper</button>
                                             </div>
                                         </form>
                                     </div>
