@@ -12,18 +12,24 @@ require_once('partials/_head.php');
 
         <!-- Navbar -->
         <?php
-        require_once('partials/_nav.php');
-        $view = $_GET['view'];
-        $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id ='$view' ";
+        require_once('partials/_faculty_nav.php');
+        $faculty = $_GET['faculty'];
+        $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($admin = $res->fetch_object()) {
-            //Get Default Profile Picture
-            if ($admin->profile_pic == '') {
+        while ($f = $res->fetch_object()) {
+            $view = $_GET['view'];
+            $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id ='$view' ";
+            $stmt = $mysqli->prepare($ret);
+            $stmt->execute(); //ok
+            $res = $stmt->get_result();
+            while ($lec = $res->fetch_object()) {
+                //Get Default Profile Picture
+            if ($lec->profile_pic == '') {
                 $dpic = "<img class='profile-user-img img-fluid img-circle' src='dist/img/logo.jpeg' alt='User profile picture'>";
             } else {
-                $dpic = "<img class='profile-user-img img-fluid img-circle' src='dist/img/system_admin/$admin->profile_pic' alt='User profile picture'>";
+                $dpic = "<img class='profile-user-img img-fluid img-circle' src='dist/img/lecturers/$lec->profile_pic' alt='User profile picture'>";
             }
         ?>
             <!-- /.navbar -->
