@@ -62,9 +62,7 @@ require_once('partials/_head.php');
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="past_exams.php">
-                                                    <i class="fas fa-plus"></i>
-                                                    <i class="fas fa-file-upload"></i>
+                                                <a class="btn btn-outline-success" href="add_past_exam_papers.php?faculty=<?php echo $f->id; ?>">
                                                     Upload Past Paper
                                                 </a>
                                             </h2>
