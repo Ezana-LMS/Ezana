@@ -7,13 +7,14 @@ check_login();
 //delete
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
+    $faculty = $_GET['faculty'];
     $adn = "DELETE FROM ezanaLMS_PastPapers WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=past_papers.php");
+        $success = "Deleted" && header("refresh:1; url=past_exam_papers.php?faculty=$faculty");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -75,12 +76,12 @@ require_once('partials/_head.php');
                                                         <th>#</th>
                                                         <th>Module Name</th>
                                                         <th>Date Uploaded</th>
-                                                        <th>Actions</th>
+                                                        <th>Manage</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_PastPapers`  WHERE  pastpaper_type  != 'Solution' ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_PastPapers`  WHERE  pastpaper_type  != 'Solution' AND faculty_id = '$f->id' ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
@@ -89,14 +90,14 @@ require_once('partials/_head.php');
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $cnt; ?></td>
-                                                            <td><?php echo $pastExas->course_name; ?></td>
+                                                            <td><?php echo $pastExas->module_name; ?></td>
                                                             <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" target="_blank" href="dist/PastPapers/<?php echo $pastExas->pastpaper; ?>">
+                                                                <a class="badge badge-success" target="_blank" href="EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>">
                                                                     <i class="fas fa-download"></i>
                                                                     Download Papers
                                                                 </a>
-                                                                <a class="badge badge-danger" href="past_papers.php?delete=<?php echo $pastExas->id; ?>">
+                                                                <a class="badge badge-danger" href="past_exam_papers.php?delete=<?php echo $pastExas->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete Paper
                                                                 </a>
