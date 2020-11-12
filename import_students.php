@@ -102,7 +102,7 @@ if (isset($_POST["upload"])) {
 
             if (!empty($name) || !empty($admno) || !empty($idno) || !empty($gender) || !empty($email)) {
                 $query = "INSERT INTO ezanaLMS_Students (id, faculty_id,  admno, name, email, password, phone, adr, dob, idno, gender, acc_status, created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                $paramType = "ssssssssssss";
+                $paramType = "sssssssssssss";
                 $paramArray = array(
                     $id,
                     $faculty,
