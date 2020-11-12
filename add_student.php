@@ -107,7 +107,7 @@ require_once('partials/_head.php');
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
                                     <li class="breadcrumb-item"><a href="students.php?faculty=<?php echo $f->id; ?>">Students</a></li>
-                                    <li class="breadcrumb-item active"> Students </li>
+                                    <li class="breadcrumb-item active"> Add </li>
                                 </ol>
                             </div>
                         </div>

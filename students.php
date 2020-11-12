@@ -111,7 +111,7 @@ require_once('partials/_head.php');
                                                             <td><?php echo $std->idno; ?></td>
                                                             <td><?php echo $std->gender; ?></td>
                                                             <td>
-                                                                <a class="badge badge-primary" href="update_student.php?update=<?php echo $std->id; ?>">
+                                                                <a class="badge badge-primary" href="update_student.php?update=<?php echo $std->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
                                                                 </a>
