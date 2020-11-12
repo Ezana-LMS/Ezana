@@ -148,7 +148,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_adm">
                                                             <option selected>Select Student Admission Number</option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Students`  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$f->id'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -168,7 +168,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' id="Coursecode" onchange="getCourseDetails(this.value);" name="course_code">
                                                             <option selected>Select Course Code</option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$f->id'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -188,7 +188,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' id="ModuleName" onchange="getModuleDetails(this.value);" name="module_name">
                                                             <option selected>Select Module Name </option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Modules`   ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$f->id'   ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -200,7 +200,7 @@ require_once('partials/_head.php');
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="">Module Code</label>
-                                                        <input type="text" id="ModuleCode" readonly required name="module_code" class="form-control">
+                                                        <input type="text" id="ModuleCode"  required name="module_code" class="form-control">
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="">Semester Enrolled</label>
