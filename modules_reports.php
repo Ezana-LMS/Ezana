@@ -28,7 +28,7 @@ require_once('partials/_head.php');
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"> Courses </h1>
+                                <h1 class="m-0 text-dark"> Modules </h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -36,7 +36,7 @@ require_once('partials/_head.php');
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
                                     <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
                                     <li class="breadcrumb-item"><a href="faculty_reports.php?faculty=<?php echo $f->id; ?>">Reports</a></li>
-                                    <li class="breadcrumb-item active"> Courses </li>
+                                    <li class="breadcrumb-item active"> Modules </li>
                                 </ol>
                             </div>
                         </div>
@@ -54,38 +54,26 @@ require_once('partials/_head.php');
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Course Code</th>
+                                                        <th>Module Name</th>
+                                                        <th>Module Code</th>
                                                         <th>Course Name</th>
-                                                        <th>Department Name</th>
-                                                        <th>Number Of Modules</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$f->id'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$f->id' ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
                                                     $cnt = 1;
-                                                    while ($course = $res->fetch_object()) {
+                                                    while ($mod = $res->fetch_object()) {
                                                     ?>
 
-                                                        <tr class="table-row" data-href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
+                                                        <tr class="table-row" data-href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $f->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
-                                                            <td><?php echo $course->code; ?></td>
-                                                            <td><?php echo $course->name; ?></td>
-                                                            <td><?php echo $course->department_name; ?></td>
-                                                            <td>
-                                                                <?php
-                                                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE course_id = '$course->id' ";
-                                                                $stmt = $mysqli->prepare($query);
-                                                                $stmt->execute();
-                                                                $stmt->bind_result($modules);
-                                                                $stmt->fetch();
-                                                                $stmt->close();
-                                                                echo $modules;
-                                                                ?>
-                                                            </td>
+                                                            <td><?php echo $mod->name; ?></td>
+                                                            <td><?php echo $mod->code; ?></td>
+                                                            <td><?php echo $mod->course_name; ?></td>
                                                         </tr>
                                                     <?php $cnt = $cnt + 1;
                                                     } ?>
