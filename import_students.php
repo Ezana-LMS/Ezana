@@ -96,8 +96,8 @@ if (isset($_POST["upload"])) {
                 $created_at = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
             }
             $faculty = "";
-            if (isset($spreadSheetAry[$i][11])) {
-                $faculty = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
+            if (isset($spreadSheetAry[$i][12])) {
+                $faculty = mysqli_real_escape_string($conn, $spreadSheetAry[$i][12]);
             }
 
             if (!empty($name) || !empty($admno) || !empty($idno) || !empty($gender) || !empty($email)) {
