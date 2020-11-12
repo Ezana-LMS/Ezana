@@ -20,6 +20,7 @@ if (isset($_GET['delete'])) {
     }
 }
 
+
 require_once('partials/_head.php');
 
 $faculty = $_GET['faculty'];
