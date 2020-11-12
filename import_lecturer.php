@@ -25,7 +25,7 @@ if (isset($_POST["upload"])) {
 
     if (in_array($_FILES["file"]["type"], $allowedFileType)) {
 
-        $targetPath = 'dist/XLSFiles/' . $_FILES['file']['name'];
+        $targetPath = 'EzanaLMSData/XLSFiles/' . $_FILES['file']['name'];
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -105,7 +105,7 @@ if (isset($_POST["upload"])) {
                 if (!empty($insertId)) {
                     $success = "Excel Data Imported into the Database";
                 } else {
-                    $success = "Excel Data Imported into the Database" ;
+                    $success = "Excel Data Imported into the Database";
                 }
             }
         }
@@ -116,3 +116,75 @@ if (isset($_POST["upload"])) {
 
 require_once('partials/_head.php');
 ?>
+
+<body class="hold-transition sidebar-collapse layout-top-nav">
+    <div class="wrapper">
+        <?php
+        require_once('partials/_faculty_nav.php');
+        $faculty = $_GET['faculty'];
+        $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
+        $stmt = $mysqli->prepare($ret);
+        $stmt->execute(); //ok
+        $res = $stmt->get_result();
+        while ($f = $res->fetch_object()) {
+        ?>
+            <div class="content-wrapper">
+                <div class="content-header">
+                    <div class="container">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0 text-dark">Import Lecturers Details </h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="lecturers.php?faculty=<?php echo $f->id; ?>">Lecturers</a></li>
+                                    <li class="breadcrumb-item active"> Import Details </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <div class="container">
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Fill All Required Fields</h3>
+                                        </div>
+                                        <form method="post" enctype="multipart/form-data" role="form">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="exampleInputFile">Select File</label>
+                                                        <div class="input-group">
+                                                            <div class="custom-file">
+                                                                <input required name="file" accept=".xls,.xlsx" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <button type="submit" name="upload" class="btn btn-primary">Upload File</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        <?php require_once('partials/_footer.php');
+        } ?>
+    </div>
+    <?php require_once('partials/_scripts.php'); ?>
+</body>
+
+</html>
