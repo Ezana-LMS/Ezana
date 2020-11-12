@@ -23,7 +23,6 @@ require_once('partials/_head.php');
         while ($f = $res->fetch_object()) {
         ?>
             <!-- /.navbar -->
-
             <div class="content-wrapper">
                 <div class="content-header">
                     <div class="container">
@@ -78,7 +77,13 @@ require_once('partials/_head.php');
                                                             <td><?php echo $course->department_name; ?></td>
                                                             <td>
                                                                 <?php
-
+                                                                    $query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE course_id = '$course->id' ";
+                                                                    $stmt = $mysqli->prepare($query);
+                                                                    $stmt->execute();
+                                                                    $stmt->bind_result($modules);
+                                                                    $stmt->fetch();
+                                                                    $stmt->close();
+                                                                    echo $modules;
                                                                 ?>
                                                             </td>
                                                         </tr>
