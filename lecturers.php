@@ -102,12 +102,12 @@ require_once('partials/_head.php');
                                                             <td><?php echo $lec->phone; ?></td>
                                                             <td><?php echo $lec->idno; ?></td>
                                                             <td>
-                                                                <a class="badge badge-primary" href="update_lec.php?update=<?php echo $lec->id; ?>">
+                                                                <a class="badge badge-primary" href="update_lecturer.php?update=<?php echo $lec->id; ?>&faculty=<?php echo $f->id;?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update Lecturer
                                                                 </a>
-                                                                
-                                                                <a class="badge badge-danger" href="manage_lectures.php?delete=<?php echo $lec->id; ?>">
+
+                                                                <a class="badge badge-danger" href="lecturers.php?delete=<?php echo $lec->id; ?>&faculty=<?php echo $f->id;?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete Lecturer
                                                                 </a>

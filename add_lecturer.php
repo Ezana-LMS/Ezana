@@ -79,8 +79,6 @@ require_once('partials/_head.php');
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
-
-        <!-- Navbar -->
         <?php
         require_once('partials/_faculty_nav.php');
         $faculty = $_GET['faculty'];
@@ -90,8 +88,6 @@ require_once('partials/_head.php');
         $res = $stmt->get_result();
         while ($f = $res->fetch_object()) {
         ?>
-            <!-- /.navbar -->
-
             <div class="content-wrapper">
                 <div class="content-header">
                     <div class="container">
@@ -116,13 +112,10 @@ require_once('partials/_head.php');
                         <section class="content">
                             <div class="container-fluid">
                                 <div class="col-md-12">
-                                    <!-- general form elements -->
                                     <div class="card card-primary">
                                         <div class="card-header">
                                             <h3 class="card-title">Fill All Required Fields</h3>
                                         </div>
-                                        <!-- /.card-header -->
-                                        <!-- form start -->
                                         <form method="post" enctype="multipart/form-data" role="form">
                                             <div class="card-body">
                                                 <div class="row">
