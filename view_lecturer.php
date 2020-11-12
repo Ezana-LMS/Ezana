@@ -53,30 +53,10 @@ require_once('partials/_head.php');
                     <hr>
                     <div class="content">
                         <div class="container">
-                            <section class="content-header">
-                                <div class="container-fluid">
-                                    <div class="row mb-2">
-                                        <div class="col-sm-6">
-                                            <h1><?php echo $lec->name; ?> Profile</h1>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <ol class="breadcrumb float-sm-right">
-                                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                                <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                                <li class="breadcrumb-item"><a href="manage_lectures.php">Lecturers</a></li>
-                                                <li class="breadcrumb-item active"><?php echo $lec->name; ?></li>
-                                            </ol>
-                                        </div>
-                                    </div>
-                                </div><!-- /.container-fluid -->
-                            </section>
-
-                            <!-- Main content -->
                             <section class="content">
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <!-- Profile Image -->
                                             <div class="card card-primary card-outline">
                                                 <div class="card-body box-profile">
                                                     <div class="text-center">
@@ -104,7 +84,6 @@ require_once('partials/_head.php');
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- /.col -->
                                         <div class="col-md-9">
                                             <div class="card">
                                                 <div class="card-header p-2">
@@ -145,11 +124,11 @@ require_once('partials/_head.php');
                                                             </table>
                                                         </div>
                                                     </div>
-                                                </div><!-- /.card-body -->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div><!-- /.container-fluid -->
+                                </div>
                             </section>
                         </div>
                     </div>

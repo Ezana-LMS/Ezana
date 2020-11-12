@@ -94,7 +94,7 @@ require_once('partials/_head.php');
                                                     $cnt = 1;
                                                     while ($lec = $res->fetch_object()) {
                                                     ?>
-                                                        <tr class="table-row" data-href="view_lecturer.php?view=<?php echo $lec->id; ?>&faculty=$<?php echo $f->id; ?>">
+                                                        <tr class="table-row" data-href="view_lecturer.php?view=<?php echo $lec->id; ?>&faculty=<?php echo $f->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $lec->number; ?></td>
                                                             <td><?php echo $lec->name; ?></td>
