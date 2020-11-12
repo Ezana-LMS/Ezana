@@ -86,7 +86,7 @@ require_once('partials/_head.php');
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="form-group col-md-12">
+                                                    <div class="form-group col-md-6">
                                                         <label for="">Course Name</label>
                                                         <select class='form-control basic' name="course_name">
                                                             <option selected>Select Course Name</option>
@@ -98,6 +98,22 @@ require_once('partials/_head.php');
                                                             while ($course = $res->fetch_object()) {
                                                             ?>
                                                                 <option><?php echo $course->name; ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Module Name</label>
+                                                        <select class='form-control basic' name="module_name">
+                                                            <option selected>Select Module Name</option>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$f->id'  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($mod = $res->fetch_object()) {
+                                                            ?>
+                                                                <option><?php echo $mod->name; ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>
