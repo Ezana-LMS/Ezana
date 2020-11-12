@@ -4,50 +4,38 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 
-//delete
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $faculty = $_GET['faculty'];
-    $adn = "DELETE FROM ezanaLMS_Courses WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=courses.php?faculty=$faculty");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
-
 require_once('partials/_head.php');
 
-$faculty = $_GET['faculty'];
-$ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
-$stmt = $mysqli->prepare($ret);
-$stmt->execute(); //ok
-$res = $stmt->get_result();
-while ($f = $res->fetch_object()) {
 ?>
 
-    <body class="hold-transition sidebar-collapse layout-top-nav">
-        <div class="wrapper">
+<body class="hold-transition sidebar-collapse layout-top-nav">
+    <div class="wrapper">
 
-            <!-- Navbar -->
-            <?php require_once('partials/_faculty_nav.php'); ?>
+        <!-- Navbar -->
+        <?php
+        require_once('partials/_faculty_nav.php');
+
+        $faculty = $_GET['faculty'];
+        $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
+        $stmt = $mysqli->prepare($ret);
+        $stmt->execute(); //ok
+        $res = $stmt->get_result();
+        while ($f = $res->fetch_object()) {
+        ?>
             <!-- /.navbar -->
-
             <div class="content-wrapper">
                 <div class="content-header">
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Courses</h1>
+                                <h1 class="m-0 text-dark"> Courses </h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
                                     <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_reports.php?faculty=<?php echo $f->id; ?>">Reports</a></li>
                                     <li class="breadcrumb-item active"> Courses </li>
                                 </ol>
                             </div>
@@ -61,22 +49,15 @@ while ($f = $res->fetch_object()) {
                             <div class="row">
                                 <div class="col-12">
                                     <div class="card">
-                                        <div class="card-header">
-                                            <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_course.php?faculty=<?php echo $f->id; ?>">
-                                                    Register New Course
-                                                </a>
-                                            </h2>
-                                        </div>
                                         <div class="card-body">
-                                            <table id="example1" class="table table-bordered table-striped">
+                                            <table id="export-dt" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Course Code</th>
                                                         <th>Course Name</th>
                                                         <th>Department Name</th>
-                                                        <th>Manage Course</th>
+                                                        <th>Number Of Modules</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -95,15 +76,15 @@ while ($f = $res->fetch_object()) {
                                                             <td><?php echo $course->name; ?></td>
                                                             <td><?php echo $course->department_name; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    View Course
-                                                                </a>
-
-                                                                <a class="badge badge-danger" href="courses.php?delete=<?php echo $course->id; ?>&faculty=<?php echo $f->id; ?>">
-                                                                    <i class="fas fa-trash"></i>
-                                                                    Delete
-                                                                </a>
+                                                                <?php
+                                                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE course_id = '$course->id' ";
+                                                                $stmt = $mysqli->prepare($query);
+                                                                $stmt->execute();
+                                                                $stmt->bind_result($modules);
+                                                                $stmt->fetch();
+                                                                $stmt->close();
+                                                                echo $modules;
+                                                                ?>
                                                             </td>
                                                         </tr>
                                                     <?php $cnt = $cnt + 1;
@@ -119,9 +100,9 @@ while ($f = $res->fetch_object()) {
                 </div>
             </div>
         <?php require_once('partials/_footer.php');
-    } ?>
-        </div>
-        <?php require_once('partials/_scripts.php'); ?>
-    </body>
+        } ?>
+    </div>
+    <?php require_once('partials/_scripts.php'); ?>
+</body>
 
-    </html>
+</html>

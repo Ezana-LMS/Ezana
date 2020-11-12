@@ -3,38 +3,37 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
-
-//delete
+//Delete
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
     $faculty = $_GET['faculty'];
-    $adn = "DELETE FROM ezanaLMS_Courses WHERE id=?";
+    $adn = "DELETE FROM ezanaLMS_Students WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=courses.php?faculty=$faculty");
+        $success = "Deleted" && header("refresh:1; url=students.php?faculty=$faculty");
     } else {
         $info = "Please Try Again Or Try Later";
     }
 }
-
 require_once('partials/_head.php');
-
-$faculty = $_GET['faculty'];
-$ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
-$stmt = $mysqli->prepare($ret);
-$stmt->execute(); //ok
-$res = $stmt->get_result();
-while ($f = $res->fetch_object()) {
 ?>
 
-    <body class="hold-transition sidebar-collapse layout-top-nav">
-        <div class="wrapper">
+<body class="hold-transition sidebar-collapse layout-top-nav">
+    <div class="wrapper">
 
-            <!-- Navbar -->
-            <?php require_once('partials/_faculty_nav.php'); ?>
+        <!-- Navbar -->
+        <?php
+        require_once('partials/_faculty_nav.php');
+        $faculty = $_GET['faculty'];
+        $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
+        $stmt = $mysqli->prepare($ret);
+        $stmt->execute(); //ok
+        $res = $stmt->get_result();
+        while ($f = $res->fetch_object()) {
+        ?>
             <!-- /.navbar -->
 
             <div class="content-wrapper">
@@ -42,13 +41,13 @@ while ($f = $res->fetch_object()) {
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Courses</h1>
+                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Students</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                    <li class="breadcrumb-item active"> Courses </li>
+                                    <li class="breadcrumb-item active"> Lecturers </li>
                                 </ol>
                             </div>
                         </div>
@@ -63,8 +62,19 @@ while ($f = $res->fetch_object()) {
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_course.php?faculty=<?php echo $f->id; ?>">
-                                                    Register New Course
+                                                <a class="btn btn-outline-success" href="add_student.php?faculty=<?php echo $f->id; ?>">
+                                                    <i class="fas fa-user-plus"></i>
+                                                    Register New Student
+                                                </a>
+
+                                                <a class="btn btn-outline-primary" href="import_students.php?faculty=<?php echo $f->id; ?>">
+                                                    <i class="fas fa-file-excel"></i>
+                                                    Import Students From .XLS File
+                                                </a>
+
+                                                <a class="btn btn-outline-primary" href="enrolled_students.php?faculty=<?php echo $f->id; ?>">
+                                                    <i class="fas fa-user-tag"></i>
+                                                    Enrolled Students
                                                 </a>
                                             </h2>
                                         </div>
@@ -73,34 +83,40 @@ while ($f = $res->fetch_object()) {
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Course Code</th>
-                                                        <th>Course Name</th>
-                                                        <th>Department Name</th>
-                                                        <th>Manage Course</th>
+                                                        <th>Adm No</th>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+                                                        <th>ID / Passport No</th>
+                                                        <th>Gender</th>
+                                                        <th>Manage</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$f->id'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$f->id'  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
                                                     $cnt = 1;
-                                                    while ($course = $res->fetch_object()) {
+                                                    while ($std = $res->fetch_object()) {
                                                     ?>
 
-                                                        <tr class="table-row" data-href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
+                                                        <tr class="table-row" data-href="view_student.php?view=<?php echo $std->id; ?>&faculty=<?php echo $f->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
-                                                            <td><?php echo $course->code; ?></td>
-                                                            <td><?php echo $course->name; ?></td>
-                                                            <td><?php echo $course->department_name; ?></td>
+                                                            <td><?php echo $std->admno; ?></td>
+                                                            <td><?php echo $std->name; ?></td>
+                                                            <td><?php echo $std->email; ?></td>
+                                                            <td><?php echo $std->phone; ?></td>
+                                                            <td><?php echo $std->idno; ?></td>
+                                                            <td><?php echo $std->gender; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    View Course
+                                                                <a class="badge badge-primary" href="update_student.php?update=<?php echo $std->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                    <i class="fas fa-edit"></i>
+                                                                    Update
                                                                 </a>
 
-                                                                <a class="badge badge-danger" href="courses.php?delete=<?php echo $course->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-danger" href="students.php?delete=<?php echo $std->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
@@ -119,9 +135,9 @@ while ($f = $res->fetch_object()) {
                 </div>
             </div>
         <?php require_once('partials/_footer.php');
-    } ?>
-        </div>
-        <?php require_once('partials/_scripts.php'); ?>
-    </body>
+        } ?>
+    </div>
+    <?php require_once('partials/_scripts.php'); ?>
+</body>
 
-    </html>
+</html>

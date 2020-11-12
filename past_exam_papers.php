@@ -8,53 +8,52 @@ check_login();
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
     $faculty = $_GET['faculty'];
-    $adn = "DELETE FROM ezanaLMS_Courses WHERE id=?";
+    $adn = "DELETE FROM ezanaLMS_PastPapers WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=courses.php?faculty=$faculty");
+        $success = "Deleted" && header("refresh:1; url=past_exam_papers.php?faculty=$faculty");
     } else {
         $info = "Please Try Again Or Try Later";
     }
 }
-
 require_once('partials/_head.php');
 
-$faculty = $_GET['faculty'];
-$ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
-$stmt = $mysqli->prepare($ret);
-$stmt->execute(); //ok
-$res = $stmt->get_result();
-while ($f = $res->fetch_object()) {
 ?>
 
-    <body class="hold-transition sidebar-collapse layout-top-nav">
-        <div class="wrapper">
 
-            <!-- Navbar -->
-            <?php require_once('partials/_faculty_nav.php'); ?>
+<body class="hold-transition sidebar-collapse layout-top-nav">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <?php
+        $faculty = $_GET['faculty'];
+        $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
+        $stmt = $mysqli->prepare($ret);
+        $stmt->execute(); //ok
+        $res = $stmt->get_result();
+        while ($f = $res->fetch_object()) {
+            require_once('partials/_faculty_nav.php');
+        ?>
             <!-- /.navbar -->
-
             <div class="content-wrapper">
                 <div class="content-header">
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Courses</h1>
+                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Past Exam Papers</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                    <li class="breadcrumb-item active"> Courses </li>
+                                    <li class="breadcrumb-item active"> Past Exam Papers </li>
                                 </ol>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="content">
                     <div class="container">
                         <section class="content">
@@ -63,8 +62,8 @@ while ($f = $res->fetch_object()) {
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_course.php?faculty=<?php echo $f->id; ?>">
-                                                    Register New Course
+                                                <a class="btn btn-outline-success" href="add_past_exam_papers.php?faculty=<?php echo $f->id; ?>">
+                                                    Upload Past Paper
                                                 </a>
                                             </h2>
                                         </div>
@@ -73,36 +72,34 @@ while ($f = $res->fetch_object()) {
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Course Code</th>
-                                                        <th>Course Name</th>
-                                                        <th>Department Name</th>
-                                                        <th>Manage Course</th>
+                                                        <th>Course</th>
+                                                        <th>Module</th>
+                                                        <th>Date Uploaded</th>
+                                                        <th>Manage</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$f->id'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_PastPapers`  WHERE  pastpaper_type  != 'Solution' AND faculty_id = '$f->id' ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
                                                     $cnt = 1;
-                                                    while ($course = $res->fetch_object()) {
+                                                    while ($pastExas = $res->fetch_object()) {
                                                     ?>
-
-                                                        <tr class="table-row" data-href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
+                                                        <tr>
                                                             <td><?php echo $cnt; ?></td>
-                                                            <td><?php echo $course->code; ?></td>
-                                                            <td><?php echo $course->name; ?></td>
-                                                            <td><?php echo $course->department_name; ?></td>
+                                                            <td><?php echo $pastExas->course_name; ?></td>
+                                                            <td><?php echo $pastExas->module_name; ?></td>
+                                                            <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    View Course
+                                                                <a class="badge badge-success" target="_blank" href="EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>">
+                                                                    <i class="fas fa-download"></i>
+                                                                    Download Papers
                                                                 </a>
-
-                                                                <a class="badge badge-danger" href="courses.php?delete=<?php echo $course->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-danger" href="past_exam_papers.php?delete=<?php echo $pastExas->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-trash"></i>
-                                                                    Delete
+                                                                    Delete Paper
                                                                 </a>
                                                             </td>
                                                         </tr>
@@ -119,9 +116,9 @@ while ($f = $res->fetch_object()) {
                 </div>
             </div>
         <?php require_once('partials/_footer.php');
-    } ?>
-        </div>
-        <?php require_once('partials/_scripts.php'); ?>
-    </body>
+        } ?>
+    </div>
+    <?php require_once('partials/_scripts.php'); ?>
+</body>
 
-    </html>
+</html>
