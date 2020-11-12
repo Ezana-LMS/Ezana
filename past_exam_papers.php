@@ -74,7 +74,8 @@ require_once('partials/_head.php');
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Module Name</th>
+                                                        <th>Course</th>
+                                                        <th>Module</th>
                                                         <th>Date Uploaded</th>
                                                         <th>Manage</th>
                                                     </tr>
@@ -90,6 +91,7 @@ require_once('partials/_head.php');
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $cnt; ?></td>
+                                                            <td><?php echo $pastExas->course_name; ?></td>
                                                             <td><?php echo $pastExas->module_name; ?></td>
                                                             <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
                                                             <td>
