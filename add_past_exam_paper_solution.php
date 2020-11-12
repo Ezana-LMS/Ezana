@@ -62,7 +62,7 @@ require_once('partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                    <li class="breadcrumb-item"><a href="past_exam_papers.php?faculty=<?php echo $f->id; ?>"> Past Papers Solutions</a></li>
+                                    <li class="breadcrumb-item"><a href="past_exam_paper_solutions.php?faculty=<?php echo $f->id; ?>"> Past Papers Solutions</a></li>
                                     <li class="breadcrumb-item active">Upload</li>
                                 </ol>
                             </div>
