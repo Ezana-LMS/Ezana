@@ -171,7 +171,7 @@ require_once('partials/_head.php');
                                     </div>
                                 </a>
                             </div>
-
+                            
                             <!-- Students -->
                             <div class="col-12 col-sm-6 col-md-4">
                                 <a href="students.php?faculty=<?php echo $row->id;?>">
