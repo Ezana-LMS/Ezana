@@ -70,7 +70,6 @@ require_once('partials/_head.php');
                                         <div class="card-header">
                                             <h2 class="text-right">
                                                 <a class="btn btn-outline-success" href="new_module_assign.php">
-                                                    <i class="fas fa-plus"></i>
                                                     Register New Module Assign
                                                 </a>
                                             </h2>
