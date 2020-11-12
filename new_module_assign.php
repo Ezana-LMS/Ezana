@@ -33,29 +33,39 @@ if (isset($_POST['assign_module'])) {
     }
     if (!$error) {
 
-        $id = $_POST['id'];
-        $module_code = $_POST['module_code'];
-        $module_name = $_POST['module_name'];
-        $lec_id = $_POST['lec_id'];
-        $lec_name = $_POST['lec_name'];
-        $created_at = date('d M Y');
-        $faculty = $_GET['faculty'];
-
-        //On Assign, Update Module Status to Assigned
-        $ass_status = 1;
-
-        $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?)";
-        $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
-        $stmt = $mysqli->prepare($query);
-        $modstmt = $mysqli->prepare($modUpdate);
-        $rc = $stmt->bind_param('sssssss', $id, $faculty, $module_code, $module_name, $lec_id, $lec_name, $created_at);
-        $rc = $modstmt->bind_param('is', $ass_status, $module_code);
-        $stmt->execute();
-        $modstmt->execute();
-        if ($stmt && $modstmt) {
-            $success = "Module Assignment Added" && header("refresh:1; url=new_module_assign.php?faculty=$faculty");
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_ModuleAssigns WHERE  (lec_id='$lec_id' AND module_code ='$module_code') ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ( ($lec_id == $row['lec_id']) && ($module_code == $row['module_code']) ) {
+                $err =  "Module Already Assigned Lecturer";
+            } 
         } else {
-            $info = "Please Try Again Or Try Later";
+            $id = $_POST['id'];
+            $module_code = $_POST['module_code'];
+            $module_name = $_POST['module_name'];
+            $lec_id = $_POST['lec_id'];
+            $lec_name = $_POST['lec_name'];
+            $created_at = date('d M Y');
+            $faculty = $_GET['faculty'];
+
+            //On Assign, Update Module Status to Assigned
+            $ass_status = 1;
+
+            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?)";
+            $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
+            $stmt = $mysqli->prepare($query);
+            $modstmt = $mysqli->prepare($modUpdate);
+            $rc = $stmt->bind_param('sssssss', $id, $faculty, $module_code, $module_name, $lec_id, $lec_name, $created_at);
+            $rc = $modstmt->bind_param('is', $ass_status, $module_code);
+            $stmt->execute();
+            $modstmt->execute();
+            if ($stmt && $modstmt) {
+                $success = "Module Assignment Added" && header("refresh:1; url=new_module_assign.php?faculty=$faculty");
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
         }
     }
 }
@@ -150,7 +160,7 @@ require_once('partials/_head.php');
 
                                                     <div class="form-group col-md-6">
                                                         <label for="">Module Code</label>
-                                                        <input type="text" id="ModuleCode" readonly required name="module_code" class="form-control">
+                                                        <input type="text" id="ModuleCode"  required name="module_code" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
