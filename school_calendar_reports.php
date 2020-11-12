@@ -62,7 +62,7 @@ require_once('partials/_head.php');
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id ='$row->id' ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id ='$f->id' ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
