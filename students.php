@@ -102,7 +102,7 @@ require_once('partials/_head.php');
                                                     while ($std = $res->fetch_object()) {
                                                     ?>
 
-                                                        <tr>
+                                                        <tr class="table-row" data-href="view_student.php?view=<?php echo $std->id; ?>&faculty=<?php echo $f->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $std->admno; ?></td>
                                                             <td><?php echo $std->name; ?></td>
@@ -110,17 +110,16 @@ require_once('partials/_head.php');
                                                             <td><?php echo $std->phone; ?></td>
                                                             <td><?php echo $std->idno; ?></td>
                                                             <td><?php echo $std->gender; ?></td>
-                                                        <tr class="table-row" data-href="view_student.php?view=<?php echo $std->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                            <td>
+                                                                <a class="badge badge-primary" href="update_student.php?update=<?php echo $std->id; ?>">
+                                                                    <i class="fas fa-edit"></i>
+                                                                    Update
+                                                                </a>
 
-                                                            <a class="badge badge-primary" href="update_student.php?update=<?php echo $std->id; ?>">
-                                                                <i class="fas fa-edit"></i>
-                                                                Update
-                                                            </a>
-
-                                                            <a class="badge badge-danger" href="students.php?delete=<?php echo $std->id; ?>&faculty=<?php echo $f->id; ?>">
-                                                                <i class="fas fa-trash"></i>
-                                                                Delete
-                                                            </a>
+                                                                <a class="badge badge-danger" href="students.php?delete=<?php echo $std->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                    <i class="fas fa-trash"></i>
+                                                                    Delete
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     <?php $cnt = $cnt + 1;
