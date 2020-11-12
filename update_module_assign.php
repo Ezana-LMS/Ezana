@@ -147,7 +147,7 @@ require_once('partials/_head.php');
 
                                                     <div class="form-group col-md-6">
                                                         <label for="">Module Code</label>
-                                                        <input type="text" id="ModuleCode" readonly required name="module_code" class="form-control">
+                                                        <input type="text" id="ModuleCode"  required name="module_code" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
