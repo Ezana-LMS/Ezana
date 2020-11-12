@@ -113,6 +113,18 @@ require_once('partials/_head.php');
                                 </a>
                             </div>
 
+                            <!-- Students  Enrolled-->
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <a href="students_enrollment_reports.php?faculty=<?php echo $row->id; ?>">
+                                    <div class="info-box mb-3">
+                                        <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-user-tag"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Students Enrollment Reports</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
                         </div>
                     </div>
                 </div>
