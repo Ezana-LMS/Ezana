@@ -180,7 +180,7 @@ require_once('partials/_head.php');
                                                                     <td><?php echo $stdGroup->student_name; ?></td>
                                                                     <td><?php echo date('d M Y g:i', strtotime($stdGroup->created_at)); ?></td>
                                                                     <td>
-                                                                        <a class="badge badge-danger" href="view_student_group.php?remove=<?php echo $stdGroup->id; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                        <a class="badge badge-danger" href="view_student_group.php?remove=<?php echo $stdGroup->id; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>&code=<?php echo $g->code;?>&name=<?php echo $g->name;?>">
                                                                             <i class="fas fa-user-times"></i>
                                                                             Remove Member
                                                                         </a>
