@@ -65,7 +65,6 @@ require_once('partials/_head.php');
                                         <div class="card-header">
                                             <h2 class="text-right">
                                                 <a class="btn btn-outline-success" href="add_student_groups.php?faculty=<?php echo $f->id;?>">
-                                                    <i class="fas fa-plus"></i>
                                                     Create New Group
                                                 </a>
 
