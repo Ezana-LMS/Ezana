@@ -52,8 +52,7 @@ if (isset($_POST['add_group'])) {
             $details = $_POST['details'];
             $faculty = $_GET['faculty'];
 
-
-            $query = "INSERT INTO ezanaLMS_Groups (id, faculty, name, code, created_at, details) VALUES(?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Groups (id, faculty_id, name, code, created_at, details) VALUES(?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ssssss', $id, $faculty, $name, $code, $created_at, $details);
             $stmt->execute();
