@@ -19,6 +19,57 @@ if (isset($_GET['remove'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+
+if (isset($_POST['add_member'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['student_admn']) && !empty($_POST['student_admn'])) {
+        $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_admn']));
+    } else {
+        $error = 1;
+        $err = "Student Admission Number Cannot Be Empty";
+    }
+    if (isset($_POST['student_name']) && !empty($_POST['student_name'])) {
+        $student_name = mysqli_real_escape_string($mysqli, trim($_POST['student_name']));
+    } else {
+        $error = 1;
+        $err = "Student Name Cannot Be Empty";
+    }
+    if (isset($_GET['code']) && !empty($_GET['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_GET['code']));
+    } else {
+        $error = 1;
+        $err = "Group Code Cannot Be Empty";
+    }
+
+    if (!$error) {
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_StudentsGroups  WHERE  (code = '$code' AND student_admn ='$student_admn')   ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if (($code  && $student_admn) == ($row['code'] && $row['student_admn'])) {
+                $err = "Student Already Added To Group";
+            }
+        } else {
+            $id = $_POST['id'];
+            $name = $_GET['name'];
+            $code = $_GET['code'];
+            $student_admn = $_POST['student_admn'];
+            $student_name = $_POST['student_name'];
+
+            $query = "INSERT INTO ezanaLMS_StudentsGroups (id, faculty_id, name, code, student_admn, student_name) VALUES(?,?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ssssss', $id, $faculty, $name, $code, $student_admn, $student_name);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Student Added To group" && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty");
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
 require_once('partials/_head.php');
 ?>
 
@@ -80,10 +131,10 @@ require_once('partials/_head.php');
                                                 <li class="nav-item">
                                                     <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-members" role="tab" aria-controls="custom-content-below-members" aria-selected="false">Group Members</a>
                                                 </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-add_member" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Add Members</a>
+                                                </li>
                                                 <!-- <li class="nav-item">
-                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Notices</a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-projects" role="tab" aria-controls="custom-content-below-projects" aria-selected="false">Group Projects</a>
                                     </li>
                                     <li class="nav-item">
@@ -110,7 +161,7 @@ require_once('partials/_head.php');
                                                         <tbody>
                                                             <?php
                                                             $GroupCode = $g->code;
-                                                            $ret = "SELECT * FROM `ezanaLMS_StudentsGroups` WHERE code = '$GroupCode'  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_StudentsGroups` WHERE code = '$GroupCode' AND faculty_id = '$faculty'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -133,6 +184,10 @@ require_once('partials/_head.php');
                                                             } ?>
                                                         </tbody>
                                                     </table>
+                                                </div>
+                                                <div class="tab-pane fade" id="custom-content-below-add_member" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                    <br>
+
                                                 </div>
                                             </div>
                                         </div>

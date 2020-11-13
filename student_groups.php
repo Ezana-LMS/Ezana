@@ -64,7 +64,7 @@ require_once('partials/_head.php');
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_student_groups.php?faculty=<?php echo $f->id;?>">
+                                                <a class="btn btn-outline-success" href="add_student_groups.php?faculty=<?php echo $f->id; ?>">
                                                     Create New Group
                                                 </a>
 
@@ -97,7 +97,7 @@ require_once('partials/_head.php');
                                                             <td><?php echo $g->name; ?></td>
                                                             <td><?php echo $g->created_at; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_student_group.php?view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-success" href="view_student_group.php.php?&name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-eye"></i>
                                                                     View Members
                                                                 </a>
