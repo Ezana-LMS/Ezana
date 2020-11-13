@@ -2,6 +2,7 @@
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
+require_once('configs/codeGen.php');
 check_login();
 //Remove Member
 if (isset($_GET['remove'])) {
