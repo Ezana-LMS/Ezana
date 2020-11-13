@@ -97,7 +97,7 @@ require_once('partials/_head.php');
                                                             <td><?php echo $g->name; ?></td>
                                                             <td><?php echo $g->created_at; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_student_group.php.php?&name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-success" href="view_student_group.php?&name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-eye"></i>
                                                                     View Members
                                                                 </a>

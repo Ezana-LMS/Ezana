@@ -8,13 +8,15 @@ if (isset($_GET['remove'])) {
     $view = $_GET['view'];
     $faculty = $_GET['faculty'];
     $remove = $_GET['remove'];
+    $name = $_GET['name'];
+    $code = $_GET['code'];
     $adn = "DELETE FROM ezanaLMS_StudentsGroups WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $remove);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty");
+        $success = "Deleted" && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty&code=$code&name=$name");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -57,13 +59,16 @@ if (isset($_POST['add_member'])) {
             $code = $_GET['code'];
             $student_admn = $_POST['student_admn'];
             $student_name = $_POST['student_name'];
+            $view = $_GET['view'];
+            $faculty = $_GET['faculty'];
+
 
             $query = "INSERT INTO ezanaLMS_StudentsGroups (id, faculty_id, name, code, student_admn, student_name) VALUES(?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ssssss', $id, $faculty, $name, $code, $student_admn, $student_name);
             $stmt->execute();
             if ($stmt) {
-                $success = "Student Added To group" && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty");
+                $success = "Student Added To group" && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty&code=$code&name=$name");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
