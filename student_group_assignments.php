@@ -65,9 +65,8 @@ require_once('partials/_head.php');
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_group_project.php?group_code=<?php echo $g->code; ?>&group_name=<?php echo $g->name; ?>&type=Project">
-                                                    <i class="fas fa-plus"></i>
-                                                    Create New Group Project
+                                                <a class="btn btn-outline-success" href="add_group_project.php?faculty=<?php echo $f->id; ?>&type=Project">
+                                                    Create New Group Project
                                                 </a>
                                             </h2>
                                         </div>
@@ -112,7 +111,7 @@ require_once('partials/_head.php');
                                                                     <i class="fas fa-check"></i>
                                                                     Grade Project
                                                                 </a>
-                                                                <a class="badge badge-danger" href="manage_group_projects.php?delete=<?php echo $gcode->id; ?>&group_code=<?php echo $g->code; ?>">
+                                                                <a class="badge badge-danger" href="student_group_assignments.php?delete=<?php echo $gcode->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
