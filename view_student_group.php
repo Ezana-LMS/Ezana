@@ -140,12 +140,13 @@ require_once('partials/_head.php');
                                                 <li class="nav-item">
                                                     <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-add_member" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Add Members</a>
                                                 </li>
-                                                <!-- <li class="nav-item">
-                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-projects" role="tab" aria-controls="custom-content-below-projects" aria-selected="false">Group Projects</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-assignments" role="tab" aria-controls="custom-content-below-assignments" aria-selected="false">Group Assignments</a>
-                                    </li> -->
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-assignments" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Assignments</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Notices</a>
+                                                </li>
+                                                
                                             </ul>
                                             <div class="tab-content" id="custom-content-below-tabContent">
                                                 <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
