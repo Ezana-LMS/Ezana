@@ -23,6 +23,26 @@ if (isset($_GET['remove'])) {
     }
 }
 
+//Delete Group Project
+if (isset($_GET['delete'])) {
+    $group_code = $_GET['group_code'];
+    $delete = $_GET['delete'];
+    $view = $_GET['view'];
+    $faculty = $_GET['faculty'];
+    $code = $_GET['code'];
+    $name = $_GET['name'];
+    $adn = "DELETE FROM ezanaLMS_GroupsAssignments WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty&code=$code&name=$name");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 if (isset($_POST['add_member'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -230,36 +250,7 @@ require_once('partials/_head.php');
 
                                                 <div class="tab-pane fade" id="custom-content-below-assignments" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                     <br>
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Student Admission Number</label>
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
-                                                                        <option selected>Select Admission Number</option>
-                                                                        <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Students`  ";
-                                                                        $stmt = $mysqli->prepare($ret);
-                                                                        $stmt->execute(); //ok
-                                                                        $res = $stmt->get_result();
-                                                                        while ($std = $res->fetch_object()) {
-                                                                        ?>
-                                                                            <option><?php echo $std->admno; ?></option>
-                                                                        <?php
-                                                                        } ?>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Student Name</label>
-                                                                    <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer">
-                                                            <button type="submit" name="add_member" class="btn btn-primary">Add Member</button>
-                                                        </div>
-                                                    </form>
+                                                   
                                                 </div>
 
                                                 <div class="tab-pane fade" id="custom-content-below-notices" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
