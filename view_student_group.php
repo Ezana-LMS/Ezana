@@ -253,7 +253,7 @@ require_once('partials/_head.php');
                                                     <div class="card">
                                                         <div class="card-header">
                                                             <h2 class="text-right">
-                                                                <a class="btn btn-outline-success" href="add_group_project.php?group_code=<?php echo $g->code; ?>&group_name=<?php echo $g->name; ?>&type=Project">
+                                                                <a class="btn btn-outline-success" href="add_group_project.php?&name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>&group_code=<?php echo $g->code; ?>&group_name=<?php echo $g->name; ?>&type=Project">
                                                                     Create New Group Project
                                                                 </a>
                                                             </h2>
