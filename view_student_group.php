@@ -146,13 +146,14 @@ require_once('partials/_head.php');
                                                 <li class="nav-item">
                                                     <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Notices</a>
                                                 </li>
-                                                
+
                                             </ul>
                                             <div class="tab-content" id="custom-content-below-tabContent">
                                                 <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                     <br>
                                                     <?php echo $g->details; ?>
                                                 </div>
+
                                                 <div class="tab-pane fade" id="custom-content-below-members" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                     <br>
                                                     <table id="example1" class="table table-bordered table-striped">
@@ -181,7 +182,7 @@ require_once('partials/_head.php');
                                                                     <td><?php echo $stdGroup->student_name; ?></td>
                                                                     <td><?php echo date('d M Y g:i', strtotime($stdGroup->created_at)); ?></td>
                                                                     <td>
-                                                                        <a class="badge badge-danger" href="view_student_group.php?remove=<?php echo $stdGroup->id; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>&code=<?php echo $g->code;?>&name=<?php echo $g->name;?>">
+                                                                        <a class="badge badge-danger" href="view_student_group.php?remove=<?php echo $stdGroup->id; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>&code=<?php echo $g->code; ?>&name=<?php echo $g->name; ?>">
                                                                             <i class="fas fa-user-times"></i>
                                                                             Remove Member
                                                                         </a>
@@ -192,7 +193,76 @@ require_once('partials/_head.php');
                                                         </tbody>
                                                     </table>
                                                 </div>
+
                                                 <div class="tab-pane fade" id="custom-content-below-add_member" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                    <br>
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Student Admission Number</label>
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
+                                                                        <option selected>Select Admission Number</option>
+                                                                        <?php
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Students`  ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        while ($std = $res->fetch_object()) {
+                                                                        ?>
+                                                                            <option><?php echo $std->admno; ?></option>
+                                                                        <?php
+                                                                        } ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Student Name</label>
+                                                                    <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <button type="submit" name="add_member" class="btn btn-primary">Add Member</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                                <div class="tab-pane fade" id="custom-content-below-assignments" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                    <br>
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Student Admission Number</label>
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
+                                                                        <option selected>Select Admission Number</option>
+                                                                        <?php
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Students`  ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        while ($std = $res->fetch_object()) {
+                                                                        ?>
+                                                                            <option><?php echo $std->admno; ?></option>
+                                                                        <?php
+                                                                        } ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Student Name</label>
+                                                                    <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <button type="submit" name="add_member" class="btn btn-primary">Add Member</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                                <div class="tab-pane fade" id="custom-content-below-notices" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                     <br>
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
