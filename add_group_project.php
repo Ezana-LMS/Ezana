@@ -59,7 +59,7 @@ require_once('partials/_head.php');
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
                                     <li class="breadcrumb-item"><a href="student_groups.php?faculty=<?php echo $f->id; ?>">Student Groups</a></li>
-                                    <li class="breadcrumb-item"><a href="student_group_assignment.php?faculty=<?php echo $f->id; ?>">Group Assignments</a></li>
+                                    <li class="breadcrumb-item"><a href="student_group_assignments.php?faculty=<?php echo $f->id; ?>">Group Assignments</a></li>
                                     <li class="breadcrumb-item active"> Add </li>
                                 </ol>
                             </div>
