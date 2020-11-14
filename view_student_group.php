@@ -177,9 +177,6 @@ require_once('partials/_head.php');
                                                 <li class="nav-item">
                                                     <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-assignments" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Assignments</a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Notices</a>
-                                                </li>
 
                                             </ul>
                                             <div class="tab-content" id="custom-content-below-tabContent">
@@ -265,13 +262,6 @@ require_once('partials/_head.php');
                                                 <div class="tab-pane fade" id="custom-content-below-assignments" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                     <br>
                                                     <div class="card">
-                                                        <div class="card-header">
-                                                            <h2 class="text-right">
-                                                                <a class="btn btn-outline-success" href="add_group_project.php?&name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>&group_code=<?php echo $g->code; ?>&group_name=<?php echo $g->name; ?>&type=Project">
-                                                                    Add Group Assignment
-                                                                </a>
-                                                            </h2>
-                                                        </div>
                                                         <div class="card-body">
                                                             <table id="example1" class="table table-bordered table-striped">
                                                                 <thead>
@@ -299,80 +289,6 @@ require_once('partials/_head.php');
                                                                                 <a class="badge badge-success" href="view_group_project.php?view=<?php echo $gcode->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                                     <i class="fas fa-eye"></i>
                                                                                     View Assignment
-                                                                                </a>
-                                                                                <a class="badge badge-primary" href="update_group_project.php?name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&update=<?php echo $gcode->id; ?>&faculty=<?php echo $f->id; ?>">
-                                                                                    <i class="fas fa-edit"></i>
-                                                                                    Update Assignment
-                                                                                </a>
-                                                                                <a class="badge badge-warning" href="grade_group_project.php?project_id=<?php echo $gcode->id; ?>&group_name=<?php echo $gcode->group_name; ?>&group_code=<?php echo $gcode->group_code; ?>&faculty=<?php echo $f->id; ?>">
-                                                                                    <i class="fas fa-check"></i>
-                                                                                    Grade Assignment
-                                                                                </a>
-                                                                                <a class="badge badge-danger" href="view_student_group.php?delete=<?php echo $gcode->id; ?>&group_code=<?php echo $g->code; ?>&faculty=<?php echo $f->id; ?>&view=<?php echo $g->id; ?>&code=<?php echo $g->code; ?>&name=<?php echo $g->name; ?>">
-                                                                                    <i class="fas fa-trash"></i>
-                                                                                    Delete Assignment
-                                                                                </a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    <?php $cnt = $cnt + 1;
-                                                                    } ?>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="tab-pane fade" id="custom-content-below-notices" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
-                                                    <br>
-                                                    <div class="card">
-                                                        <div class="card-header">
-                                                            <h2 class="text-right">
-                                                                <a class="btn btn-outline-success" href="add_group_announcements.php?group_code=<?php echo $g->code; ?>&group_name=<?php echo $g->name; ?>&faculty=<?php echo $f->id; ?>">
-                                                                    <i class="fas fa-plus"></i>
-                                                                    Create New Group Announcement
-                                                                </a>
-                                                            </h2>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <table id="example1" class="table table-bordered table-striped">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>#</th>
-                                                                        <th>Group Code Number</th>
-                                                                        <th>Group Name</th>
-                                                                        <th>Posted By</th>
-                                                                        <th>Posted On</th>
-                                                                        <th>Actions</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAnnouncements`  WHERE group_code ='$g->code' AND faculty_id = '$f->id' ";
-                                                                    $stmt = $mysqli->prepare($ret);
-                                                                    $stmt->execute(); //ok
-                                                                    $res = $stmt->get_result();
-                                                                    $cnt = 1;
-                                                                    while ($ga = $res->fetch_object()) {
-                                                                    ?>
-
-                                                                        <tr>
-                                                                            <td><?php echo $cnt; ?></td>
-                                                                            <td><?php echo $ga->group_code; ?></td>
-                                                                            <td><?php echo $ga->group_name; ?></td>
-                                                                            <td><?php echo $ga->created_by; ?></td>
-                                                                            <td><?php echo date('d M Y', strtotime($ga->created_at)); ?></td>
-                                                                            <td>
-                                                                                <a class="badge badge-success" href="view_group_announcement.php?view=<?php echo $ga->id; ?>">
-                                                                                    <i class="fas fa-eye"></i>
-                                                                                    View
-                                                                                </a>
-                                                                                <a class="badge badge-primary" href="update_group_announcement.php?update=<?php echo $ga->id; ?>">
-                                                                                    <i class="fas fa-edit"></i>
-                                                                                    Update
-                                                                                </a>
-                                                                                <a class="badge badge-danger" href="view_student_group.php?delete=<?php echo $ga->id; ?>&group_code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>&code=<?php echo $g->code; ?>&name=<?php echo $g->name; ?>"">
-                                                                                    <i class=" fas fa-trash"></i>
-                                                                                    Delete
                                                                                 </a>
                                                                             </td>
                                                                         </tr>
