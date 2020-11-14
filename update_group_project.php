@@ -9,7 +9,7 @@ if (isset($_POST['update_group_project'])) {
     $update = $_GET['update'];
     $details = $_POST['details'];
     $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "dist/Group_Projects/" . $_FILES["attachments"]["name"]);
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "EzanaLMSData/Group_Projects/" . $_FILES["attachments"]["name"]);
     $updated_at = date('d M Y g:i');
     $submitted_on = $_POST['submitted_on'];
     $faculty = $_GET['faculty'];
@@ -30,6 +30,7 @@ if (isset($_POST['update_group_project'])) {
 
 require_once('partials/_head.php');
 ?>
+
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
 
@@ -42,13 +43,12 @@ require_once('partials/_head.php');
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($f = $res->fetch_object()) {
-            $group_code = $_GET['group_code'];
-            $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE code = '$group_code'  ";
+            $update = $_GET['update'];
+            $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE id = '$update'  ";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
-            while ($g = $res->fetch_object()) {
-
+            while ($gcode = $res->fetch_object()) {
         ?>
                 <!-- /.navbar -->
 
@@ -74,7 +74,7 @@ require_once('partials/_head.php');
 
                     <div class="content">
                         <div class="container">
-                            
+
                         </div>
                     </div>
                 </div>
