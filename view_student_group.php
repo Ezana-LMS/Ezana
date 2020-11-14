@@ -281,7 +281,7 @@ require_once('partials/_head.php');
                                                                                     <i class="fas fa-eye"></i>
                                                                                     View Assignment
                                                                                 </a>
-                                                                                <a class="badge badge-primary" href="update_group_project.php?name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>update=<?php echo $gcode->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                                <a class="badge badge-primary" href="update_group_project.php?name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&update=<?php echo $gcode->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                                     <i class="fas fa-edit"></i>
                                                                                     Update Assignment
                                                                                 </a>
