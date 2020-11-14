@@ -4,6 +4,21 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 
+//Delete
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $faculty = $_GET['faculty'];
+    $adn = "DELETE FROM ezanaLMS_GroupsAssignments WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=student_group_assignments.php?faculty=$faculty");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('partials/_head.php');
 
 ?>
@@ -44,7 +59,74 @@ require_once('partials/_head.php');
 
                 <div class="content">
                     <div class="container">
-                        
+                        <section class="content">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h2 class="text-right">
+                                                <a class="btn btn-outline-success" href="add_group_project.php?group_code=<?php echo $g->code; ?>&group_name=<?php echo $g->name; ?>&type=Project">
+                                                    <i class="fas fa-plus"></i>
+                                                    Create New Group Project
+                                                </a>
+                                            </h2>
+                                        </div>
+                                        <div class="card-body">
+                                            <table id="example1" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Group Code Number</th>
+                                                        <th>Group Name</th>
+                                                        <th>Project Created At</th>
+                                                        <th>Submission Deadline</th>
+                                                        <th>Manage</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE faculty_id ='$f->id'  ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($gcode = $res->fetch_object()) {
+                                                    ?>
+
+                                                        <tr>
+                                                            <td><?php echo $cnt; ?></td>
+                                                            <td><?php echo $gcode->group_code; ?></td>
+                                                            <td><?php echo $gcode->group_name; ?></td>
+                                                            <td><?php echo $gcode->created_at; ?></td>
+                                                            <td><?php echo $gcode->submitted_on; ?></td>
+                                                            <td>
+                                                                <a class="badge badge-success" href="view_group_project.php?view=<?php echo $gcode->id; ?>">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    View
+                                                                </a>
+                                                                <a class="badge badge-primary" href="update_group_project.php?update=<?php echo $gcode->id; ?>">
+                                                                    <i class="fas fa-edit"></i>
+                                                                    Update
+                                                                </a>
+                                                                <a class="badge badge-warning" href="grade_group_project.php?project_id=<?php echo $gcode->id; ?>&group_name=<?php echo $gcode->group_name; ?>&group_code=<?php echo $gcode->group_code; ?>">
+                                                                    <i class="fas fa-check"></i>
+                                                                    Grade Project
+                                                                </a>
+                                                                <a class="badge badge-danger" href="manage_group_projects.php?delete=<?php echo $gcode->id; ?>&group_code=<?php echo $g->code; ?>">
+                                                                    <i class="fas fa-trash"></i>
+                                                                    Delete
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php $cnt = $cnt + 1;
+                                                    } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
