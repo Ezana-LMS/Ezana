@@ -277,15 +277,15 @@ require_once('partials/_head.php');
                                                                             <td><?php echo $gcode->created_at; ?></td>
                                                                             <td><?php echo date('d M Y g:i', strtotime($gcode->submitted_on)); ?></td>
                                                                             <td>
-                                                                                <a class="badge badge-success" href="view_group_project.php?view=<?php echo $gcode->id; ?>">
+                                                                                <a class="badge badge-success" href="view_group_project.php?view=<?php echo $gcode->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                                     <i class="fas fa-eye"></i>
                                                                                     View Assignment
                                                                                 </a>
-                                                                                <a class="badge badge-primary" href="update_group_project.php?update=<?php echo $gcode->id; ?>">
+                                                                                <a class="badge badge-primary" href="update_group_project.php?update=<?php echo $gcode->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                                     <i class="fas fa-edit"></i>
                                                                                     Update Assignment
                                                                                 </a>
-                                                                                <a class="badge badge-warning" href="grade_group_project.php?project_id=<?php echo $gcode->id; ?>&group_name=<?php echo $gcode->group_name; ?>&group_code=<?php echo $gcode->group_code; ?>">
+                                                                                <a class="badge badge-warning" href="grade_group_project.php?project_id=<?php echo $gcode->id; ?>&group_name=<?php echo $gcode->group_name; ?>&group_code=<?php echo $gcode->group_code; ?>&faculty=<?php echo $f->id; ?>">
                                                                                     <i class="fas fa-check"></i>
                                                                                     Grade Assignment
                                                                                 </a>
