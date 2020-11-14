@@ -64,14 +64,9 @@ require_once('partials/_head.php')
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_group_announcements.php?group_code=<?php echo $g->code; ?>&group_name=<?php echo $g->name; ?>">
-                                                    <i class="fas fa-plus"></i>
+                                                <a class="btn btn-outline-success" href="add_group_announcements.php?faculty=<?php echo $f->id; ?>">
                                                     Create New Group Announcement
                                                 </a>
-                                                <!-- <a class="btn btn-outline-primary" href="">
-                                        <i class="fas fa-file-excel"></i>
-                                        Import Faculties From .XLS File
-                                    </a> -->
                                             </h2>
                                         </div>
                                         <div class="card-body">
@@ -88,7 +83,7 @@ require_once('partials/_head.php')
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAnnouncements` WHERE group_code ='$manage'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAnnouncements` WHERE faculty_id ='$f->id'  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
