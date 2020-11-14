@@ -25,19 +25,14 @@ if (isset($_GET['remove'])) {
 
 //Delete Group Project
 if (isset($_GET['delete'])) {
-    $group_code = $_GET['group_code'];
     $delete = $_GET['delete'];
-    $view = $_GET['view'];
-    $faculty = $_GET['faculty'];
-    $code = $_GET['code'];
-    $name = $_GET['name'];
     $adn = "DELETE FROM ezanaLMS_GroupsAssignments WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty&code=$code&name=$name");
+        $success = "Assignment Deleted" ;// && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty&code=$code&name=$name");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -254,7 +249,7 @@ require_once('partials/_head.php');
                                                         <div class="card-header">
                                                             <h2 class="text-right">
                                                                 <a class="btn btn-outline-success" href="add_group_project.php?&name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>&group_code=<?php echo $g->code; ?>&group_name=<?php echo $g->name; ?>&type=Project">
-                                                                    Create New Group Project
+                                                                    Add Group Assignment
                                                                 </a>
                                                             </h2>
                                                         </div>
@@ -263,8 +258,6 @@ require_once('partials/_head.php');
                                                                 <thead>
                                                                     <tr>
                                                                         <th>#</th>
-                                                                        <th>Group Code Number</th>
-                                                                        <th>Group Name</th>
                                                                         <th>Project Created At</th>
                                                                         <th>Submission Deadline</th>
                                                                         <th>Actions</th>
@@ -281,26 +274,24 @@ require_once('partials/_head.php');
                                                                     ?>
                                                                         <tr>
                                                                             <td><?php echo $cnt; ?></td>
-                                                                            <td><?php echo $gcode->group_code; ?></td>
-                                                                            <td><?php echo $gcode->group_name; ?></td>
                                                                             <td><?php echo $gcode->created_at; ?></td>
                                                                             <td><?php echo $gcode->submitted_on; ?></td>
                                                                             <td>
                                                                                 <a class="badge badge-success" href="view_group_project.php?view=<?php echo $gcode->id; ?>">
                                                                                     <i class="fas fa-eye"></i>
-                                                                                    View
+                                                                                    View Assignment
                                                                                 </a>
                                                                                 <a class="badge badge-primary" href="update_group_project.php?update=<?php echo $gcode->id; ?>">
                                                                                     <i class="fas fa-edit"></i>
-                                                                                    Update
+                                                                                    Update Assignment
                                                                                 </a>
                                                                                 <a class="badge badge-warning" href="grade_group_project.php?project_id=<?php echo $gcode->id; ?>&group_name=<?php echo $gcode->group_name; ?>&group_code=<?php echo $gcode->group_code; ?>">
                                                                                     <i class="fas fa-check"></i>
-                                                                                    Grade Project
+                                                                                    Grade Assignment
                                                                                 </a>
-                                                                                <a class="badge badge-danger" href="manage_group_projects.php?delete=<?php echo $gcode->id; ?>&group_code=<?php echo $g->code; ?>">
+                                                                                <a class="badge badge-danger" href="view_student_group.php?delete=<?php echo $gcode->id; ?>&group_code=<?php echo $g->code; ?>&faculty=<?php echo $f->id;?>">
                                                                                     <i class="fas fa-trash"></i>
-                                                                                    Delete
+                                                                                    Delete Assignment
                                                                                 </a>
                                                                             </td>
                                                                         </tr>
