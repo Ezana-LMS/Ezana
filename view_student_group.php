@@ -32,7 +32,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Assignment Deleted" ;// && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty&code=$code&name=$name");
+        $success = "Assignment Deleted"; // && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty&code=$code&name=$name");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -275,7 +275,7 @@ require_once('partials/_head.php');
                                                                         <tr>
                                                                             <td><?php echo $cnt; ?></td>
                                                                             <td><?php echo $gcode->created_at; ?></td>
-                                                                            <td><?php echo $gcode->submitted_on; ?></td>
+                                                                            <td><?php echo date('d M Y g:i', strtotime($gcode->submitted_on)); ?></td>
                                                                             <td>
                                                                                 <a class="badge badge-success" href="view_group_project.php?view=<?php echo $gcode->id; ?>">
                                                                                     <i class="fas fa-eye"></i>
@@ -289,7 +289,7 @@ require_once('partials/_head.php');
                                                                                     <i class="fas fa-check"></i>
                                                                                     Grade Assignment
                                                                                 </a>
-                                                                                <a class="badge badge-danger" href="view_student_group.php?delete=<?php echo $gcode->id; ?>&group_code=<?php echo $g->code; ?>&faculty=<?php echo $f->id;?>">
+                                                                                <a class="badge badge-danger" href="view_student_group.php?delete=<?php echo $gcode->id; ?>&group_code=<?php echo $g->code; ?>&faculty=<?php echo $f->id; ?>">
                                                                                     <i class="fas fa-trash"></i>
                                                                                     Delete Assignment
                                                                                 </a>
