@@ -13,16 +13,13 @@ if (isset($_POST['update_group_project'])) {
     $updated_at = date('d M Y g:i');
     $submitted_on = $_POST['submitted_on'];
     $faculty = $_GET['faculty'];
-    $code = $_GET['code'];
-    $view = $_GET['view'];
-    $name = $_GET['name'];
 
     $query = "UPDATE ezanaLMS_GroupsAssignments SET attachments =?, details =?, updated_at =?, submitted_on =? WHERE id = ?";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('sssss', $attachments, $details, $updated_at, $submitted_on, $update);
     $stmt->execute();
     if ($stmt) {
-        $success = "Group Assignment / Project Updated" && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty&code=$code&name=$name");
+        $success = "Group Assignment / Project Updated" && header("refresh:1; url=student_group_assignments.php?faculty=$faculty");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -64,6 +61,7 @@ require_once('partials/_head.php');
                                         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                         <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
                                         <li class="breadcrumb-item"><a href="student_groups.php?faculty=<?php echo $f->id; ?>">Student Groups</a></li>
+                                        <li class="breadcrumb-item"><a href="student_group_assignments.php?faculty=<?php echo $f->id; ?>">Assignments</a></li>
                                         <li class="breadcrumb-item active"> Update Assignments </li>
                                     </ol>
                                 </div>
@@ -76,13 +74,10 @@ require_once('partials/_head.php');
                             <section class="content">
                                 <div class="container-fluid">
                                     <div class="col-md-12">
-                                        <!-- general form elements -->
                                         <div class="card card-primary">
                                             <div class="card-header">
                                                 <h3 class="card-title">Fill Required Fields</h3>
                                             </div>
-                                            <!-- /.card-header -->
-                                            <!-- form start -->
                                             <form method="post" enctype="multipart/form-data" role="form">
                                                 <div class="card-body">
                                                     <div class="row">
