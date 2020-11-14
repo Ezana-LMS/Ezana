@@ -138,3 +138,17 @@ if (!empty($_POST["SemesterEnd"])) {
 <?php
     }
 }
+
+/* Group Details */
+if (!empty($_POST["GroupName"])) {
+    $id = $_POST['GroupName'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Groups WHERE name = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['code']); ?>
+<?php
+    }
+}
