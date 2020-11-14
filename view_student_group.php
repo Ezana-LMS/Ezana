@@ -23,6 +23,24 @@ if (isset($_GET['remove'])) {
     }
 }
 
+//Delete Announcements
+if (isset($_GET['delete'])) {
+    $manage = $_GET['manage'];
+    $delete = $_GET['delete'];
+    $faculty = $_GET['faculty'];
+    $name = $_GET['name'];
+    $code = $_GET['code'];
+    $adn = "DELETE FROM ezanaLMS_GroupsAnnouncements WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty&code=$code&name=$name");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 //Delete Group Project
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
@@ -308,7 +326,7 @@ require_once('partials/_head.php');
                                                     <div class="card">
                                                         <div class="card-header">
                                                             <h2 class="text-right">
-                                                                <a class="btn btn-outline-success" href="add_group_announcements.php?group_code=<?php echo $g->code; ?>&group_name=<?php echo $g->name; ?>">
+                                                                <a class="btn btn-outline-success" href="add_group_announcements.php?group_code=<?php echo $g->code; ?>&group_name=<?php echo $g->name; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-plus"></i>
                                                                     Create New Group Announcement
                                                                 </a>
@@ -351,8 +369,8 @@ require_once('partials/_head.php');
                                                                                     <i class="fas fa-edit"></i>
                                                                                     Update
                                                                                 </a>
-                                                                                <a class="badge badge-danger" href="manage_group_announcements.php?delete=<?php echo $ga->id; ?>&manage=<?php echo $ga->group_code; ?>">
-                                                                                    <i class="fas fa-trash"></i>
+                                                                                <a class="badge badge-danger" href="view_student_group.php?delete=<?php echo $ga->id; ?>&group_code=<?php echo $g->code; ?>&faculty=<?php echo $f->id; ?>"">
+                                                                                    <i class=" fas fa-trash"></i>
                                                                                     Delete
                                                                                 </a>
                                                                             </td>
