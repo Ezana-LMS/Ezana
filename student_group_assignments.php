@@ -66,7 +66,7 @@ require_once('partials/_head.php');
                                         <div class="card-header">
                                             <h2 class="text-right">
                                                 <a class="btn btn-outline-success" href="add_group_project.php?faculty=<?php echo $f->id; ?>&type=Project">
-                                                    Create New Group Project
+                                                    Add Group Assignment
                                                 </a>
                                             </h2>
                                         </div>
@@ -75,9 +75,9 @@ require_once('partials/_head.php');
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Group Code Number</th>
+                                                        <th>Group Code </th>
                                                         <th>Group Name</th>
-                                                        <th>Project Created At</th>
+                                                        <th>Uploaded At</th>
                                                         <th>Submission Deadline</th>
                                                         <th>Manage</th>
                                                     </tr>
@@ -99,15 +99,15 @@ require_once('partials/_head.php');
                                                             <td><?php echo $gcode->created_at; ?></td>
                                                             <td><?php echo $gcode->submitted_on; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_group_project.php?view=<?php echo $gcode->id; ?>">
+                                                                <a class="badge badge-success" href="view_group_project.php?view=<?php echo $gcode->id; ?>&faculty=<?php echo $f->id;?>">
                                                                     <i class="fas fa-eye"></i>
                                                                     View
                                                                 </a>
-                                                                <a class="badge badge-primary" href="update_group_project.php?update=<?php echo $gcode->id; ?>">
+                                                                <a class="badge badge-primary" href="update_group_project.php?update=<?php echo $gcode->id; ?>&faculty=<?php echo $f->id;?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
                                                                 </a>
-                                                                <a class="badge badge-warning" href="grade_group_project.php?project_id=<?php echo $gcode->id; ?>&group_name=<?php echo $gcode->group_name; ?>&group_code=<?php echo $gcode->group_code; ?>">
+                                                                <a class="badge badge-warning" href="grade_group_project.php?project_id=<?php echo $gcode->id; ?>&group_name=<?php echo $gcode->group_name; ?>&group_code=<?php echo $gcode->group_code; ?>&faculty=<?php echo $f->id;?>">
                                                                     <i class="fas fa-check"></i>
                                                                     Grade Project
                                                                 </a>

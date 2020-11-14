@@ -22,7 +22,7 @@ if (isset($_POST['add_group_project'])) {
     $rc = $stmt->bind_param('sssssssss', $id, $faculty, $group_code, $group_name, $attachments,  $type, $details, $created_at, $submitted_on);
     $stmt->execute();
     if ($stmt) {
-        $success = "Group Assignment Added"; // && header("refresh:1; url=add_group_project.php?&name=$name&code=$code&view=$view&faculty=$view&group_code=$code&group_name=$name&type=Project");
+        $success = "Group Assignment Added" && header("refresh:1; url=add_group_project.php?&faculty=$faculty&type=Project");
     } else {
         $info = "Please Try Again Or Try Later";
     }
