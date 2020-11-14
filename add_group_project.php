@@ -82,7 +82,7 @@ require_once('partials/_head.php');
                                                     <div class="form-group col-md-12">
                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                     </div>
-                                                    <div class="form-group col-md-12">
+                                                    <div class="form-group col-md-6">
                                                         <label for="exampleInputPassword1">Group Name</label>
                                                         <select class='form-control basic' id="GroupName" onchange="getGroupDetails(this.value);" name="group_name">
                                                             <option selected>Select Group Name</option>
@@ -93,11 +93,11 @@ require_once('partials/_head.php');
                                                             $res = $stmt->get_result();
                                                             while ($group = $res->fetch_object()) {
                                                             ?>
-                                                                <option><?php echo $stgroupd->name; ?></option>
+                                                                <option><?php echo $group->name; ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group col-md-12">
+                                                    <div class="form-group col-md-6">
                                                         <label for="exampleInputPassword1"> Group Code</label>
                                                         <input type="text" required name="group_code" id="groupCode" class="form-control">
                                                     </div>

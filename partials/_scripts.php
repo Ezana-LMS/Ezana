@@ -225,3 +225,17 @@
 
     }
 </script>
+<!-- Group Details  -->
+<script>
+    function getGroupDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'GroupName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#groupCode').val(data);
+            }
+        });
+    }
+</script>
