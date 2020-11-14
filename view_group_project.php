@@ -80,7 +80,6 @@ require_once('partials/_head.php');
                                                 <li class="nav-item">
                                                     <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-members" role="tab" aria-controls="custom-content-below-members" aria-selected="false"> Attachements</a>
                                                 </li>
-                                                
                                             </ul>
                                             <div class="tab-content" id="custom-content-below-tabContent">
                                                 <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
@@ -111,7 +110,6 @@ require_once('partials/_head.php');
                                                     }
                                                     ?>
                                                 </div>
-                                                
                                             </div>
                                         </div>
                                     </div>
