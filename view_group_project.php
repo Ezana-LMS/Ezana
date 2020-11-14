@@ -14,7 +14,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=view_group_project.php?view=$view");
+        $success = "Deleted" && header("refresh:1; url=view_group_project.php?view=$view&faculty=$faculty");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -69,7 +69,7 @@ require_once('partials/_head.php');
                                     <div class="card card-primary card-outline">
                                         <div class="card-header">
                                             <h3 class="card-title">
-                                               Assignment Created On <span class="text-success"> <?php echo $gcode->created_at; ?></span> And Updated On <span class="text-warning"><?php echo $gcode->updated_at; ?></span>
+                                                Assignment Created On <span class="text-success"> <?php echo $gcode->created_at; ?></span> And Updated On <span class="text-warning"><?php echo $gcode->updated_at; ?></span>
                                             </h3>
                                         </div>
                                         <div class="card-body">
