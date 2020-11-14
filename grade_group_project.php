@@ -99,7 +99,45 @@ require_once('partials/_head.php');
 
                     <div class="content">
                         <div class="container">
-                            
+                            <section class="content">
+                                <div class="container-fluid">
+                                    <div class="col-md-12">
+                                        <div class="card card-primary">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Fill All Required Fields</h3>
+                                            </div>
+                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Group Name</label>
+                                                            <input type="text" readonly value="<?php echo $gcode->group_name; ?>" required name="group_name" class="form-control" id="exampleInputEmail1">
+                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Group Code</label>
+                                                            <input type="text" readonly required name="group_code" value="<?php echo $gcode->group_code; ?><?php echo $b; ?>" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Assignment Submission Date</label>
+                                                            <input type="text" readonly value="<?php echo $gcode->submitted_on; ?>" required name="group_name" class="form-control" id="exampleInputEmail1">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Group Project / Assignment Score</label>
+                                                            <input type="text" required name="group_score" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="submit" name="add_score" class="btn btn-primary">Add Score</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
                         </div>
                     </div>
                 </div>
