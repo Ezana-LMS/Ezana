@@ -91,16 +91,12 @@ require_once('partials/_head.php');
                                                     while ($g = $res->fetch_object()) {
                                                     ?>
 
-                                                        <tr>
+                                                        <tr class="table-row" data-href="view_student_group.php?&name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $g->code; ?></td>
                                                             <td><?php echo $g->name; ?></td>
                                                             <td><?php echo $g->created_at; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_student_group.php?&name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    View Members
-                                                                </a>
                                                                 <a class="badge badge-primary" href="update_group.php?update=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
