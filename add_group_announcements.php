@@ -64,7 +64,87 @@ require_once('partials/_head.php');
 
                 <div class="content">
                     <div class="container">
-                        
+                        <section class="content-header">
+                            <div class="container-fluid">
+                                <div class="row mb-2">
+                                    <div class="col-sm-6">
+                                        <h1>Add Group Notices / Announcements</h1>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <ol class="breadcrumb float-sm-right">
+                                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+                                            <li class="breadcrumb-item"><a href="group_announcements.php">Groups</a></li>
+                                            <li class="breadcrumb-item active">Add Announcement</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div><!-- /.container-fluid -->
+                        </section>
+
+                        <!-- Main content -->
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="col-md-12">
+                                    <!-- general form elements -->
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Fill All Required Fields</h3>
+                                        </div>
+                                        <form method="post" enctype="multipart/form-data" role="form">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="exampleInputPassword1">Group Name</label>
+                                                        <select class='form-control basic' id="GroupName" onchange="getGroupDetails(this.value);" name="group_name">
+                                                            <option selected>Select Group Name</option>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE faculty_id = '$f->id'";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($group = $res->fetch_object()) {
+                                                            ?>
+                                                                <option><?php echo $group->name; ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="exampleInputPassword1"> Group Code</label>
+                                                        <input type="text" required name="group_code" id="groupCode" class="form-control">
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="">Notice Posted By</label>
+                                                        <?php
+                                                        $id = $_SESSION['id'];
+                                                        $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id = '$id'  ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        while ($user = $res->fetch_object()) {
+                                                        ?>
+                                                            <input type="text" required name="created_by" value="<?php echo $user->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                        <?php
+                                                        } ?>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="exampleInputPassword1">Group Notice</label>
+                                                        <textarea required id="textarea" name="announcement" rows="20" class="form-control"></textarea>
+                                                        <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer">
+                                                <button type="submit" name="add_notice" class="btn btn-primary">Add Notice</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
