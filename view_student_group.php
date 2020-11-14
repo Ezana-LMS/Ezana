@@ -307,7 +307,7 @@ require_once('partials/_head.php');
                                                                                     <i class="fas fa-check"></i>
                                                                                     Grade Assignment
                                                                                 </a>
-                                                                                <a class="badge badge-danger" href="view_student_group.php?delete=<?php echo $gcode->id; ?>&group_code=<?php echo $g->code; ?>&faculty=<?php echo $f->id; ?>">
+                                                                                <a class="badge badge-danger" href="view_student_group.php?delete=<?php echo $gcode->id; ?>&group_code=<?php echo $g->code; ?>&faculty=<?php echo $f->id; ?>&view=<?php echo $g->id; ?>&code=<?php echo $g->code; ?>&name=<?php echo $g->name; ?>">
                                                                                     <i class="fas fa-trash"></i>
                                                                                     Delete Assignment
                                                                                 </a>
@@ -369,7 +369,7 @@ require_once('partials/_head.php');
                                                                                     <i class="fas fa-edit"></i>
                                                                                     Update
                                                                                 </a>
-                                                                                <a class="badge badge-danger" href="view_student_group.php?delete=<?php echo $ga->id; ?>&group_code=<?php echo $g->code; ?>&faculty=<?php echo $f->id; ?>"">
+                                                                                <a class="badge badge-danger" href="view_student_group.php?delete=<?php echo $ga->id; ?>&group_code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>&code=<?php echo $g->code; ?>&name=<?php echo $g->name; ?>"">
                                                                                     <i class=" fas fa-trash"></i>
                                                                                     Delete
                                                                                 </a>
