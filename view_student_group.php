@@ -41,6 +41,7 @@ if (isset($_GET['delete'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+
 //Delete Group Project
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
