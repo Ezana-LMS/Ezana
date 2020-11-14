@@ -254,7 +254,6 @@ require_once('partials/_head.php');
                                                         <div class="card-header">
                                                             <h2 class="text-right">
                                                                 <a class="btn btn-outline-success" href="add_group_project.php?group_code=<?php echo $g->code; ?>&group_name=<?php echo $g->name; ?>&type=Project">
-                                                                    <i class="fas fa-plus"></i>
                                                                     Create New Group Project
                                                                 </a>
                                                             </h2>
@@ -273,14 +272,13 @@ require_once('partials/_head.php');
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE group_code ='$group_code' AND faculty_id = '$f->id'  ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE group_code ='$g->code' AND faculty_id = '$f->id'  ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
                                                                     $cnt = 1;
                                                                     while ($gcode = $res->fetch_object()) {
                                                                     ?>
-
                                                                         <tr>
                                                                             <td><?php echo $cnt; ?></td>
                                                                             <td><?php echo $gcode->group_code; ?></td>
