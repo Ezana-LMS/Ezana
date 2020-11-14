@@ -34,8 +34,8 @@ require_once('partials/_head.php');
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($f = $res->fetch_object()) {
-            $update = $_GET['update'];
-            $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE id = '$update'  ";
+            $view = $_GET['view'];
+            $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE id ='$view'  ";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
@@ -102,15 +102,15 @@ require_once('partials/_head.php');
                                                                     Download Attachment
                                                             </a>
                                                             ";
-                                                                } else {
-                                                                    echo
-                                                                        "
+                                                    } else {
+                                                        echo
+                                                            "
                                                             <a  class='btn btn-outline-danger'>
                                                                 <i class='fas fa-times'></i>
                                                                     Attachment Not Available
                                                             </a>
                                                             ";
-                                                                }
+                                                    }
                                                     ?>
                                                 </div>
                                                 <div class="tab-pane fade" id="custom-content-below-score" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
