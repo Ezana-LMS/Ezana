@@ -23,6 +23,40 @@ if (isset($_GET['remove'])) {
     }
 }
 
+//Delete Announcements
+if (isset($_GET['delete'])) {
+    $manage = $_GET['manage'];
+    $delete = $_GET['delete'];
+    $faculty = $_GET['faculty'];
+    $name = $_GET['name'];
+    $code = $_GET['code'];
+    $adn = "DELETE FROM ezanaLMS_GroupsAnnouncements WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty&code=$code&name=$name");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+//Delete Group Project
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $adn = "DELETE FROM ezanaLMS_GroupsAssignments WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Assignment Deleted"; // && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty&code=$code&name=$name");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 if (isset($_POST['add_member'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -112,7 +146,7 @@ require_once('partials/_head.php');
                                         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                         <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
                                         <li class="breadcrumb-item"><a href="student_groups.php?faculty=<?php echo $f->id; ?>">Student Groups</a></li>
-                                        <li class="breadcrumb-item active"> View Members </li>
+                                        <li class="breadcrumb-item active"> Group Details </li>
                                     </ol>
                                 </div>
                             </div>
@@ -140,18 +174,20 @@ require_once('partials/_head.php');
                                                 <li class="nav-item">
                                                     <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-add_member" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Add Members</a>
                                                 </li>
-                                                <!-- <li class="nav-item">
-                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-projects" role="tab" aria-controls="custom-content-below-projects" aria-selected="false">Group Projects</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-assignments" role="tab" aria-controls="custom-content-below-assignments" aria-selected="false">Group Assignments</a>
-                                    </li> -->
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-assignments" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Assignments</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Notices</a>
+                                                </li>
+
                                             </ul>
                                             <div class="tab-content" id="custom-content-below-tabContent">
                                                 <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                     <br>
                                                     <?php echo $g->details; ?>
                                                 </div>
+
                                                 <div class="tab-pane fade" id="custom-content-below-members" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                     <br>
                                                     <table id="example1" class="table table-bordered table-striped">
@@ -180,7 +216,7 @@ require_once('partials/_head.php');
                                                                     <td><?php echo $stdGroup->student_name; ?></td>
                                                                     <td><?php echo date('d M Y g:i', strtotime($stdGroup->created_at)); ?></td>
                                                                     <td>
-                                                                        <a class="badge badge-danger" href="view_student_group.php?remove=<?php echo $stdGroup->id; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>&code=<?php echo $g->code;?>&name=<?php echo $g->name;?>">
+                                                                        <a class="badge badge-danger" href="view_student_group.php?remove=<?php echo $stdGroup->id; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>&code=<?php echo $g->code; ?>&name=<?php echo $g->name; ?>">
                                                                             <i class="fas fa-user-times"></i>
                                                                             Remove Member
                                                                         </a>
@@ -191,6 +227,7 @@ require_once('partials/_head.php');
                                                         </tbody>
                                                     </table>
                                                 </div>
+
                                                 <div class="tab-pane fade" id="custom-content-below-add_member" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                     <br>
                                                     <form method="post" enctype="multipart/form-data" role="form">
@@ -223,6 +260,82 @@ require_once('partials/_head.php');
                                                             <button type="submit" name="add_member" class="btn btn-primary">Add Member</button>
                                                         </div>
                                                     </form>
+                                                </div>
+
+                                                <div class="tab-pane fade" id="custom-content-below-assignments" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                    <br>
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <table id="example1" class="table table-bordered table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>Project Created At</th>
+                                                                        <th>Submission Deadline</th>
+                                                                        <th>Actions</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE group_code ='$g->code' AND faculty_id = '$f->id'  ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    $cnt = 1;
+                                                                    while ($gcode = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <tr>
+                                                                            <td><?php echo $cnt; ?></td>
+                                                                            <td><?php echo $gcode->created_at; ?></td>
+                                                                            <td><?php echo date('d M Y g:i', strtotime($gcode->submitted_on)); ?></td>
+                                                                            <td>
+                                                                                <a class="badge badge-success" href="view_group_project.php?view=<?php echo $gcode->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                                    <i class="fas fa-eye"></i>
+                                                                                    View Assignment
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php $cnt = $cnt + 1;
+                                                                    } ?>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="tab-pane fade" id="custom-content-below-notices" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                    <br>
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <table id="example1" class="table table-bordered table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>Posted By</th>
+                                                                        <th>Posted On</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAnnouncements` WHERE faculty_id ='$f->id'  AND group_code = '$g->code' ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    $cnt = 1;
+                                                                    while ($ga = $res->fetch_object()) {
+                                                                    ?>
+
+                                                                        <tr class="table-row" data-href="view_group_announcement.php?faculty=<?php echo $f->id; ?>&view=<?php echo $ga->id; ?>">
+                                                                            <td><?php echo $cnt; ?></td>
+                                                                            <td><?php echo $ga->created_by; ?></td>
+                                                                            <td><?php echo date('d M Y', strtotime($ga->created_at)); ?></td>
+                                                                        </tr>
+                                                                    <?php $cnt = $cnt + 1;
+                                                                    } ?>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

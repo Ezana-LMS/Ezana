@@ -67,7 +67,12 @@ require_once('partials/_head.php');
                                                 <a class="btn btn-outline-success" href="add_student_groups.php?faculty=<?php echo $f->id; ?>">
                                                     Create New Group
                                                 </a>
-
+                                                <a class="btn btn-outline-primary" href="student_group_assignments.php?faculty=<?php echo $f->id; ?>">
+                                                    Group Assignments
+                                                </a>
+                                                <a class="btn btn-outline-secondary" href="student_group_notices.php?faculty=<?php echo $f->id; ?>">
+                                                    Group Notices
+                                                </a>
                                             </h2>
                                         </div>
                                         <div class="card-body">
@@ -91,16 +96,12 @@ require_once('partials/_head.php');
                                                     while ($g = $res->fetch_object()) {
                                                     ?>
 
-                                                        <tr>
+                                                        <tr class="table-row" data-href="view_student_group.php?&name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $g->code; ?></td>
                                                             <td><?php echo $g->name; ?></td>
                                                             <td><?php echo $g->created_at; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_student_group.php?&name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    View Members
-                                                                </a>
                                                                 <a class="badge badge-primary" href="update_group.php?update=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
