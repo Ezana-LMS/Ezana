@@ -53,7 +53,44 @@ require_once('partials/_head.php');
                                                 </a>
                                             </h2>
                                         </div> -->
-                                    
+                                    <div class="card-body">
+                                        <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Adm No</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone</th>
+                                                    <th>ID / Passport No</th>
+                                                    <th>Gender</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_Students`   ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                $cnt = 1;
+                                                while ($std = $res->fetch_object()) {
+                                                ?>
+
+                                                    <tr class="table-row" data-href="view_student.php?view=<?php echo $std->id; ?>&faculty=<?php echo $std->faculty_id; ?>">
+                                                        <td><?php echo $cnt; ?></td>
+                                                        <td><?php echo $std->admno; ?></td>
+                                                        <td><?php echo $std->name; ?></td>
+                                                        <td><?php echo $std->email; ?></td>
+                                                        <td><?php echo $std->phone; ?></td>
+                                                        <td><?php echo $std->idno; ?></td>
+                                                        <td><?php echo $std->gender; ?></td>
+
+                                                    </tr>
+                                                <?php $cnt = $cnt + 1;
+                                                } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
