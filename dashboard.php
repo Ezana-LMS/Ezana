@@ -94,7 +94,7 @@ require_once('partials/_head.php');
                         <div class="col-12 col-sm-6 col-md-3">
                             <a href="total_modules.php">
                                 <div class="info-box mb-3">
-                                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-chalkboard"></i></span>
+                                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-tie"></i></span>
                                     <div class="info-box-content">
                                         <span class="info-box-text">Total Lecturers</span>
                                         <span class="info-box-number"><?php echo $lecs; ?></span>
@@ -107,7 +107,7 @@ require_once('partials/_head.php');
                         <div class="col-12 col-sm-6 col-md-3">
                             <a href="total_modules.php">
                                 <div class="info-box mb-3">
-                                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-chalkboard"></i></span>
+                                    <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-graduate"></i></span>
                                     <div class="info-box-content">
                                         <span class="info-box-text">Total Students</span>
                                         <span class="info-box-number"><?php echo $students; ?></span>
