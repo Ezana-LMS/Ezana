@@ -89,6 +89,35 @@ require_once('partials/_head.php');
                                 </div>
                             </a>
                         </div>
+
+                        <!-- Lecturers -->
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="total_modules.php">
+                                <div class="info-box mb-3">
+                                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-chalkboard"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Total Lecturers</span>
+                                        <span class="info-box-number"><?php echo $lecs; ?></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Students -->
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="total_modules.php">
+                                <div class="info-box mb-3">
+                                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-chalkboard"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Total Students</span>
+                                        <span class="info-box-number"><?php echo $students; ?></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+
+
                     </div>
                 </div>
             </div>
