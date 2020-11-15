@@ -115,8 +115,45 @@ require_once('partials/_head.php');
                                 </div>
                             </a>
                         </div>
-
-
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 class="text-right">
+                                        <a class="btn btn-outline-success" href="add_faculties.php">
+                                            Register New Faculty
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div class="card-body">
+                                    <table id="example1" class=" table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Faculty Code Number</th>
+                                                <th>Faculty Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
+                                            $stmt = $mysqli->prepare($ret);
+                                            $stmt->execute(); //ok
+                                            $res = $stmt->get_result();
+                                            $cnt = 1;
+                                            while ($faculty = $res->fetch_object()) {
+                                            ?>
+                                                <tr class="table-row" data-href="faculty_dashboard.php?faculty=<?php echo $faculty->id; ?>">
+                                                    <td><?php echo $cnt; ?></td>
+                                                    <td><?php echo $faculty->code; ?></td>
+                                                    <td><?php echo $faculty->name; ?></td>
+                                                </tr>
+                                            <?php $cnt = $cnt + 1;
+                                            } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
