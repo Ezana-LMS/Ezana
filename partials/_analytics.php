@@ -56,10 +56,3 @@ $stmt->bind_result($students);
 $stmt->fetch();
 $stmt->close();
 
-/* Student Groups  */
-$query = "SELECT COUNT(*)  FROM `ezanaLMS_Groups` ";
-$stmt = $mysqli->prepare($query);
-$stmt->execute();
-$stmt->bind_result($groups);
-$stmt->fetch();
-$stmt->close();

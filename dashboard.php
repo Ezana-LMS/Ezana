@@ -51,7 +51,7 @@ require_once('partials/_head.php');
 
                         <!-- Departments -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <a href="departments.php">
+                            <a href="total_departments.php">
                                 <div class="info-box">
                                     <span class="info-box-icon bg-info elevation-1"><i class="fa fa-building" aria-hidden="true"></i></span>
                                     <div class="info-box-content">
@@ -66,7 +66,7 @@ require_once('partials/_head.php');
 
                         <!-- Courses  -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <a href="courses.php">
+                            <a href="total_courses.php">
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard-teacher"></i></span>
                                     <div class="info-box-content">
@@ -79,7 +79,7 @@ require_once('partials/_head.php');
 
                         <!-- Modules -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <a href="modules.php">
+                            <a href="total_modules.php">
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-chalkboard"></i></span>
                                     <div class="info-box-content">
@@ -89,6 +89,70 @@ require_once('partials/_head.php');
                                 </div>
                             </a>
                         </div>
+
+                        <!-- Lecturers -->
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="total_lecs.php">
+                                <div class="info-box mb-3">
+                                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-tie"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Total Lecturers</span>
+                                        <span class="info-box-number"><?php echo $lecs; ?></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Students -->
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <a href="total_students.php">
+                                <div class="info-box mb-3">
+                                    <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-user-graduate"></i></span>
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Total Students</span>
+                                        <span class="info-box-number"><?php echo $students; ?></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 class="text-center">
+                                        System Notifications
+                                    </h2>
+                                </div>
+                                <div class="card-body">
+                                    <table id="example1" class=" table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Status</th>
+                                                <th>Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td><span class="text-success">Success</span></td>
+                                                <td>Student And Lecturers .XLS Files Imported </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="text-warning">Warning</span></td>
+                                                <td>EzanaLMSData Directory Has Unlimited Access, You Need To Manually Give Full R/W Permissions</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="text-danger">Error</span></td>
+                                                <td>
+                                                    Fatal Error, Failed To Load CK Editor Plug In API Access Token
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
