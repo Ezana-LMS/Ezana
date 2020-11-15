@@ -51,7 +51,7 @@ require_once('partials/_head.php');
 
                         <!-- Departments -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <a href="departments.php">
+                            <a href="total_departments.php">
                                 <div class="info-box">
                                     <span class="info-box-icon bg-info elevation-1"><i class="fa fa-building" aria-hidden="true"></i></span>
                                     <div class="info-box-content">
@@ -66,7 +66,7 @@ require_once('partials/_head.php');
 
                         <!-- Courses  -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <a href="courses.php">
+                            <a href="total_courses.php">
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard-teacher"></i></span>
                                     <div class="info-box-content">
@@ -79,7 +79,7 @@ require_once('partials/_head.php');
 
                         <!-- Modules -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <a href="modules.php">
+                            <a href="total_modules.php">
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-chalkboard"></i></span>
                                     <div class="info-box-content">
