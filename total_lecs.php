@@ -54,7 +54,7 @@ require_once('partials/_head.php');
                                             </h2>
                                         </div> -->
                                     <div class="card-body">
-                                        <table id="example1" class="table table-bordered table-striped">
+                                        <table id="export-dt" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -67,7 +67,7 @@ require_once('partials/_head.php');
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$f->id'  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers`   ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
