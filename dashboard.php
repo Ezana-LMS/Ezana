@@ -140,6 +140,12 @@ require_once('partials/_head.php');
                                                 <td><span class="text-warning">Warning</span></td>
                                                 <td>EzanaLMSData Directory Has Unlimited Access, You Need To Manually Give Full R/W Permissions</td>
                                             </tr>
+                                            <tr>
+                                                <td><span class="text-danger">Error</span></td>
+                                                <td>
+                                                    Fatal Error, Failed To Load CK Editor Plug In API Access Token
+                                                </td>
+                                            </tr>
 
                                         </tbody>
                                     </table>
