@@ -2,7 +2,7 @@
 session_start();
 include('configs/config.php');
 require_once('configs/codeGen.php');
-if (isset($_POST['reset'])) {
+if (isset($_POST['reset_pwd'])) {
     //prevent posting blank value for first name
     if (isset($_POST['email']) && !empty($_POST['email'])) {
         $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
