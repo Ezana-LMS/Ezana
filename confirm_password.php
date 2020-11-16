@@ -52,14 +52,22 @@ require_once('partials/_head.php');
                 <div class="login-logo">
                     <img height="150" width="150" src="dist/img/logo.jpeg" alt="">
                 </div>
-                <p class="login-box-msg">Enter Your Email To Reset Password</p>
+                <p class="login-box-msg"></p>
 
                 <form method="post">
                     <div class="input-group mb-3">
-                        <input type="email" required name="email" class="form-control" placeholder="Email">
+                        <input type="email" required name="new_password" class="form-control" placeholder="New Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="email" required name="email" class="form-control" placeholder="Confirm New Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
                             </div>
                         </div>
                     </div>
