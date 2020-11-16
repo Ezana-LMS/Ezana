@@ -11,21 +11,12 @@ if (isset($_POST['reset_pwd'])) {
         $error = 1;
         $err = "Enter Your Email";
     }
-    if (isset($_POST['name']) && !empty($_POST['name'])) {
-        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
-    } else {
-        $error = 1;
-        $err = "Enter Your Name";
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $err = 'Invalid Email';
     }
-    
-    $email = $_POST['email'];
-    $name = $_POST['name'];
-    // check if the user exists
-    $query = mysqli_query($mysqli, "SELECT * FROM `ezanaLMS_Admins` WHERE email=" . $email . " AND name= " . $name . " ");
-    $num_rows = mysqli_num_rows($query);
+    $checkEmail = mysqli_query($mysqli, "SELECT `email` FROM `ezanaLMS_Admins` WHERE `email` = '" . $_POST['email'] . "'") or exit(mysqli_error($mysqli));
+    if (mysqli_num_rows($checkEmail) > 0) {
 
-    if ($num_rows > 0) // check if alredy liked or not condition
-    {
         $n = date('y');
         $new_password = bin2hex(random_bytes($n));
         //Insert Captured information to a database table
@@ -38,7 +29,7 @@ if (isset($_POST['reset_pwd'])) {
         //declare a varible which will be passed to alert function
         if ($stmt) {
             $_SESSION['email'] = $email;
-            $success = "Password reset done" && header("refresh:1; url=confirm_password.php");
+            $success = "Confim Your Password" && header("refresh:1; url=confirm_password.php");
         } else {
             $err = "Password reset failed";
         }
