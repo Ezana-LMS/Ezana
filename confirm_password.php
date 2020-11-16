@@ -3,40 +3,50 @@ session_start();
 include('configs/config.php');
 require_once('configs/codeGen.php');
 if (isset($_POST['reset_pwd'])) {
-    //prevent posting blank value for first name
-    if (isset($_POST['email']) && !empty($_POST['email'])) {
-        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
+    $error = 0;
+    if (isset($_POST['old_password']) && !empty($_POST['old_password'])) {
+        $old_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['old_password']))));
     } else {
         $error = 1;
-        $err = "Enter Your Email";
+        $err = "Old Password Cannot Be Empty";
     }
-    
-    $email = $_POST['email'];
-    // check if the user exists
-    $query = mysqli_query($mysqli, "SELECT * from `ezanaLMS_Admins` WHERE email=$email");
-    $num_rows = mysqli_num_rows($query);
+    if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
+        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
+    } else {
+        $error = 1;
+        $err = "New Password Cannot Be Empty";
+    }
+    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
+        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
+    } else {
+        $error = 1;
+        $err = "Confirmation Password Cannot Be Empty";
+    }
 
-    if ($num_rows > 0) // check if alredy liked or not condition
-    {
-        $n = date('y');
-        $new_password = bin2hex(random_bytes($n));
-        //Insert Captured information to a database table
-        $query = "UPDATE ezanaLMS_Admins SET  password=? WHERE email =?";
-        $stmt = $mysqli->prepare($query);
-        //bind paramaters
-        $rc = $stmt->bind_param('ss', $new_password, $email);
-        $stmt->execute();
-
-        //declare a varible which will be passed to alert function
-        if ($stmt) {
-            $_SESSION['email'] = $email;
-            $success = "Password reset done" && header("refresh:1; url=confirm_password.php");
-        } else {
-            $err = "Password reset failed";
+    if (!$error) {
+        $id = $_SESSION['id'];
+        $sql = "SELECT * FROM  ezanaLMS_Admins  WHERE id = '$id'";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($old_password != $row['password']) {
+                $err =  "Please Enter Correct Old Password";
+            } elseif ($new_password != $confirm_password) {
+                $err = "Confirmation Password Does Not Match";
+            } else {
+                $id = $_SESSION['id'];
+                $new_password  = sha1(md5($_POST['new_password']));
+                $query = "UPDATE ezanaLMS_Admins SET  password =? WHERE id =?";
+                $stmt = $mysqli->prepare($query);
+                $rc = $stmt->bind_param('ss', $new_password, $id);
+                $stmt->execute();
+                if ($stmt) {
+                    $success = "Password Changed" && header("refresh:1; url=profile.php");
+                } else {
+                    $err = "Please Try Again Or Try Later";
+                }
+            }
         }
-    } else  // user does not exist
-    {
-        $err = "Email Does Not Exist" && header("refresh:1; url=forgot-password.php");
     }
 }
 
