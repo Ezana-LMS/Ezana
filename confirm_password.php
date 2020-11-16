@@ -4,12 +4,6 @@ include('configs/config.php');
 require_once('configs/codeGen.php');
 if (isset($_POST['reset_pwd'])) {
     $error = 0;
-    if (isset($_POST['old_password']) && !empty($_POST['old_password'])) {
-        $old_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['old_password']))));
-    } else {
-        $error = 1;
-        $err = "Old Password Cannot Be Empty";
-    }
     if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
         $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
     } else {
@@ -24,24 +18,22 @@ if (isset($_POST['reset_pwd'])) {
     }
 
     if (!$error) {
-        $id = $_SESSION['id'];
-        $sql = "SELECT * FROM  ezanaLMS_Admins  WHERE id = '$id'";
+        $email = $_SESSION['email'];
+        $sql = "SELECT * FROM  ezanaLMS_Admins  WHERE email = '$email'";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
-            if ($old_password != $row['password']) {
-                $err =  "Please Enter Correct Old Password";
-            } elseif ($new_password != $confirm_password) {
-                $err = "Confirmation Password Does Not Match";
+            if ($new_password != $confirm_password) {
+                $err = "Password Does Not Match";
             } else {
-                $id = $_SESSION['id'];
+                $email = $_SESSION['email'];
                 $new_password  = sha1(md5($_POST['new_password']));
-                $query = "UPDATE ezanaLMS_Admins SET  password =? WHERE id =?";
+                $query = "UPDATE ezanaLMS_Admins SET  password =? WHERE email =?";
                 $stmt = $mysqli->prepare($query);
-                $rc = $stmt->bind_param('ss', $new_password, $id);
+                $rc = $stmt->bind_param('ss', $new_password, $email);
                 $stmt->execute();
                 if ($stmt) {
-                    $success = "Password Changed" && header("refresh:1; url=profile.php");
+                    $success = "Password Changed" && header("refresh:1; url=index.php");
                 } else {
                     $err = "Please Try Again Or Try Later";
                 }
@@ -74,7 +66,7 @@ require_once('partials/_head.php');
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="email" required name="email" class="form-control" placeholder="Confirm New Password">
+                        <input type="email" required name="" class="form-control" placeholder="Confirm New Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
