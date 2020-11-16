@@ -2,8 +2,52 @@
 session_start();
 include('configs/config.php');
 require_once('configs/codeGen.php');
+if (isset($_POST['reset'])) {
+    //prevent posting blank value for first name
+    if (isset($_POST['user_fname']) && !empty($_POST['user_fname'])) {
+        $user_fname = mysqli_real_escape_string($conn, trim($_POST['user_fname']));
+    } else {
+        $error = 1;
+        $err = "Enter your first name";
+    }
+    //prevent posting blank value for email
+    if (isset($_POST['user_email']) && !empty($_POST['user_email'])) {
+        $user_email = mysqli_real_escape_string($conn, trim($_POST['user_email']));
+    } else {
+        $error = 1;
+        $err = "Enter your E-mail";
+    }
+
+    $user_fname = $_POST['user_fname'];
+    $user_email = $_POST['user_email'];
+    // check if the user exists
+    $query = mysqli_query($conn, "SELECT * from `user` WHERE user_fname='" . $user_fname . "' and user_email='" . $user_email . "'");
+    $num_rows = mysqli_num_rows($query);
+
+    if ($num_rows > 0) // check if alredy liked or not condition
+    {
+        $n = date('y');
+        $new_password = bin2hex(random_bytes($n));
+        //Insert Captured information to a database table
+        $query = "UPDATE user SET  user_password=? WHERE user_fname =? AND user_email =?";
+        $stmt = $conn->prepare($query);
+        //bind paramaters
+        $rc = $stmt->bind_param('sss', $new_password, $user_fname, $user_email);
+        $stmt->execute();
 
 
+        //declare a varible which will be passed to alert function
+        if ($stmt) {
+            $_SESSION['user_email'] = $user_email;
+            $success = "Password reset done" && header("refresh:1; url=user_check_new_password.php");
+        } else {
+            $err = "Password reset failed";
+        }
+    } else  // user does not exist
+    {
+        $err = "User does not Exist" && header("refresh:1; url=index.php");
+    }
+}
 
 
 require_once('partials/_head.php');
@@ -36,7 +80,7 @@ require_once('partials/_head.php');
                     </div>
                 </form>
 
-               
+
 
                 <p class="mb-1">
                     <a href="index.php">I Remembered My Password</a>
