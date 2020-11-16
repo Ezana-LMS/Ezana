@@ -4,24 +4,16 @@ include('configs/config.php');
 require_once('configs/codeGen.php');
 if (isset($_POST['reset'])) {
     //prevent posting blank value for first name
-    if (isset($_POST['user_fname']) && !empty($_POST['user_fname'])) {
-        $user_fname = mysqli_real_escape_string($conn, trim($_POST['user_fname']));
+    if (isset($_POST['email']) && !empty($_POST['email'])) {
+        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
     } else {
         $error = 1;
-        $err = "Enter your first name";
+        $err = "Enter Your Email";
     }
-    //prevent posting blank value for email
-    if (isset($_POST['user_email']) && !empty($_POST['user_email'])) {
-        $user_email = mysqli_real_escape_string($conn, trim($_POST['user_email']));
-    } else {
-        $error = 1;
-        $err = "Enter your E-mail";
-    }
-
-    $user_fname = $_POST['user_fname'];
-    $user_email = $_POST['user_email'];
+    
+    $email = $_POST['email'];
     // check if the user exists
-    $query = mysqli_query($conn, "SELECT * from `user` WHERE user_fname='" . $user_fname . "' and user_email='" . $user_email . "'");
+    $query = mysqli_query($mysqli, "SELECT * from `ezanaLMS_Admins` WHERE email=$email");
     $num_rows = mysqli_num_rows($query);
 
     if ($num_rows > 0) // check if alredy liked or not condition
@@ -29,23 +21,22 @@ if (isset($_POST['reset'])) {
         $n = date('y');
         $new_password = bin2hex(random_bytes($n));
         //Insert Captured information to a database table
-        $query = "UPDATE user SET  user_password=? WHERE user_fname =? AND user_email =?";
-        $stmt = $conn->prepare($query);
+        $query = "UPDATE ezanaLMS_Admins SET  password=? WHERE email =?";
+        $stmt = $mysqli->prepare($query);
         //bind paramaters
-        $rc = $stmt->bind_param('sss', $new_password, $user_fname, $user_email);
+        $rc = $stmt->bind_param('ss', $new_password, $email);
         $stmt->execute();
-
 
         //declare a varible which will be passed to alert function
         if ($stmt) {
-            $_SESSION['user_email'] = $user_email;
+            $_SESSION['email'] = $email;
             $success = "Password reset done" && header("refresh:1; url=user_check_new_password.php");
         } else {
             $err = "Password reset failed";
         }
     } else  // user does not exist
     {
-        $err = "User does not Exist" && header("refresh:1; url=index.php");
+        $err = "Email Does Not Exist" && header("refresh:1; url=forgot-password.php");
     }
 }
 
