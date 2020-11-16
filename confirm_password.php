@@ -68,7 +68,7 @@ require_once('partials/_head.php');
                 } ?>
                 <form method="post">
                     <div class="input-group mb-3">
-                        <input type="email" required name="new_password" class="form-control" placeholder="New Password">
+                        <input type="password" required name="new_password" class="form-control" placeholder="New Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -76,7 +76,7 @@ require_once('partials/_head.php');
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="email" required name="" class="form-control" placeholder="Confirm New Password">
+                        <input type="password" required name="" class="form-control" placeholder="Confirm New Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
