@@ -63,7 +63,13 @@ require_once('partials/_head.php');
                 $res = $stmt->get_result();
                 while ($row = $res->fetch_object()) {
                 ?>
-                    <p class="login-box-msg"><?php echo $_SESSION['email'];?> Change Your Password</p>
+                    <p class="login-box-msg">
+                        <span class="badge badge-success">Token: <?php echo $row->password; ?></span>
+                        <br>
+                        Please <?php echo $row->name; ?>
+                        <br>
+                        Change Your Password
+                    </p>
                 <?php
                 } ?>
                 <form method="post">
