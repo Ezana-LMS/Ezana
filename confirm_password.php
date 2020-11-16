@@ -54,8 +54,18 @@ require_once('partials/_head.php');
                 <div class="login-logo">
                     <img height="150" width="150" src="dist/img/logo.jpeg" alt="">
                 </div>
-                <p class="login-box-msg"></p>
+                <?php
 
+                $email  = $_SESSION['email'];
+                $ret = "SELECT * FROM  ezanaLMS_Admins  WHERE email = '$email'";
+                $stmt = $mysqli->prepare($ret);
+                $stmt->execute(); //ok
+                $res = $stmt->get_result();
+                while ($row = $res->fetch_object()) {
+                ?>
+                    <p class="login-box-msg"><?php echo $_SESSION['email'];?> Change Your Password</p>
+                <?php
+                } ?>
                 <form method="post">
                     <div class="input-group mb-3">
                         <input type="email" required name="new_password" class="form-control" placeholder="New Password">

@@ -4,16 +4,24 @@ include('configs/config.php');
 require_once('configs/codeGen.php');
 if (isset($_POST['reset_pwd'])) {
     //prevent posting blank value for first name
+    $error = 0;
     if (isset($_POST['email']) && !empty($_POST['email'])) {
         $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
     } else {
         $error = 1;
         $err = "Enter Your Email";
     }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Enter Your Name";
+    }
     
     $email = $_POST['email'];
+    $name = $_POST['name'];
     // check if the user exists
-    $query = mysqli_query($mysqli, "SELECT * from `ezanaLMS_Admins` WHERE email=$email");
+    $query = mysqli_query($mysqli, "SELECT * FROM `ezanaLMS_Admins` WHERE email=" . $email . " AND name= " . $name . " ");
     $num_rows = mysqli_num_rows($query);
 
     if ($num_rows > 0) // check if alredy liked or not condition
