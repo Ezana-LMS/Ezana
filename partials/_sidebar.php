@@ -86,7 +86,7 @@
                         </p>
                     </a>
                 </li>
-                <!-- Advanced Reporting -->
+                <!-- Advanced Reporting 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-paste"></i>
@@ -98,31 +98,31 @@
                     <ul class="nav nav-treeview">
 
                         <li class="nav-item">
-                            <a href="manage_modules.php" class="nav-link">
+                            <a href="reports_faculties.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Faculties</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="module_notices.php" class="nav-link">
+                            <a href="reports_departments.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Departments</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="reading_materials.php" class="nav-link">
+                            <a href="reports_courses.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Courses</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="reading_materials.php" class="nav-link">
+                            <a href="reports_modules.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Modules</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="reading_materials.php" class="nav-link">
+                            <a href="reports_teaching.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Teaching Allocations</p>
                             </a>
@@ -146,7 +146,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
             </ul>
         </nav>
     </div>

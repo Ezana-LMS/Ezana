@@ -76,15 +76,12 @@ if (isset($_POST['change_password'])) {
     }
 }
 
-
 require_once('partials/_head.php');
 ?>
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
-
         <!-- Navbar -->
-
         <?php
         require_once('partials/_nav.php');
         require_once('partials/_sidebar.php');
