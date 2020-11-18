@@ -32,7 +32,10 @@ while ($row = $res->fetch_object()) {
         <div class="wrapper">
 
             <!-- Navbar -->
-            <?php require_once('partials/_faculty_nav.php'); ?>
+            <?php
+                 require_once('partials/_faculty_nav.php');
+                 require_once('partials/_faculty_sidebar.php');
+            ?>
             <!-- /.navbar -->
 
             <div class="content-wrapper">
