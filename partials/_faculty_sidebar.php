@@ -100,45 +100,27 @@
                     <ul class="nav nav-treeview">
 
                         <li class="nav-item">
-                            <a href="reports_departments.php" class="nav-link">
+                            <a href="departments_reports.php?faculty=<?php echo $row->id;?>" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Departments</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="reports_courses.php" class="nav-link">
+                            <a href="courses_reports.php?faculty=<?php echo $row->id;?>" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Courses</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="reports_modules.php" class="nav-link">
+                            <a href="modules_reports.php?faculty=<?php echo $row->id;?>" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Modules</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="reports_teaching.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Teaching Allocations</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="reading_materials.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Module Enrollments</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="reading_materials.php" class="nav-link">
+                            <a href="school_calendar_reports.php?faculty=<?php echo $row->id;?>" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>School Calendars</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="reading_materials.php" class="nav-link">
-                                <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>TimeTables</p>
                             </a>
                         </li>
                     </ul>
