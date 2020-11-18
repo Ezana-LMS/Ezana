@@ -29,17 +29,17 @@
 
                 <!-- Departments -->
                 <li class="nav-item">
-                    <a href="departments.php?department=<?php echo $row->id; ?>&faculty=<?php echo $row->faculty_id; ?>" class="nav-link">
+                    <a href="view_department.php?department=<?php echo $row->id;?>&faculty=<?php echo $row->faculty_id;?>" class="nav-link">
                         <i class="nav-icon fas fa fa-building"></i>
                         <p>
-                            Departmental Dashboard
+                            Dep. Dashboard
                         </p>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="departments.php?department=<?php echo $row->id; ?>&faculty=<?php echo $row->faculty_id; ?>" class="nav-link">
-                        <i class="nav-icon fas fa fa-building"></i>
+                        <i class="nav-icon fas fa fa-bullhorn"></i>
                         <p>
                             Notices & Memos
                         </p>
@@ -48,7 +48,7 @@
 
                 <li class="nav-item">
                     <a href="departments.php?department=<?php echo $row->id; ?>&faculty=<?php echo $row->faculty_id; ?>" class="nav-link">
-                        <i class="nav-icon fas fa fa-building"></i>
+                        <i class="nav-icon fas fa fa-chalkboard-teacher"></i>
                         <p>
                             Courses
                         </p>
