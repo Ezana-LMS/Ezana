@@ -70,7 +70,7 @@ require_once('partials/_head.php');
                                                 </a>
                                             </h2>
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="import_school_calendar.php?faculty=<?php echo $row->id; ?>">
+                                                <a class="btn btn-outline-primary" href="import_school_calendar.php?faculty=<?php echo $row->id; ?>">
                                                     Import .xls
                                                 </a>
                                             </h2>
