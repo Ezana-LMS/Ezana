@@ -134,7 +134,7 @@ require_once('partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer">
+                                                <div class="card-footer text-right">
                                                     <button type="submit" name="add_school_calendar" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </form>

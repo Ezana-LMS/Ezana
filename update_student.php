@@ -214,7 +214,7 @@ require_once('partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer">
+                                                <div class="card-footer text-right">
                                                     <button type="submit" name="update_student" class="btn btn-primary">Update Students Profile</button>
                                                 </div>
                                             </form>

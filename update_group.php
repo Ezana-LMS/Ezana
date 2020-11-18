@@ -130,7 +130,7 @@ require_once('partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer">
+                                                <div class="card-footer text-right">
                                                     <button type="submit" name="update_group" class="btn btn-primary">Update Group</button>
                                                 </div>
                                             </form>
