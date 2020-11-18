@@ -66,7 +66,7 @@ require_once('partials/_head.php');
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$f->id' ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$row->id' ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
