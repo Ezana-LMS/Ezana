@@ -59,7 +59,8 @@ require_once('partials/_head.php');
                                                         <th>Module Name</th>
                                                         <th>Module Code</th>
                                                         <th>Teaching Duration</th>
-                                                        <th>Weight Percentage</th>
+                                                        <th>Exam Weight Percentage</th>
+                                                        <th>Cat Weight Percentage</th>
                                                         <th>No Of Lecturers</th>
                                                         <th>Course Name</th>
                                                     </tr>
@@ -78,7 +79,8 @@ require_once('partials/_head.php');
                                                             <td><?php echo $mod->name; ?></td>
                                                             <td><?php echo $mod->code; ?></td>
                                                             <td><?php echo $mod->course_duration; ?></td>
-                                                            <td><?php echo $mod->weight_percentage; ?></td>
+                                                            <td><?php echo $mod->exam_weight_percentage; ?></td>
+                                                            <td><?php echo $mod->cat_weight_percentage; ?></td>
                                                             <td><?php echo $mod->lectures_number; ?></td>
                                                             <td><?php echo $mod->course_name; ?></td>
                                                         </tr>
