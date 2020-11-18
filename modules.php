@@ -26,14 +26,18 @@ $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
-while ($f = $res->fetch_object()) {
+while ($row = $res->fetch_object()) {
 ?>
 
     <body class="hold-transition sidebar-collapse layout-top-nav">
         <div class="wrapper">
 
             <!-- Navbar -->
-            <?php require_once('partials/_faculty_nav.php'); ?>
+            <?php 
+                require_once('partials/_faculty_nav.php');
+                require_once('partials/_faculty_sidebar.php');
+
+             ?>
             <!-- /.navbar -->
 
             <div class="content-wrapper">
@@ -41,12 +45,12 @@ while ($f = $res->fetch_object()) {
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Modules</h1>
+                                <h1 class="m-0 text-dark"><?php echo $row->name; ?> Modules</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
                                     <li class="breadcrumb-item active"> Modules </li>
                                 </ol>
                             </div>
@@ -62,15 +66,15 @@ while ($f = $res->fetch_object()) {
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_module.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-success" href="add_module.php?faculty=<?php echo $row->id; ?>">
                                                     Register New Module
                                                 </a>
 
-                                                <a class="btn btn-outline-success" href="module_notices.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-success" href="module_notices.php?faculty=<?php echo $row->id; ?>">
                                                     Module Notices
                                                 </a>
 
-                                                <a class="btn btn-outline-success" href="module_reading_materials.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-success" href="module_reading_materials.php?faculty=<?php echo $row->id; ?>">
                                                     Module Reading Materials
                                                 </a>
                                             </h2>
@@ -88,7 +92,7 @@ while ($f = $res->fetch_object()) {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$f->id' ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$row->id' ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
@@ -96,13 +100,13 @@ while ($f = $res->fetch_object()) {
                                                     while ($mod = $res->fetch_object()) {
                                                     ?>
 
-                                                        <tr class="table-row" data-href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                        <tr class="table-row" data-href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $row->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $mod->name; ?></td>
                                                             <td><?php echo $mod->code; ?></td>
                                                             <td><?php echo $mod->course_name; ?></td>
                                                             <td>
-                                                                <a class="badge badge-danger" href="modules.php?delete=<?php echo $mod->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-danger" href="modules.php?delete=<?php echo $mod->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete Module
                                                                 </a>
