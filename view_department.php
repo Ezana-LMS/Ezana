@@ -66,7 +66,7 @@ require_once('partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->faculty_id;?>"><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->faculty_id; ?>"><?php echo $row->name; ?></a></li>
                                     <li class="breadcrumb-item active">View</li>
                                 </ol>
                             </div>
@@ -116,7 +116,13 @@ require_once('partials/_head.php');
                                 <div class="card">
                                     <div class="card-header p-2">
                                         <ul class="nav nav-pills">
-                                            <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Department Settings</a></li>
+                                            <li class="nav-item"><a class="nav-link active" href="#notices" data-toggle="tab">Notices</a></li>
+                                        </ul>
+                                        <ul class="nav nav-pills">
+                                            <li class="nav-item"><a class="nav-link " href="#memos" data-toggle="tab">Memos</a></li>
+                                        </ul>
+                                        <ul class="nav nav-pills">
+                                            <li class="nav-item"><a class="nav-link " href="#settings" data-toggle="tab">Department Settings</a></li>
                                         </ul>
                                     </div>
                                     <div class="card-body">
