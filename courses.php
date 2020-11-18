@@ -34,9 +34,9 @@ while ($row = $res->fetch_object()) {
         <div class="wrapper">
 
             <!-- Navbar -->
-            <?php 
-                 require_once('partials/_faculty_nav.php');
-                 require_once('partials/_faculty_sidebar.php');
+            <?php
+            require_once('partials/_faculty_nav.php');
+            require_once('partials/_faculty_sidebar.php');
 
             ?>
             <!-- /.navbar -->
@@ -99,11 +99,6 @@ while ($row = $res->fetch_object()) {
                                                             <td><?php echo $course->name; ?></td>
                                                             <td><?php echo $course->department_name; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    View Course
-                                                                </a>
-
                                                                 <a class="badge badge-danger" href="courses.php?delete=<?php echo $course->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete

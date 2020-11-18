@@ -36,10 +36,8 @@ while ($row = $res->fetch_object()) {
             <?php 
                 require_once('partials/_faculty_nav.php');
                 require_once('partials/_faculty_sidebar.php');
-
              ?>
             <!-- /.navbar -->
-
             <div class="content-wrapper">
                 <div class="content-header">
                     <div class="container">
