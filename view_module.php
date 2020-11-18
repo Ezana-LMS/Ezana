@@ -243,8 +243,8 @@ require_once('partials/_head.php');
                                             <h3 class="card-title">Course Materials</h3>
                                         </div>
                                         <div class="card-body box-profile">
-                                            <div class="card">
-                                                <div class="card-header">
+                                            <div class="">
+                                                <div class="">
                                                     <h2 class="text-right">
                                                         <a class="btn btn-outline-success" href="add_module_reading_materials.php?faculty=<?php echo $row->id; ?>">
                                                             Upload Reading Materials
@@ -282,14 +282,60 @@ require_once('partials/_head.php');
                                     </div>
                                 </div>
 
-                                <!-- Course Materials -->
+                                <!-- Class recordingings -->
                                 <div class="col-md-6">
                                     <div class="card card-primary card-outline">
                                         <div class="card-header text-center">
                                             <h3 class="card-title">Class Recordings</h3>
                                         </div>
                                         <div class="card-body box-profile">
-
+                                            <div class="">
+                                                <div class="">
+                                                    <h2 class="text-right">
+                                                        <a class="btn btn-outline-success" href="add_class_recording.php?faculty=<?php echo $row->id; ?>">
+                                                            <i class="fas fa-plus"></i>
+                                                            <i class="fas fa-file-video"></i>
+                                                            Upload Class Recoding
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                                <div class="card-body">
+                                                    <table id="admins" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Lecturer </th>
+                                                                <th>Date Uploaded</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_ClassRecordings` WHERE faculty_id = '$row->id'  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            $cnt = 1;
+                                                            while ($cr = $res->fetch_object()) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td><?php echo $cnt; ?></td>
+                                                                    <td><?php echo $cr->class_name; ?></td>
+                                                                    <td><?php echo $cr->lecturer_name; ?></td>
+                                                                    <td><?php echo date('d M Y', strtotime($cr->created_at)); ?></td>
+                                                                    <td>
+                                                                        <a class="badge badge-success" href="view_class_recording.php?watch=<?php echo $cr->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                            <i class="fas fa-play"></i>
+                                                                            Watch Recording
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php $cnt = $cnt + 1;
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

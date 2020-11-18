@@ -26,7 +26,8 @@ $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
-while ($f = $res->fetch_object()) {
+while ($row = $res->fetch_object()) {
+    require_once('partials/_faculty_sidebar.php')
 ?>
 
     <body class="hold-transition sidebar-collapse layout-top-nav">
@@ -44,7 +45,7 @@ while ($f = $res->fetch_object()) {
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
                                     <li class="breadcrumb-item active"> Class Recordings </li>
                                 </ol>
                             </div>
@@ -60,7 +61,7 @@ while ($f = $res->fetch_object()) {
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_class_recording.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-success" href="add_class_recording.php?faculty=<?php echo $row->id; ?>">
                                                     <i class="fas fa-plus"></i>
                                                     <i class="fas fa-file-video"></i>
                                                     Upload Class Recoding
@@ -80,7 +81,7 @@ while ($f = $res->fetch_object()) {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_ClassRecordings` WHERE faculty_id = '$f->id'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_ClassRecordings` WHERE faculty_id = '$row->id'  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
@@ -93,15 +94,15 @@ while ($f = $res->fetch_object()) {
                                                             <td><?php echo $cr->lecturer_name; ?></td>
                                                             <td><?php echo date('d M Y', strtotime($cr->created_at)); ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_class_recording.php?watch=<?php echo $cr->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-success" href="view_class_recording.php?watch=<?php echo $cr->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-play"></i>
                                                                     Watch Recording
                                                                 </a>
-                                                                <a class="badge badge-primary" href="update_class_recording.php?update=<?php echo $cr->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-primary" href="update_class_recording.php?update=<?php echo $cr->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update Recording
                                                                 </a>
-                                                                <a class="badge badge-danger" href="class_recordings.php?delete=<?php echo $cr->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-danger" href="class_recordings.php?delete=<?php echo $cr->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete Recording
                                                                 </a>
