@@ -181,28 +181,24 @@ require_once('partials/_head.php');
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Department Name</th>
                                                             <th>Date Posted</th>
                                                             <th>Type</th>
-                                                            <th>Manage</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos`  ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$row->id'  ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
                                                         $cnt = 1;
                                                         while ($memo = $res->fetch_object()) {
                                                         ?>
-
                                                             <tr class="table-row" data-href="view_departmental_notememo.php?view=<?php echo $memo->id; ?>&faculty=<?php echo $memo->faculty_id; ?>">
                                                                 <td><?php echo $cnt; ?></td>
-                                                                <td><?php echo $memo->department_name; ?></td>
                                                                 <td><?php echo $memo->created_at; ?></td>
                                                                 <td>Departmental <?php echo $memo->type; ?></td>
-                                                                <td>
+                                                                <!-- <td>
                                                                     <a class="badge badge-primary" href="update_departmental_memo.php?update=<?php echo $memo->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                         <i class="fas fa-edit"></i>
                                                                         Update
@@ -211,7 +207,7 @@ require_once('partials/_head.php');
                                                                         <i class="fas fa-trash"></i>
                                                                         Delete
                                                                     </a>
-                                                                </td>
+                                                                </td> -->
                                                             </tr>
                                                         <?php $cnt = $cnt + 1;
                                                         } ?>
