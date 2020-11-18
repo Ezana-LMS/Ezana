@@ -84,8 +84,10 @@ require_once('partials/_head.php');
     <div class="wrapper">
 
         <!-- Navbar -->
+
         <?php
         require_once('partials/_nav.php');
+        require_once('partials/_sidebar.php');
         $view = $_GET['view'];
         $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id ='$view' ";
         $stmt = $mysqli->prepare($ret);
