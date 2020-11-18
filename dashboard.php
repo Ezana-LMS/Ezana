@@ -70,7 +70,7 @@ require_once('partials/_head.php');
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard-teacher"></i></span>
                                     <div class="info-box-content">
-                                        <span class="info-box-text">Total Courses</span>
+                                        <span class="info-box-text"> Courses</span>
                                         <span class="info-box-number"><?php echo $courses; ?></span>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@ require_once('partials/_head.php');
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-chalkboard"></i></span>
                                     <div class="info-box-content">
-                                        <span class="info-box-text">Total Modules</span>
+                                        <span class="info-box-text">Modules</span>
                                         <span class="info-box-number"><?php echo $modules; ?></span>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@ require_once('partials/_head.php');
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-tie"></i></span>
                                     <div class="info-box-content">
-                                        <span class="info-box-text">Total Lecturers</span>
+                                        <span class="info-box-text">Lecturers</span>
                                         <span class="info-box-number"><?php echo $lecs; ?></span>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@ require_once('partials/_head.php');
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-user-graduate"></i></span>
                                     <div class="info-box-content">
-                                        <span class="info-box-text">Total Students</span>
+                                        <span class="info-box-text">Students</span>
                                         <span class="info-box-number"><?php echo $students; ?></span>
                                     </div>
                                 </div>
