@@ -51,7 +51,6 @@ require_once('partials/_head.php');
                                                     <th>Email</th>
                                                     <th>Rank</th>
                                                     <th>Phone No. </th>
-                                                    <th>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -75,6 +74,7 @@ require_once('partials/_head.php');
                                                 <?php $cnt = $cnt + 1;
                                                 } ?>
                                             </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
