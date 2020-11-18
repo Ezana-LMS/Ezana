@@ -116,19 +116,55 @@ require_once('partials/_head.php');
                                     <div class="card-body">
                                         <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Notices</a>
+                                                <a class="nav-link active" id="courses" data-toggle="pill" href="#courses" role="tab">Courses</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Download  Attachments</a>
+                                                <a class="nav-link" id="notices_memos" data-toggle="pill" href="#notices_memos" role="tab">Departmental Notices / Memos</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="dep_settings" data-toggle="pill" href="#settings" role="tab">Departmental Settings</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content" id="custom-content-below-tabContent">
-                                            <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                            <!-- Courses -->
+                                            <div class="tab-pane fade show active" id="courses" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                 <br>
                                             </div>
-                                            <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                            <!-- Dep Notices / Announcements -->
+                                            <div class="tab-pane fade" id="notice_memos" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                 <br>
-                                                
+
+                                            </div>
+                                            <!-- Departmental Settiings -->
+                                            <div class="tab-pane fade" id="dep_settings" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                <br>
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department Name</label>
+                                                                <input type="text" required name="name" value="<?php echo $row->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department Number / Code</label>
+                                                                <input type="text" required name="code" value="<?php echo $row->code; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department HOD</label>
+                                                                <input type="text" required value="<?php echo $row->hod; ?>" name="hod" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="exampleInputPassword1">Department Details</label>
+                                                                <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $row->details; ?></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer text-right">
+                                                        <button type="submit" name="update_dept" class="btn btn-primary">Update Department</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
