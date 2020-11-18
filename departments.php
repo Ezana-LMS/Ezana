@@ -33,8 +33,8 @@ while ($row = $res->fetch_object()) {
 
             <!-- Navbar -->
             <?php
-                 require_once('partials/_faculty_nav.php');
-                 require_once('partials/_faculty_sidebar.php');
+            require_once('partials/_faculty_nav.php');
+            require_once('partials/_faculty_sidebar.php');
             ?>
             <!-- /.navbar -->
 
@@ -100,14 +100,9 @@ while ($row = $res->fetch_object()) {
                                                             <td><?php echo $dep->name; ?></td>
                                                             <td><?php echo $dep->hod; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_department.php?department=<?php echo $dep->id; ?>">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    View Department
-                                                                </a>
-
                                                                 <a class="badge badge-danger" href="departments.php?delete=<?php echo $dep->id; ?>&faculty=<?php echo $dep->faculty_id; ?>">
                                                                     <i class="fas fa-trash"></i>
-                                                                    Delete
+                                                                    Delete Department
                                                                 </a>
                                                             </td>
                                                         </tr>

@@ -102,11 +102,51 @@ require_once('partials/_head.php');
                             </div>
                             <div class="col-md-8">
                                 <div class="card card-primary card-outline">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Department Details</h3>
-                                    </div>
-                                    <div class="card-body box-profile">
-                                        <?php echo $row->details; ?>
+                                    <div class="card-body">
+                                        <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Details</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"><?php echo $row->name; ?> Settings</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content" id="custom-content-below-tabContent">
+                                            <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                <br>
+                                                <?php echo $row->details; ?>
+                                            </div>
+                                            <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                <br>
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department Name</label>
+                                                                <input type="text" required name="name" value="<?php echo $row->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department Number / Code</label>
+                                                                <input type="text" required name="code" value="<?php echo $row->code; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department HOD</label>
+                                                                <input type="text" required value="<?php echo $row->hod; ?>" name="hod" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="exampleInputPassword1">Department Details</label>
+                                                                <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $row->details; ?></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer text-right">
+                                                        <button type="submit" name="update_dept" class="btn btn-primary">Update Department</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +163,7 @@ require_once('partials/_head.php');
                                         <div class="">
                                             <div class="card-header">
                                                 <h2 class="text-right">
-                                                    <a class="btn btn-outline-success" href="add_course.php?faculty=<?php echo $row->faculty_id; ?>">
+                                                    <a class="btn btn-outline-primary" href="add_course.php?faculty=<?php echo $row->faculty_id; ?>">
                                                         Register New Course
                                                     </a>
                                                 </h2>
@@ -163,6 +203,7 @@ require_once('partials/_head.php');
                             </div>
 
                             <div class="col-md-6">
+                                <!-- Departmental Notices -->
                                 <div class="card card-primary card-outline">
                                     <div class="card-header text-center">
                                         <h3 class="card-title">Notices / Memos Under <?php echo $row->name; ?> Department</h3>
@@ -177,7 +218,7 @@ require_once('partials/_head.php');
                                                 </h2>
                                             </div>
                                             <div class="card-body">
-                                                <table id="example1" class="table table-bordered table-striped">
+                                                <table id="enrollment" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
