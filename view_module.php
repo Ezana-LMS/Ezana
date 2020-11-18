@@ -78,6 +78,7 @@ require_once('partials/_head.php');
             $res = $stmt->get_result();
             $cnt = 1;
             while ($row = $res->fetch_object()) {
+                require_once('partials/_faculty_sidebar.php');
         ?>
                 <!-- /.navbar -->
                 <div class="content-wrapper">
@@ -235,11 +236,57 @@ require_once('partials/_head.php');
                             </div>
 
                             <div class="row">
-                                <!-- Class Timetable -->
+                                <!-- Course Materials -->
                                 <div class="col-md-6">
                                     <div class="card card-primary card-outline">
                                         <div class="card-header text-center">
-                                            <h3 class="card-title">Timetable</h3>
+                                            <h3 class="card-title">Course Materials</h3>
+                                        </div>
+                                        <div class="card-body box-profile">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h2 class="text-right">
+                                                        <a class="btn btn-outline-success" href="add_module_reading_materials.php?faculty=<?php echo $row->id; ?>">
+                                                            Upload Reading Materials
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                                <div class="card-body">
+                                                    <table id="example1" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Reading Material Shared On</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_ModuleRecommended` WHERE faculty_id ='$row->id' AND module_code = '$mod->code' ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            $cnt = 1;
+                                                            while ($rm = $res->fetch_object()) {
+                                                            ?>
+                                                                <tr class="table-row" data-href="view_module_reading_material.php?view=<?php echo $rm->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                    <td><?php echo $cnt; ?></td>
+                                                                    <td><?php echo $rm->created_at; ?></td>
+                                                                </tr>
+                                                            <?php $cnt = $cnt + 1;
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Course Materials -->
+                                <div class="col-md-6">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header text-center">
+                                            <h3 class="card-title">Class Recordings</h3>
                                         </div>
                                         <div class="card-body box-profile">
 
@@ -259,7 +306,6 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                 </div>
-                            
 
                                 <!-- Students Enrolled -->
                                 <div class="col-md-6">
