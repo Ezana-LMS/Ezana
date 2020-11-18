@@ -60,7 +60,7 @@ require_once('partials/_head.php');
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"> <?php echo $row->name; ?> </h1>
+                                <h1 class="m-0 text-dark"> <?php echo $row->name; ?> Dashboard </h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -141,7 +141,7 @@ require_once('partials/_head.php');
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card-footer text-right">
+                                                    <div class=" text-right">
                                                         <button type="submit" name="update_dept" class="btn btn-primary">Update Department</button>
                                                     </div>
                                                 </form>
