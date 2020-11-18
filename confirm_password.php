@@ -49,13 +49,12 @@ require_once('partials/_head.php');
 <body class="hold-transition login-page">
     <div class="login-box">
         <!-- /.login-logo -->
-        <div class="card">
-            <div class="card-body login-card-body">
+        <div class="">
+            <div class="">
                 <div class="login-logo">
                     <img height="150" width="150" src="dist/img/logo.jpeg" alt="">
                 </div>
                 <?php
-
                 $email  = $_SESSION['email'];
                 $ret = "SELECT * FROM  ezanaLMS_Admins  WHERE email = '$email'";
                 $stmt = $mysqli->prepare($ret);
