@@ -20,9 +20,9 @@
                 <!-- Faculties -->
                 <li class="nav-item">
                     <a href="system_admins.php" class="nav-link">
-                        <i class="nav-icon fas fa-user-secret"></i>
+                        <i class="nav-icon fas fa fa-university"></i>
                         <p>
-                            Students
+                            Faculties
                         </p>
                     </a>
                 </li>
@@ -30,9 +30,9 @@
                 <!-- Departments -->
                 <li class="nav-item">
                     <a href="system_admins.php" class="nav-link">
-                        <i class="nav-icon fas fa-user-secret"></i>
+                        <i class="nav-icon fas fa fa-building"></i>
                         <p>
-                            Students
+                            Departments
                         </p>
                     </a>
                 </li>
@@ -40,9 +40,9 @@
                 <!-- Courses -->
                 <li class="nav-item">
                     <a href="system_admins.php" class="nav-link">
-                        <i class="nav-icon fas fa-user-secret"></i>
+                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
                         <p>
-                            Students
+                            Courses
                         </p>
                     </a>
                 </li>
@@ -50,9 +50,9 @@
                 <!-- Modules -->
                 <li class="nav-item">
                     <a href="system_admins.php" class="nav-link">
-                        <i class="nav-icon fas fa-user-secret"></i>
+                        <i class="nav-icon fas fas fa-chalkboard"></i>
                         <p>
-                            Students
+                            Modules
                         </p>
                     </a>
                 </li>
@@ -60,9 +60,9 @@
                 <!-- Lecturers -->
                 <li class="nav-item">
                     <a href="system_admins.php" class="nav-link">
-                        <i class="nav-icon fas fa-user-secret"></i>
+                        <i class="nav-icon fas fas fa-user-tie"></i>
                         <p>
-                            Students
+                            Lecturers
                         </p>
                     </a>
                 </li>
@@ -71,7 +71,7 @@
                 <!-- Students -->
                 <li class="nav-item">
                     <a href="system_admins.php" class="nav-link">
-                        <i class="nav-icon fas fa-user-secret"></i>
+                        <i class="nav-icon  fas fa-user-graduate"></i>
                         <p>
                             Students
                         </p>
