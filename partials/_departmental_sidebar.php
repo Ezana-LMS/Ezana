@@ -1,4 +1,3 @@
-
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="dashboard.php" class="brand-link">
@@ -20,7 +19,7 @@
                 </li>
                 <!-- Faculties -->
                 <li class="nav-item">
-                    <a href="faculty_dashboard.php?faculty=<?php echo $row->id;?>" class="nav-link">
+                    <a href="faculty_dashboard.php?faculty=<?php echo $row->faculty_id; ?>" class="nav-link">
                         <i class="nav-icon fas fa fa-university"></i>
                         <p>
                             Faculty Dashboard
@@ -30,54 +29,32 @@
 
                 <!-- Departments -->
                 <li class="nav-item">
-                    <a href="departments.php?faculty=<?php echo $row->id;?>" class="nav-link">
+                    <a href="departments.php?department=<?php echo $row->id; ?>&faculty=<?php echo $row->faculty_id; ?>" class="nav-link">
                         <i class="nav-icon fas fa fa-building"></i>
                         <p>
-                            Departments
+                            Departmental Dashboard
                         </p>
                     </a>
                 </li>
 
-                <!-- Courses -->
                 <li class="nav-item">
-                    <a href="courses.php?faculty=<?php echo $row->id;?>" class="nav-link">
-                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                    <a href="departments.php?department=<?php echo $row->id; ?>&faculty=<?php echo $row->faculty_id; ?>" class="nav-link">
+                        <i class="nav-icon fas fa fa-building"></i>
+                        <p>
+                            Notices & Memos
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="departments.php?department=<?php echo $row->id; ?>&faculty=<?php echo $row->faculty_id; ?>" class="nav-link">
+                        <i class="nav-icon fas fa fa-building"></i>
                         <p>
                             Courses
                         </p>
                     </a>
                 </li>
 
-                <!-- Modules -->
-                <li class="nav-item">
-                    <a href="modules.php?faculty=<?php echo $row->id;?>" class="nav-link">
-                        <i class="nav-icon fas fas fa-chalkboard"></i>
-                        <p>
-                            Modules
-                        </p>
-                    </a>
-                </li>
-
-                
-                <!-- Lecturers -->
-                <li class="nav-item">
-                    <a href="lecturers.php?faculty=<?php echo $row->id;?>" class="nav-link">
-                        <i class="nav-icon fas fas fa-user-tie"></i>
-                        <p>
-                            Lecturers
-                        </p>
-                    </a>
-                </li>
-
-                <!-- Students -->
-                <li class="nav-item">
-                    <a href="students.php?faculty=<?php echo $row->id;?>" class="nav-link">
-                        <i class="nav-icon  fas fa-user-graduate"></i>
-                        <p>
-                            Students
-                        </p>
-                    </a>
-                </li>
 
                 <!-- Advanced Reporting -->
                 <li class="nav-item has-treeview">
@@ -91,26 +68,26 @@
                     <ul class="nav nav-treeview">
 
                         <li class="nav-item">
-                            <a href="departments_reports.php?faculty=<?php echo $row->id;?>" class="nav-link">
+                            <a href="departments_reports.php?faculty=<?php echo $row->id; ?>" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Departments</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="courses_reports.php?faculty=<?php echo $row->id;?>" class="nav-link">
+                            <a href="courses_reports.php?faculty=<?php echo $row->id; ?>" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Courses</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="modules_reports.php?faculty=<?php echo $row->id;?>" class="nav-link">
+                            <a href="modules_reports.php?faculty=<?php echo $row->id; ?>" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>Modules</p>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
-                            <a href="school_calendar_reports.php?faculty=<?php echo $row->id;?>" class="nav-link">
+                            <a href="school_calendar_reports.php?faculty=<?php echo $row->id; ?>" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
                                 <p>School Calendars</p>
                             </a>
