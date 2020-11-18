@@ -127,7 +127,10 @@ require_once('partials/_head.php');
                                                     <b>No Of Lecturers Per Week : </b> <a class="float-right"><?php echo $mod->lectures_number; ?></a>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <b>Weight Percentage : </b> <a class="float-right"><?php echo $mod->weight_percentage; ?></a>
+                                                    <b>Cat Weight Percentage : </b> <a class="float-right"><?php echo $mod->cat_weight_percentage; ?></a>
+                                                </li>
+                                                <li class="list-group-item">
+                                                    <b>Exam Weight Percentage : </b> <a class="float-right"><?php echo $mod->exam_weight_percentage; ?></a>
                                                 </li>
                                             </ul>
                                         </div>

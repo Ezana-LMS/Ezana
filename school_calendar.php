@@ -68,10 +68,9 @@ require_once('partials/_head.php');
                                                 <a class="btn btn-outline-success" href="add_school_calendar.php?faculty=<?php echo $row->id; ?>">
                                                     Add Important Dates
                                                 </a>
-                                            </h2>
-                                            <h2 class="text-right">
+
                                                 <a class="btn btn-outline-primary" href="import_school_calendar.php?faculty=<?php echo $row->id; ?>">
-                                                    Import .xls
+                                                    Import Important Dates
                                                 </a>
                                             </h2>
                                         </div>
