@@ -1,3 +1,4 @@
+
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="dashboard.php" class="brand-link">
@@ -19,7 +20,7 @@
                 </li>
                 <!-- Faculties -->
                 <li class="nav-item">
-                    <a href="faculties.php" class="nav-link">
+                    <a href="faculty_dashboard.php?faculty=<?php echo $row->id;?>" class="nav-link">
                         <i class="nav-icon fas fa fa-university"></i>
                         <p>
                             Faculty Dashboard
@@ -29,7 +30,7 @@
 
                 <!-- Departments -->
                 <li class="nav-item">
-                    <a href="total_departments.php" class="nav-link">
+                    <a href="departments.php?faculty=<?php echo $row->id;?>" class="nav-link">
                         <i class="nav-icon fas fa fa-building"></i>
                         <p>
                             Departments
@@ -39,7 +40,7 @@
 
                 <!-- Courses -->
                 <li class="nav-item">
-                    <a href="total_courses.php" class="nav-link">
+                    <a href="courses.php?faculty=<?php echo $row->id;?>" class="nav-link">
                         <i class="nav-icon fas fa-chalkboard-teacher"></i>
                         <p>
                             Courses
@@ -49,7 +50,7 @@
 
                 <!-- Modules -->
                 <li class="nav-item">
-                    <a href="total_modules.php" class="nav-link">
+                    <a href="modules.php?faculty=<?php echo $row->id;?>" class="nav-link">
                         <i class="nav-icon fas fas fa-chalkboard"></i>
                         <p>
                             Modules
@@ -57,19 +58,10 @@
                     </a>
                 </li>
 
-                <!-- System Admins -->
-                <li class="nav-item">
-                    <a href="total_admins.php" class="nav-link">
-                        <i class="nav-icon fas fas fa-user-secret"></i>
-                        <p>
-                            Administrators
-                        </p>
-                    </a>
-                </li>
-
+                
                 <!-- Lecturers -->
                 <li class="nav-item">
-                    <a href="total_lecs.php" class="nav-link">
+                    <a href="lecturers.php?faculty=<?php echo $row->id;?>" class="nav-link">
                         <i class="nav-icon fas fas fa-user-tie"></i>
                         <p>
                             Lecturers
@@ -79,7 +71,7 @@
 
                 <!-- Students -->
                 <li class="nav-item">
-                    <a href="total_students.php" class="nav-link">
+                    <a href="students.php?faculty=<?php echo $row->id;?>" class="nav-link">
                         <i class="nav-icon  fas fa-user-graduate"></i>
                         <p>
                             Students
