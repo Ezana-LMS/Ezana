@@ -32,7 +32,9 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
+            require_once('partials/_faculty_sidebar.php')
+
         ?>
             <!-- /.navbar -->
 
@@ -41,12 +43,12 @@ require_once('partials/_head.php');
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Students</h1>
+                                <h1 class="m-0 text-dark"><?php echo $row->name; ?> Students</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
                                     <li class="breadcrumb-item active"> Lecturers </li>
                                 </ol>
                             </div>
@@ -62,17 +64,17 @@ require_once('partials/_head.php');
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_student.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-success" href="add_student.php?faculty=<?php echo $row->id; ?>">
                                                     <i class="fas fa-user-plus"></i>
                                                     Register New Student
                                                 </a>
 
-                                                <a class="btn btn-outline-primary" href="import_students.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-primary" href="import_students.php?faculty=<?php echo $row->id; ?>">
                                                     <i class="fas fa-file-excel"></i>
                                                     Import Students From .XLS File
                                                 </a>
 
-                                                <a class="btn btn-outline-primary" href="enrolled_students.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-primary" href="enrolled_students.php?faculty=<?php echo $row->id; ?>">
                                                     <i class="fas fa-user-tag"></i>
                                                     Enrolled Students
                                                 </a>
@@ -94,7 +96,7 @@ require_once('partials/_head.php');
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$f->id'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$row->id'  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
@@ -102,7 +104,7 @@ require_once('partials/_head.php');
                                                     while ($std = $res->fetch_object()) {
                                                     ?>
 
-                                                        <tr class="table-row" data-href="view_student.php?view=<?php echo $std->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                        <tr class="table-row" data-href="view_student.php?view=<?php echo $std->id; ?>&faculty=<?php echo $row->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $std->admno; ?></td>
                                                             <td><?php echo $std->name; ?></td>
@@ -111,12 +113,12 @@ require_once('partials/_head.php');
                                                             <td><?php echo $std->idno; ?></td>
                                                             <td><?php echo $std->gender; ?></td>
                                                             <td>
-                                                                <a class="badge badge-primary" href="update_student.php?update=<?php echo $std->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-primary" href="update_student.php?update=<?php echo $std->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
                                                                 </a>
 
-                                                                <a class="badge badge-danger" href="students.php?delete=<?php echo $std->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-danger" href="students.php?delete=<?php echo $std->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>

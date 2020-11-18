@@ -38,7 +38,6 @@ require_once('partials/_head.php');
             require_once('partials/_faculty_sidebar.php')
         ?>
             <!-- /.navbar -->
-
             <div class="content-wrapper">
                 <div class="content-header">
                     <div class="container">
