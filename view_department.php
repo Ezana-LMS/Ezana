@@ -116,13 +116,13 @@ require_once('partials/_head.php');
                                     <div class="card-body">
                                         <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="courses" data-toggle="pill" href="#courses" role="tab">Courses</a>
+                                                <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Courses</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" id="notices_memos" data-toggle="pill" href="#notices_memos" role="tab">Departmental Notices / Memos</a>
+                                                <a class="nav-link" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Notices / Memos</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" id="dep_settings" data-toggle="pill" href="#settings" role="tab">Departmental Settings</a>
+                                                <a class="nav-link" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-memo" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Notices / Memos</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content" id="custom-content-below-tabContent">
@@ -183,12 +183,12 @@ require_once('partials/_head.php');
                                                 </div>
                                             </div>
                                             <!-- Dep Notices / Announcements -->
-                                            <div class="tab-pane fade" id="notice_memos" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                            <div class="tab-pane fade" id="custom-content-below" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                 <br>
 
                                             </div>
                                             <!-- Departmental Settiings -->
-                                            <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                            <div class="tab-pane fade" id="custom-content-below-memo" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                 <br>
                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                     <div class="card-body">
