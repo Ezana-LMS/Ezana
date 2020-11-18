@@ -86,6 +86,15 @@
                         </p>
                     </a>
                 </li>
+                <!-- Students -->
+                <li class="nav-item">
+                    <a href="total_enrollments.php" class="nav-link">
+                        <i class="nav-icon  fas fa-user-graduate"></i>
+                        <p>
+                            Enrollments
+                        </p>
+                    </a>
+                </li>
                 <!-- Advanced Reporting 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
