@@ -50,13 +50,14 @@ if (isset($_POST['add_module'])) {
             $course_name = $_POST['course_name'];
             $course_id = $_POST['course_id'];
             $course_duration = $_POST['course_duration'];
-            $weight_percentage = $_POST['weight_percentage'];
+            $exam_weight_percentage = $_POST['exam_weight_percentage'];
+            $cat_weight_percentage = $_POST['cat_weight_percentage'];
             $lectures_number = $_POST['lectures_number'];
             $created_at = date('d M Y');
             $faculty = $_GET['faculty'];
-            $query = "INSERT INTO ezanaLMS_Modules (id, name, code, details, course_name, course_id, faculty_id, course_duration, weight_percentage, lectures_number, created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Modules (id, name, code, details, course_name, course_id, faculty_id, course_duration, exam_weight_percentage, lectures_number, created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssssssss', $id, $name, $code, $details, $course_name, $course_id, $faculty, $course_duration, $weight_percentage, $lectures_number, $created_at);
+            $rc = $stmt->bind_param('ssssssssssss', $id, $name, $code, $details, $course_name, $course_id, $faculty, $course_duration, $exam_weight_percentage, $cat_weight_percentage, $lectures_number, $created_at);
             $stmt->execute();
             if ($stmt) {
                 $success = "Module Created" && header("refresh:1; url=add_module.php?faculty=$faculty");
@@ -80,7 +81,9 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
+            require_once('partials/_faculty_nav.php');
+
         ?>
             <!-- /.navbar -->
 
@@ -95,7 +98,7 @@ require_once('partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="dashboard.php">Faculties</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $faculty; ?>"><?php echo $f->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $faculty; ?>"><?php echo $row->name; ?></a></li>
                                     <li class="breadcrumb-item active">Add Module</li>
                                 </ol>
                             </div>
@@ -131,7 +134,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' id="Cname" onchange="getCourseDetails(this.value);" name="course_name">
                                                             <option selected>Select Course Name</option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$f->id'  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$row->id'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -161,8 +164,12 @@ require_once('partials/_head.php');
                                                         <input type="text" required name="lectures_number" class="form-control">
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="">Module CAT / End Exam Weight Percentage</label>
-                                                        <input type="text" required name="weight_percentage" class="form-control">
+                                                        <label for="">Module CAT Weight Percentage</label>
+                                                        <input type="text" required name="cat_weight_percentage" class="form-control">
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="">Module  End Exam Weight Percentage</label>
+                                                        <input type="text" required name="exam_weight_percentage" class="form-control">
                                                     </div>
                                                 </div>
 
