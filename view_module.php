@@ -39,13 +39,14 @@ if (isset($_POST['update_module'])) {
         $course_name = $_POST['c_name'];
         $course_id = $_POST['course_id'];
         $course_duration = $_POST['course_duration'];
-        $weight_percentage = $_POST['weight_percentage'];
+        $exam_weight_percentage = $_POST['exam_weight_percentage'];
+        $cat_weight_percentage = $_POST['cat_weight_percentage'];
         $lectures_number = $_POST['lectures_number'];
         $updated_at = date('d M Y');
         $faculty = $_GET['faculty'];
-        $query = "UPDATE ezanaLMS_Modules SET  name =?, code =?, details =?, course_name =?, course_id =?, course_duration =?, weight_percentage =?, lectures_number =?, updated_at =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Modules SET  name =?, code =?, details =?, course_name =?, course_id =?, course_duration =?, exam_weight_percentage =?, cat_weight_percentage=?,  lectures_number =?, updated_at =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssssss', $name, $code, $details, $course_name, $course_id, $course_duration, $weight_percentage, $lectures_number, $updated_at, $view);
+        $rc = $stmt->bind_param('sssssssssss', $name, $code, $details, $course_name, $course_id, $course_duration, $exam_weight_percentage, $cat_weight_percentage, $lectures_number, $updated_at, $view);
         $stmt->execute();
         if ($stmt) {
             $success = "Module Updated" && header("refresh:1; url=view_module.php?view=$view&faculty=$faculty");
@@ -200,17 +201,21 @@ require_once('partials/_head.php');
                                                             </div>
 
                                                             <div class="row">
-                                                                <div class="form-group col-md-4">
+                                                                <div class="form-group col-md-3">
                                                                     <label for="">Teaching Duration</label>
                                                                     <input type="text" value="<?php echo $mod->course_duration; ?>" required name="course_duration" class="form-control" id="exampleInputEmail1">
                                                                 </div>
-                                                                <div class="form-group col-md-4">
+                                                                <div class="form-group col-md-3">
                                                                     <label for="">Number Of Lectures Per Week</label>
                                                                     <input type="text" value="<?php echo $mod->lectures_number; ?>" required name="lectures_number" class="form-control">
                                                                 </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Module CAT / End Exam Weight Percentage</label>
-                                                                    <input type="text" value="<?php echo $mod->weight_percentage; ?>" required name="weight_percentage" class="form-control">
+                                                                <div class="form-group col-md-3">
+                                                                    <label for="">CAT Exam Weight Percentage</label>
+                                                                    <input type="text" value="<?php echo $mod->cat_weight_percentage; ?>" required name="cat_weight_percentage" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-3">
+                                                                    <label for="">End Exam Weight Percentage</label>
+                                                                    <input type="text" value="<?php echo $mod->exam_weight_percentage; ?>" required name="exam_weight_percentage" class="form-control">
                                                                 </div>
                                                             </div>
 
