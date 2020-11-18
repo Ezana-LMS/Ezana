@@ -150,8 +150,8 @@ require_once('partials/_head.php');
                                         <h3 class="card-title">Departments Under <?php echo $row->name; ?></h3>
                                     </div>
                                     <div class="card-body box-profile">
-                                        <div class="card">
-                                            <div class="card-header">
+                                        <div class="">
+                                            <div class="">
                                                 <h2 class="text-right">
                                                     <a class="btn btn-outline-success" href="add_department.php?faculty=<?php echo $row->id; ?>">
                                                         Register New Department
