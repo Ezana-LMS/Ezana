@@ -19,7 +19,7 @@
                 </li>
                 <!-- Faculties -->
                 <li class="nav-item">
-                    <a href="system_admins.php" class="nav-link">
+                    <a href="faculties.php" class="nav-link">
                         <i class="nav-icon fas fa fa-university"></i>
                         <p>
                             Faculties
@@ -29,7 +29,7 @@
 
                 <!-- Departments -->
                 <li class="nav-item">
-                    <a href="system_admins.php" class="nav-link">
+                    <a href="total_departments.php" class="nav-link">
                         <i class="nav-icon fas fa fa-building"></i>
                         <p>
                             Departments
@@ -39,7 +39,7 @@
 
                 <!-- Courses -->
                 <li class="nav-item">
-                    <a href="system_admins.php" class="nav-link">
+                    <a href="total_courses.php" class="nav-link">
                         <i class="nav-icon fas fa-chalkboard-teacher"></i>
                         <p>
                             Courses
@@ -49,7 +49,7 @@
 
                 <!-- Modules -->
                 <li class="nav-item">
-                    <a href="system_admins.php" class="nav-link">
+                    <a href="total_modules.php" class="nav-link">
                         <i class="nav-icon fas fas fa-chalkboard"></i>
                         <p>
                             Modules
@@ -57,9 +57,19 @@
                     </a>
                 </li>
 
+                <!-- System Admins -->
+                <li class="nav-item">
+                    <a href="total_admins.php" class="nav-link">
+                        <i class="nav-icon fas fas fa-user-secret"></i>
+                        <p>
+                            Administrators
+                        </p>
+                    </a>
+                </li>
+
                 <!-- Lecturers -->
                 <li class="nav-item">
-                    <a href="system_admins.php" class="nav-link">
+                    <a href="total_lecs.php" class="nav-link">
                         <i class="nav-icon fas fas fa-user-tie"></i>
                         <p>
                             Lecturers
@@ -69,7 +79,7 @@
 
                 <!-- Students -->
                 <li class="nav-item">
-                    <a href="system_admins.php" class="nav-link">
+                    <a href="total_students.php" class="nav-link">
                         <i class="nav-icon  fas fa-user-graduate"></i>
                         <p>
                             Students
@@ -120,7 +130,7 @@
                         <li class="nav-item">
                             <a href="reading_materials.php" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
-                                <p>Module Enrollment</p>
+                                <p>Module Enrollments</p>
                             </a>
                         </li>
                         <li class="nav-item">
