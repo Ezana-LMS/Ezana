@@ -123,7 +123,7 @@ require_once('partials/_head.php');
                                         <div class="">
                                             <div class="card-header">
                                                 <h2 class="text-right">
-                                                    <a class="btn btn-outline-success" href="add_course.php?faculty=<?php echo $row->id; ?>">
+                                                    <a class="btn btn-outline-success" href="add_course.php?faculty=<?php echo $row->faculty_id; ?>">
                                                         Register New Course
                                                     </a>
                                                 </h2>
@@ -171,8 +171,8 @@ require_once('partials/_head.php');
                                         <div class="">
                                             <div class="card-header">
                                                 <h2 class="text-right">
-                                                    <a class="btn btn-outline-success" href="add_course.php?faculty=<?php echo $row->id; ?>">
-                                                        Register New Course
+                                                    <a class="btn btn-outline-primary" href="add_departmental_notememos.php?faculty=<?php echo $row->faculty_id; ?>">
+                                                        Add New Departmental Memos & Notices
                                                     </a>
                                                 </h2>
                                             </div>
@@ -181,24 +181,37 @@ require_once('partials/_head.php');
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Course Code</th>
-                                                            <th>Course Name</th>
+                                                            <th>Department Name</th>
+                                                            <th>Date Posted</th>
+                                                            <th>Type</th>
+                                                            <th>Manage</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE department_id = '$row->id'  ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos`  ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
                                                         $cnt = 1;
-                                                        while ($course = $res->fetch_object()) {
+                                                        while ($memo = $res->fetch_object()) {
                                                         ?>
 
-                                                            <tr class="table-row" data-href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
+                                                            <tr class="table-row" data-href="view_departmental_notememo.php?view=<?php echo $memo->id; ?>&faculty=<?php echo $memo->faculty_id; ?>">
                                                                 <td><?php echo $cnt; ?></td>
-                                                                <td><?php echo $course->code; ?></td>
-                                                                <td><?php echo $course->name; ?></td>
+                                                                <td><?php echo $memo->department_name; ?></td>
+                                                                <td><?php echo $memo->created_at; ?></td>
+                                                                <td>Departmental <?php echo $memo->type; ?></td>
+                                                                <td>
+                                                                    <a class="badge badge-primary" href="update_departmental_memo.php?update=<?php echo $memo->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                        <i class="fas fa-edit"></i>
+                                                                        Update
+                                                                    </a>
+                                                                    <a class="badge badge-danger" href="departmental_memos.php?delete=<?php echo $memo->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                        <i class="fas fa-trash"></i>
+                                                                        Delete
+                                                                    </a>
+                                                                </td>
                                                             </tr>
                                                         <?php $cnt = $cnt + 1;
                                                         } ?>
