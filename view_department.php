@@ -111,113 +111,13 @@ require_once('partials/_head.php');
                                 </div>
                             </div>
                             <!-- Departmental Details -->
-                            <div class="col-md-12">
-                                <div class="card card-primary card-outline">
-                                    <div class="card-body">
-                                        <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Courses</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Notices / Memos</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-memo" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Notices / Memos</a>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content" id="custom-content-below-tabContent">
-                                            <!-- Courses -->
-                                            <div class="tab-pane fade show active" id="courses" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
-                                                <br>
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h2 class="text-right">
-                                                            <a class="btn btn-outline-success" href="add_course.php?faculty=<?php echo $row->id; ?>">
-                                                                Register New Course
-                                                            </a>
-                                                        </h2>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <table id="example1" class="table table-bordered table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Course Code</th>
-                                                                    <th>Course Name</th>
-                                                                    <th>Department Name</th>
-                                                                    <th>Manage Course</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <?php
-                                                                $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE department_id = '$row->id'  ";
-                                                                $stmt = $mysqli->prepare($ret);
-                                                                $stmt->execute(); //ok
-                                                                $res = $stmt->get_result();
-                                                                $cnt = 1;
-                                                                while ($course = $res->fetch_object()) {
-                                                                ?>
-
-                                                                    <tr class="table-row" data-href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
-                                                                        <td><?php echo $cnt; ?></td>
-                                                                        <td><?php echo $course->code; ?></td>
-                                                                        <td><?php echo $course->name; ?></td>
-                                                                        <td><?php echo $course->department_name; ?></td>
-                                                                        <td>
-                                                                            <a class="badge badge-success" href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
-                                                                                <i class="fas fa-eye"></i>
-                                                                                View Course
-                                                                            </a>
-
-                                                                            <a class="badge badge-danger" href="courses.php?delete=<?php echo $course->id; ?>&faculty=<?php echo $f->id; ?>">
-                                                                                <i class="fas fa-trash"></i>
-                                                                                Delete
-                                                                            </a>
-                                                                        </td>
-                                                                    </tr>
-                                                                <?php $cnt = $cnt + 1;
-                                                                } ?>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Dep Notices / Announcements -->
-                                            <div class="tab-pane fade" id="custom-content-below" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
-                                                <br>
-
-                                            </div>
-                                            <!-- Departmental Settiings -->
-                                            <div class="tab-pane fade" id="custom-content-below-memo" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
-                                                <br>
-                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Department Name</label>
-                                                                <input type="text" required name="name" value="<?php echo $row->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Department Number / Code</label>
-                                                                <input type="text" required name="code" value="<?php echo $row->code; ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Department HOD</label>
-                                                                <input type="text" required value="<?php echo $row->hod; ?>" name="hod" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="exampleInputPassword1">Department Details</label>
-                                                                <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $row->details; ?></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-footer text-right">
-                                                        <button type="submit" name="update_dept" class="btn btn-primary">Update Department</button>
-                                                    </div>
-                                                </form>
-                                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Courses Under <?php echo $row->name; ?> Department</h3>
+                                        </div>
+                                        <div class="card-body box-profile">
                                         </div>
                                     </div>
                                 </div>
