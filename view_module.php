@@ -137,7 +137,6 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-8">
                                     <div class="card card-primary card-outline">
                                         <div class="card-body">
@@ -236,9 +235,56 @@ require_once('partials/_head.php');
                             </div>
 
                             <div class="row">
+                                <!-- Class Timetable -->
                                 <div class="col-md-6">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header text-center">
+                                            <h3 class="card-title">Timetable</h3>
+                                        </div>
+                                        <div class="card-body box-profile">
 
+                                        </div>
+                                    </div>
                                 </div>
+
+
+                                <!-- Lecturer Assigned Module -->
+                                <div class="col-md-6">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header text-center">
+                                            <h3 class="card-title">Lecturer Assigned Module</h3>
+                                        </div>
+                                        <div class="card-body box-profile">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            
+
+                                <!-- Students Enrolled -->
+                                <div class="col-md-6">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header text-center">
+                                            <h3 class="card-title">Students Enrolled On <?php echo $mod->name; ?></h3>
+                                        </div>
+                                        <div class="card-body box-profile">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Student Groups -->
+                                <div class="col-md-6">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header text-center">
+                                            <h3 class="card-title">Student Groups</h3>
+                                        </div>
+                                        <div class="card-body box-profile">
+
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
