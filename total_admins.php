@@ -64,7 +64,7 @@ require_once('partials/_head.php');
                                                 while ($admin = $res->fetch_object()) {
                                                 ?>
 
-                                                    <tr>
+                                                    <tr class="table-row" data-href="view_admin.php?view=<?php echo $admin->id; ?>">
                                                         <td><?php echo $cnt; ?></td>
                                                         <td><?php echo $admin->name; ?></td>
                                                         <td><?php echo $admin->email; ?></td>
