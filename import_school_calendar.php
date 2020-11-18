@@ -42,48 +42,28 @@ if (isset($_POST["upload"])) {
                 $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
             }
 
-            $number = "";
+            $faculty_id = "";
             if (isset($spreadSheetAry[$i][1])) {
-                $number = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
+                $faculty_id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
             }
-            $name = "";
+            $academic_yr = "";
             if (isset($spreadSheetAry[$i][2])) {
-                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
+                $academic_yr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
             }
 
-            $idno = "";
+            $semester_start = "";
             if (isset($spreadSheetAry[$i][3])) {
-                $idno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
+                $semester_start = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
             }
 
-            $phone = "";
+            $semester_name = "";
             if (isset($spreadSheetAry[$i][4])) {
-                $phone = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
+                $semester_name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
             }
 
-            $email = "";
+            $semester_end = "";
             if (isset($spreadSheetAry[$i][5])) {
-                $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
-            }
-
-            $adr = "";
-            if (isset($spreadSheetAry[$i][6])) {
-                $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
-            }
-
-            $password = "";
-            if (isset($spreadSheetAry[$i][7])) {
-                $password = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
-            }
-
-            $created_at = "";
-            if (isset($spreadSheetAry[$i][8])) {
-                $created_at = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
-            }
-
-            $facuty_id = "";
-            if (isset($spreadSheetAry[$i][9])) {
-                $facuty_id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
+                $semester_end = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
             }
 
             if (!empty($faculty) || !empty($academic_yr) || !empty($semester_start) || !empty($semester_name) || !empty($semester_end)) {
