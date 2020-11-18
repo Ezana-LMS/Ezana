@@ -86,7 +86,9 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
+            require_once('partials/_faculty_sidebar.php');
+
         ?>
             <div class="content-wrapper">
                 <div class="content-header">
@@ -98,8 +100,8 @@ require_once('partials/_head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                    <li class="breadcrumb-item"><a href="lecturers.php?faculty=<?php echo $f->id; ?>">Lecturers</a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="lecturers.php?faculty=<?php echo $row->id; ?>">Lecturers</a></li>
                                     <li class="breadcrumb-item active">Add Lecturers </li>
                                 </ol>
                             </div>
@@ -166,7 +168,7 @@ require_once('partials/_head.php');
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card-footer">
+                                            <div class="card-footer text-right">
                                                 <button type="submit" name="add_lec" class="btn btn-primary">Submit</button>
                                             </div>
                                         </form>

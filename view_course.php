@@ -111,27 +111,23 @@ require_once('partials/_head.php');
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-
                                     <div class="card card-primary card-outline">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Course Details</h3>
-                                        </div>
-                                        <div class="card-body box-profile">
-                                            <?php echo $course->details; ?>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-header p-2">
-                                            <ul class="nav nav-pills">
-                                                <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Course Settings</a></li>
-                                            </ul>
-                                        </div>
                                         <div class="card-body">
-                                            <div class="tab-content">
-                                                <div class="active tab-pane" id="settings">
+                                            <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Details</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"><?php echo $course->name; ?> Settings</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content" id="custom-content-below-tabContent">
+                                                <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                    <br>
+                                                    <?php echo $course->details; ?>
+                                                </div>
+                                                <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                    <br>
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
@@ -151,7 +147,7 @@ require_once('partials/_head.php');
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="card-footer">
+                                                        <div class="card-footer text-right">
                                                             <button type="submit" name="update_course" class="btn btn-primary">Update Course</button>
                                                         </div>
                                                     </form>
@@ -160,6 +156,7 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

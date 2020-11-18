@@ -49,13 +49,12 @@ require_once('partials/_head.php');
 <body class="hold-transition login-page">
     <div class="login-box">
         <!-- /.login-logo -->
-        <div class="card">
-            <div class="card-body login-card-body">
+        <div class="">
+            <div class="">
                 <div class="login-logo">
                     <img height="150" width="150" src="dist/img/logo.jpeg" alt="">
                 </div>
                 <?php
-
                 $email  = $_SESSION['email'];
                 $ret = "SELECT * FROM  ezanaLMS_Admins  WHERE email = '$email'";
                 $stmt = $mysqli->prepare($ret);
@@ -77,7 +76,7 @@ require_once('partials/_head.php');
                         <input type="password" required name="new_password" class="form-control" placeholder="New Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                                <span class="fas fa-user-lock"></span>
                             </div>
                         </div>
                     </div>
@@ -85,7 +84,7 @@ require_once('partials/_head.php');
                         <input type="password" required name="confirm_password" class="form-control" placeholder="Confirm New Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                                <span class="fas fa-user-lock"></span>
                             </div>
                         </div>
                     </div>

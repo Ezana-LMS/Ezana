@@ -67,7 +67,8 @@ require_once('partials/_head.php');
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($row = $res->fetch_object()) {
-            require_once('partials/_faculty_nav.php'); ?>
+            require_once('partials/_faculty_nav.php');
+             ?>
             <!-- /.navbar -->
             <div class="content-wrapper">
                 <div class="content-header">
@@ -132,7 +133,7 @@ require_once('partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer">
+                                                <div class="card-footer text-right">
                                                     <button type="submit" name="add_class" class="btn btn-primary">Create Class</button>
                                                 </div>
                                             </form>

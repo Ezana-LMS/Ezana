@@ -27,14 +27,18 @@ $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
-while ($f = $res->fetch_object()) {
+while ($row = $res->fetch_object()) {
 ?>
 
     <body class="hold-transition sidebar-collapse layout-top-nav">
         <div class="wrapper">
 
             <!-- Navbar -->
-            <?php require_once('partials/_faculty_nav.php'); ?>
+            <?php
+            require_once('partials/_faculty_nav.php');
+            require_once('partials/_faculty_sidebar.php');
+
+            ?>
             <!-- /.navbar -->
 
             <div class="content-wrapper">
@@ -42,12 +46,12 @@ while ($f = $res->fetch_object()) {
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Courses</h1>
+                                <h1 class="m-0 text-dark"><?php echo $row->name; ?> Courses</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
                                     <li class="breadcrumb-item active"> Courses </li>
                                 </ol>
                             </div>
@@ -63,7 +67,7 @@ while ($f = $res->fetch_object()) {
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_course.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-success" href="add_course.php?faculty=<?php echo $row->id; ?>">
                                                     Register New Course
                                                 </a>
                                             </h2>
@@ -81,7 +85,7 @@ while ($f = $res->fetch_object()) {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$f->id'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$row->id'  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
@@ -95,11 +99,6 @@ while ($f = $res->fetch_object()) {
                                                             <td><?php echo $course->name; ?></td>
                                                             <td><?php echo $course->department_name; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    View Course
-                                                                </a>
-
                                                                 <a class="badge badge-danger" href="courses.php?delete=<?php echo $course->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete

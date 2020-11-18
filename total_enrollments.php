@@ -15,7 +15,6 @@ require_once('partials/_head.php');
         <?php
         require_once('partials/_nav.php');
         require_once('partials/_sidebar.php');
-
         ?>
         <!-- /.navbar -->
 
@@ -24,12 +23,12 @@ require_once('partials/_head.php');
                 <div class="container">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Courses</h1>
+                            <h1 class="m-0 text-dark">Enrollments</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                <li class="breadcrumb-item active"> Courses </li>
+                                <li class="breadcrumb-item active"> Enrollments </li>
                             </ol>
                         </div>
                     </div>
@@ -62,26 +61,36 @@ require_once('partials/_head.php');
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Course Code</th>
-                                                    <th>Course Name</th>
-                                                    <th>Department Name</th>
+                                                    <th>Admission</th>
+                                                    <th>Name</th>
+                                                    <th>Course</th>
+                                                    <th>Module</th>
+                                                    <th>Academic Yr</th>
+                                                    <th>Sem Enrolled</th>
+                                                    <th>Sem Start</th>
+                                                    <th>Sem End </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_Enrollments`  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
                                                 $cnt = 1;
-                                                while ($course = $res->fetch_object()) {
+                                                while ($en = $res->fetch_object()) {
                                                 ?>
 
-                                                    <tr class="table-row" data-href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
+                                                    <tr>
                                                         <td><?php echo $cnt; ?></td>
-                                                        <td><?php echo $course->code; ?></td>
-                                                        <td><?php echo $course->name; ?></td>
-                                                        <td><?php echo $course->department_name; ?></td>
+                                                        <td><?php echo $en->student_adm; ?></td>
+                                                        <td><?php echo $en->student_name; ?></td>
+                                                        <td><?php echo $en->course_name; ?></td>
+                                                        <td><?php echo $en->module_name; ?></td>
+                                                        <td><?php echo $en->academic_year_enrolled; ?></td>
+                                                        <td><?php echo $en->semester_enrolled; ?></td>
+                                                        <td><?php echo date('d M Y', strtotime($en->semester_start)); ?></td>
+                                                        <td><?php echo date('d M Y', strtotime($en->semester_end)); ?></td>
                                                     </tr>
                                                 <?php $cnt = $cnt + 1;
                                                 } ?>

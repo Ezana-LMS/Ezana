@@ -58,10 +58,10 @@ require_once('partials/_head.php');
                                 <div class="card-body">
                                     <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true"><?php echo $memo->type;?> Content</a>
+                                            <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true"><?php echo $memo->type; ?> Content</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Download <?php echo $memo->type;?> Attachments</a>
+                                            <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Download <?php echo $memo->type; ?> Attachments</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content" id="custom-content-below-tabContent">

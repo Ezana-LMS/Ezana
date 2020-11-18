@@ -76,16 +76,15 @@ if (isset($_POST['change_password'])) {
     }
 }
 
-
 require_once('partials/_head.php');
 ?>
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
-
         <!-- Navbar -->
         <?php
         require_once('partials/_nav.php');
+        require_once('partials/_sidebar.php');
         $view = $_GET['view'];
         $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id ='$view' ";
         $stmt = $mysqli->prepare($ret);
@@ -110,7 +109,7 @@ require_once('partials/_head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="administrators.php">Administrators</a></li>
+                                    <li class="breadcrumb-item"><a href="total_admins.php">Administrators</a></li>
                                     <li class="breadcrumb-item active">View</li>
                                 </ol>
                             </div>
@@ -122,7 +121,6 @@ require_once('partials/_head.php');
                     <div class="container">
                         <div class="row">
                             <div class="col-md-3">
-
                                 <!-- Profile Image -->
                                 <div class="card card-primary card-outline">
                                     <div class="card-body box-profile">

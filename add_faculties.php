@@ -57,7 +57,11 @@ require_once('partials/_head.php');
     <div class="wrapper">
 
         <!-- Navbar -->
-        <?php require_once('partials/_nav.php'); ?>
+        <?php
+        require_once('partials/_nav.php');
+        require_once('partials/_sidebar.php');
+
+        ?>
         <!-- /.navbar -->
 
         <div class="content-wrapper">
@@ -107,8 +111,8 @@ require_once('partials/_head.php');
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-footer">
-                                            <button type="submit" name="add_faculty" class="btn btn-primary">Add Faculty</button>
+                                        <div class="text-right card-footer">
+                                            <button type="submit" name="add_faculty" class=" btn btn-primary">Add Faculty</button>
                                         </div>
                                     </form>
                                 </div>

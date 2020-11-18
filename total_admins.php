@@ -4,6 +4,21 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 
+//Delete
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $adn = "DELETE FROM ezanaLMS_Admins WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=total_admins.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 require_once('partials/_head.php');
 
 ?>
@@ -15,7 +30,6 @@ require_once('partials/_head.php');
         <?php
         require_once('partials/_nav.php');
         require_once('partials/_sidebar.php');
-
         ?>
         <!-- /.navbar -->
 
@@ -24,12 +38,12 @@ require_once('partials/_head.php');
                 <div class="container">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Courses</h1>
+                            <h1 class="m-0 text-dark">Administrators</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                <li class="breadcrumb-item active"> Courses </li>
+                                <li class="breadcrumb-item active"> Administrators </li>
                             </ol>
                         </div>
                     </div>
@@ -42,46 +56,46 @@ require_once('partials/_head.php');
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-                                    <!-- <div class="card-header">
-                                            <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_module.php?faculty=<?php echo $f->id; ?>">
-                                                    Register New Module
-                                                </a>
-
-                                                <a class="btn btn-outline-success" href="module_notices.php?faculty=<?php echo $f->id; ?>">
-                                                    Module Notices
-                                                </a>
-
-                                                <a class="btn btn-outline-success" href="module_reading_materials.php?faculty=<?php echo $f->id; ?>">
-                                                    Module Reading Materials
-                                                </a>
-                                            </h2>
-                                        </div> -->
+                                    <div class="card-header">
+                                        <h2 class="text-right">
+                                            <a class="btn btn-outline-success" href="add_administrator.php">
+                                                Add Administrator
+                                            </a>
+                                        </h2>
+                                    </div>
                                     <div class="card-body">
                                         <table id="export-dt" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Course Code</th>
-                                                    <th>Course Name</th>
-                                                    <th>Department Name</th>
+                                                    <th>Names</th>
+                                                    <th>Email</th>
+                                                    <th>Rank</th>
+                                                    <th>Phone No. </th>
+                                                    <th>Manage</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_Admins`  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
                                                 $cnt = 1;
-                                                while ($course = $res->fetch_object()) {
+                                                while ($admin = $res->fetch_object()) {
                                                 ?>
-
-                                                    <tr class="table-row" data-href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
+                                                    <tr class="table-row" data-href="view_admin.php?view=<?php echo $admin->id; ?>">
                                                         <td><?php echo $cnt; ?></td>
-                                                        <td><?php echo $course->code; ?></td>
-                                                        <td><?php echo $course->name; ?></td>
-                                                        <td><?php echo $course->department_name; ?></td>
+                                                        <td><?php echo $admin->name; ?></td>
+                                                        <td><?php echo $admin->email; ?></td>
+                                                        <td><?php echo $admin->rank; ?></td>
+                                                        <td><?php echo $admin->phone; ?></td>
+                                                        <td>
+                                                            <a class="badge badge-danger" href="total_admins.php?delete=<?php echo $admin->id; ?>">
+                                                                <i class="fas fa-trash"></i>
+                                                                Delete Account
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 <?php $cnt = $cnt + 1;
                                                 } ?>

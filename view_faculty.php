@@ -51,6 +51,7 @@ require_once('partials/_head.php');
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($row = $res->fetch_object()) {
+            require_once('partials/_faculty_sidebar.php');
         ?>
             <!-- /.navbar -->
             <div class="content-wrapper">
@@ -76,7 +77,6 @@ require_once('partials/_head.php');
                     <div class="container">
                         <div class="row">
                             <div class="col-md-4">
-
                                 <!-- Profile Image -->
                                 <div class="card card-primary card-outline">
                                     <div class="card-body box-profile">
@@ -96,27 +96,23 @@ require_once('partials/_head.php');
                                 </div>
                             </div>
                             <div class="col-md-8">
-
                                 <div class="card card-primary card-outline">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Faculty Details</h3>
-                                    </div>
-                                    <div class="card-body box-profile">
-                                        <?php echo $row->details; ?>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-header p-2">
-                                        <ul class="nav nav-pills">
-                                            <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Department Settings</a></li>
-                                        </ul>
-                                    </div>
                                     <div class="card-body">
-                                        <div class="tab-content">
-                                            <div class="active tab-pane" id="settings">
+                                        <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Details</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"><?php echo $row->name; ?> Settings</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content" id="custom-content-below-tabContent">
+                                            <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                <br>
+                                                <?php echo $row->details; ?>
+                                            </div>
+                                            <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                <br>
                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                     <div class="card-body">
                                                         <div class="row">
@@ -136,10 +132,67 @@ require_once('partials/_head.php');
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card-footer">
+                                                    <div class="text-right">
                                                         <button type="submit" name="update_faculty" class="btn btn-primary">Update Faculty</button>
                                                     </div>
                                                 </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Courses -->
+                            <div class="col-md-12">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header text-center">
+                                        <h3 class="card-title">Departments Under <?php echo $row->name; ?></h3>
+                                    </div>
+                                    <div class="card-body box-profile">
+                                        <div class="">
+                                            <div class="">
+                                                <h2 class="text-right">
+                                                    <a class="btn btn-outline-success" href="add_department.php?faculty=<?php echo $row->id; ?>">
+                                                        Register New Department
+                                                    </a>
+                                                </h2>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Department Code / Number</th>
+                                                            <th>Department Name</th>
+                                                            <th>Depeartment Head</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$row->id'  ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($dep = $res->fetch_object()) {
+                                                        ?>
+                                                            <tr class="table-row" data-href="view_department.php?department=<?php echo $dep->id; ?>">
+                                                                <td><?php echo $cnt; ?></td>
+                                                                <td><?php echo $dep->code; ?></td>
+                                                                <td><?php echo $dep->name; ?></td>
+                                                                <td><?php echo $dep->hod; ?></td>
+                                                                <!-- <td>
+                                                                    <a class="badge badge-danger" href="departments.php?delete=<?php echo $dep->id; ?>&faculty=<?php echo $dep->faculty_id; ?>">
+                                                                        <i class="fas fa-trash"></i>
+                                                                        Delete Department
+                                                                    </a>
+                                                                </td> -->
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>

@@ -210,7 +210,7 @@ require_once('partials/_head.php');
                                                             <input type="password" required name="confirm_password" class="form-control">
                                                         </div>
                                                     </div>
-                                                    <div class="card-footer">
+                                                    <div class="card-footer text-right">
                                                         <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
                                                     </div>
                                                 </div>

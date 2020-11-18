@@ -24,8 +24,8 @@ require_once('partials/_head.php')
 
 <body class="hold-transition login-page">
     <div class="login-box">
-        <div class="card">
-            <div class="card-body login-card-body">
+        <div class="">
+            <div class=" ">
                 <div class="login-logo">
                     <img height="150" width="150" src="dist/img/logo.jpeg" alt="">
                 </div>

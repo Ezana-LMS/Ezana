@@ -12,7 +12,10 @@ require_once('partials/_head.php');
     <div class="wrapper">
 
         <!-- Navbar -->
-        <?php require_once('partials/_nav.php'); ?>
+        <?php
+             require_once('partials/_nav.php');
+             require_once('partials/_sidebar.php');
+        ?>
         <!-- /.navbar -->
 
         <div class="content-wrapper">
@@ -20,7 +23,7 @@ require_once('partials/_head.php');
                 <div class="container">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Total Modules</h1>
+                            <h1 class="m-0 text-dark">Modules</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">

@@ -33,7 +33,9 @@ require_once('partials/_head.php');
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($row = $res->fetch_object()) {
-            require_once('partials/_faculty_nav.php'); ?>
+            require_once('partials/_faculty_nav.php');
+            require_once('partials/_faculty_sidebar.php');
+        ?>
             <!-- /.navbar -->
 
             <div class="content-wrapper">
@@ -66,10 +68,14 @@ require_once('partials/_head.php');
                                                 <a class="btn btn-outline-success" href="add_school_calendar.php?faculty=<?php echo $row->id; ?>">
                                                     Add Important Dates
                                                 </a>
+
+                                                <a class="btn btn-outline-primary" href="import_school_calendar.php?faculty=<?php echo $row->id; ?>">
+                                                    Import Important Dates
+                                                </a>
                                             </h2>
                                         </div>
                                         <div class="card-body">
-                                            <table id="example1" class="table table-bordered table-striped">
+                                            <table id="export-dt" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
