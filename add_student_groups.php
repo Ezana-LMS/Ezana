@@ -46,18 +46,19 @@ if (isset($_POST['add_group'])) {
             } */
         } else {
             $id = $_POST['id'];
+            $module_id = $_GET['module_id'];
             $name = $_POST['name'];
             $code = $_POST['code'];
             $created_at = date('d M Y');
             $details = $_POST['details'];
             $faculty = $_GET['faculty'];
 
-            $query = "INSERT INTO ezanaLMS_Groups (id, faculty_id, name, code, created_at, details) VALUES(?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Groups (id, module_id, faculty_id, name, code, created_at, details) VALUES(?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssss', $id, $faculty, $name, $code, $created_at, $details);
+            $rc = $stmt->bind_param('sssssss', $id, $module_id, $faculty, $name, $code, $created_at, $details);
             $stmt->execute();
             if ($stmt) {
-                $success = "Student Group  Added" && header("refresh:1; url=add_student_groups.php?faculty=$faculty");
+                $success = "Student Group  Added" && header("refresh:1; url=add_student_groups.php?faculty=$faculty&module_id=$module_id");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -78,7 +79,8 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
+            require_once('partials/_faculty_sidebar.php')
         ?>
             <!-- /.navbar -->
 
@@ -92,8 +94,8 @@ require_once('partials/_head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                    <li class="breadcrumb-item"><a href="student_groups.php?faculty=<?php echo $f->id; ?>">Student Groups</a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="student_groups.php?faculty=<?php echo $row->id; ?>">Student Groups</a></li>
                                     <li class="breadcrumb-item active"> Create </li>
                                 </ol>
                             </div>

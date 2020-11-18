@@ -412,7 +412,61 @@ require_once('partials/_head.php');
                                             <h3 class="card-title">Student Groups</h3>
                                         </div>
                                         <div class="card-body box-profile">
+                                            <div class="card-body">
+                                                <h2 class="text-right">
+                                                    <a class="btn btn-outline-success" href="add_student_groups.php?faculty=<?php echo $row->id; ?>&module_id=<?php echo $mod->id;?>">
+                                                        Create New Group
+                                                    </a>
+                                                    <a class="btn btn-outline-primary" href="student_group_assignments.php?faculty=<?php echo $row->id; ?>">
+                                                        Group Assignments
+                                                    </a>
+                                                    <a class="btn btn-outline-secondary" href="student_group_notices.php?faculty=<?php echo $row->id; ?>">
+                                                        Group Notices
+                                                    </a>
+                                                </h2>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Group Code Number</th>
+                                                            <th>Group Name</th>
+                                                            <th>Created At</th>
+                                                            <th>Manage Groups</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE faculty_id = '$row->id' AND module_id = '$mod->id'  ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($g = $res->fetch_object()) {
+                                                        ?>
 
+                                                            <tr class="table-row" data-href="view_student_group.php?&name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <td><?php echo $cnt; ?></td>
+                                                                <td><?php echo $g->code; ?></td>
+                                                                <td><?php echo $g->name; ?></td>
+                                                                <td><?php echo $g->created_at; ?></td>
+                                                                <td>
+                                                                    <a class="badge badge-primary" href="update_group.php?update=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                        <i class="fas fa-edit"></i>
+                                                                        Update
+                                                                    </a>
+                                                                    <a class="badge badge-danger" href="student_groups.php?delete=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                        <i class="fas fa-trash"></i>
+                                                                        Delete
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -423,10 +477,8 @@ require_once('partials/_head.php');
                                             <h3 class="card-title">Students Enrolled On <?php echo $mod->name; ?></h3>
                                         </div>
                                         <div class="card-body box-profile">
-                                        <div class="">
-                                        <div class="">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_student_enrollment.php?faculty=<?php echo $f->id;?>">
+                                                <a class="btn btn-outline-success" href="add_student_enrollment.php?faculty=<?php echo $f->id; ?>">
                                                     <i class="fas fa-user-plus"></i>
                                                     Add Enrollment
                                                 </a>
@@ -470,8 +522,6 @@ require_once('partials/_head.php');
                                                     } ?>
                                                 </tbody>
                                             </table>
-                                        </div>
-                                    </div>
                                         </div>
                                     </div>
                                 </div>
