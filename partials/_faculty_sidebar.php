@@ -79,15 +79,6 @@
                     </a>
                 </li>
 
-                <!-- Students Enrollments -->
-                <li class="nav-item">
-                    <a href="total_enrollments.php" class="nav-link">
-                        <i class="nav-icon  fas fa-user-tag"></i>
-                        <p>
-                            Enrollments
-                        </p>
-                    </a>
-                </li>
                 <!-- Advanced Reporting -->
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -117,6 +108,7 @@
                                 <p>Modules</p>
                             </a>
                         </li>
+                        
                         <li class="nav-item">
                             <a href="school_calendar_reports.php?faculty=<?php echo $row->id;?>" class="nav-link">
                                 <i class="fas fa-angle-double-right nav-icon"></i>
