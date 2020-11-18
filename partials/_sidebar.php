@@ -67,7 +67,6 @@
                     </a>
                 </li>
 
-
                 <!-- Students -->
                 <li class="nav-item">
                     <a href="system_admins.php" class="nav-link">
@@ -76,6 +75,67 @@
                             Students
                         </p>
                     </a>
+                </li>
+                <!-- Advanced Reporting -->
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-paste"></i>
+                        <p>
+                            Reports
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item">
+                            <a href="manage_modules.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Faculties</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="module_notices.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Departments</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="reading_materials.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Courses</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="reading_materials.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Modules</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="reading_materials.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Teaching Allocations</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="reading_materials.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>Module Enrollment</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="reading_materials.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>School Calendars</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="reading_materials.php" class="nav-link">
+                                <i class="fas fa-angle-double-right nav-icon"></i>
+                                <p>TimeTables</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>
