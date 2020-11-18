@@ -34,7 +34,8 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
+            require_once('partials/_faculty_sidebar.php')
         ?>
             <!-- /.navbar -->
 
@@ -43,12 +44,12 @@ require_once('partials/_head.php');
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Lecturers</h1>
+                                <h1 class="m-0 text-dark"><?php echo $row->name; ?> Lecturers</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
                                     <li class="breadcrumb-item active"> Lecturers </li>
                                 </ol>
                             </div>
@@ -64,13 +65,13 @@ require_once('partials/_head.php');
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-primary" href="add_lecturer.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-primary" href="add_lecturer.php?faculty=<?php echo $row->id; ?>">
                                                     Add New Lecturer
                                                 </a>
-                                                <a class="btn btn-outline-primary" href="import_lecturer.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-primary" href="import_lecturer.php?faculty=<?php echo $row->id; ?>">
                                                     Import Lecturers Details
                                                 </a>
-                                                <a class="btn btn-outline-primary" href="assign_lecturer_module.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-primary" href="assign_lecturer_module.php?faculty=<?php echo $row->id; ?>">
                                                     Lecturers Modules Assigns
                                                 </a>
                                             </h2>
@@ -90,14 +91,14 @@ require_once('partials/_head.php');
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$f->id'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$row->id'  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
                                                     $cnt = 1;
                                                     while ($lec = $res->fetch_object()) {
                                                     ?>
-                                                        <tr class="table-row" data-href="view_lecturer.php?view=<?php echo $lec->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                        <tr class="table-row" data-href="view_lecturer.php?view=<?php echo $lec->id; ?>&faculty=<?php echo $row->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $lec->number; ?></td>
                                                             <td><?php echo $lec->name; ?></td>
@@ -105,12 +106,12 @@ require_once('partials/_head.php');
                                                             <td><?php echo $lec->phone; ?></td>
                                                             <td><?php echo $lec->idno; ?></td>
                                                             <td>
-                                                                <a class="badge badge-primary" href="update_lecturer.php?update=<?php echo $lec->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-primary" href="update_lecturer.php?update=<?php echo $lec->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update Lecturer
                                                                 </a>
 
-                                                                <a class="badge badge-danger" href="lecturers.php?delete=<?php echo $lec->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-danger" href="lecturers.php?delete=<?php echo $lec->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete Lecturer
                                                                 </a>
