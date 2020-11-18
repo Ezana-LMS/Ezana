@@ -30,7 +30,6 @@ require_once('partials/_head.php');
         <?php
         require_once('partials/_nav.php');
         require_once('partials/_sidebar.php');
-
         ?>
         <!-- /.navbar -->
 
@@ -57,6 +56,13 @@ require_once('partials/_head.php');
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
+                                    <div class="card-header">
+                                        <h2 class="text-right">
+                                            <a class="btn btn-outline-success" href="add_administrator.php">
+                                                Add Administrator
+                                            </a>
+                                        </h2>
+                                    </div>
                                     <div class="card-body">
                                         <table id="export-dt" class="table table-bordered table-striped">
                                             <thead>
