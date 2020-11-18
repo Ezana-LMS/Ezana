@@ -348,7 +348,60 @@ require_once('partials/_head.php');
                                             <h3 class="card-title">Lecturer Assigned Module</h3>
                                         </div>
                                         <div class="card-body box-profile">
+                                            <?php
+                                            $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE module_code = '$mod->code'  ";
+                                            $stmt = $mysqli->prepare($ret);
+                                            $stmt->execute(); //ok
+                                            $res = $stmt->get_result();
+                                            $cnt = 1;
+                                            while ($ass = $res->fetch_object()) {
+                                                /* 
+                                                    Lec dETAILS
+                                                */
+                                                $lec = $ass->lec_id;
+                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id = '$lec'  ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                $cnt = 1;
+                                                while ($lectur = $res->fetch_object()) {
+                                                    //Get Default Profile Picture
+                                                    if ($lec->profile_pic == '') {
+                                                        $dpic = "<img class='profile-user-img img-fluid img-circle' src='dist/img/logo.jpeg' alt='User profile picture'>";
+                                                    } else {
+                                                        $dpic = "<img class='profile-user-img img-fluid img-circle' src='dist/img/lecturers/$lec->profile_pic' alt='User profile picture'>";
+                                                    }
+                                            ?>
+                                                    <div class="card card-primary card-outline">
+                                                        <div class="card-body box-profile">
+                                                            <div class="text-center">
+                                                                <?php echo $dpic; ?>
+                                                            </div>
 
+                                                            <h3 class="profile-username text-center"><?php echo $lec->name; ?></h3>
+
+                                                            <p class="text-muted text-center"><?php echo $lec->number; ?></p>
+
+                                                            <ul class="list-group list-group-unbordered mb-3">
+                                                                <li class="list-group-item">
+                                                                    <b>Email: </b> <a class="float-right"><?php echo $lec->email; ?></a>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <b>ID / Passport: </b> <a class="float-right"><?php echo $lec->idno; ?></a>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <b>Phone: </b> <a class="float-right"><?php echo $lec->phone; ?></a>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <b>Address</b> <a class="float-right"><?php echo $lec->adr; ?></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                            <?php
+                                                }
+                                            } ?>
                                         </div>
                                     </div>
                                 </div>
