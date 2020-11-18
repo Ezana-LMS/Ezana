@@ -147,7 +147,7 @@ require_once('partials/_head.php');
                             </div>
 
                             <!-- Department Reports -->
-                            <div class="col-12 col-sm-6 col-md-4">
+                            <!-- <div class="col-12 col-sm-6 col-md-4">
                                 <a href="faculty_reports.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-filter"></i></span>
@@ -157,7 +157,7 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                 </a>
-                            </div>
+                            </div> -->
 
                             <!-- Lecturers -->
                             <div class="col-12 col-sm-6 col-md-4">
@@ -185,7 +185,7 @@ require_once('partials/_head.php');
                                 </a>
                             </div>
                             <!-- Students Groups -->
-                            <div class="col-12 col-sm-6 col-md-4">
+                            <!-- <div class="col-12 col-sm-6 col-md-4">
                                 <a href="student_groups.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-friends"></i></span>
@@ -195,7 +195,7 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                 </a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
