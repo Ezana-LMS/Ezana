@@ -11,7 +11,10 @@ require_once('partials/_head.php');
     <div class="wrapper">
 
         <!-- Navbar -->
-        <?php require_once('partials/_nav.php'); ?>
+        <?php 
+            require_once('partials/_nav.php'); 
+            require_once('partials/_sidebar.php');
+        ?>
         <!-- /.navbar -->
 
         <div class="content-wrapper">
