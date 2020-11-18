@@ -113,37 +113,48 @@ require_once('partials/_head.php');
                             <!-- Departmental Details -->
                             <div class="col-md-6">
                                 <div class="card card-primary card-outline">
-                                    <div class="card-header">
+                                    <div class="card-header text-center">
                                         <h3 class="card-title">Courses Under <?php echo $row->name; ?> Department</h3>
                                     </div>
                                     <div class="card-body box-profile">
-                                        <table id="example1" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Course Code</th>
-                                                    <th>Course Name</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE department_id = '$row->id'  ";
-                                                $stmt = $mysqli->prepare($ret);
-                                                $stmt->execute(); //ok
-                                                $res = $stmt->get_result();
-                                                $cnt = 1;
-                                                while ($course = $res->fetch_object()) {
-                                                ?>
+                                        <div class="">
+                                            <div class="card-header">
+                                                <h2 class="text-right">
+                                                    <a class="btn btn-outline-success" href="add_course.php?faculty=<?php echo $row->id; ?>">
+                                                        Register New Course
+                                                    </a>
+                                                </h2>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Course Code</th>
+                                                            <th>Course Name</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE department_id = '$row->id'  ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($course = $res->fetch_object()) {
+                                                        ?>
 
-                                                    <tr class="table-row" data-href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
-                                                        <td><?php echo $cnt; ?></td>
-                                                        <td><?php echo $course->code; ?></td>
-                                                        <td><?php echo $course->name; ?></td>
-                                                    </tr>
-                                                <?php $cnt = $cnt + 1;
-                                                } ?>
-                                            </tbody>
-                                        </table>
+                                                            <tr class="table-row" data-href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
+                                                                <td><?php echo $cnt; ?></td>
+                                                                <td><?php echo $course->code; ?></td>
+                                                                <td><?php echo $course->name; ?></td>
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
