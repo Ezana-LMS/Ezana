@@ -79,6 +79,15 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="student_groups.php?faculty=<?php echo $row->id;?>" class="nav-link">
+                        <i class="nav-icon  fas fa-users"></i>
+                        <p>
+                            Students Groups
+                        </p>
+                    </a>
+                </li>
+
                 <!-- Advanced Reporting -->
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
