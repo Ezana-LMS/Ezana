@@ -364,36 +364,36 @@ require_once('partials/_head.php');
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
                                                 $cnt = 1;
-                                                while ($lectur = $res->fetch_object()) {
+                                                while ($lecturer = $res->fetch_object()) {
                                                     //Get Default Profile Picture
-                                                    if ($lec->profile_pic == '') {
+                                                    if ($lecturer->profile_pic == '') {
                                                         $dpic = "<img class='profile-user-img img-fluid img-circle' src='dist/img/logo.jpeg' alt='User profile picture'>";
                                                     } else {
-                                                        $dpic = "<img class='profile-user-img img-fluid img-circle' src='dist/img/lecturers/$lec->profile_pic' alt='User profile picture'>";
+                                                        $dpic = "<img class='profile-user-img img-fluid img-circle' src='dist/img/lecturers/$lecturer->profile_pic' alt='User profile picture'>";
                                                     }
                                             ?>
-                                                    <div class="card card-primary card-outline">
-                                                        <div class="card-body box-profile">
+                                                    <div class="">
+                                                        <div class="">
                                                             <div class="text-center">
                                                                 <?php echo $dpic; ?>
                                                             </div>
 
-                                                            <h3 class="profile-username text-center"><?php echo $lec->name; ?></h3>
+                                                            <h3 class="profile-username text-center"><?php echo $lecturer->name; ?></h3>
 
-                                                            <p class="text-muted text-center"><?php echo $lec->number; ?></p>
+                                                            <p class="text-muted text-center"><?php echo $lecturer->number; ?></p>
 
                                                             <ul class="list-group list-group-unbordered mb-3">
                                                                 <li class="list-group-item">
-                                                                    <b>Email: </b> <a class="float-right"><?php echo $lec->email; ?></a>
+                                                                    <b>Email: </b> <a class="float-right"><?php echo $lecturer->email; ?></a>
                                                                 </li>
                                                                 <li class="list-group-item">
-                                                                    <b>ID / Passport: </b> <a class="float-right"><?php echo $lec->idno; ?></a>
+                                                                    <b>ID / Passport: </b> <a class="float-right"><?php echo $lecturer->idno; ?></a>
                                                                 </li>
                                                                 <li class="list-group-item">
-                                                                    <b>Phone: </b> <a class="float-right"><?php echo $lec->phone; ?></a>
+                                                                    <b>Phone: </b> <a class="float-right"><?php echo $lecturer->phone; ?></a>
                                                                 </li>
                                                                 <li class="list-group-item">
-                                                                    <b>Address</b> <a class="float-right"><?php echo $lec->adr; ?></a>
+                                                                    <b>Address</b> <a class="float-right"><?php echo $lecturer->adr; ?></a>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -405,19 +405,6 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Students Enrolled -->
-                                <div class="col-md-6">
-                                    <div class="card card-primary card-outline">
-                                        <div class="card-header text-center">
-                                            <h3 class="card-title">Students Enrolled On <?php echo $mod->name; ?></h3>
-                                        </div>
-                                        <div class="card-body box-profile">
-
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <!-- Student Groups -->
                                 <div class="col-md-6">
                                     <div class="card card-primary card-outline">
@@ -429,7 +416,65 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Students Enrolled -->
+                                <div class="col-md-12">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header text-center">
+                                            <h3 class="card-title">Students Enrolled On <?php echo $mod->name; ?></h3>
+                                        </div>
+                                        <div class="card-body box-profile">
+                                        <div class="">
+                                        <div class="">
+                                            <h2 class="text-right">
+                                                <a class="btn btn-outline-success" href="add_student_enrollment.php?faculty=<?php echo $f->id;?>">
+                                                    <i class="fas fa-user-plus"></i>
+                                                    Add Enrollment
+                                                </a>
+                                            </h2>
+                                        </div>
+                                        <div class="card-body">
+                                            <table id="export-dt" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Admission</th>
+                                                        <th>Name</th>
+                                                        <th>Course</th>
+                                                        <th>Academic Yr</th>
+                                                        <th>Sem Enrolled</th>
+                                                        <th>Sem Start</th>
+                                                        <th>Sem End </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $ret = "SELECT * FROM `ezanaLMS_Enrollments`  WHERE faculty_id = '$row->id' AND module_code ='$mod->code' ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($en = $res->fetch_object()) {
+                                                    ?>
 
+                                                        <tr>
+                                                            <td><?php echo $cnt; ?></td>
+                                                            <td><?php echo $en->student_adm; ?></td>
+                                                            <td><?php echo $en->student_name; ?></td>
+                                                            <td><?php echo $en->course_name; ?></td>
+                                                            <td><?php echo $en->academic_year_enrolled; ?></td>
+                                                            <td><?php echo $en->semester_enrolled; ?></td>
+                                                            <td><?php echo date('d M Y', strtotime($en->semester_start)); ?></td>
+                                                            <td><?php echo date('d M Y', strtotime($en->semester_end)); ?></td>
+                                                        </tr>
+                                                    <?php $cnt = $cnt + 1;
+                                                    } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
