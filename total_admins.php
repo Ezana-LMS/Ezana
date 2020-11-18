@@ -4,6 +4,21 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 
+//Delete
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $adn = "DELETE FROM ezanaLMS_Admins WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=total_admins.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 require_once('partials/_head.php');
 
 ?>
@@ -51,6 +66,7 @@ require_once('partials/_head.php');
                                                     <th>Email</th>
                                                     <th>Rank</th>
                                                     <th>Phone No. </th>
+                                                    <th>Manage</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -62,15 +78,19 @@ require_once('partials/_head.php');
                                                 $cnt = 1;
                                                 while ($admin = $res->fetch_object()) {
                                                 ?>
-
                                                     <tr class="table-row" data-href="view_admin.php?view=<?php echo $admin->id; ?>">
                                                         <td><?php echo $cnt; ?></td>
                                                         <td><?php echo $admin->name; ?></td>
                                                         <td><?php echo $admin->email; ?></td>
                                                         <td><?php echo $admin->rank; ?></td>
                                                         <td><?php echo $admin->phone; ?></td>
+                                                        <td>
+                                                            <a class="badge badge-danger" href="total_admins.php?delete=<?php echo $admin->id; ?>">
+                                                                <i class="fas fa-trash"></i>
+                                                                Delete Account
+                                                            </a>
+                                                        </td>
                                                     </tr>
-
                                                 <?php $cnt = $cnt + 1;
                                                 } ?>
                                             </tbody>
