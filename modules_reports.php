@@ -20,7 +20,9 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
+            require_once('partials/_faculty_sidebar.php');
+
         ?>
             <!-- /.navbar -->
             <div class="content-wrapper">
@@ -34,8 +36,8 @@ require_once('partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_reports.php?faculty=<?php echo $f->id; ?>">Reports</a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_reports.php?faculty=<?php echo $row->id; ?>">Reports</a></li>
                                     <li class="breadcrumb-item active"> Modules </li>
                                 </ol>
                             </div>
@@ -71,7 +73,7 @@ require_once('partials/_head.php');
                                                     $cnt = 1;
                                                     while ($mod = $res->fetch_object()) {
                                                     ?>
-                                                        <tr class="table-row" data-href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                        <tr class="table-row" data-href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $row->id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $mod->name; ?></td>
                                                             <td><?php echo $mod->code; ?></td>
