@@ -19,7 +19,7 @@
         $("#courses_enrolled").DataTable();
         $("#enrollment").DataTable();
         $("#admins").DataTable();
-        $("studentGroups").DataTable();
+        $("#studentGroups").DataTable();
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,

@@ -430,10 +430,10 @@ require_once('partials/_head.php');
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Group Code Number</th>
-                                                            <th>Group Name</th>
+                                                            <th>Code</th>
+                                                            <th>Name</th>
                                                             <th>Created At</th>
-                                                            <th>Manage Groups</th>
+                                                            <th>Manage</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -452,11 +452,11 @@ require_once('partials/_head.php');
                                                                 <td><?php echo $g->name; ?></td>
                                                                 <td><?php echo $g->created_at; ?></td>
                                                                 <td>
-                                                                    <a class="badge badge-primary" href="update_group.php?update=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                    <a class="badge badge-primary" href="update_group.php?update=<?php echo $g->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                         <i class="fas fa-edit"></i>
                                                                         Update
                                                                     </a>
-                                                                    <a class="badge badge-danger" href="student_groups.php?delete=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                    <a class="badge badge-danger" href="student_groups.php?delete=<?php echo $g->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                         <i class="fas fa-trash"></i>
                                                                         Delete
                                                                     </a>
