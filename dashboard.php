@@ -108,7 +108,7 @@ require_once('partials/_head.php');
 
                         <!-- Students -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <a href="total_students.php">
+                            <a href="M">
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-user-graduate"></i></span>
                                     <div class="info-box-content">
