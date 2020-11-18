@@ -86,20 +86,11 @@ if (isset($_POST["upload"])) {
                 $facuty_id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
             }
 
-            if (!empty($name) || !empty($admno) || !empty($idno) || !empty($gender) || !empty($email)) {
-                $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, number, name, idno, phone, email, adr, password, created_at) VALUES(?,?,?,?,?,?,?,?,?,?)";
-                $paramType = "ssssssssss";
+            if (!empty($faculty) || !empty($academic_yr) || !empty($semester_start) || !empty($semester_name) || !empty($semester_end)) {
+                $query = "INSERT INTO ezanaLMS_Calendar (id, faculty_id,  academic_yr, semester_start, semester_name, semester_end) VALUES(?,?,?,?,?,?)";
+                $paramType = "ssssss";
                 $paramArray = array(
-                    $id,
-                    $facuty_id,
-                    $number,
-                    $name,
-                    $idno,
-                    $phone,
-                    $email,
-                    $adr,
-                    $password,
-                    $created_at
+                    $id, $faculty,  $academic_yr, $semester_start, $semester_name, $semester_end
                 );
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
