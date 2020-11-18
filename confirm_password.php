@@ -76,7 +76,7 @@ require_once('partials/_head.php');
                         <input type="password" required name="new_password" class="form-control" placeholder="New Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                                <span class="fas fa-user-lock"></span>
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@ require_once('partials/_head.php');
                         <input type="password" required name="confirm_password" class="form-control" placeholder="Confirm New Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                                <span class="fas fa-user-lock"></span>
                             </div>
                         </div>
                     </div>
