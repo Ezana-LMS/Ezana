@@ -42,23 +42,39 @@ require_once('partials/_head.php');
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-                                    <!-- <div class="card-header">
-                                            <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_module.php?faculty=<?php echo $f->id; ?>">
-                                                    Register New Module
-                                                </a>
-
-                                                <a class="btn btn-outline-success" href="module_notices.php?faculty=<?php echo $f->id; ?>">
-                                                    Module Notices
-                                                </a>
-
-                                                <a class="btn btn-outline-success" href="module_reading_materials.php?faculty=<?php echo $f->id; ?>">
-                                                    Module Reading Materials
-                                                </a>
-                                            </h2>
-                                        </div> -->
                                     <div class="card-body">
+                                        <table id="export-dt" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Names</th>
+                                                    <th>Email</th>
+                                                    <th>Rank</th>
+                                                    <th>Phone No. </th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_Admins`  ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                $cnt = 1;
+                                                while ($admin = $res->fetch_object()) {
+                                                ?>
 
+                                                    <tr>
+                                                        <td><?php echo $cnt; ?></td>
+                                                        <td><?php echo $admin->name; ?></td>
+                                                        <td><?php echo $admin->email; ?></td>
+                                                        <td><?php echo $admin->rank; ?></td>
+                                                        <td><?php echo $admin->phone; ?></td>
+                                                    </tr>
+
+                                                <?php $cnt = $cnt + 1;
+                                                } ?>
+                                            </tbody>
                                     </div>
                                 </div>
                             </div>
