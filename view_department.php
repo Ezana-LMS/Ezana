@@ -129,6 +129,58 @@ require_once('partials/_head.php');
                                             <!-- Courses -->
                                             <div class="tab-pane fade show active" id="courses" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                 <br>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h2 class="text-right">
+                                                            <a class="btn btn-outline-success" href="add_course.php?faculty=<?php echo $row->id; ?>">
+                                                                Register New Course
+                                                            </a>
+                                                        </h2>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <table id="example1" class="table table-bordered table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Course Code</th>
+                                                                    <th>Course Name</th>
+                                                                    <th>Department Name</th>
+                                                                    <th>Manage Course</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE department_id = '$row->id'  ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                $cnt = 1;
+                                                                while ($course = $res->fetch_object()) {
+                                                                ?>
+
+                                                                    <tr class="table-row" data-href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
+                                                                        <td><?php echo $cnt; ?></td>
+                                                                        <td><?php echo $course->code; ?></td>
+                                                                        <td><?php echo $course->name; ?></td>
+                                                                        <td><?php echo $course->department_name; ?></td>
+                                                                        <td>
+                                                                            <a class="badge badge-success" href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
+                                                                                <i class="fas fa-eye"></i>
+                                                                                View Course
+                                                                            </a>
+
+                                                                            <a class="badge badge-danger" href="courses.php?delete=<?php echo $course->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                                <i class="fas fa-trash"></i>
+                                                                                Delete
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php $cnt = $cnt + 1;
+                                                                } ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <!-- Dep Notices / Announcements -->
                                             <div class="tab-pane fade" id="notice_memos" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
@@ -136,7 +188,7 @@ require_once('partials/_head.php');
 
                                             </div>
                                             <!-- Departmental Settiings -->
-                                            <div class="tab-pane fade" id="dep_settings" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                            <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                 <br>
                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                     <div class="card-body">
