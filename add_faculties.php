@@ -111,8 +111,8 @@ require_once('partials/_head.php');
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-footer">
-                                            <button type="submit" name="add_faculty" class="btn btn-primary">Add Faculty</button>
+                                        <div class="text-right card-footer">
+                                            <button type="submit" name="add_faculty" class=" btn btn-primary">Add Faculty</button>
                                         </div>
                                     </form>
                                 </div>
