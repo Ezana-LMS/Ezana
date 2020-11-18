@@ -155,19 +155,19 @@ require_once('partials/_head.php');
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-3">
                                                         <label for="">Teaching Duration</label>
                                                         <input type="text" required name="course_duration" class="form-control" id="exampleInputEmail1">
                                                     </div>
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-3">
                                                         <label for="">Number Of Lectures Per Week</label>
                                                         <input type="text" required name="lectures_number" class="form-control">
                                                     </div>
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-3">
                                                         <label for="">Module CAT Weight Percentage</label>
                                                         <input type="text" required name="cat_weight_percentage" class="form-control">
                                                     </div>
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-3">
                                                         <label for="">Module  End Exam Weight Percentage</label>
                                                         <input type="text" required name="exam_weight_percentage" class="form-control">
                                                     </div>
