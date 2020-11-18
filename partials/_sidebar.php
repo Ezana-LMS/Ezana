@@ -86,10 +86,11 @@
                         </p>
                     </a>
                 </li>
-                <!-- Students -->
+                
+                <!-- Students Enrollments -->
                 <li class="nav-item">
                     <a href="total_enrollments.php" class="nav-link">
-                        <i class="nav-icon  fas fa-user-graduate"></i>
+                        <i class="nav-icon  fas fa-user-tag"></i>
                         <p>
                             Enrollments
                         </p>
