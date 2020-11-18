@@ -137,6 +137,7 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-8">
                                     <div class="card card-primary card-outline">
                                         <div class="card-body">
@@ -232,7 +233,12 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                </div>
                             </div>
                         </div>
                     </div>
