@@ -45,7 +45,7 @@ while ($admin = $res->fetch_object()) {
                 <!-- Right navbar links -->
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" title="<?php echo $faculty->name; ?> Reports" href="faculty_reports.php?faculty=<?php echo $row->id; ?>"><i class="fa fa-user-secret" aria-hidden="true"></i></a>
+                        <a class="nav-link" title="<?php echo $faculty->name; ?> Reports" href="faculty_reports.php?faculty=<?php echo $faculty->id; ?>"><i class="fa fa-chart-pie" aria-hidden="true"></i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" title="<?php echo $_SESSION['name']; ?> Profile" href="profile.php"><i class="fa fa-user-secret" aria-hidden="true"></i></a>
