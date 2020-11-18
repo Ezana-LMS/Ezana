@@ -34,7 +34,7 @@ while ($admin = $res->fetch_object()) {
                             <a href="departments.php?faculty=<?php echo $faculty->name; ?>" class="nav-link">Departments</a>
                         </li>-->
                         <li class="nav-item">
-                            <a href="school_calendar.php?faculty=<?php echo $faculty->id;?>" class="nav-link">School Calendar</a>
+                            <a href="school_calendar.php?faculty=<?php echo $faculty->id; ?>" class="nav-link">School Calendar</a>
                         </li>
 
                         <li class="nav-item">
@@ -44,6 +44,9 @@ while ($admin = $res->fetch_object()) {
                 </div>
                 <!-- Right navbar links -->
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" title="<?php echo $faculty->name; ?> Reports" href="faculty_reports.php?faculty=<?php echo $row->id; ?>"><i class="fa fa-user-secret" aria-hidden="true"></i></a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" title="<?php echo $_SESSION['name']; ?> Profile" href="profile.php"><i class="fa fa-user-secret" aria-hidden="true"></i></a>
                     </li>
