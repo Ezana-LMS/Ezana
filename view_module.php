@@ -77,7 +77,7 @@ require_once('partials/_head.php');
             $stmt->execute(); //ok
             $res = $stmt->get_result();
             $cnt = 1;
-            while ($faculty = $res->fetch_object()) {
+            while ($row = $res->fetch_object()) {
         ?>
                 <!-- /.navbar -->
                 <div class="content-wrapper">
@@ -91,7 +91,7 @@ require_once('partials/_head.php');
                                     <ol class="breadcrumb float-sm-right">
                                         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                         <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $faculty->id; ?>"><?php echo $faculty->name; ?></a></li>
+                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
                                         <li class="breadcrumb-item"><a href="modules.php?faculty=<?php echo $mod->faculty_id; ?>"><?php echo $mod->name; ?></a></li>
                                         <li class="breadcrumb-item active">View</li>
                                     </ol>
@@ -138,26 +138,23 @@ require_once('partials/_head.php');
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-
                                     <div class="card card-primary card-outline">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Module Details</h3>
-                                        </div>
-                                        <div class="card-body box-profile">
-                                            <?php echo $mod->details; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-header p-2">
-                                            <ul class="nav nav-pills">
-                                                <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Module Settings</a></li>
-                                            </ul>
-                                        </div>
                                         <div class="card-body">
-                                            <div class="tab-content">
-                                                <div class="active tab-pane" id="settings">
+                                            <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Details</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"><?php echo $mod->name; ?> Settings</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content" id="custom-content-below-tabContent">
+                                                <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                    <br>
+                                                    <?php echo $mod->details; ?>
+                                                </div>
+                                                <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                    <br>
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
@@ -201,19 +198,19 @@ require_once('partials/_head.php');
                                                             </div>
 
                                                             <div class="row">
-                                                                <div class="form-group col-md-3">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">Teaching Duration</label>
                                                                     <input type="text" value="<?php echo $mod->course_duration; ?>" required name="course_duration" class="form-control" id="exampleInputEmail1">
                                                                 </div>
-                                                                <div class="form-group col-md-3">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">Number Of Lectures Per Week</label>
                                                                     <input type="text" value="<?php echo $mod->lectures_number; ?>" required name="lectures_number" class="form-control">
                                                                 </div>
-                                                                <div class="form-group col-md-3">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">CAT Exam Weight Percentage</label>
                                                                     <input type="text" value="<?php echo $mod->cat_weight_percentage; ?>" required name="cat_weight_percentage" class="form-control">
                                                                 </div>
-                                                                <div class="form-group col-md-3">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">End Exam Weight Percentage</label>
                                                                     <input type="text" value="<?php echo $mod->exam_weight_percentage; ?>" required name="exam_weight_percentage" class="form-control">
                                                                 </div>
@@ -226,7 +223,7 @@ require_once('partials/_head.php');
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="card-footer text-right">
+                                                        <div class="text-right">
                                                             <button type="submit" name="update_module" class="btn btn-primary">Update Module</button>
                                                         </div>
                                                     </form>
@@ -235,6 +232,7 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
