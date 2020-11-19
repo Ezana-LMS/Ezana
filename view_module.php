@@ -187,11 +187,11 @@ require_once('partials/_head.php');
                                                                     <td>
                                                                         <a class="badge badge-primary" href="update_module_notice.php?update=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
                                                                             <i class="fas fa-edit"></i>
-                                                                            Update Announcement
+                                                                            Update 
                                                                         </a>
                                                                         <a class="badge badge-danger" href="module_notices.php?delete=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
                                                                             <i class="fas fa-trash"></i>
-                                                                            Delete Announcement
+                                                                            Delete 
                                                                         </a>
                                                                     </td>
                                                                 </tr>
