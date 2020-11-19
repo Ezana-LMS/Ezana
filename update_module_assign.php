@@ -74,7 +74,8 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
+            require_once('partials/_faculty_sidebar.php');
         ?>
             <!-- /.navbar -->
             <div class="content-wrapper">
@@ -87,8 +88,8 @@ require_once('partials/_head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                    <li class="breadcrumb-item"><a href="assign_lecturer_module.php?faculty=<?php echo $f->id; ?>">Assigned Modules</a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="assign_lecturer_module.php?faculty=<?php echo $row->id; ?>">Assigned Modules</a></li>
                                     <li class="breadcrumb-item active"> Assign </li>
                                 </ol>
                             </div>
@@ -113,7 +114,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' id="LecName" onchange="getLecDetails(this.value);" name="lec_name">
                                                             <option selected>Select Lecturer Name</option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Lecturers`  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$row->id'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -134,7 +135,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' id="ModuleName" onchange="getModuleDetails(this.value);" name="module_name">
                                                             <option selected>Select Module Name </option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE ass_status != '0'  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE ass_status != '0' AND faculty_id = '$row->id' ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
