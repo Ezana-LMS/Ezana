@@ -86,6 +86,7 @@ require_once('partials/_head.php');
         <!-- Navbar -->
         <?php
         require_once('partials/_nav.php');
+        require_once('partials/_sidebar.php');
         $id  = $_SESSION['id'];
         $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id ='$id' ";
         $stmt = $mysqli->prepare($ret);
