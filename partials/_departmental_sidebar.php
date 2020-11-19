@@ -38,7 +38,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="departments.php?department=<?php echo $row->id; ?>&faculty=<?php echo $row->faculty_id; ?>" class="nav-link">
+                    <a href="departmental_notememos.php?faculty=<?php echo $row->faculty_id; ?>" class="nav-link">
                         <i class="nav-icon fas fa fa-bullhorn"></i>
                         <p>
                             Notices & Memos
@@ -47,7 +47,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="departments.php?department=<?php echo $row->id; ?>&faculty=<?php echo $row->faculty_id; ?>" class="nav-link">
+                    <a href="courses.php?faculty=<?php echo $row->faculty_id; ?>" class="nav-link">
                         <i class="nav-icon fas fa fa-chalkboard-teacher"></i>
                         <p>
                             Courses
