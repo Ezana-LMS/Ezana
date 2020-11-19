@@ -541,7 +541,7 @@ require_once('partials/_head.php');
                                                         while ($g = $res->fetch_object()) {
                                                         ?>
 
-                                                            <tr class="table-row" data-href="view_student_group.php?&name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                            <tr class="table-row" data-href="view_student_group.php?name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                 <td><?php echo $cnt; ?></td>
                                                                 <td><?php echo $g->code; ?></td>
                                                                 <td><?php echo $g->name; ?></td>

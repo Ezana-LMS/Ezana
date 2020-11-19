@@ -34,7 +34,7 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
             require_once('partials/_faculty_sidebar.php');
         ?>
             <!-- /.navbar -->
