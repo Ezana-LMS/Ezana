@@ -146,13 +146,13 @@ require_once('partials/_head.php');
                                                     <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Details</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" id="custom-content-below-profile-notices" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"><?php echo $mod->name; ?> Notices</a>
+                                                    <a class="nav-link" id="custom-content-below-profile-notices" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"> Notices</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" id="custom-content-below-profile-pastpapers" data-toggle="pill" href="#custom-content-below-pastpapers" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"><?php echo $mod->name; ?> Past Papers</a>
+                                                    <a class="nav-link" id="custom-content-below-profile-pastpapers" data-toggle="pill" href="#custom-content-below-pastpapers" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"> Past Papers</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"><?php echo $mod->name; ?> Settings</a>
+                                                    <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"> Settings</a>
                                                 </li>
                                             </ul>
                                             <div class="tab-content" id="custom-content-below-tabContent">
@@ -160,6 +160,50 @@ require_once('partials/_head.php');
                                                     <br>
                                                     <?php echo $mod->details; ?>
                                                 </div>
+                                                <div class="tab-pane fade show " id="custom-content-below-notices" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                    <br>
+                                                    <table id="example1" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Created By</th>
+                                                                <th>Date Posted</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_ModulesAnnouncements` WHERE faculty_id  = '$row->id' AND module_name = '$mod->name'  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            $cnt = 1;
+                                                            while ($not = $res->fetch_object()) {
+                                                            ?>
+                                                                <tr class="table-row" data-href="view_module_notices.php?view=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
+                                                                    <td><?php echo $cnt; ?></td>
+                                                                    <td><?php echo $not->created_by; ?></td>
+                                                                    <td><?php echo $not->created_at; ?></td>
+                                                                    <td>
+                                                                        <a class="badge badge-primary" href="update_module_notice.php?update=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
+                                                                            <i class="fas fa-edit"></i>
+                                                                            Update Announcement
+                                                                        </a>
+                                                                        <a class="badge badge-danger" href="module_notices.php?delete=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
+                                                                            <i class="fas fa-trash"></i>
+                                                                            Delete Announcement
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php $cnt = $cnt + 1;
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane fade show " id="custom-content-below-pastpapers" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                    <br>
+                                                </div>
+
                                                 <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                     <br>
                                                     <form method="post" enctype="multipart/form-data" role="form">
@@ -420,7 +464,7 @@ require_once('partials/_head.php');
                                         <div class="card-body box-profile">
                                             <div class="card-body">
                                                 <h2 class="text-right">
-                                                    <a class="btn btn-outline-success" href="add_student_groups.php?faculty=<?php echo $row->id; ?>&module_id=<?php echo $mod->id;?>">
+                                                    <a class="btn btn-outline-success" href="add_student_groups.php?faculty=<?php echo $row->id; ?>&module_id=<?php echo $mod->id; ?>">
                                                         Create New Group
                                                     </a>
                                                     <a class="btn btn-outline-primary" href="student_group_assignments.php?faculty=<?php echo $row->id; ?>">
