@@ -24,9 +24,9 @@ if (isset($_POST['add_paper'])) {
         $pastpaper = $_FILES['pastpaper']['name'];
         move_uploaded_file($_FILES["pastpaper"]["tmp_name"], "EzanaLMSData/PastPapers/" . $_FILES["pastpaper"]["name"]);
 
-        $query = "INSERT INTO ezanaLMS_PastPapers (id, paper_name, paper_visibility, faculty_id, course_name, module_name,  pastpaper_type, created_at, pastpaper) VALUES(?,?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_PastPapers (id, paper_name, paper_visibility, faculty_id, course_name, module_name,  created_at, pastpaper) VALUES(?,?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssssss', $id, $paper_name, $paper_visibility, $faculty, $course_name, $module_name, $pastpaper_type, $created_at, $pastpaper);
+        $rc = $stmt->bind_param('sssssssss', $id, $paper_name, $paper_visibility, $faculty, $course_name, $module_name, $created_at, $pastpaper);
         $stmt->execute();
         if ($stmt) {
             $success = "Past Paper Uploaded" && header("refresh:1; url=add_past_exam_papers.php?faculty=$faculty");
@@ -127,7 +127,7 @@ require_once('partials/_head.php');
                                                         <label for="">Exam Paper Visibility / Availability</label>
                                                         <select class='form-control basic' name="paper_visibility">
                                                             <option selected>Available</option>
-                                                            <option selected>Hidden</option>
+                                                            <option >Hidden</option>
                                                         </select>
                                                     </div>
                                                 </div>
