@@ -167,7 +167,7 @@ require_once('partials/_head.php');
                                                     </a>
                                                 </h2>
                                                 <h2 class="text-left">
-                                                    Course Time Table
+                                                    <?php echo $course->name; ?> Time Table
                                                 </h2>
                                             </div>
                                             <div class="card-body">
@@ -181,7 +181,6 @@ require_once('partials/_head.php');
                                                             <th>Date</th>
                                                             <th>Time</th>
                                                             <th>Virtual Link</th>
-                                                            <th>Manage Classes</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -202,16 +201,6 @@ require_once('partials/_head.php');
                                                                 <td><?php echo $tt->classdate; ?></td>
                                                                 <td><?php echo $tt->classtime; ?></td>
                                                                 <td><?php echo $tt->classlink; ?></td>
-                                                                <td>
-                                                                    <a class="badge badge-primary" href="update_class.php?update=<?php echo $tt->id; ?>&faculty=<?php echo $row->id; ?>">
-                                                                        <i class="fas fa-edit"></i>
-                                                                        Update
-                                                                    </a>
-                                                                    <a class="badge badge-danger" href="timetables.php?delete=<?php echo $tt->id; ?>&faculty=<?php echo $row->id; ?>">
-                                                                        <i class="fas fa-trash"></i>
-                                                                        Delete
-                                                                    </a>
-                                                                </td>
                                                             </tr>
                                                         <?php $cnt = $cnt + 1;
                                                         } ?>
