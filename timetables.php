@@ -66,7 +66,7 @@ require_once('partials/_head.php');
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_class.php?faculty=<?php echo $row->id; ?>">
+                                                <a class="btn btn-outline-success" href="courses.php?faculty=<?php echo $row->id; ?>">
                                                     Add Class
                                                 </a>
                                             </h2>
