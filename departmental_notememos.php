@@ -62,7 +62,7 @@ while ($row = $res->fetch_object()) {
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-primary" href="add_departmental_notememos.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-primary" href="add_departmental_notememos.php?faculty=<?php echo $row->id; ?>">
                                                     Add New Departmental Memos & Notices
                                                 </a>
                                             </h2>

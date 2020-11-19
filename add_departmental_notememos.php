@@ -85,7 +85,7 @@ require_once('partials/_head.php');
                                         <form method="post" enctype="multipart/form-data" role="form">
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-6">
                                                         <label for="">Department Name</label>
                                                         <select class='form-control basic' id="DepartmentName" onchange="getDepartmentDetails(this.value);" name="department_name">
                                                             <option selected>Select Department Name</option>
@@ -100,13 +100,13 @@ require_once('partials/_head.php');
                                                             <?php } ?>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-4" style="display:none">
                                                         <label for="">Department ID</label>
                                                         <input type="text" id="DepartmentID" readonly required name="department_id" class="form-control">
                                                     </div>
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-6">
                                                         <label for="">Type</label>
-                                                        <select class='form-control basic1' name="type">
+                                                        <select class='form-control basic' name="type">
                                                             <option selected>Select If Notice Or Memo</option>
                                                             <option>Notice</option>
                                                             <option>Memo</option>
