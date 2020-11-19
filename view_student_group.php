@@ -217,7 +217,7 @@ require_once('partials/_head.php');
                                                                     <td><?php echo $stdGroup->student_name; ?></td>
                                                                     <td><?php echo date('d M Y g:i', strtotime($stdGroup->created_at)); ?></td>
                                                                     <td>
-                                                                        <a class="badge badge-danger" href="view_student_group.php?remove=<?php echo $stdGroup->id; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>&code=<?php echo $g->code; ?>&name=<?php echo $g->name; ?>">
+                                                                        <a class="badge badge-danger" href="view_student_group.php?remove=<?php echo $stdGroup->id; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $row->id; ?>&code=<?php echo $g->code; ?>&name=<?php echo $g->name; ?>">
                                                                             <i class="fas fa-user-times"></i>
                                                                             Remove Member
                                                                         </a>
@@ -240,7 +240,7 @@ require_once('partials/_head.php');
                                                                     <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
                                                                         <option selected>Select Admission Number</option>
                                                                         <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$row->faculty_id'   ";
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$row->id'   ";
                                                                         $stmt = $mysqli->prepare($ret);
                                                                         $stmt->execute(); //ok
                                                                         $res = $stmt->get_result();
@@ -267,7 +267,7 @@ require_once('partials/_head.php');
                                                     <br>
                                                     <div class="card">
                                                         <div class="card-body">
-                                                            <table id="example1" class="table table-bordered table-striped">
+                                                            <table id="enrollment" class="table table-bordered table-striped">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>#</th>
@@ -290,7 +290,7 @@ require_once('partials/_head.php');
                                                                             <td><?php echo $gcode->created_at; ?></td>
                                                                             <td><?php echo date('d M Y g:i', strtotime($gcode->submitted_on)); ?></td>
                                                                             <td>
-                                                                                <a class="badge badge-success" href="view_group_project.php?view=<?php echo $gcode->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                                <a class="badge badge-success" href="view_group_project.php?view=<?php echo $gcode->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                                     <i class="fas fa-eye"></i>
                                                                                     View Assignment
                                                                                 </a>
@@ -308,7 +308,7 @@ require_once('partials/_head.php');
                                                     <br>
                                                     <div class="card">
                                                         <div class="card-body">
-                                                            <table id="example1" class="table table-bordered table-striped">
+                                                            <table id="group_ass" class="table table-bordered table-striped">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>#</th>

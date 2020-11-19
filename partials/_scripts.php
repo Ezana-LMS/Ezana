@@ -22,6 +22,8 @@
         $("#past-papers").DataTable();
         $("#course-materials").DataTable();
         $("#studentGroups").DataTable();
+        $("#group_ass").DataTable();
+        $("#")
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,
