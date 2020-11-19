@@ -82,6 +82,11 @@
 </script>
 <!-- Footable js -->
 <script src="plugins/footable/footable.all.min.js"></script>
+<!-- Init js -->
+<script src="plugins/footable/foo-tables.init.js"></script>
+<!-- App js -->
+<script src="plugins/footable/app.min.js"></script>
+        
 <!-- File Uploads  -->
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script>
