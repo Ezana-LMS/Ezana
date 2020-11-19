@@ -7,18 +7,6 @@ check_login();
 if (isset($_POST['add_notice'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
-        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
-    } else {
-        $error = 1;
-        $err = "Module Name Cannot Be Empty";
-    }
-    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
-        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
-    } else {
-        $error = 1;
-        $err = "Module Name Cannot Be Empty";
-    }
     if (isset($_POST['announcements']) && !empty($_POST['announcements'])) {
         $announcements = mysqli_real_escape_string($mysqli, trim($_POST['announcements']));
     } else {
@@ -52,13 +40,13 @@ require_once('partials/_head.php');
         <?php
         require_once('partials/_faculty_nav.php');
         $faculty = $_GET['faculty'];
-        $view = $_GET['view'];
+        $update = $_GET['update'];
         $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($row = $res->fetch_object()) {
-            $ret = "SELECT * FROM `ezanaLMS_ModulesAnnouncements` WHERE id = '$view' ";
+            $ret = "SELECT * FROM `ezanaLMS_ModulesAnnouncements` WHERE id = '$update' ";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
