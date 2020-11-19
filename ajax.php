@@ -152,3 +152,17 @@ if (!empty($_POST["GroupName"])) {
 <?php
     }
 }
+
+/* Faculty Details */
+if (!empty($_POST["FacultyName"])) {
+    $id = $_POST['FacultyName'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Faculties WHERE name = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['id']); ?>
+<?php
+    }
+}

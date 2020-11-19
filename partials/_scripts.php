@@ -244,3 +244,18 @@
         });
     }
 </script>
+
+<!-- Faculty Details -->
+<script>
+    function getFacutyDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'FacultyName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#FacultyId').val(data);
+            }
+        });
+    }
+</script>
