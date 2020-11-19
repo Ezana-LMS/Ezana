@@ -146,6 +146,12 @@ require_once('partials/_head.php');
                                                     <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Details</a>
                                                 </li>
                                                 <li class="nav-item">
+                                                    <a class="nav-link" id="custom-content-below-profile-notices" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"><?php echo $mod->name; ?> Notices</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="custom-content-below-profile-pastpapers" data-toggle="pill" href="#custom-content-below-pastpapers" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"><?php echo $mod->name; ?> Past Papers</a>
+                                                </li>
+                                                <li class="nav-item">
                                                     <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"><?php echo $mod->name; ?> Settings</a>
                                                 </li>
                                             </ul>
