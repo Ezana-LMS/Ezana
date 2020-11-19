@@ -33,8 +33,9 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
             require_once('partials/_faculty_nav.php');
+            require_once('partials/_faculty_sidebar.php')
         ?>
             <!-- /.navbar -->
             <div class="content-wrapper">
@@ -42,12 +43,12 @@ require_once('partials/_head.php');
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $f->name; ?> Past Exam Papers</h1>
+                                <h1 class="m-0 text-dark"><?php echo $row->name; ?> Past Exam Papers</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
                                     <li class="breadcrumb-item active"> Past Exam Papers </li>
                                 </ol>
                             </div>
@@ -62,7 +63,7 @@ require_once('partials/_head.php');
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_past_exam_papers.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-success" href="add_past_exam_papers.php?faculty=<?php echo $row->id; ?>">
                                                     Upload Past Paper
                                                 </a>
                                             </h2>
@@ -80,7 +81,7 @@ require_once('partials/_head.php');
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_PastPapers`  WHERE  pastpaper_type  != 'Solution' AND faculty_id = '$f->id' ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_PastPapers`  WHERE  pastpaper_type  != 'Solution' AND faculty_id = '$row->id' ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
@@ -97,7 +98,7 @@ require_once('partials/_head.php');
                                                                     <i class="fas fa-download"></i>
                                                                     Download Papers
                                                                 </a>
-                                                                <a class="badge badge-danger" href="past_exam_papers.php?delete=<?php echo $pastExas->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-danger" href="past_exam_papers.php?delete=<?php echo $pastExas->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete Paper
                                                                 </a>
