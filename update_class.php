@@ -75,7 +75,9 @@ require_once('partials/_head.php');
             $res = $stmt->get_result();
             $cnt = 1;
             while ($tt = $res->fetch_object()) {
-                require_once('partials/_faculty_nav.php'); ?>
+                require_once('partials/_faculty_nav.php');
+                require_once('partials/_faculty_sidebar.php');
+                 ?>
                 <!-- /.navbar -->
                 <div class="content-wrapper">
                     <div class="content-header">
