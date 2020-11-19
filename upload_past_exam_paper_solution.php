@@ -5,30 +5,21 @@ require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
 if (isset($_POST['add_paper'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
-        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['course_name']));
-    } else {
-        $error = 1;
-        $err = "Course Name Cannot Be Empty";
-    }
-    if (!$error) {
-        $faculty = $_GET['faculty'];
-        $id = $_GET['id'];
-        $solution_visibility = $_POST['solution_visibility'];
-        $solution = $_FILES['solution']['name'];
-        move_uploaded_file($_FILES["solution"]["tmp_name"], "EzanaLMSData/PastPapers/" . $_FILES["solution"]["name"]);
 
-        $query = "UPDATE ezanaLMS_PastPapers SET solution_visibility = ?, solution =? WHERE id = ?  ";
-        $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ss', $solution_visibility, $solution, $id);
-        $stmt->execute();
-        if ($stmt) {
-            $success = "Past Paper Solution Uploaded"; // && header("refresh:1; url=add_past_exam_papers.php?faculty=$faculty");
-        } else {
-            $info = "Please Try Again Or Try Later";
-        }
+    $faculty = $_GET['faculty'];
+    $id = $_GET['id'];
+    $solution_visibility = $_POST['solution_visibility'];
+    $solution = $_FILES['solution']['name'];
+    move_uploaded_file($_FILES["solution"]["tmp_name"], "EzanaLMSData/PastPapers/" . $_FILES["solution"]["name"]);
+
+    $query = "UPDATE ezanaLMS_PastPapers SET solution_visibility = ?, solution =? WHERE id = ?  ";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sss', $solution_visibility, $solution, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Past Paper Solution Uploaded"; // && header("refresh:1; url=add_past_exam_papers.php?faculty=$faculty");
+    } else {
+        $info = "Please Try Again Or Try Later";
     }
 }
 
@@ -84,16 +75,13 @@ require_once('partials/_head.php');
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="form-group col-md-6">
+                                                    <div class="form-group col-md-12">
                                                         <label for="">Exam Paper Solution Visibility / Availability</label>
                                                         <select class='form-control basic' name="solution_visibility">
                                                             <option selected>Available</option>
-                                                            <option >Hidden</option>
+                                                            <option>Hidden</option>
                                                         </select>
                                                     </div>
-                                                </div>
-
-                                                <div class="row">
                                                     <div class="form-group col-md-12">
                                                         <label for="exampleInputFile">Upload Past Exam Paper Solution ( PDF / Docx )</label>
                                                         <div class="input-group">
@@ -104,9 +92,9 @@ require_once('partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="text-right">
-                                                <button type="submit" name="add_paper" class="btn btn-primary">Upload</button>
+                                                <div class="text-right">
+                                                    <button type="submit" name="add_paper" class="btn btn-primary">Upload</button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
