@@ -56,13 +56,13 @@ require_once('partials/_head.php');
         $res = $stmt->get_result();
         while ($rm = $res->fetch_object()) {
 
-
             $faculty = $_GET['faculty'];
             $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id ='$faculty' ";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
-            while ($f = $res->fetch_object()) {
+            while ($row = $res->fetch_object()) {
+                require_once('partials/_faculty_sidebar.php');
         ?>
                 <!-- /.navbar -->
                 <div class="content-wrapper">
@@ -76,9 +76,9 @@ require_once('partials/_head.php');
                                     <ol class="breadcrumb float-sm-right">
                                         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                         <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"> <?php echo $f->name; ?></a></li>
-                                        <li class="breadcrumb-item"><a href="modules.php?faculty=<?php echo $f->id; ?>">Modules</a></li>
-                                        <li class="breadcrumb-item"><a href="module_reading_materials.php?faculty=<?php echo $f->id; ?>">Reading Materials</a></li>
+                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"> <?php echo $row->name; ?></a></li>
+                                        <li class="breadcrumb-item"><a href="modules.php?faculty=<?php echo $row->id; ?>">Modules</a></li>
+                                        <li class="breadcrumb-item"><a href="module_reading_materials.php?faculty=<?php echo $row->id; ?>">Reading Materials</a></li>
                                         <li class="breadcrumb-item active ">View</li>
                                     </ol>
                                 </div>
