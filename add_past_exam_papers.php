@@ -18,14 +18,15 @@ if (isset($_POST['add_paper'])) {
         $module_name = $_POST['module_name'];
         $id = $_POST['id'];
         $course_name = $_POST['course_name'];
-        $pastpaper_type = 'Past Paper';
+        $paper_name = $_POST['paper_name'];
+        $paper_visibility = $_POST['paper_visibility'];
         $created_at = date('d M Y h:m:s');
         $pastpaper = $_FILES['pastpaper']['name'];
         move_uploaded_file($_FILES["pastpaper"]["tmp_name"], "EzanaLMSData/PastPapers/" . $_FILES["pastpaper"]["name"]);
 
-        $query = "INSERT INTO ezanaLMS_PastPapers (id, faculty_id, course_name, module_name,  pastpaper_type, created_at, pastpaper) VALUES(?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_PastPapers (id, paper_name, paper_visibility, faculty_id, course_name, module_name,  pastpaper_type, created_at, pastpaper) VALUES(?,?,?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $id, $faculty, $course_name, $module_name, $pastpaper_type, $created_at, $pastpaper);
+        $rc = $stmt->bind_param('sssssssss', $id, $paper_name, $paper_visibility, $faculty, $course_name, $module_name, $pastpaper_type, $created_at, $pastpaper);
         $stmt->execute();
         if ($stmt) {
             $success = "Past Paper Uploaded" && header("refresh:1; url=add_past_exam_papers.php?faculty=$faculty");
@@ -116,6 +117,17 @@ require_once('partials/_head.php');
                                                             ?>
                                                                 <option><?php echo $mod->name; ?></option>
                                                             <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Exam Paper Name</label>
+                                                        <input type="text" name="paper_name" class="form-control">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Exam Paper Visibility / Availability</label>
+                                                        <select class='form-control basic' name="paper_visibility">
+                                                            <option selected>Available</option>
+                                                            <option selected>Hidden</option>
                                                         </select>
                                                     </div>
                                                 </div>

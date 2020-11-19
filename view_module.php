@@ -187,11 +187,11 @@ require_once('partials/_head.php');
                                                                     <td>
                                                                         <a class="badge badge-primary" href="update_module_notice.php?update=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
                                                                             <i class="fas fa-edit"></i>
-                                                                            Update 
+                                                                            Update
                                                                         </a>
                                                                         <a class="badge badge-danger" href="module_notices.php?delete=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
                                                                             <i class="fas fa-trash"></i>
-                                                                            Delete 
+                                                                            Delete
                                                                         </a>
                                                                     </td>
                                                                 </tr>
@@ -202,6 +202,45 @@ require_once('partials/_head.php');
                                                 </div>
                                                 <div class="tab-pane fade show " id="custom-content-below-pastpapers" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                     <br>
+
+                                                    <table id="admins" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Paper Name</th>
+                                                                <th>Date Uploaded</th>
+                                                                <th>Manage</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_PastPapers`  WHERE  pastpaper_type  != 'Solution' AND faculty_id = '$row->id' AND module_name = '$mod->name' ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            $cnt = 1;
+                                                            while ($pastExas = $res->fetch_object()) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td><?php echo $cnt; ?></td>
+                                                                    <td><?php echo $pastExas->course_name; ?></td>
+                                                                    <td><?php echo $pastExas->module_name; ?></td>
+                                                                    <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
+                                                                    <td>
+                                                                        <a class="badge badge-success" target="_blank" href="EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>">
+                                                                            <i class="fas fa-download"></i>
+                                                                            Download Papers
+                                                                        </a>
+                                                                        <a class="badge badge-danger" href="past_exam_papers.php?delete=<?php echo $pastExas->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                            <i class="fas fa-trash"></i>
+                                                                            Delete Paper
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php $cnt = $cnt + 1;
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
 
                                                 <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">

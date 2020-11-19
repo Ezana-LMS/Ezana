@@ -256,29 +256,49 @@ require_once('partials/_head.php');
                                                                     <div class="row">
                                                                         <div class="form-group col-md-4">
                                                                             <label for="">Name</label>
-                                                                            <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                            <input type="text" required name="name" value="<?php echo $std->name; ?>" class="form-control" id="exampleInputEmail1">
                                                                         </div>
                                                                         <div class="form-group col-md-4">
-                                                                            <label for="">Number</label>
-                                                                            <input type="text" required name="number" value="<?php echo $lec->name; ?>" class="form-control">
+                                                                            <label for="">Admission Number</label>
+                                                                            <input type="text" required name="admno" value="<?php echo $std->admno; ?>" class="form-control">
                                                                         </div>
                                                                         <div class="form-group col-md-4">
                                                                             <label for="">ID / Passport Number</label>
-                                                                            <input type="text" value="<?php echo $lec->idno; ?>" required name="idno" class="form-control">
+                                                                            <input type="text" value="<?php echo $std->idno; ?>" required name="idno" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
-                                                                        <div class="form-group col-md-6">
+                                                                        <div class="form-group col-md-4">
+                                                                            <label for="">Date Of Birth</label>
+                                                                            <input type="text" value="<?php echo $std->dob; ?>" required name="dob" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-4">
+                                                                            <label for="">Gender</label>
+                                                                            <select type="text" required name="gender" class="basic form-control">
+                                                                                <option selected><?php echo $std->gender; ?></option>
+                                                                                <option>Male</option>
+                                                                                <option>Female</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group col-md-4">
+                                                                            <label for="">Student Account Status</label>
+                                                                            <select type="text" required name="acc_status" class="basic form-control">
+                                                                                <option selected><?php echo $std->acc_status; ?></option>
+                                                                                <option>Active</option>
+                                                                                <option>Disabled</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-4">
                                                                             <label for="">Email</label>
-                                                                            <input type="email" value="<?php echo $lec->email; ?>" required name="email" class="form-control">
+                                                                            <input value="<?php echo $std->email; ?>" type="email" required name="email" class="form-control">
                                                                         </div>
-                                                                        <div class="form-group col-md-6">
+                                                                        <div class="form-group col-md-4">
                                                                             <label for="">Phone Number</label>
-                                                                            <input type="text" required value="<?php echo $lec->phone; ?>" name="phone" class="form-control">
+                                                                            <input type="text" value="<?php echo $std->phone; ?>" required name="phone" class="form-control">
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-12">
+                                                                        <div class="form-group col-md-4">
                                                                             <label for="">Profile Picture</label>
                                                                             <div class="input-group">
                                                                                 <div class="custom-file">
@@ -291,12 +311,12 @@ require_once('partials/_head.php');
                                                                     <div class="row">
                                                                         <div class="form-group col-md-12">
                                                                             <label for="exampleInputPassword1">Address</label>
-                                                                            <textarea required name="adr" id="textarea" rows="5" class="form-control"><?php echo $lec->adr; ?></textarea>
+                                                                            <textarea required id='textarea' name="adr" rows="5" class="form-control"><?php echo $std->adr; ?></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="text-right">
-                                                                    <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
+                                                                    <button type="submit" name="update_student" class="btn btn-primary">Update Students Profile</button>
                                                                 </div>
                                                             </form>
                                                         </div>
