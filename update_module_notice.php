@@ -21,7 +21,7 @@ if (isset($_POST['add_notice'])) {
         $update = $_GET['update'];
         $query = "UPDATE  ezanaLMS_ModulesAnnouncements SET announcements =?, created_by =?, created_at =? WHERE id = ?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $announcements, $created_by, $created_at, $update);
+        $rc = $stmt->bind_param('ssss', $announcements, $created_by, $created_at, $update);
         $stmt->execute();
         if ($stmt) {
             $success = "Posted" && header("refresh:1; url=view_module_notices.php?view=$update&faculty=$faculty");
@@ -90,11 +90,11 @@ require_once('partials/_head.php');
                                                     <div class="row">
                                                         <div class="form-group col-md-4">
                                                             <label for="">Module Name</label>
-                                                            <input type="text" value="<?php echo $not->module_name; ?>" id="ModuleCode" required name="module_code" class="form-control">
+                                                            <input readonly type="text" value="<?php echo $not->module_name; ?>" id="ModuleCode" required name="module_code" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="">Module Code</label>
-                                                            <input type="text" id="ModuleCode" value="<?php echo $not->module_code; ?>" required name="module_code" class="form-control">
+                                                            <input  readonly type="text" id="ModuleCode" value="<?php echo $not->module_code; ?>" required name="module_code" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="">Announcement Posted By</label>
@@ -120,7 +120,7 @@ require_once('partials/_head.php');
                                                     </div>
                                                 </div>
                                                 <div class="card-footer text-right">
-                                                    <button type="submit" name="add_notice" class="btn btn-primary">Add Notice</button>
+                                                    <button type="submit" name="add_notice" class="btn btn-primary">Update Notice</button>
                                                 </div>
                                             </form>
                                         </div>
