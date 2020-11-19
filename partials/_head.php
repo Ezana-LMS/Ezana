@@ -33,10 +33,6 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 
-    <!-- Footable css -->
-    <link rel="stylesheet" href="plugins/footable/footable.core.min.css" type="text/css" />
-    <link href="plugins/footable/app.min.css" rel="stylesheet" type="text/css" />
-
     <!-- Data Tables -->
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.css">
     <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/datatables.css"> -->
