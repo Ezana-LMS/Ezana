@@ -19,6 +19,8 @@
         $("#courses_enrolled").DataTable();
         $("#enrollment").DataTable();
         $("#admins").DataTable();
+        $("#past-papers").DataTable();
+        $("#course-materials").DataTable();
         $("#studentGroups").DataTable();
         $('#example2').DataTable({
             "paging": true,

@@ -202,8 +202,7 @@ require_once('partials/_head.php');
                                                 </div>
                                                 <div class="tab-pane fade show " id="custom-content-below-pastpapers" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                     <br>
-
-                                                    <table id="admins" class="table table-bordered table-striped">
+                                                    <table id="past-papers" class="table table-bordered table-striped">
                                                         <thead>
                                                             <tr>
                                                                 <th>#</th>
@@ -224,16 +223,19 @@ require_once('partials/_head.php');
                                                                 <tr>
                                                                     <td><?php echo $cnt; ?></td>
                                                                     <td><?php echo $pastExas->paper_name; ?></td>
-                                                                    <td><?php echo $pastExas->module_name; ?></td>
                                                                     <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
                                                                     <td>
+                                                                        <a class="badge badge-success" href="upload_past_exam_paper_solution.php?id=<?php echo $pastExas->id; ?>&faculty=<?php echo $row->id;?>">
+                                                                            <i class="fas fa-upload"></i>
+                                                                            Upload Solution
+                                                                        </a>
                                                                         <a class="badge badge-success" target="_blank" href="EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>">
-                                                                            <i class="fas fa-download"></i>
-                                                                            Download Papers
+                                                                            <i class="fas fa-cogs"></i>
+                                                                            Manage
                                                                         </a>
                                                                         <a class="badge badge-danger" href="past_exam_papers.php?delete=<?php echo $pastExas->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                             <i class="fas fa-trash"></i>
-                                                                            Delete Paper
+                                                                            Delete
                                                                         </a>
                                                                     </td>
                                                                 </tr>
@@ -341,7 +343,7 @@ require_once('partials/_head.php');
                                                     </h2>
                                                 </div>
                                                 <div class="card-body">
-                                                    <table id="example1" class="table table-bordered table-striped">
+                                                    <table id="course-materials" class="table table-bordered table-striped">
                                                         <thead>
                                                             <tr>
                                                                 <th>#</th>
