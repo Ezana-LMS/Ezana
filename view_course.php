@@ -69,7 +69,7 @@ require_once('partials/_head.php');
                         <div class="container">
                             <div class="row mb-2">
                                 <div class="col-sm-6">
-                                    <h1 class="m-0 text-dark"> <?php echo $course->name; ?>  </h1>
+                                    <h1 class="m-0 text-dark"> <?php echo $course->name; ?> </h1>
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">
@@ -157,12 +157,12 @@ require_once('partials/_head.php');
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="card card-primary card-outline">
-                                    <div class="col-12">
+                                <div class="col-md-12">
+                                    <div class="card card-primary card-outline">
                                         <div class="">
                                             <div class="card-header">
                                                 <h2 class="text-right">
-                                                    <a class="btn btn-outline-success" href="add_class.php?faculty=<?php echo $row->id; ?>&course_code=<?php echo $course->code;?>">
+                                                    <a class="btn btn-outline-success" href="add_class.php?faculty=<?php echo $row->id; ?>&course_code=<?php echo $course->code; ?>">
                                                         Add Class
                                                     </a>
                                                 </h2>
@@ -175,7 +175,7 @@ require_once('partials/_head.php');
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Class Name</th>
+                                                            <th>Class </th>
                                                             <th>Lecturer </th>
                                                             <th>Location</th>
                                                             <th>Date</th>
@@ -201,6 +201,49 @@ require_once('partials/_head.php');
                                                                 <td><?php echo $tt->classdate; ?></td>
                                                                 <td><?php echo $tt->classtime; ?></td>
                                                                 <td><?php echo $tt->classlink; ?></td>
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="card card-primary card-outline">
+                                        <div class="">
+                                            <div class="card-header">
+                                                <h2 class="text-right">
+                                                    <a class="btn btn-outline-success" href="add_module.php?faculty=<?php echo $row->id; ?>">
+                                                        Register New Module
+                                                    </a>
+                                                </h2>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Module Name</th>
+                                                            <th>Module Code</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$row->id' AND course_name = '$course->name' ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($mod = $res->fetch_object()) {
+                                                        ?>
+
+                                                            <tr class="table-row" data-href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                <td><?php echo $cnt; ?></td>
+                                                                <td><?php echo $mod->name; ?></td>
+                                                                <td><?php echo $mod->code; ?></td>
                                                             </tr>
                                                         <?php $cnt = $cnt + 1;
                                                         } ?>

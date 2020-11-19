@@ -83,10 +83,8 @@ require_once('partials/_head.php');
         $res = $stmt->get_result();
         while ($row = $res->fetch_object()) {
             require_once('partials/_faculty_sidebar.php');
-
         ?>
             <!-- /.navbar -->
-
             <div class="content-wrapper">
                 <div class="content-header">
                     <div class="container">
@@ -129,7 +127,7 @@ require_once('partials/_head.php');
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-6">
                                                         <label for="">Course Name</label>
                                                         <select class='form-control basic' id="Cname" onchange="getCourseDetails(this.value);" name="course_name">
                                                             <option selected>Select Course Name</option>
@@ -144,11 +142,11 @@ require_once('partials/_head.php');
                                                             <?php } ?>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-6">
                                                         <label for="">Course Code</label>
                                                         <input type="text" id="CourseCode" readonly required name="" class="form-control">
                                                     </div>
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-4" style="display:none">
                                                         <label for="">Course ID</label>
                                                         <input type="text" readonly id="CourseID" required name="course_id" class="form-control">
                                                     </div>
