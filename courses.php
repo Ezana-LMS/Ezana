@@ -92,7 +92,6 @@ while ($row = $res->fetch_object()) {
                                                     $cnt = 1;
                                                     while ($course = $res->fetch_object()) {
                                                     ?>
-
                                                         <tr class="table-row" data-href="view_course.php?department=<?php echo $course->department_id; ?>&view=<?php echo $course->id; ?>&faculty=<?php echo $course->faculty_id; ?>">
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $course->code; ?></td>
@@ -101,7 +100,7 @@ while ($row = $res->fetch_object()) {
                                                             <td>
                                                                 <a class="badge badge-danger" href="courses.php?delete=<?php echo $course->id; ?>&faculty=<?php echo $f->id; ?>">
                                                                     <i class="fas fa-trash"></i>
-                                                                    Delete
+                                                                    Delete Course Details
                                                                 </a>
                                                             </td>
                                                         </tr>

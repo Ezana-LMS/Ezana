@@ -15,7 +15,6 @@ require_once('partials/_head.php');
         <?php 
             require_once('partials/_nav.php');
             require_once('partials/_sidebar.php');
-
          ?>
         <!-- /.navbar -->
 

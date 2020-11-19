@@ -21,6 +21,7 @@ if (isset($_POST['update_reading_materials'])) {
     }
     if (!$error) {
         $view = $_GET['view'];
+        $visibility = $_POST['visibility'];
         $module_name  = $_POST['module_name'];
         $module_code = $_POST['module_code'];
         $readingMaterials = $_FILES['readingMaterials']['name'];
@@ -29,9 +30,9 @@ if (isset($_POST['update_reading_materials'])) {
         $created_at = date('d M Y');
         $faculty = $_GET['faculty'];
 
-        $query = "UPDATE ezanaLMS_ModuleRecommended SET module_name =?, module_code =?, readingMaterials =?, created_at =?, external_link =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_ModuleRecommended SET visibility=?, module_name =?, module_code =?, readingMaterials =?, created_at =?, external_link =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssss', $module_name, $module_code, $readingMaterials, $created_at, $external_link, $view);
+        $rc = $stmt->bind_param('sssssss', $visibility, $module_name, $module_code, $readingMaterials, $created_at, $external_link, $view);
         $stmt->execute();
         if ($stmt) {
             $success = "Reading Materials Updated" && header("refresh:1; url=view_module_reading_material.php?view=$view&faculty=$faculty");
@@ -56,13 +57,13 @@ require_once('partials/_head.php');
         $res = $stmt->get_result();
         while ($rm = $res->fetch_object()) {
 
-
             $faculty = $_GET['faculty'];
             $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id ='$faculty' ";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
-            while ($f = $res->fetch_object()) {
+            while ($row = $res->fetch_object()) {
+                require_once('partials/_faculty_sidebar.php');
         ?>
                 <!-- /.navbar -->
                 <div class="content-wrapper">
@@ -76,9 +77,9 @@ require_once('partials/_head.php');
                                     <ol class="breadcrumb float-sm-right">
                                         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                         <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"> <?php echo $f->name; ?></a></li>
-                                        <li class="breadcrumb-item"><a href="modules.php?faculty=<?php echo $f->id; ?>">Modules</a></li>
-                                        <li class="breadcrumb-item"><a href="module_reading_materials.php?faculty=<?php echo $f->id; ?>">Reading Materials</a></li>
+                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"> <?php echo $row->name; ?></a></li>
+                                        <li class="breadcrumb-item"><a href="modules.php?faculty=<?php echo $row->id; ?>">Modules</a></li>
+                                        <li class="breadcrumb-item"><a href="module_reading_materials.php?faculty=<?php echo $row->id; ?>">Reading Materials</a></li>
                                         <li class="breadcrumb-item active ">View</li>
                                     </ol>
                                 </div>
@@ -163,13 +164,22 @@ require_once('partials/_head.php');
                                                             <div class="card-body">
                                                                 <div class="row">
 
-                                                                    <div class="form-group col-md-6">
+                                                                    <div class="form-group col-md-4">
                                                                         <label for="">Module Name</label>
                                                                         <input type="text" id="ModuleCode" value="<?php echo $rm->module_name; ?>" readonly required name="module_name" class="form-control">
                                                                     </div>
-                                                                    <div class="form-group col-md-6">
+                                                                    <div class="form-group col-md-4">
                                                                         <label for="">Module Code</label>
                                                                         <input type="text" id="ModuleCode" value="<?php echo $rm->module_code; ?>" readonly required name="module_code" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="">Reading Materials Visibility</label>
+                                                                        <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                        <select class='form-control basic' name="visibility">
+                                                                            <option selected><?php echo $rm->visibility;?></option>
+                                                                            <option>Available</option>
+                                                                            <option>Pending</option>
+                                                                        </select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">

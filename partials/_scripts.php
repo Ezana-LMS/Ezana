@@ -19,7 +19,11 @@
         $("#courses_enrolled").DataTable();
         $("#enrollment").DataTable();
         $("#admins").DataTable();
+        $("#past-papers").DataTable();
+        $("#course-materials").DataTable();
         $("#studentGroups").DataTable();
+        $("#group_ass").DataTable();
+        $("#")
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -80,7 +84,7 @@
         "pageLength": 7
     });
 </script>
-
+        
 <!-- File Uploads  -->
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script>

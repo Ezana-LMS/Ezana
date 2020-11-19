@@ -75,14 +75,16 @@ require_once('partials/_head.php');
             $res = $stmt->get_result();
             $cnt = 1;
             while ($tt = $res->fetch_object()) {
-                require_once('partials/_faculty_nav.php'); ?>
+                require_once('partials/_faculty_nav.php');
+                require_once('partials/_faculty_sidebar.php');
+                 ?>
                 <!-- /.navbar -->
                 <div class="content-wrapper">
                     <div class="content-header">
                         <div class="container">
                             <div class="row mb-2">
                                 <div class="col-sm-6">
-                                    <h1 class="m-0 text-dark">Add Class </h1>
+                                    <h1 class="m-0 text-dark"><?php echo $tt->classname;?></h1>
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">

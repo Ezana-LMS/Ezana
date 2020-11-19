@@ -60,8 +60,8 @@ require_once('partials/_head.php');
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
-            $cnt = 1;
-            while ($faculty = $res->fetch_object()) {
+            while ($row = $res->fetch_object()) {
+                require_once('partials/_faculty_sidebar.php');
         ?>
                 <!-- /.navbar -->
                 <div class="content-wrapper">
@@ -69,13 +69,13 @@ require_once('partials/_head.php');
                         <div class="container">
                             <div class="row mb-2">
                                 <div class="col-sm-6">
-                                    <h1 class="m-0 text-dark"> <?php echo $course->name; ?> Details </h1>
+                                    <h1 class="m-0 text-dark"> <?php echo $course->name; ?> </h1>
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">
                                         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                         <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $faculty->id; ?>"><?php echo $faculty->name; ?></a></li>
+                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
                                         <li class="breadcrumb-item"><a href="courses.php?faculty=<?php echo $course->faculty_id; ?>"><?php echo $course->name; ?></a></li>
                                         <li class="breadcrumb-item active">View</li>
                                     </ol>
@@ -88,7 +88,6 @@ require_once('partials/_head.php');
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-4">
-
                                     <!-- Profile Image -->
                                     <div class="card card-primary card-outline">
                                         <div class="card-body box-profile">
@@ -156,7 +155,146 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary card-outline">
+                                        <div class="">
+                                            <div class="card-header">
+                                                <h2 class="text-right">
+                                                    <a class="btn btn-outline-success" href="add_class.php?faculty=<?php echo $row->id; ?>&course_code=<?php echo $course->code; ?>">
+                                                        Add Class
+                                                    </a>
+                                                </h2>
+                                                <h2 class="text-left">
+                                                    <?php echo $course->name; ?> Time Table
+                                                </h2>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="export-dt" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Class </th>
+                                                            <th>Lecturer </th>
+                                                            <th>Location</th>
+                                                            <th>Date</th>
+                                                            <th>Time</th>
+                                                            <th>Virtual Link</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_TimeTable` WHERE faculty_id = '$row->id'  AND course_code = '$course->code' ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($tt = $res->fetch_object()) {
+                                                        ?>
 
+                                                            <tr>
+                                                                <td><?php echo $cnt; ?></td>
+                                                                <td><?php echo $tt->classname; ?></td>
+                                                                <td><?php echo $tt->classlecturer; ?></td>
+                                                                <td><?php echo $tt->classlocation; ?></td>
+                                                                <td><?php echo $tt->classdate; ?></td>
+                                                                <td><?php echo $tt->classtime; ?></td>
+                                                                <td><?php echo $tt->classlink; ?></td>
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="card card-primary card-outline">
+                                        <div class="">
+                                            <div class="card-header">
+                                                <h2 class="text-right">
+                                                    <a class="btn btn-outline-success" href="add_module.php?faculty=<?php echo $row->id; ?>">
+                                                        Register New Module
+                                                    </a>
+                                                </h2>
+                                                <h2 class="text-left">
+                                                    <?php echo $course->name; ?> Modules
+                                                </h2>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Module Name</th>
+                                                            <th>Module Code</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$row->id' AND course_name = '$course->name' ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($mod = $res->fetch_object()) {
+                                                        ?>
+                                                            <tr class="table-row" data-href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                <td><?php echo $cnt; ?></td>
+                                                                <td><?php echo $mod->name; ?></td>
+                                                                <td><?php echo $mod->code; ?></td>
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="card card-primary card-outline">
+                                        <div class="">
+                                            <div class="card-header">
+                                                <h2 class="text-left">
+                                                    <?php echo $course->name; ?> Students
+                                                </h2>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="courses_enrolled" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Student Name</th>
+                                                            <th>Adm No</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT DISTINCT student_name, student_adm FROM `ezanaLMS_Enrollments` WHERE course_code = '$course->code'  ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($enrollment = $res->fetch_object()) {
+                                                        ?>
+                                                            <tr>
+                                                                <td><?php echo $cnt; ?></td>
+                                                                <td><?php echo $enrollment->student_name; ?></td>
+                                                                <td><?php echo $enrollment->student_adm; ?></td>
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

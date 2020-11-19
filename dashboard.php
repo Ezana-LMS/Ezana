@@ -11,9 +11,9 @@ require_once('partials/_head.php');
     <div class="wrapper">
 
         <!-- Navbar -->
-        <?php 
-            require_once('partials/_nav.php'); 
-            require_once('partials/_sidebar.php');
+        <?php
+        require_once('partials/_nav.php');
+        require_once('partials/_sidebar.php');
         ?>
         <!-- /.navbar -->
 
@@ -108,7 +108,7 @@ require_once('partials/_head.php');
 
                         <!-- Students -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <a href="M">
+                            <a href="total_students.php">
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-user-graduate"></i></span>
                                     <div class="info-box-content">

@@ -99,7 +99,8 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
+            require_once('partials/_faculty_sidebar.php');
         ?>
             <div class="content-wrapper">
                 <div class="content-header">
@@ -111,9 +112,9 @@ require_once('partials/_head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                    <li class="breadcrumb-item"><a href="students.php?faculty=<?php echo $f->id; ?>">Students</a></li>
-                                    <li class="breadcrumb-item"><a href="enrolled_students.php?faculty=<?php echo $f->id; ?>">Enrolled Students</a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="students.php?faculty=<?php echo $row->id; ?>">Students</a></li>
+                                    <li class="breadcrumb-item"><a href="enrolled_students.php?faculty=<?php echo $row->id; ?>">Enrolled Students</a></li>
                                     <li class="breadcrumb-item active"> Enroll </li>
                                 </ol>
                             </div>
@@ -148,7 +149,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_adm">
                                                             <option selected>Select Student Admission Number</option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$f->id'  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$row->id'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -168,7 +169,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' id="Coursecode" onchange="getCourseDetails(this.value);" name="course_code">
                                                             <option selected>Select Course Code</option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$f->id'  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$row->id'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -188,7 +189,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' id="ModuleName" onchange="getModuleDetails(this.value);" name="module_name">
                                                             <option selected>Select Module Name </option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$f->id'   ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$row->id'   ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -207,7 +208,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' name="semester_enrolled">
                                                             <option selected>Select Semester Name</option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$f->id'  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$row->id'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -222,7 +223,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' name="academic_year_enrolled">
                                                             <option selected>Academic Year Enrolled</option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$f->id'  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$row->id'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -237,7 +238,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' name="semester_start">
                                                             <option selected>Semester Start Date</option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$f->id'  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$row->id'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -253,7 +254,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' name="semester_end">
                                                             <option selected>Semester End Date</option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$f->id'  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$row->id'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();

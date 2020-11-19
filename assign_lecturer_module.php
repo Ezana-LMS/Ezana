@@ -40,7 +40,8 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
+            require_once('partials/_faculty_sidebar.php');
         ?>
             <!-- /.navbar -->
             <div class="content-wrapper">
@@ -53,7 +54,7 @@ require_once('partials/_head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
                                     <li class="breadcrumb-item active"> Assign Lecturers </li>
                                 </ol>
                             </div>
@@ -69,7 +70,7 @@ require_once('partials/_head.php');
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="new_module_assign.php?faculty=<?php echo $f->id;?>">
+                                                <a class="btn btn-outline-success" href="new_module_assign.php?faculty=<?php echo $row->id;?>">
                                                     Register New Module Assign
                                                 </a>
                                             </h2>
@@ -88,7 +89,7 @@ require_once('partials/_head.php');
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE faculty_id = '$f->id'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE faculty_id = '$row->id'  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
@@ -104,12 +105,12 @@ require_once('partials/_head.php');
                                                             <td><?php echo $ass->created_at; ?></td>
                                                             <td>
 
-                                                                <a class="badge badge-primary" href="update_module_assign.php?update=<?php echo $ass->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-primary" href="update_module_assign.php?update=<?php echo $ass->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
                                                                 </a>
 
-                                                                <a class="badge badge-danger" href="assign_lecturer_module.php?delete=<?php echo $ass->id; ?>&code=<?php echo $ass->module_code; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-danger" href="assign_lecturer_module.php?delete=<?php echo $ass->id; ?>&code=<?php echo $ass->module_code; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>

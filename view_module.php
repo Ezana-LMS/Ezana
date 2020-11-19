@@ -146,7 +146,13 @@ require_once('partials/_head.php');
                                                     <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Details</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"><?php echo $mod->name; ?> Settings</a>
+                                                    <a class="nav-link" id="custom-content-below-profile-notices" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"> Notices</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="custom-content-below-profile-pastpapers" data-toggle="pill" href="#custom-content-below-pastpapers" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"> Past Papers</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="custom-content-below-profile-tab" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false"> Settings</a>
                                                 </li>
                                             </ul>
                                             <div class="tab-content" id="custom-content-below-tabContent">
@@ -154,6 +160,95 @@ require_once('partials/_head.php');
                                                     <br>
                                                     <?php echo $mod->details; ?>
                                                 </div>
+                                                <div class="tab-pane fade show " id="custom-content-below-notices" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                    <br>
+                                                    <table id="example1" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Created By</th>
+                                                                <th>Date Posted</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_ModulesAnnouncements` WHERE faculty_id  = '$row->id' AND module_name = '$mod->name'  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            $cnt = 1;
+                                                            while ($not = $res->fetch_object()) {
+                                                            ?>
+                                                                <tr class="table-row" data-href="view_module_notices.php?view=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
+                                                                    <td><?php echo $cnt; ?></td>
+                                                                    <td><?php echo $not->created_by; ?></td>
+                                                                    <td><?php echo $not->created_at; ?></td>
+                                                                    <td>
+                                                                        <a class="badge badge-primary" href="update_module_notice.php?update=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
+                                                                            <i class="fas fa-edit"></i>
+                                                                            Update
+                                                                        </a>
+                                                                        <a class="badge badge-danger" href="module_notices.php?delete=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
+                                                                            <i class="fas fa-trash"></i>
+                                                                            Delete
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php $cnt = $cnt + 1;
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane fade show " id="custom-content-below-pastpapers" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                    <br>
+                                                    <table id="past-papers" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Paper Name</th>
+                                                                <th>Date Uploaded</th>
+                                                                <th>Manage</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_PastPapers`  WHERE  faculty_id = '$row->id' AND module_name = '$mod->name' ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            $cnt = 1;
+                                                            while ($pastExas = $res->fetch_object()) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td><?php echo $cnt; ?></td>
+                                                                    <td><?php echo $pastExas->paper_name; ?></td>
+                                                                    <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
+                                                                    <td>
+                                                                        <a class="badge badge-primary" href="upload_past_exam_paper_solution.php?id=<?php echo $pastExas->id; ?>&faculty=<?php echo $row->id;?>">
+                                                                            <i class="fas fa-upload"></i>
+                                                                            Upload Solution
+                                                                        </a>
+                                                                        <a class="badge badge-success" target="_blank" href="EzanaLMSData/PastPapers/<?php echo $pastExas->solution; ?>">
+                                                                            <i class="fas fa-download"></i>
+                                                                            Download Solution
+                                                                        </a>
+                                                                        <a class="badge badge-success" target="_blank" href="EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>">
+                                                                            <i class="fas fa-download"></i>
+                                                                            Download Paper
+                                                                        </a>
+                                                                        <a class="badge badge-danger" href="past_exam_papers.php?faculty=<?php echo $row->id; ?>">
+                                                                            <i class="fas fa-cogs"></i>
+                                                                            Manage Papers
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php $cnt = $cnt + 1;
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
                                                 <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                     <br>
                                                     <form method="post" enctype="multipart/form-data" role="form">
@@ -252,7 +347,7 @@ require_once('partials/_head.php');
                                                     </h2>
                                                 </div>
                                                 <div class="card-body">
-                                                    <table id="example1" class="table table-bordered table-striped">
+                                                    <table id="course-materials" class="table table-bordered table-striped">
                                                         <thead>
                                                             <tr>
                                                                 <th>#</th>
@@ -414,7 +509,7 @@ require_once('partials/_head.php');
                                         <div class="card-body box-profile">
                                             <div class="card-body">
                                                 <h2 class="text-right">
-                                                    <a class="btn btn-outline-success" href="add_student_groups.php?faculty=<?php echo $row->id; ?>&module_id=<?php echo $mod->id;?>">
+                                                    <a class="btn btn-outline-success" href="add_student_groups.php?faculty=<?php echo $row->id; ?>&module_id=<?php echo $mod->id; ?>">
                                                         Create New Group
                                                     </a>
                                                     <a class="btn btn-outline-primary" href="student_group_assignments.php?faculty=<?php echo $row->id; ?>">
@@ -446,7 +541,7 @@ require_once('partials/_head.php');
                                                         while ($g = $res->fetch_object()) {
                                                         ?>
 
-                                                            <tr class="table-row" data-href="view_student_group.php?&name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                            <tr class="table-row" data-href="view_student_group.php?name=<?php echo $g->name; ?>&code=<?php echo $g->code; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                 <td><?php echo $cnt; ?></td>
                                                                 <td><?php echo $g->code; ?></td>
                                                                 <td><?php echo $g->name; ?></td>
@@ -478,7 +573,7 @@ require_once('partials/_head.php');
                                         </div>
                                         <div class="card-body box-profile">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_student_enrollment.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-success" href="add_student_enrollment.php?faculty=<?php echo $row->id; ?>">
                                                     <i class="fas fa-user-plus"></i>
                                                     Add Enrollment
                                                 </a>

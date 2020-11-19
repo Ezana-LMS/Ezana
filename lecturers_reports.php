@@ -14,7 +14,6 @@ require_once('partials/_head.php');
         <!-- Navbar -->
         <?php
         require_once('partials/_faculty_nav.php');
-
         $faculty = $_GET['faculty'];
         $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
         $stmt = $mysqli->prepare($ret);
@@ -22,7 +21,6 @@ require_once('partials/_head.php');
         $res = $stmt->get_result();
         while ($row = $res->fetch_object()) {
             require_once('partials/_faculty_sidebar.php');
-
         ?>
             <!-- /.navbar -->
 

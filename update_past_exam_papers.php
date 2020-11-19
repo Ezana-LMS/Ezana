@@ -6,20 +6,19 @@ require_once('configs/codeGen.php');
 check_login();
 if (isset($_POST['update'])) {
 
-    $update = $_GET['update'];
-    $departmental_memo = $_POST['departmental_memo'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
-    $created_at = date('d M Y g:i');
-    $type = $_POST['type'];
     $faculty = $_GET['faculty'];
+    $id = $_GET['id'];
 
-    $query = "UPDATE ezanaLMS_DepartmentalMemos SET  departmental_memo =?, attachments =?, created_at =?, type =?, faculty_id =? WHERE id =?";
+    $paper_name = $_POST['paper_name'];
+    $paper_visibility = $_POST['paper_visibility'];
+    $solution_visibility = $_POST['solution_visibility'];
+
+    $query = "UPDATE ezanaLMS_PastPapers SET  paper_name = ?, paper_visibility = ?, solution_visibility = ? WHERE id = ?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss',  $departmental_memo, $attachments, $created_at, $type, $faculty, $update);
+    $rc = $stmt->bind_param('ssss', $paper_name, $paper_visibility, $solution_visibility, $id);
     $stmt->execute();
     if ($stmt) {
-        $success = "Departmental NoteMemo Updated" && header("refresh:1; url=departmental_notememos.php?faculty=$faculty");
+        $success = "Past Paper Updated" && header("refresh:1; url=past_exam_papers.php?faculty=$faculty");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -34,46 +33,44 @@ require_once('partials/_head.php');
         <?php
         require_once('partials/_faculty_nav.php');
         $faculty = $_GET['faculty'];
+        $id = $_GET['id'];
         $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id = '$faculty' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($row = $res->fetch_object()) {
-            $update = $_GET['update'];
-            $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE id ='$update'  ";
+            $ret = "SELECT * FROM `ezanaLMS_PastPapers`  WHERE  id = '$id' ";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
-            while ($memo = $res->fetch_object()) {
+            $cnt = 1;
+            while ($pastExas = $res->fetch_object()) {
                 require_once('partials/_faculty_sidebar.php');
         ?>
                 <!-- /.navbar -->
-
                 <div class="content-wrapper">
                     <div class="content-header">
                         <div class="container">
                             <div class="row mb-2">
                                 <div class="col-sm-6">
-                                    <h1 class="m-0 text-dark">Update Departmental Notices & Memo</h1>
+                                    <h1 class="m-0 text-dark">Update Past Exam Papers</h1>
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">
                                         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="dashboard.php">Faculties</a></li>
-                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $faculty; ?>"><?php echo $row->name; ?></a></li>
-                                        <li class="breadcrumb-item"><a href="departmental_notememos.php?faculty=<?php echo $faculty; ?>">Memos & Notices</a></li>
+                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
+                                        <li class="breadcrumb-item"><a href="past_exam_papers.php?faculty=<?php echo $row->id; ?>">Past Papers</a></li>
                                         <li class="breadcrumb-item active">Update</li>
                                     </ol>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="content">
                         <div class="container">
                             <section class="content">
-                                <div class="row">
-                                    <div class="col-12">
+                                <div class="container-fluid">
+                                    <div class="col-md-12">
                                         <div class="card card-primary">
                                             <div class="card-header">
                                                 <h3 class="card-title">Fill All Required Fields</h3>
@@ -82,33 +79,34 @@ require_once('partials/_head.php');
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Type</label>
-                                                            <select class='form-control basic' name="type">
-                                                                <option selected><?php echo $memo->type; ?></option>
-                                                                <option>Notice</option>
-                                                                <option>Memo</option>
+                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="">Exam Paper Name</label>
+                                                            <input type="text" value="<?php echo $pastExas->paper_name; ?>" name="paper_name" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Exam Paper Visibility / Availability</label>
+                                                            <select class='form-control basic' name="paper_visibility">
+                                                                <option selected><?php echo $pastExas->paper_visibility; ?></option>
+                                                                <option>Available</option>
+                                                                <option>Hidden</option>
                                                             </select>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Upload Departmental Memo (PDF Or Docx)</label>
-                                                            <div class="input-group">
-                                                                <div class="custom-file">
-                                                                    <input name="attachments" type="file" class="custom-file-input">
-                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <h2 class="text-center">Or </h2>
-                                                    <div class="row">
-                                                        <div class="form-group col-md-12">
-                                                            <label for="exampleInputPassword1">Type Departmental Memo</label>
-                                                            <textarea name="departmental_memo" id="textarea" rows="10" class="form-control"><?php echo $memo->departmental_memo; ?></textarea>
+                                                            <label for="">Exam Paper Solution Visibility / Availability</label>
+                                                            <select class='form-control basic' name="solution_visibility">
+                                                                <option selected><?php echo $pastExas->solution_visibility; ?></option>
+                                                                <option selected>Available</option>
+                                                                <option>Hidden</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="card-footer text-right">
-                                                    <button type="submit" name="update" class="btn btn-primary">Update</button>
+                                                    <button type="submit" name="update" class="btn btn-primary">Update Exam Paper</button>
                                                 </div>
                                             </form>
                                         </div>

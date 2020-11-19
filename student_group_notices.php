@@ -33,7 +33,8 @@ require_once('partials/_head.php')
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
+            require_once('partials/_faculty_sidebar.php')
         ?>
             <!-- /.navbar -->
 
@@ -47,8 +48,8 @@ require_once('partials/_head.php')
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                    <li class="breadcrumb-item"><a href="student_groups.php?faculty=<?php echo $f->id; ?>">Student Groups</a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="student_groups.php?faculty=<?php echo $row->id; ?>">Student Groups</a></li>
                                     <li class="breadcrumb-item active"> Notices </li>
                                 </ol>
                             </div>
@@ -64,7 +65,7 @@ require_once('partials/_head.php')
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_group_announcements.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-success" href="add_group_announcements.php?faculty=<?php echo $row->id; ?>">
                                                     Create New Group Announcement
                                                 </a>
                                             </h2>
@@ -83,7 +84,7 @@ require_once('partials/_head.php')
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAnnouncements` WHERE faculty_id ='$f->id'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAnnouncements` WHERE faculty_id ='$row->id'  ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
@@ -98,15 +99,15 @@ require_once('partials/_head.php')
                                                             <td><?php echo $ga->created_by; ?></td>
                                                             <td><?php echo date('d M Y', strtotime($ga->created_at)); ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="view_group_announcement.php?view=<?php echo $ga->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-success" href="view_group_announcement.php?view=<?php echo $ga->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-eye"></i>
                                                                     View
                                                                 </a>
-                                                                <a class="badge badge-primary" href="update_group_announcement.php?update=<?php echo $ga->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-primary" href="update_group_announcement.php?update=<?php echo $ga->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
                                                                 </a>
-                                                                <a class="badge badge-danger" href="student_group_notices.php?delete=<?php echo $ga->id; ?>&faculty=<?php echo $f->id; ?>">
+                                                                <a class="badge badge-danger" href="student_group_notices.php?delete=<?php echo $ga->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>

@@ -34,7 +34,9 @@ require_once('partials/_head.php');
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($row = $res->fetch_object()) {
-            require_once('partials/_faculty_nav.php'); ?>
+            require_once('partials/_faculty_nav.php');
+            require_once('partials/_faculty_sidebar.php');
+        ?>
             <!-- /.navbar -->
 
             <div class="content-wrapper">
@@ -64,7 +66,7 @@ require_once('partials/_head.php');
                                     <div class="card">
                                         <div class="card-header">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_class.php?faculty=<?php echo $row->id; ?>">
+                                                <a class="btn btn-outline-success" href="courses.php?faculty=<?php echo $row->id; ?>">
                                                     Add Class
                                                 </a>
                                             </h2>

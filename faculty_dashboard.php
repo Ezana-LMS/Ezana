@@ -17,7 +17,6 @@ require_once('partials/_head.php');
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($row = $res->fetch_object()) {
-
             require_once('partials/_faculty_sidebar.php');
         ?>
 
@@ -94,7 +93,7 @@ require_once('partials/_head.php');
                                 </a>
                             </div>
 
-                            <!-- Time Table-->
+                            <!-- Time Table--
                             <div class="col-12 col-sm-6 col-md-4">
                                 <a href="timetables.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
@@ -107,7 +106,7 @@ require_once('partials/_head.php');
                                 </a>
                             </div>
 
-                            <!-- Class Recordings -->
+                             Class Recordings 
                             <div class="col-12 col-sm-6 col-md-4">
                                 <a href="class_recordings.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
@@ -118,9 +117,9 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                 </a>
-                            </div>
+                            </div> -
 
-                            <!-- Past Exam Papers -->
+                            
                             <div class="col-12 col-sm-6 col-md-4">
                                 <a href="past_exam_papers.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">
@@ -133,7 +132,7 @@ require_once('partials/_head.php');
                                 </a>
                             </div>
 
-                            <!-- Past Exam Papers Solutions -->
+                             Past Exam Papers Solutions 
                             <div class="col-12 col-sm-6 col-md-4">
                                 <a href="past_exam_paper_solutions.php?faculty=<?php echo $row->id;?>">
                                     <div class="info-box mb-3">

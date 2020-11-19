@@ -119,7 +119,7 @@ require_once('partials/_head.php');
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="form-group col-md-6">
+                                                    <div class="form-group col-md-12">
                                                         <label for="">Department Name</label>
                                                         <select class='form-control basic' id="DepartmentName" onchange="getDepartmentDetails(this.value);" name="department_name">
                                                             <option selected>Select Department Name</option>
@@ -134,7 +134,7 @@ require_once('partials/_head.php');
                                                             <?php } ?>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group col-md-6">
+                                                    <div class="form-group col-md-6" style="display:none">
                                                         <label for="">Department ID</label>
                                                         <input type="text" id="DepartmentID" readonly required name="department_id" class="form-control">
                                                     </div>

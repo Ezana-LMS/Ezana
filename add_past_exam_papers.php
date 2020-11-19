@@ -18,14 +18,15 @@ if (isset($_POST['add_paper'])) {
         $module_name = $_POST['module_name'];
         $id = $_POST['id'];
         $course_name = $_POST['course_name'];
-        $pastpaper_type = 'Past Paper';
+        $paper_name = $_POST['paper_name'];
+        $paper_visibility = $_POST['paper_visibility'];
         $created_at = date('d M Y h:m:s');
         $pastpaper = $_FILES['pastpaper']['name'];
         move_uploaded_file($_FILES["pastpaper"]["tmp_name"], "EzanaLMSData/PastPapers/" . $_FILES["pastpaper"]["name"]);
 
-        $query = "INSERT INTO ezanaLMS_PastPapers (id, faculty_id, course_name, module_name,  pastpaper_type, created_at, pastpaper) VALUES(?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_PastPapers (id, paper_name, paper_visibility, faculty_id, course_name, module_name,  created_at, pastpaper) VALUES(?,?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $id, $faculty, $course_name, $module_name, $pastpaper_type, $created_at, $pastpaper);
+        $rc = $stmt->bind_param('ssssssss', $id, $paper_name, $paper_visibility, $faculty, $course_name, $module_name, $created_at, $pastpaper);
         $stmt->execute();
         if ($stmt) {
             $success = "Past Paper Uploaded" && header("refresh:1; url=add_past_exam_papers.php?faculty=$faculty");
@@ -48,7 +49,8 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
+            require_once('partials/_faculty_sidebar.php');
         ?>
             <!-- /.navbar -->
             <div class="content-wrapper">
@@ -61,8 +63,8 @@ require_once('partials/_head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                    <li class="breadcrumb-item"><a href="past_exam_papers.php?faculty=<?php echo $f->id; ?>">Past Papers</a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="past_exam_papers.php?faculty=<?php echo $row->id; ?>">Past Papers</a></li>
                                     <li class="breadcrumb-item active">Upload</li>
                                 </ol>
                             </div>
@@ -91,7 +93,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' name="course_name">
                                                             <option selected>Select Course Name</option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$f->id'  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$row->id'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -107,7 +109,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' name="module_name">
                                                             <option selected>Select Module Name</option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$f->id'  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$row->id'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -115,6 +117,17 @@ require_once('partials/_head.php');
                                                             ?>
                                                                 <option><?php echo $mod->name; ?></option>
                                                             <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Exam Paper Name</label>
+                                                        <input type="text" name="paper_name" class="form-control">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Exam Paper Visibility / Availability</label>
+                                                        <select class='form-control basic' name="paper_visibility">
+                                                            <option selected>Available</option>
+                                                            <option >Hidden</option>
                                                         </select>
                                                     </div>
                                                 </div>

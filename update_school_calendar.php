@@ -79,6 +79,7 @@ require_once('partials/_head.php');
             $stmt->execute(); //ok
             $res = $stmt->get_result();
             while ($cal = $res->fetch_object()) {
+                require_once('partials/_faculty_sidebar.php');
         ?>
                 <!-- /.navbar -->
                 <div class="content-wrapper">
