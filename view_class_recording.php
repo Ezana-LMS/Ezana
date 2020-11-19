@@ -17,7 +17,7 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
             $watch = $_GET['watch'];
             $ret = "SELECT * FROM `ezanaLMS_ClassRecordings` WHERE id ='$watch'  ";
             $stmt = $mysqli->prepare($ret);
@@ -25,6 +25,7 @@ require_once('partials/_head.php');
             $res = $stmt->get_result();
             while ($cr = $res->fetch_object()) {
                 require_once('partials/_faculty_nav.php');
+                require_once('partials/_faculty_sidebar.php');
         ?>
                 <!-- /.navbar -->
                 <div class="content-wrapper">
@@ -40,8 +41,8 @@ require_once('partials/_head.php');
                                         <div class="col-sm-6">
                                             <ol class="breadcrumb float-sm-right">
                                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                                <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                                <li class="breadcrumb-item"><a href="class_recordings.php?faculty=<?php echo $f->id; ?>">Class Recordings</a></li>
+                                                <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
+                                                <li class="breadcrumb-item"><a href="class_recordings.php?faculty=<?php echo $row->id; ?>">Class Recordings</a></li>
                                                 <li class="breadcrumb-item active"> View </li>
                                             </ol>
                                         </div>
