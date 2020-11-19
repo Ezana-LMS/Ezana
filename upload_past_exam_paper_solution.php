@@ -17,7 +17,7 @@ if (isset($_POST['add_paper'])) {
     $rc = $stmt->bind_param('sss', $solution_visibility, $solution, $id);
     $stmt->execute();
     if ($stmt) {
-        $success = "Past Paper Solution Uploaded"; // && header("refresh:1; url=add_past_exam_papers.php?faculty=$faculty");
+        $success = "Past Paper Solution Uploaded" && header("refresh:1; url=past_exam_papers.php?faculty=$faculty");
     } else {
         $info = "Please Try Again Or Try Later";
     }

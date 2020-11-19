@@ -229,13 +229,17 @@ require_once('partials/_head.php');
                                                                             <i class="fas fa-upload"></i>
                                                                             Upload Solution
                                                                         </a>
-                                                                        <a class="badge badge-success" target="_blank" href="EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>">
-                                                                            <i class="fas fa-cogs"></i>
-                                                                            Manage
+                                                                        <a class="badge badge-success" target="_blank" href="EzanaLMSData/PastPapers/<?php echo $pastExas->solution; ?>">
+                                                                            <i class="fas fa-upload"></i>
+                                                                            Download Solution
                                                                         </a>
-                                                                        <a class="badge badge-danger" href="past_exam_papers.php?delete=<?php echo $pastExas->id; ?>&faculty=<?php echo $row->id; ?>">
-                                                                            <i class="fas fa-trash"></i>
-                                                                            Delete
+                                                                        <a class="badge badge-success" target="_blank" href="EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>">
+                                                                            <i class="fas fa-upload"></i>
+                                                                            Download Paper
+                                                                        </a>
+                                                                        <a class="badge badge-success" href="past_exam_papers.php?faculty=<?php echo $row->id; ?>">
+                                                                            <i class="fas fa-cogs"></i>
+                                                                            Manage Papers
                                                                         </a>
                                                                     </td>
                                                                 </tr>
