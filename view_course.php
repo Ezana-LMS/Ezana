@@ -60,8 +60,8 @@ require_once('partials/_head.php');
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
-            $cnt = 1;
-            while ($faculty = $res->fetch_object()) {
+            while ($row = $res->fetch_object()) {
+                require_once('partials/_faculty_sidebar.php');
         ?>
                 <!-- /.navbar -->
                 <div class="content-wrapper">
@@ -75,7 +75,7 @@ require_once('partials/_head.php');
                                     <ol class="breadcrumb float-sm-right">
                                         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                         <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $faculty->id; ?>"><?php echo $faculty->name; ?></a></li>
+                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
                                         <li class="breadcrumb-item"><a href="courses.php?faculty=<?php echo $course->faculty_id; ?>"><?php echo $course->name; ?></a></li>
                                         <li class="breadcrumb-item active">View</li>
                                     </ol>
