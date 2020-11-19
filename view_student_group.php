@@ -124,13 +124,14 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
             $view = $_GET['view'];
             $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE id ='$view'  ";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
             while ($g = $res->fetch_object()) {
+                require_once('partials/_faculty_sidebar.php');
         ?>
                 <!-- /.navbar -->
 
@@ -144,8 +145,8 @@ require_once('partials/_head.php');
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">
                                         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                        <li class="breadcrumb-item"><a href="student_groups.php?faculty=<?php echo $f->id; ?>">Student Groups</a></li>
+                                        <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
+                                        <li class="breadcrumb-item"><a href="student_groups.php?faculty=<?php echo $row->id; ?>">Student Groups</a></li>
                                         <li class="breadcrumb-item active"> Group Details </li>
                                     </ol>
                                 </div>
@@ -239,7 +240,7 @@ require_once('partials/_head.php');
                                                                     <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
                                                                         <option selected>Select Admission Number</option>
                                                                         <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Students`  ";
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$row->faculty_id'   ";
                                                                         $stmt = $mysqli->prepare($ret);
                                                                         $stmt->execute(); //ok
                                                                         $res = $stmt->get_result();
@@ -277,7 +278,7 @@ require_once('partials/_head.php');
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE group_code ='$g->code' AND faculty_id = '$f->id'  ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE group_code ='$g->code' AND faculty_id = '$row->id'  ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
@@ -317,7 +318,7 @@ require_once('partials/_head.php');
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAnnouncements` WHERE faculty_id ='$f->id'  AND group_code = '$g->code' ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAnnouncements` WHERE faculty_id ='$row->id'  AND group_code = '$g->code' ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
@@ -325,7 +326,7 @@ require_once('partials/_head.php');
                                                                     while ($ga = $res->fetch_object()) {
                                                                     ?>
 
-                                                                        <tr class="table-row" data-href="view_group_announcement.php?faculty=<?php echo $f->id; ?>&view=<?php echo $ga->id; ?>">
+                                                                        <tr class="table-row" data-href="view_group_announcement.php?faculty=<?php echo $row->id; ?>&view=<?php echo $ga->id; ?>">
                                                                             <td><?php echo $cnt; ?></td>
                                                                             <td><?php echo $ga->created_by; ?></td>
                                                                             <td><?php echo date('d M Y', strtotime($ga->created_at)); ?></td>
