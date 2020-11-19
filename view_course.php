@@ -242,11 +242,54 @@ require_once('partials/_head.php');
                                                         $cnt = 1;
                                                         while ($mod = $res->fetch_object()) {
                                                         ?>
-
                                                             <tr class="table-row" data-href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                 <td><?php echo $cnt; ?></td>
                                                                 <td><?php echo $mod->name; ?></td>
                                                                 <td><?php echo $mod->code; ?></td>
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="card card-primary card-outline">
+                                        <div class="">
+                                            <div class="card-header">
+                                                <h2 class="text-left">
+                                                    <?php echo $course->name; ?> Students
+                                                </h2>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="courses_enrolled" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Student Name</th>
+                                                            <th>Adm No</th>
+                                                            <th>Academic Yr</th>
+                                                            <th>Sem Enrolled</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE course_code = '$course->code'  ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($enrollment = $res->fetch_object()) {
+                                                        ?>
+                                                            <tr>
+                                                                <td><?php echo $cnt; ?></td>
+                                                                <td><?php echo $enrollment->student_name; ?></td>
+                                                                <td><?php echo $enrollment->student_adm; ?></td>
+                                                                <td><?php echo $enrollment->academic_year_enrolled; ?></td>
+                                                                <td><?php echo $enrollment->semester_enrolled; ?></td>
                                                             </tr>
                                                         <?php $cnt = $cnt + 1;
                                                         } ?>
