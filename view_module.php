@@ -478,7 +478,7 @@ require_once('partials/_head.php');
                                         </div>
                                         <div class="card-body box-profile">
                                             <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_student_enrollment.php?faculty=<?php echo $f->id; ?>">
+                                                <a class="btn btn-outline-success" href="add_student_enrollment.php?faculty=<?php echo $row->id; ?>">
                                                     <i class="fas fa-user-plus"></i>
                                                     Add Enrollment
                                                 </a>
