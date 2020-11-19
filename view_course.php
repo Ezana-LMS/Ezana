@@ -271,13 +271,11 @@ require_once('partials/_head.php');
                                                             <th>#</th>
                                                             <th>Student Name</th>
                                                             <th>Adm No</th>
-                                                            <th>Academic Yr</th>
-                                                            <th>Sem Enrolled</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE course_code = '$course->code'  ";
+                                                        $ret = "SELECT DISTINCT student_name, student_adm FROM `ezanaLMS_Enrollments` WHERE course_code = '$course->code'  ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
@@ -288,8 +286,6 @@ require_once('partials/_head.php');
                                                                 <td><?php echo $cnt; ?></td>
                                                                 <td><?php echo $enrollment->student_name; ?></td>
                                                                 <td><?php echo $enrollment->student_adm; ?></td>
-                                                                <td><?php echo $enrollment->academic_year_enrolled; ?></td>
-                                                                <td><?php echo $enrollment->semester_enrolled; ?></td>
                                                             </tr>
                                                         <?php $cnt = $cnt + 1;
                                                         } ?>
