@@ -69,7 +69,7 @@ require_once('partials/_head.php');
                         <div class="container">
                             <div class="row mb-2">
                                 <div class="col-sm-6">
-                                    <h1 class="m-0 text-dark"> <?php echo $course->name; ?> Details </h1>
+                                    <h1 class="m-0 text-dark"> <?php echo $course->name; ?>  </h1>
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">
@@ -162,7 +162,7 @@ require_once('partials/_head.php');
                                         <div class="">
                                             <div class="card-header">
                                                 <h2 class="text-right">
-                                                    <a class="btn btn-outline-success" href="add_class.php?faculty=<?php echo $row->id; ?>">
+                                                    <a class="btn btn-outline-success" href="add_class.php?faculty=<?php echo $row->id; ?>&course_code=<?php echo $course->code;?>">
                                                         Add Class
                                                     </a>
                                                 </h2>
@@ -185,7 +185,7 @@ require_once('partials/_head.php');
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_TimeTable` WHERE faculty_id = '$row->id'  ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_TimeTable` WHERE faculty_id = '$row->id'  AND course_code = '$course->code' ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();

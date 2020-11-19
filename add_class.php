@@ -35,6 +35,7 @@ if (isset($_POST['add_class'])) {
 
     if (!$error) {
         $id = $_POST['id'];
+        $course_code = $_GET['course_code'];
         $classdate = $_POST['classdate'];
         $classtime  = $_POST['classtime'];
         $classlocation = $_POST['classlocation'];
@@ -42,12 +43,12 @@ if (isset($_POST['add_class'])) {
         $classname  = $_POST['classname'];
         $classlink = $_POST['classlink'];
         $faculty = $_GET['faculty'];
-        $query = "INSERT INTO ezanaLMS_TimeTable (id, faculty_id, classdate, classtime, classlocation, classlecturer, classname, classlink) VALUES(?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_TimeTable (id, course_code, faculty_id, classdate, classtime, classlocation, classlecturer, classname, classlink) VALUES(?,?,?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssss', $id, $faculty, $classdate, $classtime, $classlocation, $classlecturer, $classname, $classlink);
+        $rc = $stmt->bind_param('sssssssss', $id, $course_code, $faculty, $classdate, $classtime, $classlocation, $classlecturer, $classname, $classlink);
         $stmt->execute();
         if ($stmt) {
-            $success = "Class Added" && header("refresh:1; url=add_class.php?faculty=$faculty");
+            $success = "Class Added" && header("refresh:1; url=add_class.php?faculty=$faculty&course_code=$course_code");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -83,7 +84,7 @@ require_once('partials/_head.php');
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
                                     <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"> <?php echo $row->name; ?></a></li>
-                                    <li class="breadcrumb-item"><a href="timetables.php?faculty=<?php echo $row->id; ?>">TimeTable</a></li>
+                                    <li class="breadcrumb-item"><a href="timetables.php?faculty=<?php echo $row->id; ?>">TimeTables</a></li>
                                     <li class="breadcrumb-item active ">Add </li>
                                 </ol>
                             </div>
