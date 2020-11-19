@@ -12,10 +12,10 @@ require_once('partials/_head.php');
     <div class="wrapper">
 
         <!-- Navbar -->
-        <?php 
-            require_once('partials/_nav.php');
-            require_once('partials/_sidebar.php');
-         ?>
+        <?php
+        require_once('partials/_nav.php');
+        require_once('partials/_sidebar.php');
+        ?>
         <!-- /.navbar -->
 
         <div class="content-wrapper">
@@ -41,21 +41,13 @@ require_once('partials/_head.php');
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-                                    <!-- <div class="card-header">
-                                            <h2 class="text-right">
-                                                <a class="btn btn-outline-success" href="add_module.php?faculty=<?php echo $f->id; ?>">
-                                                    Register New Module
-                                                </a>
-
-                                                <a class="btn btn-outline-success" href="module_notices.php?faculty=<?php echo $f->id; ?>">
-                                                    Module Notices
-                                                </a>
-
-                                                <a class="btn btn-outline-success" href="module_reading_materials.php?faculty=<?php echo $f->id; ?>">
-                                                    Module Reading Materials
-                                                </a>
-                                            </h2>
-                                        </div> -->
+                                    <div class="card-header">
+                                        <h2 class="text-right">
+                                            <a class="btn btn-outline-success" href="dashboard_add_department.php">
+                                                Add New Department
+                                            </a>
+                                        </h2>
+                                    </div>
                                     <div class="card-body">
                                         <table id="export-dt" class="table table-bordered table-striped">
                                             <thead>
