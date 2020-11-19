@@ -91,7 +91,6 @@ if (isset($_POST['change_password'])) {
         }
     }
 }
-
 require_once('partials/_head.php');
 ?>
 
@@ -175,15 +174,22 @@ require_once('partials/_head.php');
                                             </div>
                                         </div>
                                         <div class="col-md-9">
-                                            <div class="card">
-                                                <div class="card-header p-2">
-                                                    <ul class="nav nav-pills">
-                                                        <li class="nav-item"><a class="nav-link active" href="#modules" data-toggle="tab">Modules Assigned</a></li>
-                                                    </ul>
-                                                </div>
+                                            <div class="card card-primary card-outline">
                                                 <div class="card-body">
-                                                    <div class="tab-content">
-                                                        <div class="active tab-pane" id="modules">
+                                                    <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Modules Assigned</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" id="custom-content-below-profile-settings" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Profile Settings</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" id="custom-content-below-changepwd" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Change Password</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="tab-content" id="custom-content-below-tabContent">
+                                                        <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                            <br>
                                                             <table id="example1" class="table table-bordered table-striped">
                                                                 <thead>
                                                                     <tr>
@@ -212,6 +218,36 @@ require_once('partials/_head.php');
                                                                     } ?>
                                                                 </tbody>
                                                             </table>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                            <br>
+                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-4">
+                                                                            <label for="">Department Name</label>
+                                                                            <input type="text" required name="name" value="<?php echo $row->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                        </div>
+                                                                        <div class="form-group col-md-4">
+                                                                            <label for="">Department Number / Code</label>
+                                                                            <input type="text" required name="code" value="<?php echo $row->code; ?>" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-4">
+                                                                            <label for="">Department HOD</label>
+                                                                            <input type="text" required value="<?php echo $row->hod; ?>" name="hod" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="exampleInputPassword1">Department Details</label>
+                                                                            <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $row->details; ?></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class=" text-right">
+                                                                    <button type="submit" name="update_dept" class="btn btn-primary">Update Department</button>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
