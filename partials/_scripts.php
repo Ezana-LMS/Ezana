@@ -80,7 +80,8 @@
         "pageLength": 7
     });
 </script>
-
+<!-- Footable js -->
+<script src="plugins/footable/footable.all.min.js"></script>
 <!-- File Uploads  -->
 <script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script>
