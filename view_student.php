@@ -110,30 +110,34 @@ require_once('partials/_head.php');
                                             </div>
                                         </div>
                                         <div class="col-md-9">
-                                            <div class="card">
-                                                <div class="card-header p-2">
-                                                    <ul class="nav nav-pills">
-                                                        <li class="nav-item"><a class="nav-link active" href="#modules" data-toggle="tab">Modules Enrolled</a></li>
-                                                        <li class="nav-item"><a class="nav-link" href="#courses" data-toggle="tab">Courses Enrolled</a></li>
-
-                                                    </ul>
-                                                </div>
+                                            <div class="card card-primary card-outline">
                                                 <div class="card-body">
-                                                    <div class="tab-content">
-                                                        <div class="active tab-pane" id="modules">
+                                                    <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Modules Assigned</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" id="custom-content-below-profile-settings" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Profile Settings</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" id="custom-content-below-settings" data-toggle="pill" href="#custom-content-below-changepwd" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Change Password</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="tab-content" id="custom-content-below-tabContent">
+                                                        <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                            <br>
                                                             <table id="example1" class="table table-bordered table-striped">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>#</th>
                                                                         <th>Module Code</th>
                                                                         <th>Module Name</th>
-                                                                        <th>Date Enrolled</th>
+                                                                        <th>Date Allocated</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $admission_number = $std->admno;
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE student_adm = '$admission_number'  ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE lec_id ='$view'   ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
@@ -151,40 +155,77 @@ require_once('partials/_head.php');
                                                                 </tbody>
                                                             </table>
                                                         </div>
+                                                        <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                            <br>
+                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-4">
+                                                                            <label for="">Name</label>
+                                                                            <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                        </div>
+                                                                        <div class="form-group col-md-4">
+                                                                            <label for="">Number</label>
+                                                                            <input type="text" required name="number" value="<?php echo $lec->name; ?>" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-4">
+                                                                            <label for="">ID / Passport Number</label>
+                                                                            <input type="text" value="<?php echo $lec->idno; ?>" required name="idno" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Email</label>
+                                                                            <input type="email" value="<?php echo $lec->email; ?>" required name="email" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Phone Number</label>
+                                                                            <input type="text" required value="<?php echo $lec->phone; ?>" name="phone" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="">Profile Picture</label>
+                                                                            <div class="input-group">
+                                                                                <div class="custom-file">
+                                                                                    <input required name="profile_pic" type="file" class="custom-file-input">
+                                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="exampleInputPassword1">Address</label>
+                                                                            <textarea required name="adr" id="textarea" rows="5" class="form-control"><?php echo $lec->adr; ?></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="text-right">
+                                                                    <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
 
-                                                        <div class="tab-pane" id="courses">
-                                                            <table id="courses_enrolled" class="table table-bordered table-striped">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>#</th>
-                                                                        <th>Course Code</th>
-                                                                        <th>Couse Name</th>
-                                                                        <th>Academic Yr</th>
-                                                                        <th>Semester Enrolled</th>
-
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                    $admission_number = $std->admno;
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE student_adm = '$admission_number'  ";
-                                                                    $stmt = $mysqli->prepare($ret);
-                                                                    $stmt->execute(); //ok
-                                                                    $res = $stmt->get_result();
-                                                                    $cnt = 1;
-                                                                    while ($mod = $res->fetch_object()) {
-                                                                    ?>
-                                                                        <tr>
-                                                                            <td><?php echo $cnt; ?></td>
-                                                                            <td><?php echo $mod->course_code; ?></td>
-                                                                            <td><?php echo $mod->course_name; ?></td>
-                                                                            <td><?php echo $mod->academic_year_enrolled; ?></td>
-                                                                            <td><?php echo $mod->semester_enrolled; ?></td>
-                                                                        </tr>
-                                                                    <?php $cnt = $cnt + 1;
-                                                                    } ?>
-                                                                </tbody>
-                                                            </table>
+                                                        <div class="tab-pane fade" id="custom-content-below-changepwd" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                            <br>
+                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="">New Password</label>
+                                                                            <input type="password" required name="new_password" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="">Confirm Password</label>
+                                                                            <input type="password" required name="confirm_password" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="text-right">
+                                                                        <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div>
