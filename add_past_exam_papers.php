@@ -26,7 +26,7 @@ if (isset($_POST['add_paper'])) {
 
         $query = "INSERT INTO ezanaLMS_PastPapers (id, paper_name, paper_visibility, faculty_id, course_name, module_name,  created_at, pastpaper) VALUES(?,?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssssss', $id, $paper_name, $paper_visibility, $faculty, $course_name, $module_name, $created_at, $pastpaper);
+        $rc = $stmt->bind_param('ssssssss', $id, $paper_name, $paper_visibility, $faculty, $course_name, $module_name, $created_at, $pastpaper);
         $stmt->execute();
         if ($stmt) {
             $success = "Past Paper Uploaded" && header("refresh:1; url=add_past_exam_papers.php?faculty=$faculty");

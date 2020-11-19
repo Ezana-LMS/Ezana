@@ -214,7 +214,7 @@ require_once('partials/_head.php');
                                                         </thead>
                                                         <tbody>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_PastPapers`  WHERE  pastpaper_type  != 'Solution' AND faculty_id = '$row->id' AND module_name = '$mod->name' ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_PastPapers`  WHERE  faculty_id = '$row->id' AND module_name = '$mod->name' ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -223,7 +223,7 @@ require_once('partials/_head.php');
                                                             ?>
                                                                 <tr>
                                                                     <td><?php echo $cnt; ?></td>
-                                                                    <td><?php echo $pastExas->course_name; ?></td>
+                                                                    <td><?php echo $pastExas->paper_name; ?></td>
                                                                     <td><?php echo $pastExas->module_name; ?></td>
                                                                     <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
                                                                     <td>

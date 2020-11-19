@@ -75,13 +75,14 @@ require_once('partials/_head.php');
                                                         <th>#</th>
                                                         <th>Course</th>
                                                         <th>Module</th>
+                                                        <th>Paper</th>
                                                         <th>Date Uploaded</th>
                                                         <th>Manage</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_PastPapers`  WHERE  pastpaper_type  != 'Solution' AND faculty_id = '$row->id' ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_PastPapers`  WHERE faculty_id = '$row->id' ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
@@ -92,6 +93,7 @@ require_once('partials/_head.php');
                                                             <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $pastExas->course_name; ?></td>
                                                             <td><?php echo $pastExas->module_name; ?></td>
+                                                            <td><?php echo $pastExas->paper_name; ?> </td>
                                                             <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
                                                             <td>
                                                                 <a class="badge badge-success" target="_blank" href="EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>">
