@@ -21,6 +21,7 @@ if (isset($_POST['add_reading_materials'])) {
     }
     if (!$error) {
         $id = $_POST['id'];
+        $visibility = $_POST['visibility'];
         $module_name  = $_POST['module_name'];
         $module_code = $_POST['module_code'];
         $readingMaterials = $_FILES['readingMaterials']['name'];
@@ -29,9 +30,9 @@ if (isset($_POST['add_reading_materials'])) {
         $created_at = date('d M Y');
         $faculty = $_GET['faculty'];
 
-        $query = "INSERT INTO ezanaLMS_ModuleRecommended (id, faculty_id, module_name, module_code, readingMaterials, created_at, external_link) VALUES(?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_ModuleRecommended (id, visibility, faculty_id, module_name, module_code, readingMaterials, created_at, external_link) VALUES(?,?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $id, $faculty, $module_name, $module_code, $readingMaterials, $created_at, $external_link);
+        $rc = $stmt->bind_param('ssssssss', $id, $visibility,  $faculty, $module_name, $module_code, $readingMaterials, $created_at, $external_link);
         $stmt->execute();
         if ($stmt) {
             $success = "Reading Materials Shared" && header("refresh:1; url=add_module_reading_materials.php?faculty=$faculty");
