@@ -38,7 +38,8 @@ require_once('partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($f = $res->fetch_object()) {
+        while ($row = $res->fetch_object()) {
+            require_once('partials/_faculty_sidebar.php')
         ?>
             <!-- /.navbar -->
 
@@ -52,9 +53,9 @@ require_once('partials/_head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $f->id; ?>"><?php echo $f->name; ?></a></li>
-                                    <li class="breadcrumb-item"><a href="student_groups.php?faculty=<?php echo $f->id; ?>">Student Groups</a></li>
-                                    <li class="breadcrumb-item"><a href="student_group_notices.php?faculty=<?php echo $f->id; ?>">Notices</a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?faculty=<?php echo $row->id; ?>"><?php echo $row->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="student_groups.php?faculty=<?php echo $row->id; ?>">Student Groups</a></li>
+                                    <li class="breadcrumb-item"><a href="student_group_notices.php?faculty=<?php echo $row->id; ?>">Notices</a></li>
                                     <li class="breadcrumb-item active"> Add </li>
                                 </ol>
                             </div>
@@ -79,7 +80,7 @@ require_once('partials/_head.php');
                                                         <select class='form-control basic' id="GroupName" onchange="getGroupDetails(this.value);" name="group_name">
                                                             <option selected>Select Group Name</option>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE faculty_id = '$f->id'";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE faculty_id = '$row->id'";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
