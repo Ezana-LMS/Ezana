@@ -225,27 +225,48 @@ require_once('partials/_head.php');
                                                                 <div class="card-body">
                                                                     <div class="row">
                                                                         <div class="form-group col-md-4">
-                                                                            <label for="">Department Name</label>
-                                                                            <input type="text" required name="name" value="<?php echo $row->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                            <label for="">Name</label>
+                                                                            <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control" id="exampleInputEmail1">
                                                                         </div>
                                                                         <div class="form-group col-md-4">
-                                                                            <label for="">Department Number / Code</label>
-                                                                            <input type="text" required name="code" value="<?php echo $row->code; ?>" class="form-control">
+                                                                            <label for="">Number</label>
+                                                                            <input type="text" required name="number" value="<?php echo $lec->name; ?>" class="form-control">
                                                                         </div>
                                                                         <div class="form-group col-md-4">
-                                                                            <label for="">Department HOD</label>
-                                                                            <input type="text" required value="<?php echo $row->hod; ?>" name="hod" class="form-control">
+                                                                            <label for="">ID / Passport Number</label>
+                                                                            <input type="text" value="<?php echo $lec->idno; ?>" required name="idno" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Email</label>
+                                                                            <input type="email" value="<?php echo $lec->email; ?>" required name="email" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Phone Number</label>
+                                                                            <input type="text" required value="<?php echo $lec->phone; ?>" name="phone" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="form-group col-md-12">
-                                                                            <label for="exampleInputPassword1">Department Details</label>
-                                                                            <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $row->details; ?></textarea>
+                                                                            <label for="">Profile Picture</label>
+                                                                            <div class="input-group">
+                                                                                <div class="custom-file">
+                                                                                    <input required name="profile_pic" type="file" class="custom-file-input">
+                                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="exampleInputPassword1">Address</label>
+                                                                            <textarea required name="adr" id="textarea" rows="5" class="form-control"><?php echo $lec->adr; ?></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class=" text-right">
-                                                                    <button type="submit" name="update_dept" class="btn btn-primary">Update Department</button>
+                                                                <div class="card-footer">
+                                                                    <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
                                                                 </div>
                                                             </form>
                                                         </div>
