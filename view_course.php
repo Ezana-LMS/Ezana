@@ -88,7 +88,6 @@ require_once('partials/_head.php');
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-4">
-
                                     <!-- Profile Image -->
                                     <div class="card card-primary card-outline">
                                         <div class="card-body box-profile">
@@ -156,7 +155,72 @@ require_once('partials/_head.php');
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <div class="card card-primary card-outline">
+                                    <div class="col-12">
+                                        <div class="">
+                                            <div class="card-header">
+                                                <h2 class="text-right">
+                                                    <a class="btn btn-outline-success" href="add_class.php?faculty=<?php echo $row->id; ?>">
+                                                        Add Class
+                                                    </a>
+                                                </h2>
+                                                <h2 class="text-left">
+                                                    Course Time Table
+                                                </h2>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="export-dt" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Class Name</th>
+                                                            <th>Lecturer </th>
+                                                            <th>Location</th>
+                                                            <th>Date</th>
+                                                            <th>Time</th>
+                                                            <th>Virtual Link</th>
+                                                            <th>Manage Classes</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_TimeTable` WHERE faculty_id = '$row->id'  ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($tt = $res->fetch_object()) {
+                                                        ?>
 
+                                                            <tr>
+                                                                <td><?php echo $cnt; ?></td>
+                                                                <td><?php echo $tt->classname; ?></td>
+                                                                <td><?php echo $tt->classlecturer; ?></td>
+                                                                <td><?php echo $tt->classlocation; ?></td>
+                                                                <td><?php echo $tt->classdate; ?></td>
+                                                                <td><?php echo $tt->classtime; ?></td>
+                                                                <td><?php echo $tt->classlink; ?></td>
+                                                                <td>
+                                                                    <a class="badge badge-primary" href="update_class.php?update=<?php echo $tt->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                        <i class="fas fa-edit"></i>
+                                                                        Update
+                                                                    </a>
+                                                                    <a class="badge badge-danger" href="timetables.php?delete=<?php echo $tt->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                        <i class="fas fa-trash"></i>
+                                                                        Delete
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
