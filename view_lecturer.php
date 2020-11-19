@@ -184,7 +184,7 @@ require_once('partials/_head.php');
                                                             <a class="nav-link" id="custom-content-below-profile-settings" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Profile Settings</a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" id="custom-content-below-changepwd" data-toggle="pill" href="#custom-content-below-profile" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Change Password</a>
+                                                            <a class="nav-link" id="custom-content-below-settings" data-toggle="pill" href="#custom-content-below-changepwd" role="tab" aria-controls="custom-content-below-profile" aria-selected="false">Change Password</a>
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content" id="custom-content-below-tabContent">
@@ -265,8 +265,29 @@ require_once('partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="card-footer">
+                                                                <div class="text-right">
                                                                     <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+
+                                                        <div class="tab-pane fade" id="custom-content-below-changepwd" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                            <br>
+                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="">New Password</label>
+                                                                            <input type="password" required name="new_password" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="">Confirm Password</label>
+                                                                            <input type="password" required name="confirm_password" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="text-right">
+                                                                        <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
+                                                                    </div>
                                                                 </div>
                                                             </form>
                                                         </div>
