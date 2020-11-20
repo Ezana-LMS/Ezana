@@ -113,13 +113,13 @@ require_once('partials/_head.php');
                                                         <?php } ?>
                                                     </select>
                                                 </div>
-                                                <div class="form-group col-md-6" style="display:non">
+                                                <div class="form-group col-md-6" style="display:none">
                                                     <label for="">Department ID</label>
-                                                    <input type="text" id="DepartmentFacultyId" readonly required name="department_id" class="form-control">
+                                                    <input type="text" id="DepartmentID" readonly required name="department_id" class="form-control">
                                                 </div>
-                                                <div class="form-group col-md-6" style="display:non">
+                                                <div class="form-group col-md-6" style="display:none">
                                                     <label for="">Faculty ID</label>
-                                                    <input type="text" id="facultyId" readonly required name="faculty" class="form-control">
+                                                    <input type="text" id="DepartmentFacultyId" readonly required name="faculty" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="row">
