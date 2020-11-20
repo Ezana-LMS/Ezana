@@ -161,6 +161,17 @@
                 $('#CourseName').val(data);
             }
         });
+        /* Get Faculty Course Details */
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'CourseName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#CourseFacultyId').val(data);
+            }
+        });
+        
 
     }
 </script>
