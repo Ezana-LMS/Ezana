@@ -168,7 +168,7 @@
             data: 'CourseName=' + val,
             success: function(data) {
                 //alert(data);
-                $('#CourseFacultyId').val(data);
+                $('#CourseFacultyID').val(data);
             }
         });
         

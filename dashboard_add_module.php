@@ -120,7 +120,7 @@ require_once('partials/_head.php');
                                                     <select class='form-control basic' id="Cname" onchange="getCourseDetails(this.value);" name="course_name">
                                                         <option selected>Select Course Name</option>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$row->id'  ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_Courses`  ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
