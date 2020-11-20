@@ -77,7 +77,6 @@ require_once('partials/_head.php');
                                                         <td><?php echo $lec->email; ?></td>
                                                         <td><?php echo $lec->phone; ?></td>
                                                         <td><?php echo $lec->idno; ?></td>
-
                                                     </tr>
                                                 <?php $cnt = $cnt + 1;
                                                 } ?>
