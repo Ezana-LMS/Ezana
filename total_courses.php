@@ -44,7 +44,7 @@ require_once('partials/_head.php');
                                 <div class="card">
                                     <div class="card-header">
                                         <h2 class="text-right">
-                                            <a class="btn btn-outline-success" href="faculties.php">
+                                            <a class="btn btn-outline-success" href="dashboard_add_course.php">
                                                 Add New Course
                                             </a>
                                         </h2>
