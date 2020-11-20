@@ -103,7 +103,7 @@ require_once('partials/_head.php');
                                                     <select class='form-control basic' id="DepartmentName" onchange="getDepartmentDetails(this.value);" name="department_name">
                                                         <option selected>Select Department Name</option>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_Departments`  WHERE faculty_id = '$faculty' ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_Departments`";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
@@ -113,11 +113,11 @@ require_once('partials/_head.php');
                                                         <?php } ?>
                                                     </select>
                                                 </div>
-                                                <div class="form-group col-md-6" style="display:">
+                                                <div class="form-group col-md-6" style="display:non">
                                                     <label for="">Department ID</label>
                                                     <input type="text" id="DepartmentID" readonly required name="department_id" class="form-control">
                                                 </div>
-                                                <div class="form-group col-md-6" style="display:">
+                                                <div class="form-group col-md-6" style="display:non">
                                                     <label for="">Faculty ID</label>
                                                     <input type="text" id="facultyId" readonly required name="faculty" class="form-control">
                                                 </div>

@@ -14,6 +14,20 @@ if (!empty($_POST["DepartmentName"])) {
 <?php
     }
 }
+/* Department Faculty ID */
+if (!empty($_POST["DepartmentID"])) {
+    $id = $_POST['DepartmentID'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE name = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['faculty_id']); ?>
+<?php
+    }
+}
+
 
 /* Course Details */
 if (!empty($_POST["Cname"])) {
