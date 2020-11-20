@@ -14,6 +14,7 @@ if (!empty($_POST["DepartmentName"])) {
 <?php
     }
 }
+
 /* Department Faculty ID */
 if (!empty($_POST["DepartmentID"])) {
     $id = $_POST['DepartmentID'];

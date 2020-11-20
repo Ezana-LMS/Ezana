@@ -115,7 +115,7 @@ require_once('partials/_head.php');
                                                 </div>
                                                 <div class="form-group col-md-6" style="display:non">
                                                     <label for="">Department ID</label>
-                                                    <input type="text" id="DepartmentID" readonly required name="department_id" class="form-control">
+                                                    <input type="text" id="DepartmentFacultyId" readonly required name="department_id" class="form-control">
                                                 </div>
                                                 <div class="form-group col-md-6" style="display:non">
                                                     <label for="">Faculty ID</label>

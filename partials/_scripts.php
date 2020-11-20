@@ -118,6 +118,15 @@
                 $('#DepartmentID').val(data);
             }
         });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepartmentID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepartmentFacultyId').val(data);
+            }
+        });
     }
 </script>
 <!-- Get Course Details -->
