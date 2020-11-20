@@ -55,9 +55,10 @@ if (isset($_POST['add_module'])) {
             $lectures_number = $_POST['lectures_number'];
             $created_at = date('d M Y');
             $faculty = $_GET['faculty'];
-            $query = "INSERT INTO ezanaLMS_Modules (id, name, code, details, course_name, course_id, faculty_id, course_duration, exam_weight_percentage, lectures_number, created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+
+            $query = "INSERT INTO ezanaLMS_Modules (id, name, code, details, course_name, course_id, course_duration, exam_weight_percentage, cat_weight_percentage, lectures_number, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssssssss', $id, $name, $code, $details, $course_name, $course_id, $faculty, $course_duration, $exam_weight_percentage, $cat_weight_percentage, $lectures_number, $created_at);
+            $rc = $stmt->bind_param('ssssssssssss', $id, $name, $code, $details, $course_name, $course_id, $course_duration, $exam_weight_percentage, $cat_weight_percentage, $lectures_number, $created_at, $faculty);
             $stmt->execute();
             if ($stmt) {
                 $success = "Module Created" && header("refresh:1; url=add_module.php?faculty=$faculty");

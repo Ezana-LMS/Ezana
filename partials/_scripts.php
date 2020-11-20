@@ -118,6 +118,15 @@
                 $('#DepartmentID').val(data);
             }
         });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepartmentID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepartmentFacultyId').val(data);
+            }
+        });
     }
 </script>
 <!-- Get Course Details -->
@@ -152,6 +161,17 @@
                 $('#CourseName').val(data);
             }
         });
+        /* Get Faculty Course Details */
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'CourseName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#CourseFacultyID').val(data);
+            }
+        });
+        
 
     }
 </script>
@@ -240,6 +260,21 @@
             success: function(data) {
                 //alert(data);
                 $('#groupCode').val(data);
+            }
+        });
+    }
+</script>
+
+<!-- Faculty Details -->
+<script>
+    function getFacutyDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'FacultyName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#FacultyId').val(data);
             }
         });
     }
