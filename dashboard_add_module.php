@@ -134,11 +134,11 @@ require_once('partials/_head.php');
                                                     <label for="">Course Code</label>
                                                     <input type="text" id="CourseCode" readonly required name="" class="form-control">
                                                 </div>
-                                                <div class="form-group col-md-4" style="display:nne">
+                                                <div class="form-group col-md-4" style="display:none">
                                                     <label for="">Course ID</label>
                                                     <input type="text" readonly id="CourseID" required name="course_id" class="form-control">
                                                 </div>
-                                                <div class="form-group col-md-4" style="display:nne">
+                                                <div class="form-group col-md-4" style="display:none">
                                                     <label for="">Faculty ID</label>
                                                     <input type="text" readonly id="CourseFacultyID" required name="faculty" class="form-control">
                                                 </div>
