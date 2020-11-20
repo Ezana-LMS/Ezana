@@ -25,6 +25,12 @@ if (isset($_POST['add_course'])) {
         $error = 1;
         $err = "Department Name / ID  Cannot Be Empty";
     }
+    if (isset($_POST['faculty']) && !empty($_POST['faculty'])) {
+        $faculty = mysqli_real_escape_string($mysqli, trim($_POST['faculty']));
+    } else {
+        $error = 1;
+        $err = "Faculty Details Cannot Be Empty";
+    }
     if (!$error) {
         //prevent Double entries
         $sql = "SELECT * FROM  ezanaLMS_Courses WHERE  code='$code' || name ='$name' ";
