@@ -52,7 +52,7 @@ require_once('partials/_head.php');
         <div class="">
             <div class="">
                 <div class="login-logo">
-                    <img height="150" width="150" src="dist/img/logo.jpeg" alt="">
+                    <img height="150" width="170" src="dist/img/Main_Logo.png" alt="">
                 </div>
                 <?php
                 $email  = $_SESSION['email'];
@@ -98,7 +98,7 @@ require_once('partials/_head.php');
                 <!-- <p class="mb-1">
                     <a href="index.php">I Remembered My Password</a>
                 </p> -->
-                
+
             </div>
         </div>
     </div>

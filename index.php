@@ -27,7 +27,7 @@ require_once('partials/_head.php')
         <div class="">
             <div class=" ">
                 <div class="login-logo">
-                    <img height="150" width="150" src="dist/img/logo.jpeg" alt="">
+                    <img height="150" width="170" src="dist/img/Main_Logo.png" alt="">
                 </div>
                 <p class="login-box-msg">
                     Sign In To Start Your Session
