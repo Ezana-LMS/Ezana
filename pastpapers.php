@@ -240,7 +240,7 @@ require_once('public/partials/_head.php');
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
                                     <div class="text-right">
-                                        <a title="View <?php echo $mod->name;?> Past Papers In Tabular Formart" href="tabular_pastpapers.php?view=<?php echo $mod->id;?>" class="btn btn-primary"><i class="fas fa-table"></i></a>
+                                        <a title="View <?php echo $mod->name; ?> Past Papers In Tabular Formart" href="tabular_pastpapers.php?view=<?php echo $mod->id; ?>" class="btn btn-primary"><i class="fas fa-table"></i></a>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Past Paper</button>
                                     </div>
                                     <div class="modal fade" id="modal-default">
@@ -279,7 +279,7 @@ require_once('public/partials/_head.php');
 
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Exam Paper Name</label>
-                                                                    <input type="text" value="<?php echo $mod->name;?>" name="paper_name" class="form-control">
+                                                                    <input type="text" value="<?php echo $mod->name; ?>" name="paper_name" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Exam Paper Visibility / Availability</label>
@@ -386,22 +386,22 @@ require_once('public/partials/_head.php');
                                                                 <br>
                                                                 <hr>
                                                                 <div class="text-center">
-                                                                    <a target="_blank" href="public/uploads/EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="btn btn-outline-success">
+                                                                    <a target="_blank" href="pdf_viewer.php?id=<?php echo $pastExas->id; ?>&view=<?php echo $view; ?>" class="btn btn-outline-success">
                                                                         View Paper
                                                                     </a>
                                                                     <?php
                                                                     /* If It Lacks upload_solutionSolution Give Option to upload else Download solution */
                                                                     if ($pastExas->solution == '') {
                                                                         echo
-                                                                            "
+                                                                        "
                                                                         <a  data-toggle='modal' href= '#solution-$pastExas->id' class='btn btn-outline-primary'>
                                                                             Upload Solution
                                                                         </a>
                                                                         ";
                                                                     } else {
                                                                         echo
-                                                                            "
-                                                                        <a target='_blank' href= 'public/uploads/EzanaLMSData/PastPapers/$pastExas->solution' class='btn btn-outline-success'>
+                                                                        "
+                                                                        <a target='_blank' href= 'pdf_solution_viewer.php?id=$pastExas->id&view=$view' class='btn btn-outline-success'>
                                                                             View Solution
                                                                         </a>
                                                                         ";
