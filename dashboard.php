@@ -118,6 +118,7 @@ require_once('partials/_head.php');
                                 </div>
                             </a>
                         </div>
+
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
@@ -126,7 +127,7 @@ require_once('partials/_head.php');
                                     </h2>
                                 </div>
                                 <div class="card-body">
-                                    <table id="example1" class=" table table-bordered table-striped">
+                                    <table id="export-dt" class=" table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>Status</th>
