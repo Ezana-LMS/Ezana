@@ -95,7 +95,7 @@ require_once('partials/_head.php');
         while ($admin = $res->fetch_object()) {
             //Get Default Profile Picture
             if ($admin->profile_pic == '') {
-                $dpic = "<img class='profile-user-img img-fluid img-circle' src='dist/img/logo.jpeg' alt='User profile picture'>";
+                $dpic = "<img class='profile-user-img img-fluid ' src='dist/img/Main_Logo.png' alt='User profile picture'>";
             } else {
                 $dpic = "<img class='profile-user-img img-fluid img-circle' src='dist/img/system_admin/$admin->profile_pic' alt='User profile picture'>";
             } ?>
