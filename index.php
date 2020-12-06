@@ -42,9 +42,7 @@
             </span>
           </div>
           <div class="container-login100-form-btn">
-            <button class="login100-form-btn">
-              Login
-            </button>
+            <input type="submit" value="Reset Password" class="login100-form-btn">
           </div>
           <div class="text-center p-t-12">
             <span class="txt1">
