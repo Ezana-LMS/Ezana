@@ -935,7 +935,7 @@
 	</ul>
 </footer>
 <?php 
-require_once('dashboard/partials/_scripts');?> 
+require_once('dashboard/partials/_scripts.php');?> 
 ?>
 </body>
 </html>
