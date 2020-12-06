@@ -2,7 +2,7 @@
 
     <h1 id="site-logo">
         <a href="dashboard.php">
-            <img src="auth/images/logo.png" class="img-thumbnail" height="60" width="60" alt="Ezana LMS Logo" />
+            <img src="auth/images/logo.png" class="img-fluid" height="60" width="60" alt="Ezana LMS Logo" />
         </a>
     </h1>
 

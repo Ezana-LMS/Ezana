@@ -927,15 +927,10 @@
 	
 </div> <!-- #wrapper -->
 
-<footer id="footer">
-	<ul class="nav pull-right">
-		<li>
-			Copyright &copy; 2013, Jumpstart Themes.
-		</li>
-	</ul>
-</footer>
+
 <?php 
-require_once('dashboard/partials/_scripts.php');?> 
+require_once("dashboard/partials/_footer.php");
+require_once('dashboard/partials/_scripts.php');
 ?>
 </body>
 </html>
