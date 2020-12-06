@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
 <head>
   <title>Ezana LMS Login</title>
   <meta charset="UTF-8">
@@ -20,11 +21,11 @@
     <div class="container-login100">
       <div class="wrap-login100">
         <div class="login100-pic js-tilt" data-tilt>
-          <img src="auth/images/img-01.png" alt="IMG">
+          <img src="auth/images/logo.png" alt="IMG">
         </div>
         <form class="login100-form validate-form">
           <span class="login100-form-title">
-            Member Login
+            Ezana LMS - System Administrator Login
           </span>
           <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
             <input class="input100" type="text" name="email" placeholder="Email">
@@ -49,28 +50,25 @@
             <span class="txt1">
               Forgot
             </span>
-            <a class="txt2" href="#">
+            <a class="txt2" href="reset_password.php">
               Username / Password?
             </a>
           </div>
-          <div class="text-center p-t-136">
+          <!-- <div class="text-center p-t-136">
             <a class="txt2" href="#">
               Create your Account
               <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
             </a>
-          </div>
+          </div> -->
+
         </form>
       </div>
     </div>
   </div>
-
   <script src="auth/vendor/jquery/jquery-3.2.1.min.js"></script>
-
   <script src="auth/vendor/bootstrap/js/popper.js"></script>
   <script src="auth/vendor/bootstrap/js/bootstrap.min.js"></script>
-
   <script src="auth/vendor/select2/select2.min.js"></script>
-
   <script src="auth/vendor/tilt/tilt.jquery.min.js"></script>
   <script>
     $('.js-tilt').tilt({
