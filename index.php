@@ -1,98 +1,57 @@
 <?php
-session_start();
-include('configs/config.php');
-
-if (isset($_POST['login'])) {
-    $email = $_POST['email'];
-    $password = sha1(md5($_POST['password'])); //double encrypt to increase security
-    $stmt = $mysqli->prepare("SELECT email, password, id, name  FROM ezanaLMS_Admins  WHERE email =? AND password =?");
-    $stmt->bind_param('ss', $email, $password); //bind fetched parameters
-    $stmt->execute(); //execute bind 
-    $stmt->bind_result($email, $password, $id, $name); //bind result
-    $rs = $stmt->fetch();
-    $_SESSION['id'] = $id;
-    $_SESSION['email'] = $email;
-    $_SESSION['name'] = $name;
-    if ($rs) {
-        header("location:dashboard.php");
-    } else {
-        $err = "Access Denied Please Check Your Credentials";
-    }
-}
-require_once('partials/_head.php')
+require_once("auth/partials/_head.php");
 ?>
 
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="">
-            <div class=" ">
-                <div class="login-logo">
-                    <img height="150" width="170" src="dist/img/Main_Logo.png" alt="">
-                </div>
-                <p class="login-box-msg">
-                    Sign In To Start Your Session
-                    <br>
-                    Demo Credentials
-                    <br>
-                    <span class="text-success"> Email : sysadmin@ezana.org </span>
-                    <br>
-                    <span class="text-success">Passsword: 123 </span>
-                </p>
-
-                <form method="post">
-                    <div class="input-group mb-3">
-                        <input type="email" required name="email" class="form-control" placeholder="Email">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <input type="password" required name="password" class="form-control" placeholder="Password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
-                                <label for="remember">
-                                    Remember Me
-                                </label>
-                            </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" name="login" class="btn btn-primary btn-block">Sign In</button>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                </form>
-
-                <!--  <div class="social-auth-links text-center mb-3">
-                    <p>- OR -</p>
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                    </a>
-                </div> -->
-
-                <p class="mb-1">
-                    <a href="forgot-password.php">I forgot my password</a>
-                </p>
-                <!-- <p class="mb-0">
-                    <a href="register.html" class="text-center">Register a new membership</a>
-                </p> -->
-            </div>
+<body>
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100">
+        <div class="login100-pic js-tilt" data-tilt>
+          <img src="auth/images/logo.png" alt="IMG">
         </div>
+        <form method="post" class="login100-form validate-form">
+          <span class="login100-form-title">
+            Ezana LMS - Login
+          </span>
+          <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+            <input class="input100" type="text" name="email" placeholder="Email">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="wrap-input100 validate-input" data-validate="Password is required">
+            <input class="input100" type="password" name="pass" placeholder="Password">
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="container-login100-form-btn">
+            <input type="submit" value="Login" class="login100-form-btn">
+          </div>
+          <div class="text-center p-t-12">
+            <span class="txt1">
+              Forgot
+            </span>
+            <a class="txt2" href="reset_password.php">
+              Username / Password?
+            </a>
+          </div>
+          <!-- <div class="text-center p-t-136">
+            <a class="txt2" href="#">
+              Create your Account
+              <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+            </a>
+          </div> -->
+
+        </form>
+      </div>
     </div>
-    <?php require_once('partials/_scripts.php'); ?>
+  </div>
+  <?php
+  require_once('auth/partials/_scripts.php');
+  ?>
 </body>
 
 </html>
