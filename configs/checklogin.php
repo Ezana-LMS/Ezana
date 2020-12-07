@@ -6,6 +6,8 @@ function check_login()
 		$uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 		$extra = "index.php";
 		$_SESSION["id"] = "";
+		$_SESSION["email"] = "";
+		$_SESSION["name"] = "";
 		header("Location: http://$host$uri/$extra");
 	}
 }

@@ -27,14 +27,22 @@
 
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-                Dropdown <span class="caret"></span>
+                Faculties <span class="caret"></span>
             </a>
 
             <ul class="dropdown-menu" role="menu">
-                <li><a href="javascript:;"><i class="fa fa-user"></i>&nbsp;&nbsp;Example #1</a></li>
-                <li><a href="javascript:;"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Example #2</a></li>
+                <?php
+                /* Get A List Of The Faculties */
+                $ret = "SELECT * FROM `ezanaLMS_Faculties` ORDER BY `ezanaLMS_Faculties`.`name` ASC   ";
+                $stmt = $mysqli->prepare($ret);
+                $stmt->execute(); //ok
+                $res = $stmt->get_result();
+                while ($faculties = $res->fetch_object()) {
+                ?>
+                    <li><a href="faculty_dashboard.php?faculty=<?php echo $faculties->id;?>"><i class="fa fa-university"></i>&nbsp;&nbsp; <?php echo $faculties->name;?></a></li>
+                <?php } ?>
                 <li class="divider"></li>
-                <li><a href="javascript:;"><i class="fa fa-tasks"></i>&nbsp;&nbsp;Example #3</a></li>
+                <li><a href="add_faculty.php"><i class="fa fa-plus"></i>&nbsp;&nbsp; Add Faculty</a></li>
             </ul>
         </li>
 
@@ -44,13 +52,13 @@
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
                 <i class="fa fa-user"></i>
-                Rod Howard
+                <?php echo $_SESSION["name"]; ?>
                 <span class="caret"></span>
             </a>
 
             <ul class="dropdown-menu" role="menu">
                 <li>
-                    <a href="page-profile.html">
+                    <a href="profile.php">
                         <i class="fa fa-user"></i>
                         &nbsp;&nbsp;My Profile
                     </a>
