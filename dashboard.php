@@ -32,43 +32,43 @@ require_once('dashboard/partials/_head.php');
 				<ul id="main-nav" class="open-active">
 
 					<li class="active">
-						<a href="index-2.html">
+						<a href="dashboard.php">
 							<i class="fa fa-dashboard"></i>
 							Main Dashboard
 						</a>
 					</li>
 					<li>
-						<a href="index-2.html">
+						<a href="faculties.php">
 							<i class="fa fa-university"></i>
 							Faculties
 						</a>
 					</li>
 					<li>
-						<a href="index-2.html">
+						<a href="departments.php">
 							<i class="fa fa-building"></i>
 							Departments
 						</a>
 					</li>
 					<li>
-						<a href="index-2.html">
+						<a href="courses.php">
 							<i class="fa fa-chalkboard-teacher"></i>
 							Courses
 						</a>
 					</li>
 					<li>
-						<a href="index-2.html">
+						<a href="modules.php">
 							<i class="fas fa-chalkboard"></i>
 							Modules
 						</a>
 					</li>
 					<li>
-						<a href="index-2.html">
+						<a href="lecturers.php">
 							<i class="fas  fa-user-tie"></i>
 							Lecturers
 						</a>
 					</li>
 					<li>
-						<a href="index-2.html">
+						<a href="students.php">
 							<i class="fas fa-user-graduate"></i>
 							Students
 						</a>
