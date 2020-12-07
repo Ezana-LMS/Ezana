@@ -247,14 +247,11 @@ require_once('public/partials/_head.php');
                                                         <li class="list-group-item  d-flex justify-content-between align-items-center">
                                                             <a href="">
                                                                 Courses
-                                                                <span class="badge badge-primary badge-pill"> 14</span>
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="">
                                                                 Modules
-
-                                                                <span class="badge badge-primary badge-pill"> 14</span>
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -265,13 +262,11 @@ require_once('public/partials/_head.php');
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="">
                                                                 Lecturers
-                                                                <span class="badge badge-primary badge-pill"> 14</span>
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="">
                                                                 Students
-                                                                <span class="badge badge-primary badge-pill"> 14</span>
                                                             </a>
                                                         </li>
                                                     </ul>
