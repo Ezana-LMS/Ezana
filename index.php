@@ -27,7 +27,7 @@ require_once("auth/partials/_head.php");
     <div class="container-login100">
       <div class="wrap-login100">
         <div class="login100-pic js-tilt" data-tilt>
-          <img src="auth/images/logo.png" alt="IMG">
+          <img src="auth/images/logo.png" alt="Logo">
         </div>
         <form method="post" class="login100-form validate-form">
           <span class="login100-form-title">
