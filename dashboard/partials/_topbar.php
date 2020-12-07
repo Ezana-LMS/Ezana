@@ -37,7 +37,6 @@
                 $stmt = $mysqli->prepare($ret);
                 $stmt->execute(); //ok
                 $res = $stmt->get_result();
-                $cnt = 1;
                 while ($faculties = $res->fetch_object()) {
                 ?>
                     <li><a href="faculty_dashboard.php?faculty=<?php echo $faculties->id;?>"><i class="fa fa-university"></i>&nbsp;&nbsp; <?php echo $faculties->name;?></a></li>
