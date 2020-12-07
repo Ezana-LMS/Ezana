@@ -6,6 +6,7 @@ check_login();
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
+
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
         <!-- Navbar -->
@@ -13,7 +14,78 @@ require_once('public/partials/_head.php');
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php require_once('public/partials/_sidebar.php'); ?>
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="dashboard.php" class="brand-link">
+                <img src="public/dist/img/logo.png" alt="Ezana LMS Logo" class="brand-image img-circle elevation-3">
+                <span class="brand-text font-weight-light">Ezana LMS</span>
+            </a>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <a href="dashboard.php" class="active nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="faculties.php" class="nav-link">
+                                <i class="nav-icon fas fa-university"></i>
+                                <p>
+                                    Faculties
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="departments.php" class="nav-link">
+                                <i class="nav-icon fas fa-building"></i>
+                                <p>
+                                    Departments
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="courses.php" class="nav-link">
+                                <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                                <p>
+                                    Courses
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="modules.php" class="nav-link">
+                                <i class="nav-icon fas fa-chalkboard"></i>
+                                <p>
+                                    Modules
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="lecturers.php" class="nav-link">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>
+                                    Lecturers
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="students.php" class="nav-link">
+                                <i class="nav-icon fas fa-user-graduate"></i>
+                                <p>
+                                    Students
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
 
         <div class="content-wrapper">
             <div class="content-header">
@@ -55,7 +127,7 @@ require_once('public/partials/_head.php');
 
                         <!-- Departments -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <a href="total_departments.php">
+                            <a href="departments.php">
                                 <div class="info-box">
                                     <span class="info-box-icon bg-info elevation-1"><i class="fa fa-building" aria-hidden="true"></i></span>
                                     <div class="info-box-content">
@@ -70,7 +142,7 @@ require_once('public/partials/_head.php');
 
                         <!-- Courses  -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <a href="total_courses.php">
+                            <a href="courses.php">
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-chalkboard-teacher"></i></span>
                                     <div class="info-box-content">
@@ -83,7 +155,7 @@ require_once('public/partials/_head.php');
 
                         <!-- Modules -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <a href="total_modules.php">
+                            <a href="modules.php">
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-chalkboard"></i></span>
                                     <div class="info-box-content">
@@ -96,7 +168,7 @@ require_once('public/partials/_head.php');
 
                         <!-- Lecturers -->
                         <div class="col-12 col-sm-6 col-md-3">
-                            <a href="total_lecs.php">
+                            <a href="lecturers.php">
                                 <div class="info-box mb-3">
                                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-tie"></i></span>
                                     <div class="info-box-content">
@@ -124,12 +196,6 @@ require_once('public/partials/_head.php');
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
 
         <!-- Main Footer -->
         <?php require_once('public/partials/_footer.php'); ?>
