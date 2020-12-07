@@ -3,9 +3,33 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
-    <title>Ezana LMS Login</title>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ezana Learning Management System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- SEO META TAGS -->
+    <meta name="title" content="Ezana LMS">
+    <meta name="description" content="Ezana Learning Management System">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ezana.org">
+    <meta property="og:title" content="Ezana LMS">
+    <meta property="og:description" content="Ezana Learning Management System">
+    <meta property="og:image" content="public/dist/img/logo.jpeg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ezana.org">
+    <meta property="twitter:title" content="Ezana LMS">
+    <meta property="twitter:description" content="Ezana Learning Management System">
+    <meta property="twitter:image" content="public/dist/img/logo.jpeg">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="public/dist/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="public/dist/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="public/dist/img/favicons/favicon-16x16.png">
+    <link rel="manifest" href="public/dist/img/favicons/site.webmanifest">
     <link rel="stylesheet" type="text/css" href="public/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="public/dist/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="public/dist/css/animate/animate.css">
