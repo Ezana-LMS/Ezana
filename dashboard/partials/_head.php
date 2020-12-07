@@ -44,7 +44,7 @@
     <link rel="stylesheet" type="text/css" href="dist/css/clickable_table.css">
 
     <!-- CDNS -->
-
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <!-- CK Editor CDN -->
     <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
     <!-- SWAL ALERTS INJECTION-->
@@ -81,7 +81,5 @@
         </script>
 
     <?php } ?>
-
-
 
 </head>

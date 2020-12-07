@@ -15,15 +15,13 @@ require_once('dashboard/partials/_head.php');
 		?>
 		<!-- /#top-bar -->
 
-
 		<!-- Static Sidebar -->
 		<div id="sidebar-wrapper" class="collapse sidebar-collapse">
 
 			<div id="search">
-				<form>
-					<input class="form-control input-sm" type="text" name="search" placeholder="Search..." />
-
-					<button type="submit" id="search-btn" class="btn"><i class="fa fa-search"></i></button>
+				<form action="search_results.php" method="GET">
+					<input class="form-control input-sm" type="text" name="search" placeholder="Enter Faculty Name" />
+					<button type="search" name="query" id="search-btn" class="btn"><i class="fa fa-search"></i></button>
 				</form>
 			</div>
 
@@ -34,14 +32,52 @@ require_once('dashboard/partials/_head.php');
 					<li class="active">
 						<a href="index-2.html">
 							<i class="fa fa-dashboard"></i>
-							Dashboard
+							Main Dashboard
+						</a>
+					</li>
+					<li>
+						<a href="index-2.html">
+							<i class="fa fa-university"></i>
+							Faculties
+						</a>
+					</li>
+					<li>
+						<a href="index-2.html">
+							<i class="fa fa-building"></i>
+							Departments
+						</a>
+					</li>
+					<li>
+						<a href="index-2.html">
+							<i class="fa fa-chalkboard-teacher"></i>
+							Courses
+						</a>
+					</li>
+					<li>
+						<a href="index-2.html">
+							<i class="fas fas fa-chalkboard"></i>
+							Modules
+						</a>
+					</li>
+					<li>
+						<a href="index-2.html">
+							<i class="fas fas fa-user-tie"></i>
+							Lecturers
+						</a>
+					</li>
+					<li>
+						<a href="index-2.html">
+							<i class="fas fa-user-graduate"></i>
+							Students
 						</a>
 					</li>
 
-					<li class="dropdown">
+
+
+					<!-- <li class="dropdown">
 						<a href="javascript:;">
 							<i class="fa fa-file-text"></i>
-							Example Pages
+							Faculties
 							<span class="caret"></span>
 						</a>
 
@@ -272,7 +308,7 @@ require_once('dashboard/partials/_head.php');
 								</a>
 							</li>
 						</ul>
-					</li>
+					</li> -->
 
 				</ul>
 
@@ -280,7 +316,6 @@ require_once('dashboard/partials/_head.php');
 
 		</div>
 		<!-- Static Sidebar -->
-
 
 		<div id="content">
 
