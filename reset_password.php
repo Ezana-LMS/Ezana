@@ -40,7 +40,6 @@ if (isset($_POST['reset_pwd'])) {
 }
 require_once("auth/partials/_head.php");
 ?>
-
 <body>
     <div class="limiter">
         <div class="container-login100">
