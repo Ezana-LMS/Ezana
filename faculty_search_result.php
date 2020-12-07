@@ -155,7 +155,7 @@ require_once('public/partials/_head.php');
                         <div class="text-left">
                             <nav class="navbar navbar-light bg-light col-md-12">
                                 <form class="form-inline" action="faculty_search_result.php" method="GET">
-                                    <input class="form-control mr-sm-2" type="search" placeholder="Type Faculty Name">
+                                    <input class="form-control mr-sm-2" type="search" name="query" placeholder="Type Faculty Name">
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                 </form>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Faculty</button>
@@ -216,8 +216,8 @@ require_once('public/partials/_head.php');
                                     <div class="col-md-12">
                                         <div class="card card-primary collapsed-card">
                                             <div class="card-header">
-                                                <a href="faculty_dashboard.php?view=<?php echo $faculty->id; ?>">
-                                                    <h3 class="card-title">#<?php echo $cnt; ?> <?php echo $faculty->name; ?></h3>
+                                                <a href="faculty_dashboard.php?view=<?php echo $results['id']; ?>">
+                                                    <h3 class="card-title"><?php echo $results['name']; ?></h3>
                                                     <div class="card-tools text-right">
                                                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                         </button>
@@ -275,10 +275,16 @@ require_once('public/partials/_head.php');
                         <?php
                                 }
                             } else {
-                                echo "No results";
+                                echo
+                                    "
+                                    No Results
+                                ";
                             }
                         } else {
-                            echo "Minimum length is " . $min_length;
+                            echo "
+
+                                Minimum Search Querry  Length Is  
+                                " . $min_length . "Characters ";
                         }
                         ?>
                     </div>

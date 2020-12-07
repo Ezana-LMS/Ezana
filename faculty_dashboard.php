@@ -116,7 +116,7 @@ require_once('public/partials/_head.php');
                             <div class="text-right">
                                 <nav class="navbar navbar-light bg-light col-md-12">
                                     <form class="form-inline">
-                                        <input class="form-control mr-sm-2" type="search" placeholder="Type Faculty Name">
+                                        <input class="form-control mr-sm-2" type="search" placeholder="Type Department Name">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
                                 </nav>
