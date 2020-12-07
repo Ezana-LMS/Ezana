@@ -1,4 +1,24 @@
 <?php
+session_start();
+include('configs/config.php');
+
+if (isset($_POST['login'])) {
+  $email = $_POST['email'];
+  $password = sha1(md5($_POST['password'])); //double encrypt to increase security
+  $stmt = $mysqli->prepare("SELECT email, password, id, name  FROM ezanaLMS_Admins  WHERE email =? AND password =?");
+  $stmt->bind_param('ss', $email, $password); //bind fetched parameters
+  $stmt->execute(); //execute bind 
+  $stmt->bind_result($email, $password, $id, $name); //bind result
+  $rs = $stmt->fetch();
+  $_SESSION['id'] = $id;
+  $_SESSION['email'] = $email;
+  $_SESSION['name'] = $name;
+  if ($rs) {
+    header("location:dashboard.php");
+  } else {
+    $err = "Access Denied Please Check Your Credentials";
+  }
+}
 require_once("auth/partials/_head.php");
 ?>
 
