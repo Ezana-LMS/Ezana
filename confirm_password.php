@@ -41,8 +41,7 @@ if (isset($_POST['reset_pwd'])) {
         }
     }
 }
-
-require_once("auth/partials/_head.php");
+include __DIR__ . "/public/partials/_authhead.php"
 ?>
 
 <body>
@@ -50,7 +49,7 @@ require_once("auth/partials/_head.php");
         <div class="container-login100">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
-                    <img src="auth/images/logo.png" alt="IMG">
+                    <img src="public/dist/img/logo.png" alt="Login Logo">
                 </div>
                 <form method="post" class="login100-form validate-form">
                     <span class="login100-form-title">
@@ -62,15 +61,15 @@ require_once("auth/partials/_head.php");
                         $res = $stmt->get_result();
                         while ($row = $res->fetch_object()) {
                         ?>
-                            <p class="login-box-msg">
-                                <span class="badge badge-success">Token: <?php echo $row->password; ?></span>
-                                <br>
-                                Please <?php echo $row->name; ?>
-                                <br>
-                                Change Your Password
-                            </p>
-                        <?php
-                        } ?>
+                            <small>
+                                <p class="login-box-msg">
+                                    <span class="badge badge-success">Token: <?php echo $row->password; ?></span>
+                                    <br>
+                                    Please <?php echo $row->name; ?>
+                                    <br>
+                                    Ezana LMS Confirm Password </p>
+                            </small>
+                        <?php } ?>
                     </span>
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
                         <input class="input100" type="password" name="new_password" placeholder="New Password">
@@ -89,13 +88,12 @@ require_once("auth/partials/_head.php");
                     <div class="container-login100-form-btn">
                         <input type="submit" name="reset_pwd" value="Change Password" class="login100-form-btn">
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
     <?php
-    require_once('auth/partials/_scripts.php');
+    include __DIR__ . "/public/partials/_authscripts.php"
     ?>
 </body>
 

@@ -38,7 +38,10 @@ if (isset($_POST['reset_pwd'])) {
         $err = "Email Does Not Exist";
     }
 }
-require_once("auth/partials/_head.php");
+
+
+
+include __DIR__ . "/public/partials/_authhead.php"
 ?>
 
 <body>
@@ -46,7 +49,7 @@ require_once("auth/partials/_head.php");
         <div class="container-login100">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
-                    <img src="auth/images/logo.png" alt="IMG">
+                    <img src="public/dist/img/logo.png" alt="Login Logo">
                 </div>
                 <form method="post" class="login100-form validate-form">
                     <span class="login100-form-title">
@@ -75,7 +78,7 @@ require_once("auth/partials/_head.php");
         </div>
     </div>
     <?php
-    require_once('auth/partials/_scripts.php');
+    include __DIR__ . "/public/partials/_authscripts.php"
     ?>
 </body>
 
