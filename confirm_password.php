@@ -49,30 +49,45 @@ include __DIR__ . "/public/partials/_authhead.php"
         <div class="container-login100">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
-                    <img src="auth/images/logo.png" alt="IMG">
+                    <img src="public/dist/img/logo.png" alt="Login Logo">
                 </div>
                 <form method="post" class="login100-form validate-form">
                     <span class="login100-form-title">
-                        Ezana LMS Confirm Password
+                        <?php
+                        $email  = $_SESSION['email'];
+                        $ret = "SELECT * FROM  ezanaLMS_Admins  WHERE email = '$email'";
+                        $stmt = $mysqli->prepare($ret);
+                        $stmt->execute(); //ok
+                        $res = $stmt->get_result();
+                        while ($row = $res->fetch_object()) {
+                        ?>
+                            <small>
+                                <p class="login-box-msg">
+                                    <span class="badge badge-success">Token: <?php echo $row->password; ?></span>
+                                    <br>
+                                    Please <?php echo $row->name; ?>
+                                    <br>
+                                    Ezana LMS Confirm Password </p>
+                            </small>
+                        <?php } ?>
                     </span>
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="pass" placeholder="New Password">
+                        <input class="input100" type="password" name="new_password" placeholder="New Password">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="pass" placeholder="Confirm New Password">
+                        <input class="input100" type="password" name="confirm_password" placeholder="Confirm New Password">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
                     </div>
                     <div class="container-login100-form-btn">
-                        <input type="submit" value="Change Password" class="login100-form-btn">
+                        <input type="submit" name="reset_pwd" value="Change Password" class="login100-form-btn">
                     </div>
-
                 </form>
             </div>
         </div>
