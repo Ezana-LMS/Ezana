@@ -44,13 +44,13 @@
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
                 <i class="fa fa-user"></i>
-                Rod Howard
+                <?php echo $_SESSION["name"]; ?>
                 <span class="caret"></span>
             </a>
 
             <ul class="dropdown-menu" role="menu">
                 <li>
-                    <a href="page-profile.html">
+                    <a href="profile.php">
                         <i class="fa fa-user"></i>
                         &nbsp;&nbsp;My Profile
                     </a>

@@ -47,8 +47,7 @@
 
     <!-- CK Editor CDN -->
     <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
-    <!-- Swal -->
-    !-- SWAL ALERTS INJECTION-->
+    <!-- SWAL ALERTS INJECTION-->
     <script src="dashboard/js/swal.js"></script>
     <!--Inject SWAL-->
     <?php if (isset($success)) { ?>
