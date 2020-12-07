@@ -28,6 +28,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="dashboard/img/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="dashboard/img/favicons/favicon-16x16.png">
     <link rel="manifest" href="dashboard/img/favicons/site.webmanifest">
+    
+    
+    <!-- StyleSheets -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,800italic,400,600,800" type="text/css">
     <link rel="stylesheet" href="dashboard/css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="dashboard/css/bootstrap.min.css" type="text/css" />
