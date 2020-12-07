@@ -50,7 +50,6 @@ if (isset($_POST['add_faculty'])) {
         }
     }
 }
-require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
 
