@@ -1,25 +1,25 @@
 <!-- jQuery -->
-<script src="plugins/jquery/jquery.min.js"></script>
+<script src="public/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Ezana App Js -->
-<script src="dist/js/adminlte.min.js"></script>
-<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="public/dist/js/adminlte.min.js"></script>
+<script src="public/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- OPTIONAL SCRIPTS -->
-<script src="dist/js/demo.js"></script>
+<script src="public/dist/js/demo.js"></script>
 <!-- Dropify Plug in -->
-<script src="plugins/dropify/dropify.min.js"></script>
+<script src="public/plugins/dropify/dropify.min.js"></script>
 <!-- jQuery Mapael -->
-<script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="plugins/raphael/raphael.min.js"></script>
-<script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
+<script src="public/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+<script src="public/plugins/raphael/raphael.min.js"></script>
+<script src="public/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+<script src="public/plugins/jquery-mapael/maps/usa_states.min.js"></script>
 <!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
-<script src="dist/js/pages/dashboard2.js"></script>
+<script src="public/plugins/chart.js/Chart.min.js"></script>
+<script src="public/dist/js/pages/dashboard2.js"></script>
 <!-- Data Tables -->
-<script src="plugins/datatables/jquery.dataTables.js"></script>
-<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script src="public/plugins/datatables/jquery.dataTables.js"></script>
+<script src="public/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 <script>
     $(function() {
         $("#example1").DataTable();
@@ -39,10 +39,10 @@
 
 <!-- Data Tables V2.01 -->
 <!-- NOTE TO Use Copy CSV Excel PDF Print Options You Must Include These Files  -->
-<script src="plugins/datatable/button-ext/dataTables.buttons.min.js"></script>
-<script src="plugins/datatable/button-ext/jszip.min.js"></script>
-<script src="plugins/datatable/button-ext/buttons.html5.min.js"></script>
-<script src="plugins/datatable/button-ext/buttons.print.min.js"></script>
+<script src="public/plugins/datatable/button-ext/dataTables.buttons.min.js"></script>
+<script src="public/plugins/datatable/button-ext/jszip.min.js"></script>
+<script src="public/plugins/datatable/button-ext/buttons.html5.min.js"></script>
+<script src="public/plugins/datatable/button-ext/buttons.print.min.js"></script>
 <script>
     $('#export-dt').DataTable({
         dom: '<"row"<"col-md-12"<"row"<"col-md-6"B><"col-md-6"f> > ><"col-md-12"rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>> >',
@@ -82,7 +82,7 @@
 </script>
 
 <!-- File Uploads  -->
-<script src="plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script src="public/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script>
     $(document).ready(function() {
         bsCustomFileInput.init();
@@ -90,8 +90,8 @@
 </script>
 
 <!-- Select2 -->
-<script src="plugins/select2/select2.min.js"></script>
-<script src="plugins/select2/custom-select2.js"></script>
+<script src="public/plugins/select2/select2.min.js"></script>
+<script src="public/plugins/select2/custom-select2.js"></script>
 <script>
     var ss = $(".basic").select2({
         tags: true,
