@@ -76,7 +76,7 @@ if (isset($_POST['change_password'])) {
     }
 }
 
-require_once('public/dist/partials/_head.php');
+require_once('public/partials/_head.php');
 ?>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
