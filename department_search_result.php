@@ -212,7 +212,7 @@ require_once('public/partials/_head.php');
                             </div>
                             <br>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
                                     <?php
                                     $query = $_GET['query'];
                                     $min_length = 5;
@@ -285,16 +285,6 @@ require_once('public/partials/_head.php');
                                                 " . $min_length . "Characters ";
                                     }
                                     ?>
-                                </div>
-
-                                <div class="col-md-9">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="jumbotron">
-
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

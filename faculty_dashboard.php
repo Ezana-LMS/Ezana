@@ -223,7 +223,7 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-3">
                                     <?php
                                     $DepartmentFacultyId = $faculty->id;
-                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$DepartmentFacultyId'  ORDER BY `ezanaLMS_Departments`.`name` ASC  ";
+                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$DepartmentFacultyId'  ORDER BY `ezanaLMS_Departments`.`name` ASC LIMIT 4  ";
                                     $stmt = $mysqli->prepare($ret);
                                     $stmt->execute(); //ok
                                     $res = $stmt->get_result();
