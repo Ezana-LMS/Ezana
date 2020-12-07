@@ -28,8 +28,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="dashboard/img/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="dashboard/img/favicons/favicon-16x16.png">
     <link rel="manifest" href="dashboard/img/favicons/site.webmanifest">
-    
-    
+
+
     <!-- StyleSheets -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,800italic,400,600,800" type="text/css">
     <link rel="stylesheet" href="dashboard/css/font-awesome.min.css" type="text/css" />
@@ -40,5 +40,49 @@
     <link rel="stylesheet" href="dashboard/js/plugins/fullcalendar/fullcalendar.css" type="text/css" />
     <link rel="stylesheet" href="dashboard/css/App.css" type="text/css" />
     <link rel="stylesheet" href="dashboard/css/custom.css" type="text/css" />
+    <!-- Clickable Table Css -->
+    <link rel="stylesheet" type="text/css" href="dist/css/clickable_table.css">
+
+    <!-- CDNS -->
+
+    <!-- CK Editor CDN -->
+    <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+    <!-- Swal -->
+    !-- SWAL ALERTS INJECTION-->
+    <script src="dashboard/js/swal.js"></script>
+    <!--Inject SWAL-->
+    <?php if (isset($success)) { ?>
+        <!--This code for injecting success alert-->
+        <script>
+            setTimeout(function() {
+                    swal("Success", "<?php echo $success; ?>", "success");
+                },
+                100);
+        </script>
+
+    <?php } ?>
+
+    <?php if (isset($err)) { ?>
+        <!--This code for injecting error alert-->
+        <script>
+            setTimeout(function() {
+                    swal("Failed", "<?php echo $err; ?>", "error");
+                },
+                100);
+        </script>
+
+    <?php } ?>
+    <?php if (isset($info)) { ?>
+        <!--This code for injecting info alert-->
+        <script>
+            setTimeout(function() {
+                    swal("Success", "<?php echo $info; ?>", "warning");
+                },
+                100);
+        </script>
+
+    <?php } ?>
+
+
 
 </head>

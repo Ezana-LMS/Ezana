@@ -36,4 +36,39 @@
     <link rel="stylesheet" type="text/css" href="auth/vendor/select2/select2.min.css">
     <link rel="stylesheet" type="text/css" href="auth/css/util.css">
     <link rel="stylesheet" type="text/css" href="auth/css/main.css">
+    
+    <!-- SWAL ALERTS INJECTION-->
+    <script src="dashboard/js/swal.js"></script>
+    <!--Inject SWAL-->
+    <?php if (isset($success)) { ?>
+        <!--This code for injecting success alert-->
+        <script>
+            setTimeout(function() {
+                    swal("Success", "<?php echo $success; ?>", "success");
+                },
+                100);
+        </script>
+
+    <?php } ?>
+
+    <?php if (isset($err)) { ?>
+        <!--This code for injecting error alert-->
+        <script>
+            setTimeout(function() {
+                    swal("Failed", "<?php echo $err; ?>", "error");
+                },
+                100);
+        </script>
+
+    <?php } ?>
+    <?php if (isset($info)) { ?>
+        <!--This code for injecting info alert-->
+        <script>
+            setTimeout(function() {
+                    swal("Success", "<?php echo $info; ?>", "warning");
+                },
+                100);
+        </script>
+
+    <?php } ?>
 </head>
