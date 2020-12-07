@@ -54,7 +54,23 @@ require_once("auth/partials/_head.php");
                 </div>
                 <form method="post" class="login100-form validate-form">
                     <span class="login100-form-title">
-                        Ezana LMS Confirm Password
+                        <?php
+                        $email  = $_SESSION['email'];
+                        $ret = "SELECT * FROM  ezanaLMS_Admins  WHERE email = '$email'";
+                        $stmt = $mysqli->prepare($ret);
+                        $stmt->execute(); //ok
+                        $res = $stmt->get_result();
+                        while ($row = $res->fetch_object()) {
+                        ?>
+                            <p class="login-box-msg">
+                                <span class="badge badge-success">Token: <?php echo $row->password; ?></span>
+                                <br>
+                                Please <?php echo $row->name; ?>
+                                <br>
+                                Change Your Password
+                            </p>
+                        <?php
+                        } ?>
                     </span>
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
                         <input class="input100" type="password" name="new_password" placeholder="New Password">
@@ -71,7 +87,7 @@ require_once("auth/partials/_head.php");
                         </span>
                     </div>
                     <div class="container-login100-form-btn">
-                        <input type="submit" value="Change Password" class="login100-form-btn">
+                        <input type="submit" name="reset_pwd" value="Change Password" class="login100-form-btn">
                     </div>
 
                 </form>
