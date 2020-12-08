@@ -55,19 +55,10 @@
     <?php if (isset($err)) { ?>
         <!--This code for injecting error alert-->
         <script>
-            $(function() {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-                Toast.fire({
-                    type: 'success',
-                    title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-                })
-
-            });
+            setTimeout(function() {
+                    swal("Failed", "<?php echo $err; ?>", "error");
+                },
+                100);
         </script>
 
     <?php } ?>
