@@ -23,48 +23,46 @@ include __DIR__ . "/public/partials/_authhead.php"
 ?>
 
 <body>
-    <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100">
-                <div class="login100-pic js-tilt" data-tilt>
-                    <img src="public/dist/img/logo.png" alt="Login Logo">
+    <div class="main-wrapper">
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative" style="background:url(../assets/images/big/auth-bg.jpg) no-repeat center center;">
+            <div class="auth-box row">
+                <div class="col-lg-7 col-md-5 modal-bg-img" style="background-image: url(../assets/images/big/3.jpg);">
                 </div>
-                <form method="post" class="login100-form validate-form">
-                    <span class="login100-form-title">
-                        Ezana LMS - Login
-                    </span>
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email" placeholder="Email">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                        </span>
+                <div class="col-lg-5 col-md-7 bg-white">
+                    <div class="p-3">
+                        <div class="text-center">
+                            <img src="public/dist/img/logo.png" alt="wrapkit">
+                        </div>
+                        <h2 class="mt-3 text-center">Log In</h2>
+                        <p class="text-center">Enter Your Email Address And Password</p>
+                        <form class="mt-4">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="text-dark" for="uname">Email</label>
+                                        <input class="form-control" id="uname" type="email" name="email">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="text-dark" for="pwd">Password</label>
+                                        <input class="form-control" id="pwd" name="password" type="password" placeholder="enter your password">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 text-center">
+                                    <button type="submit" name="login" class="btn btn-block btn-dark">Sign In</button>
+                                </div>
+                                <div class="col-lg-12 text-center mt-5">
+                                    Forgot Password? <a href="reset_password.php" class="text-danger">Reset Password</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="password" placeholder="Password">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fa fa-lock" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <div class="container-login100-form-btn">
-                        <input type="submit" name="login" value="Login" class="login100-form-btn">
-                    </div>
-                    <div class="text-center p-t-12">
-                        <span class="txt1">
-                            Forgot
-                        </span>
-                        <a class="txt2" href="reset_password.php">
-                            Username / Password?
-                        </a>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-    <?php
-    include __DIR__ . "/public/partials/_authscripts.php"
-    ?>
+    <?php require_once("public/partials/_authscripts.php"); ?>
 </body>
 
 </html>
