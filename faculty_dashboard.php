@@ -269,6 +269,9 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <div class="text-center">
+                                                <h1 class="display-4">Departments</h1>
+                                            </div>
                                             <div class="jumbotron">
                                                 <div class="row">
                                                     <?php
@@ -282,27 +285,58 @@ require_once('public/partials/_head.php');
                                                     while ($facultyDepartment = $res->fetch_object()) {
                                                     ?>
                                                         <div class="col-lg-4 col-6">
-                                                            <a href="departments.php">
-                                                                <div class="small-box bg-info">
+                                                            <div class="small-box bg-primary">
+                                                                <a href="departments.php">
                                                                     <div class="inner">
-                                                                        <h4><?php echo $facultyDepartment->code; ?></h4>
-                                                                        <p><?php echo $facultyDepartment->name; ?></p>
+                                                                        <h4 class="text-center">
+                                                                            <?php echo $facultyDepartment->name; ?>
+                                                                        </h4>
+                                                                        <p class="text-center">
+                                                                            <?php echo $facultyDepartment->code; ?>
+
+                                                                        </p>
                                                                     </div>
                                                                     <div class="icon">
                                                                         <i class="fas fa-building"></i>
                                                                     </div>
-                                                                    <div class="small-box-footer">
-                                                                        <div class="text-left">
-                                                                            <?php echo $facultyDepartment->hod; ?>
+                                                                </a>
+                                                                <div class="small-box-footer text-center">
+                                                                    <?php echo $facultyDepartment->hod; ?>
+                                                                    <!-- Push Deparment Info  To The Right -->
+                                                                    <button type="button" class="fas fa-info-circle float-right" data-toggle="modal" data-target="#modal-sm"></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Department Details Modal -->
+                                                        <?php
+                                                        $department_id = $facultyDepartment->id;
+                                                        $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE id = '$department_id'  ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($FacultyDepartmentDetails = $res->fetch_object()) {
+                                                        ?>
+                                                            <div class="modal fade" id="modal-sm">
+                                                                <div class="modal-dialog modal-sm">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title"><?php echo $FacultyDepartmentDetails->name; ?></h4>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
                                                                         </div>
-                                                                        <div class="text-right">
-                                                                            <i class="fas fa-info-circle"></i>
+                                                                        <div class="modal-body">
+                                                                            <?php echo $FacultyDepartmentDetails->details; ?>
+                                                                        </div>
+                                                                        <div class="modal-footer justify-content-between">
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </a>
-                                                        </div>
+                                                            </div>
                                                     <?php
+                                                        }
                                                     }
                                                     ?>
                                                 </div>
