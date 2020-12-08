@@ -63,11 +63,13 @@ include __DIR__ . "/public/partials/_authhead.php"
                         $res = $stmt->get_result();
                         while ($row = $res->fetch_object()) {
                         ?>
-                            <h2 class="mt-3 text-center">
+                            <h5 class="mt-3 text-center">
                                 <span class="badge badge-success">
-                                    Token: <?php echo $row->password; ?>
+                                    <small>
+                                        Token: <?php echo $row->password; ?>
+                                    </small>
                                 </span>
-                            </h2>
+                            </h5>
                             <p class="text-center"><?php echo $row->name; ?> Please Enter New Password</p>
                         <?php
                         } ?>
