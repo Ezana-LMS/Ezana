@@ -61,234 +61,229 @@ require_once('public/partials/_head.php');
         <?php
         require_once('public/partials/_nav.php');
         ?>
-            <!-- /.navbar -->
+        <!-- /.navbar -->
 
-            <!-- Main Sidebar Container -->
-            <aside class="main-sidebar sidebar-dark-primary elevation-4">
-                <!-- Brand Logo -->
-                <a href="dashboard.php" class="brand-link">
-                    <img src="public/dist/img/logo.png" alt="Ezana LMS Logo" class="brand-image img-circle elevation-3">
-                    <span class="brand-text font-weight-light">Ezana LMS</span>
-                </a>
-                <!-- Sidebar -->
-                <div class="sidebar">
-                    <!-- Sidebar Menu -->
-                    <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <li class="nav-item">
-                                <a href="dashboard.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Dashboard
-                                    </p>
-                                </a>
-                            </li>
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="dashboard.php" class="brand-link">
+                <img src="public/dist/img/logo.png" alt="Ezana LMS Logo" class="brand-image img-circle elevation-3">
+                <span class="brand-text font-weight-light">Ezana LMS</span>
+            </a>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <a href="dashboard.php" class=" nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
 
-                            <li class="nav-item">
-                                <a href="faculties.php" class="active nav-link">
-                                    <i class="nav-icon fas fa-university"></i>
-                                    <p>
-                                        Faculties
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="departments.php" class="nav-link">
-                                    <i class="nav-icon fas fa-building"></i>
-                                    <p>
-                                        Departments
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="courses.php" class="nav-link">
-                                    <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                                    <p>
-                                        Courses
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="modules.php" class="nav-link">
-                                    <i class="nav-icon fas fa-chalkboard"></i>
-                                    <p>
-                                        Modules
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="lecturers.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-tie"></i>
-                                    <p>
-                                        Lecturers
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="students.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-graduate"></i>
-                                    <p>
-                                        Students
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </aside>
+                        <li class="nav-item">
+                            <a href="faculties.php" class="active nav-link">
+                                <i class="nav-icon fas fa-university"></i>
+                                <p>
+                                    Faculties
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="departments.php" class="nav-link">
+                                <i class="nav-icon fas fa-building"></i>
+                                <p>
+                                    Departments
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="courses.php" class="nav-link">
+                                <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                                <p>
+                                    Courses
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="modules.php" class="nav-link">
+                                <i class="nav-icon fas fa-chalkboard"></i>
+                                <p>
+                                    Modules
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="lecturers.php" class="nav-link">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>
+                                    Lecturers
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="students.php" class="nav-link">
+                                <i class="nav-icon fas fa-user-graduate"></i>
+                                <p>
+                                    Students
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
 
-            <div class="content-wrapper">
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1 class="m-0 text-dark">Department Search Results</h1>
-                            </div>
-                            <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item active">Faculty Dashboard</li>
-                                </ol>
-                            </div>
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-dark">Department Search Results</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                                <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
+                                <li class="breadcrumb-item active">Faculty Dashboard</li>
+                            </ol>
                         </div>
                     </div>
+                </div>
 
-                    <section class="content">
-                        <div class="container-fluid">
-                            <div class="text-left">
-                                <nav class="navbar navbar-light bg-light col-md-12">
-                                    <form class="form-inline" action="department_search_result.php" method="GET">
-                                        <input class="form-control mr-sm-2" type="search" name="query" placeholder="Dep Name Or Code">
-                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                                    </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Department</button>
-                                    <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Fill All Values </h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Department Name</label>
-                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Department Number / Code</label>
-                                                                    <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Department HOD</label>
-                                                                    <input type="text" required name="hod" class="form-control">
-                                                                </div>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="text-left">
+                            <nav class="navbar navbar-light bg-light col-md-12">
+                                <form class="form-inline" action="department_search_result.php" method="GET">
+                                    <input class="form-control mr-sm-2" type="search" name="query" placeholder="Dep Name Or Code">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                </form>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Department</button>
+                                <div class="modal fade" id="modal-default">
+                                    <div class="modal-dialog  modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Fill All Values </h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department Name</label>
+                                                                <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Department Details</label>
-                                                                    <textarea name="details" id="textarea" rows="10" class="form-control"></textarea>
-                                                                </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department Number / Code</label>
+                                                                <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department HOD</label>
+                                                                <input type="text" required name="hod" class="form-control">
                                                             </div>
                                                         </div>
-                                                        <div class="card-footer text-right">
-                                                            <button type="submit" name="add_dept" class="btn btn-primary">Add Department</button>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="exampleInputPassword1">Department Details</label>
+                                                                <textarea name="details" id="textarea" rows="10" class="form-control"></textarea>
+                                                            </div>
                                                         </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                </div>
+                                                    </div>
+                                                    <div class="card-footer text-right">
+                                                        <button type="submit" name="add_dept" class="btn btn-primary">Add Department</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
                                     </div>
-                                </nav>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <?php
-                                    $query = $_GET['query'];
-                                    $min_length = 5;
-                                    if (strlen($query) >= $min_length) {
-                                        $query = htmlspecialchars($query);
-                                        $query = mysqli_real_escape_string($mysqli, $query);
-                                        $raw_results = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Departments WHERE (`name` LIKE '%" . $query . "%') OR (`code` LIKE '%" . $query . "%') ");
-                                        if (mysqli_num_rows($raw_results) > 0) {
-                                            while ($results = mysqli_fetch_array($raw_results)) {
-                                    ?>
-                                                <div class="col-md-12">
-                                                    <div class="card card-primary collapsed-card">
-                                                        <div class="card-header">
-                                                            <a href="department_dashboard.php?view=<?php echo $results['id']; ?>">
-                                                                <h3 class="card-title"><?php echo $results['name']; ?></h3>
-                                                                <div class="card-tools text-right">
-                                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </a>
-                                                        </div>
+                                </div>
+                            </nav>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?php
+                                $query = $_GET['query'];
+                                $min_length = 5;
+                                if (strlen($query) >= $min_length) {
+                                    $query = htmlspecialchars($query);
+                                    $query = mysqli_real_escape_string($mysqli, $query);
+                                    $raw_results = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Departments WHERE (`name` LIKE '%" . $query . "%') OR (`code` LIKE '%" . $query . "%') ");
+                                    if (mysqli_num_rows($raw_results) > 0) {
+                                        while ($results = mysqli_fetch_array($raw_results)) {
+                                ?>
+                                            <div class="col-md-12">
+                                                <div class="card card-primary collapsed-card">
+                                                    <div class="card-header">
+                                                        <a href="department.php?view=<?php echo $results['id']; ?>">
+                                                            <h3 class="card-title"><?php echo $results['name']; ?></h3>
+                                                            <div class="card-tools text-right">
+                                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                        </a>
+                                                    </div>
 
-                                                        <div class="card-body">
-                                                            <ul class="list-group">
-                                                                <li class="list-group-item  d-flex justify-content-between align-items-center">
-                                                                    <a href="">
-                                                                        Courses
-                                                                    </a>
-                                                                </li>
-                                                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                    <a href="">
-                                                                        Modules
-                                                                    </a>
-                                                                </li>
-                                                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                    <a href="">
-                                                                        Memos
-                                                                    </a>
-                                                                </li>
-                                                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                    <a href="">
-                                                                        Lecturers
-                                                                    </a>
-                                                                </li>
-                                                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                    <a href="">
-                                                                        Students
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                                    <div class="card-body">
+                                                        <ul class="list-group">
+                                                            <li class="list-group-item  d-flex justify-content-between align-items-center">
+                                                                <a href="">
+                                                                    Courses
+                                                                </a>
+                                                            </li>
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <a href="">
+                                                                    Modules
+                                                                </a>
+                                                            </li>
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <a href="">
+                                                                    Memos
+                                                                </a>
+                                                            </li>
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <a href="">
+                                                                    Lecturers
+                                                                </a>
+                                                            </li>
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <a href="">
+                                                                    Students
+                                                                </a>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </div>
-                                    <?php
-                                            }
-                                        } else {
-                                            echo
-                                                "
-                                                    No Results
-                                                ";
+                                            </div>
+                                <?php
                                         }
                                     } else {
-                                        echo "
-                                                Minimum Search Querry  Length Is  
-                                                " . $min_length . "Characters ";
+                                        echo "<span class ='text-danger'>No Search Results</span>";
                                     }
-                                    ?>
-                                </div>
+                                } else {
+                                    echo "<span class ='text-danger'> Minimum Search Querry  Length Is " . $min_length . " Characters </span> ";
+                                }
+                                ?>
                             </div>
                         </div>
-                    </section>
-                    <!-- Main Footer -->
-                    <?php require_once('public/partials/_footer.php'); ?>
-                </div>
+                    </div>
+                </section>
+                <!-- Main Footer -->
+                <?php require_once('public/partials/_footer.php'); ?>
             </div>
-            <!-- ./wrapper -->
+        </div>
+        <!-- ./wrapper -->
         <?php require_once('public/partials/_scripts.php');
         ?>
 </body>

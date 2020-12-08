@@ -293,14 +293,13 @@ require_once('public/partials/_head.php');
                                                     ?>
                                                         <div class="col-lg-4 col-6">
                                                             <div class="small-box bg-primary">
-                                                                <a href="departments.php">
+                                                                <a href="department.php?view=<?php echo $facultyDepartment->id;?>">
                                                                     <div class="inner">
                                                                         <h4 class="text-center">
                                                                             <?php echo $facultyDepartment->name; ?>
                                                                         </h4>
                                                                         <p class="text-center">
                                                                             <?php echo $facultyDepartment->code; ?>
-
                                                                         </p>
                                                                     </div>
                                                                     <div class="icon">
