@@ -26,7 +26,7 @@ include __DIR__ . "/public/partials/_authhead.php"
     <div class="main-wrapper">
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative" style="background:url(../assets/images/big/auth-bg.jpg) no-repeat center center;">
             <div class="auth-box row">
-                <div class="col-lg-7 col-md-5 modal-bg-img"  style="background-image: url(public/dist/img/logo.png);">
+                <div class="col-lg-7 col-md-5 modal-bg-img img-thumbnail"  style="background-image: url(public/dist/img/logo.png);">
                 </div>
                 <div class="col-lg-5 col-md-7 bg-white">
                     <div class="p-3">
@@ -53,7 +53,7 @@ include __DIR__ . "/public/partials/_authhead.php"
                                     <button type="submit" name="login" class="btn btn-block btn-dark">Sign In</button>
                                 </div>
                                 <div class="col-lg-12 text-center mt-5">
-                                    Forgot Password? <a href="reset_password.php" class="text-danger">Reset Password</a>
+                                    Forgot Password? <a href="reset_password.php" class="text-primary">Reset Password</a>
                                 </div>
                             </div>
                         </form>
