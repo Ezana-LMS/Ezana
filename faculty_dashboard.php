@@ -279,24 +279,29 @@ require_once('public/partials/_head.php');
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
                                                     $cnt = 1;
-                                                    while ($dep = $res->fetch_object()) {
-                                                        ?>
-                                                    <div class="col-lg-4 col-6">
-                                                        <a href="departments.php">
-                                                            <div class="small-box bg-info">
-                                                                <div class="inner">
-                                                                    <h3>Departments</h3>
+                                                    while ($facultyDepartment = $res->fetch_object()) {
+                                                    ?>
+                                                        <div class="col-lg-4 col-6">
+                                                            <a href="departments.php">
+                                                                <div class="small-box bg-info">
+                                                                    <div class="inner">
+                                                                        <h4><?php echo $facultyDepartment->code; ?></h4>
+                                                                        <p><?php echo $facultyDepartment->name; ?></p>
+                                                                    </div>
+                                                                    <div class="icon">
+                                                                        <i class="fas fa-building"></i>
+                                                                    </div>
+                                                                    <div class="small-box-footer">
+                                                                        <div class="text-left">
+                                                                            <?php echo $facultyDepartment->hod; ?>
+                                                                        </div>
+                                                                        <div class="text-right">
+                                                                            <i class="fas fa-info-circle"></i>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-building"></i>
-                                                                </div>
-                                                                <div class="small-box-footer">
-                                                                    <i class="fas fa-arrow-circle-right"></i>
-                                                                    <?php echo $faculty_departments; ?>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
+                                                            </a>
+                                                        </div>
                                                     <?php
                                                     }
                                                     ?>
