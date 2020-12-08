@@ -38,6 +38,8 @@
     <link rel="stylesheet" type="text/css" href="public/dist/css/util.css">
     <link rel="stylesheet" type="text/css" href="public/dist/css/main.css">
     <script src="public/dist/js/swal.js"></script>
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="public/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!--Inject SWAL-->
     <?php if (isset($success)) { ?>
         <!--This code for injecting success alert-->

@@ -44,7 +44,7 @@ if (isset($_POST['add_dept'])) {
             $rc = $stmt->bind_param('sssssss', $id, $code, $name, $view, $details, $hod, $created_at);
             $stmt->execute();
             if ($stmt) {
-                $success = "Faculty Department Added";
+                $success = " $name Department Added";
             } else {
                 //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";
@@ -140,6 +140,14 @@ require_once('public/partials/_head.php');
                                     </p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="settings.php" class="nav-link">
+                                    <i class="nav-icon fas fa-cogs"></i>
+                                    <p>
+                                        System Settings
+                                    </p>
+                                </a>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -221,20 +229,68 @@ require_once('public/partials/_head.php');
                             <br>
                             <div class="row">
                                 <div class="col-md-3">
+
+                                    <div class="col-md-12">
+                                        <div class="card card-primary">
+                                            <div class="card-header">
+                                                <h3 class="card-title"><?php echo $faculty->name; ?></h3>
+                                                <div class="card-tools text-right">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <ul class="list-group">
+
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="departments.php?view=<?php echo $faculty->id; ?>">
+                                                            Departments
+                                                        </a>
+                                                    </li>
+
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="courses.php?view=<?php echo $faculty->id; ?>">
+                                                            Courses
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="modules.php?view=<?php echo $faculty->id; ?>">
+                                                            Modules
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="school_calendar.phpview=<?php echo $faculty->id; ?>">
+                                                            Calendar
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="lects.php?view=<?php echo $faculty->id; ?>">
+                                                            Lecturers
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="students.php?view=<?php echo $faculty->id; ?>">
+                                                            Students
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- All Other Faculties -->
                                     <?php
-                                    $DepartmentFacultyId = $faculty->id;
-                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$DepartmentFacultyId'  ORDER BY `ezanaLMS_Departments`.`name` ASC LIMIT 5  ";
+                                    $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id != '$faculty->id' ORDER BY `name` ASC ";
                                     $stmt = $mysqli->prepare($ret);
                                     $stmt->execute(); //ok
                                     $res = $stmt->get_result();
-                                    $cnt = 1;
-                                    while ($department = $res->fetch_object()) {
+                                    while ($unactive_faculties = $res->fetch_object()) {
                                     ?>
                                         <div class="col-md-12">
                                             <div class="card card-primary collapsed-card">
                                                 <div class="card-header">
-                                                    <a href="department_dashboard.php?view=<?php echo $department->id; ?>">
-                                                        <h3 class="card-title"><?php echo $cnt; ?> . <?php echo $department->name; ?></h3>
+                                                    <a href="faculty_dashboard.php?view=<?php echo $unactive_faculties->id; ?>">
+                                                        <h3 class="card-title"><?php echo $unactive_faculties->name; ?></h3>
                                                         <div class="card-tools text-right">
                                                             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                             </button>
@@ -244,28 +300,35 @@ require_once('public/partials/_head.php');
 
                                                 <div class="card-body">
                                                     <ul class="list-group">
-                                                        <li class="list-group-item  d-flex justify-content-between align-items-center">
-                                                            <a href="">
+
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="departments.php?view=<?php echo $unactive_faculties->id; ?>">
+                                                                Departments
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="courses.php?view=<?php echo $unactive_faculties->id; ?>">
                                                                 Courses
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="">
+                                                            <a href="modules.php?view=<?php echo $unactive_faculties->id; ?>">
                                                                 Modules
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="">
-                                                                Memos
+                                                            <a href="school_calendar.phpview=<?php echo $unactive_faculties->id; ?>">
+                                                                Calendar
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="">
+                                                            <a href="lects.php?view=<?php echo $unactive_faculties->id; ?>">
                                                                 Lecturers
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="">
+                                                            <a href="students.php?view=<?php echo $unactive_faculties->id; ?>">
                                                                 Students
                                                             </a>
                                                         </li>
@@ -274,120 +337,71 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                     <?php
-                                        $cnt = $cnt + 1;
                                     } ?>
                                 </div>
 
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <div class="text-center">
+                                                <h1 class="display-4">Departments</h1>
+                                            </div>
                                             <div class="jumbotron">
                                                 <div class="row">
-
-                                                    <div class="col-lg-4 col-6">
-                                                        <a href="departments.php">
-                                                            <div class="small-box bg-info">
-                                                                <div class="inner">
-                                                                    <h3>Departments</h3>
-                                                                </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-building"></i>
-                                                                </div>
-                                                                <div class="small-box-footer">
-                                                                    <i class="fas fa-arrow-circle-right"></i>
-                                                                    <?php echo $faculty_departments;?>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-6">
-                                                        <a href="courses.php">
-                                                            <div class="small-box bg-info">
-                                                                <div class="inner">
-                                                                    <h3>Courses</h3>
-                                                                </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-chalkboard-teacher"></i>
-                                                                </div>
-                                                                <div class="small-box-footer">
-                                                                    <i class="fas fa-arrow-circle-right"></i>
-                                                                        <?php echo $faculty_courses;?>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-6">
-                                                        <a href="modules.php">
-                                                            <div class="small-box bg-info">
-                                                                <div class="inner">
-                                                                    <h3>Modules</h3>
-                                                                </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-chalkboard"></i>
-                                                                </div>
-                                                                <div class="small-box-footer">
-                                                                    <i class="fas fa-arrow-circle-right"></i>
-                                                                    <?php echo $faculty_modules;?>
+                                                    <?php
+                                                    /* List All Departments Under This Faculty */
+                                                    $departmentFacultyID = $faculty->id;
+                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$departmentFacultyID' ORDER BY `name` ASC  ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($facultyDepartment = $res->fetch_object()) {
+                                                    ?>
+                                                        <div class="col-lg-4 col-6">
+                                                            <div class="small-box bg-primary">
+                                                                <a href="department.php?view=<?php echo $facultyDepartment->id; ?>">
+                                                                    <div class="inner">
+                                                                        <h4 class="text-center">
+                                                                            <?php echo $facultyDepartment->name; ?>
+                                                                        </h4>
+                                                                        <p class="text-center">
+                                                                            <?php echo $facultyDepartment->code; ?>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="icon">
+                                                                        <i class="fas fa-building"></i>
+                                                                    </div>
+                                                                </a>
+                                                                <div class="small-box-footer text-center">
+                                                                    <?php echo $facultyDepartment->hod; ?>
+                                                                    <!-- Push Deparment Info  To The Right -->
+                                                                    <button type="button" class="fas fa-info-circle float-right" data-toggle="modal" data-target="#modal-sm-<?php echo $facultyDepartment->id; ?>"></button>
                                                                 </div>
                                                             </div>
-                                                        </a>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-6">
-                                                        <a href="school_calendar.php">
-
-                                                            <div class="small-box bg-info">
-                                                                <div class="inner">
-                                                                    <h3>Calendar</h3>
-                                                                </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-calendar"></i>
-                                                                </div>
-                                                                <div class="small-box-footer">
-                                                                    <i class="fas fa-arrow-circle-right"></i>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-6">
-                                                        <a href="lecturers.php">
-
-                                                            <div class="small-box bg-info">
-                                                                <div class="inner">
-                                                                    <h3>Lecturers</h3>
-                                                                </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-user-tie"></i>
-                                                                </div>
-                                                                <div class="small-box-footer">
-                                                                    <i class="fas fa-arrow-circle-right"></i>
-                                                                    <?php echo $faculty_lecs;?>
-                                                                </div>
-
-                                                            </div>
-                                                        </a>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-6">
-                                                        <a href="students.php">
-
-                                                            <div class="small-box bg-info">
-                                                                <div class="inner">
-                                                                    <h3>Students</h3>
-                                                                </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-user-graduate"></i>
-                                                                </div>
-                                                                <div class="small-box-footer">
-                                                                    <i class="fas fa-arrow-circle-right"></i>
-                                                                    <?php echo $faculty_students;?>
+                                                        </div>
+                                                        <!-- Department Details Modal -->
+                                                        <div class="modal fade" id="modal-sm-<?php echo $facultyDepartment->id; ?>">
+                                                            <div class="modal-dialog modal-lg">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title"><?php echo $facultyDepartment->name; ?> Description</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <?php echo $facultyDepartment->details; ?>
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-between">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </a>
-                                                    </div>
+                                                        </div>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>

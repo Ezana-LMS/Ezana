@@ -45,41 +45,40 @@ include __DIR__ . "/public/partials/_authhead.php"
 ?>
 
 <body>
-    <div class="limiter">
-        <div class="container-login100">
-            <div class="wrap-login100">
-                <div class="login100-pic js-tilt" data-tilt>
-                    <img src="public/dist/img/logo.png" alt="Login Logo">
+    <div class="main-wrapper">
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative" style="background:url(../assets/images/big/auth-bg.jpg) no-repeat center center;">
+            <div class="auth-box row">
+                <div class="col-lg-7 col-md-5 modal-bg-img img-thumbnail" style="background-image: url(public/dist/img/logo.png);">
                 </div>
-                <form method="post" class="login100-form validate-form">
-                    <span class="login100-form-title">
-                        Ezana LMS - Reset Password
-                    </span>
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email" placeholder="Email">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                        </span>
+                <div class="col-lg-5 col-md-7 bg-white">
+                    <div class="p-3">
+                        <div class="text-center">
+                            <img height="100" width="100" src="public/dist/img/logo.png" alt="wrapkit">
+                        </div>
+                        <h2 class="mt-3 text-center">Reset Password</h2>
+                        <p class="text-center">Enter Your Email Address To Reset Passsword</p>
+                        <form method="post" class="mt-4">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="text-dark" for="uname">Email</label>
+                                        <input class="form-control" type="email" name="email">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 text-center">
+                                    <button type="submit" name="reset_pwd" class="btn btn-block btn-dark">Reset Password</button>
+                                </div>
+                                <div class="col-lg-12 text-center mt-5">
+                                    Remembered Password? <a href="index.php" class="text-primary">Log In</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="container-login100-form-btn">
-                        <input type="submit" name="reset_pwd" value="Reset Password" class="login100-form-btn">
-                    </div>
-                    <div class="text-center p-t-12">
-                        <span class="txt1">
-                            Remembered
-                        </span>
-                        <a class="txt2" href="index.php">
-                            Username / Password?
-                        </a>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-    <?php
-    include __DIR__ . "/public/partials/_authscripts.php"
-    ?>
+    <?php require_once("public/partials/_authscripts.php"); ?>
 </body>
 
 </html>
