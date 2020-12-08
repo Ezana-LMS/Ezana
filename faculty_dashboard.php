@@ -140,6 +140,14 @@ require_once('public/partials/_head.php');
                                     </p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="settings.php" class="nav-link">
+                                    <i class="nav-icon fas fa-cogs"></i>
+                                    <p>
+                                        System Settings
+                                    </p>
+                                </a>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -293,7 +301,7 @@ require_once('public/partials/_head.php');
                                                     ?>
                                                         <div class="col-lg-4 col-6">
                                                             <div class="small-box bg-primary">
-                                                                <a href="department.php?view=<?php echo $facultyDepartment->id;?>">
+                                                                <a href="department.php?view=<?php echo $facultyDepartment->id; ?>">
                                                                     <div class="inner">
                                                                         <h4 class="text-center">
                                                                             <?php echo $facultyDepartment->name; ?>
