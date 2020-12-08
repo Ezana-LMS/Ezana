@@ -44,7 +44,7 @@ if (isset($_POST['add_dept'])) {
             $rc = $stmt->bind_param('sssssss', $id, $code, $name, $view, $details, $hod, $created_at);
             $stmt->execute();
             if ($stmt) {
-                $success = "Faculty Department Added";
+                $success = " $name Department Added";
             } else {
                 //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";
@@ -277,7 +277,7 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- All Other Faculties -->
                                     <?php
                                     $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id != '$faculty->id' ORDER BY `name` ASC ";

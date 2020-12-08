@@ -43,7 +43,7 @@ if (isset($_POST['add_faculty'])) {
             $rc = $stmt->bind_param('ssss', $id, $code, $name, $details);
             $stmt->execute();
             if ($stmt) {
-                $success = "Faculty Added";
+                $success = "$name Faculty Added";
             } else {
                 //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";
