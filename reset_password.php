@@ -55,27 +55,21 @@ include __DIR__ . "/public/partials/_authhead.php"
                         <div class="text-center">
                             <img height="100" width="100" src="public/dist/img/logo.png" alt="wrapkit">
                         </div>
-                        <h2 class="mt-3 text-center">Log In</h2>
-                        <p class="text-center">Enter Your Email Address And Password</p>
+                        <h2 class="mt-3 text-center">Reset Password</h2>
+                        <p class="text-center">Enter Your Email Address To Reset Passsword</p>
                         <form method="post" class="mt-4">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="text-dark" for="uname">Email</label>
-                                        <input class="form-control" id="uname" type="email" name="email">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label class="text-dark" for="pwd">Password</label>
-                                        <input class="form-control" id="pwd" name="password" type="password">
+                                        <input class="form-control" type="email" name="email">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 text-center">
-                                    <button type="submit" name="login" class="btn btn-block btn-dark">Sign In</button>
+                                    <button type="submit" name="reset_pwd" class="btn btn-block btn-dark">Reset Password</button>
                                 </div>
                                 <div class="col-lg-12 text-center mt-5">
-                                    Forgot Password? <a href="reset_password.php" class="text-primary">Reset Password</a>
+                                    Remembered Password? <a href="index.php" class="text-primary">Log In</a>
                                 </div>
                             </div>
                         </form>
