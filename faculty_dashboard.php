@@ -303,13 +303,12 @@ require_once('public/partials/_head.php');
                                                                 <div class="small-box-footer text-center">
                                                                     <?php echo $facultyDepartment->hod; ?>
                                                                     <!-- Push Deparment Info  To The Right -->
-                                                                    <button type="button" class="fas fa-info-circle float-right" data-toggle="modal" href="#modal-sm<?php echo $facultyDepartment->id; ?>" data-target="#modal-sm"></button>
+                                                                    <button type="button" class="fas fa-info-circle float-right" data-toggle="modal" data-target="#modal-sm-<?php echo $facultyDepartment->id; ?>"></button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <!-- Department Details Modal -->
-
-                                                        <div class="modal fade" id="#modal-sm<?php echo $facultyDepartment->id; ?>">
+                                                        <div class="modal fade" id="modal-sm-<?php echo $facultyDepartment->id; ?>">
                                                             <div class="modal-dialog modal-sm">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
