@@ -51,6 +51,8 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- SWAL ALERTS INJECTION-->
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="public/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!--load swal js -->
     <script src="public/dist/js/swal.js"></script>
     <!--Inject SWAL-->
