@@ -234,7 +234,14 @@ require_once('public/partials/_head.php');
 
                                             <div class="card-body">
                                                 <ul class="list-group">
-                                                    <li class="list-group-item  d-flex justify-content-between align-items-center">
+
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="departments.php?view=<?php echo $faculty->id; ?>">
+                                                            Departments
+                                                        </a>
+                                                    </li>
+
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="courses.php?view=<?php echo $faculty->id; ?>">
                                                             Courses
                                                         </a>
@@ -245,12 +252,12 @@ require_once('public/partials/_head.php');
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="memos.php?view=<?php echo $faculty->id; ?>">
-                                                            Memos
+                                                        <a href="school_calendar.phpview=<?php echo $faculty->id; ?>">
+                                                            Calendar
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="lecs.php?view=<?php echo $faculty->id; ?>">
+                                                        <a href="lects.php?view=<?php echo $faculty->id; ?>">
                                                             Lecturers
                                                         </a>
                                                     </li>
@@ -335,7 +342,6 @@ require_once('public/partials/_head.php');
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                     </section>
                     <!-- Main Footer -->
