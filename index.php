@@ -26,16 +26,16 @@ include __DIR__ . "/public/partials/_authhead.php"
     <div class="main-wrapper">
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative" style="background:url(../assets/images/big/auth-bg.jpg) no-repeat center center;">
             <div class="auth-box row">
-                <div class="col-lg-7 col-md-5 modal-bg-img" style="background-image: url(../assets/images/big/3.jpg);">
+                <div class="col-lg-7 col-md-5 modal-bg-img"  style="background-image: url(public/dist/img/logo.png);">
                 </div>
                 <div class="col-lg-5 col-md-7 bg-white">
                     <div class="p-3">
                         <div class="text-center">
-                            <img src="public/dist/img/logo.png" alt="wrapkit">
+                            <img height="100" width="100" src="public/dist/img/logo.png" alt="wrapkit">
                         </div>
                         <h2 class="mt-3 text-center">Log In</h2>
                         <p class="text-center">Enter Your Email Address And Password</p>
-                        <form class="mt-4">
+                        <form method="post" class="mt-4">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -46,7 +46,7 @@ include __DIR__ . "/public/partials/_authhead.php"
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label class="text-dark" for="pwd">Password</label>
-                                        <input class="form-control" id="pwd" name="password" type="password" placeholder="enter your password">
+                                        <input class="form-control" id="pwd" name="password" type="password">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 text-center">
