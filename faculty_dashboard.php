@@ -239,7 +239,6 @@ require_once('public/partials/_head.php');
                                                     </button>
                                                 </div>
                                             </div>
-
                                             <div class="card-body">
                                                 <ul class="list-group">
 
@@ -278,7 +277,67 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    <!-- All Other Faculties -->
+                                    <?php
+                                    $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id != '$faculty->id' ORDER BY `name` ASC ";
+                                    $stmt = $mysqli->prepare($ret);
+                                    $stmt->execute(); //ok
+                                    $res = $stmt->get_result();
+                                    while ($unactive_faculties = $res->fetch_object()) {
+                                    ?>
+                                        <div class="col-md-12">
+                                            <div class="card card-primary collapsed-card">
+                                                <div class="card-header">
+                                                    <a href="faculty_dashboard.php?view=<?php echo $unactive_faculties->id; ?>">
+                                                        <h3 class="card-title"><?php echo $unactive_faculties->name; ?></h3>
+                                                        <div class="card-tools text-right">
+                                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </a>
+                                                </div>
 
+                                                <div class="card-body">
+                                                    <ul class="list-group">
+
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="departments.php?view=<?php echo $unactive_faculties->id; ?>">
+                                                                Departments
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="courses.php?view=<?php echo $unactive_faculties->id; ?>">
+                                                                Courses
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="modules.php?view=<?php echo $unactive_faculties->id; ?>">
+                                                                Modules
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="school_calendar.phpview=<?php echo $unactive_faculties->id; ?>">
+                                                                Calendar
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="lects.php?view=<?php echo $unactive_faculties->id; ?>">
+                                                                Lecturers
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="students.php?view=<?php echo $unactive_faculties->id; ?>">
+                                                                Students
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    } ?>
                                 </div>
 
                                 <div class="col-md-9">

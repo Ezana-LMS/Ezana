@@ -31,7 +31,7 @@ include __DIR__ . "/public/partials/_authhead.php"
                 <div class="col-lg-5 col-md-7 bg-white">
                     <div class="p-3">
                         <div class="text-center">
-                            <img height="100" width="100" src="public/dist/img/logo.png" alt="wrapkit">
+                            <img height="100" width="110" src="public/dist/img/logo.png" alt="wrapkit">
                         </div>
                         <h2 class="mt-3 text-center">Log In</h2>
                         <p class="text-center">Enter Your Email Address And Password</p>
