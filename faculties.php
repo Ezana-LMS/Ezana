@@ -4,6 +4,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+require_once('public/partials/_analytics.php');
 check_login();
 if (isset($_POST['add_faculty'])) {
     //Error Handling and prevention of posting double entries
@@ -202,67 +203,187 @@ require_once('public/partials/_head.php');
                             </nav>
                         </div>
                         <br>
-                        <?php
-                        $ret = "SELECT * FROM `ezanaLMS_Faculties` ORDER BY `name` ASC ";
-                        $stmt = $mysqli->prepare($ret);
-                        $stmt->execute(); //ok
-                        $res = $stmt->get_result();
-                        $cnt = 1;
-                        while ($faculty = $res->fetch_object()) {
-                        ?>
-                            <div class="col-md-12">
-                                <div class="card card-primary collapsed-card">
-                                    <div class="card-header">
-                                        <a href="faculty_dashboard.php?view=<?php echo $faculty->id; ?>">
-                                            <h3 class="card-title"><?php echo $cnt; ?>. <?php echo $faculty->name; ?></h3>
-                                            <div class="card-tools text-right">
-                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                </button>
+                        <div class="row">
+                            <div class="col-md-3">
+
+                                <?php
+                                $ret = "SELECT * FROM `ezanaLMS_Faculties` ORDER BY `name` ASC ";
+                                $stmt = $mysqli->prepare($ret);
+                                $stmt->execute(); //ok
+                                $res = $stmt->get_result();
+                                $cnt = 1;
+                                while ($faculty = $res->fetch_object()) {
+                                ?>
+                                    <div class="col-md-12">
+                                        <div class="card card-primary collapsed-card">
+                                            <div class="card-header">
+                                                <a href="faculty_dashboard.php?view=<?php echo $faculty->id; ?>">
+                                                    <h3 class="card-title"><?php echo $cnt; ?>. <?php echo $faculty->name; ?></h3>
+                                                    <div class="card-tools text-right">
+                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </a>
                                             </div>
-                                        </a>
+
+                                            <div class="card-body">
+                                                <ul class="list-group">
+
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="">
+                                                            Departments
+                                                        </a>
+                                                    </li>
+
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="">
+                                                            Courses
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="">
+                                                            Modules
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="">
+                                                            Calendar
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="">
+                                                            Lecturers
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="">
+                                                            Students
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
+                                <?php
+                                    $cnt = $cnt + 1;
+                                } ?>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="jumbotron">
+                                            <div class="row">
 
-                                    <div class="card-body">
-                                        <ul class="list-group">
+                                                <div class="col-lg-4 col-6">
+                                                    <a href="">
+                                                        <div class="small-box bg-info">
+                                                            <div class="inner">
+                                                                <h3>Departments</h3>
+                                                            </div>
+                                                            <div class="icon">
+                                                                <i class="fas fa-building"></i>
+                                                            </div>
+                                                            <div class="small-box-footer">
+                                                                <i class="fas fa-arrow-circle-right"></i>
+                                                                <?php echo $faculty_departments; ?>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
 
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <a href="">
-                                                    Departments
-                                                </a>
-                                            </li>
+                                                <div class="col-lg-4 col-6">
+                                                    <a href="">
+                                                        <div class="small-box bg-info">
+                                                            <div class="inner">
+                                                                <h3>Courses</h3>
+                                                            </div>
+                                                            <div class="icon">
+                                                                <i class="fas fa-chalkboard-teacher"></i>
+                                                            </div>
+                                                            <div class="small-box-footer">
+                                                                <i class="fas fa-arrow-circle-right"></i>
+                                                                <?php echo $faculty_courses; ?>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
 
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <a href="">
-                                                    Courses
-                                                </a>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <a href="">
-                                                    Modules
-                                                </a>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <a href="">
-                                                    Calendar
-                                                </a>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <a href="">
-                                                    Lecturers
-                                                </a>
-                                            </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <a href="">
-                                                    Students
-                                                </a>
-                                            </li>
-                                        </ul>
+                                                <div class="col-lg-4 col-6">
+                                                    <a href="">
+                                                        <div class="small-box bg-info">
+                                                            <div class="inner">
+                                                                <h3>Modules</h3>
+                                                            </div>
+                                                            <div class="icon">
+                                                                <i class="fas fa-chalkboard"></i>
+                                                            </div>
+                                                            <div class="small-box-footer">
+                                                                <i class="fas fa-arrow-circle-right"></i>
+                                                                <?php echo $faculty_modules; ?>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+
+                                                <div class="col-lg-4 col-6">
+                                                    <a href="">
+
+                                                        <div class="small-box bg-info">
+                                                            <div class="inner">
+                                                                <h3>Calendar</h3>
+                                                            </div>
+                                                            <div class="icon">
+                                                                <i class="fas fa-calendar"></i>
+                                                            </div>
+                                                            <div class="small-box-footer">
+                                                                <i class="fas fa-arrow-circle-right"></i>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+
+                                                <div class="col-lg-4 col-6">
+                                                    <a href="">
+
+                                                        <div class="small-box bg-info">
+                                                            <div class="inner">
+                                                                <h3>Lecturers</h3>
+                                                            </div>
+                                                            <div class="icon">
+                                                                <i class="fas fa-user-tie"></i>
+                                                            </div>
+                                                            <div class="small-box-footer">
+                                                                <i class="fas fa-arrow-circle-right"></i>
+                                                                <?php echo $faculty_lecs; ?>
+                                                            </div>
+
+                                                        </div>
+                                                    </a>
+                                                </div>
+
+                                                <div class="col-lg-4 col-6">
+                                                    <a href="">
+
+                                                        <div class="small-box bg-info">
+                                                            <div class="inner">
+                                                                <h3>Students</h3>
+                                                            </div>
+                                                            <div class="icon">
+                                                                <i class="fas fa-user-graduate"></i>
+                                                            </div>
+                                                            <div class="small-box-footer">
+                                                                <i class="fas fa-arrow-circle-right"></i>
+                                                                <?php echo $faculty_students; ?>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        <?php
-                            $cnt = $cnt + 1;
-                        } ?>
+                        </div>
                     </div>
                 </section>
                 <!-- Main Footer -->
