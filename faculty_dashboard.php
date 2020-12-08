@@ -335,6 +335,7 @@ require_once('public/partials/_head.php');
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </section>
                     <!-- Main Footer -->
