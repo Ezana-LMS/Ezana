@@ -303,40 +303,31 @@ require_once('public/partials/_head.php');
                                                                 <div class="small-box-footer text-center">
                                                                     <?php echo $facultyDepartment->hod; ?>
                                                                     <!-- Push Deparment Info  To The Right -->
-                                                                    <button type="button" class="fas fa-info-circle float-right" data-toggle="modal" data-target="#modal-sm"></button>
+                                                                    <button type="button" class="fas fa-info-circle float-right" data-toggle="modal" href="#modal-sm<?php echo $facultyDepartment->id; ?>" data-target="#modal-sm"></button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <!-- Department Details Modal -->
-                                                        <?php
-                                                        $department_id = $facultyDepartment->id;
-                                                        $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE id = '$department_id'  ";
-                                                        $stmt = $mysqli->prepare($ret);
-                                                        $stmt->execute(); //ok
-                                                        $res = $stmt->get_result();
-                                                        $cnt = 1;
-                                                        while ($FacultyDepartmentDetails = $res->fetch_object()) {
-                                                        ?>
-                                                            <div class="modal fade" id="modal-sm">
-                                                                <div class="modal-dialog modal-sm">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h4 class="modal-title"><?php echo $FacultyDepartmentDetails->name; ?></h4>
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <?php echo $FacultyDepartmentDetails->details; ?>
-                                                                        </div>
-                                                                        <div class="modal-footer justify-content-between">
-                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                        </div>
+
+                                                        <div class="modal fade" id="#modal-sm<?php echo $facultyDepartment->id; ?>">
+                                                            <div class="modal-dialog modal-sm">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title"><?php echo $facultyDepartment->name; ?></h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <?php echo $facultyDepartment->details; ?>
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-between">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
                                                     <?php
-                                                        }
                                                     }
                                                     ?>
                                                 </div>
