@@ -275,7 +275,7 @@ require_once('public/partials/_head.php');
                                             <div class="row">
 
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="">
+                                                    <a href="departments.php">
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
                                                                 <h3>Departments</h3>
@@ -285,14 +285,14 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="small-box-footer">
                                                                 <i class="fas fa-arrow-circle-right"></i>
-                                                                <?php echo $faculty_departments; ?>
+                                                                <?php echo $departments; ?>
                                                             </div>
                                                         </div>
                                                     </a>
                                                 </div>
 
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="">
+                                                    <a href="courses">
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
                                                                 <h3>Courses</h3>
@@ -302,14 +302,14 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="small-box-footer">
                                                                 <i class="fas fa-arrow-circle-right"></i>
-                                                                <?php echo $faculty_courses; ?>
+                                                                <?php echo $courses; ?>
                                                             </div>
                                                         </div>
                                                     </a>
                                                 </div>
 
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="">
+                                                    <a href="modules.php">
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
                                                                 <h3>Modules</h3>
@@ -319,14 +319,14 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="small-box-footer">
                                                                 <i class="fas fa-arrow-circle-right"></i>
-                                                                <?php echo $faculty_modules; ?>
+                                                                <?php echo $modules; ?>
                                                             </div>
                                                         </div>
                                                     </a>
                                                 </div>
 
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="">
+                                                    <a href="school_calendar.php">
 
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
@@ -343,7 +343,7 @@ require_once('public/partials/_head.php');
                                                 </div>
 
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="">
+                                                    <a href="lecturers.php">
 
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
@@ -354,7 +354,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="small-box-footer">
                                                                 <i class="fas fa-arrow-circle-right"></i>
-                                                                <?php echo $faculty_lecs; ?>
+                                                                <?php echo $lecs; ?>
                                                             </div>
 
                                                         </div>
@@ -362,7 +362,7 @@ require_once('public/partials/_head.php');
                                                 </div>
 
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="">
+                                                    <a href="students.php">
 
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
@@ -373,7 +373,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="small-box-footer">
                                                                 <i class="fas fa-arrow-circle-right"></i>
-                                                                <?php echo $faculty_students; ?>
+                                                                <?php echo $students; ?>
                                                             </div>
                                                         </div>
                                                     </a>
