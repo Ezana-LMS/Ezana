@@ -230,33 +230,33 @@ require_once('public/partials/_head.php');
                                                 <ul class="list-group">
 
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="">
+                                                        <a href="departments.php?view=<?php echo $faculty->id; ?>">
                                                             Departments
                                                         </a>
                                                     </li>
 
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="">
+                                                        <a href="courses.php?view=<?php echo $faculty->id; ?>">
                                                             Courses
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="">
+                                                        <a href="modules.php?view=<?php echo $faculty->id; ?>">
                                                             Modules
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="">
+                                                        <a href="school_calendar.phpview=<?php echo $faculty->id; ?>">
                                                             Calendar
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="">
+                                                        <a href="lects.php?view=<?php echo $faculty->id; ?>">
                                                             Lecturers
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="">
+                                                        <a href="students.php?view=<?php echo $faculty->id; ?>">
                                                             Students
                                                         </a>
                                                     </li>
