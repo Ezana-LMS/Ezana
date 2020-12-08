@@ -221,61 +221,49 @@ require_once('public/partials/_head.php');
                             <br>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <?php
-                                    $DepartmentFacultyId = $faculty->id;
-                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$DepartmentFacultyId'  ORDER BY `ezanaLMS_Departments`.`name` ASC LIMIT 5  ";
-                                    $stmt = $mysqli->prepare($ret);
-                                    $stmt->execute(); //ok
-                                    $res = $stmt->get_result();
-                                    $cnt = 1;
-                                    while ($department = $res->fetch_object()) {
-                                    ?>
-                                        <div class="col-md-12">
-                                            <div class="card card-primary collapsed-card">
-                                                <div class="card-header">
-                                                    <a href="department_dashboard.php?view=<?php echo $department->id; ?>">
-                                                        <h3 class="card-title"><?php echo $cnt; ?> . <?php echo $department->name; ?></h3>
-                                                        <div class="card-tools text-right">
-                                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </a>
-                                                </div>
 
-                                                <div class="card-body">
-                                                    <ul class="list-group">
-                                                        <li class="list-group-item  d-flex justify-content-between align-items-center">
-                                                            <a href="">
-                                                                Courses
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="">
-                                                                Modules
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="">
-                                                                Memos
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="">
-                                                                Lecturers
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="">
-                                                                Students
-                                                            </a>
-                                                        </li>
-                                                    </ul>
+                                    <div class="col-md-12">
+                                        <div class="card card-primary">
+                                            <div class="card-header">
+                                                <h3 class="card-title"><?php echo $faculty->name; ?></h3>
+                                                <div class="card-tools text-right">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                    </button>
                                                 </div>
                                             </div>
+
+                                            <div class="card-body">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item  d-flex justify-content-between align-items-center">
+                                                        <a href="courses.php?view=<?php echo $faculty->id; ?>">
+                                                            Courses
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="modules.php?view=<?php echo $faculty->id; ?>">
+                                                            Modules
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="memos.php?view=<?php echo $faculty->id; ?>">
+                                                            Memos
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="lecs.php?view=<?php echo $faculty->id; ?>">
+                                                            Lecturers
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="students.php?view=<?php echo $faculty->id; ?>">
+                                                            Students
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    <?php
-                                        $cnt = $cnt + 1;
-                                    } ?>
+                                    </div>
+
                                 </div>
 
                                 <div class="col-md-9">
@@ -283,7 +271,16 @@ require_once('public/partials/_head.php');
                                         <div class="col-md-12">
                                             <div class="jumbotron">
                                                 <div class="row">
-
+                                                    <?php
+                                                    /* List All Departments Under This Faculty */
+                                                    $departmentFacultyID = $faculty->id;
+                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$departmentFacultyID' ORDER BY `name` ASC  ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($dep = $res->fetch_object()) {
+                                                        ?>
                                                     <div class="col-lg-4 col-6">
                                                         <a href="departments.php">
                                                             <div class="small-box bg-info">
@@ -295,99 +292,14 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                                 <div class="small-box-footer">
                                                                     <i class="fas fa-arrow-circle-right"></i>
-                                                                    <?php echo $faculty_departments;?>
+                                                                    <?php echo $faculty_departments; ?>
                                                                 </div>
                                                             </div>
                                                         </a>
                                                     </div>
-
-                                                    <div class="col-lg-4 col-6">
-                                                        <a href="courses.php">
-                                                            <div class="small-box bg-info">
-                                                                <div class="inner">
-                                                                    <h3>Courses</h3>
-                                                                </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-chalkboard-teacher"></i>
-                                                                </div>
-                                                                <div class="small-box-footer">
-                                                                    <i class="fas fa-arrow-circle-right"></i>
-                                                                        <?php echo $faculty_courses;?>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-6">
-                                                        <a href="modules.php">
-                                                            <div class="small-box bg-info">
-                                                                <div class="inner">
-                                                                    <h3>Modules</h3>
-                                                                </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-chalkboard"></i>
-                                                                </div>
-                                                                <div class="small-box-footer">
-                                                                    <i class="fas fa-arrow-circle-right"></i>
-                                                                    <?php echo $faculty_modules;?>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-6">
-                                                        <a href="school_calendar.php">
-
-                                                            <div class="small-box bg-info">
-                                                                <div class="inner">
-                                                                    <h3>Calendar</h3>
-                                                                </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-calendar"></i>
-                                                                </div>
-                                                                <div class="small-box-footer">
-                                                                    <i class="fas fa-arrow-circle-right"></i>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-6">
-                                                        <a href="lecturers.php">
-
-                                                            <div class="small-box bg-info">
-                                                                <div class="inner">
-                                                                    <h3>Lecturers</h3>
-                                                                </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-user-tie"></i>
-                                                                </div>
-                                                                <div class="small-box-footer">
-                                                                    <i class="fas fa-arrow-circle-right"></i>
-                                                                    <?php echo $faculty_lecs;?>
-                                                                </div>
-
-                                                            </div>
-                                                        </a>
-                                                    </div>
-
-                                                    <div class="col-lg-4 col-6">
-                                                        <a href="students.php">
-
-                                                            <div class="small-box bg-info">
-                                                                <div class="inner">
-                                                                    <h3>Students</h3>
-                                                                </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-user-graduate"></i>
-                                                                </div>
-                                                                <div class="small-box-footer">
-                                                                    <i class="fas fa-arrow-circle-right"></i>
-                                                                    <?php echo $faculty_students;?>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
