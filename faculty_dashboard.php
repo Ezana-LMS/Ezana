@@ -309,10 +309,10 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                         <!-- Department Details Modal -->
                                                         <div class="modal fade" id="modal-sm-<?php echo $facultyDepartment->id; ?>">
-                                                            <div class="modal-dialog modal-sm">
+                                                            <div class="modal-dialog modal-lg">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h4 class="modal-title"><?php echo $facultyDepartment->name; ?></h4>
+                                                                        <h4 class="modal-title"><?php echo $facultyDepartment->name; ?> Description</h4>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
