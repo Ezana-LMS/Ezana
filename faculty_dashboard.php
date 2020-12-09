@@ -233,7 +233,7 @@ require_once('public/partials/_head.php');
                                     <div class="col-md-12">
                                         <div class="card card-primary">
                                             <div class="card-header">
-                                                <h3 class="card-title"><?php echo $faculty->name; ?></h3>
+                                                <h3 class="card-title"><?php echo $faculty->name; ?> Departments</h3>
                                                 <div class="card-tools text-right">
                                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                     </button>
@@ -241,38 +241,23 @@ require_once('public/partials/_head.php');
                                             </div>
                                             <div class="card-body">
                                                 <ul class="list-group">
-
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="departments.php?view=<?php echo $faculty->id; ?>">
-                                                            Departments
-                                                        </a>
-                                                    </li>
-
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="courses.php?view=<?php echo $faculty->id; ?>">
-                                                            Courses
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="modules.php?view=<?php echo $faculty->id; ?>">
-                                                            Modules
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="school_calendar.phpview=<?php echo $faculty->id; ?>">
-                                                            Calendar
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="lects.php?view=<?php echo $faculty->id; ?>">
-                                                            Lecturers
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="students.php?view=<?php echo $faculty->id; ?>">
-                                                            Students
-                                                        </a>
-                                                    </li>
+                                                    <?php
+                                                    /* List All Departments Under This Faculty */
+                                                    $departmentFacultyID = $faculty->id;
+                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$departmentFacultyID' ORDER BY `name` ASC  ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($facultyDepartment = $res->fetch_object()) {
+                                                    ?>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="departments.php?view=<?php echo $facultyDepartment->id; ?>">
+                                                                <?php echo $facultyDepartment->name; ?>
+                                                            </a>
+                                                        </li>
+                                                    <?php
+                                                    } ?>
                                                 </ul>
                                             </div>
                                         </div>
@@ -346,6 +331,21 @@ require_once('public/partials/_head.php');
                                             <div class="text-center">
                                                 <h1 class="display-4">Departments</h1>
                                             </div>
+                                            <div class="text-left">
+                                                <a href="dashboard.php" class="btn btn-outline-success">
+                                                    <i class="fas fa-arrow-left"></i>
+                                                    Back
+                                                </a>
+                                                <a href="memos.php?view=" class="btn btn-outline-success">
+                                                    <i class="fas fa-file"></i>
+                                                    Memos
+                                                </a>
+                                                <a href="notices.php?view=" class="btn btn-outline-success">
+                                                    <i class="fas fa-bullhorn"></i>
+                                                    Notices
+                                                </a>
+                                            </div>
+                                            <br>
                                             <div class="jumbotron">
                                                 <div class="row">
                                                     <?php
