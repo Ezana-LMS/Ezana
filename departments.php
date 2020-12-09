@@ -249,23 +249,8 @@ require_once('public/partials/_head.php');
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="modules.php?view=<?php echo $faculty->id; ?>">
+                                                        <a href="modules.php?view=<?php echo $department->id; ?>">
                                                             Modules
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="school_calendar.phpview=<?php echo $faculty->id; ?>">
-                                                            Calendar
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="lects.php?view=<?php echo $faculty->id; ?>">
-                                                            Lecturers
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="students.php?view=<?php echo $faculty->id; ?>">
-                                                            Students
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -281,7 +266,7 @@ require_once('public/partials/_head.php');
                                     <div class="col-md-12">
                                         <div class="jumbotron">
                                             <!-- All Departments -->
-
+                                            
                                         </div>
                                     </div>
                                 </div>
