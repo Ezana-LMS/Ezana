@@ -345,7 +345,7 @@ require_once('public/partials/_head.php');
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="text-left">
-                                                <a href="faculty_dashboard.php?view=<?php echo $department->faculty_id; ?>" class="btn btn-outline-success">
+                                                <a href="departments.php" class="btn btn-outline-success">
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
                                                 </a>

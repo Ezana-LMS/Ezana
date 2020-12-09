@@ -164,8 +164,8 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="text-left">
                             <nav class="navbar navbar-light bg-light col-md-12">
-                                <form class="form-inline" action="faculty_search_result.php" method="GET">
-                                    <input class="form-control mr-sm-2" type="search" name="query" placeholder="Faculty Name Or Code">
+                                <form class="form-inline" action="department_search_result.php" method="GET">
+                                    <input class="form-control mr-sm-2" type="search" name="query" placeholder="Department Name Or Code">
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                 </form>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Department</button>
@@ -243,23 +243,31 @@ require_once('public/partials/_head.php');
                                             <div class="card-body">
                                                 <ul class="list-group">
 
-                                                    <?php
-                                                    /* List All Courses Under This Department */
-                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE department_id = '$department->id' ORDER BY `name` ASC  ";
-                                                    $stmt = $mysqli->prepare($ret);
-                                                    $stmt->execute(); //ok
-                                                    $res = $stmt->get_result();
-                                                    $cnt = 1;
-                                                    while ($DepartmentCourse = $res->fetch_object()) {
-                                                    ?>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="course.php?view=<?php echo $DepartmentCourse->id; ?>">
-                                                                <?php echo $DepartmentCourse->name; ?>
-                                                            </a>
-                                                        </li>
-                                                    <?php
-                                                    } ?>
-
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="courses.php?view=<?php echo $department->id; ?>">
+                                                            Courses
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="modules.php?view=<?php echo $faculty->id; ?>">
+                                                            Modules
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="school_calendar.phpview=<?php echo $faculty->id; ?>">
+                                                            Calendar
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="lects.php?view=<?php echo $faculty->id; ?>">
+                                                            Lecturers
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="students.php?view=<?php echo $faculty->id; ?>">
+                                                            Students
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
