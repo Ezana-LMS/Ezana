@@ -4,6 +4,8 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+
+/* Add Departments */
 if (isset($_POST['add_dept'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -49,6 +51,42 @@ if (isset($_POST['add_dept'])) {
                 //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";
             }
+        }
+    }
+}
+/*  Update Department*/
+
+if (isset($_POST['update_dept'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Department Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Department Name Cannot Be Empty";
+    }
+    if (!$error) {
+        $id = $_GET['id'];
+        $name = $_POST['name'];
+        $code = $_POST['code'];
+        $details = $_POST['details'];
+        $hod = $_POST['hod'];
+
+        $query = "UPDATE ezanaLMS_Departments SET code =?, name =?,  details =?, hod =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssss', $code, $name, $details, $hod, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "$name Department Updated"; //&& header("refresh:1; url=view_department.php?department=$department");
+        } else {
+            //inject alert that profile update task failed
+            $info = "Please Try Again Or Try Later";
         }
     }
 }
@@ -206,7 +244,7 @@ require_once('public/partials/_head.php');
                                                                 <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-6">
-                                                                <label for="">Department HOD</label>
+                                                                <label for="">HOD</label>
                                                                 <input type="text" required name="hod" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-6">
@@ -293,10 +331,53 @@ require_once('public/partials/_head.php');
                             </div>
                             <div class="col-md-9">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="jumbotron">
-                                            <!-- All Departments -->
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Code</th>
+                                                            <th>Name</th>
+                                                            <th>HOD</th>
+                                                            <th>Manage</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_Departments` ORDER BY `name` ASC   ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($dep = $res->fetch_object()) {
+                                                        ?>
+                                                            <tr class="table-row" data-href="department.php?view=<?php echo $dep->id; ?>">
+                                                                <td><?php echo $cnt; ?></td>
+                                                                <td><?php echo $dep->code; ?></td>
+                                                                <td><?php echo $dep->name; ?></td>
+                                                                <td><?php echo $dep->hod; ?></td>
+                                                                <td>
+                                                                    <a class="badge badge-primary" href="#update-<?php echo $dep->id; ?>" data-toggle="modal">
+                                                                        <i class="fas fa-edit"></i>
+                                                                        Update
+                                                                    </a>
+                                                                    <!-- Update Department Modal -->
 
+                                                                    <!-- Update Department Modal -->
+
+                                                                    <a class="badge badge-danger" href="departments.php?delete=<?php echo $dep->id; ?>">
+                                                                        <i class="fas fa-trash"></i>
+                                                                        Delete
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
