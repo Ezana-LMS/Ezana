@@ -263,7 +263,8 @@ require_once('public/partials/_head.php');
                                         </div>
                                     </div>
 
-                                    <!-- All Other Faculties -->
+                                    <!-- All Other Faculties 
+                                    //This Has A Bug It Only Fetches The Active Faculty And Only One Inactive Faculty"
                                     <?php
                                     $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id != '$faculty->id' ORDER BY `name` ASC ";
                                     $stmt = $mysqli->prepare($ret);
@@ -303,7 +304,7 @@ require_once('public/partials/_head.php');
 
                                                     <?php }?>
 
-                                                        <!-- 
+                                                        
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="courses.php?view=<?php echo $unactive_faculties->id; ?>">
                                                                 Courses
@@ -328,13 +329,14 @@ require_once('public/partials/_head.php');
                                                             <a href="students.php?view=<?php echo $unactive_faculties->id; ?>">
                                                                 Students
                                                             </a>
-                                                        </li> -->
+                                                        </li> 
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                     <?php
                                     } ?>
+                                    -->
                                 </div>
 
                                 <div class="col-md-9">
