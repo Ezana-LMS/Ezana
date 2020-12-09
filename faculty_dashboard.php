@@ -422,7 +422,7 @@ require_once('public/partials/_head.php');
                                                             <div class="small-box bg-success">
                                                                 <div class="inner">
                                                                     <h4 class="text-center">
-                                                                        Add New
+                                                                        Register New Department
                                                                     </h4>
                                                                 </div>
                                                                 <div class="icon">
@@ -430,9 +430,7 @@ require_once('public/partials/_head.php');
                                                                 </div>
 
                                                                 <div class="small-box-footer text-center">
-                                                                    <h1>
-                                                                        Department
-                                                                    </h1>
+                                                                    <i class="fas fa-plus"></i>
                                                                 </div>
                                                             </div>
                                                         </a>
