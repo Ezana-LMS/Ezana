@@ -285,13 +285,25 @@ require_once('public/partials/_head.php');
 
                                                 <div class="card-body">
                                                     <ul class="list-group">
-
+                                                    <?php
+                                                    /* List All Departments Under This Faculty */
+                                                    $InactivedepartmentFacultyID = $unactive_faculties->id;
+                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$InactivedepartmentFacultyID' ORDER BY `name` ASC  ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($inactivefacultyDepartment = $res->fetch_object()) {
+                                                    ?>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="departments.php?view=<?php echo $unactive_faculties->id; ?>">
-                                                                Departments
+                                                            <a href="departments.php?view=<?php echo $inactivefacultyDepartment->id; ?>">
+                                                                <?php echo $inactivefacultyDepartment->name;?>
                                                             </a>
                                                         </li>
 
+                                                    <?php }?>
+
+                                                        <!-- 
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="courses.php?view=<?php echo $unactive_faculties->id; ?>">
                                                                 Courses
@@ -316,7 +328,7 @@ require_once('public/partials/_head.php');
                                                             <a href="students.php?view=<?php echo $unactive_faculties->id; ?>">
                                                                 Students
                                                             </a>
-                                                        </li>
+                                                        </li> -->
                                                     </ul>
                                                 </div>
                                             </div>
