@@ -404,24 +404,24 @@ require_once('public/partials/_head.php');
                                                     ?>
                                                     <!-- Add New Department -->
                                                     <div class="col-lg-4 col-6">
-                                                        <div class="small-box bg-primary">
-                                                            <a data-toggle="modal" href="#modal-default">
+                                                        <a data-toggle="modal" href="#modal-default">
+                                                            <div class="small-box bg-success">
                                                                 <div class="inner">
                                                                     <h4 class="text-center">
                                                                         Add New
                                                                     </h4>
-                                                                    <p class="text-center">
-                                                                        Department
-                                                                    </p>
                                                                 </div>
                                                                 <div class="icon">
                                                                     <i class="fas fa-building"></i>
-                                                                    <i class="fas fa-plus"></i>
                                                                 </div>
-                                                            </a>
-                                                            <div class="small-box-footer text-center">
+
+                                                                <div class="small-box-footer text-center">
+                                                                    <h1>
+                                                                        Department
+                                                                    </h1>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
