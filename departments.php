@@ -289,7 +289,7 @@ require_once('public/partials/_head.php');
                             <div class="col-md-3">
 
                                 <?php
-                                $ret = "SELECT * FROM `ezanaLMS_Departments` ORDER BY `name` ASC  LIMIT 5";
+                                $ret = "SELECT * FROM `ezanaLMS_Departments` ORDER BY `name` ASC  LIMIT 10";
                                 $stmt = $mysqli->prepare($ret);
                                 $stmt->execute(); //ok
                                 $res = $stmt->get_result();
@@ -359,10 +359,10 @@ require_once('public/partials/_head.php');
                                                                 <td><?php echo $dep->name; ?></td>
                                                                 <td><?php echo $dep->hod; ?></td>
                                                                 <td>
-                                                                    <a class="badge badge-success" href="department.php?view=<?php echo $dep->id; ?>">
+                                                                    <!-- <a class="badge badge-success" href="department.php?view=<?php echo $dep->id; ?>">
                                                                         <i class="fas fa-eye"></i>
                                                                         View
-                                                                    </a>
+                                                                    </a> -->
                                                                     <a class="badge badge-primary" href="#update-<?php echo $dep->id; ?>" data-toggle="modal">
                                                                         <i class="fas fa-edit"></i>
                                                                         Update
