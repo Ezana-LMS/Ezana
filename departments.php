@@ -52,6 +52,20 @@ if (isset($_POST['add_dept'])) {
         }
     }
 }
+/* Delete Department */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $adn = "DELETE FROM ezanaLMS_Departments WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Department Details Deleted";
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -197,22 +211,20 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Faculty Name</label>
-                                                                <select class='form-control basic' id="FacultyName" onchange="getDepartmentDetails(this.value);" name="department_name">
+                                                                <select class='form-control basic' id="FacultyName" onchange="getFacutyDetails(this.value);">
                                                                     <option selected>Select Faculty Name</option>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Departments`  ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Faculties` ORDER BY `name` ASC  ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
-                                                                    while ($dep = $res->fetch_object()) {
+                                                                    while ($fac = $res->fetch_object()) {
                                                                     ?>
-                                                                        <option><?php echo $dep->name; ?></option>
+                                                                        <option><?php echo $fac->name; ?></option>
                                                                     <?php } ?>
-                                                                </select> </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Department HOD</label>
-                                                                <input type="text" required name="hod" class="form-control">
+                                                                </select>
                                                             </div>
+                                                            <input type="hidden" required name="faculty" id="FacultyId" class="form-control">
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
