@@ -36,14 +36,14 @@ if (isset($_POST['add_dept'])) {
             $id = $_POST['id'];
             $name = $_POST['name'];
             $code = $_POST['code'];
-            $faculty = $_POST['faculty'];
+            $view = $_GET['view'];
             $details = $_POST['details'];
             $hod = $_POST['hod'];
             $created_at = date('d M Y');
 
             $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, details, hod, created_at) VALUES(?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssss', $id, $code, $name, $faculty, $details, $hod, $created_at);
+            $rc = $stmt->bind_param('sssssss', $id, $code, $name, $view, $details, $hod, $created_at);
             $stmt->execute();
             if ($stmt) {
                 $success = "$name Department Added";
@@ -247,22 +247,6 @@ require_once('public/partials/_head.php');
                                                                 <label for="">HOD</label>
                                                                 <input type="text" required name="hod" class="form-control">
                                                             </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Faculty Name</label>
-                                                                <select class='form-control basic' id="FacultyName" onchange="getFacutyDetails(this.value);">
-                                                                    <option selected>Select Faculty Name</option>
-                                                                    <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Faculties` ORDER BY `name` ASC  ";
-                                                                    $stmt = $mysqli->prepare($ret);
-                                                                    $stmt->execute(); //ok
-                                                                    $res = $stmt->get_result();
-                                                                    while ($fac = $res->fetch_object()) {
-                                                                    ?>
-                                                                        <option><?php echo $fac->name; ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                            <input type="hidden" required name="faculty" id="FacultyId" class="form-control">
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
@@ -289,7 +273,8 @@ require_once('public/partials/_head.php');
                             <div class="col-md-3">
 
                                 <?php
-                                $ret = "SELECT * FROM `ezanaLMS_Departments` ORDER BY `name` ASC  LIMIT 8";
+                                $view = $_GET['view'];
+                                $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$view'  ORDER BY `name` ASC  LIMIT 8";
                                 $stmt = $mysqli->prepare($ret);
                                 $stmt->execute(); //ok
                                 $res = $stmt->get_result();
@@ -346,7 +331,7 @@ require_once('public/partials/_head.php');
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_Departments` ORDER BY `name` ASC   ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$view'  ORDER BY `name` ASC   ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
