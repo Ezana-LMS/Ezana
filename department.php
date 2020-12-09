@@ -308,8 +308,10 @@ require_once('public/partials/_head.php');
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
                                                 </a>
-                                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#add-memo">Add Memo</button>
-
+                                                <a href="#add-memo" data-toggle="modal" class="btn btn-outline-success">
+                                                    <i class="fas fa-file"></i>
+                                                    Add Memo
+                                                </a>
                                                 <div class="modal fade" id="add-memo">
                                                     <div class="modal-dialog  modal-lg">
                                                         <div class="modal-content">
@@ -320,7 +322,34 @@ require_once('public/partials/_head.php');
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                
+                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="form-group col-md-12">
+                                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                            </div>
+                                                                            <div class="form-group col-md-12">
+                                                                                <label for="">Upload Departmental Memo (PDF Or Docx)</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="custom-file">
+                                                                                        <input name="attachments" type="file" class="custom-file-input">
+                                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <h2 class="text-center">Or </h2>
+                                                                        <div class="row">
+                                                                            <div class="form-group col-md-12">
+                                                                                <label for="exampleInputPassword1">Type Departmental Memo</label>
+                                                                                <textarea name="departmental_memo" id="textarea" rows="10" class="form-control"></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="card-footer">
+                                                                        <button type="submit" name="add_memo" class="btn btn-primary">Add Departmental Memo</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                             <div class="modal-footer justify-content-between">
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
