@@ -402,6 +402,23 @@ require_once('public/partials/_head.php');
                                                     <?php
                                                     }
                                                     ?>
+                                                    <!-- Add New Department -->
+                                                    <div class="col-lg-4 col-6">
+                                                        <div class="small-box bg-primary">
+                                                            <a data-toggle="modal" href="#modal-default" ">
+                                                                <div class=" inner">
+                                                                <h4 class="text-center">
+                                                                    Add New
+                                                                </h4>
+                                                                <p class="text-center">
+                                                                    Department
+                                                                </p>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="fas fa-plus"></i>
+                                                        </div>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -409,13 +426,14 @@ require_once('public/partials/_head.php');
                                 </div>
                             </div>
                         </div>
-                    </section>
-                    <!-- Main Footer -->
-                    <?php require_once('public/partials/_footer.php'); ?>
                 </div>
+                </section>
+                <!-- Main Footer -->
+                <?php require_once('public/partials/_footer.php'); ?>
             </div>
-            <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php');
+    </div>
+    <!-- ./wrapper -->
+<?php require_once('public/partials/_scripts.php');
         } ?>
 </body>
 

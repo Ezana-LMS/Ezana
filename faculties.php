@@ -5,7 +5,6 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
-check_login();
 if (isset($_POST['add_faculty'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
