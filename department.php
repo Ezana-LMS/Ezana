@@ -455,7 +455,7 @@ require_once('public/partials/_head.php');
                                                                                         Update
                                                                                     </a>
                                                                                     <!-- Update Departmental Memo Modal -->
-                                                                                    <div class="modal fade" id="add-memo">
+                                                                                    <div class="modal fade" id="update-<?php echo $memo->id; ?>">
                                                                                         <div class="modal-dialog  modal-lg">
                                                                                             <div class="modal-content">
                                                                                                 <div class="modal-header">
@@ -468,37 +468,35 @@ require_once('public/partials/_head.php');
                                                                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                                                                         <div class="card-body">
                                                                                                             <div class="row">
-                                                                                                                <div class="form-group col-md-12">
-                                                                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                                                                    <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
-                                                                                                                    <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
+                                                                                                                <div class="form-group col-md-6">
+                                                                                                                    <label for="">Type</label>
+                                                                                                                    <select class='form-control basic' name="type">
+                                                                                                                        <option selected><?php echo $memo->type; ?></option>
+                                                                                                                        <option>Notice</option>
+                                                                                                                        <option>Memo</option>
+                                                                                                                    </select>
                                                                                                                 </div>
-                                                                                                                <div class="form-group col-md-12">
+                                                                                                                <div class="form-group col-md-6">
                                                                                                                     <label for="">Upload Departmental Memo (PDF Or Docx)</label>
                                                                                                                     <div class="input-group">
                                                                                                                         <div class="custom-file">
                                                                                                                             <input name="attachments" type="file" class="custom-file-input">
+                                                                                                                            <input type="hidden" required name="faculty_id" value="<?php echo $department->faculty_id; ?>" class="form-control">
                                                                                                                             <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                         </div>
                                                                                                                     </div>
-                                                                                                                </div>
-                                                                                                                <div style="display:none" class="form-group col-md-6">
-                                                                                                                    <label for="">Type</label>
-                                                                                                                    <select class='form-control basic' name="type">
-                                                                                                                        <option selected>Memo</option>
-                                                                                                                    </select>
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                             <h2 class="text-center">Or </h2>
                                                                                                             <div class="row">
                                                                                                                 <div class="form-group col-md-12">
                                                                                                                     <label for="exampleInputPassword1">Type Departmental Memo</label>
-                                                                                                                    <textarea name="departmental_memo" id="textarea" rows="10" class="form-control"></textarea>
+                                                                                                                    <textarea name="departmental_memo" id="textarea" rows="10" class="form-control"><?php echo $memo->departmental_memo; ?></textarea>
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                         <div class="card-footer text-right">
-                                                                                                            <button type="submit" name="add_memo" class="btn btn-primary">Add Departmental Memo</button>
+                                                                                                            <button type="submit" name="update" class="btn btn-primary">Update</button>
                                                                                                         </div>
                                                                                                     </form>
                                                                                                 </div>
