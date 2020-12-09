@@ -72,7 +72,7 @@ if (isset($_POST['update_dept'])) {
         $err = "Department Name Cannot Be Empty";
     }
     if (!$error) {
-        $id = $_GET['id'];
+        $id = $_POST['id'];
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
@@ -353,12 +353,16 @@ require_once('public/partials/_head.php');
                                                         $cnt = 1;
                                                         while ($dep = $res->fetch_object()) {
                                                         ?>
-                                                            <tr class="table-row" data-href="department.php?view=<?php echo $dep->id; ?>">
+                                                            <tr>
                                                                 <td><?php echo $cnt; ?></td>
                                                                 <td><?php echo $dep->code; ?></td>
                                                                 <td><?php echo $dep->name; ?></td>
                                                                 <td><?php echo $dep->hod; ?></td>
                                                                 <td>
+                                                                    <a class="badge badge-success" href="department.php?view=<?php echo $dep->id; ?>">
+                                                                        <i class="fas fa-eye"></i>
+                                                                        View
+                                                                    </a>
                                                                     <a class="badge badge-primary" href="#update-<?php echo $dep->id; ?>" data-toggle="modal">
                                                                         <i class="fas fa-edit"></i>
                                                                         Update
@@ -379,21 +383,22 @@ require_once('public/partials/_head.php');
                                                                                             <div class="row">
                                                                                                 <div class="form-group col-md-4">
                                                                                                     <label for="">Department Name</label>
-                                                                                                    <input type="text" required name="name" value="<?php echo $row->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                    <input type="text" required name="name" value="<?php echo $dep->name; ?>" class="form-control" id="exampleInputEmail1">
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-4">
                                                                                                     <label for="">Department Number / Code</label>
-                                                                                                    <input type="text" required name="code" value="<?php echo $row->code; ?>" class="form-control">
+                                                                                                    <input type="text" required name="code" value="<?php echo $dep->code; ?>" class="form-control">
+                                                                                                    <input type="hidden" required name="id" value="<?php echo $dep->id; ?>" class="form-control">
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-4">
                                                                                                     <label for="">Department HOD</label>
-                                                                                                    <input type="text" required value="<?php echo $row->hod; ?>" name="hod" class="form-control">
+                                                                                                    <input type="text" required value="<?php echo $dep->hod; ?>" name="hod" class="form-control">
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="row">
                                                                                                 <div class="form-group col-md-12">
                                                                                                     <label for="exampleInputPassword1">Department Details</label>
-                                                                                                    <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $row->details; ?></textarea>
+                                                                                                    <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
