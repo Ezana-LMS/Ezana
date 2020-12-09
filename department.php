@@ -209,6 +209,7 @@ require_once('public/partials/_head.php');
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
+
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -255,6 +256,7 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                     </div>
+
                                 </nav>
                             </div>
                             <br>
@@ -306,10 +308,26 @@ require_once('public/partials/_head.php');
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
                                                 </a>
-                                                <a href="memos.php?view=<?php echo $department->id; ?>" class="btn btn-outline-success">
-                                                    <i class="fas fa-file"></i>
-                                                    Memos
-                                                </a>
+                                                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#add-memo">Add Memo</button>
+
+                                                <div class="modal fade" id="add-memo">
+                                                    <div class="modal-dialog  modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Fill All Values </h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                
+                                                            </div>
+                                                            <div class="modal-footer justify-content-between">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <a href="notices.php?view=<?php echo $department->id; ?>" class="btn btn-outline-success">
                                                     <i class="fas fa-bullhorn"></i>
                                                     Notices
