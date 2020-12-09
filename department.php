@@ -116,7 +116,7 @@ if (isset($_POST['update'])) {
     $rc = $stmt->bind_param('ssssss',  $departmental_memo, $attachments, $created_at, $type, $faculty, $id);
     $stmt->execute();
     if ($stmt) {
-        $success = "Departmental NoteMemo Updated";
+        $success = "Updated";
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -477,11 +477,11 @@ require_once('public/partials/_head.php');
                                                                                                                     </select>
                                                                                                                 </div>
                                                                                                                 <div class="form-group col-md-6">
-                                                                                                                    <label for="">Upload Departmental Memo | Notice (PDF Or Docx)</label>
+                                                                                                                    <label for="">Upload  Memo | Notice (PDF Or Docx)</label>
                                                                                                                     <div class="input-group">
                                                                                                                         <div class="custom-file">
                                                                                                                             <input name="attachments" type="file" class="custom-file-input">
-                                                                                                                            <input type="hidden" required name="faculty_id" value="<?php echo $department->faculty_id; ?>" class="form-control">
+                                                                                                                            <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
                                                                                                                             <input type="hidden" required name="id" value="<?php echo $memo->id; ?>" class="form-control">
                                                                                                                             <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                         </div>
