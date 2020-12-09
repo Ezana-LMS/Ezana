@@ -85,6 +85,19 @@ if (isset($_POST['add_memo'])) {
 
 /* Delete Departmental Memo */
 
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $adn = "DELETE FROM ezanaLMS_DepartmentalMemos WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted";
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 /* Update Departmental Notices */
 
 require_once('public/partials/_head.php');
@@ -416,7 +429,7 @@ require_once('public/partials/_head.php');
                                                                                         <i class="fas fa-edit"></i>
                                                                                         Update
                                                                                     </a>
-                                                                                    <a class="badge badge-danger" href="department.php?delete=<?php echo $memo->id; ?>&view=<?php echo $memo->department_id; ?>">
+                                                                                    <a class="badge badge-danger" href="department.php?delete=<?php echo $memo->id; ?>">
                                                                                         <i class="fas fa-trash"></i>
                                                                                         Delete
                                                                                     </a>
