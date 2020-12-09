@@ -103,7 +103,7 @@ if (isset($_GET['delete'])) {
 
 if (isset($_POST['update'])) {
 
-    $update = $_GET['update'];
+    $id = $_POST['id'];
     $departmental_memo = $_POST['departmental_memo'];
     $attachments = $_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
@@ -113,10 +113,10 @@ if (isset($_POST['update'])) {
 
     $query = "UPDATE ezanaLMS_DepartmentalMemos SET  departmental_memo =?, attachments =?, created_at =?, type =?, faculty_id =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss',  $departmental_memo, $attachments, $created_at, $type, $faculty, $update);
+    $rc = $stmt->bind_param('ssssss',  $departmental_memo, $attachments, $created_at, $type, $faculty, $id);
     $stmt->execute();
     if ($stmt) {
-        $success = "Departmental NoteMemo Updated" && header("refresh:1; url=departmental_notememos.php?faculty=$faculty");
+        $success = "Departmental NoteMemo Updated";
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -450,7 +450,7 @@ require_once('public/partials/_head.php');
                                                                                     </a>
                                                                                     <!-- View Deptmental Memo Modal -->
 
-                                                                                    <a class="badge badge-primary" href="#update-<?php echo $memo->id; ?>">
+                                                                                    <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $memo->id; ?>">
                                                                                         <i class="fas fa-edit"></i>
                                                                                         Update
                                                                                     </a>
@@ -477,11 +477,12 @@ require_once('public/partials/_head.php');
                                                                                                                     </select>
                                                                                                                 </div>
                                                                                                                 <div class="form-group col-md-6">
-                                                                                                                    <label for="">Upload Departmental Memo (PDF Or Docx)</label>
+                                                                                                                    <label for="">Upload Departmental Memo | Notice (PDF Or Docx)</label>
                                                                                                                     <div class="input-group">
                                                                                                                         <div class="custom-file">
                                                                                                                             <input name="attachments" type="file" class="custom-file-input">
                                                                                                                             <input type="hidden" required name="faculty_id" value="<?php echo $department->faculty_id; ?>" class="form-control">
+                                                                                                                            <input type="hidden" required name="id" value="<?php echo $memo->id; ?>" class="form-control">
                                                                                                                             <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                         </div>
                                                                                                                     </div>
@@ -490,7 +491,7 @@ require_once('public/partials/_head.php');
                                                                                                             <h2 class="text-center">Or </h2>
                                                                                                             <div class="row">
                                                                                                                 <div class="form-group col-md-12">
-                                                                                                                    <label for="exampleInputPassword1">Type Departmental Memo</label>
+                                                                                                                    <label for="exampleInputPassword1">Type Departmental Memo | Notice</label>
                                                                                                                     <textarea name="departmental_memo" id="textarea" rows="10" class="form-control"><?php echo $memo->departmental_memo; ?></textarea>
                                                                                                                 </div>
                                                                                                             </div>
