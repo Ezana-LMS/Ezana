@@ -5,6 +5,7 @@ require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
 
+/* Add Course */
 if (isset($_POST['add_course'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -57,6 +58,30 @@ if (isset($_POST['add_course'])) {
         }
     }
 }
+/* Add Departmental Notice / Memo */
+
+if (isset($_POST['add_memo'])) {
+
+    $id = $_POST['id'];
+    $department_id = $_POST['department_id'];
+    $department_name = $_POST['department_name'];
+    $departmental_memo = $_POST['departmental_memo'];
+    $attachments = $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/dist/memos/" . $_FILES["attachments"]["name"]);
+    $created_at = date('d M Y g:i');
+
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, departmental_memo, attachments, created_at) VALUES(?,?,?,?,?,?)";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('ssssss', $id, $department_id, $department_name, $departmental_memo, $attachments, $created_at);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Departmental Memo Added"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
+    } else {
+        //inject alert that profile update task failed
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 require_once('public/partials/_head.php');
 ?>
 
@@ -239,7 +264,7 @@ require_once('public/partials/_head.php');
                                     <div class="col-md-12">
                                         <div class="card card-primary">
                                             <div class="card-header">
-                                                <h3 class="card-title"><?php echo $department->name; ?> Courses</h3>
+                                                <h3 class="card-title"><?php echo $department->name; ?></h3>
                                                 <div class="card-tools text-right">
                                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                     </button>
@@ -247,7 +272,6 @@ require_once('public/partials/_head.php');
                                             </div>
                                             <div class="card-body">
                                                 <ul class="list-group">
-
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="courses.php?view=<?php echo $department->id; ?>">
                                                             Courses
@@ -293,7 +317,14 @@ require_once('public/partials/_head.php');
                                             </div>
                                             <br>
                                             <div class="jumbotron">
+                                                <div class="row">
+                                                    <div class="col-md-6">
 
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
