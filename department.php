@@ -67,13 +67,13 @@ if (isset($_POST['add_memo'])) {
     $department_name = $_POST['department_name'];
     $departmental_memo = $_POST['departmental_memo'];
     $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/dist/memos/" . $_FILES["attachments"]["name"]);
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
     $created_at = date('d M Y g:i');
     $type = $_POST['type'];
 
     $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, attachments, created_at) VALUES(?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss', $id, $department_id, $department_name, $type, $departmental_memo, $attachments, $created_at);
+    $rc = $stmt->bind_param('sssssss', $id, $department_id, $department_name, $type, $departmental_memo, $attachments, $created_at);
     $stmt->execute();
     if ($stmt) {
         $success = "Departmental Memo Added"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
