@@ -83,6 +83,10 @@ if (isset($_POST['add_memo'])) {
     }
 }
 
+/* Delete Departmental Memo */
+
+/* Update Departmental Notices */
+
 require_once('public/partials/_head.php');
 ?>
 
@@ -328,7 +332,7 @@ require_once('public/partials/_head.php');
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
                                                                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                                <input type="hidden" required name="department_id" value="<?php echo $department_id; ?>" class="form-control">
+                                                                                <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
                                                                                 <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-12">
@@ -366,10 +370,69 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a href="notices.php?view=<?php echo $department->id; ?>" class="btn btn-outline-success">
-                                                    <i class="fas fa-bullhorn"></i>
-                                                    Notices
+                                                <a href="#notices" data-toggle="modal" class="btn btn-outline-success">
+                                                    <i class="fas fa-cogs"></i>
+                                                    Manage Notices / Memos
                                                 </a>
+                                                <div class="modal fade" id="notices">
+                                                    <div class="modal-dialog  modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title text-center"><?php echo $department->name; ?> Notices And Memos</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <table id="example1" class="table table-bordered table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>Date Posted</th>
+                                                                            <th>Type</th>
+                                                                            <th>Manage</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <?php
+                                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$department->id'  ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        $cnt = 1;
+                                                                        while ($memo = $res->fetch_object()) {
+                                                                        ?>
+
+                                                                            <tr>
+                                                                                <td><?php echo $cnt; ?></td>
+                                                                                <td><?php echo $memo->created_at; ?></td>
+                                                                                <td><?php echo $memo->type; ?></td>
+                                                                                <td>
+                                                                                    <a class="badge badge-success"  href="#view-<?php echo $memo->id;?>">
+                                                                                        <i class="fas fa-eye"></i>
+                                                                                        View
+                                                                                    </a>
+                                                                                    <a class="badge badge-primary"  href="#update-<?php echo $memo->id;?>">
+                                                                                        <i class="fas fa-edit"></i>
+                                                                                        Update
+                                                                                    </a>
+                                                                                    <a class="badge badge-danger" href="department.php?delete=<?php echo $memo->id; ?>&view=<?php echo $memo->department_id; ?>">
+                                                                                        <i class="fas fa-trash"></i>
+                                                                                        Delete
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        <?php $cnt = $cnt + 1;
+                                                                        } ?>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <div class="modal-footer justify-content-between">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <br>
                                             <div class="jumbotron">
