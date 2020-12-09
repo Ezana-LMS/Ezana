@@ -246,30 +246,16 @@ require_once('public/partials/_head.php');
                                                     <div class="card-body">
                                                         <ul class="list-group">
                                                             <li class="list-group-item  d-flex justify-content-between align-items-center">
-                                                                <a href="">
+                                                                <a href="courses.php?view=<?php echo $results['id']; ?>">
                                                                     Courses
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="">
+                                                                <a href="module.php?view=<?php echo $results['id']; ?>">
                                                                     Modules
                                                                 </a>
                                                             </li>
-                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="">
-                                                                    Memos
-                                                                </a>
-                                                            </li>
-                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="">
-                                                                    Lecturers
-                                                                </a>
-                                                            </li>
-                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="">
-                                                                    Students
-                                                                </a>
-                                                            </li>
+
                                                         </ul>
                                                     </div>
                                                 </div>

@@ -9,14 +9,7 @@
 <script src="public/dist/js/demo.js"></script>
 <!-- Dropify Plug in -->
 <script src="public/plugins/dropify/dropify.min.js"></script>
-<!-- jQuery Mapael -->
-<script src="public/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="public/plugins/raphael/raphael.min.js"></script>
-<script src="public/plugins/jquery-mapael/jquery.mapael.min.js"></script>
-<script src="public/plugins/jquery-mapael/maps/usa_states.min.js"></script>
-<!-- ChartJS -->
-<script src="public/plugins/chart.js/Chart.min.js"></script>
-<script src="public/dist/js/pages/dashboard2.js"></script>
+
 <!-- Data Tables -->
 <script src="public/plugins/datatables/jquery.dataTables.js"></script>
 <script src="public/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
@@ -26,6 +19,11 @@
         $("#courses_enrolled").DataTable();
         $("#enrollment").DataTable();
         $("#admins").DataTable();
+        $("#past-papers").DataTable();
+        $("#course-materials").DataTable();
+        $("#studentGroups").DataTable();
+        $("#group_ass").DataTable();
+        $("#")
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -33,6 +31,12 @@
             "ordering": true,
             "info": true,
             "autoWidth": false,
+        });
+    });
+    /* Clickable Row  */
+    $(document).ready(function($) {
+        $(".table-row").click(function() {
+            window.document.location = $(this).data("href");
         });
     });
 </script>
@@ -100,7 +104,7 @@
 
 <script>
     CKEDITOR.replace('textarea');
-</script> 
+</script>
 <!-- Get Department Details Script -->
 <script>
     function getDepartmentDetails(val) {
@@ -111,6 +115,15 @@
             success: function(data) {
                 //alert(data);
                 $('#DepartmentID').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepartmentID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepartmentFacultyId').val(data);
             }
         });
     }
@@ -147,6 +160,17 @@
                 $('#CourseName').val(data);
             }
         });
+        /* Get Faculty Course Details */
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'CourseName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#CourseFacultyID').val(data);
+            }
+        });
+
 
     }
 </script>
@@ -223,5 +247,34 @@
             }
         });
 
+    }
+</script>
+<!-- Group Details  -->
+<script>
+    function getGroupDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'GroupName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#groupCode').val(data);
+            }
+        });
+    }
+</script>
+
+<!-- Faculty Details -->
+<script>
+    function getFacutyDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'FacultyName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#FacultyId').val(data);
+            }
+        });
     }
 </script>

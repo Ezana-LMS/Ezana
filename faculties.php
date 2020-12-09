@@ -5,7 +5,6 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
-check_login();
 if (isset($_POST['add_faculty'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -238,18 +237,18 @@ require_once('public/partials/_head.php');
                                                 <ul class="list-group">
 
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="departments.php?view=<?php echo $faculty->id; ?>">
+                                                        <a href="faculty_departments.php?view=<?php echo $faculty->id; ?>">
                                                             Departments
                                                         </a>
                                                     </li>
 
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="courses.php?view=<?php echo $faculty->id; ?>">
+                                                        <a href="faculty_courses.php?view=<?php echo $faculty->id; ?>">
                                                             Courses
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="modules.php?view=<?php echo $faculty->id; ?>">
+                                                        <a href="faculty_modules.php?view=<?php echo $faculty->id; ?>">
                                                             Modules
                                                         </a>
                                                     </li>
@@ -259,12 +258,12 @@ require_once('public/partials/_head.php');
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="lects.php?view=<?php echo $faculty->id; ?>">
+                                                        <a href="faculty_lects.php?view=<?php echo $faculty->id; ?>">
                                                             Lecturers
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="students.php?view=<?php echo $faculty->id; ?>">
+                                                        <a href="faculty_students.php?view=<?php echo $faculty->id; ?>">
                                                             Students
                                                         </a>
                                                     </li>
