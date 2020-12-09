@@ -69,10 +69,11 @@ if (isset($_POST['add_memo'])) {
     $attachments = $_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/dist/memos/" . $_FILES["attachments"]["name"]);
     $created_at = date('d M Y g:i');
+    $type = $_POST['type'];
 
-    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, departmental_memo, attachments, created_at) VALUES(?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, attachments, created_at) VALUES(?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss', $id, $department_id, $department_name, $departmental_memo, $attachments, $created_at);
+    $rc = $stmt->bind_param('ssssss', $id, $department_id, $department_name, $type, $departmental_memo, $attachments, $created_at);
     $stmt->execute();
     if ($stmt) {
         $success = "Departmental Memo Added"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
@@ -327,6 +328,8 @@ require_once('public/partials/_head.php');
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
                                                                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                                <input type="hidden" required name="department_id" value="<?php echo $department_id; ?>" class="form-control">
+                                                                                <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="">Upload Departmental Memo (PDF Or Docx)</label>
@@ -337,6 +340,12 @@ require_once('public/partials/_head.php');
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+                                                                            <div style="display:none" class="form-group col-md-6">
+                                                                                <label for="">Type</label>
+                                                                                <select class='form-control basic' name="type">
+                                                                                    <option selected>Memo</option>
+                                                                                </select>
+                                                                            </div>
                                                                         </div>
                                                                         <h2 class="text-center">Or </h2>
                                                                         <div class="row">
@@ -346,7 +355,7 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="card-footer">
+                                                                    <div class="card-footer text-right">
                                                                         <button type="submit" name="add_memo" class="btn btn-primary">Add Departmental Memo</button>
                                                                     </div>
                                                                 </form>
