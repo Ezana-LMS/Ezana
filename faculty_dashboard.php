@@ -252,7 +252,7 @@ require_once('public/partials/_head.php');
                                                     while ($facultyDepartment = $res->fetch_object()) {
                                                     ?>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="departments.php?view=<?php echo $facultyDepartment->id; ?>">
+                                                            <a href="department.php?view=<?php echo $facultyDepartment->id; ?>">
                                                                 <?php echo $facultyDepartment->name; ?>
                                                             </a>
                                                         </li>
@@ -350,11 +350,11 @@ require_once('public/partials/_head.php');
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
                                                 </a>
-                                                <a href="memos.php?view=" class="btn btn-outline-success">
+                                                <a href="memos.php?view=<?php echo $faculty->id;?>" class="btn btn-outline-success">
                                                     <i class="fas fa-file"></i>
                                                     Memos
                                                 </a>
-                                                <a href="notices.php?view=" class="btn btn-outline-success">
+                                                <a href="notices.php?view=<?php echo $faculty->id;?>" class="btn btn-outline-success">
                                                     <i class="fas fa-bullhorn"></i>
                                                     Notices
                                                 </a>

@@ -4,49 +4,54 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-if (isset($_POST['add_dept'])) {
+
+if (isset($_POST['add_course'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (isset($_POST['code']) && !empty($_POST['code'])) {
         $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
     } else {
         $error = 1;
-        $err = "Department Code Cannot Be Empty";
+        $err = "Couse  Code Cannot Be Empty";
     }
     if (isset($_POST['name']) && !empty($_POST['name'])) {
         $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
     } else {
         $error = 1;
-        $err = "Department Name Cannot Be Empty";
+        $err = "Course Name Cannot Be Empty";
+    }
+    if (isset($_POST['department_id']) && !empty($_POST['department_id'])) {
+        $department_id = mysqli_real_escape_string($mysqli, trim($_POST['department_id']));
+    } else {
+        $error = 1;
+        $err = "Department Name / ID  Cannot Be Empty";
     }
     if (!$error) {
         //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Departments WHERE  code='$code' || name ='$name' ";
+        $sql = "SELECT * FROM  ezanaLMS_Courses WHERE  code='$code' || name ='$name' ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
             if ($code == $row['code']) {
-                $err =  "Department With This Code Already Exists";
+                $err =  "Course With This Code Already Exists";
             } else {
-                $err = "Department Name Already Exists";
+                $err = "Course Name Already Exists";
             }
         } else {
             $id = $_POST['id'];
             $name = $_POST['name'];
             $code = $_POST['code'];
-            $view = $_GET['view'];
             $details = $_POST['details'];
-            $hod = $_POST['hod'];
-            $created_at = date('d M Y');
+            $department_id = $_POST['department_id'];
+            $department_name = $_POST['department_name'];
 
-            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, details, hod, created_at) VALUES(?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Courses (id, code, name, details, department_id, department_name) VALUES(?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssss', $id, $code, $name, $view, $details, $hod, $created_at);
+            $rc = $stmt->bind_param('ssssss', $id, $code, $name, $details, $department_id, $department_name);
             $stmt->execute();
             if ($stmt) {
-                $success = " $name Department Added";
+                $success = "Course Added" && header("refresh:1; url=add_course.php");
             } else {
-                //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";
             }
         }
@@ -164,7 +169,7 @@ require_once('public/partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Departmentents</a></li>
-                                    <li class="breadcrumb-item active"><?php echo $department->name;?></li>
+                                    <li class="breadcrumb-item active"><?php echo $department->name; ?></li>
                                 </ol>
                             </div>
                         </div>
@@ -178,7 +183,7 @@ require_once('public/partials/_head.php');
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Dep Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Department</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -189,34 +194,7 @@ require_once('public/partials/_head.php');
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Department Name</label>
-                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Department Number / Code</label>
-                                                                    <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Department HOD</label>
-                                                                    <input type="text" required name="hod" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Department Details</label>
-                                                                    <textarea name="details" id="textarea" rows="10" class="form-control"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer text-right">
-                                                            <button type="submit" name="add_dept" class="btn btn-primary">Add Department</button>
-                                                        </div>
-                                                    </form>
+
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -241,23 +219,27 @@ require_once('public/partials/_head.php');
                                             </div>
                                             <div class="card-body">
                                                 <ul class="list-group">
-                                                    <?php
-                                                    /* List All Courses Under This Department */
-                                                    $courseDepID = $department->id;
-                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE department_id = '$courseDepID' ORDER BY `name` ASC  ";
-                                                    $stmt = $mysqli->prepare($ret);
-                                                    $stmt->execute(); //ok
-                                                    $res = $stmt->get_result();
-                                                    $cnt = 1;
-                                                    while ($courses = $res->fetch_object()) {
-                                                    ?>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="courses.php?view=<?php echo $courses->id; ?>">
-                                                                <?php echo $courses->name; ?>
-                                                            </a>
-                                                        </li>
-                                                    <?php
-                                                    } ?>
+
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="courses.php?view=<?php echo $department->id; ?>">
+                                                            Courses
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="modules.php?view=<?php echo $department->faculty_id; ?>">
+                                                            Modules
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="lecs.php?view=<?php echo $department->faculty_id; ?>">
+                                                            Lecturers
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="students.php?view=<?php echo $department->faculty_id; ?>">
+                                                            Students
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -298,11 +280,11 @@ require_once('public/partials/_head.php');
                                                     ?>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="departments.php?view=<?php echo $inactivefacultyDepartment->id; ?>">
-                                                                <?php echo $inactivefacultyDepartment->name;?>
+                                                                <?php echo $inactivefacultyDepartment->name; ?>
                                                             </a>
                                                         </li>
 
-                                                    <?php }?>
+                                                    <?php } ?>
 
                                                         
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -342,26 +324,23 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="text-center">
-                                                <h1 class="display-4">Courses</h1>
-                                            </div>
                                             <div class="text-left">
-                                                <a href="faculty_dashboard.php?view=<?php echo $department->faculty_id;?>" class="btn btn-outline-success">
+                                                <a href="faculty_dashboard.php?view=<?php echo $department->faculty_id; ?>" class="btn btn-outline-success">
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
                                                 </a>
-                                                <a href="memos.php?view=<?php echo $department->id;?>" class="btn btn-outline-success">
+                                                <a href="memos.php?view=<?php echo $department->id; ?>" class="btn btn-outline-success">
                                                     <i class="fas fa-file"></i>
                                                     Memos
                                                 </a>
-                                                <a href="notices.php?view=<?php echo $department->id;?>" class="btn btn-outline-success">
+                                                <a href="notices.php?view=<?php echo $department->id; ?>" class="btn btn-outline-success">
                                                     <i class="fas fa-bullhorn"></i>
                                                     Notices
                                                 </a>
                                             </div>
                                             <br>
                                             <div class="jumbotron">
-                                                
+
                                             </div>
                                         </div>
                                     </div>
