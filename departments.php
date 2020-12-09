@@ -364,7 +364,50 @@ require_once('public/partials/_head.php');
                                                                         Update
                                                                     </a>
                                                                     <!-- Update Department Modal -->
-
+                                                                    <div class="modal fade" id="update-<?php echo $dep->id; ?>">
+                                                                        <div class="modal-dialog  modal-lg">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">Fill All Values </h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                                        <div class="card-body">
+                                                                                            <div class="row">
+                                                                                                <div class="form-group col-md-4">
+                                                                                                    <label for="">Department Name</label>
+                                                                                                    <input type="text" required name="name" value="<?php echo $row->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-4">
+                                                                                                    <label for="">Department Number / Code</label>
+                                                                                                    <input type="text" required name="code" value="<?php echo $row->code; ?>" class="form-control">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-4">
+                                                                                                    <label for="">Department HOD</label>
+                                                                                                    <input type="text" required value="<?php echo $row->hod; ?>" name="hod" class="form-control">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="form-group col-md-12">
+                                                                                                    <label for="exampleInputPassword1">Department Details</label>
+                                                                                                    <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $row->details; ?></textarea>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class=" text-right">
+                                                                                            <button type="submit" name="update_dept" class="btn btn-primary">Update Department</button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer justify-content-between">
+                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                     <!-- Update Department Modal -->
 
                                                                     <a class="badge badge-danger" href="departments.php?delete=<?php echo $dep->id; ?>">
