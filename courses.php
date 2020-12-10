@@ -373,7 +373,7 @@ require_once('public/partials/_head.php');
                                                                 <td><?php echo $courses->department_name; ?></td>
                                                                 <td>
                                                                     <a class="badge badge-primary" data-toggle="modal" href="#edit-course-<?php echo $courses->id; ?>">
-                                                                        <i class="fas fa-trash"></i>
+                                                                        <i class="fas fa-edit"></i>
                                                                         Update
                                                                     </a>
                                                                     <!-- Update Course Modal -->
