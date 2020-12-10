@@ -51,7 +51,7 @@ if (isset($_POST['add_course'])) {
             $rc = $stmt->bind_param('sssssss', $id, $code, $name, $details, $department_id, $faculty_id,  $department_name);
             $stmt->execute();
             if ($stmt) {
-                $success = "Course Added" && header("refresh:1; url=courses.php");
+                $success = "Course Added";
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -87,7 +87,7 @@ if (isset($_POST['update_course'])) {
         $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Course Updated" && header("refresh:1; url=courses.php");
+            $success = "Course Updated";
         } else {
             $info = "Please Try Again Or Try Later";
         }
