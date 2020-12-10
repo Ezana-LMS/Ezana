@@ -326,7 +326,7 @@ require_once('public/partials/_head.php');
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
                                                 </a>
-                                                <span class="btn btn-outline-success">
+                                                <span class="btn btn-outline-warning text-success">
                                                     <a class="float-right" data-toggle="modal" href="#update-department-<?php echo $department->id; ?>">
                                                         <i class="fas fa-edit"></i>
                                                         Edit
