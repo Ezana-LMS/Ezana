@@ -329,7 +329,11 @@ require_once('public/partials/_head.php');
                                     <div class="col-md-12">
                                         <div class="card card-primary">
                                             <div class="card-header">
-                                                <h3 class="card-title"><?php echo $department->name; ?></h3>
+                                                <h3 class="card-title">
+                                                    <a href="department_details.php?view=<?php echo $department->id;?>">
+                                                        <?php echo $department->name; ?>
+                                                    </a>
+                                                </h3>
                                                 <div class="card-tools text-right">
                                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                     </button>
@@ -640,10 +644,10 @@ require_once('public/partials/_head.php');
                                                                 </thead>
                                                                 <tbody>
                                                                     <tr>
-                                                                        <th scope="row">1</th>
-                                                                        <td>Mark</td>
-                                                                        <td>Otto</td>
-                                                                        <td>@mdo</td>
+                                                                        <th scope="row"></th>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
