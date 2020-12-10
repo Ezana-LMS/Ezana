@@ -5,59 +5,8 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 
-/* Add Course */
-if (isset($_POST['add_course'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['code']) && !empty($_POST['code'])) {
-        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
-    } else {
-        $error = 1;
-        $err = "Couse  Code Cannot Be Empty";
-    }
-    if (isset($_POST['name']) && !empty($_POST['name'])) {
-        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
-    } else {
-        $error = 1;
-        $err = "Course Name Cannot Be Empty";
-    }
-    if (isset($_POST['department_id']) && !empty($_POST['department_id'])) {
-        $department_id = mysqli_real_escape_string($mysqli, trim($_POST['department_id']));
-    } else {
-        $error = 1;
-        $err = "Department Name / ID  Cannot Be Empty";
-    }
-    if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Courses WHERE  code='$code' || name ='$name' ";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if ($code == $row['code']) {
-                $err =  "Course With This Code Already Exists";
-            } else {
-                $err = "Course Name Already Exists";
-            }
-        } else {
-            $id = $_POST['id'];
-            $name = $_POST['name'];
-            $code = $_POST['code'];
-            $details = $_POST['details'];
-            $department_id = $_POST['department_id'];
-            $department_name = $_POST['department_name'];
-            $faculty_id = $_POST['faculty_id'];
-            $query = "INSERT INTO ezanaLMS_Courses (id, code, name, details, department_id, faculty_id, department_name) VALUES(?,?,?,?,?,?,?)";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssss', $id, $code, $name, $details, $department_id, $faculty_id,  $department_name);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "Course Added" && header("refresh:1; url=courses.php");
-            } else {
-                $info = "Please Try Again Or Try Later";
-            }
-        }
-    }
-}
+/* Add Module */
+
 
 /*  Update Course*/
 if (isset($_POST['update_course'])) {
@@ -94,21 +43,6 @@ if (isset($_POST['update_course'])) {
     }
 }
 
-/* Delete Course */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $faculty = $_GET['faculty'];
-    $adn = "DELETE FROM ezanaLMS_Courses WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=courses.php");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -124,7 +58,7 @@ require_once('public/partials/_head.php');
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         $cnt = 1;
-        while ($courses = $res->fetch_object()) {
+        while ($course = $res->fetch_object()) {
         ?>
             <!-- /.navbar -->
 
@@ -215,13 +149,13 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $courses->name; ?></h1>
+                                <h1 class="m-0 text-dark"><?php echo $course->name; ?></h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="courses.php">Courses</a></li>
-                                    <li class="breadcrumb-item active"><?php echo $courses->name; ?></li>
+                                    <li class="breadcrumb-item active"><?php echo $course->name; ?></li>
                                 </ol>
                             </div>
                         </div>
@@ -231,8 +165,8 @@ require_once('public/partials/_head.php');
                         <div class="container-fluid">
                             <div class="text-left">
                                 <nav class="navbar navbar-light bg-light col-md-12">
-                                    <form class="form-inline" action="course_search_result.php" method="GET">
-                                        <input class="form-control mr-sm-2" type="search" name="query" placeholder="Course Name Or Code">
+                                    <form class="form-inline" action="module_search_result.php" method="GET">
+                                        <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module</button>
@@ -261,7 +195,7 @@ require_once('public/partials/_head.php');
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="col-md-12">
-                                        <div class="card card-primary collapsed-card">
+                                        <div class="card card-primary">
                                             <div class="card-header">
                                                 <h3 class="card-title"><?php echo $course->name; ?></h3>
                                                 <div class="card-tools text-right">
@@ -293,10 +227,61 @@ require_once('public/partials/_head.php');
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-9">
                                     <div class="row">
-                                        <div class="col-12">
-
+                                        <div class="col-md-12">
+                                            <div class="text-right">
+                                                <a href="courses.php" class="float-left btn btn-outline-success">
+                                                    <i class="fas fa-arrow-left"></i>
+                                                    Back
+                                                </a>
+                                                <span class="btn btn-outline-warning text-success">
+                                                    <a class="float-right" data-toggle="modal" href="#update-course-<?php echo $course->id; ?>">
+                                                        <i class="fas fa-edit"></i>
+                                                        Edit
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <!-- Update Course Modal -->
+                                            <div class="modal fade" id="update-course-<?php echo $course->id; ?>">
+                                                <div class="modal-dialog  modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Fill All Values</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--End Update Course Modal -->
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card card-primary card-outline">
+                                                        <div class="card-body box-profile">
+                                                            <ul class="list-group  mb-3">
+                                                                <li class="list-group-item">
+                                                                    <b>Name: </b> <a class="float-right"><?php echo $course->name; ?></a>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <b>Code / Number : </b> <a class="float-right"><?php echo $course->code; ?></a>
+                                                                </li>
+                                                            </ul>
+                                                            <p class="text-center font-weight-bold"></p>
+                                                            <?php echo $course->details; ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
