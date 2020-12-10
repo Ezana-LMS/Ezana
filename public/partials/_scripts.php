@@ -118,7 +118,7 @@
         $.ajax({
             type: "POST",
             url: "ajax.php",
-            data: 'DepartmentName=' + val,
+            data: 'DepartmentCode=' + val,
             success: function(data) {
                 //alert(data);
                 $('#DepartmentID').val(data);
@@ -133,6 +133,17 @@
                 $('#DepartmentFacultyId').val(data);
             }
         });
+
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepartmentFacultyId=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepartmentName').val(data);
+            }
+        });
+        
     }
 </script>
 <!-- Get Course Details -->

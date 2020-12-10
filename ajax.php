@@ -1,10 +1,10 @@
 <?php
 include('configs/pdoconfig.php');
 
-//Department ID
-if (!empty($_POST["DepartmentName"])) {
-    $id = $_POST['DepartmentName'];
-    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE name = :id");
+/* Departmnt ID */
+if (!empty($_POST["DepartmentCode"])) {
+    $id = $_POST['DepartmentCode'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE code = :id");
     $stmt->execute(array(':id' => $id));
 ?>
 <?php
@@ -15,16 +15,29 @@ if (!empty($_POST["DepartmentName"])) {
     }
 }
 
-/* Department Faculty ID */
+/* Department  Faculty ID  */
 if (!empty($_POST["DepartmentID"])) {
     $id = $_POST['DepartmentID'];
-    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE name = :id");
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE id = :id");
     $stmt->execute(array(':id' => $id));
 ?>
 <?php
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 ?>
 <?php echo htmlentities($row['faculty_id']); ?>
+<?php
+    }
+}
+/* Department Name */
+if (!empty($_POST["DepartmentFacultyId"])) {
+    $id = $_POST['DepartmentFacultyId'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE faculty_id = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['name']); ?>
 <?php
     }
 }

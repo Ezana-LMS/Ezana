@@ -221,22 +221,24 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="">Department Name</label>
-                                                                <select class='form-control basic' id="DepartmentName" onchange="getDepartmentDetails(this.value);" name="department_name">
+                                                                <select class='form-control basic' id="DepartmentCode" onchange="getDepartmentDetails(this.value);" >
                                                                     <option selected>Select Department Name</option>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Departments`  WHERE faculty_id = '$faculty' ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Departments`";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
                                                                     while ($dep = $res->fetch_object()) {
                                                                     ?>
-                                                                        <option><?php echo $dep->name; ?></option>
+                                                                        <option><?php echo $dep->code; ?></option>
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
-                                                            <div class="form-group col-md-6" style="display:none">
-                                                                <label for="">Department ID</label>
+                                                            <div class="form-group col-md-6" style="display:non">
+                                                                <label for="">Department Name</label>
+                                                                <input type="text" id="DepartmentName"  required name="department_name" class="form-control">
                                                                 <input type="text" id="DepartmentID" readonly required name="department_id" class="form-control">
+                                                                <input type="text" id="DepartmentFacultyId" readonly required name="faculty_id" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
