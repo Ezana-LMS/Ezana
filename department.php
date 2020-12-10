@@ -58,12 +58,14 @@ if (isset($_POST['add_course'])) {
         }
     }
 }
-/* Add Departmental Notice / Memo */
 
+/* Add Departmental Notice / Memo */
 if (isset($_POST['add_memo'])) {
     $id = $_POST['id'];
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
+    $attachments = $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
     $departmental_memo = $_POST['departmental_memo'];
     $created_at = date('d M Y g:i');
     $type = $_POST['type'];
@@ -71,7 +73,7 @@ if (isset($_POST['add_memo'])) {
 
     $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, attachments, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssss', $id, $department_id, $department_name, $type, $departmental_memo, $attachments, $created_at, $faculty);
+    $rc = $stmt->bind_param('ssssssss', $id, $department_id, $department_name, $type, $departmental_memo, $attachments, $created_at, $faculty);
     $stmt->execute();
     if ($stmt) {
         $success = "Departmental Memo Added"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
@@ -88,8 +90,6 @@ if (isset($_POST['add_notice'])) {
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
     $departmental_memo = $_POST['departmental_memo'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
     $created_at = date('d M Y g:i');
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
@@ -107,16 +107,16 @@ if (isset($_POST['add_notice'])) {
 }
 
 /* Delete Departmental Memo */
-
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
+    $view = $_GET['view'];
     $adn = "DELETE FROM ezanaLMS_DepartmentalMemos WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted";
+        $success = "Deleted" && header("refresh:1; url=department.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -392,6 +392,7 @@ require_once('public/partials/_head.php');
                                                                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                                 <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
                                                                                 <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
+                                                                                <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="">Upload Departmental Memo (PDF Or Docx)</label>
@@ -576,7 +577,7 @@ require_once('public/partials/_head.php');
                                                                                         </div>
                                                                                     </div>
                                                                                     <!-- End Update Departmental Memo Modal -->
-                                                                                    <a class="badge badge-danger" href="department.php?delete=<?php echo $memo->id; ?>">
+                                                                                    <a class="badge badge-danger" href="department.php?delete=<?php echo $memo->id; ?>&view=<?php echo $memo->department_id;?>">
                                                                                         <i class="fas fa-trash"></i>
                                                                                         Delete
                                                                                     </a>
