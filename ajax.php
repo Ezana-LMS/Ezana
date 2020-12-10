@@ -1,7 +1,8 @@
 <?php
 include('configs/pdoconfig.php');
 
-//Department ID
+
+/* Department ID */
 if (!empty($_POST["DepartmentName"])) {
     $id = $_POST['DepartmentName'];
     $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE name = :id");
@@ -28,7 +29,6 @@ if (!empty($_POST["DepartmentID"])) {
 <?php
     }
 }
-
 
 /* Course Details */
 if (!empty($_POST["Cname"])) {

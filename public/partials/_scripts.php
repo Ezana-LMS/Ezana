@@ -103,8 +103,13 @@
 </script>
 
 <script>
+    /* CK Editor */
     CKEDITOR.replace('textarea');
+    CKEDITOR.replace('department_details');
+    CKEDITOR.replace('dep_details');
+    CKEDITOR.replace('dep_memo');
 </script>
+<!-- Get Department Details Script -->
 <!-- Get Department Details Script -->
 <script>
     function getDepartmentDetails(val) {

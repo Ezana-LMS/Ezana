@@ -58,23 +58,22 @@ if (isset($_POST['add_course'])) {
         }
     }
 }
+
 /* Add Departmental Notice / Memo */
-
 if (isset($_POST['add_memo'])) {
-
     $id = $_POST['id'];
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
-    $departmental_memo = $_POST['departmental_memo'];
     $attachments = $_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    $departmental_memo = $_POST['departmental_memo'];
     $created_at = date('d M Y g:i');
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
 
-    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, attachments, created_at, faculty) VALUES(?,?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, attachments, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssss', $id, $department_id, $department_name, $type, $departmental_memo, $attachments, $created_at, $faculty);
+    $rc = $stmt->bind_param('ssssssss', $id, $department_id, $department_name, $type, $departmental_memo, $attachments, $created_at, $faculty);
     $stmt->execute();
     if ($stmt) {
         $success = "Departmental Memo Added"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
@@ -84,17 +83,40 @@ if (isset($_POST['add_memo'])) {
     }
 }
 
-/* Delete Departmental Memo */
+/* Add Notice */
+if (isset($_POST['add_notice'])) {
 
+    $id = $_POST['id'];
+    $department_id = $_POST['department_id'];
+    $department_name = $_POST['department_name'];
+    $departmental_memo = $_POST['departmental_memo'];
+    $created_at = date('d M Y g:i');
+    $type = $_POST['type'];
+    $faculty = $_POST['faculty'];
+
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, created_at, faculty_id) VALUES(?,?,?,?,?,?,?)";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sssssss', $id, $department_id, $department_name, $type, $departmental_memo, $created_at, $faculty);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Notice Posted"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
+    } else {
+        //inject alert that profile update task failed
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete Departmental Memo */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
+    $view = $_GET['view'];
     $adn = "DELETE FROM ezanaLMS_DepartmentalMemos WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted";
+        $success = "Deleted" && header("refresh:1; url=department.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -307,7 +329,11 @@ require_once('public/partials/_head.php');
                                     <div class="col-md-12">
                                         <div class="card card-primary">
                                             <div class="card-header">
-                                                <h3 class="card-title"><?php echo $department->name; ?></h3>
+                                                <h3 class="card-title">
+                                                    <a href="department_details.php?view=<?php echo $department->id;?>">
+                                                        <?php echo $department->name; ?>
+                                                    </a>
+                                                </h3>
                                                 <div class="card-tools text-right">
                                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                     </button>
@@ -349,7 +375,7 @@ require_once('public/partials/_head.php');
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
                                                 </a>
-                                                <a href="#add-memo" data-toggle="modal" class="btn btn-outline-success">
+                                                <a href="#add-memo" data-toggle="modal" class=" pull-left btn btn-outline-success">
                                                     <i class="fas fa-file"></i>
                                                     Add Memo
                                                 </a>
@@ -370,6 +396,7 @@ require_once('public/partials/_head.php');
                                                                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                                 <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
                                                                                 <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
+                                                                                <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="">Upload Departmental Memo (PDF Or Docx)</label>
@@ -391,7 +418,7 @@ require_once('public/partials/_head.php');
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="exampleInputPassword1">Type Departmental Memo</label>
-                                                                                <textarea name="departmental_memo" id="textarea" rows="10" class="form-control"></textarea>
+                                                                                <textarea name="departmental_memo" id="dep_memo" rows="10" class="form-control"></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -554,7 +581,7 @@ require_once('public/partials/_head.php');
                                                                                         </div>
                                                                                     </div>
                                                                                     <!-- End Update Departmental Memo Modal -->
-                                                                                    <a class="badge badge-danger" href="department.php?delete=<?php echo $memo->id; ?>">
+                                                                                    <a class="badge badge-danger" href="department.php?delete=<?php echo $memo->id; ?>&view=<?php echo $memo->department_id; ?>">
                                                                                         <i class="fas fa-trash"></i>
                                                                                         Delete
                                                                                     </a>
@@ -573,13 +600,107 @@ require_once('public/partials/_head.php');
                                                 </div>
                                             </div>
                                             <br>
-                                            <div class="jumbotron">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            Post Announcement / Notice
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-12">
+                                                                        <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                        <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
+                                                                        <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
+                                                                        <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
+                                                                        <input type="hidden" required name="type" value="Notice" class="form-control">
+                                                                        <input type="hidden" required name="type" value="Notice" class="form-control">
+                                                                        <textarea name="departmental_memo" id="dep_memo" rows="3" class="form-control"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="text-right">
+                                                                    <button type="submit" name="add_notice" class="btn btn-primary">Post</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
                                                     </div>
+                                                </div>
 
-                                                    <div class="col-md-6">
+                                                <div class="col-md-6">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            Student Login Activity
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <table class="table table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">Adm No</th>
+                                                                        <th scope="col">Login Time</th>
+                                                                        <th scope="col">Logout Time</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th scope="row"></th>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            Recent Posted Notices
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="list-group">
+                                                                <?php
+                                                                $departmentId = $department->id;
+                                                                $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$departmentId' AND type = 'Notice' ORDER BY `ezanaLMS_DepartmentalMemos`.`created_at` ASC LIMIT 10  ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                $cnt = 1;
+                                                                while ($memo = $res->fetch_object()) {
+                                                                ?>
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <h5 class="mb-1"></h5>
+                                                                        <small><?php echo $memo->created_at; ?></small>
+                                                                    </div>
+                                                                    <small>
+                                                                        <?php
+                                                                        /* Trancate This */
+                                                                        $text = $memo->departmental_memo;
+                                                                        echo substr($text, 0, 200);
+                                                                        ?>
+                                                                        <hr>
+                                                                        <div class="row">
+                                                                            <a class="badge badge-danger" href="">
+                                                                                <i class="fas fa-trash"></i>
+                                                                                Delete
+                                                                            </a>
+                                                                        </div>
+                                                                    </small>
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            Mails
+                                                        </div>
+                                                        <div class="card-body">
+
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
