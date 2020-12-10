@@ -388,6 +388,30 @@ require_once('public/partials/_head.php');
                                                                                 </div>
                                                                                 <div class="modal-body">
                                                                                     <!-- Update Course Form -->
+                                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                                        <div class="card-body">
+                                                                                            <div class="row">
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">Course Name</label>
+                                                                                                    <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">Course Number / Code</label>
+                                                                                                    <input type="text" required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row">
+                                                                                                <div class="form-group col-md-12">
+                                                                                                    <label for="exampleInputPassword1">Course Description</label>
+                                                                                                    <textarea required name="details" id="dep_memo" rows="10" class="form-control"><?php echo $courses->details; ?></textarea>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="card-footer text-right">
+                                                                                            <button type="submit" name="update_course" class="btn btn-primary">Update</button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                    <!-- End Update Course Form -->
 
                                                                                 </div>
                                                                                 <div class="modal-footer justify-content-between">
