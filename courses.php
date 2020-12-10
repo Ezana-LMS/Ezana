@@ -394,6 +394,7 @@ require_once('public/partials/_head.php');
                                                                                                 <div class="form-group col-md-6">
                                                                                                     <label for="">Course Name</label>
                                                                                                     <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                    <input type="hidden" required name="id" value="<?php echo $courses->id; ?>" class="form-control" id="exampleInputEmail1">
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-6">
                                                                                                     <label for="">Course Number / Code</label>
