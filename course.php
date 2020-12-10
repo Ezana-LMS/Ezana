@@ -310,7 +310,7 @@ require_once('public/partials/_head.php');
                                     </div>
                                 </nav>
                             </div>
-                            <br>
+                            <hr>
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="col-md-12">
@@ -423,6 +423,36 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </div>
                                             </div>
+                                            <h5 class="text-center">Modules</h5>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <?php
+                                                    $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE course_id = '$course->id'  ORDER BY `ezanaLMS_Modules`.`name` DESC ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($module = $res->fetch_object()) {
+                                                    ?>
+                                                        <div class="col-md-6">
+                                                            <a href="">
+                                                                <div class="card card-primary collapsed-card">
+                                                                    <div class="card-header">
+                                                                        <h3 class="card-title"><?php echo $module->name; ?> </h3>
+                                                                        <div class="card-tools">
+                                                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <?php echo $module->details;?>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    <?php } ?>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -430,7 +460,8 @@ require_once('public/partials/_head.php');
                         </div>
                     </section>
                     <!-- Main Footer -->
-                <?php require_once('public/partials/_footer.php');
+                <?php
+                require_once('public/partials/_footer.php');
             } ?>
                 </div>
             </div>
