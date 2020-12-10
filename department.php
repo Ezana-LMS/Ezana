@@ -61,6 +61,28 @@ if (isset($_POST['add_course'])) {
 /* Add Departmental Notice / Memo */
 
 if (isset($_POST['add_memo'])) {
+    $id = $_POST['id'];
+    $department_id = $_POST['department_id'];
+    $department_name = $_POST['department_name'];
+    $departmental_memo = $_POST['departmental_memo'];
+    $created_at = date('d M Y g:i');
+    $type = $_POST['type'];
+    $faculty = $_POST['faculty'];
+
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, attachments, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?)";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sssssss', $id, $department_id, $department_name, $type, $departmental_memo, $attachments, $created_at, $faculty);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Departmental Memo Added"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
+    } else {
+        //inject alert that profile update task failed
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Add Notice */
+if (isset($_POST['add_notice'])) {
 
     $id = $_POST['id'];
     $department_id = $_POST['department_id'];
@@ -72,12 +94,12 @@ if (isset($_POST['add_memo'])) {
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
 
-    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, attachments, created_at, faculty) VALUES(?,?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, created_at, faculty_id) VALUES(?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssss', $id, $department_id, $department_name, $type, $departmental_memo, $attachments, $created_at, $faculty);
+    $rc = $stmt->bind_param('sssssss', $id, $department_id, $department_name, $type, $departmental_memo, $created_at, $faculty);
     $stmt->execute();
     if ($stmt) {
-        $success = "Departmental Memo Added"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
+        $success = "Notice Posted"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
     } else {
         //inject alert that profile update task failed
         $info = "Please Try Again Or Try Later";
@@ -391,7 +413,7 @@ require_once('public/partials/_head.php');
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="exampleInputPassword1">Type Departmental Memo</label>
-                                                                                <textarea name="departmental_memo" id="textarea" rows="10" class="form-control"></textarea>
+                                                                                <textarea name="departmental_memo" id="dep_memo" rows="10" class="form-control"></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -573,13 +595,43 @@ require_once('public/partials/_head.php');
                                                 </div>
                                             </div>
                                             <br>
-                                            <div class="jumbotron">
-                                                <div class="row">
-                                                    <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            Post Announcement / Notice
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-12">
+                                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                            <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
+                                                                            <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
+                                                                            <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
 
+                                                                            <input type="hidden" required name="type" value="Notice" class="form-control">
+                                                                            <input type="hidden" required name="type" value="Notice" class="form-control">
+
+                                                                            <textarea name="departmental_memo" id="dep_memo" rows="10" class="form-control"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-footer text-right">
+                                                                    <button type="submit" name="add_notice" class="btn btn-primary">Post</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
                                                     </div>
+                                                </div>
 
-                                                    <div class="col-md-6">
+                                                <div class="col-md-6">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Students Login Activity<h5>
+
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
