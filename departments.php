@@ -289,7 +289,7 @@ require_once('public/partials/_head.php');
                             <div class="col-md-3">
 
                                 <?php
-                                $ret = "SELECT * FROM `ezanaLMS_Departments` ORDER BY `name` ASC  LIMIT 8";
+                                $ret = "SELECT * FROM `ezanaLMS_Departments`  ORDER BY RAND()  LIMIT 8";
                                 $stmt = $mysqli->prepare($ret);
                                 $stmt->execute(); //ok
                                 $res = $stmt->get_result();
