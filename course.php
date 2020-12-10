@@ -245,7 +245,62 @@ require_once('public/partials/_head.php');
                                                 </div>
                                                 <div class="modal-body">
                                                     <!-- Add Module Form -->
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Module Name</label>
+                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Module Number / Code</label>
+                                                                    <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Course Name</label>
+                                                                    <input type="text" value="<?php echo $course->name; ?>" required name="course_name" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
 
+                                                                <div class="form-group col-md-4" style="display:none">
+                                                                    <label for="">Course ID</label>
+                                                                    <input type="text" readonly value="<?php echo $course->id; ?>" required name="course_id" class="form-control">
+                                                                    <input type="text" readonly value="<?php echo $course->faculty_id; ?>" required name="faculty_id" class="form-control">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Teaching Duration</label>
+                                                                    <input type="text" required name="course_duration" class="form-control" id="exampleInputEmail1">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Number Of Lectures Per Week</label>
+                                                                    <input type="text" required name="lectures_number" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Module CAT Weight Percentage</label>
+                                                                    <input type="text" required name="cat_weight_percentage" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Module End Exam Weight Percentage</label>
+                                                                    <input type="text" required name="exam_weight_percentage" class="form-control">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="exampleInputPassword1">Module Details</label>
+                                                                    <textarea required id="dep_details" name="details" rows="10" class="form-control"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer text-right">
+                                                            <button type="submit" name="add_module" class="btn btn-primary">Add Module</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
