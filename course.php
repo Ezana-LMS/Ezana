@@ -36,7 +36,7 @@ if (isset($_POST['update_course'])) {
         $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Course Updated" && header("refresh:1; url=courses.php?view=$id");
+            $success = "Course Updated" && header("refresh:1; url=course.php?view=$id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
