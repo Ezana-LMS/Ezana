@@ -36,7 +36,7 @@ if (isset($_POST['update_course'])) {
         $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Course Updated" && header("refresh:1; url=courses.php");
+            $success = "Course Updated" && header("refresh:1; url=courses.php?view=$id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -254,7 +254,30 @@ require_once('public/partials/_head.php');
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            
+                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Course Name</label>
+                                                                            <input type="text" required name="name" value="<?php echo $course->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Course Number / Code</label>
+                                                                            <input type="text" required name="code" value="<?php echo $course->code; ?>"" class=" form-control">
+                                                                            <input type="hidden" required name="id" value="<?php echo $course->id; ?>"" class=" form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="exampleInputPassword1">Course Description</label>
+                                                                            <textarea required name="details" id="textarea" rows="10" class="form-control"><?php echo $course->details; ?></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-footer text-right">
+                                                                    <button type="submit" name="update_course" class="btn btn-primary">Update Course</button>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
