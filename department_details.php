@@ -246,7 +246,7 @@ require_once('public/partials/_head.php');
                                         <div class="card card-primary">
                                             <div class="card-header">
                                                 <h3 class="card-title">
-                                                    <a href="department_details.php?view=<?php echo $department->id;?>">
+                                                    <a href="department_details.php?view=<?php echo $department->id; ?>">
                                                         <?php echo $department->name; ?>
                                                     </a>
                                                 </h3>
@@ -286,16 +286,88 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="text-left">
-                                                <a href="department.php?view=<?php echo $department->id;?>" class="btn btn-outline-success">
+                                            <div class="text-right">
+                                                <a href="department.php?view=<?php echo $department->id; ?>" class="float-left btn btn-outline-success">
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
                                                 </a>
+                                                <span class="btn btn-outline-success">
+                                                    <a class="float-right" href="#update-departmnt-<?php echo $department->id; ?>">
+                                                        <i class="fas fa-edit"></i>
+                                                        Edit
+                                                    </a>
+                                                </span>
+                                                <!-- Update Department Modal -->
+                                                <div class="modal fade" id="modal-default">
+                                                    <div class="modal-dialog  modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Fill All Values </h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="form-group col-md-4">
+                                                                                <label for="">Course Name</label>
+                                                                                <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                                <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
+                                                                                <input type="hidden" required name="faculty_id" value="<?php echo $department->faculty_id; ?>" class="form-control">
+
+                                                                            </div>
+                                                                            <div class="form-group col-md-4">
+                                                                                <label for="">Course Number / Code</label>
+                                                                                <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                                            </div>
+                                                                            <div class="form-group col-md-4">
+                                                                                <label for="">Department Name</label>
+                                                                                <input type="text" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="form-group col-md-12">
+                                                                                <label for="exampleInputPassword1">Course Description</label>
+                                                                                <textarea required name="details" id="textarea" rows="10" class="form-control"></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="card-footer">
+                                                                        <button type="submit" name="add_course" class="btn btn-primary">Add Course</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer justify-content-between">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--End Update Department Modal -->
                                             </div>
                                             <br>
                                             <div class="row">
-                                                <div class="col-md-6">
-
+                                                <div class="col-md-12">
+                                                    <div class="card card-primary card-outline">
+                                                        <div class="card-body box-profile">
+                                                            <ul class="list-group list-group-unbordered mb-3">
+                                                                <li class="list-group-item">
+                                                                    <b>Name: </b> <a class="float-right"><?php echo $department->name; ?></a>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <b>Code / Number : </b> <a class="float-right"><?php echo $department->code; ?></a>
+                                                                </li>
+                                                                <li class="list-group-item">
+                                                                    <b>HOD</b> <a class="float-right"><?php echo $department->hod; ?></a>
+                                                                </li>
+                                                            </ul>
+                                                            <p class="text-left font-weight-bold">Details</p>
+                                                            <?php echo $department->details; ?>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
