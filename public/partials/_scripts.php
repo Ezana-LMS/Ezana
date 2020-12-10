@@ -103,22 +103,20 @@
 </script>
 
 <script>
-/* CK Editor */
+    /* CK Editor */
     CKEDITOR.replace('textarea');
     CKEDITOR.replace('department_details');
     CKEDITOR.replace('dep_details');
     CKEDITOR.replace('dep_memo');
-
-
-
 </script>
+<!-- Get Department Details Script -->
 <!-- Get Department Details Script -->
 <script>
     function getDepartmentDetails(val) {
         $.ajax({
             type: "POST",
             url: "ajax.php",
-            data: 'DepartmentCode=' + val,
+            data: 'DepartmentName=' + val,
             success: function(data) {
                 //alert(data);
                 $('#DepartmentID').val(data);
@@ -133,17 +131,6 @@
                 $('#DepartmentFacultyId').val(data);
             }
         });
-
-        $.ajax({
-            type: "POST",
-            url: "ajax.php",
-            data: 'DepartmentFacultyId=' + val,
-            success: function(data) {
-                //alert(data);
-                $('#DepartmentName').val(data);
-            }
-        });
-        
     }
 </script>
 <!-- Get Course Details -->

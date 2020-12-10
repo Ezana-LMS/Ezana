@@ -1,6 +1,7 @@
 <?php
 include('configs/pdoconfig.php');
 
+
 /* Department ID */
 if (!empty($_POST["DepartmentName"])) {
     $id = $_POST['DepartmentName'];

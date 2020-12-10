@@ -6,7 +6,6 @@ check_login();
 require_once('configs/codeGen.php');
 
 /* Add Course */
-
 if (isset($_POST['add_course'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -59,8 +58,41 @@ if (isset($_POST['add_course'])) {
         }
     }
 }
-/*  Update Course*/
 
+/*  Update Course*/
+if (isset($_POST['update_course'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Couse  Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Course Name Cannot Be Empty";
+    }
+    if (!$error) {
+
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $code = $_POST['code'];
+        $details = $_POST['details'];
+
+        $query = "UPDATE ezanaLMS_Courses SET  code =?, name =?, details =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Course Updated" && header("refresh:1; url=courses.php");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
 
 /* Delete Course */
 if (isset($_GET['delete'])) {
@@ -221,22 +253,21 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="">Department Name</label>
-                                                                <select class='form-control basic' id="DepartmentCode" onchange="getDepartmentDetails(this.value);" >
+                                                                <select class='form-control basic' id="DepartmentName" onchange="getDepartmentDetails(this.value);" name="department_name">
                                                                     <option selected>Select Department Name</option>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Departments`";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Departments`  ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
                                                                     while ($dep = $res->fetch_object()) {
                                                                     ?>
-                                                                        <option><?php echo $dep->code; ?></option>
+                                                                        <option><?php echo $dep->name; ?></option>
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
-                                                            <div class="form-group col-md-6" style="display:non">
+                                                            <div class="form-group col-md-6" style="display:none">
                                                                 <label for="">Department Name</label>
-                                                                <input type="text" id="DepartmentName"  required name="department_name" class="form-control">
                                                                 <input type="text" id="DepartmentID" readonly required name="department_id" class="form-control">
                                                                 <input type="text" id="DepartmentFacultyId" readonly required name="faculty_id" class="form-control">
                                                             </div>
