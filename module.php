@@ -246,8 +246,8 @@ require_once('public/partials/_head.php');
                                                                     <label for="exampleInputPassword1">Module Announcements</label>
                                                                     <textarea required id="textarea" name="announcements" rows="20" class="form-control"></textarea>
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <input type="text" value="<?php echo $mod->module_name; ?>" required name="module_ame" class="form-control">
-                                                                    <input type="text" value="<?php echo $mod->module_code; ?>" required name="module_code" class="form-control">
+                                                                    <input type="text" value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
+                                                                    <input type="text" value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
                                                                     <input type="text" required name="faculty_id" value="<?php echo $mod->faculty_id; ?>" class="form-control">
                                                                 </div>
                                                             </div>
