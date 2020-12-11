@@ -321,14 +321,14 @@ require_once('public/partials/_head.php');
                                                     Back
                                                 </a>
                                                 <span class="btn btn-outline-warning text-success">
-                                                    <a class="float-right" data-toggle="modal" href="#update-course-<?php echo $course->id; ?>">
+                                                    <a class="float-right" data-toggle="modal" href="#update-module-<?php echo $mod->id; ?>">
                                                         <i class="fas fa-edit"></i>
                                                         Edit
                                                     </a>
                                                 </span>
                                             </div>
-                                            <!-- Update Course Modal -->
-                                            <div class="modal fade" id="update-course-<?php echo $course->id; ?>">
+                                            <!-- Update Module Modal -->
+                                            <div class="modal fade" id="update-module-<?php echo $mod->id; ?>">
                                                 <div class="modal-dialog  modal-lg">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -341,25 +341,49 @@ require_once('public/partials/_head.php');
                                                             <form method="post" enctype="multipart/form-data" role="form">
                                                                 <div class="card-body">
                                                                     <div class="row">
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">Course Name</label>
-                                                                            <input type="text" required name="name" value="<?php echo $course->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                        <div class="form-group col-md-4">
+                                                                            <label for="">Module Name</label>
+                                                                            <input type="text" value="<?php echo $mod->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                         </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">Course Number / Code</label>
-                                                                            <input type="text" required name="code" value="<?php echo $course->code; ?>"" class=" form-control">
-                                                                            <input type="hidden" required name="id" value="<?php echo $course->id; ?>"" class=" form-control">
+                                                                        <div class="form-group col-md-4">
+                                                                            <label for="">Module Number / Code</label>
+                                                                            <input type="text" required name="code" value="<?php echo $mod->code; ?>" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-4">
+                                                                            <label for="">Course Name</label>
+                                                                            <input type="text" name="c_name" readonly required value="<?php echo $mod->course_name; ?>" class="form-control">
+                                                                            <input type="hidden" value="<?php echo $mod->course_id; ?>" required name="course_id" class="form-control">
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Teaching Duration</label>
+                                                                            <input type="text" value="<?php echo $mod->course_duration; ?>" required name="course_duration" class="form-control" id="exampleInputEmail1">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Number Of Lectures Per Week</label>
+                                                                            <input type="text" value="<?php echo $mod->lectures_number; ?>" required name="lectures_number" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">CAT Exam Weight Percentage</label>
+                                                                            <input type="text" value="<?php echo $mod->cat_weight_percentage; ?>" required name="cat_weight_percentage" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">End Exam Weight Percentage</label>
+                                                                            <input type="text" value="<?php echo $mod->exam_weight_percentage; ?>" required name="exam_weight_percentage" class="form-control">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row">
                                                                         <div class="form-group col-md-12">
-                                                                            <label for="exampleInputPassword1">Course Description</label>
-                                                                            <textarea required name="details" id="textarea" rows="10" class="form-control"><?php echo $course->details; ?></textarea>
+                                                                            <label for="exampleInputPassword1">Module Details</label>
+                                                                            <textarea required id="textarea" name="details" rows="10" class="form-control"><?php echo $mod->details; ?></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="card-footer text-right">
-                                                                    <button type="submit" name="update_course" class="btn btn-primary">Update Course</button>
+                                                                <div class="text-right">
+                                                                    <button type="submit" name="update_module" class="btn btn-primary">Update Module</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -369,7 +393,7 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--End Update Course Modal -->
+                                            <!--End Update Module Modal -->
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-12">
