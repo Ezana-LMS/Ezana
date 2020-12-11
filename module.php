@@ -426,6 +426,42 @@ require_once('public/partials/_head.php');
                                                                     <li class="list-group-item">
                                                                         <b>Exam Weight Percentage : </b> <a class="float-right"><?php echo $mod->exam_weight_percentage; ?></a>
                                                                     </li>
+                                                                    <!-- Assigned Lec Details -->
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE module_code = '$mod->code'  ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    $cnt = 1;
+                                                                    while ($ass = $res->fetch_object()) {
+                                                                        /*
+                                                                            Lec dETAILS
+                                                                        */
+                                                                        $lec = $ass->lec_id;
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id = '$lec'  ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        $cnt = 1;
+                                                                        while ($lecturer = $res->fetch_object()) {
+                                                                    ?>
+
+                                                                            <li class="list-group-item">
+                                                                                <b>Lecturer Assigned Email: </b> <a class="float-right"><?php echo $lecturer->email; ?></a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Lecturer Assigned ID / Passport: </b> <a class="float-right"><?php echo $lecturer->idno; ?></a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Lecturer Assigned Phone: </b> <a class="float-right"><?php echo $lecturer->phone; ?></a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Lecturer Assigned Address</b> <a class="float-right"><?php echo $lecturer->adr; ?></a>
+                                                                            </li>
+
+                                                                    <?php
+                                                                        }
+                                                                    } ?>
                                                                 </ul>
                                                                 <p class="text-center font-weight-bold"></p>
                                                                 <?php echo $mod->details; ?>
@@ -433,13 +469,25 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </div>
                                             </div>
-                                            <h5 class="text-center">Modules</h5>
                                             <div class="col-md-12">
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <div class="card card-success collapsed-card">
                                                             <div class="card-header">
-                                                                <h3 class="card-title"> </h3>
+                                                                <h3 class="card-title">Enrolled Students</h3>
+                                                                <div class="card-tools">
+                                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-body">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="card card-success collapsed-card">
+                                                            <div class="card-header">
+                                                                <h3 class="card-title">Time Table</h3>
                                                                 <div class="card-tools">
                                                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                                     </button>
