@@ -164,7 +164,7 @@ require_once('public/partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item active"><?php echo $faculty->name;?></li>
+                                    <li class="breadcrumb-item active"><?php echo $faculty->name; ?></li>
                                 </ol>
                             </div>
                         </div>
@@ -226,10 +226,9 @@ require_once('public/partials/_head.php');
                                     </div>
                                 </nav>
                             </div>
-                            <br>
+                            <hr>
                             <div class="row">
                                 <div class="col-md-3">
-
                                     <div class="col-md-12">
                                         <div class="card card-primary">
                                             <div class="card-header">
@@ -298,11 +297,11 @@ require_once('public/partials/_head.php');
                                                     ?>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="departments.php?view=<?php echo $inactivefacultyDepartment->id; ?>">
-                                                                <?php echo $inactivefacultyDepartment->name;?>
+                                                                <?php echo $inactivefacultyDepartment->name; ?>
                                                             </a>
                                                         </li>
 
-                                                    <?php }?>
+                                                    <?php } ?>
 
                                                         
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -349,14 +348,6 @@ require_once('public/partials/_head.php');
                                                 <a href="dashboard.php" class="btn btn-outline-success">
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
-                                                </a>
-                                                <a href="memos.php?view=<?php echo $faculty->id;?>" class="btn btn-outline-success">
-                                                    <i class="fas fa-file"></i>
-                                                    Memos
-                                                </a>
-                                                <a href="notices.php?view=<?php echo $faculty->id;?>" class="btn btn-outline-success">
-                                                    <i class="fas fa-bullhorn"></i>
-                                                    Notices
                                                 </a>
                                             </div>
                                             <br>
