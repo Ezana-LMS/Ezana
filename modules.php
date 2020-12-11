@@ -321,32 +321,32 @@ require_once('public/partials/_head.php');
                                             <div class="card-body">
                                                 <ul class="list-group">
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="module_notices.php?view=<?php echo $module['id']; ?>">
+                                                        <a href="module_notices.php?view=<?php echo $module->id; ?>">
                                                             Notices
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="pastpapers.php?view=<?php echo $module['id']; ?>">
+                                                        <a href="pastpapers.php?view=<?php echo $module->id; ?>">
                                                             Past Papers
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="course_materials.php?view=<?php echo $module['id']; ?>">
+                                                        <a href="course_materials.php?view=<?php echo $module->id; ?>">
                                                             Course Materials
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="class_recordings.php?view=<?php echo $module['id']; ?>">
+                                                        <a href="class_recordings.php?view=<?php echo $module->id; ?>">
                                                             Class Recordings
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="student_groups.php?view=<?php echo $module['id']; ?>">
+                                                        <a href="student_groups.php?view=<?php echo $module->id; ?>">
                                                             Student Groups
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="enrollments.php?view=<?php echo $module['id']; ?>">
+                                                        <a href="enrollments.php?view=<?php echo $module->id; ?>">
                                                             Module Enrollments
                                                         </a>
                                                     </li>
@@ -389,9 +389,36 @@ require_once('public/partials/_head.php');
                                                                 <td><?php echo $mod->code; ?></td>
                                                                 <td><?php echo $mod->course_name; ?></td>
                                                                 <td>
+                                                                    <a class="badge badge-primary" data-toggle="modal" href="#edit-modal-<?php echo $mod->id; ?>">
+                                                                        <i class="fas fa-trash"></i>
+                                                                        Update
+                                                                    </a>
+                                                                    <!-- Update Module Modal -->
+                                                                    <div class="modal fade" id="edit-modal-<?php echo $mod->id; ?>">
+                                                                        <div class="modal-dialog  modal-lg">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <!-- Update Module Form -->
+                                                                                    
+                                                                                    <!-- End Module Form -->
+                                                                                </div>
+                                                                                <div class="modal-footer justify-content-between">
+                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- End Modal -->
+
                                                                     <a class="badge badge-danger" href="modules.php?delete=<?php echo $mod->id; ?>">
                                                                         <i class="fas fa-trash"></i>
-                                                                        Delete Module
+                                                                        Delete
                                                                     </a>
                                                                 </td>
                                                             </tr>
