@@ -209,7 +209,7 @@ require_once('public/partials/_head.php');
                                 </div>
                             </nav>
                         </div>
-                        <br>
+                        <hr>
                         <div class="row">
                             <div class="col-md-3">
                                 <?php
