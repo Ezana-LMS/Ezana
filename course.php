@@ -6,7 +6,6 @@ check_login();
 require_once('configs/codeGen.php');
 
 /* Add Module */
-
 if (isset($_POST['add_module'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
