@@ -299,7 +299,7 @@ require_once('public/partials/_head.php');
                                                 </div>
 
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="courses">
+                                                    <a href="courses.php">
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
                                                                 <h3>Courses</h3>
