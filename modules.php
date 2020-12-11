@@ -6,7 +6,6 @@ check_login();
 require_once('configs/codeGen.php');
 
 /* Add Module */
-
 if (isset($_POST['add_module'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -74,6 +73,55 @@ if (isset($_POST['add_module'])) {
 
 /*  Update Module*/
 
+if (isset($_POST['update_module'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Module Code Cannot Be Empty";
+    }
+    if (isset($_POST['c_name']) && !empty($_POST['c_name'])) {
+        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['c_name']));
+    } else {
+        $error = 1;
+        $err = "Course Name Cannot Be Empty";
+    }
+    if (isset($_POST['course_id']) && !empty($_POST['course_id'])) {
+        $course_id = mysqli_real_escape_string($mysqli, trim($_POST['course_id']));
+    } else {
+        $error = 1;
+        $err = "Course ID Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (!$error) {
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $code = $_POST['code'];
+        $details = $_POST['details'];
+        $course_duration = $_POST['course_duration'];
+        $exam_weight_percentage = $_POST['exam_weight_percentage'];
+        $cat_weight_percentage = $_POST['cat_weight_percentage'];
+        $lectures_number = $_POST['lectures_number'];
+        $updated_at = date('d M Y');
+        $query = "UPDATE ezanaLMS_Modules SET  name =?, code =?, details =?,  course_duration =?, exam_weight_percentage =?, cat_weight_percentage=?,  lectures_number =?, updated_at =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssssssss', $name, $code, $details,  $course_duration, $exam_weight_percentage, $cat_weight_percentage, $lectures_number, $updated_at, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Updated" && header("refresh:1; url=modules.php");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
 /* Delete Module */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
@@ -84,7 +132,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted";
+        $success = "Deleted" && header("refresh:1; url=modules.php");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -405,7 +453,7 @@ require_once('public/partials/_head.php');
                                                                                 </div>
                                                                                 <div class="modal-body">
                                                                                     <!-- Update Module Form -->
-                                                                                    
+
                                                                                     <!-- End Module Form -->
                                                                                 </div>
                                                                                 <div class="modal-footer justify-content-between">
