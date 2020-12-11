@@ -237,7 +237,7 @@ require_once('public/partials/_head.php');
                                                             <div class="form-group col-md-4" style="display:non">
                                                                 <label for="">Course ID</label>
                                                                 <input type="text" readonly id="CourseID" required name="course_id" class="form-control">
-                                                                <input type="text" readonly id="FacultyID" required name="faculty_id" class="form-control">                                                                <input type="text" readonly value="<?php echo $course->faculty_id; ?>" required name="faculty_id" class="form-control">
+                                                                <input type="text" readonly id="CourseFacultyID" required name="faculty_id" class="form-control"> <input type="text" readonly value="<?php echo $course->faculty_id; ?>" required name="faculty_id" class="form-control">
                                                             </div>
                                                         </div>
 
@@ -286,18 +286,18 @@ require_once('public/partials/_head.php');
                             <div class="col-md-3">
 
                                 <?php
-                                $ret = "SELECT * FROM `ezanaLMS_Courses`  ORDER BY RAND()  LIMIT 8";
+                                $ret = "SELECT * FROM `ezanaLMS_Modules`  ORDER BY RAND()  LIMIT 8";
                                 $stmt = $mysqli->prepare($ret);
                                 $stmt->execute(); //ok
                                 $res = $stmt->get_result();
                                 $cnt = 1;
-                                while ($course = $res->fetch_object()) {
+                                while ($module = $res->fetch_object()) {
                                 ?>
                                     <div class="col-md-12">
                                         <div class="card card-primary collapsed-card">
                                             <div class="card-header">
-                                                <a href="course.php?view=<?php echo $course->id; ?>">
-                                                    <h3 class="card-title"><?php echo $cnt; ?>. <?php echo $course->name; ?></h3>
+                                                <a href="module.php?view=<?php echo $module->id; ?>">
+                                                    <h3 class="card-title"><?php echo $cnt; ?>. <?php echo $module->name; ?></h3>
                                                     <div class="card-tools text-right">
                                                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                         </button>
@@ -307,20 +307,34 @@ require_once('public/partials/_head.php');
 
                                             <div class="card-body">
                                                 <ul class="list-group">
-
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="modules.php?view=<?php echo $course->id; ?>">
-                                                            Modules
+                                                        <a href="module_notices.php?view=<?php echo $results['id']; ?>">
+                                                            Notices
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="timetables.php?view=<?php echo $course->id; ?>">
-                                                            Time Table
+                                                        <a href="pastpapers.php?view=<?php echo $results['id']; ?>">
+                                                            Past Papers
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="enrollments.php?view=<?php echo $course->id; ?>">
-                                                            Enrolled Students
+                                                        <a href="course_materials.php?view=<?php echo $results['id']; ?>">
+                                                            Course Materials
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="class_recordings.php?view=<?php echo $results['id']; ?>">
+                                                            Class Recordings
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="student_groups.php?view=<?php echo $results['id']; ?>">
+                                                            Student Groups
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="enrollments.php?view=<?php echo $results['id']; ?>">
+                                                            Module Enrollments
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -340,81 +354,31 @@ require_once('public/partials/_head.php');
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Code</th>
-                                                            <th>Name</th>
-                                                            <th>Department</th>
-                                                            <th>Manage</th>
+                                                            <th>Module Name</th>
+                                                            <th>Module Code</th>
+                                                            <th>Course Name</th>
+                                                            <th>Manage Module</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_Courses`";
+                                                        $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$row->id' ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
                                                         $cnt = 1;
-                                                        while ($courses = $res->fetch_object()) {
+                                                        while ($mod = $res->fetch_object()) {
                                                         ?>
-                                                            <tr>
+
+                                                            <tr class="table-row" data-href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                 <td><?php echo $cnt; ?></td>
-                                                                <td><?php echo $courses->code; ?></td>
-                                                                <td><?php echo $courses->name; ?></td>
-                                                                <td><?php echo $courses->department_name; ?></td>
+                                                                <td><?php echo $mod->name; ?></td>
+                                                                <td><?php echo $mod->code; ?></td>
+                                                                <td><?php echo $mod->course_name; ?></td>
                                                                 <td>
-                                                                    <a class="badge badge-primary" data-toggle="modal" href="#edit-course-<?php echo $courses->id; ?>">
-                                                                        <i class="fas fa-edit"></i>
-                                                                        Update
-                                                                    </a>
-                                                                    <!-- Update Course Modal -->
-                                                                    <div class="modal fade" id="edit-course-<?php echo $courses->id; ?>">
-                                                                        <div class="modal-dialog  modal-lg">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <h4 class="modal-title">Fill All Required Values </h4>
-                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                        <span aria-hidden="true">&times;</span>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <div class="modal-body">
-                                                                                    <!-- Update Course Form -->
-                                                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                                                        <div class="card-body">
-                                                                                            <div class="row">
-                                                                                                <div class="form-group col-md-6">
-                                                                                                    <label for="">Course Name</label>
-                                                                                                    <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                                                                    <input type="hidden" required name="id" value="<?php echo $courses->id; ?>" class="form-control" id="exampleInputEmail1">
-                                                                                                </div>
-                                                                                                <div class="form-group col-md-6">
-                                                                                                    <label for="">Course Number / Code</label>
-                                                                                                    <input type="text" required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="row">
-                                                                                                <div class="form-group col-md-12">
-                                                                                                    <label for="exampleInputPassword1">Course Description</label>
-                                                                                                    <textarea required name="details" id="dep_memo" rows="10" class="form-control"><?php echo $courses->details; ?></textarea>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="card-footer text-right">
-                                                                                            <button type="submit" name="update_course" class="btn btn-primary">Update</button>
-                                                                                        </div>
-                                                                                    </form>
-                                                                                    <!-- End Update Course Form -->
-
-                                                                                </div>
-                                                                                <div class="modal-footer justify-content-between">
-                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <!-- End Update Modal -->
-
-                                                                    <a class="badge badge-danger" href="courses.php?delete=<?php echo $courses->id; ?>">
+                                                                    <a class="badge badge-danger" href="modules.php?delete=<?php echo $mod->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                         <i class="fas fa-trash"></i>
-                                                                        Delete
+                                                                        Delete Module
                                                                     </a>
                                                                 </td>
                                                             </tr>
