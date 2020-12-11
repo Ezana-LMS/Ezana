@@ -314,10 +314,117 @@ require_once('public/partials/_head.php');
                                 </div>
                                 <div class="col-md-9">
                                     <div class="row">
-                                        <div class="col-12">
-                                            <div class="card">
-                                                <div class="card-body">
-
+                                        <div class="col-md-12">
+                                            <div class="text-right">
+                                                <a href="courses.php" class="float-left btn btn-outline-success">
+                                                    <i class="fas fa-arrow-left"></i>
+                                                    Back
+                                                </a>
+                                                <span class="btn btn-outline-warning text-success">
+                                                    <a class="float-right" data-toggle="modal" href="#update-course-<?php echo $course->id; ?>">
+                                                        <i class="fas fa-edit"></i>
+                                                        Edit
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <!-- Update Course Modal -->
+                                            <div class="modal fade" id="update-course-<?php echo $course->id; ?>">
+                                                <div class="modal-dialog  modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Fill All Values</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Course Name</label>
+                                                                            <input type="text" required name="name" value="<?php echo $course->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Course Number / Code</label>
+                                                                            <input type="text" required name="code" value="<?php echo $course->code; ?>"" class=" form-control">
+                                                                            <input type="hidden" required name="id" value="<?php echo $course->id; ?>"" class=" form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="exampleInputPassword1">Course Description</label>
+                                                                            <textarea required name="details" id="textarea" rows="10" class="form-control"><?php echo $course->details; ?></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-footer text-right">
+                                                                    <button type="submit" name="update_course" class="btn btn-primary">Update Course</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--End Update Course Modal -->
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card card-primary card-outline">
+                                                        <div class="card-body box-profile">
+                                                            <div class="text-center">
+                                                                <img class='profile-user-img img-fluid ' src='public/dist/img/logo.png' alt='module icon'>
+                                                            </div>
+                                                            <br>
+                                                            <ul class="list-group  mb-3">
+                                                                <ul class="list-group list-group-unbordered mb-3">
+                                                                    <li class="list-group-item">
+                                                                        <b>Module Name: </b> <a class="float-right"><?php echo $mod->name; ?></a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Module Code: </b> <a class="float-right"><?php echo $mod->code; ?></a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Course Name: </b> <a class="float-right"><?php echo $mod->course_name; ?></a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Duration : </b> <a class="float-right"><?php echo $mod->course_duration; ?></a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>No Of Lecturers Per Week : </b> <a class="float-right"><?php echo $mod->lectures_number; ?></a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Cat Weight Percentage : </b> <a class="float-right"><?php echo $mod->cat_weight_percentage; ?></a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Exam Weight Percentage : </b> <a class="float-right"><?php echo $mod->exam_weight_percentage; ?></a>
+                                                                    </li>
+                                                                </ul>
+                                                                <p class="text-center font-weight-bold"></p>
+                                                                <?php echo $mod->details; ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h5 class="text-center">Modules</h5>
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="card card-success collapsed-card">
+                                                            <div class="card-header">
+                                                                <h3 class="card-title"> </h3>
+                                                                <div class="card-tools">
+                                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-body">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
