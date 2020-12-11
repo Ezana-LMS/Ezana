@@ -104,7 +104,6 @@ require_once('public/partials/_head.php');
         while ($mod = $res->fetch_object()) {
         ?>
             <!-- /.navbar -->
-
             <!-- Main Sidebar Container -->
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
                 <!-- Brand Logo -->
@@ -224,7 +223,39 @@ require_once('public/partials/_head.php');
                                                 </div>
                                                 <div class="modal-body">
                                                     <!-- Add Module Form -->
-
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="">Announcement Posted By</label>
+                                                                    <?php
+                                                                    $id = $_SESSION['id'];
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id = '$id'  ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    while ($user = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <input type="text" required name="created_by" value="<?php echo $user->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                    <?php
+                                                                    } ?>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="exampleInputPassword1">Module Announcements</label>
+                                                                    <textarea required id="textarea" name="announcements" rows="20" class="form-control"></textarea>
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <input type="text" value="<?php echo $mod->module_name; ?>" required name="module_ame" class="form-control">
+                                                                    <input type="text" value="<?php echo $mod->module_code; ?>" required name="module_code" class="form-control">
+                                                                    <input type="text" required name="faculty_id" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer text-right">
+                                                            <button type="submit" name="add_notice" class="btn btn-primary">Add Notice</button>
+                                                        </div>
+                                                    </form>
                                                     <!-- End Module Form -->
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
