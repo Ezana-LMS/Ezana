@@ -5,10 +5,7 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 
-
-
 /*  Update Module*/
-
 if (isset($_POST['update_module'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -45,6 +42,50 @@ if (isset($_POST['update_module'])) {
         }
     }
 }
+/* Add Module Notice */
+
+if (isset($_POST['add_notice'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
+        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
+        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (isset($_POST['announcements']) && !empty($_POST['announcements'])) {
+        $announcements = mysqli_real_escape_string($mysqli, trim($_POST['announcements']));
+    } else {
+        $error = 1;
+        $err = "Noctices Cannot Be Empty";
+    }
+    if (!$error) {
+        $id = $_POST['id'];
+        $module_name  = $_POST['module_name'];
+        $module_code = $_POST['module_code'];
+        $announcements = $_POST['announcements'];
+        $created_by = $_POST['created_by'];
+        $created_at = date('d M Y');
+        $faculty_id = $_POST['faculty_id'];
+        //$module_id = $_POST['module_id'];
+        $query = "INSERT INTO ezanaLMS_ModulesAnnouncements (id, module_name, module_code, announcements, created_by, created_at, faculty_id) VALUES(?,?,?,?,?,?,?)";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssssss', $id, $module_name, $module_code, $announcements, $created_by, $created_at, $faculty_id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Posted";
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
 
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
@@ -171,7 +212,7 @@ require_once('public/partials/_head.php');
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Module Notice</button>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -183,74 +224,7 @@ require_once('public/partials/_head.php');
                                                 </div>
                                                 <div class="modal-body">
                                                     <!-- Add Module Form -->
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Module Name</label>
-                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Module Number / Code</label>
-                                                                    <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Course Name</label>
-                                                                    <select class='form-control basic' id="Cname" onchange="getCourseDetails(this.value);" name="course_name">
-                                                                        <option selected>Select Course Name</option>
-                                                                        <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Courses` ";
-                                                                        $stmt = $mysqli->prepare($ret);
-                                                                        $stmt->execute(); //ok
-                                                                        $res = $stmt->get_result();
-                                                                        while ($course = $res->fetch_object()) {
-                                                                        ?>
-                                                                            <option><?php echo $course->name; ?></option>
-                                                                        <?php
-                                                                        } ?>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
 
-                                                                <div class="form-group col-md-4" style="display:none">
-                                                                    <label for="">Course ID</label>
-                                                                    <input type="text" readonly id="CourseID" required name="course_id" class="form-control">
-                                                                    <input type="text" readonly id="CourseFacultyID" required name="faculty_id" class="form-control">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Teaching Duration</label>
-                                                                    <input type="text" required name="course_duration" class="form-control" id="exampleInputEmail1">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Number Of Lectures Per Week</label>
-                                                                    <input type="text" required name="lectures_number" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Module CAT Weight Percentage</label>
-                                                                    <input type="text" required name="cat_weight_percentage" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Module End Exam Weight Percentage</label>
-                                                                    <input type="text" required name="exam_weight_percentage" class="form-control">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Module Details</label>
-                                                                    <textarea required id="textarea" name="details" rows="10" class="form-control"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer text-right">
-                                                            <button type="submit" name="add_module" class="btn btn-primary">Add Module</button>
-                                                        </div>
-                                                    </form>
                                                     <!-- End Module Form -->
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
@@ -261,7 +235,7 @@ require_once('public/partials/_head.php');
                                     </div>
                                 </nav>
                             </div>
-                            <br>
+                            <hr>
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="col-md-12">
@@ -277,32 +251,32 @@ require_once('public/partials/_head.php');
                                             <div class="card-body">
                                                 <ul class="list-group">
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="module_notices.php?view=<?php echo $module->id; ?>">
+                                                        <a href="module_notices.php?view=<?php echo $mod->id; ?>">
                                                             Notices
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="pastpapers.php?view=<?php echo $module->id; ?>">
+                                                        <a href="pastpapers.php?view=<?php echo $mod->id; ?>">
                                                             Past Papers
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="course_materials.php?view=<?php echo $module->id; ?>">
+                                                        <a href="course_materials.php?view=<?php echo $mod->id; ?>">
                                                             Course Materials
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="class_recordings.php?view=<?php echo $module->id; ?>">
+                                                        <a href="class_recordings.php?view=<?php echo $mod->id; ?>">
                                                             Class Recordings
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="student_groups.php?view=<?php echo $module->id; ?>">
+                                                        <a href="student_groups.php?view=<?php echo $mod->id; ?>">
                                                             Student Groups
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="enrollments.php?view=<?php echo $module->id; ?>">
+                                                        <a href="enrollments.php?view=<?php echo $mod->code; ?>">
                                                             Module Enrollments
                                                         </a>
                                                     </li>
@@ -458,7 +432,6 @@ require_once('public/partials/_head.php');
                                                                             <li class="list-group-item">
                                                                                 <b>Lecturer Assigned Address</b> <a class="float-right"><?php echo $lecturer->adr; ?></a>
                                                                             </li>
-
                                                                     <?php
                                                                         }
                                                                     } ?>
@@ -472,7 +445,7 @@ require_once('public/partials/_head.php');
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="card card-success collapsed-card">
+                                                        <div class="card  collapsed-card">
                                                             <div class="card-header">
                                                                 <h3 class="card-title">Enrolled Students</h3>
                                                                 <div class="card-tools">
@@ -481,19 +454,41 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </div>
                                                             <div class="card-body">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="card card-success collapsed-card">
-                                                            <div class="card-header">
-                                                                <h3 class="card-title">Time Table</h3>
-                                                                <div class="card-tools">
-                                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-body">
+                                                                <table id="example1" class="table table-bordered table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>Admission</th>
+                                                                            <th>Name</th>
+                                                                            <th>Academic Yr</th>
+                                                                            <th>Sem Enrolled</th>
+                                                                            <th>Sem Start</th>
+                                                                            <th>Sem End </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <?php
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments`  WHERE   module_code ='$mod->code' ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        $cnt = 1;
+                                                                        while ($en = $res->fetch_object()) {
+                                                                        ?>
+
+                                                                            <tr>
+                                                                                <td><?php echo $cnt; ?></td>
+                                                                                <td><?php echo $en->student_adm; ?></td>
+                                                                                <td><?php echo $en->student_name; ?></td>
+                                                                                <td><?php echo $en->academic_year_enrolled; ?></td>
+                                                                                <td><?php echo $en->semester_enrolled; ?></td>
+                                                                                <td><?php echo date('d M Y', strtotime($en->semester_start)); ?></td>
+                                                                                <td><?php echo date('d M Y', strtotime($en->semester_end)); ?></td>
+                                                                            </tr>
+                                                                        <?php $cnt = $cnt + 1;
+                                                                        } ?>
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
                                                     </div>
