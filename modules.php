@@ -75,7 +75,20 @@ if (isset($_POST['add_module'])) {
 /*  Update Module*/
 
 /* Delete Module */
-
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $faculty = $_GET['faculty'];
+    $adn = "DELETE FROM ezanaLMS_Modules WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted";
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -308,32 +321,32 @@ require_once('public/partials/_head.php');
                                             <div class="card-body">
                                                 <ul class="list-group">
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="module_notices.php?view=<?php echo $results['id']; ?>">
+                                                        <a href="module_notices.php?view=<?php echo $module['id']; ?>">
                                                             Notices
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="pastpapers.php?view=<?php echo $results['id']; ?>">
+                                                        <a href="pastpapers.php?view=<?php echo $module['id']; ?>">
                                                             Past Papers
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="course_materials.php?view=<?php echo $results['id']; ?>">
+                                                        <a href="course_materials.php?view=<?php echo $module['id']; ?>">
                                                             Course Materials
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="class_recordings.php?view=<?php echo $results['id']; ?>">
+                                                        <a href="class_recordings.php?view=<?php echo $module['id']; ?>">
                                                             Class Recordings
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="student_groups.php?view=<?php echo $results['id']; ?>">
+                                                        <a href="student_groups.php?view=<?php echo $module['id']; ?>">
                                                             Student Groups
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="enrollments.php?view=<?php echo $results['id']; ?>">
+                                                        <a href="enrollments.php?view=<?php echo $module['id']; ?>">
                                                             Module Enrollments
                                                         </a>
                                                     </li>
@@ -354,15 +367,15 @@ require_once('public/partials/_head.php');
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>Module Name</th>
-                                                            <th>Module Code</th>
-                                                            <th>Course Name</th>
-                                                            <th>Manage Module</th>
+                                                            <th>Name</th>
+                                                            <th>Code</th>
+                                                            <th>Course</th>
+                                                            <th>Manage</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$row->id' ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_Modules`  ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
@@ -370,13 +383,13 @@ require_once('public/partials/_head.php');
                                                         while ($mod = $res->fetch_object()) {
                                                         ?>
 
-                                                            <tr class="table-row" data-href="view_module.php?view=<?php echo $mod->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                            <tr>
                                                                 <td><?php echo $cnt; ?></td>
                                                                 <td><?php echo $mod->name; ?></td>
                                                                 <td><?php echo $mod->code; ?></td>
                                                                 <td><?php echo $mod->course_name; ?></td>
                                                                 <td>
-                                                                    <a class="badge badge-danger" href="modules.php?delete=<?php echo $mod->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                    <a class="badge badge-danger" href="modules.php?delete=<?php echo $mod->id; ?>">
                                                                         <i class="fas fa-trash"></i>
                                                                         Delete Module
                                                                     </a>
