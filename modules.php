@@ -82,18 +82,6 @@ if (isset($_POST['update_module'])) {
         $error = 1;
         $err = "Module Code Cannot Be Empty";
     }
-    if (isset($_POST['c_name']) && !empty($_POST['c_name'])) {
-        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['c_name']));
-    } else {
-        $error = 1;
-        $err = "Course Name Cannot Be Empty";
-    }
-    if (isset($_POST['course_id']) && !empty($_POST['course_id'])) {
-        $course_id = mysqli_real_escape_string($mysqli, trim($_POST['course_id']));
-    } else {
-        $error = 1;
-        $err = "Course ID Cannot Be Empty";
-    }
     if (isset($_POST['name']) && !empty($_POST['name'])) {
         $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
     } else {
@@ -295,10 +283,10 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                         <div class="row">
 
-                                                            <div class="form-group col-md-4" style="display:non">
+                                                            <div class="form-group col-md-4" style="display:none">
                                                                 <label for="">Course ID</label>
                                                                 <input type="text" readonly id="CourseID" required name="course_id" class="form-control">
-                                                                <input type="text" readonly id="CourseFacultyID" required name="faculty_id" class="form-control"> <input type="text" readonly value="<?php echo $course->faculty_id; ?>" required name="faculty_id" class="form-control">
+                                                                <input type="text" readonly id="CourseFacultyID" required name="faculty_id" class="form-control"> 
                                                             </div>
                                                         </div>
 
@@ -324,7 +312,7 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Module Details</label>
-                                                                <textarea required id="dep_details" name="details" rows="10" class="form-control"></textarea>
+                                                                <textarea required id="textarea" name="details" rows="10" class="form-control"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -438,7 +426,7 @@ require_once('public/partials/_head.php');
                                                                 <td><?php echo $mod->course_name; ?></td>
                                                                 <td>
                                                                     <a class="badge badge-primary" data-toggle="modal" href="#edit-modal-<?php echo $mod->id; ?>">
-                                                                        <i class="fas fa-trash"></i>
+                                                                        <i class="fas fa-edit"></i>
                                                                         Update
                                                                     </a>
                                                                     <!-- Update Module Modal -->
@@ -453,7 +441,50 @@ require_once('public/partials/_head.php');
                                                                                 </div>
                                                                                 <div class="modal-body">
                                                                                     <!-- Update Module Form -->
+                                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                                        <div class="card-body">
+                                                                                            <div class="row">
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">Module Name</label>
+                                                                                                    <input type="text" value="<?php echo $mod->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                                                    <input type="hidden" required name="id" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">Module Number / Code</label>
+                                                                                                    <input type="text" required name="code" value="<?php echo $mod->code; ?>" class="form-control">
+                                                                                                </div>
+                                                                                            </div>
 
+                                                                                            <div class="row">
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">Teaching Duration</label>
+                                                                                                    <input type="text" value="<?php echo $mod->course_duration; ?>" required name="course_duration" class="form-control" id="exampleInputEmail1">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">Number Of Lectures Per Week</label>
+                                                                                                    <input type="text" value="<?php echo $mod->lectures_number; ?>" required name="lectures_number" class="form-control">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">CAT Exam Weight Percentage</label>
+                                                                                                    <input type="text" value="<?php echo $mod->cat_weight_percentage; ?>" required name="cat_weight_percentage" class="form-control">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">End Exam Weight Percentage</label>
+                                                                                                    <input type="text" value="<?php echo $mod->exam_weight_percentage; ?>" required name="exam_weight_percentage" class="form-control">
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="row">
+                                                                                                <div class="form-group col-md-12">
+                                                                                                    <label for="exampleInputPassword1">Module Details</label>
+                                                                                                    <textarea required id="dep_details" name="details" rows="10" class="form-control"><?php echo $mod->details; ?></textarea>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="text-right">
+                                                                                            <button type="submit" name="update_module" class="btn btn-primary">Update Module</button>
+                                                                                        </div>
+                                                                                    </form>
                                                                                     <!-- End Module Form -->
                                                                                 </div>
                                                                                 <div class="modal-footer justify-content-between">
@@ -463,7 +494,6 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                     <!-- End Modal -->
-
                                                                     <a class="badge badge-danger" href="modules.php?delete=<?php echo $mod->id; ?>">
                                                                         <i class="fas fa-trash"></i>
                                                                         Delete
