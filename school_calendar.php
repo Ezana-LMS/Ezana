@@ -4,52 +4,21 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-if (isset($_POST['add_dept'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['code']) && !empty($_POST['code'])) {
-        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
-    } else {
-        $error = 1;
-        $err = "Department Code Cannot Be Empty";
-    }
-    if (isset($_POST['name']) && !empty($_POST['name'])) {
-        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
-    } else {
-        $error = 1;
-        $err = "Department Name Cannot Be Empty";
-    }
-    if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Departments WHERE  code='$code' || name ='$name' ";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if ($code == $row['code']) {
-                $err =  "Department With This Code Already Exists";
-            } else {
-                $err = "Department Name Already Exists";
-            }
-        } else {
-            $id = $_POST['id'];
-            $name = $_POST['name'];
-            $code = $_POST['code'];
-            $view = $_GET['view'];
-            $details = $_POST['details'];
-            $hod = $_POST['hod'];
-            $created_at = date('d M Y');
+/* Add Important Dates */
 
-            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, details, hod, created_at) VALUES(?,?,?,?,?,?,?)";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssss', $id, $code, $name, $view, $details, $hod, $created_at);
-            $stmt->execute();
-            if ($stmt) {
-                $success = " $name Department Added";
-            } else {
-                //inject alert that profile update task failed
-                $info = "Please Try Again Or Try Later";
-            }
-        }
+/* Delete Important Dates */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $view = $_GET['view'];
+    $adn = "DELETE FROM ezanaLMS_Calendar WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=school_calendar.php?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
     }
 }
 require_once('public/partials/_head.php');
@@ -158,7 +127,7 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?></h1>
+                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Calendar</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -174,11 +143,11 @@ require_once('public/partials/_head.php');
                         <div class="container-fluid">
                             <div class="text-left">
                                 <nav class="navbar navbar-light bg-light col-md-12">
-                                    <form class="form-inline" action="department_search_result.php" method="GET">
-                                        <input class="form-control mr-sm-2" type="search" name="query" placeholder="Dep Name Or Code">
+                                    <form class="form-inline" action="faculty_search_result.php" method="GET">
+                                        <input class="form-control mr-sm-2" type="search" name="query" placeholder="Faculty Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Department</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Important Dates</button>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -189,34 +158,7 @@ require_once('public/partials/_head.php');
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Department Name</label>
-                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Department Number / Code</label>
-                                                                    <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Department HOD</label>
-                                                                    <input type="text" required name="hod" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Department Details</label>
-                                                                    <textarea name="details" id="textarea" rows="10" class="form-control"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer text-right">
-                                                            <button type="submit" name="add_dept" class="btn btn-primary">Add Department</button>
-                                                        </div>
-                                                    </form>
+
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -261,88 +203,13 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- All Other Faculties 
-                                    //This Has A Bug It Only Fetches The Active Faculty And Only One Inactive Faculty"
-                                    <?php
-                                    $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id != '$faculty->id' ORDER BY `name` ASC ";
-                                    $stmt = $mysqli->prepare($ret);
-                                    $stmt->execute(); //ok
-                                    $res = $stmt->get_result();
-                                    while ($unactive_faculties = $res->fetch_object()) {
-                                    ?>
-                                        <div class="col-md-12">
-                                            <div class="card card-primary collapsed-card">
-                                                <div class="card-header">
-                                                    <a href="faculty_dashboard.php?view=<?php echo $unactive_faculties->id; ?>">
-                                                        <h3 class="card-title"><?php echo $unactive_faculties->name; ?></h3>
-                                                        <div class="card-tools text-right">
-                                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </a>
-                                                </div>
-
-                                                <div class="card-body">
-                                                    <ul class="list-group">
-                                                    <?php
-                                                    /* List All Departments Under This Faculty */
-                                                    $InactivedepartmentFacultyID = $unactive_faculties->id;
-                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$InactivedepartmentFacultyID' ORDER BY `name` ASC  ";
-                                                    $stmt = $mysqli->prepare($ret);
-                                                    $stmt->execute(); //ok
-                                                    $res = $stmt->get_result();
-                                                    $cnt = 1;
-                                                    while ($inactivefacultyDepartment = $res->fetch_object()) {
-                                                    ?>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="departments.php?view=<?php echo $inactivefacultyDepartment->id; ?>">
-                                                                <?php echo $inactivefacultyDepartment->name; ?>
-                                                            </a>
-                                                        </li>
-
-                                                    <?php } ?>
-
-                                                        
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="courses.php?view=<?php echo $unactive_faculties->id; ?>">
-                                                                Courses
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="modules.php?view=<?php echo $unactive_faculties->id; ?>">
-                                                                Modules
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="school_calendar.phpview=<?php echo $unactive_faculties->id; ?>">
-                                                                Calendar
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="lects.php?view=<?php echo $unactive_faculties->id; ?>">
-                                                                Lecturers
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="students.php?view=<?php echo $unactive_faculties->id; ?>">
-                                                                Students
-                                                            </a>
-                                                        </li> 
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php
-                                    } ?>
-                                    -->
                                 </div>
 
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="text-center">
-                                                <h1 class="display-4">Departments</h1>
+                                                <h1 class="display-4">Important Dates</h1>
                                             </div>
                                             <div class="text-left">
                                                 <a href="dashboard.php" class="btn btn-outline-success">
@@ -351,81 +218,8 @@ require_once('public/partials/_head.php');
                                                 </a>
                                             </div>
                                             <br>
-                                            <div class="jumbotron">
-                                                <div class="row">
-                                                    <?php
-                                                    /* List All Departments Under This Faculty */
-                                                    $departmentFacultyID = $faculty->id;
-                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$departmentFacultyID' ORDER BY `name` ASC  ";
-                                                    $stmt = $mysqli->prepare($ret);
-                                                    $stmt->execute(); //ok
-                                                    $res = $stmt->get_result();
-                                                    $cnt = 1;
-                                                    while ($facultyDepartment = $res->fetch_object()) {
-                                                    ?>
-                                                        <div class="col-lg-4 col-6">
-                                                            <div class="small-box bg-primary">
-                                                                <a href="department.php?view=<?php echo $facultyDepartment->id; ?>">
-                                                                    <div class="inner">
-                                                                        <h4 class="text-center">
-                                                                            <?php echo $facultyDepartment->name; ?>
-                                                                        </h4>
-                                                                        <p class="text-center">
-                                                                            <?php echo $facultyDepartment->code; ?>
-                                                                        </p>
-                                                                    </div>
-                                                                    <div class="icon">
-                                                                        <i class="fas fa-building"></i>
-                                                                    </div>
-                                                                </a>
-                                                                <div class="small-box-footer text-center">
-                                                                    <?php echo $facultyDepartment->hod; ?>
-                                                                    <!-- Push Deparment Info  To The Right -->
-                                                                    <button type="button" class="fas fa-info-circle float-right" data-toggle="modal" data-target="#modal-sm-<?php echo $facultyDepartment->id; ?>"></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Department Details Modal -->
-                                                        <div class="modal fade" id="modal-sm-<?php echo $facultyDepartment->id; ?>">
-                                                            <div class="modal-dialog modal-lg">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h4 class="modal-title"><?php echo $facultyDepartment->name; ?> Description</h4>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <?php echo $facultyDepartment->details; ?>
-                                                                    </div>
-                                                                    <div class="modal-footer justify-content-between">
-                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                    <!-- Add New Department -->
-                                                    <div class="col-lg-4 col-6">
-                                                        <a data-toggle="modal" href="#modal-default">
-                                                            <div class="small-box bg-success">
-                                                                <div class="inner">
-                                                                    <h4 class="text-center">
-                                                                        Register New Department
-                                                                    </h4>
-                                                                </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-building"></i>
-                                                                </div>
-                                                                <div class="small-box-footer text-center">
-                                                                    <i class="fas fa-plus"></i>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
+                                            <div class="row">
+
                                             </div>
                                         </div>
                                     </div>
