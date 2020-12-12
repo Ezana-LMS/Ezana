@@ -105,7 +105,6 @@ if (isset($_POST['update_lec'])) {
         $error = 1;
         $err = "Phone Number Cannot Be Empty";
     }
-
     if (!$error) {
         $view = $_POST['view'];/* Faculty ID */
         $id = $_POST['id'];
