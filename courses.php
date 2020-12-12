@@ -404,7 +404,7 @@ require_once('public/partials/_head.php');
                                                                                             <div class="row">
                                                                                                 <div class="form-group col-md-12">
                                                                                                     <label for="exampleInputPassword1">Course Description</label>
-                                                                                                    <textarea required name="details" id="dep_memo" rows="10" class="form-control"><?php echo $courses->details; ?></textarea>
+                                                                                                    <textarea required name="details" id="editor-<?php echo $courses->id; ?>" rows="10" class="form-control"><?php echo $courses->details; ?></textarea>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -413,6 +413,11 @@ require_once('public/partials/_head.php');
                                                                                         </div>
                                                                                     </form>
                                                                                     <!-- End Update Course Form -->
+                                                                                    <!-- Inline CK Editor Script -->
+                                                                                    <script>
+                                                                                        CKEDITOR.replace('editor-<?php echo $courses->id; ?>');
+                                                                                    </script>
+                                                                                    <!-- End Inline Ck Editor Script -->
 
                                                                                 </div>
                                                                                 <div class="modal-footer justify-content-between">

@@ -383,7 +383,7 @@ require_once('public/partials/_head.php');
                                                                                             <div class="row">
                                                                                                 <div class="form-group col-md-12">
                                                                                                     <label for="exampleInputPassword1">Department Details</label>
-                                                                                                    <textarea name="details" id="textarea" rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
+                                                                                                    <textarea name="details" id="<?php echo $dep->id; ?>" rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -399,6 +399,11 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                     <!-- Update Department Modal -->
+                                                                    <!-- CK Editor Inline  -->
+                                                                    <script>
+                                                                        CKEDITOR.replace('<?php echo $dep->id; ?>');
+                                                                    </script>
+                                                                    <!-- ./ End CK Editor Inline -->
 
                                                                     <a class="badge badge-danger" href="departments.php?delete=<?php echo $dep->id; ?>">
                                                                         <i class="fas fa-trash"></i>

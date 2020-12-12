@@ -238,33 +238,33 @@ require_once('public/partials/_head.php');
                                                         <ul class="list-group">
 
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="">
+                                                                <a href="faculty_departments.php?view=<?php echo $results['id']; ?>">
                                                                     Departments
                                                                 </a>
                                                             </li>
 
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="">
+                                                                <a href="faculty_courses.php?view=<?php echo $results['id']; ?>">
                                                                     Courses
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="">
+                                                                <a href="faculty_modules.php?view=<?php echo $results['id']; ?>">
                                                                     Modules
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="">
+                                                                <a href="school_calendar.phpview=<?php echo $results['id']; ?>">
                                                                     Calendar
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="">
+                                                                <a href="faculty_lects.php?view=<?php echo $results['id']; ?>">
                                                                     Lecturers
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="">
+                                                                <a href="faculty_students.php?view=<?php echo $results['id']; ?>">
                                                                     Students
                                                                 </a>
                                                             </li>
