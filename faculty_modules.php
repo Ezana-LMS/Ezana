@@ -487,7 +487,7 @@ require_once('public/partials/_head.php');
                                                                                                 <div class="row">
                                                                                                     <div class="form-group col-md-12">
                                                                                                         <label for="exampleInputPassword1">Module Details</label>
-                                                                                                        <textarea required id="dep_details" name="details" rows="10" class="form-control"><?php echo $mod->details; ?></textarea>
+                                                                                                        <textarea required id="dep_details" name="<?php echo $mod->id; ?>" rows="10" class="form-control"><?php echo $mod->details; ?></textarea>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -496,6 +496,9 @@ require_once('public/partials/_head.php');
                                                                                             </div>
                                                                                         </form>
                                                                                         <!-- End Module Form -->
+                                                                                        <script>
+                                                                                            CKEDITOR.replace('<?php echo $mod->id; ?>');
+                                                                                        </script>
                                                                                     </div>
                                                                                     <div class="modal-footer justify-content-between">
                                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
