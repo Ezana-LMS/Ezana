@@ -330,7 +330,7 @@ require_once('public/partials/_head.php');
                                         <div class="card card-primary">
                                             <div class="card-header">
                                                 <h3 class="card-title">
-                                                    <a href="department_details.php?view=<?php echo $department->id;?>">
+                                                    <a href="department_details.php?view=<?php echo $department->id; ?>">
                                                         <?php echo $department->name; ?>
                                                     </a>
                                                 </h3>
@@ -565,7 +565,7 @@ require_once('public/partials/_head.php');
                                                                                                             <div class="row">
                                                                                                                 <div class="form-group col-md-12">
                                                                                                                     <label for="exampleInputPassword1">Type Departmental Memo | Notice</label>
-                                                                                                                    <textarea name="departmental_memo" id="textarea" rows="10" class="form-control"><?php echo $memo->departmental_memo; ?></textarea>
+                                                                                                                    <textarea name="departmental_memo" id="editor-<?php echo $memo->id; ?>" rows="10" class="form-control"><?php echo $memo->departmental_memo; ?></textarea>
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                         </div>
@@ -573,6 +573,11 @@ require_once('public/partials/_head.php');
                                                                                                             <button type="submit" name="update" class="btn btn-primary">Update</button>
                                                                                                         </div>
                                                                                                     </form>
+                                                                                                    <!-- Inline CK Editor -->
+                                                                                                    <script>
+                                                                                                        CKEDITOR.replace('editor-<?php echo $memo->id; ?>');
+                                                                                                    </script>
+                                                                                                    <!-- Inline CK Edior Script -->
                                                                                                 </div>
                                                                                                 <div class="modal-footer justify-content-between">
                                                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -699,7 +704,7 @@ require_once('public/partials/_head.php');
                                                             Mails
                                                         </div>
                                                         <div class="card-body">
-
+                                                            <!--Complex ASF -->
                                                         </div>
                                                     </div>
                                                 </div>
