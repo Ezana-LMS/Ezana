@@ -97,7 +97,7 @@ if (isset($_POST['update_course'])) {
 /* Delete Course */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $view= $_GET['view'];
+    $view = $_GET['view'];
     $adn = "DELETE FROM ezanaLMS_Courses WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
@@ -214,7 +214,7 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $faculty->name;?> Courses</h1>
+                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Courses</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -413,7 +413,7 @@ require_once('public/partials/_head.php');
                                                                                                 <div class="row">
                                                                                                     <div class="form-group col-md-12">
                                                                                                         <label for="exampleInputPassword1">Course Description</label>
-                                                                                                        <textarea required name="details" id="dep_memo" rows="10" class="form-control"><?php echo $courses->details; ?></textarea>
+                                                                                                        <textarea required name="details" id="editor-<?php echo $courses->id; ?>" rows="10" class="form-control"><?php echo $courses->details; ?></textarea>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -421,8 +421,12 @@ require_once('public/partials/_head.php');
                                                                                                 <button type="submit" name="update_course" class="btn btn-primary">Update</button>
                                                                                             </div>
                                                                                         </form>
+                                                                                        <!-- Inline CK Editor Script -->
+                                                                                        <script>
+                                                                                            CKEDITOR.replace('editor-<?php echo $courses->id; ?>');
+                                                                                        </script>
+                                                                                        <!-- End Inline Ck Editor Script -->
                                                                                         <!-- End Update Course Form -->
-
                                                                                     </div>
                                                                                     <div class="modal-footer justify-content-between">
                                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
