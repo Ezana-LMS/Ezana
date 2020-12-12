@@ -33,7 +33,7 @@ if (isset($_POST['add_school_calendar'])) {
         $error = 1;
         $err = "Semester Closing  Dates Cannot Be Empty";
     }
-    if (isset($_GET['view']) && !empty($_GET['view'])) {
+    if (isset($_POST['view']) && !empty($_POST['view'])) {
         $view = mysqli_real_escape_string($mysqli, trim($_GET['view']));
     } else {
         $error = 1;
@@ -54,7 +54,7 @@ if (isset($_POST['add_school_calendar'])) {
             $semester_start = $_POST['semester_start'];
             $semester_name = $_POST['semester_name'];
             $semester_end = $_POST['semester_end'];
-            $view = $_GET['view'];
+            $view = $_POST['view'];
 
             $query = "INSERT INTO ezanaLMS_Calendar (id, faculty_id,  academic_yr, semester_start, semester_name, semester_end) VALUES(?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
@@ -69,6 +69,57 @@ if (isset($_POST['add_school_calendar'])) {
     }
 }
 
+/* Update Important Dates */
+
+if (isset($_POST['update_school_calendar'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['academic_yr']) && !empty($_POST['academic_yr'])) {
+        $academic_yr = mysqli_real_escape_string($mysqli, trim($_POST['academic_yr']));
+    } else {
+        $error = 1;
+        $err = "Academic Year Cannot Be Empty";
+    }
+    if (isset($_POST['semester_name']) && !empty($_POST['semester_name'])) {
+        $semester_name = mysqli_real_escape_string($mysqli, trim($_POST['semester_name']));
+    } else {
+        $error = 1;
+        $err = "Semester Name Cannot Be Empty";
+    }
+    if (isset($_POST['semester_start']) && !empty($_POST['semester_start'])) {
+        $semester_start = mysqli_real_escape_string($mysqli, trim($_POST['semester_start']));
+    } else {
+        $error = 1;
+        $err = "Semester Opening Dates Cannot Be Empty";
+    }
+    if (isset($_POST['semester_end']) && !empty($_POST['semester_end'])) {
+        $semester_end = mysqli_real_escape_string($mysqli, trim($_POST['semester_end']));
+    } else {
+        $error = 1;
+        $err = "Semester Closing  Dates Cannot Be Empty";
+    }
+    if (!$error) {
+
+        $id = $_POST['id'];
+        $academic_yr = $_POST['academic_yr'];
+        $semester_start = $_POST['semester_start'];
+        $semester_name = $_POST['semester_name'];
+        $semester_end = $_POST['semester_end'];
+        /* fACULTY id */
+        $view = $_POST['view'];
+
+
+        $query = "UPDATE ezanaLMS_Calendar SET academic_yr =?, semester_start =?, semester_name =?, semester_end =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssss',  $academic_yr, $semester_start, $semester_name, $semester_end, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Educational Dates Updated" && header("refresh:1; url=school_calendar.php?view=$view");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
 /* Delete Important Dates */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
@@ -228,6 +279,7 @@ require_once('public/partials/_head.php');
                                                                     <label for="">Semester Name</label>
                                                                     <input type="text" required name="semester_name" class="form-control" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <input type="hidden" required name="view" value="<?php echo $faculty->id; ?>" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Academic Year Name</label>
@@ -355,7 +407,35 @@ require_once('public/partials/_head.php');
                                                                                                 </button>
                                                                                             </div>
                                                                                             <div class="modal-body">
-
+                                                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                                                    <div class="card-body">
+                                                                                                        <div class="row">
+                                                                                                            <div class="form-group col-md-6">
+                                                                                                                <label for="">Semester Name</label>
+                                                                                                                <input type="text" value="<?php echo $cal->semester_name; ?>" required name="semester_name" class="form-control" id="exampleInputEmail1">
+                                                                                                                <input type="hidden" required name="id" value="<?php echo $cal->id; ?>" class="form-control">
+                                                                                                                <input type="hidden" required name="view" value="<?php echo $cal->faculty_id; ?>" class="form-control">
+                                                                                                            </div>
+                                                                                                            <div class="form-group col-md-6">
+                                                                                                                <label for="">Academic Year Name</label>
+                                                                                                                <input type="text" value="<?php echo $cal->academic_yr; ?>" required name="academic_yr" class="form-control">
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="row">
+                                                                                                            <div class="form-group col-md-6">
+                                                                                                                <label for="">Semester Opening Dates</label>
+                                                                                                                <input type="date" value="<?php echo $cal->semester_start; ?>" required name="semester_start" class="form-control" id="exampleInputEmail1">
+                                                                                                            </div>
+                                                                                                            <div class="form-group col-md-6">
+                                                                                                                <label for="">Semester Closing Dates</label>
+                                                                                                                <input type="date" value="<?php echo $cal->semester_end; ?>" required name="semester_end" class="form-control">
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="card-footer text-right">
+                                                                                                        <button type="submit" name="update_school_calendar" class="btn btn-primary">Submit</button>
+                                                                                                    </div>
+                                                                                                </form>
                                                                                             </div>
                                                                                             <div class="modal-footer justify-content-between">
                                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
