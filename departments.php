@@ -398,7 +398,7 @@ require_once('public/partials/_head.php');
                                                                                             <div class="row">
                                                                                                 <div class="form-group col-md-12">
                                                                                                     <label for="exampleInputPassword1">Department Details</label>
-                                                                                                    <textarea name="details" id="editor-<?php echo $dep->details; ?>" rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
+                                                                                                    <textarea name="details" id="<?php echo $dep->id; ?>" rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -408,7 +408,7 @@ require_once('public/partials/_head.php');
                                                                                     </form>
                                                                                     <!-- Inline CK Editor Script -->
                                                                                     <script>
-                                                                                        CKEDITOR.replace('editor-<?php echo $dep->details; ?>');
+                                                                                        CKEDITOR.replace('<?php echo $dep->id; ?>');
                                                                                     </script>
                                                                                     <!-- End Inline Ck Editor Script -->
                                                                                 </div>
