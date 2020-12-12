@@ -108,7 +108,7 @@ if (isset($_POST['update_lec'])) {
 
     if (!$error) {
         $view = $_POST['view'];/* Faculty ID */
-        $id = $_GET['id'];
+        $id = $_POST['id'];
         $name = $_POST['name'];
         $email = $_POST['email'];
         $phone = $_POST['phone'];
