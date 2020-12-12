@@ -419,7 +419,6 @@ require_once('public/partials/_head.php');
                                                                 <div class="icon">
                                                                     <i class="fas fa-building"></i>
                                                                 </div>
-
                                                                 <div class="small-box-footer text-center">
                                                                     <i class="fas fa-plus"></i>
                                                                 </div>
