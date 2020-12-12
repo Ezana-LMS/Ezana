@@ -687,7 +687,7 @@ require_once('public/partials/_head.php');
                                                                         ?>
                                                                         <hr>
                                                                         <div class="row">
-                                                                            <a class="badge badge-danger" href="">
+                                                                            <a class="badge badge-danger" href="department.php?delete=<?php echo $memo->id;?>&view=<?php echo $department->id;?>">
                                                                                 <i class="fas fa-trash"></i>
                                                                                 Delete
                                                                             </a>
