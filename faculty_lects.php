@@ -81,7 +81,7 @@ if (isset($_POST['add_lec'])) {
 /* Delete Lec */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $view = $_GET['view'];
+    $view = $_GET['view'];/* Faculty ID */
     $adn = "DELETE FROM ezanaLMS_Lecturers WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
@@ -277,7 +277,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Address</label>
-                                                                    <textarea required name="adr" rows="5" id="textarea" class="form-control"></textarea>
+                                                                    <textarea required name="adr" rows="5" class="form-control"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -348,7 +348,52 @@ require_once('public/partials/_head.php');
                                                 <div class="col-12">
                                                     <div class="card">
                                                         <div class="card-body">
+                                                            <table id="example1" class="table table-bordered table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>Lec Number</th>
+                                                                        <th>Name</th>
+                                                                        <th>Email</th>
+                                                                        <th>Phone</th>
+                                                                        <th>ID / Passport No</th>
+                                                                        <th>Manage </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$row->id'  ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    $cnt = 1;
+                                                                    while ($lec = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <tr>
+                                                                            <td><?php echo $cnt; ?></td>
+                                                                            <td><?php echo $lec->number; ?></td>
+                                                                            <td><?php echo $lec->name; ?></td>
+                                                                            <td><?php echo $lec->email; ?></td>
+                                                                            <td><?php echo $lec->phone; ?></td>
+                                                                            <td><?php echo $lec->idno; ?></td>
+                                                                            <td>
+                                                                                <a class="badge badge-primary" data-target="modal" href="#update-lecturer-<?php echo $lec->id; ?>">
+                                                                                    <i class="fas fa-edit"></i>
+                                                                                    Update Lecturer
+                                                                                </a>
+                                                                                <!-- Update Lec Modal -->
 
+                                                                                <!-- End Lec Modal -->
+                                                                                <a class="badge badge-danger" href="faculty_lects.php?delete=<?php echo $lec->id; ?>&view=<?php echo $faculty->id; ?>">
+                                                                                    <i class="fas fa-trash"></i>
+                                                                                    Delete Lecturer
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php $cnt = $cnt + 1;
+                                                                    } ?>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
