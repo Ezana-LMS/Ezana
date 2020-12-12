@@ -236,7 +236,7 @@ require_once('public/partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item"><a href="faculty.php?view=<?php echo $view; ?>"><?php echo $faculty->name; ?></a></li>
+                                    <li class="breadcrumb-item"><a href="faculty_dashboard.php?view=<?php echo $view; ?>"><?php echo $faculty->name; ?></a></li>
                                     <li class="breadcrumb-item active">Modules</li>
                                 </ol>
                             </div>
