@@ -78,6 +78,59 @@ if (isset($_POST['add_lec'])) {
 }
 /* Update Lec */
 
+if (isset($_POST['update_lec'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['number']) && !empty($_POST['number'])) {
+        $number = mysqli_real_escape_string($mysqli, trim($_POST['number']));
+    } else {
+        $error = 1;
+        $err = "Lecturer Number Cannot Be Empty";
+    }
+    if (isset($_POST['idno']) && !empty($_POST['idno'])) {
+        $idno = mysqli_real_escape_string($mysqli, trim($_POST['idno']));
+    } else {
+        $error = 1;
+        $err = "National ID / Passport Number Cannot Be Empty";
+    }
+    if (isset($_POST['email']) && !empty($_POST['email'])) {
+        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
+    } else {
+        $error = 1;
+        $err = "Email Cannot Be Empty";
+    }
+    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
+        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
+    } else {
+        $error = 1;
+        $err = "Phone Number Cannot Be Empty";
+    }
+
+    if (!$error) {
+        $view = $_POST['view'];/* Faculty ID */
+        $id = $_GET['id'];
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $number = $_POST['number'];
+        $idno  = $_POST['idno'];
+        $adr = $_POST['adr'];
+        $profile_pic = $_FILES['profile_pic']['name'];
+        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $_FILES["profile_pic"]["name"]);
+
+        $query = "UPDATE ezanaLMS_Lecturers SET  name =?, email =?, phone =?, idno =?, adr =?, profile_pic =?, number =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ssssssss', $name, $email, $phone, $idno, $adr, $profile_pic, $number, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Lecturer Updated" && header("refresh:1; url=faculty_lects.php?view=$view");
+        } else {
+            //inject alert that profile update task failed
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
 /* Delete Lec */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
@@ -352,17 +405,17 @@ require_once('public/partials/_head.php');
                                                                 <thead>
                                                                     <tr>
                                                                         <th>#</th>
-                                                                        <th>Lec Number</th>
+                                                                        <th> Number</th>
                                                                         <th>Name</th>
                                                                         <th>Email</th>
                                                                         <th>Phone</th>
-                                                                        <th>ID / Passport No</th>
-                                                                        <th>Manage </th>
+                                                                        <th>ID/Passport </th>
+                                                                        <th>Manage</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$row->id'  ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$faculty->id'  ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
@@ -377,16 +430,33 @@ require_once('public/partials/_head.php');
                                                                             <td><?php echo $lec->phone; ?></td>
                                                                             <td><?php echo $lec->idno; ?></td>
                                                                             <td>
-                                                                                <a class="badge badge-primary" data-target="modal" href="#update-lecturer-<?php echo $lec->id; ?>">
+                                                                                <a class="badge badge-primary" data-toggle="modal" href="#update-lecturer-<?php echo $lec->id; ?>">
                                                                                     <i class="fas fa-edit"></i>
-                                                                                    Update Lecturer
+                                                                                    Update
                                                                                 </a>
                                                                                 <!-- Update Lec Modal -->
+                                                                                <div class="modal fade" id="update-lecturer-<?php echo $lec->id; ?>">
+                                                                                    <div class="modal-dialog  modal-lg">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header">
+                                                                                                <h4 class="modal-title">Fill All Values </h4>
+                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <div class="modal-body">
 
+                                                                                            </div>
+                                                                                            <div class="modal-footer justify-content-between">
+                                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
                                                                                 <!-- End Lec Modal -->
                                                                                 <a class="badge badge-danger" href="faculty_lects.php?delete=<?php echo $lec->id; ?>&view=<?php echo $faculty->id; ?>">
                                                                                     <i class="fas fa-trash"></i>
-                                                                                    Delete Lecturer
+                                                                                    Delete
                                                                                 </a>
                                                                             </td>
                                                                         </tr>
