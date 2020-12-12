@@ -6,6 +6,61 @@ require_once('configs/codeGen.php');
 check_login();
 /* Add Important Dates */
 
+if (isset($_POST['add_school_calendar'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['academic_yr']) && !empty($_POST['academic_yr'])) {
+        $academic_yr = mysqli_real_escape_string($mysqli, trim($_POST['academic_yr']));
+    } else {
+        $error = 1;
+        $err = "Academic Year Cannot Be Empty";
+    }
+    if (isset($_POST['semester_name']) && !empty($_POST['semester_name'])) {
+        $semester_name = mysqli_real_escape_string($mysqli, trim($_POST['semester_name']));
+    } else {
+        $error = 1;
+        $err = "Semester Name Cannot Be Empty";
+    }
+    if (isset($_POST['semester_start']) && !empty($_POST['semester_start'])) {
+        $semester_start = mysqli_real_escape_string($mysqli, trim($_POST['semester_start']));
+    } else {
+        $error = 1;
+        $err = "Semester Opening Dates Cannot Be Empty";
+    }
+    if (isset($_POST['semester_end']) && !empty($_POST['semester_end'])) {
+        $semester_end = mysqli_real_escape_string($mysqli, trim($_POST['semester_end']));
+    } else {
+        $error = 1;
+        $err = "Semester Closing  Dates Cannot Be Empty";
+    }
+    if (!$error) {
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_Calendar WHERE  semester_name='$semester_name'  ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($semester_name == $row['semester_name']) {
+                $err =  "Semester Name Already Exists";
+            }
+        } else {
+            $id = $_POST['id'];
+            $academic_yr = $_POST['academic_yr'];
+            $semester_start = $_POST['semester_start'];
+            $semester_name = $_POST['semester_name'];
+            $semester_end = $_POST['semester_end'];
+
+            $query = "INSERT INTO ezanaLMS_Calendar (id, academic_yr, semester_start, semester_name, semester_end) VALUES(?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('sssss', $id, $academic_yr, $semester_start, $semester_name, $semester_end);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Educational Dates Added" && header("refresh:1; url=add_school_calendar.php");
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
 /* Delete Important Dates */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
@@ -212,14 +267,84 @@ require_once('public/partials/_head.php');
                                                 <h1 class="display-4">Important Dates</h1>
                                             </div>
                                             <div class="text-left">
-                                                <a href="dashboard.php" class="btn btn-outline-success">
+                                                <a href="faculty_dashboard.php?view=<?php echo $view; ?>" class="btn btn-outline-success">
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
                                                 </a>
                                             </div>
                                             <br>
                                             <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <table id="example1" class="table table-bordered table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>Semester</th>
+                                                                        <th>Opening </th>
+                                                                        <th>Closing </th>
+                                                                        <th>Academic Year</th>
+                                                                        <th>Manage</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$view'  ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    $cnt = 1;
+                                                                    while ($cal = $res->fetch_object()) {
+                                                                    ?>
 
+                                                                        <tr>
+                                                                            <td><?php echo $cnt; ?></td>
+                                                                            <td><?php echo $cal->semester_name; ?></td>
+                                                                            <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
+                                                                            <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
+                                                                            <td><?php echo $cal->academic_yr; ?></td>
+                                                                            <td>
+                                                                                <a class="badge badge-primary" data-toggle="modal" href="#update-calendar-<?php echo $cal->id; ?>">
+                                                                                    <i class="fas fa-edit"></i>
+                                                                                    Update
+                                                                                </a>
+                                                                                <!-- Update Modal -->
+                                                                                <div class="modal fade" id="update-calendar-<?php echo $cal->id; ?>">
+                                                                                    <div class="modal-dialog  modal-lg">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header">
+                                                                                                <h4 class="modal-title">Fill All Values </h4>
+                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <div class="modal-body">
+
+                                                                                            </div>
+                                                                                            <div class="modal-footer justify-content-between">
+                                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!-- End Update Modal -->
+
+                                                                                <a class="badge badge-danger" href="school_calendar.php?delete=<?php echo $cal->id; ?>&view=<?php echo $view; ?>">
+                                                                                    <i class="fas fa-trash"></i>
+                                                                                    Delete
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php $cnt = $cnt + 1;
+                                                                    } ?>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+                                                    <!-- /.card -->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
