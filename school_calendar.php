@@ -33,14 +33,20 @@ if (isset($_POST['add_school_calendar'])) {
         $error = 1;
         $err = "Semester Closing  Dates Cannot Be Empty";
     }
+    if (isset($_GET['view']) && !empty($_GET['view'])) {
+        $view = mysqli_real_escape_string($mysqli, trim($_GET['view']));
+    } else {
+        $error = 1;
+        $err = "Faculty ID  Dates Cannot Be Empty";
+    }
     if (!$error) {
         //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Calendar WHERE  semester_name='$semester_name'  ";
+        $sql = "SELECT * FROM  ezanaLMS_Calendar WHERE  (semester_name='$semester_name' AND academic_yr = '$academic_yr' AND faculty_id = '$view')   ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
-            if ($semester_name == $row['semester_name']) {
-                $err =  "Semester Name Already Exists";
+            if (($semester_name == $row['semester_name']) && ($academic_yr == $row['academic_yr']) && ($view == $row['faculty_id'])) {
+                $err =  "Academic Dates Already Added";
             }
         } else {
             $id = $_POST['id'];
@@ -48,13 +54,14 @@ if (isset($_POST['add_school_calendar'])) {
             $semester_start = $_POST['semester_start'];
             $semester_name = $_POST['semester_name'];
             $semester_end = $_POST['semester_end'];
+            $view = $_GET['view'];
 
-            $query = "INSERT INTO ezanaLMS_Calendar (id, academic_yr, semester_start, semester_name, semester_end) VALUES(?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Calendar (id, faculty_id,  academic_yr, semester_start, semester_name, semester_end) VALUES(?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssss', $id, $academic_yr, $semester_start, $semester_name, $semester_end);
+            $rc = $stmt->bind_param('ssssss', $id, $view,  $academic_yr, $semester_start, $semester_name, $semester_end);
             $stmt->execute();
             if ($stmt) {
-                $success = "Educational Dates Added" && header("refresh:1; url=add_school_calendar.php");
+                $success = "Educational Dates Added" && header("refresh:1; url=school_calendar.php?view=$view");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
