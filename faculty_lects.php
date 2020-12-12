@@ -6,7 +6,6 @@ require_once('configs/codeGen.php');
 check_login();
 
 /* Add Lec */
-
 if (isset($_POST['add_lec'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -231,7 +230,61 @@ require_once('public/partials/_head.php');
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Name</label>
+                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <input type="hidden" required name="view" value="<?php echo $faculty->id; ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Number</label>
+                                                                    <input type="text" required name="number" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">ID / Passport Number</label>
+                                                                    <input type="text" required name="idno" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Email</label>
+                                                                    <input type="email" required name="email" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Phone Number</label>
+                                                                    <input type="text" required name="phone" class="form-control">
+                                                                </div>
+                                                            </div>
 
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Password</label>
+                                                                    <input type="text" value="<?php echo $defaultPass; ?>" required name="password" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Profile Picture</label>
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <input required name="profile_pic" type="file" class="custom-file-input">
+                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="exampleInputPassword1">Address</label>
+                                                                    <textarea required name="adr" rows="5" id="textarea" class="form-control"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer text-right">
+                                                            <button type="submit" name="add_lec" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
