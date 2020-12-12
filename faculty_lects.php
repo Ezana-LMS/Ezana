@@ -61,7 +61,7 @@ if (isset($_POST['add_lec'])) {
             $created_at = date('d M Y');
             $password = sha1(md5($_POST['password']));
             $profile_pic = $_FILES['profile_pic']['name'];
-            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "dist/img/lecturers/" . $_FILES["profile_pic"]["name"]);
+            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $_FILES["profile_pic"]["name"]);
 
             $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, name, email, phone, idno, adr, profile_pic, created_at, password, number) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
