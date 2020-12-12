@@ -4,8 +4,8 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-/* Add Important Dates */
 
+/* Add Important Dates */
 if (isset($_POST['add_school_calendar'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -68,6 +68,7 @@ if (isset($_POST['add_school_calendar'])) {
         }
     }
 }
+
 /* Delete Important Dates */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
@@ -220,7 +221,34 @@ require_once('public/partials/_head.php');
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Semester Name</label>
+                                                                    <input type="text" required name="semester_name" class="form-control" id="exampleInputEmail1">
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Academic Year Name</label>
+                                                                    <input type="text" required name="academic_yr" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Semester Opening Dates</label>
+                                                                    <input type="date" required name="semester_start" class="form-control" id="exampleInputEmail1">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Semester Closing Dates</label>
+                                                                    <input type="date" required name="semester_end" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer text-right">
+                                                            <button type="submit" name="add_school_calendar" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
