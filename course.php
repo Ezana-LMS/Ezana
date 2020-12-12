@@ -434,7 +434,7 @@ require_once('public/partials/_head.php');
                                                     while ($module = $res->fetch_object()) {
                                                     ?>
                                                         <div class="col-md-6">
-                                                            <a href="module.php?view=<?php echo $module->id;?>">
+                                                            <a href="module.php?view=<?php echo $module->id; ?>">
                                                                 <div class="card card-success collapsed-card">
                                                                     <div class="card-header">
                                                                         <h3 class="card-title"><?php echo $module->name; ?> </h3>
