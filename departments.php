@@ -267,7 +267,7 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Department Details</label>
-                                                                <textarea name="details" id="dep_details" rows="10" class="form-control"></textarea>
+                                                                <textarea name="details"  rows="10" class="form-control"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
