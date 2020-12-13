@@ -143,14 +143,6 @@ require_once('public/partials/_head.php');
         <!-- Navbar -->
         <?php
         require_once('public/partials/_nav.php');
-        $view = $_GET['view'];
-        $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id= '$view' ";
-        $stmt = $mysqli->prepare($ret);
-        $stmt->execute(); //ok
-        $res = $stmt->get_result();
-        while ($faculty = $res->fetch_object()) {
-            /* Faculty Analytics */
-            require_once('public/partials/_facultyanalyitics.php');
         ?>
             <!-- /.navbar -->
 
@@ -241,13 +233,12 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?></h1>
+                                <h1 class="m-0 text-dark">Overall School Calendar</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item active"><?php echo $faculty->name; ?></li>
+                                    <li class="breadcrumb-item active">Overall School Calendar</li>
                                 </ol>
                             </div>
                         </div>
@@ -279,7 +270,6 @@ require_once('public/partials/_head.php');
                                                                     <label for="">Semester Name</label>
                                                                     <input type="text" required name="semester_name" class="form-control" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <input type="hidden" required name="view" value="<?php echo $faculty->id; ?>" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Academic Year Name</label>
@@ -354,7 +344,7 @@ require_once('public/partials/_head.php');
                                                 <h1 class="display-4">Important Dates</h1>
                                             </div>
                                             <div class="text-left">
-                                                <a href="faculty_dashboard.php?view=<?php echo $view; ?>" class="btn btn-outline-success">
+                                                <a href="dashboard.php" class="btn btn-outline-success">
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
                                                 </a>
@@ -377,7 +367,7 @@ require_once('public/partials/_head.php');
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$view'  ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Calendar`  ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
@@ -414,7 +404,6 @@ require_once('public/partials/_head.php');
                                                                                                                 <label for="">Semester Name</label>
                                                                                                                 <input type="text" value="<?php echo $cal->semester_name; ?>" required name="semester_name" class="form-control" id="exampleInputEmail1">
                                                                                                                 <input type="hidden" required name="id" value="<?php echo $cal->id; ?>" class="form-control">
-                                                                                                                <input type="hidden" required name="view" value="<?php echo $cal->faculty_id; ?>" class="form-control">
                                                                                                             </div>
                                                                                                             <div class="form-group col-md-6">
                                                                                                                 <label for="">Academic Year Name</label>
