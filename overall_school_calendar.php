@@ -144,325 +144,350 @@ require_once('public/partials/_head.php');
         <?php
         require_once('public/partials/_nav.php');
         ?>
-            <!-- /.navbar -->
+        <!-- /.navbar -->
 
-            <!-- Main Sidebar Container -->
-            <aside class="main-sidebar sidebar-dark-primary elevation-4">
-                <!-- Brand Logo -->
-                <a href="dashboard.php" class="brand-link">
-                    <img src="public/dist/img/logo.png" alt="Ezana LMS Logo" class="brand-image img-circle elevation-3">
-                    <span class="brand-text font-weight-light">Ezana LMS</span>
-                </a>
-                <!-- Sidebar -->
-                <div class="sidebar">
-                    <!-- Sidebar Menu -->
-                    <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <li class="nav-item">
-                                <a href="dashboard.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Dashboard
-                                    </p>
-                                </a>
-                            </li>
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="dashboard.php" class="brand-link">
+                <img src="public/dist/img/logo.png" alt="Ezana LMS Logo" class="brand-image img-circle elevation-3">
+                <span class="brand-text font-weight-light">Ezana LMS</span>
+            </a>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-item">
+                            <a href="dashboard.php" class=" nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
 
-                            <li class="nav-item">
-                                <a href="faculties.php" class="active nav-link">
-                                    <i class="nav-icon fas fa-university"></i>
-                                    <p>
-                                        Faculties
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="departments.php" class="nav-link">
-                                    <i class="nav-icon fas fa-building"></i>
-                                    <p>
-                                        Departments
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="courses.php" class="nav-link">
-                                    <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                                    <p>
-                                        Courses
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="modules.php" class="nav-link">
-                                    <i class="nav-icon fas fa-chalkboard"></i>
-                                    <p>
-                                        Modules
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="lecturers.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-tie"></i>
-                                    <p>
-                                        Lecturers
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="students.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-graduate"></i>
-                                    <p>
-                                        Students
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="settings.php" class="nav-link">
-                                    <i class="nav-icon fas fa-cogs"></i>
-                                    <p>
-                                        System Settings
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </aside>
+                        <li class="nav-item">
+                            <a href="faculties.php" class="active nav-link">
+                                <i class="nav-icon fas fa-university"></i>
+                                <p>
+                                    Faculties
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="departments.php" class="nav-link">
+                                <i class="nav-icon fas fa-building"></i>
+                                <p>
+                                    Departments
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="courses.php" class="nav-link">
+                                <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                                <p>
+                                    Courses
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="modules.php" class="nav-link">
+                                <i class="nav-icon fas fa-chalkboard"></i>
+                                <p>
+                                    Modules
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="lecturers.php" class="nav-link">
+                                <i class="nav-icon fas fa-user-tie"></i>
+                                <p>
+                                    Lecturers
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="students.php" class="nav-link">
+                                <i class="nav-icon fas fa-user-graduate"></i>
+                                <p>
+                                    Students
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="settings.php" class="nav-link">
+                                <i class="nav-icon fas fa-cogs"></i>
+                                <p>
+                                    System Settings
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
 
-            <div class="content-wrapper">
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1 class="m-0 text-dark">Overall School Calendar</h1>
-                            </div>
-                            <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item active">Overall School Calendar</li>
-                                </ol>
-                            </div>
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-dark">Overall School Calendar</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                                <li class="breadcrumb-item active">Overall School Calendar</li>
+                            </ol>
                         </div>
                     </div>
+                </div>
 
-                    <section class="content">
-                        <div class="container-fluid">
-                            <div class="text-left">
-                                <nav class="navbar navbar-light bg-light col-md-12">
-                                    <form class="form-inline" action="faculty_search_result.php" method="GET">
-                                        <input class="form-control mr-sm-2" type="search" name="query" placeholder="Faculty Name Or Code">
-                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                                    </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Important Dates</button>
-                                    <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Fill All Values </h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Semester Name</label>
-                                                                    <input type="text" required name="semester_name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Academic Year Name</label>
-                                                                    <input type="text" required name="academic_yr" class="form-control">
-                                                                </div>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="text-left">
+                            <nav class="navbar navbar-light bg-light col-md-12">
+                                <form class="form-inline" action="faculty_search_result.php" method="GET">
+                                    <input class="form-control mr-sm-2" type="search" name="query" placeholder="Faculty Name Or Code">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                </form>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Important Dates</button>
+                                <div class="modal fade" id="modal-default">
+                                    <div class="modal-dialog  modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Fill All Values </h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Semester Name</label>
+                                                                <input type="text" required name="semester_name" class="form-control" id="exampleInputEmail1">
+                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Semester Opening Dates</label>
-                                                                    <input type="date" required name="semester_start" class="form-control" id="exampleInputEmail1">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Semester Closing Dates</label>
-                                                                    <input type="date" required name="semester_end" class="form-control">
-                                                                </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Academic Year Name</label>
+                                                                <input type="text" required name="academic_yr" class="form-control">
                                                             </div>
                                                         </div>
-                                                        <div class="card-footer text-right">
-                                                            <button type="submit" name="add_school_calendar" class="btn btn-primary">Submit</button>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Semester Opening Dates</label>
+                                                                <input type="date" required name="semester_start" class="form-control" id="exampleInputEmail1">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Semester Closing Dates</label>
+                                                                <input type="date" required name="semester_end" class="form-control">
+                                                            </div>
                                                         </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                </div>
+                                                    </div>
+                                                    <div class="card-footer text-right">
+                                                        <button type="submit" name="add_school_calendar" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
                                     </div>
-                                </nav>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-3">
+                                </div>
+                            </nav>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <?php
+                                $ret = "SELECT * FROM `ezanaLMS_Faculties` ORDER BY `name` ASC ";
+                                $stmt = $mysqli->prepare($ret);
+                                $stmt->execute(); //ok
+                                $res = $stmt->get_result();
+                                $cnt = 1;
+                                while ($faculty = $res->fetch_object()) {
+                                ?>
                                     <div class="col-md-12">
-                                        <div class="card card-primary">
+                                        <div class="card card-primary collapsed-card">
                                             <div class="card-header">
-                                                <h3 class="card-title"><?php echo $faculty->name; ?> Departments</h3>
-                                                <div class="card-tools text-right">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
+                                                <a href="faculty_dashboard.php?view=<?php echo $faculty->id; ?>">
+                                                    <h3 class="card-title"><?php echo $cnt; ?>. <?php echo $faculty->name; ?></h3>
+                                                    <div class="card-tools text-right">
+                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </a>
                                             </div>
+
                                             <div class="card-body">
                                                 <ul class="list-group">
-                                                    <?php
-                                                    /* List All Departments Under This Faculty */
-                                                    $departmentFacultyID = $faculty->id;
-                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$departmentFacultyID' ORDER BY `name` ASC  ";
-                                                    $stmt = $mysqli->prepare($ret);
-                                                    $stmt->execute(); //ok
-                                                    $res = $stmt->get_result();
-                                                    $cnt = 1;
-                                                    while ($facultyDepartment = $res->fetch_object()) {
-                                                    ?>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="department.php?view=<?php echo $facultyDepartment->id; ?>">
-                                                                <?php echo $facultyDepartment->name; ?>
-                                                            </a>
-                                                        </li>
-                                                    <?php
-                                                    } ?>
+
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_departments.php?view=<?php echo $faculty->id; ?>">
+                                                            Departments
+                                                        </a>
+                                                    </li>
+
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_courses.php?view=<?php echo $faculty->id; ?>">
+                                                            Courses
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_modules.php?view=<?php echo $faculty->id; ?>">
+                                                            Modules
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="school_calendar.php?view=<?php echo $faculty->id; ?>">
+                                                            Calendar
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_lects.php?view=<?php echo $faculty->id; ?>">
+                                                            Lecturers
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_students.php?view=<?php echo $faculty->id; ?>">
+                                                            Students
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                <?php
+                                    $cnt = $cnt + 1;
+                                } ?>
+                            </div>
 
-                                <div class="col-md-9">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="text-center">
-                                                <h1 class="display-4">Important Dates</h1>
-                                            </div>
-                                            <div class="text-left">
-                                                <a href="dashboard.php" class="btn btn-outline-success">
-                                                    <i class="fas fa-arrow-left"></i>
-                                                    Back
-                                                </a>
-                                            </div>
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <table id="example1" class="table table-bordered table-striped">
-                                                                <thead>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="text-left">
+                                            <a href="dashboard.php" class="btn btn-outline-success">
+                                                <i class="fas fa-arrow-left"></i>
+                                                Back
+                                            </a>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <table id="example1" class="table table-bordered table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Semester</th>
+                                                                    <th>Opening </th>
+                                                                    <th>Closing </th>
+                                                                    <th>Academic Year</th>
+                                                                    <th>Manage</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_Calendar`  ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                $cnt = 1;
+                                                                while ($cal = $res->fetch_object()) {
+                                                                ?>
+
                                                                     <tr>
-                                                                        <th>#</th>
-                                                                        <th>Semester</th>
-                                                                        <th>Opening </th>
-                                                                        <th>Closing </th>
-                                                                        <th>Academic Year</th>
-                                                                        <th>Manage</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Calendar`  ";
-                                                                    $stmt = $mysqli->prepare($ret);
-                                                                    $stmt->execute(); //ok
-                                                                    $res = $stmt->get_result();
-                                                                    $cnt = 1;
-                                                                    while ($cal = $res->fetch_object()) {
-                                                                    ?>
-
-                                                                        <tr>
-                                                                            <td><?php echo $cnt; ?></td>
-                                                                            <td><?php echo $cal->semester_name; ?></td>
-                                                                            <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
-                                                                            <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
-                                                                            <td><?php echo $cal->academic_yr; ?></td>
-                                                                            <td>
-                                                                                <a class="badge badge-primary" data-toggle="modal" href="#update-calendar-<?php echo $cal->id; ?>">
-                                                                                    <i class="fas fa-edit"></i>
-                                                                                    Update
-                                                                                </a>
-                                                                                <!-- Update Modal -->
-                                                                                <div class="modal fade" id="update-calendar-<?php echo $cal->id; ?>">
-                                                                                    <div class="modal-dialog  modal-lg">
-                                                                                        <div class="modal-content">
-                                                                                            <div class="modal-header">
-                                                                                                <h4 class="modal-title">Fill All Values </h4>
-                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                                </button>
-                                                                                            </div>
-                                                                                            <div class="modal-body">
-                                                                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                                                                    <div class="card-body">
-                                                                                                        <div class="row">
-                                                                                                            <div class="form-group col-md-6">
-                                                                                                                <label for="">Semester Name</label>
-                                                                                                                <input type="text" value="<?php echo $cal->semester_name; ?>" required name="semester_name" class="form-control" id="exampleInputEmail1">
-                                                                                                                <input type="hidden" required name="id" value="<?php echo $cal->id; ?>" class="form-control">
-                                                                                                            </div>
-                                                                                                            <div class="form-group col-md-6">
-                                                                                                                <label for="">Academic Year Name</label>
-                                                                                                                <input type="text" value="<?php echo $cal->academic_yr; ?>" required name="academic_yr" class="form-control">
-                                                                                                            </div>
+                                                                        <td><?php echo $cnt; ?></td>
+                                                                        <td><?php echo $cal->semester_name; ?></td>
+                                                                        <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
+                                                                        <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
+                                                                        <td><?php echo $cal->academic_yr; ?></td>
+                                                                        <td>
+                                                                            <a class="badge badge-primary" data-toggle="modal" href="#update-calendar-<?php echo $cal->id; ?>">
+                                                                                <i class="fas fa-edit"></i>
+                                                                                Update
+                                                                            </a>
+                                                                            <!-- Update Modal -->
+                                                                            <div class="modal fade" id="update-calendar-<?php echo $cal->id; ?>">
+                                                                                <div class="modal-dialog  modal-lg">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h4 class="modal-title">Fill All Values </h4>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                                                <div class="card-body">
+                                                                                                    <div class="row">
+                                                                                                        <div class="form-group col-md-6">
+                                                                                                            <label for="">Semester Name</label>
+                                                                                                            <input type="text" value="<?php echo $cal->semester_name; ?>" required name="semester_name" class="form-control" id="exampleInputEmail1">
+                                                                                                            <input type="hidden" required name="id" value="<?php echo $cal->id; ?>" class="form-control">
                                                                                                         </div>
-                                                                                                        <div class="row">
-                                                                                                            <div class="form-group col-md-6">
-                                                                                                                <label for="">Semester Opening Dates</label>
-                                                                                                                <input type="date" value="<?php echo $cal->semester_start; ?>" required name="semester_start" class="form-control" id="exampleInputEmail1">
-                                                                                                            </div>
-                                                                                                            <div class="form-group col-md-6">
-                                                                                                                <label for="">Semester Closing Dates</label>
-                                                                                                                <input type="date" value="<?php echo $cal->semester_end; ?>" required name="semester_end" class="form-control">
-                                                                                                            </div>
+                                                                                                        <div class="form-group col-md-6">
+                                                                                                            <label for="">Academic Year Name</label>
+                                                                                                            <input type="text" value="<?php echo $cal->academic_yr; ?>" required name="academic_yr" class="form-control">
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <div class="card-footer text-right">
-                                                                                                        <button type="submit" name="update_school_calendar" class="btn btn-primary">Submit</button>
+                                                                                                    <div class="row">
+                                                                                                        <div class="form-group col-md-6">
+                                                                                                            <label for="">Semester Opening Dates</label>
+                                                                                                            <input type="date" value="<?php echo $cal->semester_start; ?>" required name="semester_start" class="form-control" id="exampleInputEmail1">
+                                                                                                        </div>
+                                                                                                        <div class="form-group col-md-6">
+                                                                                                            <label for="">Semester Closing Dates</label>
+                                                                                                            <input type="date" value="<?php echo $cal->semester_end; ?>" required name="semester_end" class="form-control">
+                                                                                                        </div>
                                                                                                     </div>
-                                                                                                </form>
-                                                                                            </div>
-                                                                                            <div class="modal-footer justify-content-between">
-                                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                            </div>
+                                                                                                </div>
+                                                                                                <div class="card-footer text-right">
+                                                                                                    <button type="submit" name="update_school_calendar" class="btn btn-primary">Submit</button>
+                                                                                                </div>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                        <div class="modal-footer justify-content-between">
+                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <!-- End Update Modal -->
+                                                                            </div>
+                                                                            <!-- End Update Modal -->
 
-                                                                                <a class="badge badge-danger" href="school_calendar.php?delete=<?php echo $cal->id; ?>&view=<?php echo $view; ?>">
-                                                                                    <i class="fas fa-trash"></i>
-                                                                                    Delete
-                                                                                </a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    <?php $cnt = $cnt + 1;
-                                                                    } ?>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                        <!-- /.card-body -->
+                                                                            <a class="badge badge-danger" href="school_calendar.php?delete=<?php echo $cal->id; ?>&view=<?php echo $view; ?>">
+                                                                                <i class="fas fa-trash"></i>
+                                                                                Delete
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php $cnt = $cnt + 1;
+                                                                } ?>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
-                                                    <!-- /.card -->
+                                                    <!-- /.card-body -->
                                                 </div>
+                                                <!-- /.card -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
-                    <!-- Main Footer -->
-                    <?php require_once('public/partials/_footer.php'); ?>
-                </div>
+                    </div>
+                </section>
+                <!-- Main Footer -->
+                <?php require_once('public/partials/_footer.php'); ?>
             </div>
-            <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php');
-        } ?>
+        </div>
+        <!-- ./wrapper -->
+        <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
