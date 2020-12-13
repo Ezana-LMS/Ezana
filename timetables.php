@@ -236,7 +236,44 @@ require_once('public/partials/_head.php');
                                                 </div>
                                                 <div class="modal-body">
                                                     <!-- Add Time Table Form -->
-                                                    
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Class Name</label>
+                                                                    <input type="text" required name="classname" class="form-control" id="exampleInputEmail1">
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Lecturer Name</label>
+                                                                    <input type="text" required name="classlecturer" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Lecture Hall / Room / Location</label>
+                                                                    <input type="text" required name="classlocation" class="form-control" id="exampleInputEmail1">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Time</label>
+                                                                    <input type="text" required name="classtime" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Date</label>
+                                                                    <input type="date" required name="classdate" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="exampleInputPassword1">Class Link <small class="text-danger">If Its Virtual Class </small></label>
+                                                                    <input type="text" name="classlink" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer text-right">
+                                                            <button type="submit" name="add_class" class="btn btn-primary">Create Class</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -308,7 +345,7 @@ require_once('public/partials/_head.php');
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            
+
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
