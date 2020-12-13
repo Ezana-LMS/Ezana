@@ -120,7 +120,6 @@ require_once('public/partials/_head.php');
             while ($course = $res->fetch_object()) {
         ?>
                 <!-- /.navbar -->
-
                 <!-- Main Sidebar Container -->
                 <aside class="main-sidebar sidebar-dark-primary elevation-4">
                     <!-- Brand Logo -->
@@ -248,7 +247,8 @@ require_once('public/partials/_head.php');
                                                                         <input type="text" required name="classname" class="form-control" id="exampleInputEmail1">
                                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                         <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
-                                                                        <input type="hidden" required name="view" value="<?php echo $course_id; ?>" class="form-control">
+                                                                        <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
+                                                                        <input type="hidden" required name="course_code" value="<?php echo $course->code; ?>" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-4">
                                                                         <label for="">Lecturer Name</label>
@@ -364,39 +364,41 @@ require_once('public/partials/_head.php');
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="card card-primary card-outline">
-                                                            <table id="export-dt" class="table table-bordered table-striped">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>#</th>
-                                                                        <th>Class Name</th>
-                                                                        <th>Lecturer </th>
-                                                                        <th>Location</th>
-                                                                        <th>Date</th>
-                                                                        <th>Time</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_TimeTable`  WHERE course_code = '$CourseCode'  ";
-                                                                    $stmt = $mysqli->prepare($ret);
-                                                                    $stmt->execute(); //ok
-                                                                    $res = $stmt->get_result();
-                                                                    $cnt = 1;
-                                                                    while ($tt = $res->fetch_object()) {
-                                                                    ?>
-
+                                                            <div class="card-body">
+                                                                <table id="export-dt" class="table table-bordered table-striped">
+                                                                    <thead>
                                                                         <tr>
-                                                                            <td><?php echo $cnt; ?></td>
-                                                                            <td><?php echo $tt->classname; ?></td>
-                                                                            <td><?php echo $tt->classlecturer; ?></td>
-                                                                            <td><?php echo $tt->classlocation; ?></td>
-                                                                            <td><?php echo $tt->classdate; ?></td>
-                                                                            <td><?php echo $tt->classtime; ?></td>
+                                                                            <th>#</th>
+                                                                            <th>Class Name</th>
+                                                                            <th>Lecturer </th>
+                                                                            <th>Location</th>
+                                                                            <th>Date</th>
+                                                                            <th>Time</th>
                                                                         </tr>
-                                                                    <?php $cnt = $cnt + 1;
-                                                                    } ?>
-                                                                </tbody>
-                                                            </table>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <?php
+                                                                        $ret = "SELECT * FROM `ezanaLMS_TimeTable`  WHERE course_code = '$CourseCode'  ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        $cnt = 1;
+                                                                        while ($tt = $res->fetch_object()) {
+                                                                        ?>
+
+                                                                            <tr>
+                                                                                <td><?php echo $cnt; ?></td>
+                                                                                <td><?php echo $tt->classname; ?></td>
+                                                                                <td><?php echo $tt->classlecturer; ?></td>
+                                                                                <td><?php echo $tt->classlocation; ?></td>
+                                                                                <td><?php echo $tt->classdate; ?></td>
+                                                                                <td><?php echo $tt->classtime; ?></td>
+                                                                            </tr>
+                                                                        <?php $cnt = $cnt + 1;
+                                                                        } ?>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
