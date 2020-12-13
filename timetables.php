@@ -122,9 +122,9 @@ require_once('public/partials/_head.php');
         $res = $stmt->get_result();
         $cnt = 1;
         while ($course = $res->fetch_object()) {
-             $CourseCode = $course->code;
-             /* Time Tables Under This Course */
-             
+            $CourseCode = $course->code;
+            /* Time Tables Under This Course */
+
         ?>
             <!-- /.navbar -->
 
@@ -215,13 +215,13 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $course->name; ?></h1>
+                                <h1 class="m-0 text-dark"><?php echo $course->name; ?> Time Table</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="courses.php">Courses</a></li>
-                                    <li class="breadcrumb-item active"><?php echo $course->name; ?></li>
+                                    <li class="breadcrumb-item active"><?php echo $course->name; ?> TT</li>
                                 </ol>
                             </div>
                         </div>
@@ -410,49 +410,40 @@ require_once('public/partials/_head.php');
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="card card-primary card-outline">
-                                                        <div class="card-body box-profile">
-                                                            <ul class="list-group  mb-3">
-                                                                <li class="list-group-item">
-                                                                    <b>Name: </b> <a class="float-right"><?php echo $course->name; ?></a>
-                                                                </li>
-                                                                <li class="list-group-item">
-                                                                    <b>Code / Number : </b> <a class="float-right"><?php echo $course->code; ?></a>
-                                                                </li>
-                                                            </ul>
-                                                            <p class="text-center font-weight-bold"></p>
-                                                            <?php echo $course->details; ?>
-                                                        </div>
+                                                        <table id="export-dt" class="table table-bordered table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Class Name</th>
+                                                                    <th>Lecturer </th>
+                                                                    <th>Location</th>
+                                                                    <th>Date</th>
+                                                                    <th>Time</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_TimeTable`   ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                $cnt = 1;
+                                                                while ($tt = $res->fetch_object()) {
+                                                                ?>
+
+                                                                    <tr>
+                                                                        <td><?php echo $cnt; ?></td>
+                                                                        <td><?php echo $tt->classname; ?></td>
+                                                                        <td><?php echo $tt->classlecturer; ?></td>
+                                                                        <td><?php echo $tt->classlocation; ?></td>
+                                                                        <td><?php echo $tt->classdate; ?></td>
+                                                                        <td><?php echo $tt->classtime; ?></td>
+                                                                    </tr>
+                                                                <?php $cnt = $cnt + 1;
+                                                                } ?>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <h5 class="text-center">Modules</h5>
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE course_id = '$course->id'  ORDER BY `ezanaLMS_Modules`.`name` DESC ";
-                                                    $stmt = $mysqli->prepare($ret);
-                                                    $stmt->execute(); //ok
-                                                    $res = $stmt->get_result();
-                                                    $cnt = 1;
-                                                    while ($module = $res->fetch_object()) {
-                                                    ?>
-                                                        <div class="col-md-6">
-                                                            <a href="module.php?view=<?php echo $module->id; ?>">
-                                                                <div class="card card-success collapsed-card">
-                                                                    <div class="card-header">
-                                                                        <h3 class="card-title"><?php echo $module->name; ?> </h3>
-                                                                        <div class="card-tools">
-                                                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="card-body">
-                                                                        <?php echo $module->details;?>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </div>
