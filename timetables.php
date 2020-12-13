@@ -6,67 +6,56 @@ check_login();
 require_once('configs/codeGen.php');
 
 /* Add Time Table */
-if (isset($_POST['add_module'])) {
+
+if (isset($_POST['add_class'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['code']) && !empty($_POST['code'])) {
-        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    if (isset($_POST['classdate']) && !empty($_POST['classdate'])) {
+        $classdate = mysqli_real_escape_string($mysqli, trim($_POST['classdate']));
     } else {
         $error = 1;
-        $err = "Module Code Cannot Be Empty";
+        $err = "Date Cannot Be Empty";
     }
-    if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
-        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['course_name']));
+    if (isset($_POST['classtime']) && !empty($_POST['classtime'])) {
+        $classtime = mysqli_real_escape_string($mysqli, trim($_POST['classtime']));
     } else {
         $error = 1;
-        $err = "Course Name Cannot Be Empty";
+        $err = "Time Cannot Be Empty";
     }
-    if (isset($_POST['course_id']) && !empty($_POST['course_id'])) {
-        $course_id = mysqli_real_escape_string($mysqli, trim($_POST['course_id']));
+    if (isset($_POST['classlocation']) && !empty($_POST['classlocation'])) {
+        $classlocation = mysqli_real_escape_string($mysqli, trim($_POST['classlocation']));
     } else {
         $error = 1;
-        $err = "Course ID Cannot Be Empty";
+        $err = "Lecture Hall Cannot Be Empty";
     }
-    if (isset($_POST['name']) && !empty($_POST['name'])) {
-        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    if (isset($_POST['classlecturer']) && !empty($_POST['classlecturer'])) {
+        $classlecturer = mysqli_real_escape_string($mysqli, trim($_POST['classlecturer']));
     } else {
         $error = 1;
-        $err = "Module Name Cannot Be Empty";
+        $err = "Lecturer Cannot Name Be Empty";
     }
-    if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Modules WHERE  code='$code' || name ='$name' ";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if ($code == $row['code']) {
-                $err =  "Module With This Code Already Exists";
-            } else {
-                $err = "Module  Name Already Exists";
-            }
-        } else {
-            $id = $_POST['id'];
-            $name = $_POST['name'];
-            $code = $_POST['code'];
-            $details = $_POST['details'];
-            $course_name = $_POST['course_name'];
-            $course_id = $_POST['course_id'];
-            $course_duration = $_POST['course_duration'];
-            $exam_weight_percentage = $_POST['exam_weight_percentage'];
-            $cat_weight_percentage = $_POST['cat_weight_percentage'];
-            $lectures_number = $_POST['lectures_number'];
-            $created_at = date('d M Y');
-            $faculty_id = $_POST['faculty_id'];
 
-            $query = "INSERT INTO ezanaLMS_Modules (id, name, code, details, course_name, course_id, course_duration, exam_weight_percentage, cat_weight_percentage, lectures_number, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssssssss', $id, $name, $code, $details, $course_name, $course_id, $course_duration, $exam_weight_percentage, $cat_weight_percentage, $lectures_number, $created_at, $faculty_id);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "$name Module Created";
-            } else {
-                $info = "Please Try Again Or Try Later";
-            }
+
+    if (!$error) {
+        $id = $_POST['id'];
+        $course_code = $_POST['course_code'];
+        $classdate = $_POST['classdate'];
+        $classtime  = $_POST['classtime'];
+        $classlocation = $_POST['classlocation'];
+        $classlecturer = $_POST['classlecturer'];
+        $classname  = $_POST['classname'];
+        $classlink = $_POST['classlink'];
+        $faculty = $_POST['faculty'];
+        /* Course Id */
+        $course_id = $_POST['course_id'];
+        $query = "INSERT INTO ezanaLMS_TimeTable (id, course_code, faculty_id, classdate, classtime, classlocation, classlecturer, classname, classlink) VALUES(?,?,?,?,?,?,?,?,?)";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssssssss', $id, $course_code, $faculty, $classdate, $classtime, $classlocation, $classlecturer, $classname, $classlink);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Class Added" && header("refresh:1; url=timetables.php?view=$course_id");
+        } else {
+            $info = "Please Try Again Or Try Later";
         }
     }
 }
@@ -246,63 +235,8 @@ require_once('public/partials/_head.php');
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <!-- Add Module Form -->
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Module Name</label>
-                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Module Number / Code</label>
-                                                                    <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Course Name</label>
-                                                                    <input type="text" value="<?php echo $course->name; ?>" required name="course_name" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-
-                                                                <div class="form-group col-md-4" style="display:none">
-                                                                    <label for="">Course ID</label>
-                                                                    <input type="text" readonly value="<?php echo $course->id; ?>" required name="course_id" class="form-control">
-                                                                    <input type="text" readonly value="<?php echo $course->faculty_id; ?>" required name="faculty_id" class="form-control">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Teaching Duration</label>
-                                                                    <input type="text" required name="course_duration" class="form-control" id="exampleInputEmail1">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Number Of Lectures Per Week</label>
-                                                                    <input type="text" required name="lectures_number" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Module CAT Weight Percentage</label>
-                                                                    <input type="text" required name="cat_weight_percentage" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Module End Exam Weight Percentage</label>
-                                                                    <input type="text" required name="exam_weight_percentage" class="form-control">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Module Details</label>
-                                                                    <textarea required id="dep_details" name="details" rows="10" class="form-control"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer text-right">
-                                                            <button type="submit" name="add_module" class="btn btn-primary">Add Module</button>
-                                                        </div>
-                                                    </form>
+                                                    <!-- Add Time Table Form -->
+                                                    
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -374,30 +308,7 @@ require_once('public/partials/_head.php');
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form method="post" enctype="multipart/form-data" role="form">
-                                                                <div class="card-body">
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">Course Name</label>
-                                                                            <input type="text" required name="name" value="<?php echo $course->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">Course Number / Code</label>
-                                                                            <input type="text" required name="code" value="<?php echo $course->code; ?>"" class=" form-control">
-                                                                            <input type="hidden" required name="id" value="<?php echo $course->id; ?>"" class=" form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-12">
-                                                                            <label for="exampleInputPassword1">Course Description</label>
-                                                                            <textarea required name="details" id="textarea" rows="10" class="form-control"><?php echo $course->details; ?></textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-footer text-right">
-                                                                    <button type="submit" name="update_course" class="btn btn-primary">Update Course</button>
-                                                                </div>
-                                                            </form>
+                                                            
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -423,7 +334,7 @@ require_once('public/partials/_head.php');
                                                             </thead>
                                                             <tbody>
                                                                 <?php
-                                                                $ret = "SELECT * FROM `ezanaLMS_TimeTable`   ";
+                                                                $ret = "SELECT * FROM `ezanaLMS_TimeTable`  WHERE course_code = '$CourseCode'  ";
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
