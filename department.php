@@ -351,7 +351,7 @@ require_once('public/partials/_head.php');
                                                             Modules
                                                         </a>
                                                     </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="lecs.php?view=<?php echo $department->faculty_id; ?>">
                                                             Lecturers
                                                         </a>
@@ -360,7 +360,7 @@ require_once('public/partials/_head.php');
                                                         <a href="students.php?view=<?php echo $department->faculty_id; ?>">
                                                             Students
                                                         </a>
-                                                    </li>
+                                                    </li> -->
                                                 </ul>
                                             </div>
                                         </div>

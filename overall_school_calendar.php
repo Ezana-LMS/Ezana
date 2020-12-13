@@ -105,9 +105,6 @@ if (isset($_POST['update_school_calendar'])) {
         $semester_start = $_POST['semester_start'];
         $semester_name = $_POST['semester_name'];
         $semester_end = $_POST['semester_end'];
-        /* fACULTY id */
-        $view = $_POST['view'];
-
 
         $query = "UPDATE ezanaLMS_Calendar SET academic_yr =?, semester_start =?, semester_name =?, semester_end =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
