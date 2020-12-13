@@ -105,7 +105,7 @@ if (isset($_POST['update_class'])) {
         $rc = $stmt->bind_param('sssssss', $classdate, $classtime, $classlocation, $classlecturer, $classname, $classlink, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Class Updated" && header("refresh:1; url=timetables.php?view=$course_code");
+            $success = "Class Updated" && header("refresh:1; url=timetables.php?view=$course_id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -382,13 +382,14 @@ require_once('public/partials/_head.php');
                                                     <div class="col-md-12">
                                                         <div class="card card-primary card-outline">
                                                             <div class="card-body">
-                                                                <table id="export-dt" class="table table-bordered table-striped">
+                                                                <table id="export-dt" class="table table-bordered table-striped responsive">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>#</th>
-                                                                            <th>Class Name</th>
+                                                                            <th>Class</th>
                                                                             <th>Lecturer </th>
                                                                             <th>Location</th>
+                                                                            <th>Link</th>
                                                                             <th>Date</th>
                                                                             <th>Time</th>
                                                                             <th>Manage</th>
@@ -409,15 +410,16 @@ require_once('public/partials/_head.php');
                                                                                 <td><?php echo $tt->classname; ?></td>
                                                                                 <td><?php echo $tt->classlecturer; ?></td>
                                                                                 <td><?php echo $tt->classlocation; ?></td>
+                                                                                <td><?php echo $tt->classlink; ?></td>
                                                                                 <td><?php echo $tt->classdate; ?></td>
                                                                                 <td><?php echo $tt->classtime; ?></td>
                                                                                 <td>
-                                                                                    <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $memo->id; ?>">
+                                                                                    <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $tt->id; ?>">
                                                                                         <i class="fas fa-edit"></i>
                                                                                         Update
                                                                                     </a>
                                                                                     <!-- Update Departmental Memo Modal -->
-                                                                                    <div class="modal fade" id="update-<?php echo $memo->id; ?>">
+                                                                                    <div class="modal fade" id="update-<?php echo $tt->id; ?>">
                                                                                         <div class="modal-dialog  modal-lg">
                                                                                             <div class="modal-content">
                                                                                                 <div class="modal-header">
