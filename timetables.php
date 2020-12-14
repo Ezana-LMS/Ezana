@@ -360,7 +360,7 @@ require_once('public/partials/_head.php');
                                     <div class="col-md-10">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="text-right">
+                                                <!-- <div class="text-right">
                                                     <a href="courses.php" class="float-left btn btn-outline-success">
                                                         <i class="fas fa-arrow-left"></i>
                                                         Back
@@ -371,7 +371,7 @@ require_once('public/partials/_head.php');
                                                             Edit
                                                         </a>
                                                     </span>
-                                                </div>
+                                                </div> -->
                                                 <!-- Update Course Modal -->
                                                 <div class="modal fade" id="update-course-<?php echo $course->id; ?>">
                                                     <div class="modal-dialog  modal-lg">
