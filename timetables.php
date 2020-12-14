@@ -112,6 +112,21 @@ if (isset($_POST['update_class'])) {
     }
 }
 
+/* Delete Class */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $view = $_GET['view'];
+    $adn = "DELETE FROM ezanaLMS_TimeTable WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=timetables.php?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -244,7 +259,7 @@ require_once('public/partials/_head.php');
                                             <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                         </form>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Class</button>
                                         <div class="modal fade" id="modal-default">
                                             <div class="modal-dialog  modal-lg">
                                                 <div class="modal-content">
