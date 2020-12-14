@@ -82,7 +82,7 @@ if (isset($_POST['add_enroll'])) {
             $rc = $stmt->bind_param('ssssssssssssss', $id, $faculty, $code, $student_adm, $student_name, $semester_enrolled, $created_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code);
             $stmt->execute();
             if ($stmt) {
-                $success = "Student Enrolled";// && header("refresh:1; url=enrollments.php?view=$course_id");
+                $success = "Student Enrolled"  && header("refresh:1; url=enrollments.php?view=$course_id");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -285,14 +285,14 @@ require_once('public/partials/_head.php');
                                                                         <label for="">Student Name</label>
                                                                         <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
                                                                     </div>
-                                                                   
+
                                                                     <div class="form-group col-md-6">
                                                                         <label for="">Course Code</label>
-                                                                        <input type="text"  required name="course_code" value="<?php echo $course->code;?>" class="form-control">
+                                                                        <input type="text" required name="course_code" value="<?php echo $course->code; ?>" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-6">
                                                                         <label for="">Course Name</label>
-                                                                        <input type="text"  readonly required value="<?php echo $course->name;?>" name="course_name" class="form-control">
+                                                                        <input type="text" readonly required value="<?php echo $course->name; ?>" name="course_name" class="form-control">
                                                                     </div>
                                                                     <hr>
                                                                     <div class="form-group col-md-6">
@@ -435,7 +435,7 @@ require_once('public/partials/_head.php');
                                                     <div class="col-md-12">
                                                         <div class="card card-primary card-outline">
                                                             <div class="card-body">
-                                                                <table id="export-dt" class="table table-bordered table-striped">
+                                                                <table id="example1" class="table table-bordered table-striped">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>#</th>
@@ -446,6 +446,7 @@ require_once('public/partials/_head.php');
                                                                             <th>Sem Enrolled</th>
                                                                             <th>Sem Start</th>
                                                                             <th>Sem End </th>
+                                                                            <th>Manage</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -467,6 +468,74 @@ require_once('public/partials/_head.php');
                                                                                 <td><?php echo $en->semester_enrolled; ?></td>
                                                                                 <td><?php echo date('d M Y', strtotime($en->semester_start)); ?></td>
                                                                                 <td><?php echo date('d M Y', strtotime($en->semester_end)); ?></td>
+                                                                                <td>
+                                                                                    <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $tt->id; ?>">
+                                                                                        <i class="fas fa-edit"></i>
+                                                                                        Update
+                                                                                    </a>
+                                                                                    <!-- Update Departmental Memo Modal -->
+                                                                                    <div class="modal fade" id="update-<?php echo $tt->id; ?>">
+                                                                                        <div class="modal-dialog  modal-lg">
+                                                                                            <div class="modal-content">
+                                                                                                <div class="modal-header">
+                                                                                                    <h4 class="modal-title">Fill All Values </h4>
+                                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                                <div class="modal-body">
+                                                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                                                        <div class="card-body">
+                                                                                                            <div class="row">
+                                                                                                                <div class="form-group col-md-4">
+                                                                                                                    <label for="">Class Name</label>
+                                                                                                                    <input type="text" value="<?php echo $tt->classname; ?>" required name="classname" class="form-control" id="exampleInputEmail1">
+                                                                                                                    <input type="hidden" required name="id" value="<?php echo $tt->id; ?>" class="form-control">
+                                                                                                                    <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
+                                                                                                                </div>
+                                                                                                                <div class="form-group col-md-4">
+                                                                                                                    <label for="">Lecturer Name</label>
+                                                                                                                    <input type="text" value="<?php echo $tt->classlecturer; ?>" required name="classlecturer" class="form-control">
+                                                                                                                </div>
+                                                                                                                <div class="form-group col-md-4">
+                                                                                                                    <label for="">Lecture Hall / Room / Location</label>
+                                                                                                                    <input type="text" required value='<?php echo $tt->classlocation; ?>' name="classlocation" class="form-control" id="exampleInputEmail1">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="row">
+                                                                                                                <div class="form-group col-md-6">
+                                                                                                                    <label for="">Time</label>
+                                                                                                                    <input type="text" value="<?php echo $tt->classtime; ?>" required name="classtime" class="form-control">
+                                                                                                                </div>
+                                                                                                                <div class="form-group col-md-6">
+                                                                                                                    <label for="">Date</label>
+                                                                                                                    <input type="text" required value="<?php echo $tt->classdate; ?>" name="classdate" class="form-control">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="row">
+                                                                                                                <div class="form-group col-md-12">
+                                                                                                                    <label for="exampleInputPassword1">Class Link <small class="text-danger">If Its Virtual Class </small></label>
+                                                                                                                    <input type="text" name="classlink" value="<?php echo $tt->classlink; ?>" class="form-control">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="card-footer text-right">
+                                                                                                            <button type="submit" name="update_class" class="btn btn-primary">Update Class</button>
+                                                                                                        </div>
+                                                                                                    </form>
+                                                                                                </div>
+                                                                                                <div class="modal-footer justify-content-between">
+                                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <a class="badge badge-danger" href="timetables.php?delete=<?php echo $tt->id; ?>&view=<?php echo $course->id; ?>">
+                                                                                        <i class="fas fa-trash"></i>
+                                                                                        Delete
+                                                                                    </a>
+                                                                                </td>
                                                                             </tr>
                                                                         <?php $cnt = $cnt + 1;
                                                                         } ?>
@@ -487,10 +556,10 @@ require_once('public/partials/_head.php');
                 require_once('public/partials/_footer.php');
             }
         } ?>
-        </div>
-    </div>
-    <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php'); ?>
+                    </div>
+                </div>
+                <!-- ./wrapper -->
+                <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
