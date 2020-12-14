@@ -82,7 +82,7 @@ if (isset($_POST['add_enroll'])) {
             $rc = $stmt->bind_param('ssssssssssssss', $id, $faculty, $code, $student_adm, $student_name, $semester_enrolled, $created_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code);
             $stmt->execute();
             if ($stmt) {
-                $success = "Student Enrolled" && header("refresh:1; url=enrollments.php?view=$course_id");
+                $success = "Student Enrolled";// && header("refresh:1; url=enrollments.php?view=$course_id");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -257,6 +257,8 @@ require_once('public/partials/_head.php');
                                                                     <div class="form-group col-md-6">
                                                                         <label for=""> Name</label>
                                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                        <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
+                                                                        <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-6">
                                                                         <label for="">Enroll Code</label>
@@ -269,7 +271,7 @@ require_once('public/partials/_head.php');
                                                                         <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_adm">
                                                                             <option selected>Select Student Admission Number</option>
                                                                             <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$row->id'  ";
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$course->faculty_id'  ";
                                                                             $stmt = $mysqli->prepare($ret);
                                                                             $stmt->execute(); //ok
                                                                             $res = $stmt->get_result();
@@ -317,7 +319,7 @@ require_once('public/partials/_head.php');
                                                                         <select class='form-control basic' name="semester_enrolled">
                                                                             <option selected>Select Semester Name</option>
                                                                             <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$row->id'  ";
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$course->faculty_id'  ";
                                                                             $stmt = $mysqli->prepare($ret);
                                                                             $stmt->execute(); //ok
                                                                             $res = $stmt->get_result();
