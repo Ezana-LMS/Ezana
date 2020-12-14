@@ -299,155 +299,55 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="text-right">
-                                                <a href="courses.php" class="float-left btn btn-outline-success">
-                                                    <i class="fas fa-arrow-left"></i>
-                                                    Back
-                                                </a>
-                                                <span class="btn btn-outline-warning text-success">
-                                                    <a class="float-right" data-toggle="modal" href="#update-module-<?php echo $mod->id; ?>">
-                                                        <i class="fas fa-edit"></i>
-                                                        Edit
-                                                    </a>
-                                                </span>
-                                            </div>
-                                            <!-- Update Module Modal -->
-                                            <div class="modal fade" id="update-module-<?php echo $mod->id; ?>">
-                                                <div class="modal-dialog  modal-lg">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Fill All Values</h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form method="post" enctype="multipart/form-data" role="form">
-                                                                <div class="card-body">
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-4">
-                                                                            <label for="">Module Name</label>
-                                                                            <input type="text" value="<?php echo $mod->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                            <input type="hidden" required name="id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group col-md-4">
-                                                                            <label for="">Module Number / Code</label>
-                                                                            <input type="text" required name="code" value="<?php echo $mod->code; ?>" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group col-md-4">
-                                                                            <label for="">Course Name</label>
-                                                                            <input type="text" name="c_name" readonly required value="<?php echo $mod->course_name; ?>" class="form-control">
-                                                                            <input type="hidden" value="<?php echo $mod->course_id; ?>" required name="course_id" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">Teaching Duration</label>
-                                                                            <input type="text" value="<?php echo $mod->course_duration; ?>" required name="course_duration" class="form-control" id="exampleInputEmail1">
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">Number Of Lectures Per Week</label>
-                                                                            <input type="text" value="<?php echo $mod->lectures_number; ?>" required name="lectures_number" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">CAT Exam Weight Percentage</label>
-                                                                            <input type="text" value="<?php echo $mod->cat_weight_percentage; ?>" required name="cat_weight_percentage" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">End Exam Weight Percentage</label>
-                                                                            <input type="text" value="<?php echo $mod->exam_weight_percentage; ?>" required name="exam_weight_percentage" class="form-control">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-12">
-                                                                            <label for="exampleInputPassword1">Module Details</label>
-                                                                            <textarea required id="dep_details" name="details" rows="10" class="form-control"><?php echo $mod->details; ?></textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="text-right">
-                                                                    <button type="submit" name="update_module" class="btn btn-primary">Update Module</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                        <div class="modal-footer justify-content-between">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--End Update Module Modal -->
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="card card-primary card-outline">
-                                                        <div class="card-body box-profile">
-                                                            <div class="text-center">
-                                                                <img class='profile-user-img img-fluid ' src='public/dist/img/logo.png' alt='module icon'>
-                                                            </div>
-                                                            <br>
-                                                            <ul class="list-group  mb-3">
-                                                                <ul class="list-group list-group-unbordered mb-3">
-                                                                    <li class="list-group-item">
-                                                                        <b>Module Name: </b> <a class="float-right"><?php echo $mod->name; ?></a>
-                                                                    </li>
-                                                                    <li class="list-group-item">
-                                                                        <b>Module Code: </b> <a class="float-right"><?php echo $mod->code; ?></a>
-                                                                    </li>
-                                                                    <li class="list-group-item">
-                                                                        <b>Course Name: </b> <a class="float-right"><?php echo $mod->course_name; ?></a>
-                                                                    </li>
-                                                                    <li class="list-group-item">
-                                                                        <b>Duration : </b> <a class="float-right"><?php echo $mod->course_duration; ?></a>
-                                                                    </li>
-                                                                    <li class="list-group-item">
-                                                                        <b>No Of Lecturers Per Week : </b> <a class="float-right"><?php echo $mod->lectures_number; ?></a>
-                                                                    </li>
-                                                                    <li class="list-group-item">
-                                                                        <b>Cat Weight Percentage : </b> <a class="float-right"><?php echo $mod->cat_weight_percentage; ?></a>
-                                                                    </li>
-                                                                    <li class="list-group-item">
-                                                                        <b>Exam Weight Percentage : </b> <a class="float-right"><?php echo $mod->exam_weight_percentage; ?></a>
-                                                                    </li>
-                                                                    <!-- Assigned Lec Details -->
+                                                        <div class="card-body">
+                                                            <table id="example1" class="table table-bordered table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>#</th>
+                                                                        <th>Module Name</th>
+                                                                        <th>Module Code</th>
+                                                                        <th>Created By</th>
+                                                                        <th>Date Posted</th>
+                                                                        <th>Actions</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE module_code = '$mod->code'  ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_ModulesAnnouncements` WHERE faculty_id  = '$row->id'  ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
                                                                     $cnt = 1;
-                                                                    while ($ass = $res->fetch_object()) {
-                                                                        /*
-                                                                            Lec dETAILS
-                                                                        */
-                                                                        $lec = $ass->lec_id;
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id = '$lec'  ";
-                                                                        $stmt = $mysqli->prepare($ret);
-                                                                        $stmt->execute(); //ok
-                                                                        $res = $stmt->get_result();
-                                                                        $cnt = 1;
-                                                                        while ($lecturer = $res->fetch_object()) {
+                                                                    while ($not = $res->fetch_object()) {
                                                                     ?>
 
-                                                                            <li class="list-group-item">
-                                                                                <b>Lecturer Assigned Email: </b> <a class="float-right"><?php echo $lecturer->email; ?></a>
-                                                                            </li>
-                                                                            <li class="list-group-item">
-                                                                                <b>Lecturer Assigned ID / Passport: </b> <a class="float-right"><?php echo $lecturer->idno; ?></a>
-                                                                            </li>
-                                                                            <li class="list-group-item">
-                                                                                <b>Lecturer Assigned Phone: </b> <a class="float-right"><?php echo $lecturer->phone; ?></a>
-                                                                            </li>
-                                                                            <li class="list-group-item">
-                                                                                <b>Lecturer Assigned Address</b> <a class="float-right"><?php echo $lecturer->adr; ?></a>
-                                                                            </li>
-                                                                    <?php
-                                                                        }
+                                                                        <tr class="table-row" data-href="view_module_notices.php?view=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
+                                                                            <td><?php echo $cnt; ?></td>
+                                                                            <td><?php echo $not->module_name; ?></td>
+                                                                            <td><?php echo $not->module_code; ?></td>
+                                                                            <td><?php echo $not->created_by; ?></td>
+                                                                            <td><?php echo $not->created_at; ?></td>
+                                                                            <td>
+
+                                                                                <a class="badge badge-primary" href="update_module_notice.php?update=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
+                                                                                    <i class="fas fa-edit"></i>
+                                                                                    Update Announcement
+                                                                                </a>
+
+                                                                                <a class="badge badge-danger" href="module_notices.php?delete=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
+                                                                                    <i class="fas fa-trash"></i>
+                                                                                    Delete Announcement
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php $cnt = $cnt + 1;
                                                                     } ?>
-                                                                </ul>
-                                                                <p class="text-center font-weight-bold"></p>
-                                                                <?php echo $mod->details; ?>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -513,10 +413,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
-                </div>
             </div>
-            <!-- ./wrapper -->
-            <?php require_once('public/partials/_scripts.php'); ?>
+        </div>
+        <!-- ./wrapper -->
+    <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
