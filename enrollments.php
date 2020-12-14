@@ -53,12 +53,12 @@ if (isset($_POST['add_enroll'])) {
     }
     if (!$error) {
         //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Enrollments WHERE  student_adm ='$student_adm ' AND semester_enrolled ='$semester_enrolled' ";
+        $sql = "SELECT * FROM  ezanaLMS_Enrollments WHERE  student_adm ='$student_adm ' AND module_name ='$module_name' ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
-            if (($student_adm && $semester_enrolled) == ($row['student_adm'] && $row['semester_enrolled'])) {
-                $err =  "Student $student_name Already Enrolled On $semester_enrolled ";
+            if (($student_adm && $module_name) == ($row['student_adm'] && $row['module_name'])) {
+                $err =  "Student $student_name Already Enrolled On $module_name ";
             }
         } else {
             $faculty = $_POST['faculty'];
