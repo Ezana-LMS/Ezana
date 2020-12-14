@@ -224,7 +224,7 @@ require_once('public/partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Modules</h1>
+                            <h1 class="m-0 text-dark"><?php echo $course->name;?> Modules</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -269,26 +269,15 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label for="">Course Name</label>
-                                                                <select class='form-control basic' id="Cname" onchange="getCourseDetails(this.value);" name="course_name">
-                                                                    <option selected>Select Course Name</option>
-                                                                    <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` ";
-                                                                    $stmt = $mysqli->prepare($ret);
-                                                                    $stmt->execute(); //ok
-                                                                    $res = $stmt->get_result();
-                                                                    while ($course = $res->fetch_object()) {
-                                                                    ?>
-                                                                        <option><?php echo $course->name; ?></option>
-                                                                    <?php } ?>
-                                                                </select>
+                                                                <input type="text" readonly value="<?php echo $course->id;?>" required name="course_name" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
 
                                                             <div class="form-group col-md-4" style="display:none">
                                                                 <label for="">Course ID</label>
-                                                                <input type="text" readonly id="CourseID" required name="course_id" class="form-control">
-                                                                <input type="text" readonly id="CourseFacultyID" required name="faculty_id" class="form-control">
+                                                                <input type="text" readonly value="<?php echo $course->id;?>" required name="course_id" class="form-control">
+                                                                <input type="text" readonly value="<?php echo $course->faculty_id;?>" required name="faculty_id" class="form-control">
                                                             </div>
                                                         </div>
 
@@ -337,7 +326,7 @@ require_once('public/partials/_head.php');
                             <div class="col-md-3">
 
                                 <?php
-                                $ret = "SELECT * FROM `ezanaLMS_Modules`  ORDER BY RAND()  LIMIT 8";
+                                $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE course_id = '$course->id'  ORDER BY RAND()  LIMIT 8";
                                 $stmt = $mysqli->prepare($ret);
                                 $stmt->execute(); //ok
                                 $res = $stmt->get_result();
@@ -413,7 +402,7 @@ require_once('public/partials/_head.php');
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_Modules`  ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE course_id = '$course_id'  ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
@@ -450,6 +439,7 @@ require_once('public/partials/_head.php');
                                                                                                     <label for="">Module Name</label>
                                                                                                     <input type="text" value="<?php echo $mod->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
                                                                                                     <input type="hidden" required name="id" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                                    <input type="hidden" required name="view" value="<?php echo $course->id; ?>" class="form-control">
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-6">
                                                                                                     <label for="">Module Number / Code</label>
