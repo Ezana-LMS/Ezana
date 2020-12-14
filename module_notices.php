@@ -386,27 +386,23 @@ require_once('public/partials/_head.php');
                                                                                                         </div>
                                                                                                         <div class="form-group col-md-4">
                                                                                                             <label for="">Announcement Posted By</label>
-                                                                                                            <?php
-                                                                                                            $id = $_SESSION['id'];
-                                                                                                            $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id = '$id'  ";
-                                                                                                            $stmt = $mysqli->prepare($ret);
-                                                                                                            $stmt->execute(); //ok
-                                                                                                            $res = $stmt->get_result();
-                                                                                                            while ($user = $res->fetch_object()) {
-                                                                                                            ?>
-                                                                                                                <input type="text" required name="created_by" value="<?php echo $user->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                                                                            <?php
-                                                                                                            } ?>
+                                                                                                            <input type="text" required name="created_by" value="<?php echo $not->created_by; ?>" class="form-control" id="exampleInputEmail1">
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="row">
                                                                                                         <div class="form-group col-md-12">
                                                                                                             <label for="exampleInputPassword1">Module Announcements</label>
-                                                                                                            <textarea required id="textarea" name="announcements" rows="20" class="form-control"><?php echo $not->announcements; ?></textarea>
-                                                                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                                                            <textarea required id="<?php echo $not->id; ?>" name="announcements" rows="20" class="form-control"><?php echo $not->announcements; ?></textarea>
+                                                                                                            <input type="hidden" required name="id" value="<?php echo $not->id; ?>" class="form-control">
+                                                                                                            <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
+                                                                                                <!-- Inline ck editor -->
+                                                                                                <script>
+                                                                                                    CKEDITOR.replace('<?php echo $not->id; ?>');
+                                                                                                </script>
+
                                                                                                 <div class="card-footer text-right">
                                                                                                     <button type="submit" name="update_notice" class="btn btn-primary">Update Notice</button>
                                                                                                 </div>
@@ -444,10 +440,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
-                </div>
             </div>
-            <!-- ./wrapper -->
-            <?php require_once('public/partials/_scripts.php'); ?>
+        </div>
+    <!-- ./wrapper -->
+    <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
