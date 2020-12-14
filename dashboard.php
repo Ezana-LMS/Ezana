@@ -349,7 +349,7 @@ require_once('public/partials/_head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="school_calendar.php">
+                                                <a href="overall_school_calendar.php">
 
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
