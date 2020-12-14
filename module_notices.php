@@ -36,13 +36,13 @@ if (isset($_POST['add_notice'])) {
         $created_by = $_POST['created_by'];
         $created_at = date('d M Y');
         $faculty_id = $_POST['faculty_id'];
-        //$module_id = $_POST['module_id'];
+        $module_id = $_POST['module_id'];
         $query = "INSERT INTO ezanaLMS_ModulesAnnouncements (id, module_name, module_code, announcements, created_by, created_at, faculty_id) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('sssssss', $id, $module_name, $module_code, $announcements, $created_by, $created_at, $faculty_id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Posted";
+            $success = "Posted" && header("refresh:1; url=module_notices.php?view=$module_id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -227,6 +227,7 @@ require_once('public/partials/_head.php');
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
                                                                     <input type="hidden" value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
+                                                                    <input type="hidden" value="<?php echo $mod->id; ?>" required name="module_id" class="form-control">
                                                                     <input type="hidden" required name="faculty_id" value="<?php echo $mod->faculty_id; ?>" class="form-control">
                                                                 </div>
                                                             </div>
@@ -299,105 +300,49 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="card card-primary card-outline">
-                                                        <div class="card-body">
-                                                            <table id="example1" class="table table-bordered table-striped">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>#</th>
-                                                                        <th>Module Name</th>
-                                                                        <th>Module Code</th>
-                                                                        <th>Created By</th>
-                                                                        <th>Date Posted</th>
-                                                                        <th>Actions</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_ModulesAnnouncements` WHERE faculty_id  = '$row->id'  ";
-                                                                    $stmt = $mysqli->prepare($ret);
-                                                                    $stmt->execute(); //ok
-                                                                    $res = $stmt->get_result();
-                                                                    $cnt = 1;
-                                                                    while ($not = $res->fetch_object()) {
-                                                                    ?>
-
-                                                                        <tr class="table-row" data-href="view_module_notices.php?view=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
-                                                                            <td><?php echo $cnt; ?></td>
-                                                                            <td><?php echo $not->module_name; ?></td>
-                                                                            <td><?php echo $not->module_code; ?></td>
-                                                                            <td><?php echo $not->created_by; ?></td>
-                                                                            <td><?php echo $not->created_at; ?></td>
-                                                                            <td>
-
-                                                                                <a class="badge badge-primary" href="update_module_notice.php?update=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
-                                                                                    <i class="fas fa-edit"></i>
-                                                                                    Update Announcement
-                                                                                </a>
-
-                                                                                <a class="badge badge-danger" href="module_notices.php?delete=<?php echo $not->id; ?>&faculty=<?php echo $not->faculty_id; ?>">
-                                                                                    <i class="fas fa-trash"></i>
-                                                                                    Delete Announcement
-                                                                                </a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    <?php $cnt = $cnt + 1;
-                                                                    } ?>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="card  collapsed-card">
+                                                        <div class="card ">
                                                             <div class="card-header">
-                                                                <h3 class="card-title">Enrolled Students</h3>
+                                                                <h3 class="card-title">Module Notices And Announcements</h3>
                                                                 <div class="card-tools">
                                                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                                     </button>
                                                                 </div>
                                                             </div>
                                                             <div class="card-body">
-                                                                <table id="example1" class="table table-bordered table-striped">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>#</th>
-                                                                            <th>Admission</th>
-                                                                            <th>Name</th>
-                                                                            <th>Academic Yr</th>
-                                                                            <th>Sem Enrolled</th>
-                                                                            <th>Sem Start</th>
-                                                                            <th>Sem End </th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_ModulesAnnouncements` WHERE module_code  = '$mod->code'  ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                $cnt = 1;
+                                                                while ($not = $res->fetch_object()) {
+                                                                ?>
+                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                        <h5 class="mb-1"></h5>
+                                                                        <small><?php echo $not->created_at; ?></small>
+                                                                    </div>
+                                                                    <small>
                                                                         <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments`  WHERE   module_code ='$mod->code' ";
-                                                                        $stmt = $mysqli->prepare($ret);
-                                                                        $stmt->execute(); //ok
-                                                                        $res = $stmt->get_result();
-                                                                        $cnt = 1;
-                                                                        while ($en = $res->fetch_object()) {
+                                                                        echo $not->announcements;
                                                                         ?>
-
-                                                                            <tr>
-                                                                                <td><?php echo $cnt; ?></td>
-                                                                                <td><?php echo $en->student_adm; ?></td>
-                                                                                <td><?php echo $en->student_name; ?></td>
-                                                                                <td><?php echo $en->academic_year_enrolled; ?></td>
-                                                                                <td><?php echo $en->semester_enrolled; ?></td>
-                                                                                <td><?php echo date('d M Y', strtotime($en->semester_start)); ?></td>
-                                                                                <td><?php echo date('d M Y', strtotime($en->semester_end)); ?></td>
-                                                                            </tr>
-                                                                        <?php $cnt = $cnt + 1;
-                                                                        } ?>
-                                                                    </tbody>
+                                                                        <div class="row">
+                                                                            <a class="badge badge-primary" href="module_notices.php?delete=<?php echo $not->id; ?>&view=<?php echo $mod->id; ?>">
+                                                                                <i class="fas fa-edit"></i>
+                                                                                Update
+                                                                            </a>
+                                                                            <a class="badge badge-danger" href="module_notices.php?delete=<?php echo $not->id; ?>&view=<?php echo $mod->id; ?>">
+                                                                                <i class="fas fa-trash"></i>
+                                                                                Delete
+                                                                            </a>
+                                                                        </div>
+                                                                        <hr>
+                                                                    </small>
+                                                                <?php $cnt = $cnt + 1;
+                                                                } ?>
+                                                                </tbody>
                                                                 </table>
                                                             </div>
                                                         </div>
@@ -413,9 +358,9 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
-            </div>
         </div>
-        <!-- ./wrapper -->
+    </div>
+    <!-- ./wrapper -->
     <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
