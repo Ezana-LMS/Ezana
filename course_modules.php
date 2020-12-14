@@ -334,65 +334,38 @@ require_once('public/partials/_head.php');
                             <div class="row">
                                 <div class="col-md-3">
 
-                                    <?php
-                                    $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE course_id = '$course->id'  ORDER BY RAND()  LIMIT 8";
-                                    $stmt = $mysqli->prepare($ret);
-                                    $stmt->execute(); //ok
-                                    $res = $stmt->get_result();
-                                    $cnt = 1;
-                                    while ($module = $res->fetch_object()) {
-                                    ?>
-                                        <div class="col-md-12">
-                                            <div class="card card-primary collapsed-card">
-                                                <div class="card-header">
-                                                    <a href="module.php?view=<?php echo $module->id; ?>">
-                                                        <h3 class="card-title"><?php echo $cnt; ?>. <?php echo $module->name; ?></h3>
-                                                        <div class="card-tools text-right">
-                                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </a>
-                                                </div>
-
-                                                <div class="card-body">
-                                                    <ul class="list-group">
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="module_notices.php?view=<?php echo $module->id; ?>">
-                                                                Notices
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="pastpapers.php?view=<?php echo $module->id; ?>">
-                                                                Past Papers
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="course_materials.php?view=<?php echo $module->id; ?>">
-                                                                Course Materials
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="class_recordings.php?view=<?php echo $module->id; ?>">
-                                                                Class Recordings
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="student_groups.php?view=<?php echo $module->id; ?>">
-                                                                Student Groups
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="enrollments.php?view=<?php echo $module->id; ?>">
-                                                                Module Enrollments
-                                                            </a>
-                                                        </li>
-                                                    </ul>
+                                    <div class="col-md-12">
+                                        <div class="card card-primary">
+                                            <div class="card-header">
+                                                <h3 class="card-title"><?php echo $course->name; ?></h3>
+                                                <div class="card-tools text-right">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                    </button>
                                                 </div>
                                             </div>
+
+                                            <div class="card-body">
+                                                <ul class="list-group">
+
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="course_modules.php?view=<?php echo $course->id; ?>">
+                                                            Modules
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="timetables.php?view=<?php echo $course->id; ?>">
+                                                            TimeTable
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="enrollments.php?view=<?php echo $course->id; ?>">
+                                                            Enrollments
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    <?php
-                                        $cnt = $cnt + 1;
-                                    } ?>
+                                    </div>
                                 </div>
                                 <div class="col-md-9">
                                     <div class="row">
@@ -520,10 +493,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
+            </div>
         </div>
-    </div>
-    <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php'); ?>
+        <!-- ./wrapper -->
+        <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
