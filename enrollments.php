@@ -6,55 +6,84 @@ check_login();
 require_once('configs/codeGen.php');
 
 /* Add Time Table */
-if (isset($_POST['add_class'])) {
+if (isset($_POST['add_enroll'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['classdate']) && !empty($_POST['classdate'])) {
-        $classdate = mysqli_real_escape_string($mysqli, trim($_POST['classdate']));
+    if (isset($_POST['student_name']) && !empty($_POST['student_name'])) {
+        $student_name = mysqli_real_escape_string($mysqli, trim($_POST['student_name']));
     } else {
         $error = 1;
-        $err = "Date Cannot Be Empty";
+        $err = "Student Name Cannot Be Empty";
     }
-    if (isset($_POST['classtime']) && !empty($_POST['classtime'])) {
-        $classtime = mysqli_real_escape_string($mysqli, trim($_POST['classtime']));
+    if (isset($_POST['semester_enrolled']) && !empty($_POST['semester_enrolled'])) {
+        $semester_enrolled = mysqli_real_escape_string($mysqli, trim($_POST['semester_enrolled']));
     } else {
         $error = 1;
-        $err = "Time Cannot Be Empty";
+        $err = "Semester Enrolled Number Cannot Be Empty";
     }
-    if (isset($_POST['classlocation']) && !empty($_POST['classlocation'])) {
-        $classlocation = mysqli_real_escape_string($mysqli, trim($_POST['classlocation']));
+    if (isset($_POST['student_adm']) && !empty($_POST['student_adm'])) {
+        $student_adm = mysqli_real_escape_string($mysqli, trim($_POST['student_adm']));
     } else {
         $error = 1;
-        $err = "Lecture Hall Cannot Be Empty";
+        $err = "Student Admission Number Cannot Be Empty";
     }
-    if (isset($_POST['classlecturer']) && !empty($_POST['classlecturer'])) {
-        $classlecturer = mysqli_real_escape_string($mysqli, trim($_POST['classlecturer']));
+    if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
+        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['course_name']));
     } else {
         $error = 1;
-        $err = "Lecturer Cannot Name Be Empty";
+        $err = "Course Name Cannot Be Empty";
     }
-
-
+    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
+        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (isset($_POST['semester_start']) && !empty($_POST['semester_start'])) {
+        $semester_start = mysqli_real_escape_string($mysqli, trim($_POST['semester_start']));
+    } else {
+        $error = 1;
+        $err = "Semester Start / End Dates Cannot Be Empty";
+    }
+    if (isset($_POST['course_code']) && !empty($_POST['course_code'])) {
+        $course_code = mysqli_real_escape_string($mysqli, trim($_POST['course_code']));
+    } else {
+        $error = 1;
+        $err = "Course Code Cannot Be Empty";
+    }
     if (!$error) {
-        $id = $_POST['id'];
-        $course_code = $_POST['course_code'];
-        $classdate = $_POST['classdate'];
-        $classtime  = $_POST['classtime'];
-        $classlocation = $_POST['classlocation'];
-        $classlecturer = $_POST['classlecturer'];
-        $classname  = $_POST['classname'];
-        $classlink = $_POST['classlink'];
-        $faculty = $_POST['faculty'];
-        /* Course Id */
-        $course_id = $_POST['course_id'];
-        $query = "INSERT INTO ezanaLMS_TimeTable (id, course_code, faculty_id, classdate, classtime, classlocation, classlecturer, classname, classlink) VALUES(?,?,?,?,?,?,?,?,?)";
-        $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssssss', $id, $course_code, $faculty, $classdate, $classtime, $classlocation, $classlecturer, $classname, $classlink);
-        $stmt->execute();
-        if ($stmt) {
-            $success = "Class Added" && header("refresh:1; url=timetables.php?view=$course_id");
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_Enrollments WHERE  student_adm ='$student_adm ' AND semester_enrolled ='$semester_enrolled' ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if (($student_adm && $semester_enrolled) == ($row['student_adm'] && $row['semester_enrolled'])) {
+                $err =  "Student $student_name Already Enrolled On $semester_enrolled ";
+            }
         } else {
-            $info = "Please Try Again Or Try Later";
+            $faculty = $_GET['faculty'];
+            $id = $_POST['id'];
+            $code = $_POST['code'];
+            $student_adm = $_POST['student_adm'];
+            $student_name = $_POST['student_name'];
+            $semester_enrolled = $_POST['semester_enrolled'];
+            $created_at = date('d M Y');
+            $course_code = $_POST['course_code'];
+            $course_name = $_POST['course_name'];
+            $semester_start = $_POST['semester_start'];
+            $semester_end = $_POST['semester_end'];
+            $academic_year_enrolled = $_POST['academic_year_enrolled'];
+            $module_name = $_POST['module_name'];
+            $module_code = $_POST['module_code'];
+            $query = "INSERT INTO ezanaLMS_Enrollments (id, faculty_id, code, student_adm, student_name, semester_enrolled, created_at, course_code, course_name, semester_start, semester_end, academic_year_enrolled, module_name, module_code) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ssssssssssssss', $id, $faculty, $code, $student_adm, $student_name, $semester_enrolled, $created_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Student Enrolled" && header("refresh:1; url=add_student_enrollment.php?faculty=$faculty");
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
         }
     }
 }
@@ -239,7 +268,7 @@ require_once('public/partials/_head.php');
                         <div class="container-fluid">
                             <div class="row mb-2">
                                 <div class="col-sm-6">
-                                    <h1 class="m-0 text-dark"><?php echo $course->name; ?> Time Table</h1>
+                                    <h1 class="m-0 text-dark"><?php echo $course->name; ?> Enrolled Students</h1>
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">
@@ -259,7 +288,7 @@ require_once('public/partials/_head.php');
                                             <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                         </form>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Class</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Enrollment</button>
                                         <div class="modal fade" id="modal-default">
                                             <div class="modal-dialog  modal-lg">
                                                 <div class="modal-content">
@@ -271,47 +300,7 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                     <div class="modal-body">
                                                         <!-- Add Time Table Form -->
-                                                        <form method="post" enctype="multipart/form-data" role="form">
-                                                            <div class="card-body">
-                                                                <div class="row">
-                                                                    <div class="form-group col-md-4">
-                                                                        <label for="">Class Name</label>
-                                                                        <input type="text" required name="classname" class="form-control" id="exampleInputEmail1">
-                                                                        <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                        <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
-                                                                        <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
-                                                                        <input type="hidden" required name="course_code" value="<?php echo $course->code; ?>" class="form-control">
-                                                                    </div>
-                                                                    <div class="form-group col-md-4">
-                                                                        <label for="">Lecturer Name</label>
-                                                                        <input type="text" required name="classlecturer" class="form-control">
-                                                                    </div>
-                                                                    <div class="form-group col-md-4">
-                                                                        <label for="">Lecture Hall / Room / Location</label>
-                                                                        <input type="text" required name="classlocation" class="form-control" id="exampleInputEmail1">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="">Time</label>
-                                                                        <input type="text" required name="classtime" class="form-control">
-                                                                    </div>
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="">Date</label>
-                                                                        <input type="date" required name="classdate" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="form-group col-md-12">
-                                                                        <label for="exampleInputPassword1">Class Link <small class="text-danger">If Its Virtual Class </small></label>
-                                                                        <input type="text" name="classlink" class="form-control">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-footer text-right">
-                                                                <button type="submit" name="add_class" class="btn btn-primary">Create Class</button>
-                                                            </div>
-                                                        </form>
+
                                                     </div>
                                                     <div class="modal-footer justify-content-between">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -323,7 +312,7 @@ require_once('public/partials/_head.php');
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <div class="col-md-12">
                                             <div class="card card-primary">
                                                 <div class="card-header">
@@ -344,12 +333,12 @@ require_once('public/partials/_head.php');
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="timetables.php?view=<?php echo $course->id; ?>">
-                                                                Time Table
+                                                                TimeTable
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="enrollments.php?view=<?php echo $course->id; ?>">
-                                                                Enrolled Students
+                                                                Enrollments
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -357,41 +346,9 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-9">
+                                    <div class="col-md-10">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="text-right">
-                                                    <a href="courses.php" class="float-left btn btn-outline-success">
-                                                        <i class="fas fa-arrow-left"></i>
-                                                        Back
-                                                    </a>
-                                                    <span class="btn btn-outline-warning text-success">
-                                                        <a class="float-right" data-toggle="modal" href="#update-course-<?php echo $course->id; ?>">
-                                                            <i class="fas fa-edit"></i>
-                                                            Edit
-                                                        </a>
-                                                    </span>
-                                                </div>
-                                                <!-- Update Course Modal -->
-                                                <div class="modal fade" id="update-course-<?php echo $course->id; ?>">
-                                                    <div class="modal-dialog  modal-lg">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Fill All Values</h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-
-                                                            </div>
-                                                            <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!--End Update Course Modal -->
                                                 <br>
                                                 <div class="row">
                                                     <div class="col-md-12">
@@ -403,7 +360,6 @@ require_once('public/partials/_head.php');
                                                                             <th>#</th>
                                                                             <th>Admission</th>
                                                                             <th>Name</th>
-                                                                            <th>Course</th>
                                                                             <th>Module</th>
                                                                             <th>Academic Yr</th>
                                                                             <th>Sem Enrolled</th>
@@ -413,7 +369,7 @@ require_once('public/partials/_head.php');
                                                                     </thead>
                                                                     <tbody>
                                                                         <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments`  ";
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE course_code = '$CourseCode' ";
                                                                         $stmt = $mysqli->prepare($ret);
                                                                         $stmt->execute(); //ok
                                                                         $res = $stmt->get_result();
@@ -425,7 +381,6 @@ require_once('public/partials/_head.php');
                                                                                 <td><?php echo $cnt; ?></td>
                                                                                 <td><?php echo $en->student_adm; ?></td>
                                                                                 <td><?php echo $en->student_name; ?></td>
-                                                                                <td><?php echo $en->course_name; ?></td>
                                                                                 <td><?php echo $en->module_name; ?></td>
                                                                                 <td><?php echo $en->academic_year_enrolled; ?></td>
                                                                                 <td><?php echo $en->semester_enrolled; ?></td>
