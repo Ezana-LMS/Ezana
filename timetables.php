@@ -323,7 +323,7 @@ require_once('public/partials/_head.php');
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <div class="col-md-12">
                                             <div class="card card-primary">
                                                 <div class="card-header">
@@ -338,18 +338,18 @@ require_once('public/partials/_head.php');
                                                     <ul class="list-group">
 
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="modules.php?view=<?php echo $course->id; ?>">
+                                                            <a href="course_modules.php?view=<?php echo $course->id; ?>">
                                                                 Modules
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="timetables.php?view=<?php echo $course->id; ?>">
-                                                                Time Table
+                                                                TimeTable
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="enrollments.php?view=<?php echo $course->id; ?>">
-                                                                Enrolled Students
+                                                                Enrollments
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -357,7 +357,7 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-9">
+                                    <div class="col-md-10">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="text-right">

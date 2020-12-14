@@ -265,7 +265,7 @@ require_once('public/partials/_head.php');
                                                     <div class="card-body">
                                                         <ul class="list-group">
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="modules.php?view=<?php echo $course->id; ?>">
+                                                                <a href="course_modules.php?view=<?php echo $course->id; ?>">
                                                                     Modules
                                                                 </a>
                                                             </li>
