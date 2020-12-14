@@ -252,7 +252,7 @@ require_once('public/partials/_head.php');
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="enrollments.php?view=<?php echo $results['id']; ?>">
+                                                                <a href="module_enrollments.php?view=<?php echo $results['id']; ?>">
                                                                     Module Enrollments
                                                                 </a>
                                                             </li>
