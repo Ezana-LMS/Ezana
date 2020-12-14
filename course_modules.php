@@ -137,7 +137,7 @@ require_once('public/partials/_head.php');
         <?php
         require_once('public/partials/_nav.php');
         $view = $_GET['view'];
-        $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE id -> '$view'";
+        $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE id = '$view'";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
@@ -278,7 +278,7 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="">Course Name</label>
-                                                                    <input type="text" readonly value="<?php echo $course->id; ?>" required name="course_name" class="form-control">
+                                                                    <input type="text" readonly value="<?php echo $course->name; ?>" required name="course_name" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -411,7 +411,7 @@ require_once('public/partials/_head.php');
                                                         </thead>
                                                         <tbody>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE course_id = '$course_id'  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE course_id = '$course->id'  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();

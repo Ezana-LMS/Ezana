@@ -82,7 +82,7 @@ if (isset($_POST['add_enroll'])) {
             $rc = $stmt->bind_param('ssssssssssssss', $id, $faculty, $code, $student_adm, $student_name, $semester_enrolled, $created_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code);
             $stmt->execute();
             if ($stmt) {
-                $success = "Student Enrolled"  && header("refresh:1; url=enrollments.php?view=$course_id");
+                $success = "Student Enrolled"  && header("refresh:1; url=module_enrollments.php?view=$course_id");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -155,7 +155,7 @@ if (isset($_POST['update_enroll'])) {
         $rc = $stmt->bind_param('sssssssssssss',  $code, $student_adm, $student_name, $semester_enrolled, $updated_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Student Enrolled" && header("refresh:1; url=enrollments.php?view=$id");
+            $success = "Student Enrolled" && header("refresh:1; url=module_enrollments.php?view=$id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -172,7 +172,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=enrollments.php?view=$view");
+        $success = "Deleted" && header("refresh:1; url=module_enrollments.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -187,19 +187,12 @@ require_once('public/partials/_head.php');
         <?php
         require_once('public/partials/_nav.php');
         $view = $_GET['view'];
-        $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE id = '$view' ";
+        $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE id = '$view' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         $cnt = 1;
-        while ($course = $res->fetch_object()) {
-            $CourseCode = $course->code;
-            /* Time Tables Under This Course */
-            $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE code = '$CourseCode'  ";
-            $stmt = $mysqli->prepare($ret);
-            $stmt->execute(); //ok
-            $res = $stmt->get_result();
-            while ($course = $res->fetch_object()) {
+        while ($mod = $res->fetch_object()) {
         ?>
                 <!-- /.navbar -->
                 <!-- Main Sidebar Container -->
@@ -240,7 +233,7 @@ require_once('public/partials/_head.php');
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="courses.php" class="active nav-link">
+                                    <a href="courses.php" class="nav-link">
                                         <i class="nav-icon fas fa-chalkboard-teacher"></i>
                                         <p>
                                             Courses
@@ -248,7 +241,7 @@ require_once('public/partials/_head.php');
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="modules.php" class="nav-link">
+                                    <a href="modules.php" class="active nav-link">
                                         <i class="nav-icon fas fa-chalkboard"></i>
                                         <p>
                                             Modules
@@ -289,13 +282,13 @@ require_once('public/partials/_head.php');
                         <div class="container-fluid">
                             <div class="row mb-2">
                                 <div class="col-sm-6">
-                                    <h1 class="m-0 text-dark"><?php echo $course->name; ?> Enrolled Students</h1>
+                                    <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Enrolled Students</h1>
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">
                                         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="courses.php">Courses</a></li>
-                                        <li class="breadcrumb-item active"><?php echo $course->name; ?> TT</li>
+                                        <li class="breadcrumb-item"><a href="courses.php">Modules</a></li>
+                                        <li class="breadcrumb-item active"><?php echo $mod->name; ?> TT</li>
                                     </ol>
                                 </div>
                             </div>
@@ -326,8 +319,8 @@ require_once('public/partials/_head.php');
                                                                     <div class="form-group col-md-6">
                                                                         <label for=""> Name</label>
                                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                        <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
-                                                                        <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
+                                                                        <input type="hidden" required name="course_id" value="<?php echo $mod->course_id; ?>" class="form-control">
+                                                                        <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-6">
                                                                         <label for="">Enroll Code</label>
@@ -366,29 +359,18 @@ require_once('public/partials/_head.php');
                                                                     <hr>
                                                                     <div class="form-group col-md-6">
                                                                         <label for="">Module Name</label>
-                                                                        <select class='form-control basic' id="ModuleName" onchange="getModuleDetails(this.value);" name="module_name">
-                                                                            <option selected>Select Module Name </option>
-                                                                            <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE course_id = '$course->id'   ";
-                                                                            $stmt = $mysqli->prepare($ret);
-                                                                            $stmt->execute(); //ok
-                                                                            $res = $stmt->get_result();
-                                                                            while ($mod = $res->fetch_object()) {
-                                                                            ?>
-                                                                                <option><?php echo $mod->name; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
+                                                                        <input type="text" value="<?php echo $mod->name;?>" required name="module_name" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-6">
                                                                         <label for="">Module Code</label>
-                                                                        <input type="text" id="ModuleCode" required name="module_code" class="form-control">
+                                                                        <input type="text" value="<?php echo $mod->code;?>" required name="module_code" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-6">
                                                                         <label for="">Semester Enrolled</label>
                                                                         <select class='form-control basic' name="semester_enrolled">
                                                                             <option selected>Select Semester Name</option>
                                                                             <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$course->faculty_id'  ";
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$mod->faculty_id'  ";
                                                                             $stmt = $mysqli->prepare($ret);
                                                                             $stmt->execute(); //ok
                                                                             $res = $stmt->get_result();
@@ -403,7 +385,7 @@ require_once('public/partials/_head.php');
                                                                         <select class='form-control basic' name="academic_year_enrolled">
                                                                             <option selected>Academic Year Enrolled</option>
                                                                             <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$course->faculty_id'  ";
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$mod->faculty_id'  ";
                                                                             $stmt = $mysqli->prepare($ret);
                                                                             $stmt->execute(); //ok
                                                                             $res = $stmt->get_result();
@@ -418,7 +400,7 @@ require_once('public/partials/_head.php');
                                                                         <select class='form-control basic' name="semester_start">
                                                                             <option selected>Semester Start Date</option>
                                                                             <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$course->faculty_id'  ";
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$mod->faculty_id'  ";
                                                                             $stmt = $mysqli->prepare($ret);
                                                                             $stmt->execute(); //ok
                                                                             $res = $stmt->get_result();
@@ -434,7 +416,7 @@ require_once('public/partials/_head.php');
                                                                         <select class='form-control basic' name="semester_end">
                                                                             <option selected>Semester End Date</option>
                                                                             <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$course->faculty_id'  ";
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$mod->faculty_id'  ";
                                                                             $stmt = $mysqli->prepare($ret);
                                                                             $stmt->execute(); //ok
                                                                             $res = $stmt->get_result();
@@ -466,7 +448,7 @@ require_once('public/partials/_head.php');
                                         <div class="col-md-12">
                                             <div class="card card-primary">
                                                 <div class="card-header">
-                                                    <h3 class="card-title"><?php echo $course->name; ?></h3>
+                                                    <h3 class="card-title"><?php echo $mod->name; ?></h3>
                                                     <div class="card-tools text-right">
                                                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                         </button>
@@ -474,24 +456,38 @@ require_once('public/partials/_head.php');
                                                 </div>
 
                                                 <div class="card-body">
-                                                    <ul class="list-group">
-
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="course_modules.php?view=<?php echo $course->id; ?>">
-                                                                Modules
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="timetables.php?view=<?php echo $course->id; ?>">
-                                                                TimeTable
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="enrollments.php?view=<?php echo $course->id; ?>">
-                                                                Enrollments
-                                                            </a>
-                                                        </li>
-                                                    </ul>
+                                                <ul class="list-group">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="module_notices.php?view=<?php echo $mod->id; ?>">
+                                                            Notices
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="pastpapers.php?view=<?php echo $mod->id; ?>">
+                                                            Past Papers
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="course_materials.php?view=<?php echo $mod->id; ?>">
+                                                            Course Materials
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="class_recordings.php?view=<?php echo $mod->id; ?>">
+                                                            Class Recordings
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="student_groups.php?view=<?php echo $mod->id; ?>">
+                                                            Student Groups
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="module_enrollments.php?view=<?php echo $mod->code; ?>">
+                                                            Module Enrollments
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -509,8 +505,7 @@ require_once('public/partials/_head.php');
                                                                         <tr>
                                                                             <th>#</th>
                                                                             <th>Admission</th>
-                                                                            <th>Name</th>
-                                                                            <th>Module</th>
+                                                                            <th>Course</th>
                                                                             <th>Academic Yr</th>
                                                                             <th>Sem Enrolled</th>
                                                                             <th>Sem Start</th>
@@ -520,7 +515,7 @@ require_once('public/partials/_head.php');
                                                                     </thead>
                                                                     <tbody>
                                                                         <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE course_code = '$CourseCode' ";
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE module_code = '$mod->code' ";
                                                                         $stmt = $mysqli->prepare($ret);
                                                                         $stmt->execute(); //ok
                                                                         $res = $stmt->get_result();
@@ -532,13 +527,12 @@ require_once('public/partials/_head.php');
                                                                                 <td><?php echo $cnt; ?></td>
                                                                                 <td><?php echo $en->student_adm; ?></td>
                                                                                 <td><?php echo $en->student_name; ?></td>
-                                                                                <td><?php echo $en->module_name; ?></td>
                                                                                 <td><?php echo $en->academic_year_enrolled; ?></td>
                                                                                 <td><?php echo $en->semester_enrolled; ?></td>
                                                                                 <td><?php echo date('d M Y', strtotime($en->semester_start)); ?></td>
                                                                                 <td><?php echo date('d M Y', strtotime($en->semester_end)); ?></td>
                                                                                 <td>
-                                                                                    <a class="badge badge-danger" href="enrollments.php?delete=<?php echo $en->id; ?>&view=<?php echo $course->id; ?>">
+                                                                                    <a class="badge badge-danger" href="module_enrollments.php?delete=<?php echo $en->id; ?>&view=<?php echo $mod->id; ?>">
                                                                                         <i class="fas fa-trash"></i>
                                                                                         Delete
                                                                                     </a>
