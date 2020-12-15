@@ -6,7 +6,6 @@ check_login();
 require_once('configs/codeGen.php');
 
 /* Add Module Notice */
-
 if (isset($_POST['add_notice'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -315,7 +314,7 @@ require_once('public/partials/_head.php');
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="module_enrollments.php?view=<?php echo $mod->code; ?>">
+                                                        <a href="module_enrollments.php?view=<?php echo $mod->id; ?>">
                                                             Module Enrollments
                                                         </a>
                                                     </li>
@@ -353,9 +352,9 @@ require_once('public/partials/_head.php');
                                                                         <small><?php echo $not->created_at; ?></small>
                                                                     </div>
                                                                     <small>
-                                                                        <?php
-                                                                        echo $not->announcements;
-                                                                        ?>
+                                                                         <?php
+                                                                            echo $not->announcements;
+                                                                            ?> ~ By <?php echo $not->created_by; ?>
                                                                         <div class="row">
                                                                             <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $mod->id; ?>">
                                                                                 <i class="fas fa-edit"></i>
@@ -424,8 +423,6 @@ require_once('public/partials/_head.php');
                                                                     </small>
                                                                 <?php $cnt = $cnt + 1;
                                                                 } ?>
-                                                                </tbody>
-                                                                </table>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -442,8 +439,8 @@ require_once('public/partials/_head.php');
             } ?>
             </div>
         </div>
-    <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php'); ?>
+        <!-- ./wrapper -->
+        <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
