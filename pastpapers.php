@@ -5,92 +5,11 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 
-/* Add Module Notice */
+/* Add Past papers */
 
-if (isset($_POST['add_notice'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
-        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
-    } else {
-        $error = 1;
-        $err = "Module Name Cannot Be Empty";
-    }
-    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
-        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
-    } else {
-        $error = 1;
-        $err = "Module Name Cannot Be Empty";
-    }
-    if (isset($_POST['announcements']) && !empty($_POST['announcements'])) {
-        $announcements = mysqli_real_escape_string($mysqli, trim($_POST['announcements']));
-    } else {
-        $error = 1;
-        $err = "Noctices Cannot Be Empty";
-    }
-    if (!$error) {
-        $id = $_POST['id'];
-        $module_name  = $_POST['module_name'];
-        $module_code = $_POST['module_code'];
-        $announcements = $_POST['announcements'];
-        $created_by = $_POST['created_by'];
-        $created_at = date('d M Y');
-        $faculty_id = $_POST['faculty_id'];
-        $module_id = $_POST['module_id'];
-        $query = "INSERT INTO ezanaLMS_ModulesAnnouncements (id, module_name, module_code, announcements, created_by, created_at, faculty_id) VALUES(?,?,?,?,?,?,?)";
-        $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $id, $module_name, $module_code, $announcements, $created_by, $created_at, $faculty_id);
-        $stmt->execute();
-        if ($stmt) {
-            $success = "Posted" && header("refresh:1; url=module_notices.php?view=$module_id");
-        } else {
-            $info = "Please Try Again Or Try Later";
-        }
-    }
-}
-/* Update Module Notice */
-if (isset($_POST['update_notice'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['announcements']) && !empty($_POST['announcements'])) {
-        $announcements = mysqli_real_escape_string($mysqli, trim($_POST['announcements']));
-    } else {
-        $error = 1;
-        $err = "Notices Cannot Be Empty";
-    }
-    if (!$error) {
-        $announcements = $_POST['announcements'];
-        $created_by = $_POST['created_by'];
-        $created_at = date('d M Y g:i');
-        $module_id = $_POST['module_id'];
-        $id = $_POST['id'];
-        $query = "UPDATE  ezanaLMS_ModulesAnnouncements SET announcements =?, created_by =?, created_at =? WHERE id = ?";
-        $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssss', $announcements, $created_by, $created_at, $id);
-        $stmt->execute();
-        if ($stmt) {
-            $success = "Posted" && header("refresh:1; url=module_notices.php?view=$module_id");
-        } else {
-            $info = "Please Try Again Or Try Later";
-        }
-    }
-}
+/* Update past paper */
 
-/* Delete Module Notice */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $view = $_GET['view'];
-    $adn = "DELETE FROM ezanaLMS_ModulesAnnouncements WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=module_notices.php?view=$view");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
+/* Delete Past paper */
 
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
@@ -216,7 +135,7 @@ require_once('public/partials/_head.php');
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Module Notice</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Past Paper</button>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -227,42 +146,7 @@ require_once('public/partials/_head.php');
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <!-- Add Module Notices Form -->
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="">Announcement Posted By</label>
-                                                                    <?php
-                                                                    $id = $_SESSION['id'];
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id = '$id'  ";
-                                                                    $stmt = $mysqli->prepare($ret);
-                                                                    $stmt->execute(); //ok
-                                                                    $res = $stmt->get_result();
-                                                                    while ($user = $res->fetch_object()) {
-                                                                    ?>
-                                                                        <input type="text" required name="created_by" value="<?php echo $user->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                                    <?php
-                                                                    } ?>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Module Announcements</label>
-                                                                    <textarea required id="textarea" name="announcements" rows="20" class="form-control"></textarea>
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <input type="hidden" value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
-                                                                    <input type="hidden" value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
-                                                                    <input type="hidden" value="<?php echo $mod->id; ?>" required name="module_id" class="form-control">
-                                                                    <input type="hidden" required name="faculty_id" value="<?php echo $mod->faculty_id; ?>" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer text-right">
-                                                            <button type="submit" name="add_notice" class="btn btn-primary">Add Notice</button>
-                                                        </div>
-                                                    </form>
-                                                    <!-- End Module Notice Form -->
+                                                   <!-- Form -->
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -333,7 +217,7 @@ require_once('public/partials/_head.php');
                                                     <div class="col-md-12">
                                                         <div class="card ">
                                                             <div class="card-header">
-                                                                <h3 class="card-title">Module Notices And Announcements</h3>
+                                                                <h3 class="card-title">Past Papers And Solutions</h3>
                                                                 <div class="card-tools">
                                                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                                     </button>
