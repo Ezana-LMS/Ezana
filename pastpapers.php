@@ -179,6 +179,61 @@ require_once('public/partials/_head.php');
                                                 </div>
                                                 <div class="modal-body">
                                                     <!-- Form -->
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                    <input type="text" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="row" style="display: none;">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Course Name</label>
+                                                                    <select class='form-control basic' name="course_name">
+                                                                        <option selected>Select Course Name</option>
+                                                                        <?php
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE id = '$mod->course_id'  ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        while ($course = $res->fetch_object()) {
+                                                                        ?>
+                                                                            <option selected><?php echo $course->name; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Exam Paper Name</label>
+                                                                    <input type="text" name="paper_name" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Exam Paper Visibility / Availability</label>
+                                                                    <select class='form-control basic' name="paper_visibility">
+                                                                        <option selected>Available</option>
+                                                                        <option>Hidden</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="exampleInputFile">Upload Past Exam Paper ( PDF / Docx )</label>
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <input required name="pastpaper" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer text-right">
+                                                            <button type="submit" name="add_paper" class="btn btn-primary">Upload Paper</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
