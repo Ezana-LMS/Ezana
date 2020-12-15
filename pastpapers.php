@@ -42,7 +42,20 @@ if (isset($_POST['add_paper'])) {
 /* Update past paper */
 
 /* Delete Past paper */
-
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $module_id = $_GET['module_id'];
+    $adn = "DELETE FROM ezanaLMS_PastPapers WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=pastpapers.php?view=$module_id");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -186,10 +199,10 @@ require_once('public/partials/_head.php');
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
                                                                     <input type="hidden" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
-                                                                    <input type="hidden" name="faculty" value="<?php echo $mod->faculty; ?>" class="form-control">
+                                                                    <input type="hidden" name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
                                                                 </div>
                                                             </div>
-                                                            <div class="row" >
+                                                            <div class="row">
                                                                 <div class="form-group col-md-6" style="display: none;">
                                                                     <label for="">Course Name</label>
                                                                     <select class='form-control basic' name="course_name">
@@ -299,106 +312,21 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="card ">
-                                                            <div class="card-header">
-                                                                <h3 class="card-title">Past Papers And Solutions</h3>
-                                                                <div class="card-tools">
-                                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <?php
-                                                                $ret = "SELECT * FROM `ezanaLMS_ModulesAnnouncements` WHERE module_code  = '$mod->code'  ";
-                                                                $stmt = $mysqli->prepare($ret);
-                                                                $stmt->execute(); //ok
-                                                                $res = $stmt->get_result();
-                                                                $cnt = 1;
-                                                                while ($not = $res->fetch_object()) {
-                                                                ?>
-                                                                    <div class="d-flex w-100 justify-content-between">
-                                                                        <h5 class="mb-1"></h5>
-                                                                        <small><?php echo $not->created_at; ?></small>
-                                                                    </div>
-                                                                    <small>
-                                                                        <?php
-                                                                        echo $not->announcements;
-                                                                        ?> ~ By <?php echo $not->created_by; ?>
-                                                                        <div class="row">
-                                                                            <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $mod->id; ?>">
-                                                                                <i class="fas fa-edit"></i>
-                                                                                Update
-                                                                            </a>
-                                                                            <!-- Udpate Notice Modal -->
-                                                                            <div class="modal fade" id="update-<?php echo $mod->id; ?>">
-                                                                                <div class="modal-dialog  modal-lg">
-                                                                                    <div class="modal-content">
-                                                                                        <div class="modal-header">
-                                                                                            <h4 class="modal-title">Fill All Required Values </h4>
-                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                                <span aria-hidden="true">&times;</span>
-                                                                                            </button>
-                                                                                        </div>
-                                                                                        <div class="modal-body">
-                                                                                            <!-- Add Module Notices Form -->
-                                                                                            <form method="post" enctype="multipart/form-data" role="form">
-                                                                                                <div class="card-body">
-                                                                                                    <div class="row">
-                                                                                                        <div class="form-group col-md-4">
-                                                                                                            <label for="">Module Name</label>
-                                                                                                            <input readonly type="text" value="<?php echo $not->module_name; ?>" id="ModuleCode" required name="module_code" class="form-control">
-                                                                                                        </div>
-                                                                                                        <div class="form-group col-md-4">
-                                                                                                            <label for="">Module Code</label>
-                                                                                                            <input readonly type="text" id="ModuleCode" value="<?php echo $not->module_code; ?>" required name="module_code" class="form-control">
-                                                                                                        </div>
-                                                                                                        <div class="form-group col-md-4">
-                                                                                                            <label for="">Announcement Posted By</label>
-                                                                                                            <input type="text" required name="created_by" value="<?php echo $not->created_by; ?>" class="form-control" id="exampleInputEmail1">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="row">
-                                                                                                        <div class="form-group col-md-12">
-                                                                                                            <label for="exampleInputPassword1">Module Announcements</label>
-                                                                                                            <textarea required id="<?php echo $not->id; ?>" name="announcements" rows="20" class="form-control"><?php echo $not->announcements; ?></textarea>
-                                                                                                            <input type="hidden" required name="id" value="<?php echo $not->id; ?>" class="form-control">
-                                                                                                            <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <!-- Inline ck editor -->
-                                                                                                <script>
-                                                                                                    CKEDITOR.replace('<?php echo $not->id; ?>');
-                                                                                                </script>
+                                            <div class="card-deck">
+                                                <?php 
 
-                                                                                                <div class="card-footer text-right">
-                                                                                                    <button type="submit" name="update_notice" class="btn btn-primary">Update Notice</button>
-                                                                                                </div>
-                                                                                            </form>
-                                                                                            <!-- End Module Notice Form -->
-                                                                                        </div>
-                                                                                        <div class="modal-footer justify-content-between">
-                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <a class="badge badge-danger" href="module_notices.php?delete=<?php echo $not->id; ?>&view=<?php echo $mod->id; ?>">
-                                                                                <i class="fas fa-trash"></i>
-                                                                                Delete
-                                                                            </a>
-                                                                        </div>
-                                                                        <hr>
-                                                                    </small>
-                                                                <?php $cnt = $cnt + 1;
-                                                                } ?>
-                                                            </div>
-                                                        </div>
+                                                ?>
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Card title</h5>
+                                                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <small class="text-muted">Last updated 3 mins ago</small>
                                                     </div>
                                                 </div>
+                                                                        <?php }?>
+
                                             </div>
                                         </div>
                                     </div>
