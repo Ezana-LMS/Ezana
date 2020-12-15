@@ -314,7 +314,7 @@ require_once('public/partials/_head.php');
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE course_name = '$mod->name'   ";
+                                                $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name'   ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
@@ -333,7 +333,7 @@ require_once('public/partials/_head.php');
                                                                     </a>
                                                                     <?php
                                                                     /* If It Lacks Solution Give Option to upload else Download solution */
-                                                                    if($pastExas->solution != ''){
+                                                                    if($pastExas->solution == ''){
                                                                         echo 
                                                                         "
                                                                         <a href= '#solution-$pastExas->id' class='btn btn-outline-primary'>
