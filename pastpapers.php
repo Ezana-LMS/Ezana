@@ -60,18 +60,34 @@ if (isset($_POST['upload_solution'])) {
     }
 }
 /* Update past paper */
+if (isset($_POST['update'])) {
+    $view = $_POST['view'];
+    $id = $_POST['id'];
+    $paper_name = $_POST['paper_name'];
+    $paper_visibility = $_POST['paper_visibility'];
+    $solution_visibility = $_POST['solution_visibility'];
 
+    $query = "UPDATE ezanaLMS_PastPapers SET  paper_name = ?, paper_visibility = ?, solution_visibility = ? WHERE id = ?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('ssss', $paper_name, $paper_visibility, $solution_visibility, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Past Paper Updated" && header("refresh:1; url=pastpapers.php?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 /* Delete Past paper */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $module_id = $_GET['module_id'];
+    $view = $_GET['view'];
     $adn = "DELETE FROM ezanaLMS_PastPapers WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=pastpapers.php?view=$module_id");
+        $success = "Deleted" && header("refresh:1; url=pastpapers.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -424,9 +440,29 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Uploaded: <?php echo $pastExas->created_at; ?></small>
+                                                                <a class="badge badge-warning" href="#edit-visibility-<?php echo $pastExas->id; ?>">Edit Visiblity</a>
+                                                                <!-- Upload Solution Modal -->
+                                                                <div class="modal fade" id="edit-visibility-<?php echo $pastExas->id; ?>">
+                                                                    <div class="modal-dialog  modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <!-- Form -->
 
-                                                                <span class="badge badge-warning"><a href="#edit-visibility-<?php echo $pastExas->id; ?>">Edit Visiblity</a></span>
-                                                                <span class="badge badge-danger"><a href="pastpapers.php?delete=<?php echo $pastExas->id; ?>&view=<?php echo $mod->id; ?>">Delete Paper</a></span>
+                                                                            </div>
+                                                                            <div class="modal-footer justify-content-between">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End  Modal -->
+                                                                <a class="badge badge-danger" href="pastpapers.php?delete=<?php echo $pastExas->id; ?>&view=<?php echo $mod->id; ?>">Delete Paper</a>
                                                             </div>
                                                         </div>
                                                     </div>
