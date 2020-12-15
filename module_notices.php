@@ -424,8 +424,6 @@ require_once('public/partials/_head.php');
                                                                     </small>
                                                                 <?php $cnt = $cnt + 1;
                                                                 } ?>
-                                                                </tbody>
-                                                                </table>
                                                             </div>
                                                         </div>
                                                     </div>

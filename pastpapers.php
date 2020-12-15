@@ -6,7 +6,39 @@ check_login();
 require_once('configs/codeGen.php');
 
 /* Add Past papers */
+if (isset($_POST['add_paper'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
+        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['course_name']));
+    } else {
+        $error = 1;
+        $err = "Course Name Cannot Be Empty";
+    }
+    if (!$error) {
+        $faculty = $_POST['faculty'];
+        $module_name = $_POST['module_name'];
+        $id = $_POST['id'];
+        $course_name = $_POST['course_name'];
+        $paper_name = $_POST['paper_name'];
+        $paper_visibility = $_POST['paper_visibility'];
+        $created_at = date('d M Y h:m:s');
+        $pastpaper = $_FILES['pastpaper']['name'];
+        /* Module ID */
+        $module_id = $_POST['module_id'];
+        move_uploaded_file($_FILES["pastpaper"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $_FILES["pastpaper"]["name"]);
 
+        $query = "INSERT INTO ezanaLMS_PastPapers (id, paper_name, paper_visibility, faculty_id, course_name, module_name,  created_at, pastpaper) VALUES(?,?,?,?,?,?,?,?)";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ssssssss', $id, $paper_name, $paper_visibility, $faculty, $course_name, $module_name, $created_at, $pastpaper);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Past Paper Uploaded" && header("refresh:1; url=pastpapers.php?view=$module_id");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
 /* Update past paper */
 
 /* Delete Past paper */
@@ -146,7 +178,7 @@ require_once('public/partials/_head.php');
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                   <!-- Form -->
+                                                    <!-- Form -->
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -237,9 +269,9 @@ require_once('public/partials/_head.php');
                                                                         <small><?php echo $not->created_at; ?></small>
                                                                     </div>
                                                                     <small>
-                                                                         <?php
-                                                                            echo $not->announcements;
-                                                                            ?> ~ By <?php echo $not->created_by; ?>
+                                                                        <?php
+                                                                        echo $not->announcements;
+                                                                        ?> ~ By <?php echo $not->created_by; ?>
                                                                         <div class="row">
                                                                             <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $mod->id; ?>">
                                                                                 <i class="fas fa-edit"></i>
@@ -308,8 +340,6 @@ require_once('public/partials/_head.php');
                                                                     </small>
                                                                 <?php $cnt = $cnt + 1;
                                                                 } ?>
-                                                                </tbody>
-                                                                </table>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -324,10 +354,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
+                </div>
             </div>
-        </div>
-        <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php'); ?>
+            <!-- ./wrapper -->
+            <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
