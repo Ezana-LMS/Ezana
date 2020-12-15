@@ -160,7 +160,7 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?></h1>
+                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Past Papers</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -313,20 +313,37 @@ require_once('public/partials/_head.php');
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="card-deck">
-                                                <?php 
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_PastPapers`   ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                $cnt = 1;
+                                                while ($pastExas = $res->fetch_object()) {
 
                                                 ?>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Card title</h5>
-                                                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title"><?php echo $pastExas->paper_name; ?></h5>
+                                                            <br>
+                                                            <hr>
+                                                            <div class="text-center">
+                                                                <a target="_blank" class="btn btn-outline-success" href="">
+                                                                    View Paper
+                                                                </a>
+                                                                <a target="_blank" class="btn btn-outline-success" href="">
+                                                                    View Solution
+                                                                </a>
+                                                                <a target="_blank" class="btn btn-outline-success" href="">
+                                                                    Update Paper
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <small class="text-muted">Uploaded At <?php echo $pastExas->created_at; ?></small>
+                                                        </div>
                                                     </div>
-                                                    <div class="card-footer">
-                                                        <small class="text-muted">Last updated 3 mins ago</small>
-                                                    </div>
-                                                </div>
-                                                                        <?php }?>
-
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
