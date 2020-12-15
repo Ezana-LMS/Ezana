@@ -185,12 +185,12 @@ require_once('public/partials/_head.php');
                                                                 <div class="form-group col-md-6">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                    <input type="text" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
-
+                                                                    <input type="hidden" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
+                                                                    <input type="hidden" name="faculty" value="<?php echo $mod->faculty; ?>" class="form-control">
                                                                 </div>
                                                             </div>
-                                                            <div class="row" style="display: none;">
-                                                                <div class="form-group col-md-6">
+                                                            <div class="row" >
+                                                                <div class="form-group col-md-6" style="display: none;">
                                                                     <label for="">Course Name</label>
                                                                     <select class='form-control basic' name="course_name">
                                                                         <option selected>Select Course Name</option>
