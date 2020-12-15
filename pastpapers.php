@@ -46,8 +46,9 @@ if (isset($_POST['upload_solution'])) {
     $id = $_POST['id'];
     $solution_visibility = $_POST['solution_visibility'];
     $solution = $_FILES['solution']['name'];
+    /* Module ID */
+    $module_id = $_POST['module_id'];
     move_uploaded_file($_FILES["solution"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $_FILES["solution"]["name"]);
-
     $query = "UPDATE ezanaLMS_PastPapers SET solution_visibility = ?, solution =? WHERE id = ?  ";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('sss', $solution_visibility, $solution, $id);
@@ -385,6 +386,7 @@ require_once('public/partials/_head.php');
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-6">
                                                                                                 <input type="hidden" required name="id" value="<?php echo $pastExas->id; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="row">
@@ -406,7 +408,7 @@ require_once('public/partials/_head.php');
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="text-right">
-                                                                                            <button type="submit" name="add_paper" class="btn btn-primary">Upload</button>
+                                                                                            <button type="submit" name="upload_solution" class="btn btn-primary">Upload</button>
                                                                                         </div>
                                                                                     </div>
                                                                                 </form>
