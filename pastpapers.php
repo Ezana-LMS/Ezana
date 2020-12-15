@@ -59,8 +59,9 @@ if (isset($_POST['upload_solution'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+
 /* Update past paper */
-if (isset($_POST['update'])) {
+if (isset($_POST['update_pastpaper'])) {
     $view = $_POST['view'];
     $id = $_POST['id'];
     $paper_name = $_POST['paper_name'];
@@ -77,6 +78,7 @@ if (isset($_POST['update'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+
 /* Delete Past paper */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
@@ -440,7 +442,8 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Uploaded: <?php echo $pastExas->created_at; ?></small>
-                                                                <a class="badge badge-warning" href="#edit-visibility-<?php echo $pastExas->id; ?>">Edit Visiblity</a>
+                                                                <a class="badge badge-warning" data-toggle="modal" href="#edit-visibility-<?php echo $pastExas->id; ?>">Edit Visiblity</a>
+                                                                
                                                                 <!-- Upload Solution Modal -->
                                                                 <div class="modal fade" id="edit-visibility-<?php echo $pastExas->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
@@ -453,7 +456,41 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                             <div class="modal-body">
                                                                                 <!-- Form -->
-
+                                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                                    <div class="card-body">
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <input type="hidden" required name="id" value="<?php echo $pastExas->id; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="">Exam Paper Name</label>
+                                                                                                <input type="text" value="<?php echo $pastExas->paper_name; ?>" name="paper_name" class="form-control">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Exam Paper Visibility / Availability</label>
+                                                                                                <select class='form-control basic' name="paper_visibility">
+                                                                                                    <option selected><?php echo $pastExas->paper_visibility; ?></option>
+                                                                                                    <option>Available</option>
+                                                                                                    <option>Hidden</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Exam Paper Solution Visibility / Availability</label>
+                                                                                                <select class='form-control basic' name="solution_visibility">
+                                                                                                    <option selected><?php echo $pastExas->solution_visibility; ?></option>
+                                                                                                    <option selected>Available</option>
+                                                                                                    <option>Hidden</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="card-footer text-right">
+                                                                                        <button type="submit" name="update_pastpaper" class="btn btn-primary">Update Exam Paper</button>
+                                                                                    </div>
+                                                                                </form>
                                                                             </div>
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
