@@ -328,22 +328,21 @@ require_once('public/partials/_head.php');
                                                                 <hr>
                                                                 <br>
                                                                 <div class="text-center">
-                                                                    <a href="" class="btn btn-outline-success">
+                                                                    <a href="public/uploads/EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="btn btn-outline-success">
                                                                         View Paper
                                                                     </a>
                                                                     <?php
                                                                     /* If It Lacks Solution Give Option to upload else Download solution */
-                                                                    if($pastExas->solution == ''){
-                                                                        echo 
-                                                                        "
+                                                                    if ($pastExas->solution == '') {
+                                                                        echo
+                                                                            "
                                                                         <a href= '#solution-$pastExas->id' class='btn btn-outline-primary'>
                                                                             Upload Solution
                                                                         </a>
                                                                         ";
-                                                                    }
-                                                                    else{
+                                                                    } else {
                                                                         "
-                                                                        <a href= '' class='btn btn-outline-success'>
+                                                                        <a href= 'public/uploads/EzanaLMSData/PastPapers/$pastExas->solution' class='btn btn-outline-success'>
                                                                             View Solution
                                                                         </a>
                                                                         ";
