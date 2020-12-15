@@ -361,8 +361,9 @@ require_once('public/partials/_head.php');
                                                                         </a>
                                                                         ";
                                                                     } else {
-                                                                        "
-                                                                        <a href= 'public/uploads/EzanaLMSData/PastPapers/$pastExas->solution' class='btn btn-outline-success'>
+                                                                        echo
+                                                                            "
+                                                                        <a target='_blank' href= 'public/uploads/EzanaLMSData/PastPapers/$pastExas->solution' class='btn btn-outline-success'>
                                                                             View Solution
                                                                         </a>
                                                                         ";
@@ -423,6 +424,9 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Uploaded: <?php echo $pastExas->created_at; ?></small>
+
+                                                                <span class="badge badge-warning"><a href="#edit-visibility-<?php echo $pastExas->id; ?>">Edit Visiblity</a></span>
+                                                                <span class="badge badge-danger"><a href="pastpapers.php?delete=<?php echo $pastExas->id; ?>&view=<?php echo $mod->id; ?>">Delete Paper</a></span>
                                                             </div>
                                                         </div>
                                                     </div>
