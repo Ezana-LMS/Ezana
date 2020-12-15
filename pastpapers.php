@@ -39,6 +39,26 @@ if (isset($_POST['add_paper'])) {
         }
     }
 }
+
+
+/* Upload Solution */
+if (isset($_POST['upload_solution'])) {
+
+    $id = $_POST['id'];
+    $solution_visibility = $_POST['solution_visibility'];
+    $solution = $_FILES['solution']['name'];
+    move_uploaded_file($_FILES["solution"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $_FILES["solution"]["name"]);
+
+    $query = "UPDATE ezanaLMS_PastPapers SET solution_visibility = ?, solution =? WHERE id = ?  ";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sss', $solution_visibility, $solution, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Past Paper Solution Uploaded" && header("refresh:1; url=pastpapers.php?view=$module_id");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 /* Update past paper */
 
 /* Delete Past paper */
@@ -328,7 +348,7 @@ require_once('public/partials/_head.php');
                                                                 <hr>
                                                                 <br>
                                                                 <div class="text-center">
-                                                                    <a href="public/uploads/EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="btn btn-outline-success">
+                                                                    <a target="_blank" href="public/uploads/EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="btn btn-outline-success">
                                                                         View Paper
                                                                     </a>
                                                                     <?php
