@@ -311,8 +311,53 @@ require_once('public/partials/_head.php');
                                 </div>
                                 <div class="col-md-9">
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            
+                                        <div class="col-md-12 col-lg-12">
+                                            <div class="row">
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE course_name = '$mod->name'   ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                $cnt = 1;
+                                                while ($pastExas = $res->fetch_object()) {
+                                                ?>
+                                                    <div class="col-md-6">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title"><?php echo $pastExas->paper_name; ?></h5>
+                                                                <hr>
+                                                                <br>
+                                                                <div class="text-center">
+                                                                    <a href="" class="btn btn-outline-success">
+                                                                        View Paper
+                                                                    </a>
+                                                                    <?php
+                                                                    /* If It Lacks Solution Give Option to upload else Download solution */
+                                                                    if($pastExas->solution != ''){
+                                                                        echo 
+                                                                        "
+                                                                        <a href= '#solution-$pastExas->id' class='btn btn-outline-primary'>
+                                                                            Upload Solution
+                                                                        </a>
+                                                                        ";
+                                                                    }
+                                                                    else{
+                                                                        "
+                                                                        <a href= '' class='btn btn-outline-success'>
+                                                                            View Solution
+                                                                        </a>
+                                                                        ";
+                                                                    }
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer">
+                                                                <small class="text-muted">Uploaded: <?php echo $pastExas->created_at; ?></small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
