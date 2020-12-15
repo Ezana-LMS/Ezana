@@ -312,7 +312,7 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="card-deck">
+                                            <div class="row">
                                                 <?php
                                                 $ret = "SELECT * FROM `ezanaLMS_PastPapers`   ";
                                                 $stmt = $mysqli->prepare($ret);
@@ -322,7 +322,7 @@ require_once('public/partials/_head.php');
                                                 while ($pastExas = $res->fetch_object()) {
 
                                                 ?>
-                                                    <div class="card">
+                                                    <div class="card col-md-3">
                                                         <div class="card-body">
                                                             <h5 class="card-title"><?php echo $pastExas->paper_name; ?></h5>
                                                             <br>
