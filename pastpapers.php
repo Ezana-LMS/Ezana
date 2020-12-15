@@ -312,39 +312,7 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="row">
-                                                <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_PastPapers`   ";
-                                                $stmt = $mysqli->prepare($ret);
-                                                $stmt->execute(); //ok
-                                                $res = $stmt->get_result();
-                                                $cnt = 1;
-                                                while ($pastExas = $res->fetch_object()) {
-
-                                                ?>
-                                                    <div class="card col-md-3">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title"><?php echo $pastExas->paper_name; ?></h5>
-                                                            <br>
-                                                            <hr>
-                                                            <div class="text-center">
-                                                                <a target="_blank" class="btn btn-outline-success" href="">
-                                                                    View Paper
-                                                                </a>
-                                                                <a target="_blank" class="btn btn-outline-success" href="">
-                                                                    View Solution
-                                                                </a>
-                                                                <a target="_blank" class="btn btn-outline-success" href="">
-                                                                    Update Paper
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer">
-                                                            <small class="text-muted">Uploaded At <?php echo $pastExas->created_at; ?></small>
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
