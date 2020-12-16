@@ -229,7 +229,35 @@ require_once('public/partials/_head.php');
                                     <div class="row">
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE module_id = '$mod->id'  ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                $cnt = 1;
+                                                while ($g = $res->fetch_object()) {
+                                                ?>
+                                                    <div class="col-md-6">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title"><?php echo $g->name; ?> | <?php echo $g->code; ?></h5>
+                                                                <br>
+                                                                <hr>
+                                                                <div class="text-center">
+                                                                    <a target="_blank" href="public/uploads/EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="btn btn-outline-success">
+                                                                        Members
+                                                                    </a>
+                                                                </div>
 
+                                                            </div>
+                                                            <div class="card-footer">
+                                                                <small class="text-muted">Uploaded: <?php echo $pastExas->created_at; ?></small>
+                                                                <a class="badge badge-warning" data-toggle="modal" href="#edit-group-<?php echo $g->id; ?>">Edit Group</a>
+                                                                <a class="badge badge-danger" href="student_groups.php?delete=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">Delete Group</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
