@@ -47,8 +47,30 @@ if (isset($_POST['add_reading_materials'])) {
     }
 }
 
-/* Update Course Materials */
+/* Update Course Materials  */
 
+if (isset($_POST['update_reading_materials'])) {
+        $id = $_POST['id'];
+        $visibility = $_POST['visibility'];
+        /* $module_name  = $_POST['module_name'];
+        $module_code = $_POST['module_code'];
+        $readingMaterials = $_FILES['readingMaterials']['name'];
+        move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "public/uploads/EzanaLMSData/Reading_Materials/" . $_FILES["readingMaterials"]["name"]); */
+        $external_link = $_POST['external_link'];
+        $created_at = date('d M Y');
+        /* Module ID  */
+        $view = $_POST['view'];
+        $query = "UPDATE ezanaLMS_ModuleRecommended SET visibility =?, created_at =?, external_link =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ssss', $visibility,  $created_at, $external_link, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Reading Materials Updated" && header("refresh:1; url=course_materials.php?view=$view");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    
+}
 
 
 /* Delete Course Materials */
@@ -344,57 +366,6 @@ require_once('public/partials/_head.php');
                                                                     }
                                                                     ?>
                                                                 </div>
-                                                                <!-- Upload Solution Modal -->
-                                                                <div class="modal fade" id="solution-<?php echo $rm->id; ?>">
-                                                                    <div class="modal-dialog  modal-lg">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title">Fill All Required Values </h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <!-- Form -->
-                                                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                                                    <div class="card-body">
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <input type="hidden" required name="id" value="<?php echo $rm->id; ?>" class="form-control">
-                                                                                                <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-12">
-                                                                                                <label for="">Exam Paper Solution Visibility / Availability</label>
-                                                                                                <select class='form-control basic' name="solution_visibility">
-                                                                                                    <option selected>Available</option>
-                                                                                                    <option>Hidden</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                            <div class="form-group col-md-12">
-                                                                                                <label for="exampleInputFile">Upload Past Exam Paper Solution ( PDF / Docx )</label>
-                                                                                                <div class="input-group">
-                                                                                                    <div class="custom-file">
-                                                                                                        <input required name="solution" type="file" class="custom-file-input" id="exampleInputFile">
-                                                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="text-right">
-                                                                                            <button type="submit" name="upload_solution" class="btn btn-primary">Upload</button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </form>
-                                                                            </div>
-                                                                            <div class="modal-footer justify-content-between">
-                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- End SOlution Modal -->
                                                             </div>
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Uploaded: <?php echo $rm->created_at; ?></small>
@@ -411,7 +382,40 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                             <div class="modal-body">
                                                                                 <!-- Form -->
-
+                                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                                    <div class="card-body">
+                                                                                        <div class="row">
+                                                                                            <input type="hidden" required name="id" value="<?php echo $rm->id; ?>" class="form-control">
+                                                                                            <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                            <div class="form-group col-md-4">
+                                                                                                <label for="">Reading Materials Visibility</label>
+                                                                                                <select class='form-control basic' name="visibility">
+                                                                                                    <option selected><?php echo $rm->visibility; ?></option>
+                                                                                                    <option>Available</option>
+                                                                                                    <option>Hidden</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-8">
+                                                                                                <label for="exampleInputPassword1">Hyperlink | Extenal Link</label>
+                                                                                                <input type="text" name="external_link" value="<?php echo $rm->external_link; ?>" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <!-- <div class="form-group col-md-6">
+                                                                                                <label for="exampleInputFile">Reading Materials (PDF, DOCX, PPTX)</label>
+                                                                                                <div class="input-group">
+                                                                                                    <div class="custom-file">
+                                                                                                        <input required name="readingMaterials" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div> -->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="card-footer text-right">
+                                                                                        <button type="submit" name="update_reading_materials" class="btn btn-primary">Update Reading Materials</button>
+                                                                                    </div>
+                                                                                </form>
                                                                             </div>
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
