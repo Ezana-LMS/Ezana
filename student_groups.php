@@ -54,14 +54,14 @@ if (isset($_POST['add_group'])) {
             $code = $_POST['code'];
             $created_at = date('d M Y');
             $details = $_POST['details'];
-            $faculty = $_GET['faculty'];
+            $faculty = $_POST['faculty_id'];
 
             $query = "INSERT INTO ezanaLMS_Groups (id, module_id, faculty_id, name, code, created_at, details) VALUES(?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('sssssss', $id, $module_id, $faculty, $name, $code, $created_at, $details);
             $stmt->execute();
             if ($stmt) {
-                $success = "Student Group  Added" && header("refresh:1; url=student_groups.php?$view=module_id");
+                $success = "Student Group  Added" && header("refresh:1; url=student_groups.php?view=$module_id");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -231,6 +231,7 @@ require_once('public/partials/_head.php');
                                                                     <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                    <input type="hidden" required name="faculty_id" value="<?php echo $mod->faculty_id; ?>" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Group Number / Code</label>
@@ -329,14 +330,15 @@ require_once('public/partials/_head.php');
                                                                 <br>
                                                                 <hr>
                                                                 <div class="text-center">
-                                                                    <a target="_blank" href="public/uploads/EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="btn btn-outline-success">
+                                                                    <a target="_blank" href="" class="btn btn-outline-success">
                                                                         Members
                                                                     </a>
+                                                                    <a target="_blank" href="" class="btn btn-outline-success">
+                                                                        Assignments
+                                                                    </a>
                                                                 </div>
-
                                                             </div>
                                                             <div class="card-footer">
-                                                                <small class="text-muted">Uploaded: <?php echo $pastExas->created_at; ?></small>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-group-<?php echo $g->id; ?>">Edit Group</a>
                                                                 <a class="badge badge-danger" href="student_groups.php?delete=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">Delete Group</a>
                                                             </div>
