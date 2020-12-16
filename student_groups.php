@@ -5,13 +5,13 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 
-/* Add Class Recordings  */
+/* Add Students Groups  */
 
 
-/* Update Class Recordings   */
+/* Update Students Groups  */
 
 
-/* Delete Class Recordings  */
+/* Delete Students Groups  */
 
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
@@ -117,7 +117,7 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Course Recordings</h1>
+                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Student Groups</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
