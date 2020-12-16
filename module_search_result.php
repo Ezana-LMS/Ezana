@@ -238,7 +238,7 @@ require_once('public/partials/_head.php');
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                                 <a href="course_materials.php?view=<?php echo $results['id']; ?>">
-                                                                    Course Materials
+                                                                    Reading Materials
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
