@@ -28,7 +28,7 @@ if (isset($_POST['add_reading_materials'])) {
         $module_name  = $_POST['module_name'];
         $module_code = $_POST['module_code'];
         $readingMaterials = $_FILES['readingMaterials']['name'];
-        move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "EzanaLMSData/Reading_Materials/" . $_FILES["readingMaterials"]["name"]);
+        move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "public/uploads/EzanaLMSData/Reading_Materials/" . $_FILES["readingMaterials"]["name"]);
         $external_link = $_POST['external_link'];
         $created_at = date('d M Y');
         $faculty = $_POST['faculty'];
@@ -208,7 +208,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-4">
                                                                     <label for="">Module Name</label>
-                                                                    <input type="text" value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
+                                                                    <input type="text" readonly value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
                                                                     <!-- hIDDEN -->
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
@@ -216,13 +216,13 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="">Module Code</label>
-                                                                    <input type="text" value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
+                                                                    <input type="text" readonly value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="">Reading Materials Visibility</label>
                                                                     <select class='form-control basic' name="visibility">
                                                                         <option selected>Available</option>
-                                                                        <option>Pending</option>
+                                                                        <option>Hidden</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -332,7 +332,7 @@ require_once('public/partials/_head.php');
                                                                     </a>
                                                                     <?php
                                                                     /* Show External Link */
-                                                                    if ($rm->external_link != '') {
+                                                                    if ($rm->external_link == '') {
                                                                         /* Yall Know Silence Is Best Answer */
                                                                     } else {
                                                                         echo
@@ -397,11 +397,10 @@ require_once('public/partials/_head.php');
                                                                 <!-- End SOlution Modal -->
                                                             </div>
                                                             <div class="card-footer">
-                                                                <small class="text-muted">Uploaded: <?php echo $pastExas->created_at; ?></small>
-                                                                <a class="badge badge-warning" data-toggle="modal" href="#edit-visibility-<?php echo $pastExas->id; ?>">Edit Visiblity</a>
-
+                                                                <small class="text-muted">Uploaded: <?php echo $rm->created_at; ?></small>
+                                                                <a class="badge badge-warning" data-toggle="modal" href="#edit-visibility-<?php echo $rm->id; ?>">Edit Visiblity</a>
                                                                 <!-- Upload Solution Modal -->
-                                                                <div class="modal fade" id="edit-visibility-<?php echo $pastExas->id; ?>">
+                                                                <div class="modal fade" id="edit-visibility-<?php echo $rm->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
@@ -412,41 +411,7 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                             <div class="modal-body">
                                                                                 <!-- Form -->
-                                                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                                                    <div class="card-body">
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <input type="hidden" required name="id" value="<?php echo $pastExas->id; ?>" class="form-control">
-                                                                                                <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-12">
-                                                                                                <label for="">Exam Paper Name</label>
-                                                                                                <input type="text" value="<?php echo $pastExas->paper_name; ?>" name="paper_name" class="form-control">
-                                                                                            </div>
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Exam Paper Visibility / Availability</label>
-                                                                                                <select class='form-control basic' name="paper_visibility">
-                                                                                                    <option selected><?php echo $pastExas->paper_visibility; ?></option>
-                                                                                                    <option>Available</option>
-                                                                                                    <option>Hidden</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Exam Paper Solution Visibility / Availability</label>
-                                                                                                <select class='form-control basic' name="solution_visibility">
-                                                                                                    <option selected><?php echo $pastExas->solution_visibility; ?></option>
-                                                                                                    <option selected>Available</option>
-                                                                                                    <option>Hidden</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="card-footer text-right">
-                                                                                        <button type="submit" name="update_pastpaper" class="btn btn-primary">Update Exam Paper</button>
-                                                                                    </div>
-                                                                                </form>
+
                                                                             </div>
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -455,7 +420,7 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                                 <!-- End  Modal -->
-                                                                <a class="badge badge-danger" href="pastpapers.php?delete=<?php echo $pastExas->id; ?>&view=<?php echo $mod->id; ?>">Delete Paper</a>
+                                                                <a class="badge badge-danger" href="course_materials.php?delete=<?php echo $rm->id; ?>&view=<?php echo $mod->id; ?>">Delete Paper</a>
                                                             </div>
                                                         </div>
                                                     </div>
