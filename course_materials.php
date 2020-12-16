@@ -11,6 +11,20 @@ require_once('configs/codeGen.php');
 /* Update Course Materials */
 
 /* Delete Course Materials */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $view = $_GET['view'];
+    $adn = "DELETE FROM ezanaLMS_ModuleRecommended WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=course_materials.php?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
@@ -116,7 +130,7 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Past Papers</h1>
+                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Course Materials</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -136,7 +150,7 @@ require_once('public/partials/_head.php');
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Past Paper</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Course Material</button>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -148,61 +162,7 @@ require_once('public/partials/_head.php');
                                                 </div>
                                                 <div class="modal-body">
                                                     <!-- Form -->
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                    <input type="hidden" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
-                                                                    <input type="hidden" name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6" style="display: none;">
-                                                                    <label for="">Course Name</label>
-                                                                    <select class='form-control basic' name="course_name">
-                                                                        <option selected>Select Course Name</option>
-                                                                        <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE id = '$mod->course_id'  ";
-                                                                        $stmt = $mysqli->prepare($ret);
-                                                                        $stmt->execute(); //ok
-                                                                        $res = $stmt->get_result();
-                                                                        while ($course = $res->fetch_object()) {
-                                                                        ?>
-                                                                            <option selected><?php echo $course->name; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </div>
 
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Exam Paper Name</label>
-                                                                    <input type="text" name="paper_name" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Exam Paper Visibility / Availability</label>
-                                                                    <select class='form-control basic' name="paper_visibility">
-                                                                        <option selected>Available</option>
-                                                                        <option>Hidden</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputFile">Upload Past Exam Paper ( PDF / Docx )</label>
-                                                                    <div class="input-group">
-                                                                        <div class="custom-file">
-                                                                            <input required name="pastpaper" type="file" class="custom-file-input" id="exampleInputFile">
-                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer text-right">
-                                                            <button type="submit" name="add_paper" class="btn btn-primary">Upload Paper</button>
-                                                        </div>
-                                                    </form>
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -285,7 +245,7 @@ require_once('public/partials/_head.php');
                                                                 <hr>
                                                                 <div class="text-center">
                                                                     <a target="_blank" href="public/uploads/EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="btn btn-outline-success">
-                                                                        View Paper
+
                                                                     </a>
                                                                     <?php
                                                                     /* If It Lacks upload_solutionSolution Give Option to upload else Download solution */
