@@ -7,8 +7,49 @@ require_once('configs/codeGen.php');
 
 /* Add Course Materials */
 
+if (isset($_POST['add_reading_materials'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
+        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
+        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (!$error) {
+        $id = $_POST['id'];
+        $visibility = $_POST['visibility'];
+        $module_name  = $_POST['module_name'];
+        $module_code = $_POST['module_code'];
+        $readingMaterials = $_FILES['readingMaterials']['name'];
+        move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "EzanaLMSData/Reading_Materials/" . $_FILES["readingMaterials"]["name"]);
+        $external_link = $_POST['external_link'];
+        $created_at = date('d M Y');
+        $faculty = $_POST['faculty'];
+        /* Module ID  */
+        $view = $_POST['view'];
+
+        $query = "INSERT INTO ezanaLMS_ModuleRecommended (id, visibility, faculty_id, module_name, module_code, readingMaterials, created_at, external_link) VALUES(?,?,?,?,?,?,?,?)";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ssssssss', $id, $visibility,  $faculty, $module_name, $module_code, $readingMaterials, $created_at, $external_link);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Reading Materials Shared" && header("refresh:1; url=course_materials.php?view=$view");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
 
 /* Update Course Materials */
+
+
 
 /* Delete Course Materials */
 if (isset($_GET['delete'])) {
@@ -150,7 +191,7 @@ require_once('public/partials/_head.php');
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Course Material</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Reading Materials</button>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -230,44 +271,39 @@ require_once('public/partials/_head.php');
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name'   ";
+                                                $ret = "SELECT * FROM `ezanaLMS_ModuleRecommended` WHERE module_code ='$mod->code' ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
                                                 $cnt = 1;
-                                                while ($pastExas = $res->fetch_object()) {
+                                                while ($rm = $res->fetch_object()) {
                                                 ?>
                                                     <div class="col-md-6">
                                                         <div class="card">
                                                             <div class="card-body">
-                                                                <h5 class="card-title"><?php echo $pastExas->paper_name; ?></h5>
+                                                                <p class="card-title"><?php echo $rm->readingMaterials; ?></p>
                                                                 <br>
                                                                 <hr>
                                                                 <div class="text-center">
-                                                                    <a target="_blank" href="public/uploads/EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="btn btn-outline-success">
-
+                                                                    <a target="_blank" href="public/uploads/EzanaLMSData/Reading_Materials/<?php echo $rm->readingMaterials; ?>" class="btn btn-outline-success">
+                                                                        View
                                                                     </a>
                                                                     <?php
-                                                                    /* If It Lacks upload_solutionSolution Give Option to upload else Download solution */
-                                                                    if ($pastExas->solution == '') {
-                                                                        echo
-                                                                            "
-                                                                        <a  data-toggle='modal' href= '#solution-$pastExas->id' class='btn btn-outline-primary'>
-                                                                            Upload Solution
-                                                                        </a>
-                                                                        ";
+                                                                    /* Show External Link */
+                                                                    if ($rm->external_link != '') {
+                                                                        /* Yall Know Silence Is Best Answer */
                                                                     } else {
                                                                         echo
                                                                             "
-                                                                        <a target='_blank' href= 'public/uploads/EzanaLMSData/PastPapers/$pastExas->solution' class='btn btn-outline-success'>
-                                                                            View Solution
+                                                                        <a target='_blank' href= '$rm->external_link' class='btn btn-outline-success'>
+                                                                            Open Link
                                                                         </a>
                                                                         ";
                                                                     }
                                                                     ?>
                                                                 </div>
                                                                 <!-- Upload Solution Modal -->
-                                                                <div class="modal fade" id="solution-<?php echo $pastExas->id; ?>">
+                                                                <div class="modal fade" id="solution-<?php echo $rm->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
@@ -282,7 +318,7 @@ require_once('public/partials/_head.php');
                                                                                     <div class="card-body">
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-6">
-                                                                                                <input type="hidden" required name="id" value="<?php echo $pastExas->id; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="id" value="<?php echo $rm->id; ?>" class="form-control">
                                                                                                 <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
                                                                                             </div>
                                                                                         </div>
