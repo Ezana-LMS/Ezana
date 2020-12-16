@@ -50,26 +50,25 @@ if (isset($_POST['add_reading_materials'])) {
 /* Update Course Materials  */
 
 if (isset($_POST['update_reading_materials'])) {
-        $id = $_POST['id'];
-        $visibility = $_POST['visibility'];
-        /* $module_name  = $_POST['module_name'];
+    $id = $_POST['id'];
+    $visibility = $_POST['visibility'];
+    /* $module_name  = $_POST['module_name'];
         $module_code = $_POST['module_code'];
         $readingMaterials = $_FILES['readingMaterials']['name'];
         move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "public/uploads/EzanaLMSData/Reading_Materials/" . $_FILES["readingMaterials"]["name"]); */
-        $external_link = $_POST['external_link'];
-        $created_at = date('d M Y');
-        /* Module ID  */
-        $view = $_POST['view'];
-        $query = "UPDATE ezanaLMS_ModuleRecommended SET visibility =?, created_at =?, external_link =? WHERE id =?";
-        $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssss', $visibility,  $created_at, $external_link, $id);
-        $stmt->execute();
-        if ($stmt) {
-            $success = "Reading Materials Updated" && header("refresh:1; url=course_materials.php?view=$view");
-        } else {
-            $info = "Please Try Again Or Try Later";
-        }
-    
+    $external_link = $_POST['external_link'];
+    $created_at = date('d M Y');
+    /* Module ID  */
+    $view = $_POST['view'];
+    $query = "UPDATE ezanaLMS_ModuleRecommended SET visibility =?, created_at =?, external_link =? WHERE id =?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('ssss', $visibility,  $created_at, $external_link, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Reading Materials Updated" && header("refresh:1; url=course_materials.php?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
 }
 
 
@@ -424,7 +423,7 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                                 <!-- End  Modal -->
-                                                                <a class="badge badge-danger" href="course_materials.php?delete=<?php echo $rm->id; ?>&view=<?php echo $mod->id; ?>">Delete Paper</a>
+                                                                <a class="badge badge-danger" href="course_materials.php?delete=<?php echo $rm->id; ?>&view=<?php echo $mod->id; ?>">Delete</a>
                                                             </div>
                                                         </div>
                                                     </div>
