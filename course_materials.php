@@ -203,7 +203,45 @@ require_once('public/partials/_head.php');
                                                 </div>
                                                 <div class="modal-body">
                                                     <!-- Form -->
-
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Module Name</label>
+                                                                    <input type="text" value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Module Code</label>
+                                                                    <input type="text" value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Reading Materials Visibility</label>
+                                                                    <select class='form-control basic' name="visibility">
+                                                                        <option selected>Available</option>
+                                                                        <option>Pending</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="exampleInputPassword1">Hyperlink | Extenal Link</label>
+                                                                    <input type="text" name="external_link" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="exampleInputFile">Reading Materials (PDF, DOCX, PPTX)</label>
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <input required name="readingMaterials" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer text-right">
+                                                            <button type="submit" name="add_reading_materials" class="btn btn-primary">Add Reading Materials</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
