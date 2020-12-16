@@ -5,95 +5,13 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 
-/* Add Past papers */
-if (isset($_POST['add_paper'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
-        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['course_name']));
-    } else {
-        $error = 1;
-        $err = "Course Name Cannot Be Empty";
-    }
-    if (!$error) {
-        $faculty = $_POST['faculty'];
-        $module_name = $_POST['module_name'];
-        $id = $_POST['id'];
-        $course_name = $_POST['course_name'];
-        $paper_name = $_POST['paper_name'];
-        $paper_visibility = $_POST['paper_visibility'];
-        $created_at = date('d M Y h:m:s');
-        $pastpaper = $_FILES['pastpaper']['name'];
-        /* Module ID */
-        $module_id = $_POST['module_id'];
-        move_uploaded_file($_FILES["pastpaper"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $_FILES["pastpaper"]["name"]);
-
-        $query = "INSERT INTO ezanaLMS_PastPapers (id, paper_name, paper_visibility, faculty_id, course_name, module_name,  created_at, pastpaper) VALUES(?,?,?,?,?,?,?,?)";
-        $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssss', $id, $paper_name, $paper_visibility, $faculty, $course_name, $module_name, $created_at, $pastpaper);
-        $stmt->execute();
-        if ($stmt) {
-            $success = "Past Paper Uploaded" && header("refresh:1; url=pastpapers.php?view=$module_id");
-        } else {
-            $info = "Please Try Again Or Try Later";
-        }
-    }
-}
+/* Add Course Materials */
 
 
-/* Upload Solution */
-if (isset($_POST['upload_solution'])) {
-    $id = $_POST['id'];
-    $solution_visibility = $_POST['solution_visibility'];
-    $solution = $_FILES['solution']['name'];
-    /* Module ID */
-    $module_id = $_POST['module_id'];
-    move_uploaded_file($_FILES["solution"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $_FILES["solution"]["name"]);
-    $query = "UPDATE ezanaLMS_PastPapers SET solution_visibility = ?, solution =? WHERE id = ?  ";
-    $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sss', $solution_visibility, $solution, $id);
-    $stmt->execute();
-    if ($stmt) {
-        $success = "Past Paper Solution Uploaded" && header("refresh:1; url=pastpapers.php?view=$module_id");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
+/* Update Course Materials */
 
-/* Update past paper */
-if (isset($_POST['update_pastpaper'])) {
-    $view = $_POST['view'];
-    $id = $_POST['id'];
-    $paper_name = $_POST['paper_name'];
-    $paper_visibility = $_POST['paper_visibility'];
-    $solution_visibility = $_POST['solution_visibility'];
+/* Delete Course Materials */
 
-    $query = "UPDATE ezanaLMS_PastPapers SET  paper_name = ?, paper_visibility = ?, solution_visibility = ? WHERE id = ?";
-    $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssss', $paper_name, $paper_visibility, $solution_visibility, $id);
-    $stmt->execute();
-    if ($stmt) {
-        $success = "Past Paper Updated" && header("refresh:1; url=pastpapers.php?view=$view");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
-
-/* Delete Past paper */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $view = $_GET['view'];
-    $adn = "DELETE FROM ezanaLMS_PastPapers WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=pastpapers.php?view=$view");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -443,7 +361,7 @@ require_once('public/partials/_head.php');
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Uploaded: <?php echo $pastExas->created_at; ?></small>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-visibility-<?php echo $pastExas->id; ?>">Edit Visiblity</a>
-                                                                
+
                                                                 <!-- Upload Solution Modal -->
                                                                 <div class="modal fade" id="edit-visibility-<?php echo $pastExas->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
