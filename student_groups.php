@@ -70,7 +70,56 @@ if (isset($_POST['add_group'])) {
 }
 
 /* Update Students Groups  */
+if (isset($_POST['update_group'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Group Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Group Name Cannot Be Empty";
+    }
+    /* 
+    if (isset($_POST['student_admn']) && !empty($_POST['student_admn'])) {
+        $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_admn']));
+    } else {
+        $error = 1;
+        $err = "Student Admission Number Cannot Be Empty";
+    }
+    if (isset($_POST['student_name']) && !empty($_POST['student_name'])) {
+        $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_name']));
+    } else {
+        $error = 1;
+        $err = "Student Name Number Cannot Be Empty";
+    } */
 
+    if (!$error) {
+
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $code = $_POST['code'];
+        $updated_at = date('d M Y');
+        $details = $_POST['details'];
+        $faculty = $_POST['faculty'];
+        $view = $_GET['view'];
+
+        $query = "UPDATE ezanaLMS_Groups SET name =?, code =?, updated_at=?, details =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssss', $name, $code, $updated_at, $details, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Student Group  Updated" && header("refresh:1; url=student_groups.php?view=$view");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
 
 /* Delete Students Groups  */
 if (isset($_GET['delete'])) {
@@ -339,7 +388,26 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </div>
                                                             <div class="card-footer">
-                                                                <a class="badge badge-warning" data-toggle="modal" href="#edit-group-<?php echo $g->id; ?>">Edit Group</a>
+                                                                <a class="badge badge-warning" data-toggle="modal" href="#edit-group-<?php echo $g->id; ?>">Edit</a>
+                                                                <div class="modal fade" id="edit-group-<?php echo $g->id; ?>">
+                                                                    <div class="modal-dialog  modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <!-- Form -->
+
+                                                                            </div>
+                                                                            <div class="modal-footer justify-content-between">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 <a class="badge badge-danger" href="student_groups.php?delete=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">Delete Group</a>
                                                             </div>
                                                         </div>
