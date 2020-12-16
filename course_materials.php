@@ -209,6 +209,10 @@ require_once('public/partials/_head.php');
                                                                 <div class="form-group col-md-4">
                                                                     <label for="">Module Name</label>
                                                                     <input type="text" value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
+                                                                    <!-- hIDDEN -->
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+                                                                    <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="">Module Code</label>
