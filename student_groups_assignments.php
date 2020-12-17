@@ -4,133 +4,62 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+/* Add Groups Assignments */
+if (isset($_POST['add_group_project'])) {
+    $id = $_POST['id'];
+    $details = $_POST['details'];
+    $faculty = $_POST['faculty'];
+    $attachments = $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["attachments"]["name"]);
+    $created_at = date('d M Y g:i');
+    $submitted_on = $_POST['submitted_on'];
+    /* Module ID */
+    $view = $_POST['view'];
 
-/* Add Students Groups  */
-if (isset($_POST['add_group'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['code']) && !empty($_POST['code'])) {
-        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    $query = "INSERT INTO ezanaLMS_GroupsAssignments (id, faculty_id, module_id,  attachments, details, created_at, submitted_on) VALUES(?,?,?,?,?,?,?)";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sssssss', $id, $faculty, $view,  $attachments, $details, $created_at, $submitted_on);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Group Assignment Added" && header("refresh:1; url=student_groups_assignments.php?view=$view");
     } else {
-        $error = 1;
-        $err = "Group Code Cannot Be Empty";
-    }
-    if (isset($_POST['name']) && !empty($_POST['name'])) {
-        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
-    } else {
-        $error = 1;
-        $err = "Group Name Cannot Be Empty";
-    }
-    /* 
-    if (isset($_POST['student_admn']) && !empty($_POST['student_admn'])) {
-        $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_admn']));
-    } else {
-        $error = 1;
-        $err = "Student Admission Number Cannot Be Empty";
-    }
-    if (isset($_POST['student_name']) && !empty($_POST['student_name'])) {
-        $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_name']));
-    } else {
-        $error = 1;
-        $err = "Student Name Number Cannot Be Empty";
-    } */
-
-    if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Groups WHERE  code='$code'   ";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if ($code == $row['code']) {
-                $err =  "Group With This Code Already Exists";
-            } /* elseif (($code  && $student_admn) == ($row['code'] && $row['student_admn'])) {
-                $err = "Student Already Added To Group";
-            } */
-        } else {
-            $id = $_POST['id'];
-            $module_id = $_POST['module_id'];
-            $name = $_POST['name'];
-            $code = $_POST['code'];
-            $created_at = date('d M Y');
-            $details = $_POST['details'];
-            $faculty = $_POST['faculty_id'];
-
-            $query = "INSERT INTO ezanaLMS_Groups (id, module_id, faculty_id, name, code, created_at, details) VALUES(?,?,?,?,?,?,?)";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssss', $id, $module_id, $faculty, $name, $code, $created_at, $details);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "Student Group  Added" && header("refresh:1; url=student_groups.php?view=$module_id");
-            } else {
-                $info = "Please Try Again Or Try Later";
-            }
-        }
+        $info = "Please Try Again Or Try Later";
     }
 }
+/* Update Group Assignments */
 
-/* Update Students Groups  */
-if (isset($_POST['update_group'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['code']) && !empty($_POST['code'])) {
-        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
-    } else {
-        $error = 1;
-        $err = "Group Code Cannot Be Empty";
-    }
-    if (isset($_POST['name']) && !empty($_POST['name'])) {
-        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
-    } else {
-        $error = 1;
-        $err = "Group Name Cannot Be Empty";
-    }
-    /* 
-    if (isset($_POST['student_admn']) && !empty($_POST['student_admn'])) {
-        $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_admn']));
-    } else {
-        $error = 1;
-        $err = "Student Admission Number Cannot Be Empty";
-    }
-    if (isset($_POST['student_name']) && !empty($_POST['student_name'])) {
-        $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_name']));
-    } else {
-        $error = 1;
-        $err = "Student Name Number Cannot Be Empty";
-    } */
+if (isset($_POST['update_group_project'])) {
 
-    if (!$error) {
+    $id = $_POST['id'];
+    $details = $_POST['details'];
+    $attachments = $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["attachments"]["name"]);
+    $updated_at = date('d M Y g:i');
+    $submitted_on = $_POST['submitted_on'];
+    /* Module ID */
+    $view  = $_POST['view'];
 
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $code = $_POST['code'];
-        $updated_at = date('d M Y');
-        $details = $_POST['details'];
-        $faculty = $_POST['faculty'];
-        $view = $_GET['view'];
-
-        $query = "UPDATE ezanaLMS_Groups SET name =?, code =?, updated_at=?, details =? WHERE id =?";
-        $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssss', $name, $code, $updated_at, $details, $id);
-        $stmt->execute();
-        if ($stmt) {
-            $success = "Student Group  Updated" && header("refresh:1; url=student_groups.php?view=$view");
-        } else {
-            $info = "Please Try Again Or Try Later";
-        }
+    $query = "UPDATE ezanaLMS_GroupsAssignments SET attachments =?, details =?, updated_at =?, submitted_on =? WHERE id = ?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sssss', $attachments, $details, $updated_at, $submitted_on, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Group Assignment / Project Updated" && header("refresh:1; url=student_groups_assignments.php?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
     }
 }
-
-/* Delete Students Groups  */
+/* Delete Group Assignments */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
     $view = $_GET['view'];
-    $adn = "DELETE FROM ezanaLMS_Groups WHERE id=?";
+    $adn = "DELETE FROM ezanaLMS_GroupsAssignments WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=student_groups.php?view=$view");
+        $success = "Deleted" && header("refresh:1; url=student_groups_assignments.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -239,7 +168,7 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Student Groups</h1>
+                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Group Assignments</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -259,7 +188,7 @@ require_once('public/partials/_head.php');
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Create Group</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Assignment</button>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -274,29 +203,57 @@ require_once('public/partials/_head.php');
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Group Name</label>
-                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                    <input type="hidden" required name="faculty_id" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+                                                                <!-- Hide This Please -->
+                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+
+
+                                                                <!-- <div class="form-group col-md-6">
+                                                                    <label for="exampleInputPassword1">Group Name</label>
+                                                                    <select class='form-control basic' id="GroupName" onchange="getGroupDetails(this.value);" name="group_name">
+                                                                        <option selected>Select Group Name</option>
+                                                                        <?php
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE faculty_id = '$row->id'";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        while ($group = $res->fetch_object()) {
+                                                                        ?>
+                                                                            <option><?php echo $group->name; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="">Group Number / Code</label>
-                                                                    <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                                    <label for="exampleInputPassword1"> Group Code</label>
+                                                                    <input type="text" required name="group_code" id="groupCode" class="form-control">
+                                                                </div> -->
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="exampleInputPassword1">Submission Date </label>
+                                                                    <input type="date" required name="submitted_on" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Upload Group Assignment (PDF Or Docx)</label>
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <input name="attachments" type="file" class="custom-file-input">
+                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Group Description</label>
-                                                                    <textarea required id="textarea" name="details" rows="10" class="form-control"></textarea>
+                                                                    <label for="exampleInputPassword1">Instructions</label>
+                                                                    <textarea name="details" id="textarea" required rows="5" class="form-control"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="card-footer text-right">
-                                                            <button type="submit" name="add_group" class="btn btn-primary">Add Group</button>
+                                                            <button type="submit" name="add_group_project" class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </form>
+
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -348,7 +305,7 @@ require_once('public/partials/_head.php');
                                                             Student Groups
                                                         </a>
                                                     </li>
-                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="student_groups_assignments.php?view=<?php echo $mod->id; ?>">
                                                             Group Assignments
                                                         </a>
@@ -369,25 +326,46 @@ require_once('public/partials/_head.php');
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE module_id = '$mod->id'  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE module_id ='$mod->id'  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
                                                 $cnt = 1;
-                                                while ($g = $res->fetch_object()) {
+                                                while ($gcode = $res->fetch_object()) {
                                                 ?>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-6">
                                                         <div class="card">
-                                                            <a href="group_details.php?view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>">
+                                                            <a data-toggle="modal" href="#Instructions-<?php echo $gcode->id; ?>">
                                                                 <div class="card-body">
-                                                                    <h5 class="card-title"><?php echo $g->name; ?> | <?php echo $g->code; ?></h5>
-                                                                    <br>
-                                                                    <hr>
+                                                                    <p class="card-title"><?php echo $gcode->attachments; ?></p>
                                                                 </div>
                                                             </a>
+                                                            <div class="modal fade" id="Instructions-<?php echo $gcode->id; ?>">
+                                                                <div class="modal-dialog  modal-lg">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">Group Assignment Instructions</h4>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <?php echo $gcode->details; ?>
+                                                                            <br>
+                                                                            <a target='_blank' href='public/uploads/EzanaLMSData/Group_Projects/<?php echo $gcode->attachments; ?>' class='btn btn-outline-success'>
+                                                                                Open Assignment
+                                                                            </a>
+                                                                        </div>
+                                                                        <div class="modal-footer justify-content-between">
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                             <div class="card-footer">
-                                                                <a class="badge badge-warning" data-toggle="modal" href="#edit-group-<?php echo $g->id; ?>">Edit</a>
-                                                                <div class="modal fade" id="edit-group-<?php echo $g->id; ?>">
+                                                                <small class="text-muted">Submission Deadline: <?php echo date('d M Y', strtotime($gcode->submitted_on)); ?></small>
+                                                                <a class="badge badge-warning" data-toggle="modal" href="#<?php echo $gcode->id; ?>"> Edit</a>
+                                                                <div class="modal fade" id="<?php echo $gcode->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
@@ -401,32 +379,32 @@ require_once('public/partials/_head.php');
                                                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                                                     <div class="card-body">
                                                                                         <div class="row">
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Group Name</label>
-                                                                                                <input type="text" value="<?php echo $g->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                                                <input type="hidden" required name="id" value="<?php echo $g->id; ?>" class="form-control">
-                                                                                                <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
-
+                                                                                            <!-- hIDE tHIS -->
+                                                                                            <input type="hidden" required name="id" value="<?php echo $gcode->id; ?>" class="form-control">
+                                                                                            <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="exampleInputPassword1">Submission Date </label>
+                                                                                                <input type="date" value="<?php echo $gcode->submitted_on; ?>" required name="submitted_on" class="form-control">
                                                                                             </div>
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Group Number / Code</label>
-                                                                                                <input type="text" required name="code" value="<?php echo $g->code; ?>" class="form-control">
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="">Upload Group Assignment (PDF Or Docx)</label>
+                                                                                                <div class="input-group">
+                                                                                                    <div class="custom-file">
+                                                                                                        <input data-default-file="dist/Group_Projects/<?php echo $gcode->attachments; ?>" required data-max-file-size="5M" name="attachments" type="file" class="custom-file-input">
+                                                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                                                    </div>
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-12">
-                                                                                                <label for="exampleInputPassword1">Group Description</label>
-                                                                                                <!-- Inline CK EDitor -->
-                                                                                                <script>
-                                                                                                    CKEDITOR.replace('<?php echo $g->id; ?>');
-                                                                                                </script>
-                                                                                                <!-- Inline CK Editoe -->
-                                                                                                <textarea required id="<?php echo $g->id; ?>" name="details" rows="10" class="form-control"><?php echo $g->details; ?></textarea>
+                                                                                                <label for="exampleInputPassword1">Type Group Project / Assignment Or Project Description </label>
+                                                                                                <textarea name="details" id="textarea" rows="10" required class="form-control"><?php echo $gcode->details; ?></textarea>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="card-footer text-right">
-                                                                                        <button type="submit" name="update_group" class="btn btn-primary">Update Group</button>
+                                                                                        <button type="submit" name="update_group_project" class="btn btn-primary">Submit</button>
                                                                                     </div>
                                                                                 </form>
                                                                             </div>
@@ -436,7 +414,7 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <a class="badge badge-danger" href="student_groups.php?delete=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">Delete Group</a>
+                                                                <a class="badge badge-danger" href="student_groups_assignments.php?delete=<?php echo $gcode->id; ?>&view=<?php echo $mod->id; ?>"> Delete</a>
                                                             </div>
                                                         </div>
                                                     </div>
