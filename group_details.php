@@ -4,6 +4,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+/* Add Group Announcements */
 
 /* Add Students Groups  */
 if (isset($_POST['add_group'])) {
@@ -284,7 +285,7 @@ require_once('public/partials/_head.php');
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Create Group</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Group Announcement</button>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -296,32 +297,7 @@ require_once('public/partials/_head.php');
                                                 </div>
                                                 <div class="modal-body">
                                                     <!-- Form -->
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Group Name</label>
-                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                    <input type="hidden" required name="faculty_id" value="<?php echo $mod->faculty_id; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Group Number / Code</label>
-                                                                    <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Group Description</label>
-                                                                    <textarea required id="textarea" name="details" rows="10" class="form-control"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer text-right">
-                                                            <button type="submit" name="add_group" class="btn btn-primary">Add Group</button>
-                                                        </div>
-                                                    </form>
+
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -404,67 +380,140 @@ require_once('public/partials/_head.php');
                                                 ?>
                                                     <div class="col-md-12">
                                                         <div class="card card-primary card-outline">
-                                                            <div class="card-body  ">
-                                                                <h5 class="card-title"><?php echo $g->name; ?> | <?php echo $g->code; ?></h5>
-                                                                <br>
-                                                                <hr>
-                                                                <div class="text-center">
-                                                                    <div class="card-body">
-                                                                        <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Group Details</a>
-                                                                            </li>
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-members" role="tab" aria-controls="custom-content-below-members" aria-selected="false">Group Members</a>
-                                                                            </li>
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-add_member" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Add Members</a>
-                                                                            </li>
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-assignments" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Assignments</a>
-                                                                            </li>
-                                                                            <li class="nav-item">
-                                                                                <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Notices</a>
-                                                                            </li>
+                                                            <div class="card-header">
+                                                                <h3 class="card-title">
+                                                                    <?php echo $g->code; ?> - <?php echo $g->name; ?> Created On <span class="text-success"> <?php echo $g->created_at; ?></span> And Updated On <span class="text-warning"><?php echo $g->updated_at; ?></span>
+                                                                </h3>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Group Details</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-members" role="tab" aria-controls="custom-content-below-members" aria-selected="false">Group Members</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-add_member" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Add Members</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-assignments" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Assignments</a>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Notices</a>
+                                                                    </li>
 
-                                                                        </ul>
-                                                                        <div class="tab-content" id="custom-content-below-tabContent">
-                                                                            <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
-                                                                                <br>
-                                                                                <?php echo $g->details; ?>
+                                                                </ul>
+                                                                <div class="tab-content" id="custom-content-below-tabContent">
+                                                                    <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                                        <br>
+                                                                        <?php echo $g->details; ?>
+                                                                    </div>
+
+                                                                    <div class="tab-pane fade" id="custom-content-below-members" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                                        <br>
+                                                                        <table id="example1" class="table table-bordered table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>Student Admission No</th>
+                                                                                    <th>Student Name</th>
+                                                                                    <th>Date Added</th>
+                                                                                    <th>Manage Members</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <?php
+                                                                                $GroupCode = $g->code;
+                                                                                $ret = "SELECT * FROM `ezanaLMS_StudentsGroups` WHERE code = '$GroupCode' AND faculty_id = '$faculty'  ";
+                                                                                $stmt = $mysqli->prepare($ret);
+                                                                                $stmt->execute(); //ok
+                                                                                $res = $stmt->get_result();
+                                                                                $cnt = 1;
+                                                                                while ($stdGroup = $res->fetch_object()) {
+                                                                                ?>
+                                                                                    <tr>
+                                                                                        <td><?php echo $cnt; ?></td>
+                                                                                        <td><?php echo $stdGroup->student_admn; ?></td>
+                                                                                        <td><?php echo $stdGroup->student_name; ?></td>
+                                                                                        <td><?php echo date('d M Y g:i', strtotime($stdGroup->created_at)); ?></td>
+                                                                                        <td>
+                                                                                            <a class="badge badge-danger" href="view_student_group.php?remove=<?php echo $stdGroup->id; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $row->id; ?>&code=<?php echo $g->code; ?>&name=<?php echo $g->name; ?>">
+                                                                                                <i class="fas fa-user-times"></i>
+                                                                                                Remove Member
+                                                                                            </a>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                <?php $cnt = $cnt + 1;
+                                                                                } ?>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                    <div class="tab-pane fade" id="custom-content-below-add_member" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                                        <br>
+                                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                                            <div class="card-body">
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-6">
+                                                                                        <label for="">Student Admission Number</label>
+                                                                                        <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                                        <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
+                                                                                            <option selected>Select Admission Number</option>
+                                                                                            <?php
+                                                                                            $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$row->id'   ";
+                                                                                            $stmt = $mysqli->prepare($ret);
+                                                                                            $stmt->execute(); //ok
+                                                                                            $res = $stmt->get_result();
+                                                                                            while ($std = $res->fetch_object()) {
+                                                                                            ?>
+                                                                                                <option><?php echo $std->admno; ?></option>
+                                                                                            <?php
+                                                                                            } ?>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div class="form-group col-md-6">
+                                                                                        <label for="">Student Name</label>
+                                                                                        <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
+                                                                            <div class="card-footer text-right">
+                                                                                <button type="submit" name="add_member" class="btn btn-primary">Add Member</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
 
-                                                                            <div class="tab-pane fade" id="custom-content-below-members" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
-                                                                                <br>
-                                                                                <table id="example1" class="table table-bordered table-striped">
+                                                                    <div class="tab-pane fade" id="custom-content-below-assignments" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                                        <br>
+                                                                        <div class="card">
+                                                                            <div class="card-body">
+                                                                                <table id="enrollment" class="table table-bordered table-striped">
                                                                                     <thead>
                                                                                         <tr>
                                                                                             <th>#</th>
-                                                                                            <th>Student Admission No</th>
-                                                                                            <th>Student Name</th>
-                                                                                            <th>Date Added</th>
-                                                                                            <th>Manage Members</th>
+                                                                                            <th>Project Created At</th>
+                                                                                            <th>Submission Deadline</th>
+                                                                                            <th>Actions</th>
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody>
                                                                                         <?php
-                                                                                        $GroupCode = $g->code;
-                                                                                        $ret = "SELECT * FROM `ezanaLMS_StudentsGroups` WHERE code = '$GroupCode' AND faculty_id = '$faculty'  ";
+                                                                                        $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE group_code ='$g->code' AND faculty_id = '$row->id'  ";
                                                                                         $stmt = $mysqli->prepare($ret);
                                                                                         $stmt->execute(); //ok
                                                                                         $res = $stmt->get_result();
                                                                                         $cnt = 1;
-                                                                                        while ($stdGroup = $res->fetch_object()) {
+                                                                                        while ($gcode = $res->fetch_object()) {
                                                                                         ?>
                                                                                             <tr>
                                                                                                 <td><?php echo $cnt; ?></td>
-                                                                                                <td><?php echo $stdGroup->student_admn; ?></td>
-                                                                                                <td><?php echo $stdGroup->student_name; ?></td>
-                                                                                                <td><?php echo date('d M Y g:i', strtotime($stdGroup->created_at)); ?></td>
+                                                                                                <td><?php echo $gcode->created_at; ?></td>
+                                                                                                <td><?php echo date('d M Y g:i', strtotime($gcode->submitted_on)); ?></td>
                                                                                                 <td>
-                                                                                                    <a class="badge badge-danger" href="view_student_group.php?remove=<?php echo $stdGroup->id; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $row->id; ?>&code=<?php echo $g->code; ?>&name=<?php echo $g->name; ?>">
-                                                                                                        <i class="fas fa-user-times"></i>
-                                                                                                        Remove Member
+                                                                                                    <a class="badge badge-success" href="view_group_project.php?view=<?php echo $gcode->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                                                        <i class="fas fa-eye"></i>
+                                                                                                        View Assignment
                                                                                                     </a>
                                                                                                 </td>
                                                                                             </tr>
@@ -473,128 +522,54 @@ require_once('public/partials/_head.php');
                                                                                     </tbody>
                                                                                 </table>
                                                                             </div>
+                                                                        </div>
+                                                                    </div>
 
-                                                                            <div class="tab-pane fade" id="custom-content-below-add_member" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
-                                                                                <br>
-                                                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                                                    <div class="card-body">
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Student Admission Number</label>
-                                                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                                                <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
-                                                                                                    <option selected>Select Admission Number</option>
-                                                                                                    <?php
-                                                                                                    $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$row->id'   ";
-                                                                                                    $stmt = $mysqli->prepare($ret);
-                                                                                                    $stmt->execute(); //ok
-                                                                                                    $res = $stmt->get_result();
-                                                                                                    while ($std = $res->fetch_object()) {
-                                                                                                    ?>
-                                                                                                        <option><?php echo $std->admno; ?></option>
-                                                                                                    <?php
-                                                                                                    } ?>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Student Name</label>
-                                                                                                <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="card-footer text-right">
-                                                                                        <button type="submit" name="add_member" class="btn btn-primary">Add Member</button>
-                                                                                    </div>
-                                                                                </form>
-                                                                            </div>
+                                                                    <div class="tab-pane fade" id="custom-content-below-notices" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                                        <br>
+                                                                        <div class="card">
+                                                                            <div class="card-body">
+                                                                                <table id="group_ass" class="table table-bordered table-striped">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th>#</th>
+                                                                                            <th>Posted By</th>
+                                                                                            <th>Posted On</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <?php
+                                                                                        $ret = "SELECT * FROM `ezanaLMS_GroupsAnnouncements` WHERE faculty_id ='$row->id'  AND group_code = '$g->code' ";
+                                                                                        $stmt = $mysqli->prepare($ret);
+                                                                                        $stmt->execute(); //ok
+                                                                                        $res = $stmt->get_result();
+                                                                                        $cnt = 1;
+                                                                                        while ($ga = $res->fetch_object()) {
+                                                                                        ?>
 
-                                                                            <div class="tab-pane fade" id="custom-content-below-assignments" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
-                                                                                <br>
-                                                                                <div class="card">
-                                                                                    <div class="card-body">
-                                                                                        <table id="enrollment" class="table table-bordered table-striped">
-                                                                                            <thead>
-                                                                                                <tr>
-                                                                                                    <th>#</th>
-                                                                                                    <th>Project Created At</th>
-                                                                                                    <th>Submission Deadline</th>
-                                                                                                    <th>Actions</th>
-                                                                                                </tr>
-                                                                                            </thead>
-                                                                                            <tbody>
-                                                                                                <?php
-                                                                                                $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE group_code ='$g->code' AND faculty_id = '$row->id'  ";
-                                                                                                $stmt = $mysqli->prepare($ret);
-                                                                                                $stmt->execute(); //ok
-                                                                                                $res = $stmt->get_result();
-                                                                                                $cnt = 1;
-                                                                                                while ($gcode = $res->fetch_object()) {
-                                                                                                ?>
-                                                                                                    <tr>
-                                                                                                        <td><?php echo $cnt; ?></td>
-                                                                                                        <td><?php echo $gcode->created_at; ?></td>
-                                                                                                        <td><?php echo date('d M Y g:i', strtotime($gcode->submitted_on)); ?></td>
-                                                                                                        <td>
-                                                                                                            <a class="badge badge-success" href="view_group_project.php?view=<?php echo $gcode->id; ?>&faculty=<?php echo $row->id; ?>">
-                                                                                                                <i class="fas fa-eye"></i>
-                                                                                                                View Assignment
-                                                                                                            </a>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                <?php $cnt = $cnt + 1;
-                                                                                                } ?>
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="tab-pane fade" id="custom-content-below-notices" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
-                                                                                <br>
-                                                                                <div class="card">
-                                                                                    <div class="card-body">
-                                                                                        <table id="group_ass" class="table table-bordered table-striped">
-                                                                                            <thead>
-                                                                                                <tr>
-                                                                                                    <th>#</th>
-                                                                                                    <th>Posted By</th>
-                                                                                                    <th>Posted On</th>
-                                                                                                </tr>
-                                                                                            </thead>
-                                                                                            <tbody>
-                                                                                                <?php
-                                                                                                $ret = "SELECT * FROM `ezanaLMS_GroupsAnnouncements` WHERE faculty_id ='$row->id'  AND group_code = '$g->code' ";
-                                                                                                $stmt = $mysqli->prepare($ret);
-                                                                                                $stmt->execute(); //ok
-                                                                                                $res = $stmt->get_result();
-                                                                                                $cnt = 1;
-                                                                                                while ($ga = $res->fetch_object()) {
-                                                                                                ?>
-
-                                                                                                    <tr class="table-row" data-href="view_group_announcement.php?faculty=<?php echo $row->id; ?>&view=<?php echo $ga->id; ?>">
-                                                                                                        <td><?php echo $cnt; ?></td>
-                                                                                                        <td><?php echo $ga->created_by; ?></td>
-                                                                                                        <td><?php echo date('d M Y', strtotime($ga->created_at)); ?></td>
-                                                                                                    </tr>
-                                                                                                <?php $cnt = $cnt + 1;
-                                                                                                } ?>
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </div>
-                                                                                </div>
+                                                                                            <tr class="table-row" data-href="view_group_announcement.php?faculty=<?php echo $row->id; ?>&view=<?php echo $ga->id; ?>">
+                                                                                                <td><?php echo $cnt; ?></td>
+                                                                                                <td><?php echo $ga->created_by; ?></td>
+                                                                                                <td><?php echo date('d M Y', strtotime($ga->created_at)); ?></td>
+                                                                                            </tr>
+                                                                                        <?php $cnt = $cnt + 1;
+                                                                                        } ?>
+                                                                                    </tbody>
+                                                                                </table>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            <?php } ?>
                                                             </div>
                                                         </div>
-                                                    <?php } ?>
                                                     </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                     </section>
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
