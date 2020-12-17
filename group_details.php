@@ -64,20 +64,20 @@ if (isset($_POST['add_member'])) {
             }
         } else {
             $id = $_POST['id'];
-            $name = $_POST['name'];
+            $group_name = $_POST['group_name'];
             $group_code = $_POST['group_code'];
             $student_admn = $_POST['student_admn'];
             $student_name = $_POST['student_name'];
             $view = $_POST['view'];/* Module ID */
-            $group = $_post['group'];/* gROUP iD */
+            $group = $_POST['group'];/* gROUP iD */
             $faculty = $_POST['faculty'];
 
             $query = "INSERT INTO ezanaLMS_StudentsGroups (id, faculty_id, name, code, student_admn, student_name) VALUES(?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssss', $id, $faculty, $name, $group_code, $student_admn, $student_name);
+            $rc = $stmt->bind_param('ssssss', $id, $faculty, $group_name, $group_code, $student_admn, $student_name);
             $stmt->execute();
             if ($stmt) {
-                $success = "Student Added To group" && header("refresh:1; url=group_details.php?view=$view&group=$group");
+                $success = "Student Added To group"  && header("refresh:1; url=group_details.php?view=$view&group=$group");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -87,7 +87,7 @@ if (isset($_POST['add_member'])) {
 
 //Remove Member
 if (isset($_GET['remove'])) {
-    $view = $_POST['view'];
+    $view = $_GET['view'];
     $group = $_GET['group'];
     $remove = $_GET['remove'];
     $adn = "DELETE FROM ezanaLMS_StudentsGroups WHERE id=?";
@@ -104,7 +104,7 @@ if (isset($_GET['remove'])) {
 
 //Delete Announcements
 if (isset($_GET['delete_Announcement'])) {
-    $delete = $_GET['delete'];
+    $delete = $_GET['delete_Announcement'];
     $view = $_GET['view'];
     $group = $_GET['group'];
     $adn = "DELETE FROM ezanaLMS_GroupsAnnouncements WHERE id=?";
@@ -113,7 +113,7 @@ if (isset($_GET['delete_Announcement'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted"; // && header("refresh:1; url=group_details.php?view=$view&group=$group");
+        $success = "Deleted" && header("refresh:1; url=group_details.php?view=$view&group=$group");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -130,7 +130,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Assignment Deleted"; // && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty&code=$code&name=$name");
+        $success = "Assignment Deleted" && header("refresh:1; url=group_details.php?view=$view&group=$group");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -446,7 +446,7 @@ require_once('public/partials/_head.php');
                                                                                         <td><?php echo $stdGroup->student_name; ?></td>
                                                                                         <td><?php echo date('d M Y g:i', strtotime($stdGroup->created_at)); ?></td>
                                                                                         <td>
-                                                                                            <a class="badge badge-danger" href="view_student_group.php?remove=<?php echo $stdGroup->id; ?>&view=<?php echo $g->id; ?>&faculty=<?php echo $row->id; ?>&code=<?php echo $g->code; ?>&name=<?php echo $g->name; ?>">
+                                                                                            <a class="badge badge-danger" href="group_details.php?remove=<?php echo $stdGroup->id; ?>&group=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">
                                                                                                 <i class="fas fa-user-times"></i>
                                                                                                 Remove Member
                                                                                             </a>
