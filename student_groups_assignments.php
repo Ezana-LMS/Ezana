@@ -32,7 +32,20 @@ if (isset($_POST['add_group_project'])) {
 /* Update Group Assignments */
 
 /* Delete Group Assignments */
-
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $view = $_GET['view'];
+    $adn = "DELETE FROM ezanaLMS_GroupsAssignments WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=student_groups_assignments.php?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -172,11 +185,10 @@ require_once('public/partials/_head.php');
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <div class="form-group col-md-12">
                                                                 <!-- Hide This Please -->
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                </div>
+                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+
                                                                 <!-- <div class="form-group col-md-6">
                                                                     <label for="exampleInputPassword1">Group Name</label>
                                                                     <select class='form-control basic' id="GroupName" onchange="getGroupDetails(this.value);" name="group_name">
@@ -196,11 +208,11 @@ require_once('public/partials/_head.php');
                                                                     <label for="exampleInputPassword1"> Group Code</label>
                                                                     <input type="text" required name="group_code" id="groupCode" class="form-control">
                                                                 </div> -->
-                                                                <div class="form-group col-md-12">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="exampleInputPassword1">Submission Date </label>
                                                                     <input type="date" required name="submitted_on" class="form-control">
                                                                 </div>
-                                                                <div class="form-group col-md-12">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">Upload Group Assignment (PDF Or Docx)</label>
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
@@ -210,11 +222,10 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <h2 class="text-center">Or</h2>
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Instructions</label>
-                                                                    <textarea name="details" id="textarea" rows="5" class="form-control"></textarea>
+                                                                    <textarea name="details" id="textarea" required rows="5" class="form-control"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -274,11 +285,11 @@ require_once('public/partials/_head.php');
                                                             Student Groups
                                                         </a>
                                                     </li>
-                                                   <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="student_groups_assignments.php?view=<?php echo $mod->id; ?>">
                                                             Group Assignments
                                                         </a>
-                                                    </li> 
+                                                    </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="module_enrollments.php?view=<?php echo $mod->id; ?>">
                                                             Module Enrollments
@@ -295,7 +306,7 @@ require_once('public/partials/_head.php');
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE module_id = '$mod->id'  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE module_id = '$mod->id'  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();

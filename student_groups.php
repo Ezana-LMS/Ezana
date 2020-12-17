@@ -348,11 +348,11 @@ require_once('public/partials/_head.php');
                                                             Student Groups
                                                         </a>
                                                     </li>
-                                                    <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="student_groups_assignments.php?view=<?php echo $mod->id; ?>">
                                                             Group Assignments
                                                         </a>
-                                                    </li> -->
+                                                    </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="module_enrollments.php?view=<?php echo $mod->id; ?>">
                                                             Module Enrollments
