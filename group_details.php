@@ -30,6 +30,26 @@ if (isset($_POST['add_notice'])) {
     }
 }
 
+/* Update Announcement */
+if (isset($_POST['update_notice'])) {
+    $id = $_POST['id'];
+    $announcement = $_POST['announcement'];
+    $created_by = $_POST['created_by'];
+    $updated_at = date('d M Y');
+    $view = $_POST['view'];
+    $group = $_POST['group'];
+
+    $query = "UPDATE  ezanaLMS_GroupsAnnouncements SET announcement =?, created_by =?, updated_at=? WHERE id =?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('ssss', $announcement, $created_by, $updated_at, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Updated" && header("refresh:1; url=group_details.php?view=$view&group=$group");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 /* Add Group Member */
 if (isset($_POST['add_member'])) {
     //Error Handling and prevention of posting double entries
@@ -469,8 +489,8 @@ require_once('public/partials/_head.php');
                                                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                                         <input type="hidden" required name="group_name" value="<?php echo $g->name; ?>" class="form-control">
                                                                                         <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
-                                                                                        <input type="hidden" required name="view" value="<?php echo $g->id; ?>" class="form-control">
-                                                                                        <input type="hidden" required name="group" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                        <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                        <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
                                                                                         <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
 
                                                                                         <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
@@ -577,7 +597,40 @@ require_once('public/partials/_head.php');
                                                                                                             </button>
                                                                                                         </div>
                                                                                                         <div class="modal-body">
+                                                                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                                                                <div class="card-body">
+                                                                                                                    <div class="row">
+                                                                                                                        <div class="form-group col-md-12">
+                                                                                                                            <label for="">Notice Posted By</label>
+                                                                                                                            <?php
+                                                                                                                            $id = $_SESSION['id'];
+                                                                                                                            $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id = '$id'  ";
+                                                                                                                            $stmt = $mysqli->prepare($ret);
+                                                                                                                            $stmt->execute(); //ok
+                                                                                                                            $res = $stmt->get_result();
+                                                                                                                            while ($user = $res->fetch_object()) {
+                                                                                                                            ?>
+                                                                                                                                <input type="text" required name="created_by" value="<?php echo $user->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                                            <?php
+                                                                                                                            } ?>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="row">
+                                                                                                                        <div class="form-group col-md-12">
+                                                                                                                            <label for="exampleInputPassword1">Group Notice</label>
+                                                                                                                            <textarea required id="textarea" name="announcement" rows="20" class="form-control"><?php echo $ga->announcement; ?></textarea>
+                                                                                                                            <!-- Hide This -->
+                                                                                                                            <input type="hidden" required name="id" value="<?php echo $ga->id; ?>" class="form-control">
+                                                                                                                            <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                                                            <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
 
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="card-footer text-right">
+                                                                                                                    <button type="submit" name="update_notice" class="btn btn-primary">Update Notice</button>
+                                                                                                                </div>
+                                                                                                            </form>
                                                                                                         </div>
                                                                                                         <div class="modal-footer justify-content-between">
                                                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
