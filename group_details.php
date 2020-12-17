@@ -46,8 +46,8 @@ if (isset($_POST['add_member'])) {
         $error = 1;
         $err = "Student Name Cannot Be Empty";
     }
-    if (isset($_GET['code']) && !empty($_GET['code'])) {
-        $code = mysqli_real_escape_string($mysqli, trim($_GET['code']));
+    if (isset($_POST['group_code']) && !empty($_POST['group_code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['group_code']));
     } else {
         $error = 1;
         $err = "Group Code Cannot Be Empty";
@@ -65,7 +65,7 @@ if (isset($_POST['add_member'])) {
         } else {
             $id = $_POST['id'];
             $name = $_POST['name'];
-            $code = $_POST['code'];
+            $group_code = $_POST['group_code'];
             $student_admn = $_POST['student_admn'];
             $student_name = $_POST['student_name'];
             $view = $_POST['view'];/* Module ID */
@@ -74,7 +74,7 @@ if (isset($_POST['add_member'])) {
 
             $query = "INSERT INTO ezanaLMS_StudentsGroups (id, faculty_id, name, code, student_admn, student_name) VALUES(?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssss', $id, $faculty, $name, $code, $student_admn, $student_name);
+            $rc = $stmt->bind_param('ssssss', $id, $faculty, $name, $group_code, $student_admn, $student_name);
             $stmt->execute();
             if ($stmt) {
                 $success = "Student Added To group" && header("refresh:1; url=group_details.php?view=$view&group=$group");
@@ -471,6 +471,7 @@ require_once('public/partials/_head.php');
                                                                                         <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
                                                                                         <input type="hidden" required name="view" value="<?php echo $g->id; ?>" class="form-control">
                                                                                         <input type="hidden" required name="group" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                        <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
 
                                                                                         <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
                                                                                             <option selected>Select Admission Number</option>
