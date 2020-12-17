@@ -260,7 +260,7 @@ require_once('public/partials/_head.php');
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Student Group</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Create Group</button>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -350,6 +350,11 @@ require_once('public/partials/_head.php');
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="student_groups_assignments.php?view=<?php echo $mod->id; ?>">
+                                                            Group Assignments
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="module_enrollments.php?view=<?php echo $mod->id; ?>">
                                                             Module Enrollments
                                                         </a>
@@ -372,21 +377,15 @@ require_once('public/partials/_head.php');
                                                 $cnt = 1;
                                                 while ($g = $res->fetch_object()) {
                                                 ?>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <div class="card">
-                                                            <div class="card-body">
-                                                                <h5 class="card-title"><?php echo $g->name; ?> | <?php echo $g->code; ?></h5>
-                                                                <br>
-                                                                <hr>
-                                                                <div class="text-center">
-                                                                    <a target="_blank" href="" class="btn btn-outline-success">
-                                                                        Members
-                                                                    </a>
-                                                                    <a target="_blank" href="" class="btn btn-outline-success">
-                                                                        Assignments
-                                                                    </a>
+                                                            <a href="group_details.php?view<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>">
+                                                                <div class="card-body">
+                                                                    <h5 class="card-title"><?php echo $g->name; ?> | <?php echo $g->code; ?></h5>
+                                                                    <br>
+                                                                    <hr>
                                                                 </div>
-                                                            </div>
+                                                            </a>
                                                             <div class="card-footer">
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-group-<?php echo $g->id; ?>">Edit</a>
                                                                 <div class="modal fade" id="edit-group-<?php echo $g->id; ?>">
