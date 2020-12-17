@@ -19,9 +19,9 @@ if (isset($_POST['add_group_project'])) {
     /* Module ID */
     $view = $_POST['view'];
 
-    $query = "INSERT INTO ezanaLMS_GroupsAssignments (id, faculty_id,  attachments, details, created_at, submitted_on) VALUES(?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_GroupsAssignments (id, faculty_id, module_id,  attachments, details, created_at, submitted_on) VALUES(?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss', $id, $faculty,  $attachments, $details, $created_at, $submitted_on);
+    $rc = $stmt->bind_param('sssssss', $id, $faculty, $view,  $attachments, $details, $created_at, $submitted_on);
     $stmt->execute();
     if ($stmt) {
         $success = "Group Assignment Added" && header("refresh:1; url=student_groups_assignments.php?view=$view");
@@ -274,11 +274,11 @@ require_once('public/partials/_head.php');
                                                             Student Groups
                                                         </a>
                                                     </li>
-                                                    <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                   <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="student_groups_assignments.php?view=<?php echo $mod->id; ?>">
                                                             Group Assignments
                                                         </a>
-                                                    </li> -->
+                                                    </li> 
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="module_enrollments.php?view=<?php echo $mod->id; ?>">
                                                             Module Enrollments
