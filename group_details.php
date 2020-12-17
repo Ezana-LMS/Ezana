@@ -425,9 +425,9 @@ require_once('public/partials/_head.php');
                                                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-members" role="tab" aria-controls="custom-content-below-members" aria-selected="false">Group Members</a>
                                                                     </li>
 
-                                                                    <li class="nav-item">
+                                                                    <!-- <li class="nav-item">
                                                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-assignments" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Assignments</a>
-                                                                    </li>
+                                                                    </li> -->
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Notices</a>
                                                                     </li>
@@ -464,7 +464,7 @@ require_once('public/partials/_head.php');
                                                                                         <td><?php echo $cnt; ?></td>
                                                                                         <td><?php echo $stdGroup->student_admn; ?></td>
                                                                                         <td><?php echo $stdGroup->student_name; ?></td>
-                                                                                        <td><?php echo date('d M Y g:i', strtotime($stdGroup->created_at)); ?></td>
+                                                                                        <td><?php echo date('d M Y', strtotime($stdGroup->created_at)); ?></td>
                                                                                         <td>
                                                                                             <a class="badge badge-danger" href="group_details.php?remove=<?php echo $stdGroup->id; ?>&group=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">
                                                                                                 <i class="fas fa-user-times"></i>
