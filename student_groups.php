@@ -6,7 +6,6 @@ check_login();
 require_once('configs/codeGen.php');
 
 /* Add Students Groups  */
-
 if (isset($_POST['add_group'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -349,11 +348,11 @@ require_once('public/partials/_head.php');
                                                             Student Groups
                                                         </a>
                                                     </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="student_groups_assignments.php?view=<?php echo $mod->id; ?>">
                                                             Group Assignments
                                                         </a>
-                                                    </li>
+                                                    </li> -->
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="module_enrollments.php?view=<?php echo $mod->id; ?>">
                                                             Module Enrollments
@@ -379,7 +378,7 @@ require_once('public/partials/_head.php');
                                                 ?>
                                                     <div class="col-md-4">
                                                         <div class="card">
-                                                            <a href="group_details.php?view<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>">
+                                                            <a href="group_details.php?view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>">
                                                                 <div class="card-body">
                                                                     <h5 class="card-title"><?php echo $g->name; ?> | <?php echo $g->code; ?></h5>
                                                                     <br>

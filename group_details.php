@@ -4,9 +4,72 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+/* Add Students Groups  */
+if (isset($_POST['add_group'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Group Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Group Name Cannot Be Empty";
+    }
+    /* 
+    if (isset($_POST['student_admn']) && !empty($_POST['student_admn'])) {
+        $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_admn']));
+    } else {
+        $error = 1;
+        $err = "Student Admission Number Cannot Be Empty";
+    }
+    if (isset($_POST['student_name']) && !empty($_POST['student_name'])) {
+        $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_name']));
+    } else {
+        $error = 1;
+        $err = "Student Name Number Cannot Be Empty";
+    } */
+
+    if (!$error) {
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_Groups WHERE  code='$code'   ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($code == $row['code']) {
+                $err =  "Group With This Code Already Exists";
+            } /* elseif (($code  && $student_admn) == ($row['code'] && $row['student_admn'])) {
+                $err = "Student Already Added To Group";
+            } */
+        } else {
+            $id = $_POST['id'];
+            $module_id = $_POST['module_id'];
+            $name = $_POST['name'];
+            $code = $_POST['code'];
+            $created_at = date('d M Y');
+            $details = $_POST['details'];
+            $faculty = $_POST['faculty_id'];
+
+            $query = "INSERT INTO ezanaLMS_Groups (id, module_id, faculty_id, name, code, created_at, details) VALUES(?,?,?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('sssssss', $id, $module_id, $faculty, $name, $code, $created_at, $details);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Student Group  Added" && header("refresh:1; url=student_groups.php?view=$module_id");
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
+
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
@@ -238,22 +301,24 @@ require_once('public/partials/_head.php');
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE module_id = '$mod->id'  ";
+                                                $GroupID = $_GET['group'];
+                                                $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE id = '$GroupID'  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
                                                 $cnt = 1;
                                                 while ($g = $res->fetch_object()) {
                                                 ?>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-12">
                                                         <div class="card">
-                                                            <a href="group_details.php?view<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>">
-                                                                <div class="card-body">
-                                                                    <h5 class="card-title"><?php echo $g->name; ?> | <?php echo $g->code; ?></h5>
-                                                                    <br>
-                                                                    <hr>
+                                                            <div class="card-body  ">
+                                                                <h5 class="card-title"><?php echo $g->name; ?> | <?php echo $g->code; ?></h5>
+                                                                <br>
+                                                                <hr>
+                                                                <div class="text-center">
+
                                                                 </div>
-                                                            </a>
+                                                            </div>
                                                             <div class="card-footer">
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-group-<?php echo $g->id; ?>">Edit</a>
                                                                 <div class="modal fade" id="edit-group-<?php echo $g->id; ?>">
