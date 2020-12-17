@@ -103,7 +103,7 @@ if (isset($_GET['remove'])) {
 }
 
 //Delete Announcements
-if (isset($_GET['delete'])) {
+if (isset($_GET['delete_Announcement'])) {
     $delete = $_GET['delete'];
     $view = $_GET['view'];
     $group = $_GET['group'];
@@ -113,7 +113,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=group_details.php?view=$view&group=$group");
+        $success = "Deleted"; // && header("refresh:1; url=group_details.php?view=$view&group=$group");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -308,7 +308,6 @@ require_once('public/partials/_head.php');
                                                                         <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
                                                                         <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
                                                                         <input type="hidden" required name="group_name" value="<?php echo $g->name; ?>" class="form-control">
-
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -466,7 +465,13 @@ require_once('public/partials/_head.php');
                                                                                 <div class="row">
                                                                                     <div class="form-group col-md-6">
                                                                                         <label for="">Student Admission Number</label>
+                                                                                        <!-- Hidden Values -->
                                                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                                        <input type="hidden" required name="group_name" value="<?php echo $g->name; ?>" class="form-control">
+                                                                                        <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
+                                                                                        <input type="hidden" required name="view" value="<?php echo $g->id; ?>" class="form-control">
+                                                                                        <input type="hidden" required name="group" value="<?php echo $mod->id; ?>" class="form-control">
+
                                                                                         <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
                                                                                             <option selected>Select Admission Number</option>
                                                                                             <?php
@@ -477,7 +482,7 @@ require_once('public/partials/_head.php');
                                                                                             $res = $stmt->get_result();
                                                                                             while ($std = $res->fetch_object()) {
                                                                                             ?>
-                                                                                                <option><?php echo $std->admno; ?></option>
+                                                                                                <option><?php echo $std->student_adm; ?></option>
                                                                                             <?php
                                                                                             } ?>
                                                                                         </select>
@@ -579,7 +584,7 @@ require_once('public/partials/_head.php');
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <a class="badge badge-danger" href="group_details.php?delete=<?php echo $ga->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>">
+                                                                                            <a class="badge badge-danger" href="group_details.php?delete_Announcement=<?php echo $ga->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>">
                                                                                                 <i class="fas fa-trash"></i>
                                                                                                 Delete
                                                                                             </a>
