@@ -7,9 +7,6 @@ require_once('configs/codeGen.php');
 /* Add Groups Assignments */
 if (isset($_POST['add_group_project'])) {
     $id = $_POST['id'];
-    /* $group_code = $_POST['group_code'];
-    $group_name  = $_POST['group_name'];
-    $type = $_GET['type']; */
     $details = $_POST['details'];
     $faculty = $_POST['faculty'];
     $attachments = $_FILES['attachments']['name'];
@@ -31,6 +28,27 @@ if (isset($_POST['add_group_project'])) {
 }
 /* Update Group Assignments */
 
+if (isset($_POST['update_group_project'])) {
+
+    $id = $_POST['id'];
+    $details = $_POST['details'];
+    $attachments = $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["attachments"]["name"]);
+    $updated_at = date('d M Y g:i');
+    $submitted_on = $_POST['submitted_on'];
+    /* Module ID */
+    $view  = $_POST['view'];
+
+    $query = "UPDATE ezanaLMS_GroupsAssignments SET attachments =?, details =?, updated_at =?, submitted_on =? WHERE id = ?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sssss', $attachments, $details, $updated_at, $submitted_on, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Group Assignment / Project Updated" && header("refresh:1; url=student_groups_assignments.php?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 /* Delete Group Assignments */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
@@ -326,13 +344,17 @@ require_once('public/partials/_head.php');
                                                                 <div class="modal-dialog  modal-lg">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
-                                                                            <h4 class="modal-title">Group Assignment</h4>
+                                                                            <h4 class="modal-title">Group Assignment Instructions</h4>
                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                 <span aria-hidden="true">&times;</span>
                                                                             </button>
                                                                         </div>
                                                                         <div class="modal-body">
                                                                             <?php echo $gcode->details; ?>
+                                                                            <br>
+                                                                            <a target='_blank' href='public/uploads/EzanaLMSData/Group_Projects/<?php echo $gcode->attachments; ?>' class='btn btn-outline-success'>
+                                                                                Open Assignment
+                                                                            </a>
                                                                         </div>
                                                                         <div class="modal-footer justify-content-between">
                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -341,7 +363,7 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </div>
                                                             <div class="card-footer">
-                                                                <small class="text-muted">Submission Deadline: <?php echo date('d M Y', strtotime($gcode->created_at)); ?></small>
+                                                                <small class="text-muted">Submission Deadline: <?php echo date('d M Y', strtotime($gcode->submitted_on)); ?></small>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#<?php echo $gcode->id; ?>"> Edit</a>
                                                                 <div class="modal fade" id="<?php echo $gcode->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
@@ -354,7 +376,37 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                             <div class="modal-body">
                                                                                 <!-- Form -->
-
+                                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                                    <div class="card-body">
+                                                                                        <div class="row">
+                                                                                            <!-- hIDE tHIS -->
+                                                                                            <input type="hidden" required name="id" value="<?php echo $gcode->id; ?>" class="form-control">
+                                                                                            <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="exampleInputPassword1">Submission Date </label>
+                                                                                                <input type="date" value="<?php echo $gcode->submitted_on; ?>" required name="submitted_on" class="form-control">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="">Upload Group Assignment (PDF Or Docx)</label>
+                                                                                                <div class="input-group">
+                                                                                                    <div class="custom-file">
+                                                                                                        <input data-default-file="dist/Group_Projects/<?php echo $gcode->attachments; ?>" required data-max-file-size="5M" name="attachments" type="file" class="custom-file-input">
+                                                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="exampleInputPassword1">Type Group Project / Assignment Or Project Description </label>
+                                                                                                <textarea name="details" id="textarea" rows="10" required class="form-control"><?php echo $gcode->details; ?></textarea>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="card-footer text-right">
+                                                                                        <button type="submit" name="update_group_project" class="btn btn-primary">Submit</button>
+                                                                                    </div>
+                                                                                </form>
                                                                             </div>
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
