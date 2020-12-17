@@ -188,6 +188,8 @@ require_once('public/partials/_head.php');
                                                                 <!-- Hide This Please -->
                                                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                 <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+
 
                                                                 <!-- <div class="form-group col-md-6">
                                                                     <label for="exampleInputPassword1">Group Name</label>
@@ -306,25 +308,42 @@ require_once('public/partials/_head.php');
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE module_id = '$mod->id'  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE module_id ='$mod->id'  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
                                                 $cnt = 1;
-                                                while ($g = $res->fetch_object()) {
+                                                while ($gcode = $res->fetch_object()) {
                                                 ?>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-6">
                                                         <div class="card">
-                                                            <a href="group_details.php?view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>">
+                                                            <a data-toggle="modal" href="#Instructions-<?php echo $gcode->id; ?>">
                                                                 <div class="card-body">
-                                                                    <h5 class="card-title"><?php echo $g->name; ?> | <?php echo $g->code; ?></h5>
-                                                                    <br>
-                                                                    <hr>
+                                                                    <p class="card-title"><?php echo $gcode->attachments; ?></p>
                                                                 </div>
                                                             </a>
+                                                            <div class="modal fade" id="Instructions-<?php echo $gcode->id; ?>">
+                                                                <div class="modal-dialog  modal-lg">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">Group Assignment</h4>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <?php echo $gcode->details; ?>
+                                                                        </div>
+                                                                        <div class="modal-footer justify-content-between">
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                             <div class="card-footer">
-                                                                <a class="badge badge-warning" data-toggle="modal" href="#edit-group-<?php echo $g->id; ?>">Edit</a>
-                                                                <div class="modal fade" id="edit-group-<?php echo $g->id; ?>">
+                                                                <small class="text-muted">Submission Deadline: <?php echo date('d M Y', strtotime($gcode->created_at)); ?></small>
+                                                                <a class="badge badge-warning" data-toggle="modal" href="#<?php echo $gcode->id; ?>"> Edit</a>
+                                                                <div class="modal fade" id="<?php echo $gcode->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
@@ -335,37 +354,7 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                             <div class="modal-body">
                                                                                 <!-- Form -->
-                                                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                                                    <div class="card-body">
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Group Name</label>
-                                                                                                <input type="text" value="<?php echo $g->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                                                <input type="hidden" required name="id" value="<?php echo $g->id; ?>" class="form-control">
-                                                                                                <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
 
-                                                                                            </div>
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Group Number / Code</label>
-                                                                                                <input type="text" required name="code" value="<?php echo $g->code; ?>" class="form-control">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-12">
-                                                                                                <label for="exampleInputPassword1">Group Description</label>
-                                                                                                <!-- Inline CK EDitor -->
-                                                                                                <script>
-                                                                                                    CKEDITOR.replace('<?php echo $g->id; ?>');
-                                                                                                </script>
-                                                                                                <!-- Inline CK Editoe -->
-                                                                                                <textarea required id="<?php echo $g->id; ?>" name="details" rows="10" class="form-control"><?php echo $g->details; ?></textarea>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="card-footer text-right">
-                                                                                        <button type="submit" name="update_group" class="btn btn-primary">Update Group</button>
-                                                                                    </div>
-                                                                                </form>
                                                                             </div>
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -373,7 +362,7 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <a class="badge badge-danger" href="student_groups.php?delete=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">Delete Group</a>
+                                                                <a class="badge badge-danger" href="student_groups_assignments.php?delete=<?php echo $gcode->id; ?>&view=<?php echo $mod->id; ?>"> Delete</a>
                                                             </div>
                                                         </div>
                                                     </div>
