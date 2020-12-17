@@ -282,25 +282,6 @@ require_once('public/partials/_head.php');
                                                         <form method="post" enctype="multipart/form-data" role="form">
                                                             <div class="card-body">
                                                                 <div class="row">
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="exampleInputPassword1">Group Name</label>
-                                                                        <select class='form-control basic' id="GroupName" onchange="getGroupDetails(this.value);" name="group_name">
-                                                                            <option selected>Select Group Name</option>
-                                                                            <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE faculty_id = '$row->id'";
-                                                                            $stmt = $mysqli->prepare($ret);
-                                                                            $stmt->execute(); //ok
-                                                                            $res = $stmt->get_result();
-                                                                            while ($group = $res->fetch_object()) {
-                                                                            ?>
-                                                                                <option><?php echo $group->name; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="exampleInputPassword1"> Group Code</label>
-                                                                        <input type="text" required name="group_code" id="groupCode" class="form-control">
-                                                                    </div>
                                                                     <div class="form-group col-md-12">
                                                                         <label for="">Notice Posted By</label>
                                                                         <?php
@@ -322,6 +303,12 @@ require_once('public/partials/_head.php');
                                                                         <label for="exampleInputPassword1">Group Notice</label>
                                                                         <textarea required id="textarea" name="announcement" rows="20" class="form-control"></textarea>
                                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                        <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                        <input type="hidden" required name="faculty" value="<?php echo $mod->faculty; ?>" class="form-control">
+                                                                        <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
+                                                                        <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
+                                                                        <input type="hidden" required name="group_name" value="<?php echo $g->name; ?>" class="form-control">
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -619,10 +606,10 @@ require_once('public/partials/_head.php');
                         <!-- Main Footer -->
                     <?php require_once('public/partials/_footer.php');
                 } ?>
-            </div>
-        </div>
-        <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php'); ?>
+                    </div>
+                </div>
+                <!-- ./wrapper -->
+                <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
