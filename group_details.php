@@ -4,6 +4,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+
 /* Add Students Groups  */
 if (isset($_POST['add_group'])) {
     //Error Handling and prevention of posting double entries
@@ -20,20 +21,7 @@ if (isset($_POST['add_group'])) {
         $error = 1;
         $err = "Group Name Cannot Be Empty";
     }
-    /* 
-    if (isset($_POST['student_admn']) && !empty($_POST['student_admn'])) {
-        $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_admn']));
-    } else {
-        $error = 1;
-        $err = "Student Admission Number Cannot Be Empty";
-    }
-    if (isset($_POST['student_name']) && !empty($_POST['student_name'])) {
-        $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_name']));
-    } else {
-        $error = 1;
-        $err = "Student Name Number Cannot Be Empty";
-    } */
-
+   
     if (!$error) {
         //prevent Double entries
         $sql = "SELECT * FROM  ezanaLMS_Groups WHERE  code='$code'   ";
@@ -60,6 +48,113 @@ if (isset($_POST['add_group'])) {
             $stmt->execute();
             if ($stmt) {
                 $success = "Student Group  Added" && header("refresh:1; url=student_groups.php?view=$module_id");
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+
+//Remove Member
+if (isset($_GET['remove'])) {
+    $view = $_POST['view'];
+    $group = $_GET['group'];
+    $remove = $_GET['remove'];
+    $adn = "DELETE FROM ezanaLMS_StudentsGroups WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $remove);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=group_details.php?view=$view&group=$group");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+//Delete Announcements
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $view = $_GET['view'];
+    $group = $_GET['group'];
+    $adn = "DELETE FROM ezanaLMS_GroupsAnnouncements WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=group_details.php?view=$view&group=$group");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+//Delete Group Project
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $view = $_GET['view'];
+    $group = $_GET['group'];
+    $adn = "DELETE FROM ezanaLMS_GroupsAssignments WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Assignment Deleted"; // && header("refresh:1; url=view_student_group.php?view=$view&faculty=$faculty&code=$code&name=$name");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Add Group Member */
+if (isset($_POST['add_member'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['student_admn']) && !empty($_POST['student_admn'])) {
+        $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_admn']));
+    } else {
+        $error = 1;
+        $err = "Student Admission Number Cannot Be Empty";
+    }
+    if (isset($_POST['student_name']) && !empty($_POST['student_name'])) {
+        $student_name = mysqli_real_escape_string($mysqli, trim($_POST['student_name']));
+    } else {
+        $error = 1;
+        $err = "Student Name Cannot Be Empty";
+    }
+    if (isset($_GET['code']) && !empty($_GET['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_GET['code']));
+    } else {
+        $error = 1;
+        $err = "Group Code Cannot Be Empty";
+    }
+
+    if (!$error) {
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_StudentsGroups  WHERE  (code = '$code' AND student_admn ='$student_admn')   ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if (($code  && $student_admn) == ($row['code'] && $row['student_admn'])) {
+                $err = "Student Already Added To Group";
+            }
+        } else {
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $code = $_POST['code'];
+            $student_admn = $_POST['student_admn'];
+            $student_name = $_POST['student_name'];
+            $view = $_POST['view'];/* Module ID */
+            $group = $_post['group'];/* gROUP iD */
+            $faculty = $_POST['faculty'];
+
+
+            $query = "INSERT INTO ezanaLMS_StudentsGroups (id, faculty_id, name, code, student_admn, student_name) VALUES(?,?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ssssss', $id, $faculty, $name, $code, $student_admn, $student_name);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Student Added To group" && header("refresh:1; url=group_details.php?view=$view&group=$group");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
