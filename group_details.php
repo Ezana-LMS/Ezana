@@ -391,11 +391,12 @@ require_once('public/partials/_head.php');
                                                                         <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Group Details</a>
                                                                     </li>
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-members" role="tab" aria-controls="custom-content-below-members" aria-selected="false">Group Members</a>
-                                                                    </li>
-                                                                    <li class="nav-item">
                                                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-add_member" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Add Members</a>
                                                                     </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-members" role="tab" aria-controls="custom-content-below-members" aria-selected="false">Group Members</a>
+                                                                    </li>
+
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-assignments" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Assignments</a>
                                                                     </li>
@@ -416,16 +417,15 @@ require_once('public/partials/_head.php');
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>#</th>
-                                                                                    <th>Student Admission No</th>
-                                                                                    <th>Student Name</th>
+                                                                                    <th>Admission No</th>
+                                                                                    <th>Name</th>
                                                                                     <th>Date Added</th>
-                                                                                    <th>Manage Members</th>
+                                                                                    <th>Manage</th>
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
                                                                                 <?php
-                                                                                $GroupCode = $g->code;
-                                                                                $ret = "SELECT * FROM `ezanaLMS_StudentsGroups` WHERE code = '$GroupCode' AND faculty_id = '$faculty'  ";
+                                                                                $ret = "SELECT * FROM `ezanaLMS_StudentsGroups` WHERE code = '$g->code' ";
                                                                                 $stmt = $mysqli->prepare($ret);
                                                                                 $stmt->execute(); //ok
                                                                                 $res = $stmt->get_result();
@@ -461,7 +461,8 @@ require_once('public/partials/_head.php');
                                                                                         <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_admn">
                                                                                             <option selected>Select Admission Number</option>
                                                                                             <?php
-                                                                                            $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$row->id'   ";
+                                                                                            /* For A Student To Join Group, He / She Mush Be Enrolled To The Module */
+                                                                                            $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE module_code = '$mod->code'   ";
                                                                                             $stmt = $mysqli->prepare($ret);
                                                                                             $stmt->execute(); //ok
                                                                                             $res = $stmt->get_result();
@@ -499,7 +500,7 @@ require_once('public/partials/_head.php');
                                                                                     </thead>
                                                                                     <tbody>
                                                                                         <?php
-                                                                                        $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE group_code ='$g->code' AND faculty_id = '$row->id'  ";
+                                                                                        $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE group_code ='$g->code'   ";
                                                                                         $stmt = $mysqli->prepare($ret);
                                                                                         $stmt->execute(); //ok
                                                                                         $res = $stmt->get_result();
@@ -511,7 +512,7 @@ require_once('public/partials/_head.php');
                                                                                                 <td><?php echo $gcode->created_at; ?></td>
                                                                                                 <td><?php echo date('d M Y g:i', strtotime($gcode->submitted_on)); ?></td>
                                                                                                 <td>
-                                                                                                    <a class="badge badge-success" href="view_group_project.php?view=<?php echo $gcode->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                                                    <a class="badge badge-success" href="#View-<?php echo $gcode->id; ?>">
                                                                                                         <i class="fas fa-eye"></i>
                                                                                                         View Assignment
                                                                                                     </a>
@@ -529,33 +530,55 @@ require_once('public/partials/_head.php');
                                                                         <br>
                                                                         <div class="card">
                                                                             <div class="card-body">
-                                                                                <table id="group_ass" class="table table-bordered table-striped">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>#</th>
-                                                                                            <th>Posted By</th>
-                                                                                            <th>Posted On</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody>
+                                                                                <?php
+                                                                                $ret = "SELECT * FROM `ezanaLMS_GroupsAnnouncements` WHERE  group_code = '$g->code' ";
+                                                                                $stmt = $mysqli->prepare($ret);
+                                                                                $stmt->execute(); //ok
+                                                                                $res = $stmt->get_result();
+                                                                                $cnt = 1;
+                                                                                while ($ga = $res->fetch_object()) {
+                                                                                ?>
+                                                                                    <div class="d-flex w-100 justify-content-between">
+                                                                                        <h5 class="mb-1"></h5>
+                                                                                        <small><?php echo $ga->created_at; ?></small>
+                                                                                    </div>
+                                                                                    <small>
                                                                                         <?php
-                                                                                        $ret = "SELECT * FROM `ezanaLMS_GroupsAnnouncements` WHERE faculty_id ='$row->id'  AND group_code = '$g->code' ";
-                                                                                        $stmt = $mysqli->prepare($ret);
-                                                                                        $stmt->execute(); //ok
-                                                                                        $res = $stmt->get_result();
-                                                                                        $cnt = 1;
-                                                                                        while ($ga = $res->fetch_object()) {
+                                                                                        echo $ga->announcement;
                                                                                         ?>
+                                                                                        <div class="row">
+                                                                                            <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $ga->id; ?>">
+                                                                                                <i class="fas fa-edit"></i>
+                                                                                                Update
+                                                                                            </a>
+                                                                                            <!-- Udpate Notice Modal -->
+                                                                                            <div class="modal fade" id="update-<?php echo $ga->id; ?>">
+                                                                                                <div class="modal-dialog  modal-lg">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
 
-                                                                                            <tr class="table-row" data-href="view_group_announcement.php?faculty=<?php echo $row->id; ?>&view=<?php echo $ga->id; ?>">
-                                                                                                <td><?php echo $cnt; ?></td>
-                                                                                                <td><?php echo $ga->created_by; ?></td>
-                                                                                                <td><?php echo date('d M Y', strtotime($ga->created_at)); ?></td>
-                                                                                            </tr>
-                                                                                        <?php $cnt = $cnt + 1;
-                                                                                        } ?>
-                                                                                    </tbody>
-                                                                                </table>
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer justify-content-between">
+                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <a class="badge badge-danger" href="group_details.php?delete=<?php echo $ga->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>">
+                                                                                                <i class="fas fa-trash"></i>
+                                                                                                Delete
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <hr>
+                                                                                    </small>
+                                                                                <?php $cnt = $cnt + 1;
+                                                                                } ?>
                                                                             </div>
                                                                         </div>
                                                                     </div>
