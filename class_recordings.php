@@ -301,30 +301,7 @@ require_once('public/partials/_head.php');
                                     <div class="row">
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
-                                                <div class="displaytable">
-                                                    <div class="displaytablecell">
-                                                        <div id="wrapper">
-                                                            <div id="tabs">
-                                                                <div class="leftpan">
-                                                                    <div class="menu">
-                                                                        <ul>
-                                                                            <li class="tabs"><a href="#tabs-1">Video One</a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="rightpan">
-                                                                    <div id="tabs-1">
-                                                                        <div class="breadcrum">Demo Video One</div>
-                                                                        <video class="video" controls>
-                                                                            <source src="demo-files/demo1/demo1.mp4" type="video/mp4">
-                                                                            Your browser does not support HTML5 video.
-                                                                        </video>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
