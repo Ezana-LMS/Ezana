@@ -4,6 +4,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+
 /* Add STD */
 if (isset($_POST['add_student'])) {
     //Error Handling and prevention of posting double entries
@@ -84,9 +85,78 @@ if (isset($_POST['add_student'])) {
         }
     }
 }
-/* Update Students */
+/* Update Student */
+if (isset($_POST['update_student'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['admno']) && !empty($_POST['admno'])) {
+        $admno = mysqli_real_escape_string($mysqli, trim($_POST['admno']));
+    } else {
+        $error = 1;
+        $err = "Admission  Number Cannot Be Empty";
+    }
+    if (isset($_POST['idno']) && !empty($_POST['idno'])) {
+        $idno = mysqli_real_escape_string($mysqli, trim($_POST['idno']));
+    } else {
+        $error = 1;
+        $err = "National ID / Passport Number Cannot Be Empty";
+    }
+    if (isset($_POST['email']) && !empty($_POST['email'])) {
+        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
+    } else {
+        $error = 1;
+        $err = "Email Cannot Be Empty";
+    }
+    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
+        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
+    } else {
+        $error = 1;
+        $err = "Phone Number Cannot Be Empty";
+    }
 
-/* Delete sTUDENT */
+    if (!$error) {
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $admno = $_POST['admno'];
+        $idno  = $_POST['idno'];
+        $adr = $_POST['adr'];
+        $dob = $_POST['dob'];
+        $gender = $_POST['gender'];
+        $acc_status = $_POST['acc_status'];
+        $updated_at = date('d M Y');
+        $profile_pic = $_FILES['profile_pic']['name'];
+        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
+
+        $query = "UPDATE ezanaLMS_Students SET name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, acc_status =?, updated_at =?, profile_pic =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ssssssssssss', $name, $email, $phone, $admno,  $idno, $adr, $dob, $gender, $acc_status, $updated_at, $profile_pic, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Updated Profile" && header("refresh:1; url=students.php");
+        } else {
+            //inject alert that profile update task failed
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
+/* Delete Student */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $adn = "DELETE FROM ezanaLMS_Students WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=students.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
