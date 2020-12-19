@@ -399,7 +399,6 @@ require_once('public/partials/_head.php');
                                         $cnt = 1;
                                         while ($std = $res->fetch_object()) {
                                         ?>
-
                                             <tr>
                                                 <td><?php echo $cnt; ?></td>
                                                 <td><?php echo $std->admno; ?></td>
@@ -409,7 +408,7 @@ require_once('public/partials/_head.php');
                                                 <td><?php echo $std->idno; ?></td>
                                                 <td><?php echo $std->gender; ?></td>
                                                 <td>
-                                                    <a class="badge badge-primary" data-toggle="modal" href="#view-student-<?php echo $std->id; ?>">
+                                                    <a class="badge badge-success" data-toggle="modal" href="#view-student-<?php echo $std->id; ?>">
                                                         <i class="fas fa-user-graduate"></i>
                                                         View
                                                     </a>
@@ -435,7 +434,6 @@ require_once('public/partials/_head.php');
                                                                                     <label for="">Name</label>
                                                                                     <input type="text" required name="name" value="<?php echo $std->name; ?>" class="form-control">
                                                                                     <input type="hidden" required name="id" value="<?php echo $std->id ?>" class="form-control">
-                                                                                    <input type="hidden" required name="view" value="<?php echo $faculty->id; ?>" class="form-control">
                                                                                 </div>
                                                                                 <div class="form-group col-md-4">
                                                                                     <label for="">Admission Number</label>
@@ -506,7 +504,7 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                     <!-- End Modal -->
-                                                    <a class="badge badge-danger" href="faculty_students.php?delete=<?php echo $std->id; ?>&view=<?php echo $faculty->id; ?>">
+                                                    <a class="badge badge-danger" href="students.php?delete=<?php echo $std->id; ?>">
                                                         <i class="fas fa-trash"></i>
                                                         Delete
                                                     </a>
