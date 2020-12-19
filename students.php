@@ -85,6 +85,7 @@ if (isset($_POST['add_student'])) {
     }
 }
 /* Update Students */
+
 /* Delete sTUDENT */
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
@@ -211,7 +212,89 @@ require_once('public/partials/_head.php');
                                                 </button>
                                             </div>
                                             <div class="modal-body">
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty Name</label>
+                                                                <select class='form-control basic' id="FacultyName" onchange="getFacutyDetails(this.value);">
+                                                                    <option selected>Select Faculty Name </option>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    while ($row = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <option><?php echo $row->name; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <input type="hidden" required name="faculty" id="FacultyId" class="form-control">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Name</label>
+                                                                <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Admission Number</label>
+                                                                <input type="text" required name="admno" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">ID / Passport Number</label>
+                                                                <input type="text" required name="idno" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Date Of Birth</label>
+                                                                <input type="text" required name="dob" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Gender</label>
+                                                                <select type="text" required name="gender" class="form-control basic">
+                                                                    <option>Male</option>
+                                                                    <option>Female</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Email</label>
+                                                                <input type="email" required name="email" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Phone Number</label>
+                                                                <input type="text" required name="phone" class="form-control">
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Password</label>
+                                                                <input type="text" value="<?php echo $defaultPass; ?>" required name="password" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Profile Picture</label>
+                                                                <div class="input-group">
+                                                                    <div class="custom-file">
+                                                                        <input required name="profile_pic" type="file" class="custom-file-input">
+                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="exampleInputPassword1">Address</label>
+                                                                <textarea required id="textarea" name="adr" rows="5" class="form-control"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer text-right">
+                                                        <button type="submit" name="add_student" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
