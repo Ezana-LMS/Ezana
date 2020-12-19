@@ -244,6 +244,27 @@ require_once('public/partials/_head.php');
                                                 <td><?php echo $lec->phone; ?></td>
                                                 <td><?php echo $lec->idno; ?></td>
                                                 <td>
+                                                    <a class="badge badge-success" data-toggle="modal" href="#view-lecturer-<?php echo $lec->id; ?>">
+                                                        <i class="fas fa-user-tie"></i>
+                                                        View
+                                                    </a>
+                                                    <!-- View Lec -->
+                                                    <div class="modal fade" id="view-lecturer-<?php echo $lec->id; ?>">
+                                                        <div class="modal-dialog  modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title"><?php echo $lec->name;?> Profile</h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    < </div> <div class="modal-footer justify-content-between">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <a class="badge badge-primary" data-toggle="modal" href="#update-lecturer-<?php echo $lec->id; ?>">
                                                         <i class="fas fa-edit"></i>
                                                         Update
