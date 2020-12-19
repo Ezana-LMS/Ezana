@@ -325,7 +325,8 @@ require_once('public/partials/_head.php');
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE module_id ='$mod->id'  ";
+                                                /* Sort By Date Created At */
+                                                $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE module_id ='$mod->id' ORDER BY `ezanaLMS_GroupsAssignments`.`created_at` ASC  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
@@ -353,9 +354,6 @@ require_once('public/partials/_head.php');
                                                                                 <li class="nav-item">
                                                                                     <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Assignment Instructions</a>
                                                                                 </li>
-                                                                                <li class="nav-item">
-                                                                                    <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-add_member" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Groups Assignment Atttemps</a>
-                                                                                </li>
                                                                             </ul>
                                                                             <div class="tab-content" id="custom-content-below-tabContent">
                                                                                 <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
@@ -368,7 +366,7 @@ require_once('public/partials/_head.php');
                                                                                         Open Assignment
                                                                                     </a>
                                                                                 </div>
-                                                                                
+
                                                                             </div>
                                                                         </div>
                                                                         <div class="modal-footer justify-content-between">
@@ -377,8 +375,10 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Submission Deadline: <?php echo date('d M Y', strtotime($gcode->submitted_on)); ?></small>
+                                                                <a class="badge badge-primary" href="group_assignments_attemps.php?group=<?php echo $gcode->id; ?>&view=<?php echo $mod->id; ?>"> Attempts</a>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#<?php echo $gcode->id; ?>"> Edit</a>
                                                                 <div class="modal fade" id="<?php echo $gcode->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
