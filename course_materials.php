@@ -341,31 +341,30 @@ require_once('public/partials/_head.php');
                                                 $cnt = 1;
                                                 while ($rm = $res->fetch_object()) {
                                                 ?>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <div class="card">
-                                                            <div class="card-body">
-                                                                <p class="card-title"><?php echo $rm->readingMaterials; ?></p>
-                                                                <br>
-                                                                <hr>
-                                                                <div class="text-center">
-                                                                    <a target="_blank" href="public/uploads/EzanaLMSData/Reading_Materials/<?php echo $rm->readingMaterials; ?>" class="btn btn-outline-success">
-                                                                        View
-                                                                    </a>
-                                                                    <?php
-                                                                    /* Show External Link */
-                                                                    if ($rm->external_link == '') {
-                                                                        /* Yall Know Silence Is Best Answer */
-                                                                    } else {
-                                                                        echo
-                                                                            "
+                                                            <a href="public/uploads/EzanaLMSData/Reading_Materials/<?php echo $rm->readingMaterials; ?>" target="_blank">
+                                                                <div class="card-body">
+                                                                    <p class="card-title"><?php echo $rm->readingMaterials; ?></p>
+                                                                    <br>
+                                                                    <hr>
+                                                                    <div class="text-center">
+                                                                        <?php
+                                                                        /* Show External Link */
+                                                                        if ($rm->external_link == '') {
+                                                                            /* Yall Know Silence Is Best Answer */
+                                                                        } else {
+                                                                            echo
+                                                                                "
                                                                         <a target='_blank' href= '$rm->external_link' class='btn btn-outline-success'>
                                                                             Open Link
                                                                         </a>
                                                                         ";
-                                                                    }
-                                                                    ?>
+                                                                        }
+                                                                        ?>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
+                                                            </a>
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Uploaded: <?php echo $rm->created_at; ?></small>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-visibility-<?php echo $rm->id; ?>">Edit Visiblity</a>
