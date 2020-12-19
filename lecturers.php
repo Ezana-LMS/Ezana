@@ -135,16 +135,32 @@ require_once('public/partials/_head.php');
                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                     <div class="card-body">
                                                         <div class="row">
-                                                            <div class="form-group col-md-4">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty Name</label>
+                                                                <select class='form-control basic' id="FacultyName" onchange="getFacutyDetails(this.value);">
+                                                                    <option selected>Select Faculty Name </option>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    while ($row = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <option><?php echo $row->name; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <input type="hidden" required name="faculty" id="FacultyId" class="form-control">
+                                                            <div class="form-group col-md-6">
                                                                 <label for="">Name</label>
                                                                 <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                             </div>
-                                                            <div class="form-group col-md-4">
+                                                            <div class="form-group col-md-6">
                                                                 <label for="">Number</label>
                                                                 <input type="text" required name="number" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                                             </div>
-                                                            <div class="form-group col-md-4">
+                                                            <div class="form-group col-md-6">
                                                                 <label for="">ID / Passport Number</label>
                                                                 <input type="text" required name="idno" class="form-control">
                                                             </div>
@@ -178,7 +194,7 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Address</label>
-                                                                <textarea required name="adr" rows="5" class="form-control"></textarea>
+                                                                <textarea required name="adr" rows="2" class="form-control"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -288,7 +304,7 @@ require_once('public/partials/_head.php');
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="card-footer">
+                                                                        <div class="card-footer text-right">
                                                                             <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
                                                                         </div>
                                                                     </form>
