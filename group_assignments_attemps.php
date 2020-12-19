@@ -267,39 +267,37 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12 col-lg-12">
-                                            <div class="row">
-                                                <table id="example1" class="table table-bordered table-striped">
-                                                    <thead>
+                                            <table id="example1" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Group Code</th>
+                                                        <th>Group Name</th>
+                                                        <th>Submitted Files</th>
+                                                        <th>Date Submitted</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $assignment = $_GET['assignment'];
+                                                    $ret = "SELECT * FROM `ezanaLMS_GroupsAssignmentsGrades` WHERE project_id = '$assignment' ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($attempts = $res->fetch_object()) {
+                                                    ?>
                                                         <tr>
-                                                            <th>#</th>
-                                                            <th>Group Code</th>
-                                                            <th>Group Name</th>
-                                                            <th>Submission Files</th>
-                                                            <th>Date Submitted</th>
+                                                            <td><?php echo $cnt; ?></td>
+                                                            <td><?php echo $attempts->group_code; ?></td>
+                                                            <td><?php echo $attempts->group_name; ?></td>
+                                                            <td><a href="public/uploads/EzanaLMSData/Group_Projects_Attemps/<?php echo $attempts->Submitted_Files; ?>"><?php echo $attempts->Submitted_Files; ?></a></td>
+                                                            <td><?php echo date('d M Y', strtotime($attempts->created_at)); ?></td>
                                                         </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                        $assignment = $_GET['assignment'];
-                                                        $ret = "SELECT * FROM `ezanaLMS_GroupsAssignmentsGrades` WHERE project_id = '$assignment' ";
-                                                        $stmt = $mysqli->prepare($ret);
-                                                        $stmt->execute(); //ok
-                                                        $res = $stmt->get_result();
-                                                        $cnt = 1;
-                                                        while ($attempts = $res->fetch_object()) {
-                                                        ?>
-                                                            <tr>
-                                                                <td><?php echo $cnt; ?></td>
-                                                                <td><?php echo $attempts->group_code; ?></td>
-                                                                <td><?php echo $attempts->group_name; ?></td>
-                                                                <td><a href="public/uploads/EzanaLMSData/Group_Projects_Attemps/<?php echo $attempts->Submitted_Files; ?>"><?php echo $attempts->Submitted_Files; ?></a></td>
-                                                                <td><?php echo date('d M Y', strtotime($attempts->created_at)); ?></td>
-                                                            </tr>
-                                                        <?php $cnt = $cnt + 1;
-                                                        } ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                    <?php $cnt = $cnt + 1;
+                                                    } ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
