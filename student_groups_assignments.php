@@ -363,43 +363,12 @@ require_once('public/partials/_head.php');
                                                                                     <?php echo $gcode->details; ?>
                                                                                     <br>
                                                                                     <small class="text-danger">Submission Deadline: <?php echo $gcode->submitted_on; ?></small>
+                                                                                    <br>
                                                                                     <a target='_blank' href='public/uploads/EzanaLMSData/Group_Projects/<?php echo $gcode->attachments; ?>' class='btn btn-outline-success'>
                                                                                         Open Assignment
                                                                                     </a>
                                                                                 </div>
-                                                                                <div class="tab-pane fade" id="custom-content-below-add_member" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
-                                                                                    <br>
-                                                                                    <table id="example1" class="table table-bordered table-striped">
-                                                                                        <thead>
-                                                                                            <tr>
-                                                                                                <th>#</th>
-                                                                                                <th>Group Code</th>
-                                                                                                <th>Group Name</th>
-                                                                                                <th>Submission Files</th>
-                                                                                                <th>Date Submitted</th>
-                                                                                            </tr>
-                                                                                        </thead>
-                                                                                        <tbody>
-                                                                                            <?php
-                                                                                            $ret = "SELECT * FROM `ezanaLMS_GroupsAssignmentsGrades` WHERE project_id = '$gcode->id' ";
-                                                                                            $stmt = $mysqli->prepare($ret);
-                                                                                            $stmt->execute(); //ok
-                                                                                            $res = $stmt->get_result();
-                                                                                            $cnt = 1;
-                                                                                            while ($attempts = $res->fetch_object()) {
-                                                                                            ?>
-                                                                                                <tr>
-                                                                                                    <td><?php echo $cnt; ?></td>
-                                                                                                    <td><?php echo $attempts->group_code; ?></td>
-                                                                                                    <td><?php echo $attempts->group_name; ?></td>
-                                                                                                    <td><a href="public/uploads/EzanaLMSData/Group_Projects_Attemps/<?php echo $attempts->Submitted_Files; ?>"><?php echo $attempts->Submitted_Files; ?></a></td>
-                                                                                                    <td><?php echo date('d M Y', strtotime($attempts->created_at)); ?></td>
-                                                                                                </tr>
-                                                                                            <?php $cnt = $cnt + 1;
-                                                                                            } ?>
-                                                                                        </tbody>
-                                                                                    </table>
-                                                                                </div>
+                                                                                
                                                                             </div>
                                                                         </div>
                                                                         <div class="modal-footer justify-content-between">
