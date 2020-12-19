@@ -349,11 +349,7 @@ require_once('public/partials/_head.php');
                                                                             </button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <?php echo $gcode->details; ?>
-                                                                            <br>
-                                                                            <a target='_blank' href='public/uploads/EzanaLMSData/Group_Projects/<?php echo $gcode->attachments; ?>' class='btn btn-outline-success'>
-                                                                                Open Assignment
-                                                                            </a>
+                                                                            
                                                                         </div>
                                                                         <div class="modal-footer justify-content-between">
                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
