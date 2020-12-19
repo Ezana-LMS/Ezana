@@ -378,7 +378,7 @@ require_once('public/partials/_head.php');
 
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Submission Deadline: <?php echo date('d M Y', strtotime($gcode->submitted_on)); ?></small>
-                                                                <a class="badge badge-primary" href="group_assignments_attemps.php?group=<?php echo $gcode->id; ?>&view=<?php echo $mod->id; ?>"> Attempts</a>
+                                                                <a class="badge badge-primary" href="group_assignments_attemps.php?assignment=<?php echo $gcode->id; ?>&view=<?php echo $mod->id; ?>"> Attempts</a>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#<?php echo $gcode->id; ?>"> Edit</a>
                                                                 <div class="modal fade" id="<?php echo $gcode->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">

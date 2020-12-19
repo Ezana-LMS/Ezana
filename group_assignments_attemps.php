@@ -171,25 +171,6 @@ require_once('public/partials/_head.php');
                                                                 <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
                                                                 <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
 
-                                                                <!-- <div class="form-group col-md-6">
-                                                                    <label for="exampleInputPassword1">Group Name</label>
-                                                                    <select class='form-control basic' id="GroupName" onchange="getGroupDetails(this.value);" name="group_name">
-                                                                        <option selected>Select Group Name</option>
-                                                                        <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE faculty_id = '$row->id'";
-                                                                        $stmt = $mysqli->prepare($ret);
-                                                                        $stmt->execute(); //ok
-                                                                        $res = $stmt->get_result();
-                                                                        while ($group = $res->fetch_object()) {
-                                                                        ?>
-                                                                            <option><?php echo $group->name; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputPassword1"> Group Code</label>
-                                                                    <input type="text" required name="group_code" id="groupCode" class="form-control">
-                                                                </div> -->
                                                                 <div class="form-group col-md-6">
                                                                     <label for="exampleInputPassword1">Submission Date </label>
                                                                     <input type="date" required name="submitted_on" class="form-control">
@@ -299,7 +280,8 @@ require_once('public/partials/_head.php');
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_GroupsAssignmentsGrades` WHERE project_id = '$gcode->id' ";
+                                                        $assignment = $_GET['assignment'];
+                                                        $ret = "SELECT * FROM `ezanaLMS_GroupsAssignmentsGrades` WHERE project_id = '$assignment' ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
