@@ -389,7 +389,7 @@ require_once('public/partials/_head.php');
                                                         View
                                                     </a>
                                                     <!-- View Lec -->
-                                                    <div class="modal fade" id="view-lecturer-<?php echo $lec->id; ?>"
+                                                    <div class="modal fade" id="view-lecturer-<?php echo $lec->id; ?>">
                                                         <div class="modal-dialog  modal-lg">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -479,7 +479,7 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                     <!-- End Lec Modal -->
-                                                    <a class="badge badge-danger" href="faculty_lects.php?delete=<?php echo $lec->id; ?>&view=<?php echo $faculty->id; ?>">
+                                                    <a class="badge badge-danger" href="lecturers.php?delete=<?php echo $lec->id; ?>">
                                                         <i class="fas fa-trash"></i>
                                                         Delete
                                                     </a>
