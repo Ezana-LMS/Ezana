@@ -608,6 +608,25 @@ require_once('public/partials/_head.php');
                                                                             <button type="submit" name="update_student" class="btn btn-primary">Update Students Profile</button>
                                                                         </div>
                                                                     </form>
+                                                                    <!-- Change Password -->
+                                                                    <h3 class="text-center">Change <?php echo $std->name; ?> Password</h3>
+                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label for="">New Password</label>
+                                                                                    <input type="password" required name="new_password" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label for="">Confirm Password</label>
+                                                                                    <input type="password" required name="confirm_password" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="text-right">
+                                                                                <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
