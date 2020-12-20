@@ -473,13 +473,13 @@ require_once('public/partials/_head.php');
                                                                 <div class="modal-body">
                                                                     <div class="card-body box-profile">
                                                                         <div class="text-center">
-                                                                            <?php 
+                                                                            <?php
                                                                             if ($lec->profile_pic == '') {
                                                                                 echo  "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/logo.jpeg' alt='User profile picture'>";
                                                                             } else {
                                                                                 echo  "<img class='profile-user-img img-fluid img-circle' src='public/uploads/UserImages/lecturers/$lec->profile_pic' alt='User profile picture'>";
-                                                                            } 
-                                                                             ?>
+                                                                            }
+                                                                            ?>
                                                                         </div>
 
                                                                         <h3 class="profile-username text-center"><?php echo $lec->name; ?></h3>
@@ -570,6 +570,25 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                         <div class="card-footer text-right">
                                                                             <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
+                                                                        </div>
+                                                                    </form>
+                                                                    <!-- Change Password -->
+                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label for="">New Password</label>
+                                                                                    <input type="password" required name="new_password" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label for="">Confirm Password</label>
+                                                                                    <input type="password" required name="confirm_password" class="form-control">
+                                                                                    <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="text-right">
+                                                                                <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
+                                                                            </div>
                                                                         </div>
                                                                     </form>
                                                                 </div>
