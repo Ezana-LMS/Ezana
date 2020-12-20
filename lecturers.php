@@ -573,7 +573,7 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </form>
                                                                     <!-- Change Password -->
-                                                                    <h4 class="text-center">Change <?php echo $lec->name;?> Passsword</h4>
+                                                                    <h4 class="text-center">Change <?php echo $lec->name;?> Password</h4>
                                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                                         <div class="card-body">
                                                                             <div class="row">
