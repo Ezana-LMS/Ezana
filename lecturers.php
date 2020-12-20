@@ -147,6 +147,78 @@ if (isset($_GET['delete'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+/* Change Lec Password */
+
+//Change Password
+if (isset($_POST['change_password'])) {
+
+    $error = 0;
+    if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
+        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
+    } else {
+        $error = 1;
+        $err = "New Password Cannot Be Empty";
+    }
+    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
+        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
+    } else {
+        $error = 1;
+        $err = "Confirmation Password Cannot Be Empty";
+    }
+
+    if (!$error) {
+        if ($new_password != $confirm_password) {
+            $err = "Password Does Not Match";
+        } else {
+            $update = $_GET['update'];
+            $new_password  = sha1(md5($_POST['new_password']));
+            $query = "UPDATE ezanaLMS_Lecturers SET  password =? WHERE id =?";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ss', $new_password, $update);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Password Changed" && header("refresh:1; url=view_lecturer.php?view=$view&faculty=$faculty");
+            } else {
+                $err = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+//Change Password
+if (isset($_POST['change_password'])) {
+
+    $error = 0;
+    if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
+        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
+    } else {
+        $error = 1;
+        $err = "New Password Cannot Be Empty";
+    }
+    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
+        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
+    } else {
+        $error = 1;
+        $err = "Confirmation Password Cannot Be Empty";
+    }
+
+    if (!$error) {
+        if ($new_password != $confirm_password) {
+            $err = "Password Does Not Match";
+        } else {
+            $id = $_POST['id'];
+            $new_password  = sha1(md5($_POST['new_password']));
+            $query = "UPDATE ezanaLMS_Lecturers SET  password =? WHERE id =?";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ss', $new_password, $update);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Password Changed" && header("refresh:1; url=view_lecturer.php?view=$view&faculty=$faculty");
+            } else {
+                $err = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -399,7 +471,7 @@ require_once('public/partials/_head.php');
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                
+
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
