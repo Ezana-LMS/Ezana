@@ -471,7 +471,36 @@ require_once('public/partials/_head.php');
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
+                                                                    <div class="card-body box-profile">
+                                                                        <div class="text-center">
+                                                                            <?php 
+                                                                            if ($lec->profile_pic == '') {
+                                                                                echo  "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/logo.jpeg' alt='User profile picture'>";
+                                                                            } else {
+                                                                                echo  "<img class='profile-user-img img-fluid img-circle' src='public/uploads/UserImages/lecturers/$lec->profile_pic' alt='User profile picture'>";
+                                                                            } 
+                                                                             ?>
+                                                                        </div>
 
+                                                                        <h3 class="profile-username text-center"><?php echo $lec->name; ?></h3>
+
+                                                                        <p class="text-muted text-center"><?php echo $lec->number; ?></p>
+
+                                                                        <ul class="list-group list-group-unbordered mb-3">
+                                                                            <li class="list-group-item">
+                                                                                <b>Email: </b> <a class="float-right"><?php echo $lec->email; ?></a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>ID / Passport: </b> <a class="float-right"><?php echo $lec->idno; ?></a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Phone: </b> <a class="float-right"><?php echo $lec->phone; ?></a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Address</b> <a class="float-right"><?php echo $lec->adr; ?></a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
