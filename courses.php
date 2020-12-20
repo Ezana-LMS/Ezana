@@ -371,6 +371,10 @@ require_once('public/partials/_head.php');
                                                         <td><?php echo $courses->name; ?></td>
                                                         <td><?php echo $courses->department_name; ?></td>
                                                         <td>
+                                                            <a class="badge badge-success" href="course.php?view=<?php echo $courses->id; ?>">
+                                                                <i class="fas fa-eye"></i>
+                                                                View
+                                                            </a>
                                                             <a class="badge badge-primary" data-toggle="modal" href="#edit-course-<?php echo $courses->id; ?>">
                                                                 <i class="fas fa-edit"></i>
                                                                 Update
