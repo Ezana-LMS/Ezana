@@ -382,23 +382,102 @@ require_once('public/partials/_head.php');
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <div class="card card-primary card-outline">
-                                                        <div class="card-body box-profile">
-                                                            <ul class="list-group list-group-unbordered mb-3">
-                                                                <li class="list-group-item">
-                                                                    <b>Name: </b> <a class="float-right"><?php echo $department->name; ?></a>
-                                                                </li>
-                                                                <li class="list-group-item">
-                                                                    <b>Code / Number : </b> <a class="float-right"><?php echo $department->code; ?></a>
-                                                                </li>
-                                                                <li class="list-group-item">
-                                                                    <b>HOD</b> <a class="float-right"><?php echo $department->hod; ?></a>
-                                                                </li>
-                                                            </ul>
-                                                            <p class="text-left font-weight-bold">Details</p>
-                                                            <?php echo $department->details; ?>
-                                                        </div>
-                                                    </div>
+                                                    <!-- Department Courses -->
+                                                    <table id="example1" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Code</th>
+                                                                <th>Name</th>
+                                                                <th>Department</th>
+                                                                <th>Manage</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_Courses`";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            $cnt = 1;
+                                                            while ($courses = $res->fetch_object()) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td><?php echo $cnt; ?></td>
+                                                                    <td><?php echo $courses->code; ?></td>
+                                                                    <td><?php echo $courses->name; ?></td>
+                                                                    <td><?php echo $courses->department_name; ?></td>
+                                                                    <td>
+                                                                        <a class="badge badge-success" href="course.php?view=<?php echo $courses->id; ?>">
+                                                                            <i class="fas fa-eye"></i>
+                                                                            View
+                                                                        </a>
+                                                                        <a class="badge badge-primary" data-toggle="modal" href="#edit-course-<?php echo $courses->id; ?>">
+                                                                            <i class="fas fa-edit"></i>
+                                                                            Update
+                                                                        </a>
+                                                                        <!-- Update Course Modal -->
+                                                                        <div class="modal fade" id="edit-course-<?php echo $courses->id; ?>">
+                                                                            <div class="modal-dialog  modal-lg">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <!-- Update Course Form -->
+                                                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                                                            <div class="card-body">
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Course Name</label>
+                                                                                                        <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                        <input type="hidden" required name="id" value="<?php echo $courses->id; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Course Number / Code</label>
+                                                                                                        <input type="text" required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-12">
+                                                                                                        <label for="exampleInputPassword1">Course Description</label>
+                                                                                                        <textarea required name="details" id="editor-<?php echo $courses->id; ?>" rows="10" class="form-control"><?php echo $courses->details; ?></textarea>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="card-footer text-right">
+                                                                                                <button type="submit" name="update_course" class="btn btn-primary">Update</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                        <!-- End Update Course Form -->
+                                                                                        <!-- Inline CK Editor Script -->
+                                                                                        <script>
+                                                                                            CKEDITOR.replace('editor-<?php echo $courses->id; ?>');
+                                                                                        </script>
+                                                                                        <!-- End Inline Ck Editor Script -->
+
+                                                                                    </div>
+                                                                                    <div class="modal-footer justify-content-between">
+                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End Update Modal -->
+
+                                                                        <a class="badge badge-danger" href="courses.php?delete=<?php echo $courses->id; ?>">
+                                                                            <i class="fas fa-trash"></i>
+                                                                            Delete
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php $cnt = $cnt + 1;
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
