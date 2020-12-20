@@ -315,11 +315,13 @@ require_once('public/partials/_head.php');
                                     <div class="col-md-12">
                                         <div class="card card-primary">
                                             <div class="card-header">
-                                                <h3 class="card-title"><?php echo $course->name; ?></h3>
-                                                <div class="card-tools text-right">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
+                                                <a href="course.php?view=<?php echo $course->id; ?>">
+                                                    <h3 class="card-title"><?php echo $course->name; ?></h3>
+                                                    <div class="card-tools text-right">
+                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </a>
                                             </div>
 
                                             <div class="card-body">
@@ -444,7 +446,7 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                     <div class="card-body">
-                                                                        <?php echo $module->details;?>
+                                                                        <?php echo $module->details; ?>
                                                                     </div>
                                                                 </div>
                                                             </a>
