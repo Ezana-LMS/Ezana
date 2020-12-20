@@ -424,7 +424,7 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </div>
                                             </div>
-                                            <h5 class="text-center">Modules</h5>
+                                            <!-- <h5 class="text-center">Modules</h5>
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <?php
@@ -453,7 +453,7 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     <?php } ?>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
