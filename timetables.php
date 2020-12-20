@@ -276,7 +276,7 @@ require_once('public/partials/_head.php');
                                                                 <div class="row">
                                                                     <div class="form-group col-md-4">
                                                                         <label for="">Class Name</label>
-                                                                        <input type="text" required name="classname" value="<?php echo $course->name;?>" class="form-control" id="exampleInputEmail1">
+                                                                        <input type="text" required name="classname" value="<?php echo $course->name; ?>" class="form-control" id="exampleInputEmail1">
                                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                         <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
                                                                         <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
@@ -327,11 +327,13 @@ require_once('public/partials/_head.php');
                                         <div class="col-md-12">
                                             <div class="card card-primary">
                                                 <div class="card-header">
-                                                    <h3 class="card-title"><?php echo $course->name; ?></h3>
-                                                    <div class="card-tools text-right">
-                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </div>
+                                                    <a href="course.php?view=<?php echo $course->id; ?>">
+                                                        <h3 class="card-title"><?php echo $course->name; ?></h3>
+                                                        <div class="card-tools text-right">
+                                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                            </button>
+                                                        </div>
+                                                    </a>
                                                 </div>
 
                                                 <div class="card-body">
