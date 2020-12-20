@@ -267,7 +267,7 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Department Details</label>
-                                                                <textarea name="details"  rows="10" class="form-control"></textarea>
+                                                                <textarea name="details" rows="10" class="form-control"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -332,106 +332,103 @@ require_once('public/partials/_head.php');
                             <div class="col-md-9">
                                 <div class="row">
                                     <div class="col-12">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <table id="example1" class="table table-bordered table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Code</th>
-                                                            <th>Name</th>
-                                                            <th>HOD</th>
-                                                            <th>Manage</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_Departments` ORDER BY `name` ASC   ";
-                                                        $stmt = $mysqli->prepare($ret);
-                                                        $stmt->execute(); //ok
-                                                        $res = $stmt->get_result();
-                                                        $cnt = 1;
-                                                        while ($dep = $res->fetch_object()) {
-                                                        ?>
-                                                            <tr>
-                                                                <td><?php echo $cnt; ?></td>
-                                                                <td><?php echo $dep->code; ?></td>
-                                                                <td><?php echo $dep->name; ?></td>
-                                                                <td><?php echo $dep->hod; ?></td>
-                                                                <td>
-                                                                    <!-- <a class="badge badge-success" href="department.php?view=<?php echo $dep->id; ?>">
-                                                                        <i class="fas fa-eye"></i>
-                                                                        View
-                                                                    </a> -->
-                                                                    <a class="badge badge-primary" href="#update-<?php echo $dep->id; ?>" data-toggle="modal">
-                                                                        <i class="fas fa-edit"></i>
-                                                                        Update
-                                                                    </a>
-                                                                    <!-- Update Department Modal -->
-                                                                    <div class="modal fade" id="update-<?php echo $dep->id; ?>">
-                                                                        <div class="modal-dialog  modal-lg">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <h4 class="modal-title">Fill All Values </h4>
-                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                        <span aria-hidden="true">&times;</span>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <div class="modal-body">
-                                                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                                                        <div class="card-body">
-                                                                                            <div class="row">
-                                                                                                <div class="form-group col-md-4">
-                                                                                                    <label for="">Department Name</label>
-                                                                                                    <input type="text" required name="name" value="<?php echo $dep->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                                                                </div>
-                                                                                                <div class="form-group col-md-4">
-                                                                                                    <label for="">Department Number / Code</label>
-                                                                                                    <input type="text" required name="code" value="<?php echo $dep->code; ?>" class="form-control">
-                                                                                                    <input type="hidden" required name="id" value="<?php echo $dep->id; ?>" class="form-control">
-                                                                                                </div>
-                                                                                                <div class="form-group col-md-4">
-                                                                                                    <label for="">Department HOD</label>
-                                                                                                    <input type="text" required value="<?php echo $dep->hod; ?>" name="hod" class="form-control">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="row">
-                                                                                                <div class="form-group col-md-12">
-                                                                                                    <label for="exampleInputPassword1">Department Details</label>
-                                                                                                    <textarea name="details" id="<?php echo $dep->id; ?>" rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
-                                                                                                </div>
-                                                                                            </div>
+
+                                        <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Code</th>
+                                                    <th>Name</th>
+                                                    <th>HOD</th>
+                                                    <th>Manage</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_Departments` ORDER BY `name` ASC   ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                $cnt = 1;
+                                                while ($dep = $res->fetch_object()) {
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $cnt; ?></td>
+                                                        <td><?php echo $dep->code; ?></td>
+                                                        <td><?php echo $dep->name; ?></td>
+                                                        <td><?php echo $dep->hod; ?></td>
+                                                        <td>
+                                                            <a class="badge badge-success" href="department.php?view=<?php echo $dep->id; ?>">
+                                                                <i class="fas fa-eye"></i>
+                                                                View
+                                                            </a>
+                                                            <a class="badge badge-primary" href="#update-<?php echo $dep->id; ?>" data-toggle="modal">
+                                                                <i class="fas fa-edit"></i>
+                                                                Update
+                                                            </a>
+                                                            <!-- Update Department Modal -->
+                                                            <div class="modal fade" id="update-<?php echo $dep->id; ?>">
+                                                                <div class="modal-dialog  modal-lg">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">Fill All Values </h4>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                                <div class="card-body">
+                                                                                    <div class="row">
+                                                                                        <div class="form-group col-md-4">
+                                                                                            <label for="">Department Name</label>
+                                                                                            <input type="text" required name="name" value="<?php echo $dep->name; ?>" class="form-control" id="exampleInputEmail1">
                                                                                         </div>
-                                                                                        <div class=" text-right">
-                                                                                            <button type="submit" name="update_dept" class="btn btn-primary">Update Department</button>
+                                                                                        <div class="form-group col-md-4">
+                                                                                            <label for="">Department Number / Code</label>
+                                                                                            <input type="text" required name="code" value="<?php echo $dep->code; ?>" class="form-control">
+                                                                                            <input type="hidden" required name="id" value="<?php echo $dep->id; ?>" class="form-control">
                                                                                         </div>
-                                                                                    </form>
-                                                                                    <!-- Inline CK Editor Script -->
-                                                                                    <script>
-                                                                                        CKEDITOR.replace('<?php echo $dep->id; ?>');
-                                                                                    </script>
-                                                                                    <!-- End Inline Ck Editor Script -->
+                                                                                        <div class="form-group col-md-4">
+                                                                                            <label for="">Department HOD</label>
+                                                                                            <input type="text" required value="<?php echo $dep->hod; ?>" name="hod" class="form-control">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="form-group col-md-12">
+                                                                                            <label for="exampleInputPassword1">Department Details</label>
+                                                                                            <textarea name="details" id="<?php echo $dep->id; ?>" rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
-                                                                                <div class="modal-footer justify-content-between">
-                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                <div class=" text-right">
+                                                                                    <button type="submit" name="update_dept" class="btn btn-primary">Update Department</button>
                                                                                 </div>
-                                                                            </div>
+                                                                            </form>
+                                                                            <!-- Inline CK Editor Script -->
+                                                                            <script>
+                                                                                CKEDITOR.replace('<?php echo $dep->id; ?>');
+                                                                            </script>
+                                                                            <!-- End Inline Ck Editor Script -->
+                                                                        </div>
+                                                                        <div class="modal-footer justify-content-between">
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                         </div>
                                                                     </div>
-                                                                    <!-- Update Department Modal -->
+                                                                </div>
+                                                            </div>
+                                                            <!-- Update Department Modal -->
 
-                                                                    <a class="badge badge-danger" href="departments.php?delete=<?php echo $dep->id; ?>">
-                                                                        <i class="fas fa-trash"></i>
-                                                                        Delete
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                        <?php $cnt = $cnt + 1;
-                                                        } ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+                                                            <a class="badge badge-danger" href="departments.php?delete=<?php echo $dep->id; ?>">
+                                                                <i class="fas fa-trash"></i>
+                                                                Delete
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                <?php $cnt = $cnt + 1;
+                                                } ?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
