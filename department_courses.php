@@ -59,7 +59,6 @@ if (isset($_POST['add_course'])) {
     }
 }
 /* Update Department */
-
 if (isset($_POST['update_dept'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -92,6 +91,57 @@ if (isset($_POST['update_dept'])) {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
         }
+    }
+}
+
+/*  Update Course*/
+if (isset($_POST['update_course'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Couse  Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Course Name Cannot Be Empty";
+    }
+    if (!$error) {
+
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $code = $_POST['code'];
+        $details = $_POST['details'];
+
+        $query = "UPDATE ezanaLMS_Courses SET  code =?, name =?, details =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Course Updated" && header("refresh:1; url=courses.php");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
+/* Delete Course */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $faculty = $_GET['faculty'];
+    $adn = "DELETE FROM ezanaLMS_Courses WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=courses.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
     }
 }
 require_once('public/partials/_head.php');
@@ -389,13 +439,12 @@ require_once('public/partials/_head.php');
                                                                 <th>#</th>
                                                                 <th>Code</th>
                                                                 <th>Name</th>
-                                                                <th>Department</th>
                                                                 <th>Manage</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Courses`";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE department_id  = '$department->id'";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -406,7 +455,6 @@ require_once('public/partials/_head.php');
                                                                     <td><?php echo $cnt; ?></td>
                                                                     <td><?php echo $courses->code; ?></td>
                                                                     <td><?php echo $courses->name; ?></td>
-                                                                    <td><?php echo $courses->department_name; ?></td>
                                                                     <td>
                                                                         <a class="badge badge-success" href="course.php?view=<?php echo $courses->id; ?>">
                                                                             <i class="fas fa-eye"></i>
@@ -467,7 +515,6 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                         </div>
                                                                         <!-- End Update Modal -->
-
                                                                         <a class="badge badge-danger" href="courses.php?delete=<?php echo $courses->id; ?>">
                                                                             <i class="fas fa-trash"></i>
                                                                             Delete
