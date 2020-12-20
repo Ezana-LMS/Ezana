@@ -157,6 +157,42 @@ if (isset($_GET['delete'])) {
     }
 }
 
+
+/* Update Student Passwords */
+if (isset($_POST['change_password'])) {
+    $error = 0;
+    if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
+        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
+    } else {
+        $error = 1;
+        $err = "New Password Cannot Be Empty";
+    }
+    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
+        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
+    } else {
+        $error = 1;
+        $err = "Confirmation Password Cannot Be Empty";
+    }
+
+    if (!$error) {
+        if ($new_password != $confirm_password) {
+            $err = "Password Does Not Match";
+        } else {
+            $student = $_POST['student'];
+            $new_password  = sha1(md5($_POST['new_password']));
+            $query = "UPDATE ezanaLMS_Students SET  password =? WHERE id =?";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ss', $new_password, $student);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Password Changed" && header("refresh:1; url=students.php");
+            } else {
+                $err = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
