@@ -616,6 +616,8 @@ require_once('public/partials/_head.php');
                                                                                 <div class="form-group col-md-12">
                                                                                     <label for="">New Password</label>
                                                                                     <input type="password" required name="new_password" class="form-control">
+                                                                                    <input type="hidden" required name="student" value="<?php echo $std->id ?>" class="form-control">
+
                                                                                 </div>
                                                                                 <div class="form-group col-md-12">
                                                                                     <label for="">Confirm Password</label>
