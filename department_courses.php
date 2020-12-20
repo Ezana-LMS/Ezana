@@ -116,13 +116,14 @@ if (isset($_POST['update_course'])) {
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
+        $view = $_GET['view'];
 
         $query = "UPDATE ezanaLMS_Courses SET  code =?, name =?, details =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Course Updated" && header("refresh:1; url=courses.php");
+            $success = "Course Updated" && header("refresh:1; url=department_courses.php?view=$view");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -132,14 +133,14 @@ if (isset($_POST['update_course'])) {
 /* Delete Course */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $faculty = $_GET['faculty'];
+    $view = $_GET['view'];
     $adn = "DELETE FROM ezanaLMS_Courses WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=courses.php");
+        $success = "Deleted" && header("refresh:1; url=department_courses.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -483,6 +484,7 @@ require_once('public/partials/_head.php');
                                                                                                         <label for="">Course Name</label>
                                                                                                         <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control" id="exampleInputEmail1">
                                                                                                         <input type="hidden" required name="id" value="<?php echo $courses->id; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                        <input type="hidden" required name="view" value="<?php echo $department->id; ?>" class="form-control" id="exampleInputEmail1">
                                                                                                     </div>
                                                                                                     <div class="form-group col-md-6">
                                                                                                         <label for="">Course Number / Code</label>
@@ -515,7 +517,7 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                         </div>
                                                                         <!-- End Update Modal -->
-                                                                        <a class="badge badge-danger" href="courses.php?delete=<?php echo $courses->id; ?>">
+                                                                        <a class="badge badge-danger" href="department_courses.php.php?delete=<?php echo $courses->id; ?>&view=<?php echo $department->id; ?>">
                                                                             <i class="fas fa-trash"></i>
                                                                             Delete
                                                                         </a>
