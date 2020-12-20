@@ -448,11 +448,87 @@ require_once('public/partials/_head.php');
                                                         <i class="fas fa-user-graduate"></i>
                                                         View
                                                     </a>
+                                                    <!-- View Student Modal -->
+                                                    <div class="modal fade" id="view-student-<?php echo $std->id; ?>">
+                                                        <div class="modal-dialog  modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title"><?php echo $std->name; ?> Profile</h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 card-body box-profile">
+                                                                            <div class="text-center">
+                                                                                <?php
+                                                                                //Get Default Profile Picture
+                                                                                if ($std->profile_pic == '') {
+                                                                                    echo "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/logo.png' alt='User profile picture'>";
+                                                                                } else {
+                                                                                    echo "<img class='profile-user-img img-fluid img-circle' src='public/uploads/UserImages/students/$std->profile_pic' alt='User profile picture'>";
+                                                                                } ?>
+                                                                            </div>
+
+                                                                            <h3 class="profile-username text-center"><?php echo $std->name; ?></h3>
+
+                                                                            <p class="text-muted text-center"><?php echo $std->admno; ?></p>
+
+                                                                            <ul class="list-group list-group-unbordered mb-3">
+                                                                                <li class="list-group-item">
+                                                                                    <b>Email: </b> <a class="float-right"><?php echo $std->email; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>ID / Passport: </b> <a class="float-right"><?php echo $std->idno; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Phone: </b> <a class="float-right"><?php echo $std->phone; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Address</b> <a class="float-right"><?php echo $std->adr; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>DOB</b> <a class="float-right"><?php echo $std->dob; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Gender</b> <a class="float-right"><?php echo $std->gender; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Added At </b> <a class="float-right"><?php echo $std->created_at; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Updated At </b> <a class="float-right"><?php echo $std->updated_at; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Account Status</b>
+                                                                                    <a class="float-right">
+                                                                                        <?php
+                                                                                        if ($std->acc_status == 'Active') {
+                                                                                            echo "<span class='badge badge-success'>$std->acc_status</span>";
+                                                                                        } else {
+                                                                                            echo "<span class='badge badge-danger'>$std->acc_status</span>";
+                                                                                        }
+                                                                                        ?>
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+
+                                                                        <div class="modal-footer justify-content-between">
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Modal -->
                                                     <a class="badge badge-primary" data-toggle="modal" href="#update-student-<?php echo $std->id; ?>">
                                                         <i class="fas fa-edit"></i>
                                                         Update
                                                     </a>
-                                                    <!-- Update Lec Modal -->
+                                                    <!-- Update Student Modal -->
                                                     <div class="modal fade" id="update-student-<?php echo $std->id; ?>">
                                                         <div class="modal-dialog  modal-lg">
                                                             <div class="modal-content">
