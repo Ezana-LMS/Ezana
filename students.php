@@ -576,7 +576,24 @@ require_once('public/partials/_head.php');
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="exampleInputFile">Select File</label>
+                                                                <div class="input-group">
+                                                                    <div class="custom-file">
+                                                                        <input required name="file" accept=".xls,.xlsx" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <button type="submit" name="upload" class="btn btn-primary">Upload File</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
