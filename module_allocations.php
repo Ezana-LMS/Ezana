@@ -308,22 +308,23 @@ require_once('public/partials/_head.php');
                                                         <div class="card-body">
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="">Lecturer Name</label>
-                                                                    <select class='form-control basic' id="LecName" onchange="getLecDetails(this.value);" name="lec_name">
-                                                                        <option selected>Select Lecturer Name</option>
+                                                                    <label for="">Lecturer Number</label>
+                                                                    <select class='form-control basic' id="LecName" onchange="getLecDetails(this.value);" name="">
+                                                                        <option selected>Select Lecturer Number</option>
                                                                         <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$row->id'  ";
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$course->faculty_id'  ";
                                                                         $stmt = $mysqli->prepare($ret);
                                                                         $stmt->execute(); //ok
                                                                         $res = $stmt->get_result();
                                                                         while ($lec = $res->fetch_object()) {
                                                                         ?>
-                                                                            <option><?php echo $lec->name; ?></option>
+                                                                            <option><?php echo $lec->number; ?></option>
                                                                         <?php } ?>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="">Lecturer ID</label>
+                                                                    <label for="">Lecturer Name</label>
+                                                                    <input type="text" id="lecName" readonly required name="lec_name" class="form-control">
                                                                     <input type="text" id="lecID" readonly required name="lec_id" class="form-control">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                 </div>
@@ -333,7 +334,7 @@ require_once('public/partials/_head.php');
                                                                     <select class='form-control basic' id="ModuleName" onchange="getModuleDetails(this.value);" name="module_name">
                                                                         <option selected>Select Module Name </option>
                                                                         <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE ass_status = '0' AND faculty_id = '$row->id'  ";
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE ass_status = '0' AND course_id = '$course->id'  ";
                                                                         $stmt = $mysqli->prepare($ret);
                                                                         $stmt->execute(); //ok
                                                                         $res = $stmt->get_result();
