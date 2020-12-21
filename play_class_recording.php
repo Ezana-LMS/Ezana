@@ -74,90 +74,6 @@ if (isset($_POST['add_class_recording'])) {
     }
 }
 
-
-/* Update Class Recordings   */
-if (isset($_POST['update_class_recording'])) {
-    $maxsize = 1152428800; //Minimum Of 200Mbs
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['class_name']) && !empty($_POST['class_name'])) {
-        $class_name = mysqli_real_escape_string($mysqli, trim($_POST['class_name']));
-    } else {
-        $error = 1;
-        $err = "Class Name Cannot Be Empty";
-    }
-    if (isset($_POST['lecturer_name']) && !empty($_POST['lecturer_name'])) {
-        $lecturer_name = mysqli_real_escape_string($mysqli, trim($_POST['lecturer_name']));
-    } else {
-        $error = 1;
-        $err = "Lectuer Name Cannot Be Empty";
-    }
-    if (isset($_POST['details']) && !empty($_POST['details'])) {
-        $details = mysqli_real_escape_string($mysqli, trim($_POST['details']));
-    } else {
-        $error = 1;
-        $err = "Video Transcription Cannot Be Empty";
-    }
-    if (!$error) {
-        $id = $_POST['id'];
-        $view = $_POST['view'];
-        $class_name = $_POST['class_name'];
-        $lecturer_name  = $_POST['lecturer_name'];
-        $external_link = $_POST['external_link'];
-        $details  = $_POST['details'];
-        $created_at  = date('d M Y');
-        /* Clip Handling Logic */
-        $video = $_FILES['video']['name'];
-        $target_dir = "public/uploads/EzanaLMSData/ClassVideos/";
-        $target_file = $target_dir . $_FILES["video"]["name"];
-
-        // Select file type
-        $videoFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-        // Valid file extensions
-        $extensions_arr = array("mp4", "avi", "3gp", "mov", "mpeg");
-        // Check extension
-        if (in_array($videoFileType, $extensions_arr)) {
-
-            // Check file size
-            if (($_FILES['video']['size'] >= $maxsize) || ($_FILES["video"]["size"] == 0)) {
-                $err = "File too large. File must be less than 50MB.";
-            } else {
-                // Upload
-                if (move_uploaded_file($_FILES['video']['tmp_name'], $target_file)) {
-                    // Insert record
-                    $query = "UPDATE ezanaLMS_ClassRecordings SET class_name =?, lecturer_name =?, external_link =?, details =?, created_at =?, video =? WHERE id = ?";
-                    $stmt = $mysqli->prepare($query);
-                    $rc = $stmt->bind_param('sssssss', $class_name, $lecturer_name, $external_link, $details, $created_at, $video, $id);
-                    $stmt->execute();
-                    mysqli_query($mysqli, $query);
-                    if ($stmt) {
-                        //inject alert that post is shared  
-                        $success = "Updated" && header("refresh:1; url=class_recordings.php?view=$view");
-                    }
-                }
-            }
-        } else {
-            $err = "Invalid file extension.";
-        }
-    }
-}
-
-/* Delete Class Recordings  */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $view = $_GET['view'];
-    $adn = "DELETE FROM ezanaLMS_ClassRecordings WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=class_recordings.php?view=$view");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -175,7 +91,7 @@ require_once('public/partials/_head.php');
         while ($mod = $res->fetch_object()) {
             /* Class Recoding */
             $clip = $_GET['clip'];
-            $ret = "SELECT * FROM `ezanaLMS_ClassRecordings` WHERE clip= '$clip'";
+            $ret = "SELECT * FROM `ezanaLMS_ClassRecordings` WHERE id= '$clip'";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
