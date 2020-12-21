@@ -34,20 +34,39 @@ if (isset($_POST['add_class_recording'])) {
         $external_link = $_POST['external_link'];
         $details  = $_POST['details'];
         $created_at  = date('d M Y');
+        /* Clip Handling Logic */
         $video = $_FILES['video']['name'];
-        move_uploaded_file($_FILES["video"]["tmp_name"], "public/uploads/EzanaLMSData/ClassVideos/" . $_FILES["video"]["name"]);
-        $faculty = $_POST['faculty'];
-        /* Module ID */
-        $view = $_POST['view'];
+        $target_dir = "public/uploads/EzanaLMSData/ClassVideos/";
+        $target_file = $target_dir . $_FILES["video"]["name"];
 
-        $query = "INSERT INTO ezanaLMS_ClassRecordings (id, faculty_id, module_id, class_name, lecturer_name, external_link, details, created_at, video) VALUES(?,?,?,?,?,?,?,?,?)";
-        $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssssss', $id, $faculty, $view, $class_name, $lecturer_name, $external_link, $details, $created_at, $video);
-        $stmt->execute();
-        if ($stmt) {
-            $success = "Class Recoding Added" && header("refresh:1; url=class_recordings.php?view=$view");
+        // Select file type
+        $videoFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Valid file extensions
+        $extensions_arr = array("mp4", "avi", "3gp", "mov", "mpeg");
+        // Check extension
+        if (in_array($videoFileType, $extensions_arr)) {
+
+            // Check file size
+            if (($_FILES['video']['size'] >= $maxsize) || ($_FILES["video"]["size"] == 0)) {
+                $err = "File too large. File must be less than 50MB.";
+            } else {
+                // Upload
+                if (move_uploaded_file($_FILES['video']['tmp_name'], $target_file)) {
+                    // Insert record
+                    $query = "INSERT INTO ezanaLMS_ClassRecordings (id, faculty_id, module_id, class_name, lecturer_name, external_link, details, created_at, video) VALUES(?,?,?,?,?,?,?,?,?)";
+                    $stmt = $mysqli->prepare($query);
+                    $rc = $stmt->bind_param('sssssssss', $id, $faculty, $view, $class_name, $lecturer_name, $external_link, $details, $created_at, $video);
+                    $stmt->execute();
+                    mysqli_query($mysqli, $query);
+                    if ($stmt) {
+                        //inject alert that post is shared  
+                        $success = "Uploaded" && header("refresh:1; url=class_recordings.php?view=$view");
+                    }
+                }
+            }
         } else {
-            $info = "Please Try Again Or Try Later";
+            $err = "Invalid file extension.";
         }
     }
 }
@@ -222,9 +241,10 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Class Name</label>
-                                                                    <input type="text" required name="class_name" class="form-control" value="<?php echo $mod->name;?>" id="exampleInputEmail1">
+                                                                    <input type="text" required name="class_name" class="form-control" value="<?php echo $mod->name; ?>" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                    <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Lecturer Name</label>
@@ -395,10 +415,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
+                </div>
             </div>
-        </div>
-        <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php'); ?>
+            <!-- ./wrapper -->
+            <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
