@@ -56,11 +56,11 @@ if (isset($_POST['assign_module'])) {
             //On Assign, Update Module Status to Assigned
             $ass_status = 1;
 
-            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?,?)";
             $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
             $stmt = $mysqli->prepare($query);
             $modstmt = $mysqli->prepare($modUpdate);
-            $rc = $stmt->bind_param('sssssss', $id, $faculty, $module_code, $module_name, $lec_id, $lec_name, $created_at);
+            $rc = $stmt->bind_param('ssssssss', $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at);
             $rc = $modstmt->bind_param('is', $ass_status, $module_code);
             $stmt->execute();
             $modstmt->execute();
@@ -76,7 +76,6 @@ if (isset($_POST['assign_module'])) {
 /* Delete Module Alloca */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $faculty = $_GET['faculty'];
     $code = $_GET['code'];
     $view = $_GET['view'];
     $status = 0;
