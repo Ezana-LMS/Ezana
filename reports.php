@@ -6,51 +6,6 @@ check_login();
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
 check_login();
-if (isset($_POST['add_faculty'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['code']) && !empty($_POST['code'])) {
-        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
-    } else {
-        $error = 1;
-        $err = "Faculty Code Cannot Be Empty";
-    }
-    if (isset($_POST['name']) && !empty($_POST['name'])) {
-        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
-    } else {
-        $error = 1;
-        $err = "Faculty Name Cannot Be Empty";
-    }
-    if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Faculties WHERE  code='$code' || name ='$name' ";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if ($code == $row['code']) {
-                $err =  "Faculty With This Code Already Exists";
-            } else {
-                $err = "Faculty Name Already Exists";
-            }
-        } else {
-            $id = $_POST['id'];
-            $name = $_POST['name'];
-            $code = $_POST['code'];
-            $details = $_POST['details'];
-
-            $query = "INSERT INTO ezanaLMS_Faculties (id, code, name, details) VALUES(?,?,?,?)";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssss', $id, $code, $name, $details);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "Faculty Added";
-            } else {
-                //inject alert that profile update task failed
-                $info = "Please Try Again Or Try Later";
-            }
-        }
-    }
-}
 require_once('public/partials/_head.php');
 ?>
 
@@ -187,7 +142,7 @@ require_once('public/partials/_head.php');
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-lg-4 col-6">
-                                        <a href="faculties.php">
+                                        <a href="reports_faculties.php">
                                             <div class="small-box bg-info">
                                                 <div class="inner">
                                                     <h3>Faculties</h3>
@@ -203,7 +158,7 @@ require_once('public/partials/_head.php');
                                         </a>
                                     </div>
                                     <div class="col-lg-4 col-6">
-                                        <a href="departments.php">
+                                        <a href="reports_departments.php">
                                             <div class="small-box bg-info">
                                                 <div class="inner">
                                                     <h3>Departments</h3>
@@ -220,7 +175,7 @@ require_once('public/partials/_head.php');
                                     </div>
 
                                     <div class="col-lg-4 col-6">
-                                        <a href="courses.php">
+                                        <a href="reports_courses.php">
                                             <div class="small-box bg-info">
                                                 <div class="inner">
                                                     <h3>Courses</h3>
@@ -237,7 +192,7 @@ require_once('public/partials/_head.php');
                                     </div>
 
                                     <div class="col-lg-4 col-6">
-                                        <a href="modules.php">
+                                        <a href="reports_modules.php">
                                             <div class="small-box bg-info">
                                                 <div class="inner">
                                                     <h3>Modules</h3>
@@ -254,7 +209,7 @@ require_once('public/partials/_head.php');
                                     </div>
 
                                     <div class="col-lg-4 col-6">
-                                        <a href="overall_school_calendar.php">
+                                        <a href="reports_overall_school_calendar.php">
 
                                             <div class="small-box bg-info">
                                                 <div class="inner">
@@ -270,8 +225,7 @@ require_once('public/partials/_head.php');
                                         </a>
                                     </div>
                                     <div class="col-lg-4 col-6">
-                                        <a href="overall_school_calendar.php">
-
+                                        <a href="reports_overall_school_timetable.php">
                                             <div class="small-box bg-info">
                                                 <div class="inner">
                                                     <h3>Time Table</h3>
@@ -286,7 +240,7 @@ require_once('public/partials/_head.php');
                                         </a>
                                     </div>
                                     <div class="col-lg-4 col-6">
-                                        <a href="overall_school_calendar.php">
+                                        <a href="reports_overall_school_enrollments.php">
 
                                             <div class="small-box bg-info">
                                                 <div class="inner">
@@ -302,8 +256,7 @@ require_once('public/partials/_head.php');
                                         </a>
                                     </div>
                                     <div class="col-lg-4 col-6">
-                                        <a href="lecturers.php">
-
+                                        <a href="reports_lecturers.php">
                                             <div class="small-box bg-info">
                                                 <div class="inner">
                                                     <h3>Lecturers</h3>
@@ -320,7 +273,7 @@ require_once('public/partials/_head.php');
                                     </div>
 
                                     <div class="col-lg-4 col-6">
-                                        <a href="students.php">
+                                        <a href="reports_students.php">
                                             <div class="small-box bg-info">
                                                 <div class="inner">
                                                     <h3>Students</h3>
