@@ -312,27 +312,13 @@ require_once('public/partials/_head.php');
                                     if (mysqli_num_rows($raw_results) > 0) {
                                         while ($results = mysqli_fetch_array($raw_results)) {
                                 ?>
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <a href="play_class_recording.php?clip=<?php echo $results['id']; ?>&view=<?php echo $results['module_id']; ?>">
                                                             <h5 class="card-title"><?php echo $results['class_name']; ?></h5>
                                                             <br>
-                                                            <hr>
-                                                            <div class="text-center">
-                                                                <?php
-                                                                /* If Class Has External Link */
-                                                                if ($results['external_link'] == '') {
-                                                                } else {
-                                                                    echo
-                                                                        '
-                                                                        <a target="_blank" href="$results["external_link"]" class="btn btn-outline-success">
-                                                                            Open External Link
-                                                                        </a>
-                                                                        ';
-                                                                }
-                                                                ?>
-                                                            </div>
+
                                                         </a>
                                                     </div>
                                                     <div class="card-footer">
