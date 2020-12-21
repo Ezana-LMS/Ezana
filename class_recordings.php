@@ -36,6 +36,7 @@ if (isset($_POST['add_class_recording'])) {
         $external_link = $_POST['external_link'];
         $details  = $_POST['details'];
         $created_at  = date('d M Y');
+        $faculty = $_POST['faculty'];
         /* Clip Handling Logic */
         $video = $_FILES['video']['name'];
         $target_dir = "public/uploads/EzanaLMSData/ClassVideos/";
@@ -75,7 +76,7 @@ if (isset($_POST['add_class_recording'])) {
 
 
 /* Update Class Recordings   */
-if (isset($_POST['add_class_recording'])) {
+if (isset($_POST['update_class_recording'])) {
     $maxsize = 1152428800; //Minimum Of 200Mbs
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -471,7 +472,48 @@ require_once('public/partials/_head.php');
                                                                                 </button>
                                                                             </div>
                                                                             <div class="modal-body">
-
+                                                                                <!-- Update Form -->
+                                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                                    <div class="card-body">
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Class Name</label>
+                                                                                                <input type="text" value="<?php echo $cr->class_name; ?>" required name="class_name" class="form-control" id="exampleInputEmail1">
+                                                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Lecturer Name</label>
+                                                                                                <input type="text" value="<?php echo $cr->lecturer_name; ?>" required name="lecturer_name" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="">Class External Link <small class="text-danger">If In YouTube, Vimeo, Google Drive, etc</small> *Recomended</label>
+                                                                                                <input type="text" name="external_link" value="<?php echo $cr->external_link; ?>" class="form-control">
+                                                                                            </div>
+                                                                                            <h5 class="text-center"> Or </h5>
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="exampleInputFile">Upload Video</label>
+                                                                                                <div class="input-group">
+                                                                                                    <div class="custom-file">
+                                                                                                        <input name="video" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                                                        <label class="custom-file-label" for="exampleInputFile">Choose Video File</label>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="exampleInputPassword1">Description</label>
+                                                                                                <textarea id="textarea" type="text" rows="10" name="details" class="form-control"><?php echo $cr->details; ?></textarea>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="card-footer text-right">
+                                                                                        <button type="submit" name="update_class_recording" class="btn btn-primary">Submit</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                                <!-- End Form -->
                                                                             </div>
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -495,10 +537,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
-                </div>
-            </div>
-            <!-- ./wrapper -->
-            <?php require_once('public/partials/_scripts.php'); ?>
+        </div>
+    </div>
+    <!-- ./wrapper -->
+    <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
