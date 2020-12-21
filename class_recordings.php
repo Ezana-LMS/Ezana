@@ -342,7 +342,7 @@ require_once('public/partials/_head.php');
                                                                     <label for="exampleInputFile">Upload Video</label>
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
-                                                                            <input name="video" type="file" accept=".mp4, .WebM" class="custom-file-input" id="exampleInputFile">
+                                                                            <input name="video" type="file" required accept=".mp4, .WebM" class="custom-file-input" id="exampleInputFile">
                                                                             <label class="custom-file-label" for="exampleInputFile">Choose Video File</label>
                                                                         </div>
                                                                     </div>
@@ -426,23 +426,21 @@ require_once('public/partials/_head.php');
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_ClassRecordings` WHERE module_id = '$mod->id'  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_ClassRecordings` WHERE module_id = '$mod->id'  ORDER BY `ezanaLMS_ClassRecordings`.`created_at` ASC";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
                                                 $cnt = 1;
                                                 while ($cr = $res->fetch_object()) {
                                                 ?>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <div class="card">
                                                             <div class="card-body">
+                                                            <a href="play_class_recording.php?clip=<?php echo $cr->id; ?>&view=<?php echo $mod->id; ?>">
                                                                 <h5 class="card-title"><?php echo $cr->class_name; ?></h5>
                                                                 <br>
                                                                 <hr>
                                                                 <div class="text-center">
-                                                                    <a target="_blank" href="play_class_recording.php?clip=<?php echo $cr->id; ?>&view=<?php echo $mod->id; ?>" class="btn btn-outline-success">
-                                                                        Play Clip
-                                                                    </a>
                                                                     <?php
                                                                     /* If Class Has External Link */
                                                                     if ($cr->external_link == '') {
@@ -456,9 +454,10 @@ require_once('public/partials/_head.php');
                                                                     }
                                                                     ?>
                                                                 </div>
+                                                                </a>
                                                             </div>
                                                             <div class="card-footer">
-                                                                <small class="text-muted">Uploaded: <?php echo $cr->created_at; ?></small>
+                                                                <small class="text-muted">Uploaded: <?php echo $cr->created_at; ?><br></small>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#update-clip-<?php echo $cr->id; ?>">Update</a>
 
                                                                 <!-- Upload Solution Modal -->
@@ -479,7 +478,8 @@ require_once('public/partials/_head.php');
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Class Name</label>
                                                                                                 <input type="text" value="<?php echo $cr->class_name; ?>" required name="class_name" class="form-control" id="exampleInputEmail1">
-                                                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="id" value="<?php echo $cr->id; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
                                                                                             </div>
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Lecturer Name</label>
@@ -496,7 +496,7 @@ require_once('public/partials/_head.php');
                                                                                                 <label for="exampleInputFile">Upload Video</label>
                                                                                                 <div class="input-group">
                                                                                                     <div class="custom-file">
-                                                                                                        <input name="video" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                                                        <input name="video" required type="file" class="custom-file-input" id="exampleInputFile">
                                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose Video File</label>
                                                                                                     </div>
                                                                                                 </div>
