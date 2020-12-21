@@ -174,14 +174,36 @@ require_once('public/partials/_head.php');
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="settings.php" class="nav-link">
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-cogs"></i>
                                     <p>
                                         System Settings
+                                        <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="reports.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Reports</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="data_backup.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Data Backup</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="system_settings.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Settings</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+
                         </ul>
                     </nav>
                 </div>
@@ -341,31 +363,30 @@ require_once('public/partials/_head.php');
                                                 $cnt = 1;
                                                 while ($rm = $res->fetch_object()) {
                                                 ?>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-4">
                                                         <div class="card">
-                                                            <div class="card-body">
-                                                                <p class="card-title"><?php echo $rm->readingMaterials; ?></p>
-                                                                <br>
-                                                                <hr>
-                                                                <div class="text-center">
-                                                                    <a target="_blank" href="public/uploads/EzanaLMSData/Reading_Materials/<?php echo $rm->readingMaterials; ?>" class="btn btn-outline-success">
-                                                                        View
-                                                                    </a>
-                                                                    <?php
-                                                                    /* Show External Link */
-                                                                    if ($rm->external_link == '') {
-                                                                        /* Yall Know Silence Is Best Answer */
-                                                                    } else {
-                                                                        echo
-                                                                            "
+                                                            <a href="public/uploads/EzanaLMSData/Reading_Materials/<?php echo $rm->readingMaterials; ?>" target="_blank">
+                                                                <div class="card-body">
+                                                                    <p class="card-title"><?php echo $rm->readingMaterials; ?></p>
+                                                                    <br>
+                                                                    <hr>
+                                                                    <div class="text-center">
+                                                                        <?php
+                                                                        /* Show External Link */
+                                                                        if ($rm->external_link == '') {
+                                                                            /* Yall Know Silence Is Best Answer */
+                                                                        } else {
+                                                                            echo
+                                                                                "
                                                                         <a target='_blank' href= '$rm->external_link' class='btn btn-outline-success'>
                                                                             Open Link
                                                                         </a>
                                                                         ";
-                                                                    }
-                                                                    ?>
+                                                                        }
+                                                                        ?>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
+                                                            </a>
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Uploaded: <?php echo $rm->created_at; ?></small>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-visibility-<?php echo $rm->id; ?>">Edit Visiblity</a>

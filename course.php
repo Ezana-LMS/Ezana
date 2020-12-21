@@ -194,14 +194,36 @@ require_once('public/partials/_head.php');
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="settings.php" class="nav-link">
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-cogs"></i>
                                     <p>
                                         System Settings
+                                        <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="reports.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Reports</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="data_backup.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Data Backup</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="system_settings.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Settings</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+
                         </ul>
                     </nav>
                 </div>
@@ -315,11 +337,13 @@ require_once('public/partials/_head.php');
                                     <div class="col-md-12">
                                         <div class="card card-primary">
                                             <div class="card-header">
-                                                <h3 class="card-title"><?php echo $course->name; ?></h3>
-                                                <div class="card-tools text-right">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
+                                                <a href="course.php?view=<?php echo $course->id; ?>">
+                                                    <h3 class="card-title"><?php echo $course->name; ?></h3>
+                                                    <div class="card-tools text-right">
+                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </a>
                                             </div>
 
                                             <div class="card-body">
@@ -328,6 +352,11 @@ require_once('public/partials/_head.php');
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="course_modules.php?view=<?php echo $course->id; ?>">
                                                             Modules
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="module_allocations.php?view=<?php echo $course->id; ?>">
+                                                            Modules Allocations
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -422,7 +451,7 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </div>
                                             </div>
-                                            <h5 class="text-center">Modules</h5>
+                                            <!-- <h5 class="text-center">Modules</h5>
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <?php
@@ -444,14 +473,14 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                     <div class="card-body">
-                                                                        <?php echo $module->details;?>
+                                                                        <?php echo $module->details; ?>
                                                                     </div>
                                                                 </div>
                                                             </a>
                                                         </div>
                                                     <?php } ?>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>

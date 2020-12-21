@@ -182,14 +182,36 @@ require_once('public/partials/_head.php');
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="settings.php" class="nav-link">
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-cogs"></i>
                                     <p>
                                         System Settings
+                                        <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="reports.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Reports</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="data_backup.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Data Backup</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="system_settings.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Settings</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+
                         </ul>
                     </nav>
                 </div>
@@ -293,16 +315,16 @@ require_once('public/partials/_head.php');
                                             <div class="card-body">
                                                 <ul class="list-group">
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="courses.php?view=<?php echo $department->id; ?>">
+                                                        <a href="department_courses.php?view=<?php echo $department->id; ?>">
                                                             Courses
                                                         </a>
                                                     </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="modules.php?view=<?php echo $department->faculty_id; ?>">
+                                                    <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="department_modules.php?view=<?php echo $department->faculty_id; ?>">
                                                             Modules
                                                         </a>
                                                     </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="lecs.php?view=<?php echo $department->faculty_id; ?>">
                                                             Lecturers
                                                         </a>
@@ -311,7 +333,7 @@ require_once('public/partials/_head.php');
                                                         <a href="students.php?view=<?php echo $department->faculty_id; ?>">
                                                             Students
                                                         </a>
-                                                    </li>
+                                                    </li>  -->
                                                 </ul>
                                             </div>
                                         </div>

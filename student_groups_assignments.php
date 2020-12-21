@@ -150,14 +150,36 @@ require_once('public/partials/_head.php');
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="settings.php" class="nav-link">
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-cogs"></i>
                                     <p>
                                         System Settings
+                                        <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="reports.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Reports</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="data_backup.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Data Backup</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="system_settings.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Settings</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+
                         </ul>
                     </nav>
                 </div>
@@ -207,7 +229,6 @@ require_once('public/partials/_head.php');
                                                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                 <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
                                                                 <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
-
 
                                                                 <!-- <div class="form-group col-md-6">
                                                                     <label for="exampleInputPassword1">Group Name</label>
@@ -326,7 +347,8 @@ require_once('public/partials/_head.php');
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE module_id ='$mod->id'  ";
+                                                /* Sort By Date Created At */
+                                                $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE module_id ='$mod->id' ORDER BY `ezanaLMS_GroupsAssignments`.`created_at` ASC  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
@@ -344,17 +366,30 @@ require_once('public/partials/_head.php');
                                                                 <div class="modal-dialog  modal-lg">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
-                                                                            <h4 class="modal-title">Group Assignment Instructions</h4>
+                                                                            <h4 class="modal-title">Group Assignments Details And Attemps</h4>
                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                 <span aria-hidden="true">&times;</span>
                                                                             </button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <?php echo $gcode->details; ?>
-                                                                            <br>
-                                                                            <a target='_blank' href='public/uploads/EzanaLMSData/Group_Projects/<?php echo $gcode->attachments; ?>' class='btn btn-outline-success'>
-                                                                                Open Assignment
-                                                                            </a>
+                                                                            <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
+                                                                                <li class="nav-item">
+                                                                                    <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Assignment Instructions</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                            <div class="tab-content" id="custom-content-below-tabContent">
+                                                                                <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                                                    <br>
+                                                                                    <?php echo $gcode->details; ?>
+                                                                                    <br>
+                                                                                    <small class="text-danger">Submission Deadline: <?php echo $gcode->submitted_on; ?></small>
+                                                                                    <br>
+                                                                                    <a target='_blank' href='public/uploads/EzanaLMSData/Group_Projects/<?php echo $gcode->attachments; ?>' class='btn btn-outline-success'>
+                                                                                        Open Assignment
+                                                                                    </a>
+                                                                                </div>
+
+                                                                            </div>
                                                                         </div>
                                                                         <div class="modal-footer justify-content-between">
                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -362,8 +397,10 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Submission Deadline: <?php echo date('d M Y', strtotime($gcode->submitted_on)); ?></small>
+                                                                <a class="badge badge-primary" href="group_assignments_attemps.php?assignment=<?php echo $gcode->id; ?>&view=<?php echo $mod->id; ?>"> Attempts</a>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#<?php echo $gcode->id; ?>"> Edit</a>
                                                                 <div class="modal fade" id="<?php echo $gcode->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">

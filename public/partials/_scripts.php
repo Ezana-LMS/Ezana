@@ -39,6 +39,29 @@
             window.document.location = $(this).data("href");
         });
     });
+	
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#filter-table thead tr').clone(true).appendTo( '#filter-table thead' );
+    $('#filter-table thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+ 
+    var table = $('#filter-table').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true
+    } );
+} );
 </script>
 
 <!-- Data Tables V2.01 -->
@@ -104,14 +127,17 @@
 
 <script>
     /* CK Editor */
-    CKEDITOR.replace('textarea');
-    CKEDITOR.replace('department_details');
-    CKEDITOR.replace('dep_details');
-    CKEDITOR.replace('dep_memo');
+
+    /*  CKEDITOR.replace('textarea');
+     CKEDITOR.replace('department_details');
+     CKEDITOR.replace('dep_details');
+     CKEDITOR.replace('dep_memo'); */
 </script>
 <!-- Get Department Details Script -->
-<!-- Get Department Details Script -->
 <script>
+    /* Ajaxing Aint Easy */
+
+    /*Department Details  */
     function getDepartmentDetails(val) {
         $.ajax({
             type: "POST",
@@ -132,9 +158,8 @@
             }
         });
     }
-</script>
-<!-- Get Course Details -->
-<script>
+
+    /* Course Details */
     function getCourseDetails(val) {
         $.ajax({
             type: "POST",
@@ -178,9 +203,7 @@
 
 
     }
-</script>
-<!--Get Module Details -->
-<script>
+    /* Module Details */
     function getModuleDetails(val) {
         $.ajax({
             type: "POST",
@@ -192,9 +215,20 @@
             }
         });
     }
-</script>
-<!-- Get Lec Details -->
-<script>
+
+    /* Optimized Module Details */
+    function OptimizedModuleDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'ModuleCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#ModuleName').val(data);
+            }
+        });
+    }
+    /* Lecturer Details */
     function getLecDetails(val) {
         $.ajax({
             type: "POST",
@@ -206,9 +240,30 @@
             }
         });
     }
-</script>
-<!-- Get Student Details -->
-<script>
+
+    /* Optimized Lecturer Details */
+    function getLecturerDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'LecNumber=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#lecID').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'lecID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#lecName').val(data);
+            }
+        });
+    }
+
+    /* Student Details */
     function getStudentDetails(val) {
         $.ajax({
             type: "POST",
@@ -220,9 +275,8 @@
             }
         });
     }
-</script>
-<!-- Get Semester Details -->
-<script>
+
+    /* Semester Details */
     function getSemesterDetails(val) {
         $.ajax({
             type: "POST",
@@ -253,9 +307,8 @@
         });
 
     }
-</script>
-<!-- Group Details  -->
-<script>
+
+    /* Group Details */
     function getGroupDetails(val) {
         $.ajax({
             type: "POST",
@@ -267,10 +320,8 @@
             }
         });
     }
-</script>
 
-<!-- Faculty Details -->
-<script>
+    /* Faculty Details */
     function getFacutyDetails(val) {
         $.ajax({
             type: "POST",

@@ -272,14 +272,36 @@ require_once('public/partials/_head.php');
                                         </p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="settings.php" class="nav-link">
-                                        <i class="nav-icon fas fa-cogs"></i>
-                                        <p>
-                                            System Settings
-                                        </p>
-                                    </a>
-                                </li>
+                                <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-cogs"></i>
+                                    <p>
+                                        System Settings
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="reports.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Reports</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="data_backup.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Data Backup</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="system_settings.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Settings</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
                             </ul>
                         </nav>
                     </div>
@@ -454,7 +476,7 @@ require_once('public/partials/_head.php');
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="col-md-12">
                                             <div class="card card-primary">
                                                 <div class="card-header">
@@ -502,60 +524,51 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-10">
+                                    <div class="col-md-9">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <br>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="card card-primary card-outline">
-                                                            <div class="card-body">
-                                                                <table id="example1" class="table table-bordered table-striped">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>#</th>
-                                                                            <th>Admission</th>
-                                                                            <th>Course</th>
-                                                                            <th>Academic Yr</th>
-                                                                            <th>Sem Enrolled</th>
-                                                                            <th>Sem Start</th>
-                                                                            <th>Sem End </th>
-                                                                            <th>Manage</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE module_code = '$mod->code' ";
-                                                                        $stmt = $mysqli->prepare($ret);
-                                                                        $stmt->execute(); //ok
-                                                                        $res = $stmt->get_result();
-                                                                        $cnt = 1;
-                                                                        while ($en = $res->fetch_object()) {
-                                                                        ?>
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Admission</th>
+                                                            <th>Course</th>
+                                                            <th>Academic Yr</th>
+                                                            <th>Sem Enrolled</th>
+                                                            <th>Sem Start</th>
+                                                            <th>Sem End </th>
+                                                            <th>Manage</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE module_code = '$mod->code' ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($en = $res->fetch_object()) {
+                                                        ?>
 
-                                                                            <tr>
-                                                                                <td><?php echo $cnt; ?></td>
-                                                                                <td><?php echo $en->student_adm; ?></td>
-                                                                                <td><?php echo $en->student_name; ?></td>
-                                                                                <td><?php echo $en->academic_year_enrolled; ?></td>
-                                                                                <td><?php echo $en->semester_enrolled; ?></td>
-                                                                                <td><?php echo date('d M Y', strtotime($en->semester_start)); ?></td>
-                                                                                <td><?php echo date('d M Y', strtotime($en->semester_end)); ?></td>
-                                                                                <td>
-                                                                                    <a class="badge badge-danger" href="module_enrollments.php?delete=<?php echo $en->id; ?>&view=<?php echo $mod->id; ?>">
-                                                                                        <i class="fas fa-trash"></i>
-                                                                                        Delete
-                                                                                    </a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        <?php $cnt = $cnt + 1;
-                                                                        } ?>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                            <tr>
+                                                                <td><?php echo $cnt; ?></td>
+                                                                <td><?php echo $en->student_adm; ?></td>
+                                                                <td><?php echo $en->student_name; ?></td>
+                                                                <td><?php echo $en->academic_year_enrolled; ?></td>
+                                                                <td><?php echo $en->semester_enrolled; ?></td>
+                                                                <td><?php echo date('d M Y', strtotime($en->semester_start)); ?></td>
+                                                                <td><?php echo date('d M Y', strtotime($en->semester_end)); ?></td>
+                                                                <td>
+                                                                    <a class="badge badge-danger" href="module_enrollments.php?delete=<?php echo $en->id; ?>&view=<?php echo $mod->id; ?>">
+                                                                        <i class="fas fa-trash"></i>
+                                                                        Delete
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -567,11 +580,11 @@ require_once('public/partials/_head.php');
                 require_once('public/partials/_footer.php');
             }
         }
-        ?>
-        </div>
-    </div>
-    <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php'); ?>
+                ?>
+                    </div>
+                </div>
+                <!-- ./wrapper -->
+                <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>

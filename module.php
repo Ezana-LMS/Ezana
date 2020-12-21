@@ -173,14 +173,36 @@ require_once('public/partials/_head.php');
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="settings.php" class="nav-link">
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-cogs"></i>
                                     <p>
                                         System Settings
+                                        <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="reports.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Reports</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="data_backup.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Data Backup</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="system_settings.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Settings</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+
                         </ul>
                     </nav>
                 </div>
@@ -450,7 +472,9 @@ require_once('public/partials/_head.php');
                                                                         $cnt = 1;
                                                                         while ($lecturer = $res->fetch_object()) {
                                                                     ?>
-
+                                                                            <li class="list-group-item">
+                                                                                <b>Lecturer Assigned Name: </b> <a class="float-right"><?php echo $lecturer->name; ?></a>
+                                                                            </li>
                                                                             <li class="list-group-item">
                                                                                 <b>Lecturer Assigned Email: </b> <a class="float-right"><?php echo $lecturer->email; ?></a>
                                                                             </li>
@@ -469,58 +493,6 @@ require_once('public/partials/_head.php');
                                                                 </ul>
                                                                 <p class="text-center font-weight-bold"></p>
                                                                 <?php echo $mod->details; ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="card  collapsed-card">
-                                                            <div class="card-header">
-                                                                <h3 class="card-title">Enrolled Students</h3>
-                                                                <div class="card-tools">
-                                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <table id="example1" class="table table-bordered table-striped">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>#</th>
-                                                                            <th>Admission</th>
-                                                                            <th>Name</th>
-                                                                            <th>Academic Yr</th>
-                                                                            <th>Sem Enrolled</th>
-                                                                            <th>Sem Start</th>
-                                                                            <th>Sem End </th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments`  WHERE   module_code ='$mod->code' ";
-                                                                        $stmt = $mysqli->prepare($ret);
-                                                                        $stmt->execute(); //ok
-                                                                        $res = $stmt->get_result();
-                                                                        $cnt = 1;
-                                                                        while ($en = $res->fetch_object()) {
-                                                                        ?>
-
-                                                                            <tr>
-                                                                                <td><?php echo $cnt; ?></td>
-                                                                                <td><?php echo $en->student_adm; ?></td>
-                                                                                <td><?php echo $en->student_name; ?></td>
-                                                                                <td><?php echo $en->academic_year_enrolled; ?></td>
-                                                                                <td><?php echo $en->semester_enrolled; ?></td>
-                                                                                <td><?php echo date('d M Y', strtotime($en->semester_start)); ?></td>
-                                                                                <td><?php echo date('d M Y', strtotime($en->semester_end)); ?></td>
-                                                                            </tr>
-                                                                        <?php $cnt = $cnt + 1;
-                                                                        } ?>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

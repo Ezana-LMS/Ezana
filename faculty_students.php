@@ -240,14 +240,36 @@ require_once('public/partials/_head.php');
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="settings.php" class="nav-link">
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-cogs"></i>
                                     <p>
                                         System Settings
+                                        <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="reports.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Reports</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="data_backup.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Data Backup</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="system_settings.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Settings</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+
                         </ul>
                     </nav>
                 </div>
@@ -258,7 +280,7 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?></h1>
+                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Students</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -406,159 +428,141 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="text-center">
-                                                <h1 class="display-4">Students</h1>
-                                            </div>
-                                            <div class="text-left">
-                                                <a href="faculty_dashboard.php?view=<?php echo $view; ?>" class="btn btn-outline-success">
-                                                    <i class="fas fa-arrow-left"></i>
-                                                    Back
-                                                </a>
-                                            </div>
-                                            <br>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <table id="example1" class="table table-bordered table-striped">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>#</th>
-                                                                        <th>Adm No</th>
-                                                                        <th>Name</th>
-                                                                        <th>Email</th>
-                                                                        <th>Phone</th>
-                                                                        <th>ID/Passport</th>
-                                                                        <th>Gender</th>
-                                                                        <th>Manage</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$faculty->id'  ";
-                                                                    $stmt = $mysqli->prepare($ret);
-                                                                    $stmt->execute(); //ok
-                                                                    $res = $stmt->get_result();
-                                                                    $cnt = 1;
-                                                                    while ($std = $res->fetch_object()) {
-                                                                    ?>
+                                            <table id="example1" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Adm No</th>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+                                                        <th>ID/Passport</th>
+                                                        <th>Gender</th>
+                                                        <th>Manage</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$faculty->id'  ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($std = $res->fetch_object()) {
+                                                    ?>
 
-                                                                        <tr>
-                                                                            <td><?php echo $cnt; ?></td>
-                                                                            <td><?php echo $std->admno; ?></td>
-                                                                            <td><?php echo $std->name; ?></td>
-                                                                            <td><?php echo $std->email; ?></td>
-                                                                            <td><?php echo $std->phone; ?></td>
-                                                                            <td><?php echo $std->idno; ?></td>
-                                                                            <td><?php echo $std->gender; ?></td>
-                                                                            <td>
-                                                                                <a class="badge badge-primary" data-toggle="modal" href="#update-student-<?php echo $std->id; ?>">
-                                                                                    <i class="fas fa-edit"></i>
-                                                                                    Update
-                                                                                </a>
-                                                                                <!-- Update Lec Modal -->
-                                                                                <div class="modal fade" id="update-student-<?php echo $std->id; ?>">
-                                                                                    <div class="modal-dialog  modal-lg">
-                                                                                        <div class="modal-content">
-                                                                                            <div class="modal-header">
-                                                                                                <h4 class="modal-title">Fill All Values </h4>
-                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                                </button>
+                                                        <tr>
+                                                            <td><?php echo $cnt; ?></td>
+                                                            <td><?php echo $std->admno; ?></td>
+                                                            <td><?php echo $std->name; ?></td>
+                                                            <td><?php echo $std->email; ?></td>
+                                                            <td><?php echo $std->phone; ?></td>
+                                                            <td><?php echo $std->idno; ?></td>
+                                                            <td><?php echo $std->gender; ?></td>
+                                                            <td>
+                                                                <a class="badge badge-primary" data-toggle="modal" href="#update-student-<?php echo $std->id; ?>">
+                                                                    <i class="fas fa-edit"></i>
+                                                                    Update
+                                                                </a>
+                                                                <!-- Update Lec Modal -->
+                                                                <div class="modal fade" id="update-student-<?php echo $std->id; ?>">
+                                                                    <div class="modal-dialog  modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Fill All Values </h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                                    <div class="card-body">
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-4">
+                                                                                                <label for="">Name</label>
+                                                                                                <input type="text" required name="name" value="<?php echo $std->name; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="id" value="<?php echo $std->id ?>" class="form-control">
+                                                                                                <input type="hidden" required name="view" value="<?php echo $faculty->id; ?>" class="form-control">
                                                                                             </div>
-                                                                                            <div class="modal-body">
-                                                                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                                                                    <div class="card-body">
-                                                                                                        <div class="row">
-                                                                                                            <div class="form-group col-md-4">
-                                                                                                                <label for="">Name</label>
-                                                                                                                <input type="text" required name="name" value="<?php echo $std->name; ?>" class="form-control">
-                                                                                                                <input type="hidden" required name="id" value="<?php echo $std->id ?>" class="form-control">
-                                                                                                                <input type="hidden" required name="view" value="<?php echo $faculty->id; ?>" class="form-control">
-                                                                                                            </div>
-                                                                                                            <div class="form-group col-md-4">
-                                                                                                                <label for="">Admission Number</label>
-                                                                                                                <input type="text" required name="admno" value="<?php echo $std->admno; ?>" class="form-control">
-                                                                                                            </div>
-                                                                                                            <div class="form-group col-md-4">
-                                                                                                                <label for="">ID / Passport Number</label>
-                                                                                                                <input type="text" value="<?php echo $std->idno; ?>" required name="idno" class="form-control">
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                        <div class="row">
-                                                                                                            <div class="form-group col-md-4">
-                                                                                                                <label for="">Date Of Birth</label>
-                                                                                                                <input type="text" value="<?php echo $std->dob; ?>" required name="dob" class="form-control">
-                                                                                                            </div>
-                                                                                                            <div class="form-group col-md-4">
-                                                                                                                <label for="">Gender</label>
-                                                                                                                <select type="text" required name="gender" class="basic form-control">
-                                                                                                                    <option selected><?php echo $std->gender; ?></option>
-                                                                                                                    <option>Male</option>
-                                                                                                                    <option>Female</option>
-                                                                                                                </select>
-                                                                                                            </div>
-                                                                                                            <div class="form-group col-md-4">
-                                                                                                                <label for="">Student Account Status</label>
-                                                                                                                <select type="text" required name="acc_status" class="basic form-control">
-                                                                                                                    <option selected><?php echo $std->acc_status; ?></option>
-                                                                                                                    <option>Active</option>
-                                                                                                                    <option>Disabled</option>
-                                                                                                                </select>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                        <div class="row">
-                                                                                                            <div class="form-group col-md-4">
-                                                                                                                <label for="">Email</label>
-                                                                                                                <input value="<?php echo $std->email; ?>" type="email" required name="email" class="form-control">
-                                                                                                            </div>
-                                                                                                            <div class="form-group col-md-4">
-                                                                                                                <label for="">Phone Number</label>
-                                                                                                                <input type="text" value="<?php echo $std->phone; ?>" required name="phone" class="form-control">
-                                                                                                            </div>
-                                                                                                            <div class="form-group col-md-4">
-                                                                                                                <label for="">Profile Picture</label>
-                                                                                                                <div class="input-group">
-                                                                                                                    <div class="custom-file">
-                                                                                                                        <input required name="profile_pic" type="file" class="custom-file-input">
-                                                                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                                                                    </div>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                        <div class="row">
-                                                                                                            <div class="form-group col-md-12">
-                                                                                                                <label for="exampleInputPassword1">Address</label>
-                                                                                                                <textarea required id='' name="adr" rows="3" class="form-control"><?php echo $std->adr; ?></textarea>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div class="card-footer text-right">
-                                                                                                        <button type="submit" name="update_student" class="btn btn-primary">Update Students Profile</button>
-                                                                                                    </div>
-                                                                                                </form>
+                                                                                            <div class="form-group col-md-4">
+                                                                                                <label for="">Admission Number</label>
+                                                                                                <input type="text" required name="admno" value="<?php echo $std->admno; ?>" class="form-control">
                                                                                             </div>
-                                                                                            <div class="modal-footer justify-content-between">
-                                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                            <div class="form-group col-md-4">
+                                                                                                <label for="">ID / Passport Number</label>
+                                                                                                <input type="text" value="<?php echo $std->idno; ?>" required name="idno" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-4">
+                                                                                                <label for="">Date Of Birth</label>
+                                                                                                <input type="text" value="<?php echo $std->dob; ?>" required name="dob" class="form-control">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-4">
+                                                                                                <label for="">Gender</label>
+                                                                                                <select type="text" required name="gender" class="basic form-control">
+                                                                                                    <option selected><?php echo $std->gender; ?></option>
+                                                                                                    <option>Male</option>
+                                                                                                    <option>Female</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-4">
+                                                                                                <label for="">Student Account Status</label>
+                                                                                                <select type="text" required name="acc_status" class="basic form-control">
+                                                                                                    <option selected><?php echo $std->acc_status; ?></option>
+                                                                                                    <option>Active</option>
+                                                                                                    <option>Disabled</option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-4">
+                                                                                                <label for="">Email</label>
+                                                                                                <input value="<?php echo $std->email; ?>" type="email" required name="email" class="form-control">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-4">
+                                                                                                <label for="">Phone Number</label>
+                                                                                                <input type="text" value="<?php echo $std->phone; ?>" required name="phone" class="form-control">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-4">
+                                                                                                <label for="">Profile Picture</label>
+                                                                                                <div class="input-group">
+                                                                                                    <div class="custom-file">
+                                                                                                        <input required name="profile_pic" type="file" class="custom-file-input">
+                                                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="exampleInputPassword1">Address</label>
+                                                                                                <textarea required id='' name="adr" rows="3" class="form-control"><?php echo $std->adr; ?></textarea>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
-                                                                                <!-- End Modal -->
-                                                                                <a class="badge badge-danger" href="faculty_students.php?delete=<?php echo $std->id; ?>&view=<?php echo $faculty->id; ?>">
-                                                                                    <i class="fas fa-trash"></i>
-                                                                                    Delete
-                                                                                </a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    <?php $cnt = $cnt + 1;
-                                                                    } ?>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                                                    <div class="card-footer text-right">
+                                                                                        <button type="submit" name="update_student" class="btn btn-primary">Update Students Profile</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                            <div class="modal-footer justify-content-between">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Modal -->
+                                                                <a class="badge badge-danger" href="faculty_students.php?delete=<?php echo $std->id; ?>&view=<?php echo $faculty->id; ?>">
+                                                                    <i class="fas fa-trash"></i>
+                                                                    Delete
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php $cnt = $cnt + 1;
+                                                    } ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>

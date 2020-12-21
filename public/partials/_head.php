@@ -38,7 +38,7 @@
     <link rel="stylesheet" type="text/css" href="public/plugins/datatable/custom_dt_html5.css">
     <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/dt-global_style.css">  -->
     <!-- CK Editor CDN -->
-    <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+    <!-- <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script> -->
     <!-- Scroll Bars -->
     <link rel="stylesheet" href="public/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- icheck bootstrap -->
@@ -87,5 +87,10 @@
         </script>
 
     <?php } ?>
-    
+    <!-- Table CSS -->
+    <style>
+        thead input {
+            width: 100%;
+        }
+    </style>
 </head>

@@ -53,7 +53,7 @@ require_once('public/partials/_head.php');
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="courses.php" class="active nav-link">
+                            <a href="courses.php" class=" nav-link">
                                 <i class="nav-icon fas fa-chalkboard-teacher"></i>
                                 <p>
                                     Courses
@@ -61,7 +61,7 @@ require_once('public/partials/_head.php');
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="modules.php" class="nav-link">
+                            <a href="modules.php" class="active nav-link">
                                 <i class="nav-icon fas fa-chalkboard"></i>
                                 <p>
                                     Modules
@@ -84,14 +84,36 @@ require_once('public/partials/_head.php');
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="settings.php" class="nav-link">
-                                <i class="nav-icon fas fa-cogs"></i>
-                                <p>
-                                    System Settings
-                                </p>
-                            </a>
-                        </li>
+                        <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-cogs"></i>
+                                    <p>
+                                        System Settings
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="reports.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Reports</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="data_backup.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Data Backup</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="system_settings.php" class="nav-link">
+                                            <i class="fas fa-angle-right nav-icon"></i>
+                                            <p>Settings</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
                     </ul>
                 </nav>
             </div>
@@ -107,7 +129,7 @@ require_once('public/partials/_head.php');
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                <li class="breadcrumb-item"><a href="courses.php">Courses</a></li>
+                                <li class="breadcrumb-item"><a href="courses.php">Modules</a></li>
                                 <li class="breadcrumb-item active">Search Results</li>
                             </ol>
                         </div>
@@ -118,8 +140,8 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="text-left">
                             <nav class="navbar navbar-light bg-light col-md-12">
-                                <form class="form-inline" action="course_search_result.php" method="GET">
-                                    <input class="form-control mr-sm-2" type="search" name="query" placeholder="Dep Name Or Code">
+                                <form class="form-inline" action="module_search_result.php" method="GET">
+                                    <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                 </form>
 
