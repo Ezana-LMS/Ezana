@@ -4,7 +4,116 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+/* Import Lecs From Excel Sheet */
 
+use EzanaLmsAPI\DataSource;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
+require_once('configs/DataSource.php');
+$db = new DataSource();
+$conn = $db->getConnection();
+require_once('vendor/autoload.php');
+
+
+if (isset($_POST["upload"])) {
+
+    $allowedFileType = [
+        'application/vnd.ms-excel',
+        'text/xls',
+        'text/xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ];
+
+    if (in_array($_FILES["file"]["type"], $allowedFileType)) {
+
+        $targetPath = 'EzanaLMSData/XLSFiles/' . $_FILES['file']['name'];
+        move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
+
+        $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+
+        $spreadSheet = $Reader->load($targetPath);
+        $excelSheet = $spreadSheet->getActiveSheet();
+        $spreadSheetAry = $excelSheet->toArray();
+        $sheetCount = count($spreadSheetAry);
+
+        for ($i = 0; $i <= $sheetCount; $i++) {
+
+            $id = "";
+            if (isset($spreadSheetAry[$i][0])) {
+                $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
+            }
+
+            $number = "";
+            if (isset($spreadSheetAry[$i][1])) {
+                $number = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
+            }
+            $name = "";
+            if (isset($spreadSheetAry[$i][2])) {
+                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
+            }
+
+            $idno = "";
+            if (isset($spreadSheetAry[$i][3])) {
+                $idno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
+            }
+
+            $phone = "";
+            if (isset($spreadSheetAry[$i][4])) {
+                $phone = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
+            }
+
+            $email = "";
+            if (isset($spreadSheetAry[$i][5])) {
+                $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
+            }
+
+            $adr = "";
+            if (isset($spreadSheetAry[$i][6])) {
+                $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
+            }
+
+            $password = "";
+            if (isset($spreadSheetAry[$i][7])) {
+                $password = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
+            }
+
+            $created_at = "";
+            if (isset($spreadSheetAry[$i][8])) {
+                $created_at = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
+            }
+
+            $facuty_id = "";
+            if (isset($spreadSheetAry[$i][9])) {
+                $facuty_id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
+            }
+
+            if (!empty($name) || !empty($admno) || !empty($idno) || !empty($gender) || !empty($email)) {
+                $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, number, name, idno, phone, email, adr, password, created_at) VALUES(?,?,?,?,?,?,?,?,?,?)";
+                $paramType = "ssssssssss";
+                $paramArray = array(
+                    $id,
+                    $facuty_id,
+                    $number,
+                    $name,
+                    $idno,
+                    $phone,
+                    $email,
+                    $adr,
+                    $password,
+                    $created_at
+                );
+                $insertId = $db->insert($query, $paramType, $paramArray);
+                if (!empty($insertId)) {
+                    $success = "Excel Data Imported into the Database";
+                } else {
+                    $success = "Excel Data Imported into the Database";
+                }
+            }
+        }
+    } else {
+        $info = "Invalid File Type. Upload Excel File.";
+    }
+}
 /* Add Lects */
 if (isset($_POST['add_lec'])) {
     //Error Handling and prevention of posting double entries
@@ -354,7 +463,11 @@ require_once('public/partials/_head.php');
                         <nav class="navbar navbar-light bg-light col-md-12">
                             <form class="form-inline">
                             </form>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Lecturer</button>
+                            <div class="text-left">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">Add Lecturer</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-import-lecs">Import Lecturers</button>
+                            </div>
+                            <!-- Add Lec Modal -->
                             <div class="modal fade" id="modal-default">
                                 <div class="modal-dialog  modal-lg">
                                     <div class="modal-content">
@@ -441,6 +554,29 @@ require_once('public/partials/_head.php');
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <!-- End Add Lec Modal -->
+
+                            <!-- Import Lecs Modal -->
+                            <div class="modal fade" id="modal-default">
+                                <div class="modal-dialog  modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Fill All Values </h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Import Lecs Modal -->
                         </nav>
                     </div>
                     <hr>
@@ -632,14 +768,13 @@ require_once('public/partials/_head.php');
                             </table>
                         </div>
                     </div>
+                </section>
+                <!-- Main Footer -->
+                <?php require_once('public/partials/_footer.php'); ?>
             </div>
-            </section>
-            <!-- Main Footer -->
-            <?php require_once('public/partials/_footer.php'); ?>
         </div>
-    </div>
-    <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php'); ?>
+        <!-- ./wrapper -->
+        <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
