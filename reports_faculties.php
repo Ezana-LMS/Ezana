@@ -140,7 +140,44 @@ require_once('public/partials/_head.php');
                         <hr>
                         <div class="row">
                             <div class="col-12">
-
+                                <table id="export-dt" class=" table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Faculty Code Number</th>
+                                            <th>Faculty Name</th>
+                                            <th>Number Of Departments</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
+                                        $stmt = $mysqli->prepare($ret);
+                                        $stmt->execute(); //ok
+                                        $res = $stmt->get_result();
+                                        $cnt = 1;
+                                        while ($faculty = $res->fetch_object()) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $cnt; ?></td>
+                                                <td><?php echo $faculty->code; ?></td>
+                                                <td><?php echo $faculty->name; ?></td>
+                                                <td>
+                                                    <?php
+                                                    $query = "SELECT COUNT(*)  FROM `ezanaLMS_Departments` WHERE faculty_id='$faculty->id' ";
+                                                    $stmt = $mysqli->prepare($query);
+                                                    $stmt->execute();
+                                                    $stmt->bind_result($department);
+                                                    $stmt->fetch();
+                                                    $stmt->close();
+                                                    echo $department
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                        <?php $cnt = $cnt + 1;
+                                        } ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
