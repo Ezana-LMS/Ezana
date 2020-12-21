@@ -115,7 +115,7 @@ if (!empty($_POST["LecNumber"])) {
 
 if (!empty($_POST["lecID"])) {
     $id = $_POST['lecID'];
-    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Lecturers WHERE id = :id");
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Lecturers WHERE number = :id");
     $stmt->execute(array(':id' => $id));
 ?>
 <?php

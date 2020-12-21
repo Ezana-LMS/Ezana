@@ -324,7 +324,7 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Lecturer Name</label>
-                                                                    <input type="text" id="lecID" readonly required name="lec_id" class="form-control">
+                                                                    <input type="hidden" id="lecID" readonly required name="lec_id" class="form-control">
                                                                     <input type="text" id="lecName" readonly required name="lec_name" class="form-control">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                 </div>
