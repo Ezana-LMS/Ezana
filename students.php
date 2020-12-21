@@ -459,7 +459,7 @@ require_once('public/partials/_head.php');
                                 <form class="form-inline">
                                 </form>
                                 <div class="text-right">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-import-students">Import Students</button>
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-import-students">Import Students</button>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Student</button>
                                 </div>
                                 <!-- Add Student Modal -->
