@@ -112,7 +112,6 @@
 
 </script>
 <!-- Get Department Details Script -->
-<!-- Get Department Details Script -->
 <script>
     function getDepartmentDetails(val) {
         $.ajax({
@@ -205,6 +204,27 @@
             success: function(data) {
                 //alert(data);
                 $('#lecID').val(data);
+            }
+        });
+    }
+    
+    function getLecturerDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'LecNumber=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#lecID').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'lecID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#lecName').val(data);
             }
         });
     }
