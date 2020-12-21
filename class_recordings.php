@@ -436,24 +436,8 @@ require_once('public/partials/_head.php');
                                                     <div class="col-md-4">
                                                         <div class="card">
                                                             <div class="card-body">
-                                                            <a href="play_class_recording.php?clip=<?php echo $cr->id; ?>&view=<?php echo $mod->id; ?>">
-                                                                <h5 class="card-title"><?php echo $cr->class_name; ?></h5>
-                                                                <br>
-                                                                <hr>
-                                                                <div class="text-center">
-                                                                    <?php
-                                                                    /* If Class Has External Link */
-                                                                    if ($cr->external_link == '') {
-                                                                    } else {
-                                                                        echo
-                                                                            "
-                                                                        <a target='_blank' href= '$cr->external_link' class='btn btn-outline-success'>
-                                                                            Open External Link
-                                                                        </a>
-                                                                        ";
-                                                                    }
-                                                                    ?>
-                                                                </div>
+                                                                <a href="play_class_recording.php?clip=<?php echo $cr->id; ?>&view=<?php echo $mod->id; ?>">
+                                                                    <h5 class="card-title"><?php echo $cr->class_name; ?></h5>
                                                                 </a>
                                                             </div>
                                                             <div class="card-footer">
@@ -537,10 +521,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
-        </div>
-    </div>
-    <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php'); ?>
+                </div>
+            </div>
+            <!-- ./wrapper -->
+            <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
