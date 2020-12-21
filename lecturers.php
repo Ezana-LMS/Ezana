@@ -464,8 +464,8 @@ require_once('public/partials/_head.php');
                             <form class="form-inline">
                             </form>
                             <div class="text-left">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">Add Lecturer</button>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-import-lecs">Import Lecturers</button>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">Add Lecturer</button>
                             </div>
                             <!-- Add Lec Modal -->
                             <div class="modal fade" id="modal-default">
@@ -558,7 +558,7 @@ require_once('public/partials/_head.php');
                             <!-- End Add Lec Modal -->
 
                             <!-- Import Lecs Modal -->
-                            <div class="modal fade" id="modal-default">
+                            <div class="modal fade" id="modal-import-lecs">
                                 <div class="modal-dialog  modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -582,7 +582,7 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer">
+                                                <div class="text-right">
                                                     <button type="submit" name="upload" class="btn btn-primary">Upload File</button>
                                                 </div>
                                             </form>
