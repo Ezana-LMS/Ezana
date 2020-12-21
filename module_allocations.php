@@ -110,7 +110,7 @@ if (isset($_POST['update_assign'])) {
         $lec_name = $_POST['lec_name'];
         $updated_at = date('d M Y');
         $faculty = $_POST['faculty'];
-        $view = $_POST['view'];
+        $view = $_POST['view']; /* Module ID */
 
         //On Assign, Update Module Status to Assigned
         $ass_status = 1;
@@ -124,7 +124,7 @@ if (isset($_POST['update_assign'])) {
         $stmt->execute();
         $modstmt->execute();
         if ($stmt && $modstmt) {
-            $success = "Module Assignment Updated" && header("refresh:1; url=module_allocations.php?view=$view");
+            $success = "Module Assignment Updated"; //&& header("refresh:1; url=module_allocations.php?view=$view");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -327,6 +327,7 @@ require_once('public/partials/_head.php');
                                                                     <input type="hidden" id="lecID" readonly required name="lec_id" class="form-control">
                                                                     <input type="text" id="lecName" readonly required name="lec_name" class="form-control">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
                                                                 </div>
                                                                 <hr>
                                                                 <div class="form-group col-md-6">
@@ -415,33 +416,33 @@ require_once('public/partials/_head.php');
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Name</th>
-                                                        <th>Code</th>
-                                                        <th>Course</th>
+                                                        <th>Module Name</th>
+                                                        <th>Module Code</th>
+                                                        <th>Lecture Allocated</th>
                                                         <th>Manage</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE course_id = '$course->id' AND ass_status = '0'  ";
+                                                    $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns`  WHERE course_id = '$course->id'   ";
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
                                                     $cnt = 1;
-                                                    while ($mod = $res->fetch_object()) {
+                                                    while ($assigns = $res->fetch_object()) {
                                                     ?>
 
                                                         <tr>
                                                             <td><?php echo $cnt; ?></td>
-                                                            <td><?php echo $mod->name; ?></td>
-                                                            <td><?php echo $mod->code; ?></td>
-                                                            <td><?php echo $mod->course_name; ?></td>
+                                                            <td><?php echo $assigns->module_name; ?></td>
+                                                            <td><?php echo $assigns->module_code; ?></td>
+                                                            <td><?php echo $assigns->lec_name; ?></td>
                                                             <td>
                                                                 <a class="badge badge-primary" data-toggle="modal" href="#edit-modal-<?php echo $mod->id; ?>">
                                                                     <i class="fas fa-user-tag"></i>
-                                                                    Edit Allocation
+                                                                    Update
                                                                 </a>
-                                                                <!-- Add Allocation -->
+                                                                <!--Edit  Allocation -->
                                                                 <div class="modal fade" id="edit-modal-<?php echo $mod->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
                                                                         <div class="modal-content">
@@ -460,7 +461,10 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
+                                                                <a class="badge badge-danger" href="module_allocations.php?delete=<?php echo $assigns->id; ?>&code=<?php echo $assigns->module_code; ?>&view=<?php echo $course->id; ?>">
+                                                                    <i class="fas fa-trash"></i>
+                                                                    Delete
+                                                                </a>
                                                             </td>
                                                         </tr>
                                                     <?php $cnt = $cnt + 1;
@@ -476,10 +480,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
-                </div>
             </div>
-            <!-- ./wrapper -->
-            <?php require_once('public/partials/_scripts.php'); ?>
+        </div>
+        <!-- ./wrapper -->
+        <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
