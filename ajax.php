@@ -84,6 +84,19 @@ if (!empty($_POST["ModuleName"])) {
 <?php
     }
 }
+/* Module Details  2*/
+if (!empty($_POST["ModuleCode"])) {
+    $id = $_POST['ModuleCode'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Modules WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['name']); ?>
+<?php
+    }
+}
 
 /* Lec Details Part 1 */
 if (!empty($_POST["LecName"])) {

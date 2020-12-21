@@ -105,14 +105,16 @@
 <script>
     /* CK Editor */
 
-   /*  CKEDITOR.replace('textarea');
-    CKEDITOR.replace('department_details');
-    CKEDITOR.replace('dep_details');
-    CKEDITOR.replace('dep_memo'); */
-
+    /*  CKEDITOR.replace('textarea');
+     CKEDITOR.replace('department_details');
+     CKEDITOR.replace('dep_details');
+     CKEDITOR.replace('dep_memo'); */
 </script>
 <!-- Get Department Details Script -->
 <script>
+    /* Ajaxing Aint Easy */
+
+    /*Department Details  */
     function getDepartmentDetails(val) {
         $.ajax({
             type: "POST",
@@ -133,9 +135,8 @@
             }
         });
     }
-</script>
-<!-- Get Course Details -->
-<script>
+
+    /* Course Details */
     function getCourseDetails(val) {
         $.ajax({
             type: "POST",
@@ -179,9 +180,7 @@
 
 
     }
-</script>
-<!--Get Module Details -->
-<script>
+    /* Module Details */
     function getModuleDetails(val) {
         $.ajax({
             type: "POST",
@@ -193,9 +192,20 @@
             }
         });
     }
-</script>
-<!-- Get Lec Details -->
-<script>
+
+    /* Optimized Module Details */
+    function OptimizedModuleDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'ModuleCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#ModuleName').val(data);
+            }
+        });
+    }
+    /* Lecturer Details */
     function getLecDetails(val) {
         $.ajax({
             type: "POST",
@@ -207,7 +217,8 @@
             }
         });
     }
-    
+
+    /* Optimized Lecturer Details */
     function getLecturerDetails(val) {
         $.ajax({
             type: "POST",
@@ -228,9 +239,8 @@
             }
         });
     }
-</script>
-<!-- Get Student Details -->
-<script>
+
+    /* Student Details */
     function getStudentDetails(val) {
         $.ajax({
             type: "POST",
@@ -242,9 +252,8 @@
             }
         });
     }
-</script>
-<!-- Get Semester Details -->
-<script>
+
+    /* Semester Details */
     function getSemesterDetails(val) {
         $.ajax({
             type: "POST",
@@ -275,9 +284,8 @@
         });
 
     }
-</script>
-<!-- Group Details  -->
-<script>
+
+    /* Group Details */
     function getGroupDetails(val) {
         $.ajax({
             type: "POST",
@@ -289,10 +297,8 @@
             }
         });
     }
-</script>
 
-<!-- Faculty Details -->
-<script>
+    /* Faculty Details */
     function getFacutyDetails(val) {
         $.ajax({
             type: "POST",

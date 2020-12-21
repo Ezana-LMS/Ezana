@@ -331,8 +331,8 @@ require_once('public/partials/_head.php');
                                                                 <hr>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Module Name</label>
-                                                                    <select class='form-control basic' id="ModuleName" onchange="getModuleDetails(this.value);" name="module_name">
-                                                                        <option selected>Select Module Name </option>
+                                                                    <select class='form-control basic' id="ModuleCode" onchange="OptimizedModuleDetails(this.value);" name="module_code">
+                                                                        <option selected>Select Module Code </option>
                                                                         <?php
                                                                         $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE ass_status = '0' AND course_id = '$course->id'  ";
                                                                         $stmt = $mysqli->prepare($ret);
@@ -340,14 +340,14 @@ require_once('public/partials/_head.php');
                                                                         $res = $stmt->get_result();
                                                                         while ($mod = $res->fetch_object()) {
                                                                         ?>
-                                                                            <option><?php echo $mod->name; ?></option>
+                                                                            <option><?php echo $mod->code; ?></option>
                                                                         <?php } ?>
                                                                     </select>
                                                                 </div>
 
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="">Module Code</label>
-                                                                    <input type="text" id="ModuleCode" required name="module_code" class="form-control">
+                                                                    <label for="">Module Name</label>
+                                                                    <input type="text" id="ModuleName" required name="module_name" class="form-control">
                                                                 </div>
                                                             </div>
                                                         </div>
