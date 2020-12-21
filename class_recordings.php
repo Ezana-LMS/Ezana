@@ -324,7 +324,67 @@ require_once('public/partials/_head.php');
                                     <div class="row">
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_ClassRecordings` WHERE module_id = '$mod->id'  ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                $cnt = 1;
+                                                while ($cr = $res->fetch_object()) {
+                                                ?>
+                                                    <div class="col-md-6">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title"><?php echo $cr->class_name; ?></h5>
+                                                                <br>
+                                                                <hr>
+                                                                <div class="text-center">
+                                                                    <a target="_blank" href="play_class_recording.php?clip=<?php echo $cr->id; ?>&view=<?php echo $mod->id; ?>" class="btn btn-outline-success">
+                                                                        Play Clip
+                                                                    </a>
+                                                                    <?php
+                                                                    /* If Class Has External Link */
+                                                                    if ($cr->external_link == '') {
+                                                                    } else {
+                                                                        echo
+                                                                            "
+                                                                        <a target='_blank' href= '$cr->external_link' class='btn btn-outline-success'>
+                                                                            Open External Link
+                                                                        </a>
+                                                                        ";
+                                                                    }
+                                                                    ?>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer">
+                                                                <small class="text-muted">Uploaded: <?php echo $cr->created_at; ?></small>
+                                                                <a class="badge badge-warning" data-toggle="modal" href="#update-clip-<?php echo $cr->id; ?>">Update</a>
 
+                                                                <!-- Upload Solution Modal -->
+                                                                <div class="modal fade" id="update-clip-<?php echo $cr->id; ?>">
+                                                                    <div class="modal-dialog  modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+
+                                                                            </div>
+                                                                            <div class="modal-footer justify-content-between">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End  Modal -->
+                                                                <a class="badge badge-danger" href="class_recordings.php?delete=<?php echo $cr->id; ?>&view=<?php echo $mod->id; ?>">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
@@ -335,10 +395,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
-                </div>
             </div>
-            <!-- ./wrapper -->
-            <?php require_once('public/partials/_scripts.php'); ?>
+        </div>
+        <!-- ./wrapper -->
+        <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
