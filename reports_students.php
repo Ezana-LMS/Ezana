@@ -210,7 +210,7 @@ require_once('public/partials/_analytics.php');
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$row->id'  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Students`  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
