@@ -3,6 +3,7 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
+
 /* Dump SQL Database */
 if (isset($_POST['Backup_Data'])) {
 
