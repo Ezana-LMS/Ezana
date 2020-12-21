@@ -5,27 +5,15 @@ require_once('configs/checklogin.php');
 check_login();
 /* Dump SQL Database */
 if (isset($_POST['Backup_Data'])) {
-    $mysqlDatabaseName = 'Database name';
-    $mysqlUserName = 'User name';
-    $mysqlPassword = 'Password';
-    $mysqlHostName = 'dbxxx.hosting-data.io';
-    $mysqlExportPath = 'Your-desired-filename.sql';
+    $dbhost = 'localhost';
+    $dbuser = 'root';
+    $dbpass = '';
+    $dbname = 'ezana_lms';
 
-    //Please do not change the following points
-    //Export of the database and output of the status
-    $command = 'mysqldump --opt -h' . $mysqlHostName . ' -u' . $mysqlUserName . ' -p' . $mysqlPassword . ' ' . $mysqlDatabaseName . ' > ' . $mysqlExportPath;
-    exec($command, $output = array(), $worked);
-    switch ($worked) {
-        case 0:
-            echo 'The database <b>' . $mysqlDatabaseName . '</b> was successfully stored in the following path ' . getcwd() . '/' . $mysqlExportPath . '</b>';
-            break;
-        case 1:
-            echo 'An error occurred when exporting <b>' . $mysqlDatabaseName . '</b> zu ' . getcwd() . '/' . $mysqlExportPath . '</b>';
-            break;
-        case 2:
-            echo 'An export error has occurred, please check the following information: <br/><br/><table><tr><td>MySQL Database Name:</td><td><b>' . $mysqlDatabaseName . '</b></td></tr><tr><td>MySQL User Name:</td><td><b>' . $mysqlUserName . '</b></td></tr><tr><td>MySQL Password:</td><td><b>NOTSHOWN</b></td></tr><tr><td>MySQL Host Name:</td><td><b>' . $mysqlHostName . '</b></td></tr></table>';
-            break;
-    }
+    $backup_file = $dbname . date("Y-m-d-H-i-s") . '.gz';
+    $command = "mysqldump --opt -h $dbhost -u $dbuser -p $dbpass " . "test_db | gzip > $backup_file";
+
+    system($command);
 }
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
@@ -176,7 +164,11 @@ require_once('public/partials/_head.php');
                                         <div class="tab-content" id="custom-content-below-tabContent">
                                             <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                 <br>
-
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="text-center">
+                                                        <button type="submit" name="Backup_Data" class="btn btn-primary">Backup Data</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                             <div class="tab-pane fade" id="custom-content-below-profile" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                 <br>
