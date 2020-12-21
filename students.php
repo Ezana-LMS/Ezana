@@ -607,7 +607,7 @@ require_once('public/partials/_head.php');
                         <hr>
                         <div class="row">
                             <div class="col-12">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="filter-table" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>#</th>

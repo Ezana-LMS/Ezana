@@ -87,5 +87,10 @@
         </script>
 
     <?php } ?>
-    
+    <!-- Table CSS -->
+    <style>
+        thead input {
+            width: 100%;
+        }
+    </style>
 </head>

@@ -39,6 +39,29 @@
             window.document.location = $(this).data("href");
         });
     });
+	
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#filter-table thead tr').clone(true).appendTo( '#filter-table thead' );
+    $('#filter-table thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+ 
+    var table = $('#filter-table').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true
+    } );
+} );
 </script>
 
 <!-- Data Tables V2.01 -->
