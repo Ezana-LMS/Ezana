@@ -472,7 +472,9 @@ require_once('public/partials/_head.php');
                                                                         $cnt = 1;
                                                                         while ($lecturer = $res->fetch_object()) {
                                                                     ?>
-
+                                                                            <li class="list-group-item">
+                                                                                <b>Lecturer Assigned Name: </b> <a class="float-right"><?php echo $lecturer->name; ?></a>
+                                                                            </li>
                                                                             <li class="list-group-item">
                                                                                 <b>Lecturer Assigned Email: </b> <a class="float-right"><?php echo $lecturer->email; ?></a>
                                                                             </li>
