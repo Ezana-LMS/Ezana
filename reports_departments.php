@@ -6,7 +6,6 @@ check_login();
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
 ?>
-
 <!DOCTYPE html>
 <html>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
