@@ -40,9 +40,9 @@ if (isset($_POST['add_class_recording'])) {
         /* Module ID */
         $view = $_POST['view'];
 
-        $query = "INSERT INTO ezanaLMS_ClassRecordings (id, faculty_id, class_name, lecturer_name, external_link, details, created_at, video) VALUES(?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_ClassRecordings (id, faculty_id, module_id, class_name, lecturer_name, external_link, details, created_at, video) VALUES(?,?,?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssss', $id, $faculty, $class_name, $lecturer_name, $external_link, $details, $created_at, $video);
+        $rc = $stmt->bind_param('sssssssss', $id, $faculty, $view, $class_name, $lecturer_name, $external_link, $details, $created_at, $video);
         $stmt->execute();
         if ($stmt) {
             $success = "Class Recoding Added" && header("refresh:1; url=class_recordings.php?view=$view");
@@ -222,7 +222,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Class Name</label>
-                                                                    <input type="text" required name="class_name" class="form-control" id="exampleInputEmail1">
+                                                                    <input type="text" required name="class_name" class="form-control" value="<?php echo $mod->name;?>" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
                                                                 </div>
