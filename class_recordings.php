@@ -439,6 +439,7 @@ require_once('public/partials/_head.php');
                                                                 <a href="play_class_recording.php?clip=<?php echo $cr->id; ?>&view=<?php echo $mod->id; ?>">
                                                                     <h5 class="card-title"><?php echo $cr->class_name; ?></h5>
                                                                 </a>
+                                                                <br>
                                                             </div>
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Uploaded: <?php echo $cr->created_at; ?><br></small>
