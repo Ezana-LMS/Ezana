@@ -13,7 +13,7 @@ if (isset($_POST['Backup_Data'])) {
     define("DB_PASSWORD", '');
     define("DB_NAME", 'ezana_lms');
     define("DB_HOST", 'localhost');
-    define("BACKUP_DIR", 'pubic/backup'); // Comment this line to use same script's directory ('.')
+    define("BACKUP_DIR", 'public/backup'); // Comment this line to use same script's directory ('.')
     define("TABLES", '*'); // Full backup
     //define("TABLES", 'table1, table2, table3'); // Partial backup
     define('IGNORE_TABLES',array(
@@ -101,7 +101,7 @@ if (isset($_POST['Backup_Data'])) {
             $this->charset                 = $charset;
             $this->conn                    = $this->initializeDatabase();
             $this->backupDir               = BACKUP_DIR ? BACKUP_DIR : '.';
-            $this->backupFile              = 'myphp-backup-'.$this->dbName.'-'.date("Ymd_His", time()).'.sql';
+            $this->backupFile              = 'ezana-lms-backup-'.$this->dbName.'-'.date("Ymd_His", time()).'.sql';
             $this->gzipBackupFile          = defined('GZIP_BACKUP_FILE') ? GZIP_BACKUP_FILE : true;
             $this->disableForeignKeyChecks = defined('DISABLE_FOREIGN_KEY_CHECKS') ? DISABLE_FOREIGN_KEY_CHECKS : true;
             $this->batchSize               = defined('BATCH_SIZE') ? BATCH_SIZE : 1000; // default 1000 rows
@@ -235,31 +235,7 @@ if (isset($_POST['Backup_Data'])) {
                         }
                     }
     
-                    /**
-                     * CREATE TRIGGER
-                     */
-    
-                    // Check if there are some TRIGGERS associated to the table
-                    /*$query = "SHOW TRIGGERS LIKE '" . $table . "%'";
-                    $result = mysqli_query ($this->conn, $query);
-                    if ($result) {
-                        $triggers = array();
-                        while ($trigger = mysqli_fetch_row ($result)) {
-                            $triggers[] = $trigger[0];
-                        }
-                        
-                        // Iterate through triggers of the table
-                        foreach ( $triggers as $trigger ) {
-                            $query= 'SHOW CREATE TRIGGER `' . $trigger . '`';
-                            $result = mysqli_fetch_array (mysqli_query ($this->conn, $query));
-                            $sql.= "\nDROP TRIGGER IF EXISTS `" . $trigger . "`;\n";
-                            $sql.= "DELIMITER $$\n" . $result[2] . "$$\n\nDELIMITER ;\n";
-                        }
-                        $sql.= "\n";
-                        $this->saveFile($sql);
-                        $sql = '';
-                    }*/
-     
+                  
                     $sql.="\n\n";
     
                     $this->obfPrint('OK');
@@ -466,24 +442,10 @@ if (isset($_POST['Backup_Data'])) {
     
     $backupDatabase = new Backup_Database(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, CHARSET);
     
-    // Option-1: Backup tables already defined above
     $result = $backupDatabase->backupTables(TABLES) ? 'OK' : 'KO';
-    
-    // Option-2: Backup changed tables only - uncomment block below
-    /*
-    $since = '1 day';
-    $changed = $backupDatabase->getChangedTables($since);
-    if(!$changed){
-      $backupDatabase->obfPrint('No tables modified since last ' . $since . '! Quitting..', 1);
-      die();
-    }
-    $result = $backupDatabase->backupTables($changed) ? 'OK' : 'KO';
-    */
-    
-    
+  
     $backupDatabase->obfPrint('Backup result: ' . $result, 1);
     
-    // Use $output variable for further processing, for example to send it by email
     $output = $backupDatabase->getOutput();
     
     if (php_sapi_name() != "cli") {
