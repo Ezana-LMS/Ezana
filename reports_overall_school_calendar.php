@@ -122,14 +122,14 @@ require_once('public/partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Faculty Reports</h1>
+                            <h1 class="m-0 text-dark">School Important Dates</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="reports.php">System</a></li>
                                 <li class="breadcrumb-item"><a href="reports.php">Reports</a></li>
-                                <li class="breadcrumb-item active">Faculties</li>
+                                <li class="breadcrumb-item active">School Calendar</li>
                             </ol>
                         </div>
                     </div>
