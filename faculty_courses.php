@@ -380,7 +380,6 @@ require_once('public/partials/_head.php');
                                             <table id="example1" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
                                                         <th>Code</th>
                                                         <th>Name</th>
                                                         <th>Department</th>
@@ -397,7 +396,6 @@ require_once('public/partials/_head.php');
                                                     while ($courses = $res->fetch_object()) {
                                                     ?>
                                                         <tr>
-                                                            <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $courses->code; ?></td>
                                                             <td><?php echo $courses->name; ?></td>
                                                             <td><?php echo $courses->department_name; ?></td>
@@ -457,7 +455,7 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                                 <!-- End Update Modal -->
 
-                                                                <a class="badge badge-danger"  data-toggle="modal" href="#delete-<?php echo $courses->id; ?>">
+                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $courses->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
@@ -472,7 +470,7 @@ require_once('public/partials/_head.php');
                                                                                 </button>
                                                                             </div>
                                                                             <div class="modal-body text-center text-danger">
-                                                                                <h4>Delete <?php echo $courses->name;?> ?</h4>
+                                                                                <h4>Delete <?php echo $courses->name; ?> ?</h4>
                                                                                 <br>
                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
                                                                                 <a href="faculty_courses.php?delete=<?php echo $courses->id; ?>&view=<?php echo $faculty->id; ?>" class="text-center btn btn-danger"> Delete </a>
@@ -483,7 +481,7 @@ require_once('public/partials/_head.php');
                                                                 <!-- End Delete Confirmation Modal -->
                                                             </td>
                                                         </tr>
-                                                    <?php $cnt = $cnt + 1;
+                                                    <?php
                                                     } ?>
                                                 </tbody>
                                             </table>

@@ -422,7 +422,6 @@ require_once('public/partials/_head.php');
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
                                                     <th>Name</th>
                                                     <th>Code</th>
                                                     <th>Course</th>
@@ -440,7 +439,6 @@ require_once('public/partials/_head.php');
                                                 ?>
 
                                                     <tr>
-                                                        <td><?php echo $cnt; ?></td>
                                                         <td><?php echo $mod->name; ?></td>
                                                         <td><?php echo $mod->code; ?></td>
                                                         <td><?php echo $mod->course_name; ?></td>
@@ -548,7 +546,7 @@ require_once('public/partials/_head.php');
                                                             <!-- End Delete Confirmation Modal -->
                                                         </td>
                                                     </tr>
-                                                <?php $cnt = $cnt + 1;
+                                                <?php
                                                 } ?>
                                             </tbody>
                                         </table>

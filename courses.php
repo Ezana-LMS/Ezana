@@ -369,7 +369,6 @@ require_once('public/partials/_head.php');
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
                                                     <th>Code</th>
                                                     <th>Name</th>
                                                     <th>Department</th>
@@ -386,7 +385,6 @@ require_once('public/partials/_head.php');
                                                 while ($courses = $res->fetch_object()) {
                                                 ?>
                                                     <tr>
-                                                        <td><?php echo $cnt; ?></td>
                                                         <td><?php echo $courses->code; ?></td>
                                                         <td><?php echo $courses->name; ?></td>
                                                         <td><?php echo $courses->department_name; ?></td>
@@ -477,7 +475,7 @@ require_once('public/partials/_head.php');
                                                             <!-- End Delete Confirmation Modal -->
                                                         </td>
                                                     </tr>
-                                                <?php $cnt = $cnt + 1;
+                                                <?php 
                                                 } ?>
                                             </tbody>
                                         </table>
