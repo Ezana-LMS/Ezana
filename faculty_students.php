@@ -551,7 +551,7 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                                 <!-- End Modal -->
-                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $std->id; ?>-">
+                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $std->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
