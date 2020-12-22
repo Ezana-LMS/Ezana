@@ -532,76 +532,87 @@ require_once('public/partials/_head.php');
                                                                                 ?>
                                                                                     <div class="d-flex w-100 justify-content-between">
                                                                                         <h5 class="mb-1"></h5>
-                                                                                        <small><?php echo $ga->created_at; ?></small>
+                                                                                        <small><b><?php echo $ga->created_at; ?></b></small>
                                                                                     </div>
                                                                                     <small>
                                                                                         <?php
                                                                                         echo $ga->announcement;
-                                                                                        ?>
-                                                                                        <div class="row">
-                                                                                            <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $ga->id; ?>">
-                                                                                                <i class="fas fa-edit"></i>
-                                                                                                Update
-                                                                                            </a>
-                                                                                            <!-- Udpate Notice Modal -->
-                                                                                            <div class="modal fade" id="update-<?php echo $ga->id; ?>">
-                                                                                                <div class="modal-dialog  modal-lg">
-                                                                                                    <div class="modal-content">
-                                                                                                        <div class="modal-header">
-                                                                                                            <h4 class="modal-title">Fill All Required Values </h4>
-                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                                                <span aria-hidden="true">&times;</span>
-                                                                                                            </button>
-                                                                                                        </div>
-                                                                                                        <div class="modal-body">
-                                                                                                            <form method="post" enctype="multipart/form-data" role="form">
-                                                                                                                <div class="card-body">
-                                                                                                                    <div class="row">
-                                                                                                                        <div class="form-group col-md-12">
-                                                                                                                            <label for="">Notice Posted By</label>
-                                                                                                                            <?php
-                                                                                                                            $id = $_SESSION['id'];
-                                                                                                                            $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id = '$id'  ";
-                                                                                                                            $stmt = $mysqli->prepare($ret);
-                                                                                                                            $stmt->execute(); //ok
-                                                                                                                            $res = $stmt->get_result();
-                                                                                                                            while ($user = $res->fetch_object()) {
-                                                                                                                            ?>
-                                                                                                                                <input type="text" required name="created_by" value="<?php echo $user->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                                                                                            <?php
-                                                                                                                            } ?>
-                                                                                                                        </div>
+                                                                                        ?> ~ <b><?php echo $ga->created_by;?></b>
+                                                                                    </small>
+                                                                                    <div class="card-footer row">
+                                                                                        <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $ga->id; ?>">
+                                                                                            <i class="fas fa-edit"></i>
+                                                                                            Update
+                                                                                        </a>
+                                                                                        <!-- Udpate Notice Modal -->
+                                                                                        <div class="modal fade" id="update-<?php echo $ga->id; ?>">
+                                                                                            <div class="modal-dialog  modal-lg">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                    <div class="modal-body">
+                                                                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                                                                            <div class="card-body">
+                                                                                                                <div class="row">
+                                                                                                                    <div class="form-group col-md-12">
+                                                                                                                        <label for="">Notice Posted By</label>
+                                                                                                                        <input type="text" required name="created_by" value="<?php echo $ga->created_by; ?>" class="form-control" id="exampleInputEmail1">
                                                                                                                     </div>
-                                                                                                                    <div class="row">
-                                                                                                                        <div class="form-group col-md-12">
-                                                                                                                            <label for="exampleInputPassword1">Group Notice</label>
-                                                                                                                            <textarea required id="textarea" name="announcement" rows="20" class="form-control"><?php echo $ga->announcement; ?></textarea>
-                                                                                                                            <!-- Hide This -->
-                                                                                                                            <input type="hidden" required name="id" value="<?php echo $ga->id; ?>" class="form-control">
-                                                                                                                            <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                                                                            <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
+                                                                                                                </div>
+                                                                                                                <div class="row">
+                                                                                                                    <div class="form-group col-md-12">
+                                                                                                                        <label for="exampleInputPassword1">Group Notice</label>
+                                                                                                                        <textarea required id="textarea" name="announcement" rows="20" class="form-control"><?php echo $ga->announcement; ?></textarea>
+                                                                                                                        <!-- Hide This -->
+                                                                                                                        <input type="hidden" required name="id" value="<?php echo $ga->id; ?>" class="form-control">
+                                                                                                                        <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                                                        <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
 
-                                                                                                                        </div>
                                                                                                                     </div>
                                                                                                                 </div>
-                                                                                                                <div class="card-footer text-right">
-                                                                                                                    <button type="submit" name="update_notice" class="btn btn-primary">Update Notice</button>
-                                                                                                                </div>
-                                                                                                            </form>
-                                                                                                        </div>
-                                                                                                        <div class="modal-footer justify-content-between">
-                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                                        </div>
+                                                                                                            </div>
+                                                                                                            <div class="card-footer text-right">
+                                                                                                                <button type="submit" name="update_notice" class="btn btn-primary">Update Notice</button>
+                                                                                                            </div>
+                                                                                                        </form>
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer justify-content-between">
+                                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <a class="badge badge-danger" href="group_details.php?delete_Announcement=<?php echo $ga->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>">
-                                                                                                <i class="fas fa-trash"></i>
-                                                                                                Delete
-                                                                                            </a>
                                                                                         </div>
-                                                                                        <hr>
-                                                                                    </small>
+
+                                                                                        <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $ga->id; ?>">
+                                                                                            <i class="fas fa-trash"></i>
+                                                                                            Delete
+                                                                                        </a>
+                                                                                        <!-- Delete Confirmation Modal -->
+                                                                                        <div class="modal fade" id="delete-<?php echo $ga->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                    <div class="modal-body text-center text-danger">
+                                                                                                        <h4>Delete Announcement ?</h4>
+                                                                                                        <br>
+                                                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                                        <a href="group_details.php?delete_Announcement=<?php echo $ga->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!-- End Delete Confirmation Modal -->
+                                                                                    </div>
+                                                                                    <hr>
                                                                                 <?php $cnt = $cnt + 1;
                                                                                 } ?>
                                                                             </div>
@@ -622,10 +633,10 @@ require_once('public/partials/_head.php');
                         <!-- Main Footer -->
                     <?php require_once('public/partials/_footer.php');
                 } ?>
-                    </div>
-                </div>
-                <!-- ./wrapper -->
-                <?php require_once('public/partials/_scripts.php'); ?>
+            </div>
+        </div>
+        <!-- ./wrapper -->
+        <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
