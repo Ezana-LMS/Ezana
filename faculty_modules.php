@@ -435,7 +435,6 @@ require_once('public/partials/_head.php');
                                                     <table id="example1" class="table table-bordered table-striped">
                                                         <thead>
                                                             <tr>
-                                                                <th>#</th>
                                                                 <th>Name</th>
                                                                 <th>Code</th>
                                                                 <th>Course</th>
@@ -452,7 +451,6 @@ require_once('public/partials/_head.php');
                                                             while ($mod = $res->fetch_object()) {
                                                             ?>
                                                                 <tr>
-                                                                    <td><?php echo $cnt; ?></td>
                                                                     <td><?php echo $mod->name; ?></td>
                                                                     <td><?php echo $mod->code; ?></td>
                                                                     <td><?php echo $mod->course_name; ?></td>
@@ -529,10 +527,30 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                         </div>
                                                                         <!-- End Modal -->
-                                                                        <a class="badge badge-danger" href="modules.php?delete=<?php echo $mod->id; ?>">
+                                                                        <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $mod->id; ?>">
                                                                             <i class="fas fa-trash"></i>
                                                                             Delete
                                                                         </a>
+                                                                        <!-- Delete Confirmation Modal -->
+                                                                        <div class="modal fade" id="delete-<?php echo $mod->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body text-center text-danger">
+                                                                                        <h4>Delete <?php echo $mod->name; ?> ?</h4>
+                                                                                        <br>
+                                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                        <a href="faculty_modules.php?delete=<?php echo $mod->id; ?>&view=<?php echo $faculty->faculty_id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End Delete Confirmation Modal -->
                                                                     </td>
                                                                 </tr>
                                                             <?php $cnt = $cnt + 1;
