@@ -97,7 +97,6 @@ if (isset($_POST['update_course'])) {
 /* Delete Course */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $faculty = $_GET['faculty'];
     $adn = "DELETE FROM ezanaLMS_Courses WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
@@ -189,35 +188,34 @@ require_once('public/partials/_head.php');
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-cogs"></i>
-                                    <p>
-                                        System Settings
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="reports.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Reports</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="data_backup.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Data Backup</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="system_settings.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Settings</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-cogs"></i>
+                                <p>
+                                    System Settings
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="reports.php" class="nav-link">
+                                        <i class="fas fa-angle-right nav-icon"></i>
+                                        <p>Reports</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="data_backup.php" class="nav-link">
+                                        <i class="fas fa-angle-right nav-icon"></i>
+                                        <p>Data Backup</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="system_settings.php" class="nav-link">
+                                        <i class="fas fa-angle-right nav-icon"></i>
+                                        <p>Settings</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -453,10 +451,30 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <!-- End Update Modal -->
 
-                                                            <a class="badge badge-danger" href="courses.php?delete=<?php echo $courses->id; ?>">
+                                                            <a class="badge badge-danger" href="#delete-<?php echo $courses->id;?>" data-toggle="modal">
                                                                 <i class="fas fa-trash"></i>
                                                                 Delete
                                                             </a>
+                                                            <!-- Delete Confirmation Modal -->
+                                                            <div class="modal fade" id="delete-<?php echo $courses->id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body text-center text-danger">
+                                                                            <h4>Delete <?php echo $courses->name; ?> ?</h4>
+                                                                            <br>
+                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                            <a href="courses.php?delete=<?php echo $courses->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Delete Confirmation Modal -->
                                                         </td>
                                                     </tr>
                                                 <?php $cnt = $cnt + 1;
