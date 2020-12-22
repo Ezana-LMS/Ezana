@@ -444,7 +444,6 @@ require_once('public/partials/_head.php');
                                                                         <table id="example1" class="table table-bordered table-striped">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th>#</th>
                                                                                     <th>Admission No</th>
                                                                                     <th>Name</th>
                                                                                     <th>Date Added</th>
@@ -461,7 +460,6 @@ require_once('public/partials/_head.php');
                                                                                 while ($stdGroup = $res->fetch_object()) {
                                                                                 ?>
                                                                                     <tr>
-                                                                                        <td><?php echo $cnt; ?></td>
                                                                                         <td><?php echo $stdGroup->student_admn; ?></td>
                                                                                         <td><?php echo $stdGroup->student_name; ?></td>
                                                                                         <td><?php echo date('d M Y', strtotime($stdGroup->created_at)); ?></td>
