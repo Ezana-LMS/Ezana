@@ -44,55 +44,49 @@ if (isset($_POST['reset_pwd'])) {
 include __DIR__ . "/public/partials/_authhead.php"
 ?>
 
-<body>
-    <div class="main-wrapper">
-        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative" style="background:url(../assets/images/big/auth-bg.jpg) no-repeat center center;">
-            <div class="auth-box row">
-                <div class="col-lg-7 col-md-5 modal-bg-img img-thumbnail" style="background-image: url(public/dist/img/logo.png);">
-                </div>
-                <div class="col-lg-5 col-md-7 bg-white">
-                    <div class="p-3">
-                        <div class="text-center">
-                            <img height="100" width="100" src="public/dist/img/logo.png" alt="wrapkit">
-                        </div>
-                        <?php
-                        $email  = $_SESSION['email'];
-                        $ret = "SELECT * FROM  ezanaLMS_Admins  WHERE email = '$email'";
-                        $stmt = $mysqli->prepare($ret);
-                        $stmt->execute(); //ok
-                        $res = $stmt->get_result();
-                        while ($row = $res->fetch_object()) {
-                        ?>
-                            <h5 class="mt-3 text-center">
-                                <span class="badge badge-success">
-                                    <small>
-                                        Token: <?php echo $row->password; ?>
-                                    </small>
-                                </span>
-                            </h5>
-                            <p class="text-center"><?php echo $row->name; ?> Please Enter New Password</p>
-                        <?php
-                        } ?>
-                        <form method="post" class="mt-4">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label class="text-dark" for="pwd">New Password</label>
-                                        <input class="form-control" name="new_password" type="password">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label class="text-dark" for="pwd">Confirm Password</label>
-                                        <input class="form-control" name="confirm_password" type="password">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 text-center">
-                                    <button type="submit" name="reset_pwd" class="btn btn-block btn-dark">Reset Password</button>
-                                </div>
-                            </div>
-                        </form>
+<body style="background-color: #666666;">
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form method="POST" class="login100-form validate-form">
+                    <div class="text-center">
+                        <img height="100" width="110" src="public/dist/img/logo.png" alt="wrapkit">
                     </div>
+                    <h2 class="mt-3 text-center">Password Reset</h2>
+                    <?php
+                    $email  = $_SESSION['email'];
+                    $ret = "SELECT * FROM  ezanaLMS_Admins  WHERE email = '$email'";
+                    $stmt = $mysqli->prepare($ret);
+                    $stmt->execute(); //ok
+                    $res = $stmt->get_result();
+                    while ($row = $res->fetch_object()) {
+                    ?>
+                        <h5 class="mt-3 text-center">
+                            <span class="badge badge-success">
+                                <small>
+                                    Token: <?php echo $row->password; ?>
+                                </small>
+                            </span>
+                        </h5>
+                        <p class="text-center"><?php echo $row->name; ?> Please Enter New Password</p>
+                    <?php
+                    } ?> <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input class="input100" type="password" name="new_password">
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">New Password</span>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input class="input100" type="password" name="confirm_password">
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Confirm Password</span>
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <button type="submit" name="reset_pwd" class="login100-form-btn">
+                            Confirm Password
+                        </button>
+                    </div>
+                </form>
+                <div class="login100-more" style="background-image: url('images/bg-01.jpg');">
                 </div>
             </div>
         </div>

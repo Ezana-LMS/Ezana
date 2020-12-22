@@ -39,8 +39,6 @@ if (isset($_POST['reset_pwd'])) {
     }
 }
 
-
-
 include __DIR__ . "/public/partials/_authhead.php"
 ?>
 
@@ -52,8 +50,8 @@ include __DIR__ . "/public/partials/_authhead.php"
                     <div class="text-center">
                         <img height="100" width="110" src="public/dist/img/logo.png" alt="wrapkit">
                     </div>
-                    <h2 class="mt-3 text-center">Log In</h2>
-                    <p class="text-center">Enter Your Email Address And Password</p>
+                    <h2 class="mt-3 text-center">Reset Password</h2>
+                    <p class="text-center">Enter Your  Address To Reset Password</p>
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: user@mail.com">
                         <input class="input100" type="email" name="email">
                         <span class="focus-input100"></span>
