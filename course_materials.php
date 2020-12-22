@@ -389,6 +389,7 @@ require_once('public/partials/_head.php');
                                                             </a>
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Uploaded: <?php echo $rm->created_at; ?></small>
+                                                                <br>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-visibility-<?php echo $rm->id; ?>">Edit Visiblity</a>
                                                                 <!-- Upload Solution Modal -->
                                                                 <div class="modal fade" id="edit-visibility-<?php echo $rm->id; ?>">
