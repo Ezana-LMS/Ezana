@@ -496,7 +496,7 @@ require_once('public/partials/_head.php');
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="card-footer">
+                                                                                    <div class="text-right">
                                                                                         <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
                                                                                     </div>
                                                                                 </form>
@@ -508,7 +508,7 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                                 <!-- End Lec Modal -->
-                                                                <a class="badge badge-danger" data-target="modal" href="#delete-<?php echo $lec->id; ?>">
+                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $lec->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
