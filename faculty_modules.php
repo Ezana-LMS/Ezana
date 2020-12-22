@@ -98,12 +98,13 @@ if (isset($_POST['update_module'])) {
         $cat_weight_percentage = $_POST['cat_weight_percentage'];
         $lectures_number = $_POST['lectures_number'];
         $updated_at = date('d M Y');
+        $view = $_POST['view'];/* fACULTY ID */
         $query = "UPDATE ezanaLMS_Modules SET  name =?, code =?, details =?,  course_duration =?, exam_weight_percentage =?, cat_weight_percentage=?,  lectures_number =?, updated_at =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('sssssssss', $name, $code, $details,  $course_duration, $exam_weight_percentage, $cat_weight_percentage, $lectures_number, $updated_at, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Updated" && header("refresh:1; url=faculty_modules.php?view=$faculty_id");
+            $success = "Updated" && header("refresh:1; url=faculty_modules.php?view=$view");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -113,14 +114,14 @@ if (isset($_POST['update_module'])) {
 /* Delete Module */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $faculty_id = $_GET['faculty_id'];
+    $view = $_GET['view'];
     $adn = "DELETE FROM ezanaLMS_Modules WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=faculty_modules.php?view=$faculty_id");
+        $success = "Deleted" && header("refresh:1; url=faculty_modules.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -430,135 +431,133 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <table id="example1" class="table table-bordered table-striped">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Name</th>
-                                                                <th>Code</th>
-                                                                <th>Course</th>
-                                                                <th>Manage</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$view' ";
-                                                            $stmt = $mysqli->prepare($ret);
-                                                            $stmt->execute(); //ok
-                                                            $res = $stmt->get_result();
-                                                            $cnt = 1;
-                                                            while ($mod = $res->fetch_object()) {
-                                                            ?>
-                                                                <tr>
-                                                                    <td><?php echo $mod->name; ?></td>
-                                                                    <td><?php echo $mod->code; ?></td>
-                                                                    <td><?php echo $mod->course_name; ?></td>
-                                                                    <td>
-                                                                        <a class="badge badge-primary" data-toggle="modal" href="#edit-modal-<?php echo $mod->id; ?>">
-                                                                            <i class="fas fa-edit"></i>
-                                                                            Update
-                                                                        </a>
-                                                                        <!-- Update Module Modal -->
-                                                                        <div class="modal fade" id="edit-modal-<?php echo $mod->id; ?>">
-                                                                            <div class="modal-dialog  modal-lg">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h4 class="modal-title">Fill All Required Values </h4>
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                            <span aria-hidden="true">&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        <!-- Update Module Form -->
-                                                                                        <form method="post" enctype="multipart/form-data" role="form">
-                                                                                            <div class="card-body">
-                                                                                                <div class="row">
-                                                                                                    <div class="form-group col-md-6">
-                                                                                                        <label for="">Module Name</label>
-                                                                                                        <input type="text" value="<?php echo $mod->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                                                        <input type="hidden" required name="id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                                                    </div>
-                                                                                                    <div class="form-group col-md-6">
-                                                                                                        <label for="">Module Number / Code</label>
-                                                                                                        <input type="text" required name="code" value="<?php echo $mod->code; ?>" class="form-control">
-                                                                                                    </div>
-                                                                                                </div>
 
-                                                                                                <div class="row">
-                                                                                                    <div class="form-group col-md-6">
-                                                                                                        <label for="">Teaching Duration</label>
-                                                                                                        <input type="text" value="<?php echo $mod->course_duration; ?>" required name="course_duration" class="form-control" id="exampleInputEmail1">
-                                                                                                    </div>
-                                                                                                    <div class="form-group col-md-6">
-                                                                                                        <label for="">Number Of Lectures Per Week</label>
-                                                                                                        <input type="text" value="<?php echo $mod->lectures_number; ?>" required name="lectures_number" class="form-control">
-                                                                                                    </div>
-                                                                                                    <div class="form-group col-md-6">
-                                                                                                        <label for="">CAT Exam Weight Percentage</label>
-                                                                                                        <input type="text" value="<?php echo $mod->cat_weight_percentage; ?>" required name="cat_weight_percentage" class="form-control">
-                                                                                                    </div>
-                                                                                                    <div class="form-group col-md-6">
-                                                                                                        <label for="">End Exam Weight Percentage</label>
-                                                                                                        <input type="text" value="<?php echo $mod->exam_weight_percentage; ?>" required name="exam_weight_percentage" class="form-control">
-                                                                                                    </div>
-                                                                                                </div>
+                                            <table id="example1" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Code</th>
+                                                        <th>Course</th>
+                                                        <th>Manage</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$view' ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($mod = $res->fetch_object()) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $mod->name; ?></td>
+                                                            <td><?php echo $mod->code; ?></td>
+                                                            <td><?php echo $mod->course_name; ?></td>
+                                                            <td>
+                                                                <a class="badge badge-primary" data-toggle="modal" href="#edit-modal-<?php echo $mod->id; ?>">
+                                                                    <i class="fas fa-edit"></i>
+                                                                    Update
+                                                                </a>
+                                                                <!-- Update Module Modal -->
+                                                                <div class="modal fade" id="edit-modal-<?php echo $mod->id; ?>">
+                                                                    <div class="modal-dialog  modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <!-- Update Module Form -->
+                                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                                    <div class="card-body">
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Module Name</label>
+                                                                                                <input type="text" value="<?php echo $mod->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                                                <input type="hidden" required name="id" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="view" value="<?php echo $mod->$faculty_id; ?>" class="form-control">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Module Number / Code</label>
+                                                                                                <input type="text" required name="code" value="<?php echo $mod->code; ?>" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
 
-                                                                                                <div class="row">
-                                                                                                    <div class="form-group col-md-12">
-                                                                                                        <label for="exampleInputPassword1">Module Details</label>
-                                                                                                        <textarea required id="dep_details" name="<?php echo $mod->id; ?>" rows="10" class="form-control"><?php echo $mod->details; ?></textarea>
-                                                                                                    </div>
-                                                                                                </div>
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Teaching Duration</label>
+                                                                                                <input type="text" value="<?php echo $mod->course_duration; ?>" required name="course_duration" class="form-control" id="exampleInputEmail1">
                                                                                             </div>
-                                                                                            <div class="text-right">
-                                                                                                <button type="submit" name="update_module" class="btn btn-primary">Update Module</button>
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Number Of Lectures Per Week</label>
+                                                                                                <input type="text" value="<?php echo $mod->lectures_number; ?>" required name="lectures_number" class="form-control">
                                                                                             </div>
-                                                                                        </form>
-                                                                                        <!-- End Module Form -->
-                                                                                        <script>
-                                                                                            CKEDITOR.replace('<?php echo $mod->id; ?>');
-                                                                                        </script>
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">CAT Exam Weight Percentage</label>
+                                                                                                <input type="text" value="<?php echo $mod->cat_weight_percentage; ?>" required name="cat_weight_percentage" class="form-control">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">End Exam Weight Percentage</label>
+                                                                                                <input type="text" value="<?php echo $mod->exam_weight_percentage; ?>" required name="exam_weight_percentage" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="exampleInputPassword1">Module Details</label>
+                                                                                                <textarea required id="dep_details" name="<?php echo $mod->id; ?>" rows="10" class="form-control"><?php echo $mod->details; ?></textarea>
+                                                                                            </div>
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <div class="modal-footer justify-content-between">
-                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                    <div class="text-right">
+                                                                                        <button type="submit" name="update_module" class="btn btn-primary">Update Module</button>
                                                                                     </div>
-                                                                                </div>
+                                                                                </form>
+                                                                                <!-- End Module Form -->
+                                                                                <script>
+                                                                                    CKEDITOR.replace('<?php echo $mod->id; ?>');
+                                                                                </script>
+                                                                            </div>
+                                                                            <div class="modal-footer justify-content-between">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                             </div>
                                                                         </div>
-                                                                        <!-- End Modal -->
-                                                                        <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $mod->id; ?>">
-                                                                            <i class="fas fa-trash"></i>
-                                                                            Delete
-                                                                        </a>
-                                                                        <!-- Delete Confirmation Modal -->
-                                                                        <div class="modal fade" id="delete-<?php echo $mod->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                            <span aria-hidden="true">&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body text-center text-danger">
-                                                                                        <h4>Delete <?php echo $mod->name; ?> ?</h4>
-                                                                                        <br>
-                                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                        <a href="faculty_modules.php?delete=<?php echo $mod->id; ?>&view=<?php echo $faculty->faculty_id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                                    </div>
-                                                                                </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Modal -->
+                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $mod->id; ?>">
+                                                                    <i class="fas fa-trash"></i>
+                                                                    Delete
+                                                                </a>
+                                                                <!-- Delete Confirmation Modal -->
+                                                                <div class="modal fade" id="delete-<?php echo $mod->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body text-center text-danger">
+                                                                                <h4>Delete <?php echo $mod->name; ?> ?</h4>
+                                                                                <br>
+                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                <a href="faculty_modules.php?delete=<?php echo $mod->id; ?>&view=<?php echo $faculty->faculty_id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                             </div>
                                                                         </div>
-                                                                        <!-- End Delete Confirmation Modal -->
-                                                                    </td>
-                                                                </tr>
-                                                            <?php $cnt = $cnt + 1;
-                                                            } ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Delete Confirmation Modal -->
+                                                            </td>
+                                                        </tr>
+                                                    <?php $cnt = $cnt + 1;
+                                                    } ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -568,10 +567,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
-                </div>
-            </div>
-            <!-- ./wrapper -->
-            <?php require_once('public/partials/_scripts.php'); ?>
+        </div>
+    </div>
+    <!-- ./wrapper -->
+    <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
