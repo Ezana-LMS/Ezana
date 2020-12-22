@@ -457,26 +457,25 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                                 <!-- End Update Modal -->
 
-                                                                <a class="badge badge-danger" href="#delete-<?php echo $course->id; ?>">
+                                                                <a class="badge badge-danger"  data-toggle="modal" href="#delete-<?php echo $courses->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
                                                                 <!-- Delete Confirmation Modal -->
-                                                                <div class="modal fade" id="delete-<?php echo $course->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
+                                                                <div class="modal fade" id="delete-<?php echo $courses->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
-                                                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                     <span aria-hidden="true">&times;</span>
                                                                                 </button>
                                                                             </div>
-                                                                            <div class="modal-body">
-                                                                                ...
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                <a href="faculty_courses.php?delete=<?php echo $courses->id; ?>&view=<?php echo $faculty->id; ?>" class="btn btn-danger">Delete </a>
+                                                                            <div class="modal-body text-center text-danger">
+                                                                                <h4>Delete <?php echo $courses->name;?> ?</h4>
+                                                                                <br>
+                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                <a href="faculty_courses.php?delete=<?php echo $courses->id; ?>&view=<?php echo $faculty->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
