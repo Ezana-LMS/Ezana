@@ -376,100 +376,118 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <table id="example1" class="table table-bordered table-striped">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>#</th>
-                                                                <th>Code</th>
-                                                                <th>Name</th>
-                                                                <th>Department</th>
-                                                                <th>Manage</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$view'";
-                                                            $stmt = $mysqli->prepare($ret);
-                                                            $stmt->execute(); //ok
-                                                            $res = $stmt->get_result();
-                                                            $cnt = 1;
-                                                            while ($courses = $res->fetch_object()) {
-                                                            ?>
-                                                                <tr>
-                                                                    <td><?php echo $cnt; ?></td>
-                                                                    <td><?php echo $courses->code; ?></td>
-                                                                    <td><?php echo $courses->name; ?></td>
-                                                                    <td><?php echo $courses->department_name; ?></td>
-                                                                    <td>
-                                                                        <a class="badge badge-primary" data-toggle="modal" href="#edit-course-<?php echo $courses->id; ?>">
-                                                                            <i class="fas fa-edit"></i>
-                                                                            Update
-                                                                        </a>
-                                                                        <!-- Update Course Modal -->
-                                                                        <div class="modal fade" id="edit-course-<?php echo $courses->id; ?>">
-                                                                            <div class="modal-dialog  modal-lg">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h4 class="modal-title">Fill All Required Values </h4>
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                            <span aria-hidden="true">&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        <!-- Update Course Form -->
-                                                                                        <form method="post" enctype="multipart/form-data" role="form">
-                                                                                            <div class="card-body">
-                                                                                                <div class="row">
-                                                                                                    <div class="form-group col-md-6">
-                                                                                                        <label for="">Course Name</label>
-                                                                                                        <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                                                                        <input type="hidden" required name="id" value="<?php echo $courses->id; ?>" class="form-control" id="exampleInputEmail1">
-                                                                                                    </div>
-                                                                                                    <div class="form-group col-md-6">
-                                                                                                        <label for="">Course Number / Code</label>
-                                                                                                        <input type="text" required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="row">
-                                                                                                    <div class="form-group col-md-12">
-                                                                                                        <label for="exampleInputPassword1">Course Description</label>
-                                                                                                        <textarea required name="details" id="editor-<?php echo $courses->id; ?>" rows="10" class="form-control"><?php echo $courses->details; ?></textarea>
-                                                                                                    </div>
-                                                                                                </div>
+
+                                            <table id="example1" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Code</th>
+                                                        <th>Name</th>
+                                                        <th>Department</th>
+                                                        <th>Manage</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$view'";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($courses = $res->fetch_object()) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><?php echo $cnt; ?></td>
+                                                            <td><?php echo $courses->code; ?></td>
+                                                            <td><?php echo $courses->name; ?></td>
+                                                            <td><?php echo $courses->department_name; ?></td>
+                                                            <td>
+                                                                <a class="badge badge-primary" data-toggle="modal" href="#edit-course-<?php echo $courses->id; ?>">
+                                                                    <i class="fas fa-edit"></i>
+                                                                    Update
+                                                                </a>
+                                                                <!-- Update Course Modal -->
+                                                                <div class="modal fade" id="edit-course-<?php echo $courses->id; ?>">
+                                                                    <div class="modal-dialog  modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <!-- Update Course Form -->
+                                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                                    <div class="card-body">
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Course Name</label>
+                                                                                                <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                <input type="hidden" required name="id" value="<?php echo $courses->id; ?>" class="form-control" id="exampleInputEmail1">
                                                                                             </div>
-                                                                                            <div class="card-footer text-right">
-                                                                                                <button type="submit" name="update_course" class="btn btn-primary">Update</button>
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Course Number / Code</label>
+                                                                                                <input type="text" required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
                                                                                             </div>
-                                                                                        </form>
-                                                                                        <!-- Inline CK Editor Script -->
-                                                                                        <script>
-                                                                                            CKEDITOR.replace('editor-<?php echo $courses->id; ?>');
-                                                                                        </script>
-                                                                                        <!-- End Inline Ck Editor Script -->
-                                                                                        <!-- End Update Course Form -->
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="exampleInputPassword1">Course Description</label>
+                                                                                                <textarea required name="details" id="editor-<?php echo $courses->id; ?>" rows="10" class="form-control"><?php echo $courses->details; ?></textarea>
+                                                                                            </div>
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <div class="modal-footer justify-content-between">
-                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                    <div class="card-footer text-right">
+                                                                                        <button type="submit" name="update_course" class="btn btn-primary">Update</button>
                                                                                     </div>
-                                                                                </div>
+                                                                                </form>
+                                                                                <!-- Inline CK Editor Script -->
+                                                                                <script>
+                                                                                    CKEDITOR.replace('editor-<?php echo $courses->id; ?>');
+                                                                                </script>
+                                                                                <!-- End Inline Ck Editor Script -->
+                                                                                <!-- End Update Course Form -->
+                                                                            </div>
+                                                                            <div class="modal-footer justify-content-between">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                             </div>
                                                                         </div>
-                                                                        <!-- End Update Modal -->
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Update Modal -->
 
-                                                                        <a class="badge badge-danger" href="faculty_courses.php?delete=<?php echo $courses->id; ?>&view=<?php echo $faculty->id; ?>">
-                                                                            <i class="fas fa-trash"></i>
-                                                                            Delete
-                                                                        </a>
-                                                                    </td>
-                                                                </tr>
-                                                            <?php $cnt = $cnt + 1;
-                                                            } ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
+                                                                <a class="badge badge-danger" href="#delete-<?php echo $course->id; ?>">
+                                                                    <i class="fas fa-trash"></i>
+                                                                    Delete
+                                                                </a>
+                                                                <!-- Delete Confirmation Modal -->
+                                                                <div class="modal fade" id="delete-<?php echo $course->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                ...
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                <a href="faculty_courses.php?delete=<?php echo $courses->id; ?>&view=<?php echo $faculty->id; ?>" class="btn btn-danger">Delete </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Delete Confirmation Modal -->
+                                                            </td>
+                                                        </tr>
+                                                    <?php $cnt = $cnt + 1;
+                                                    } ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
