@@ -513,10 +513,30 @@ require_once('public/partials/_head.php');
                                                                                 </div>
                                                                             </div>
 
-                                                                            <a class="badge badge-danger" href="timetables.php?delete=<?php echo $tt->id; ?>&view=<?php echo $course->id; ?>">
+                                                                            <a class="badge badge-danger" href="#delete-<?php echo $tt->id;?>" data-toggle="modal">
                                                                                 <i class="fas fa-trash"></i>
                                                                                 Delete
                                                                             </a>
+                                                                            <!-- Delete Confirmation Modal -->
+                                                                            <div class="modal fade" id="delete-<?php echo $tt->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body text-center text-danger">
+                                                                                            <h4>Delete <?php echo $tt->classname; ?> ?</h4>
+                                                                                            <br>
+                                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                            <a href="timetables.php?delete=<?php echo $tt->id; ?>&view=<?php echo $course->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- End Delete Confirmation Modal -->
                                                                         </td>
                                                                     </tr>
                                                                 <?php $cnt = $cnt + 1;

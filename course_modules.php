@@ -481,7 +481,7 @@ require_once('public/partials/_head.php');
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="exampleInputPassword1">Module Details</label>
-                                                                                                <textarea required id="dep_details" name="<?php echo $mod->id; ?>" rows="10" class="form-control"><?php echo $mod->details; ?></textarea>
+                                                                                                <textarea required  name="details" rows="10" class="form-control"><?php echo $mod->details; ?></textarea>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
