@@ -41,12 +41,13 @@ if (isset($_POST['add_dept'])) {
             $hod = $_POST['hod'];
             $created_at = date('d M Y');
 
+
             $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, details, hod, created_at) VALUES(?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('sssssss', $id, $code, $name, $view, $details, $hod, $created_at);
             $stmt->execute();
             if ($stmt) {
-                $success = "$name Department Added";
+                $success = "$name Department Added" && header("refresh:1; url=faculty_departments.php?view=$view");;
             } else {
                 //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";
@@ -77,13 +78,15 @@ if (isset($_POST['update_dept'])) {
         $code = $_POST['code'];
         $details = $_POST['details'];
         $hod = $_POST['hod'];
+        $view = $_GET['view'];/* Faculty ID */
+
 
         $query = "UPDATE ezanaLMS_Departments SET code =?, name =?,  details =?, hod =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('sssss', $code, $name, $details, $hod, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "$name Department Updated"; //&& header("refresh:1; url=view_department.php?department=$department");
+            $success = "$name Department Updated" && header("refresh:1; url=faculty_departments.php?view=$view");
         } else {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
@@ -93,13 +96,14 @@ if (isset($_POST['update_dept'])) {
 /* Delete Department */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
+    $view = $_GET['view']; /* Faculty ID */
     $adn = "DELETE FROM ezanaLMS_Departments WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Department Details Deleted";
+        $success = "Department Details Deleted" && header("refresh:1; url=faculty_departments.php?view=$view");;
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -392,6 +396,7 @@ require_once('public/partials/_head.php');
                                                                                             <label for="">Department Number / Code</label>
                                                                                             <input type="text" required name="code" value="<?php echo $dep->code; ?>" class="form-control">
                                                                                             <input type="hidden" required name="id" value="<?php echo $dep->id; ?>" class="form-control">
+                                                                                            <input type="hidden" required name="view" value="<?php echo $dep->faculty_id; ?>" class="form-control">
                                                                                         </div>
                                                                                         <div class="form-group col-md-4">
                                                                                             <label for="">Department HOD</label>
