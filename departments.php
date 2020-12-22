@@ -83,7 +83,7 @@ if (isset($_POST['update_dept'])) {
         $rc = $stmt->bind_param('sssss', $code, $name, $details, $hod, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "$name Department Updated"; //&& header("refresh:1; url=view_department.php?department=$department");
+            $success = "$name Department Updated" && header("refresh:1; url=departments.php");
         } else {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
@@ -99,7 +99,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Department Details Deleted";
+        $success = "Department Details Deleted" && header("refresh:1; url=departments.php");
     } else {
         $info = "Please Try Again Or Try Later";
     }
