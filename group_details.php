@@ -139,6 +139,32 @@ if (isset($_GET['delete_Announcement'])) {
     }
 }
 
+/* Add Group Assignments */
+if (isset($_POST['add_group_project'])) {
+    $id = $_POST['id'];
+    $details = $_POST['details'];
+    $faculty = $_POST['faculty'];
+    $attachments = $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["attachments"]["name"]);
+    $created_at = date('d M Y g:i');
+    $submitted_on = $_POST['submitted_on'];
+    $group_code = $_POST['group_code'];
+    $group_name  = $_POST['group_name'];
+    /* Module ID */
+    $view = $_POST['view'];
+    /* Group ID */
+    $group_id = $_POST['group'];
+
+    $query = "INSERT INTO ezanaLMS_GroupsAssignments (id, faculty_id, module_id, group_code, group_name,  attachments, details, created_at, submitted_on) VALUES(?,?,?,?,?,?,?,?,?)";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sssssssss', $id, $faculty, $view, $group_code, $group_name,  $attachments, $details, $created_at, $submitted_on);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Group Assignment Added" && header("refresh:1; url=group_details.php?view=$view&group=$group_id");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -432,6 +458,9 @@ require_once('public/partials/_head.php');
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Notices</a>
                                                                     </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices-assignments" role="tab" aria-controls="custom-content-below-notices-assignments" aria-selected="false">Group Assignments</a>
+                                                                    </li>
                                                                 </ul>
                                                                 <div class="tab-content" id="custom-content-below-tabContent">
                                                                     <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
@@ -537,7 +566,7 @@ require_once('public/partials/_head.php');
                                                                                     <small>
                                                                                         <?php
                                                                                         echo $ga->announcement;
-                                                                                        ?> ~ <b><?php echo $ga->created_by;?></b>
+                                                                                        ?> ~ <b><?php echo $ga->created_by; ?></b>
                                                                                     </small>
                                                                                     <div class="card-footer row">
                                                                                         <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $ga->id; ?>">
@@ -618,6 +647,44 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="tab-pane fade show " id="custom-content-below-notices-assignments" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                                        <br>
+                                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                                            <div class="card-body">
+                                                                                <div class="row">
+                                                                                    <!-- Hide This Please -->
+                                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                                    <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                    <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+                                                                                    <input type="hidden" required name="group_name" value="<?php echo $g->name; ?>" class="form-control">
+                                                                                    <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
+                                                                                    <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
+                                                                                    <div class="form-group col-md-6">
+                                                                                        <label for="exampleInputPassword1">Submission Date </label>
+                                                                                        <input type="date" required name="submitted_on" class="form-control">
+                                                                                    </div>
+                                                                                    <div class="form-group col-md-6">
+                                                                                        <label for="">Upload Group Assignment (PDF Or Docx)</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="custom-file">
+                                                                                                <input name="attachments" type="file" class="custom-file-input">
+                                                                                                <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-12">
+                                                                                        <label for="exampleInputPassword1">Instructions</label>
+                                                                                        <textarea name="details" id="textarea" required rows="5" class="form-control"></textarea>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="card-footer text-right">
+                                                                                <button type="submit" name="add_group_project" class="btn btn-primary">Submit</button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
                                                                 </div>
                                                             <?php } ?>
                                                             </div>
@@ -633,10 +700,10 @@ require_once('public/partials/_head.php');
                         <!-- Main Footer -->
                     <?php require_once('public/partials/_footer.php');
                 } ?>
-            </div>
-        </div>
-        <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php'); ?>
+                    </div>
+                </div>
+                <!-- ./wrapper -->
+                <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
