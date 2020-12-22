@@ -6,4 +6,4 @@
 <script src="public/dist/vendor/daterangepicker/moment.min.js"></script>
 <script src="public/dist/vendor/daterangepicker/daterangepicker.js"></script>
 <script src="public/dist/vendor/countdowntime/countdowntime.js"></script>
-<script src="public/dist/js/main.js"></script>
+<script src="public/dist/js/auth_js.js"></script>
