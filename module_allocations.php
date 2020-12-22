@@ -301,7 +301,7 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="card-footer">
+                                                        <div class="text-right">
                                                             <button type="submit" name="assign_module" class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </form>
@@ -379,7 +379,6 @@ require_once('public/partials/_head.php');
                                                     $cnt = 1;
                                                     while ($assigns = $res->fetch_object()) {
                                                     ?>
-
                                                         <tr>
                                                             <td><?php echo $assigns->module_name; ?></td>
                                                             <td><?php echo $assigns->module_code; ?></td>
@@ -400,7 +399,7 @@ require_once('public/partials/_head.php');
                                                                                 </button>
                                                                             </div>
                                                                             <div class="modal-body text-center text-danger">
-                                                                                <h4>Delete <?php echo $en->lec_name; ?> Module Allocation ?</h4>
+                                                                                <h4>Delete <?php echo $assigns->lec_name; ?> Module Allocation ?</h4>
                                                                                 <br>
                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
                                                                                 <a href="module_allocations.php?delete=<?php echo $assigns->id; ?>&code=<?php echo $assigns->module_code; ?>&view=<?php echo $course->id; ?>" class="text-center btn btn-danger"> Delete </a>
