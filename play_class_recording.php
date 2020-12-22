@@ -353,13 +353,49 @@ require_once('public/partials/_head.php');
                                                         <div class="card">
                                                             <div class="card-body">
                                                                 <div class='embed-responsive embed-responsive-16by9'>
-                                                                    <video controls width='320px' height='200px' class='embed-responsive-item' id='uploaded_video' src='public/uploads/EzanaLMSData/ClassVideos/<?php echo $cr->video;?>' allowfullscreen>
+                                                                    <video controls width='320px' height='200px' class='embed-responsive-item' id='uploaded_video' src='public/uploads/EzanaLMSData/ClassVideos/<?php echo $cr->video; ?>' allowfullscreen>
                                                                 </div>
                                                                 <hr>
                                                                 <p>
-                                                                    <?php echo $cr->details;?>
+                                                                    <?php echo $cr->details; ?>
                                                                 </p>
                                                                 <br>
+                                                                <h3 class="text-center">Course Reading Materials</h3>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_ModuleRecommended` WHERE module_code ='$mod->code' ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                $cnt = 1;
+                                                                while ($rm = $res->fetch_object()) {
+                                                                ?>
+                                                                    <div class="col-md-4">
+                                                                        <div class="card">
+                                                                            <a href="public/uploads/EzanaLMSData/Reading_Materials/<?php echo $rm->readingMaterials; ?>" target="_blank">
+                                                                                <div class="card-body">
+                                                                                    <p class="card-title"><?php echo $rm->readingMaterials; ?></p>
+                                                                                    <br>
+                                                                                    <hr>
+                                                                                    <div class="text-center">
+                                                                                        <?php
+                                                                                        /* Show External Link */
+                                                                                        if ($rm->external_link == '') {
+                                                                                            /* Yall Know Silence Is Best Answer */
+                                                                                        } else {
+                                                                                            echo
+                                                                                                "
+                                                                                                    <a target='_blank' href= '$rm->external_link' class='btn btn-outline-success'>
+                                                                                                        Open Link
+                                                                                                    </a>
+                                                                                                ";
+                                                                                        }
+                                                                                        ?>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                <?php } ?>
                                                                 <div class="text-center">
                                                                     <?php
                                                                     /* If Class Has External Link */
@@ -368,7 +404,7 @@ require_once('public/partials/_head.php');
                                                                         echo
                                                                             "
                                                                         <a target='_blank' href= '$cr->external_link' class='btn btn-outline-success'>
-                                                                            Open External Link
+                                                                            Clip External Link
                                                                         </a>
                                                                         ";
                                                                     }
@@ -377,7 +413,6 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
                                                 </div>
                                             </div>
                                         </div>
