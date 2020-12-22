@@ -422,7 +422,6 @@ require_once('public/partials/_head.php');
                                                         <table id="export-dt" class="table table-bordered table-striped responsive">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>#</th>
                                                                     <th>Class</th>
                                                                     <th>Lecturer </th>
                                                                     <th>Location</th>
@@ -443,11 +442,10 @@ require_once('public/partials/_head.php');
                                                                 ?>
 
                                                                     <tr>
-                                                                        <td><?php echo $cnt; ?></td>
                                                                         <td><?php echo $tt->classname; ?></td>
                                                                         <td><?php echo $tt->classlecturer; ?></td>
                                                                         <td><?php echo $tt->classlocation; ?></td>
-                                                                        <td><?php echo $tt->classlink; ?></td>
+                                                                        <td><a href="<?php echo $tt->classlink; ?>">Open Link</a></td>
                                                                         <td><?php echo $tt->classdate; ?></td>
                                                                         <td><?php echo $tt->classtime; ?></td>
                                                                         <td>
@@ -513,7 +511,7 @@ require_once('public/partials/_head.php');
                                                                                 </div>
                                                                             </div>
 
-                                                                            <a class="badge badge-danger" href="#delete-<?php echo $tt->id;?>" data-toggle="modal">
+                                                                            <a class="badge badge-danger" href="#delete-<?php echo $tt->id; ?>" data-toggle="modal">
                                                                                 <i class="fas fa-trash"></i>
                                                                                 Delete
                                                                             </a>
