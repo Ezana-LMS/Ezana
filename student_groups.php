@@ -370,7 +370,7 @@ require_once('public/partials/_head.php');
                                                             Student Groups
                                                         </a>
                                                     </li>
-                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="student_groups_assignments.php?view=<?php echo $mod->id; ?>">
                                                             Group Assignments
                                                         </a>
@@ -389,26 +389,38 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12 col-lg-12">
-                                            <div class="row">
-                                                <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE module_id = '$mod->id'  ";
-                                                $stmt = $mysqli->prepare($ret);
-                                                $stmt->execute(); //ok
-                                                $res = $stmt->get_result();
-                                                $cnt = 1;
-                                                while ($g = $res->fetch_object()) {
-                                                ?>
-                                                    <div class="col-md-4">
-                                                        <div class="card">
-                                                            <a href="group_details.php?view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>">
-                                                                <div class="card-body">
-                                                                    <h5 class="card-title"><?php echo $g->name; ?> | <?php echo $g->code; ?></h5>
-                                                                    <br>
-                                                                    <hr>
-                                                                </div>
-                                                            </a>
-                                                            <div class="card-footer">
-                                                                <a class="badge badge-warning" data-toggle="modal" href="#edit-group-<?php echo $g->id; ?>">Edit</a>
+                                            <table id="example1" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Group Code Number</th>
+                                                        <th>Group Name</th>
+                                                        <th>Created At</th>
+                                                        <th>Manage Groups</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE module_id = '$mod->id'  ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    $cnt = 1;
+                                                    while ($g = $res->fetch_object()) {
+                                                    ?>
+
+                                                        <tr>
+                                                            <td><?php echo $g->code; ?></td>
+                                                            <td><?php echo $g->name; ?></td>
+                                                            <td><?php echo $g->created_at; ?></td>
+                                                            <td>
+                                                                <a class="badge badge-success" href="group_details.php?group<?php echo $g->id; ?>&view=<?php echo $mod->id;?>">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    View
+                                                                </a>
+                                                                <a class="badge badge-warning" data-toggle="modal" href="#edit-group-<?php echo $g->id; ?>">
+                                                                    <i class="fas fa-edit"></i>
+                                                                    Edit
+                                                                </a>
                                                                 <div class="modal fade" id="edit-group-<?php echo $g->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
                                                                         <div class="modal-content">
@@ -458,12 +470,16 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <a class="badge badge-danger" href="student_groups.php?delete=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">Delete Group</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
-                                            </div>
+                                                                <a class="badge badge-danger" href="student_groups.php?delete=<?php echo $g->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                    <i class="fas fa-trash"></i>
+                                                                    Delete
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php $cnt = $cnt + 1;
+                                                    } ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
