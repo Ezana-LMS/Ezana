@@ -199,7 +199,6 @@ require_once('public/partials/_analytics.php');
                                 <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Lec Number</th>
                                             <th>Name</th>
                                             <th>Email</th>
@@ -217,7 +216,6 @@ require_once('public/partials/_analytics.php');
                                         while ($lec = $res->fetch_object()) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $cnt; ?></td>
                                                 <td><?php echo $lec->number; ?></td>
                                                 <td><?php echo $lec->name; ?></td>
                                                 <td><?php echo $lec->email; ?></td>

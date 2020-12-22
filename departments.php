@@ -83,7 +83,7 @@ if (isset($_POST['update_dept'])) {
         $rc = $stmt->bind_param('sssss', $code, $name, $details, $hod, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "$name Department Updated"; //&& header("refresh:1; url=view_department.php?department=$department");
+            $success = "$name Department Updated" && header("refresh:1; url=departments.php");
         } else {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
@@ -99,7 +99,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Department Details Deleted";
+        $success = "Department Details Deleted" && header("refresh:1; url=departments.php");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -319,10 +319,10 @@ require_once('public/partials/_head.php');
                                 while ($department = $res->fetch_object()) {
                                 ?>
                                     <div class="col-md-12">
-                                        <div class="card card-primary collapsed-card">
+                                        <div class="card collapsed-card">
                                             <div class="card-header">
                                                 <a href="department.php?view=<?php echo $department->id; ?>">
-                                                    <h3 class="card-title"><?php echo $cnt; ?>. <?php echo $department->name; ?></h3>
+                                                    <h3 class=" text-primary card-title"><?php echo $cnt; ?>. <?php echo $department->name; ?></h3>
                                                     <div class="card-tools text-right">
                                                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                         </button>
@@ -358,7 +358,6 @@ require_once('public/partials/_head.php');
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
                                                     <th>Code</th>
                                                     <th>Name</th>
                                                     <th>HOD</th>
@@ -371,11 +370,9 @@ require_once('public/partials/_head.php');
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
-                                                $cnt = 1;
                                                 while ($dep = $res->fetch_object()) {
                                                 ?>
                                                     <tr>
-                                                        <td><?php echo $cnt; ?></td>
                                                         <td><?php echo $dep->code; ?></td>
                                                         <td><?php echo $dep->name; ?></td>
                                                         <td><?php echo $dep->hod; ?></td>
@@ -441,13 +438,33 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <!-- Update Department Modal -->
 
-                                                            <a class="badge badge-danger" href="departments.php?delete=<?php echo $dep->id; ?>">
+                                                            <a class="badge badge-danger" href="#delete-<?php echo $dep->id; ?>" data-toggle="modal">
                                                                 <i class="fas fa-trash"></i>
                                                                 Delete
                                                             </a>
+                                                            <!-- Delete Confirmation Modal -->
+                                                            <div class="modal fade" id="delete-<?php echo $dep->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body text-center text-danger">
+                                                                            <h4>Delete <?php echo $dep->name; ?> ?</h4>
+                                                                            <br>
+                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                            <a href="departments.php?delete=<?php echo $dep->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Delete Confirmation Modal -->
                                                         </td>
                                                     </tr>
-                                                <?php $cnt = $cnt + 1;
+                                                <?php
                                                 } ?>
                                             </tbody>
                                         </table>

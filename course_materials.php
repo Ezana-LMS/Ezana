@@ -389,6 +389,7 @@ require_once('public/partials/_head.php');
                                                             </a>
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Uploaded: <?php echo $rm->created_at; ?></small>
+                                                                <br>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-visibility-<?php echo $rm->id; ?>">Edit Visiblity</a>
                                                                 <!-- Upload Solution Modal -->
                                                                 <div class="modal fade" id="edit-visibility-<?php echo $rm->id; ?>">
@@ -444,7 +445,27 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                                 <!-- End  Modal -->
-                                                                <a class="badge badge-danger" href="course_materials.php?delete=<?php echo $rm->id; ?>&view=<?php echo $mod->id; ?>">Delete</a>
+                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $rm->id; ?>">Delete</a>
+                                                                <!-- Delete Confirmation Modal -->
+                                                                <div class="modal fade" id="delete-<?php echo $rm->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body text-center text-danger">
+                                                                                <h4>Delete <?php echo $rm->readingMaterials; ?> ?</h4>
+                                                                                <br>
+                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                <a href="course_materials.php?delete=<?php echo $rm->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Delete Confirmation Modal -->
                                                             </div>
                                                         </div>
                                                     </div>

@@ -254,14 +254,10 @@ require_once('public/partials/_head.php');
                                                     <!-- Form -->
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                    <input type="hidden" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
-                                                                    <input type="hidden" name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
-                                                                </div>
-                                                            </div>
+                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                            <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
+                                                            <input type="hidden" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
+                                                            <input type="hidden" name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
                                                             <div class="row">
                                                                 <div class="form-group col-md-6" style="display: none;">
                                                                     <label for="">Course Name</label>
@@ -465,7 +461,7 @@ require_once('public/partials/_head.php');
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Uploaded: <?php echo $pastExas->created_at; ?></small>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-visibility-<?php echo $pastExas->id; ?>">Edit Visiblity</a>
-                                                                
+
                                                                 <!-- Upload Solution Modal -->
                                                                 <div class="modal fade" id="edit-visibility-<?php echo $pastExas->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
@@ -521,7 +517,27 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                                 <!-- End  Modal -->
-                                                                <a class="badge badge-danger" href="pastpapers.php?delete=<?php echo $pastExas->id; ?>&view=<?php echo $mod->id; ?>">Delete Paper</a>
+                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $pastExas->id; ?>">Delete Paper</a>
+                                                                <!-- Delete Confirmation Modal -->
+                                                                <div class="modal fade" id="delete-<?php echo $pastExas->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body text-center text-danger">
+                                                                                <h4>Delete <?php echo $pastExas->paper_name; ?> ?</h4>
+                                                                                <br>
+                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                <a href="pastpapers.php?delete=<?php echo $pastExas->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Delete Confirmation Modal -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -536,10 +552,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
-                </div>
             </div>
-            <!-- ./wrapper -->
-            <?php require_once('public/partials/_scripts.php'); ?>
+        </div>
+        <!-- ./wrapper -->
+        <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>

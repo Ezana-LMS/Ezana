@@ -401,8 +401,8 @@ require_once('public/partials/_head.php');
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Submission Deadline: <?php echo date('d M Y', strtotime($gcode->submitted_on)); ?></small>
                                                                 <a class="badge badge-primary" href="group_assignments_attemps.php?assignment=<?php echo $gcode->id; ?>&view=<?php echo $mod->id; ?>"> Attempts</a>
-                                                                <a class="badge badge-warning" data-toggle="modal" href="#<?php echo $gcode->id; ?>"> Edit</a>
-                                                                <div class="modal fade" id="<?php echo $gcode->id; ?>">
+                                                                <a class="badge badge-warning" data-toggle="modal" href="#edit-<?php echo $gcode->id; ?>"> Edit</a>
+                                                                <div class="modal fade" id="edit-<?php echo $gcode->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
@@ -419,11 +419,11 @@ require_once('public/partials/_head.php');
                                                                                             <!-- hIDE tHIS -->
                                                                                             <input type="hidden" required name="id" value="<?php echo $gcode->id; ?>" class="form-control">
                                                                                             <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                                            <div class="form-group col-md-12">
+                                                                                            <div class="form-group col-md-6">
                                                                                                 <label for="exampleInputPassword1">Submission Date </label>
                                                                                                 <input type="date" value="<?php echo $gcode->submitted_on; ?>" required name="submitted_on" class="form-control">
                                                                                             </div>
-                                                                                            <div class="form-group col-md-12">
+                                                                                            <div class="form-group col-md-6">
                                                                                                 <label for="">Upload Group Assignment (PDF Or Docx)</label>
                                                                                                 <div class="input-group">
                                                                                                     <div class="custom-file">
@@ -451,7 +451,28 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <a class="badge badge-danger" href="student_groups_assignments.php?delete=<?php echo $gcode->id; ?>&view=<?php echo $mod->id; ?>"> Delete</a>
+
+                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $gcode->id; ?>"> Delete</a>
+                                                                <!-- Delete Confirmation Modal -->
+                                                                <div class="modal fade" id="delete-<?php echo $gcode->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body text-center text-danger">
+                                                                                <h4>Delete <?php echo $gcode->attachments; ?> Group Assignment ?</h4>
+                                                                                <br>
+                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                <a href="student_groups_assignments.php?delete=<?php echo $gcode->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Delete Confirmation Modal -->
                                                             </div>
                                                         </div>
                                                     </div>

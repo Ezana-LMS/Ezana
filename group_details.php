@@ -139,6 +139,32 @@ if (isset($_GET['delete_Announcement'])) {
     }
 }
 
+/* Add Group Assignments */
+if (isset($_POST['add_group_project'])) {
+    $id = $_POST['id'];
+    $details = $_POST['details'];
+    $faculty = $_POST['faculty'];
+    $attachments = $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["attachments"]["name"]);
+    $created_at = date('d M Y g:i');
+    $submitted_on = $_POST['submitted_on'];
+    $group_code = $_POST['group_code'];
+    $group_name  = $_POST['group_name'];
+    /* Module ID */
+    $view = $_POST['view'];
+    /* Group ID */
+    $group_id = $_POST['group'];
+
+    $query = "INSERT INTO ezanaLMS_GroupsAssignments (id, faculty_id, module_id, group_code, group_name,  attachments, details, created_at, submitted_on) VALUES(?,?,?,?,?,?,?,?,?)";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sssssssss', $id, $faculty, $view, $group_code, $group_name,  $attachments, $details, $created_at, $submitted_on);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Group Assignment Added" && header("refresh:1; url=group_details.php?view=$view&group=$group_id");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -432,6 +458,9 @@ require_once('public/partials/_head.php');
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Notices</a>
                                                                     </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices-assignments" role="tab" aria-controls="custom-content-below-notices-assignments" aria-selected="false">Group Assignments</a>
+                                                                    </li>
                                                                 </ul>
                                                                 <div class="tab-content" id="custom-content-below-tabContent">
                                                                     <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
@@ -444,7 +473,6 @@ require_once('public/partials/_head.php');
                                                                         <table id="example1" class="table table-bordered table-striped">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th>#</th>
                                                                                     <th>Admission No</th>
                                                                                     <th>Name</th>
                                                                                     <th>Date Added</th>
@@ -461,7 +489,6 @@ require_once('public/partials/_head.php');
                                                                                 while ($stdGroup = $res->fetch_object()) {
                                                                                 ?>
                                                                                     <tr>
-                                                                                        <td><?php echo $cnt; ?></td>
                                                                                         <td><?php echo $stdGroup->student_admn; ?></td>
                                                                                         <td><?php echo $stdGroup->student_name; ?></td>
                                                                                         <td><?php echo date('d M Y', strtotime($stdGroup->created_at)); ?></td>
@@ -534,80 +561,129 @@ require_once('public/partials/_head.php');
                                                                                 ?>
                                                                                     <div class="d-flex w-100 justify-content-between">
                                                                                         <h5 class="mb-1"></h5>
-                                                                                        <small><?php echo $ga->created_at; ?></small>
+                                                                                        <small><b><?php echo $ga->created_at; ?></b></small>
                                                                                     </div>
                                                                                     <small>
                                                                                         <?php
                                                                                         echo $ga->announcement;
-                                                                                        ?>
-                                                                                        <div class="row">
-                                                                                            <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $ga->id; ?>">
-                                                                                                <i class="fas fa-edit"></i>
-                                                                                                Update
-                                                                                            </a>
-                                                                                            <!-- Udpate Notice Modal -->
-                                                                                            <div class="modal fade" id="update-<?php echo $ga->id; ?>">
-                                                                                                <div class="modal-dialog  modal-lg">
-                                                                                                    <div class="modal-content">
-                                                                                                        <div class="modal-header">
-                                                                                                            <h4 class="modal-title">Fill All Required Values </h4>
-                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                                                <span aria-hidden="true">&times;</span>
-                                                                                                            </button>
-                                                                                                        </div>
-                                                                                                        <div class="modal-body">
-                                                                                                            <form method="post" enctype="multipart/form-data" role="form">
-                                                                                                                <div class="card-body">
-                                                                                                                    <div class="row">
-                                                                                                                        <div class="form-group col-md-12">
-                                                                                                                            <label for="">Notice Posted By</label>
-                                                                                                                            <?php
-                                                                                                                            $id = $_SESSION['id'];
-                                                                                                                            $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id = '$id'  ";
-                                                                                                                            $stmt = $mysqli->prepare($ret);
-                                                                                                                            $stmt->execute(); //ok
-                                                                                                                            $res = $stmt->get_result();
-                                                                                                                            while ($user = $res->fetch_object()) {
-                                                                                                                            ?>
-                                                                                                                                <input type="text" required name="created_by" value="<?php echo $user->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                                                                                            <?php
-                                                                                                                            } ?>
-                                                                                                                        </div>
+                                                                                        ?> ~ <b><?php echo $ga->created_by; ?></b>
+                                                                                    </small>
+                                                                                    <div class="card-footer row">
+                                                                                        <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $ga->id; ?>">
+                                                                                            <i class="fas fa-edit"></i>
+                                                                                            Update
+                                                                                        </a>
+                                                                                        <!-- Udpate Notice Modal -->
+                                                                                        <div class="modal fade" id="update-<?php echo $ga->id; ?>">
+                                                                                            <div class="modal-dialog  modal-lg">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                    <div class="modal-body">
+                                                                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                                                                            <div class="card-body">
+                                                                                                                <div class="row">
+                                                                                                                    <div class="form-group col-md-12">
+                                                                                                                        <label for="">Notice Posted By</label>
+                                                                                                                        <input type="text" required name="created_by" value="<?php echo $ga->created_by; ?>" class="form-control" id="exampleInputEmail1">
                                                                                                                     </div>
-                                                                                                                    <div class="row">
-                                                                                                                        <div class="form-group col-md-12">
-                                                                                                                            <label for="exampleInputPassword1">Group Notice</label>
-                                                                                                                            <textarea required id="textarea" name="announcement" rows="20" class="form-control"><?php echo $ga->announcement; ?></textarea>
-                                                                                                                            <!-- Hide This -->
-                                                                                                                            <input type="hidden" required name="id" value="<?php echo $ga->id; ?>" class="form-control">
-                                                                                                                            <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                                                                            <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
+                                                                                                                </div>
+                                                                                                                <div class="row">
+                                                                                                                    <div class="form-group col-md-12">
+                                                                                                                        <label for="exampleInputPassword1">Group Notice</label>
+                                                                                                                        <textarea required id="textarea" name="announcement" rows="20" class="form-control"><?php echo $ga->announcement; ?></textarea>
+                                                                                                                        <!-- Hide This -->
+                                                                                                                        <input type="hidden" required name="id" value="<?php echo $ga->id; ?>" class="form-control">
+                                                                                                                        <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                                                        <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
 
-                                                                                                                        </div>
                                                                                                                     </div>
                                                                                                                 </div>
-                                                                                                                <div class="card-footer text-right">
-                                                                                                                    <button type="submit" name="update_notice" class="btn btn-primary">Update Notice</button>
-                                                                                                                </div>
-                                                                                                            </form>
-                                                                                                        </div>
-                                                                                                        <div class="modal-footer justify-content-between">
-                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                                        </div>
+                                                                                                            </div>
+                                                                                                            <div class="card-footer text-right">
+                                                                                                                <button type="submit" name="update_notice" class="btn btn-primary">Update Notice</button>
+                                                                                                            </div>
+                                                                                                        </form>
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer justify-content-between">
+                                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <a class="badge badge-danger" href="group_details.php?delete_Announcement=<?php echo $ga->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>">
-                                                                                                <i class="fas fa-trash"></i>
-                                                                                                Delete
-                                                                                            </a>
                                                                                         </div>
-                                                                                        <hr>
-                                                                                    </small>
+
+                                                                                        <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $ga->id; ?>">
+                                                                                            <i class="fas fa-trash"></i>
+                                                                                            Delete
+                                                                                        </a>
+                                                                                        <!-- Delete Confirmation Modal -->
+                                                                                        <div class="modal fade" id="delete-<?php echo $ga->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                    <div class="modal-body text-center text-danger">
+                                                                                                        <h4>Delete Announcement ?</h4>
+                                                                                                        <br>
+                                                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                                        <a href="group_details.php?delete_Announcement=<?php echo $ga->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!-- End Delete Confirmation Modal -->
+                                                                                    </div>
+                                                                                    <hr>
                                                                                 <?php $cnt = $cnt + 1;
                                                                                 } ?>
                                                                             </div>
                                                                         </div>
+                                                                    </div>
+                                                                    <div class="tab-pane fade show " id="custom-content-below-notices-assignments" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                                        <br>
+                                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                                            <div class="card-body">
+                                                                                <div class="row">
+                                                                                    <!-- Hide This Please -->
+                                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                                    <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                    <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+                                                                                    <input type="hidden" required name="group_name" value="<?php echo $g->name; ?>" class="form-control">
+                                                                                    <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
+                                                                                    <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
+                                                                                    <div class="form-group col-md-6">
+                                                                                        <label for="exampleInputPassword1">Submission Date </label>
+                                                                                        <input type="date" required name="submitted_on" class="form-control">
+                                                                                    </div>
+                                                                                    <div class="form-group col-md-6">
+                                                                                        <label for="">Upload Group Assignment (PDF Or Docx)</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="custom-file">
+                                                                                                <input name="attachments" type="file" class="custom-file-input">
+                                                                                                <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-12">
+                                                                                        <label for="exampleInputPassword1">Instructions</label>
+                                                                                        <textarea name="details" id="textarea" required rows="5" class="form-control"></textarea>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="card-footer text-right">
+                                                                                <button type="submit" name="add_group_project" class="btn btn-primary">Submit</button>
+                                                                            </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             <?php } ?>

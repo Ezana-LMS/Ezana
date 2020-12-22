@@ -30,11 +30,14 @@
     <link rel="icon" type="image/png" sizes="32x32" href="public/dist/img/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="public/dist/img/favicons/favicon-16x16.png">
     <link rel="manifest" href="public/dist/img/favicons/site.webmanifest">
-    <link rel="stylesheet" type="text/css" href="public/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="public/dist/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="public/dist/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="public/dist/css/animate/animate.css">
-    <link rel="stylesheet" type="text/css" href="public/plugins/css-hamburgers/hamburgers.min.css">
-    <link rel="stylesheet" type="text/css" href="public/plugins/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="public/dist/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="public/dist/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="public/dist/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="public/dist/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="public/dist/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="public/dist/vendor/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" type="text/css" href="public/dist/css/util.css">
     <link rel="stylesheet" type="text/css" href="public/dist/css/main.css">
     <script src="public/dist/js/swal.js"></script>

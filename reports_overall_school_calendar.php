@@ -200,7 +200,6 @@ require_once('public/partials/_head.php');
                                 <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Semester Name</th>
                                             <th>Opening Dates</th>
                                             <th>Closing Dates</th>
@@ -217,7 +216,6 @@ require_once('public/partials/_head.php');
                                         while ($cal = $res->fetch_object()) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $cnt; ?></td>
                                                 <td><?php echo $cal->semester_name; ?></td>
                                                 <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
                                                 <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>

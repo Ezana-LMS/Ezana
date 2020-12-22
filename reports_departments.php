@@ -198,7 +198,6 @@ require_once('public/partials/_analytics.php');
                                 <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Department Code / Number</th>
                                             <th>Department Name</th>
                                             <th>Depeartment Head</th>
@@ -215,7 +214,6 @@ require_once('public/partials/_analytics.php');
                                         while ($dep = $res->fetch_object()) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $cnt; ?></td>
                                                 <td><?php echo $dep->code; ?></td>
                                                 <td><?php echo $dep->name; ?></td>
                                                 <td><?php echo $dep->hod; ?></td>

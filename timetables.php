@@ -422,7 +422,6 @@ require_once('public/partials/_head.php');
                                                         <table id="export-dt" class="table table-bordered table-striped responsive">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>#</th>
                                                                     <th>Class</th>
                                                                     <th>Lecturer </th>
                                                                     <th>Location</th>
@@ -443,11 +442,14 @@ require_once('public/partials/_head.php');
                                                                 ?>
 
                                                                     <tr>
-                                                                        <td><?php echo $cnt; ?></td>
                                                                         <td><?php echo $tt->classname; ?></td>
                                                                         <td><?php echo $tt->classlecturer; ?></td>
                                                                         <td><?php echo $tt->classlocation; ?></td>
-                                                                        <td><?php echo $tt->classlink; ?></td>
+                                                                        <td>
+                                                                            <?php if ($tt->classlink != '') {
+                                                                                echo "<a href='$tt->classlink' target='_blank'>Open Link</a>";
+                                                                            } ?>
+                                                                        </td>
                                                                         <td><?php echo $tt->classdate; ?></td>
                                                                         <td><?php echo $tt->classtime; ?></td>
                                                                         <td>
@@ -513,10 +515,30 @@ require_once('public/partials/_head.php');
                                                                                 </div>
                                                                             </div>
 
-                                                                            <a class="badge badge-danger" href="timetables.php?delete=<?php echo $tt->id; ?>&view=<?php echo $course->id; ?>">
+                                                                            <a class="badge badge-danger" href="#delete-<?php echo $tt->id; ?>" data-toggle="modal">
                                                                                 <i class="fas fa-trash"></i>
                                                                                 Delete
                                                                             </a>
+                                                                            <!-- Delete Confirmation Modal -->
+                                                                            <div class="modal fade" id="delete-<?php echo $tt->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body text-center text-danger">
+                                                                                            <h4>Delete <?php echo $tt->classname; ?> ?</h4>
+                                                                                            <br>
+                                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                            <a href="timetables.php?delete=<?php echo $tt->id; ?>&view=<?php echo $course->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- End Delete Confirmation Modal -->
                                                                         </td>
                                                                     </tr>
                                                                 <?php $cnt = $cnt + 1;

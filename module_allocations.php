@@ -301,7 +301,7 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="card-footer">
+                                                        <div class="text-right">
                                                             <button type="submit" name="assign_module" class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </form>
@@ -364,7 +364,6 @@ require_once('public/partials/_head.php');
                                             <table id="example1" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
                                                         <th>Module Name</th>
                                                         <th>Module Code</th>
                                                         <th>Lecture Allocated</th>
@@ -380,17 +379,35 @@ require_once('public/partials/_head.php');
                                                     $cnt = 1;
                                                     while ($assigns = $res->fetch_object()) {
                                                     ?>
-
                                                         <tr>
-                                                            <td><?php echo $cnt; ?></td>
                                                             <td><?php echo $assigns->module_name; ?></td>
                                                             <td><?php echo $assigns->module_code; ?></td>
                                                             <td><?php echo $assigns->lec_name; ?></td>
                                                             <td>
-                                                                <a class="badge badge-danger" href="module_allocations.php?delete=<?php echo $assigns->id; ?>&code=<?php echo $assigns->module_code; ?>&view=<?php echo $course->id; ?>">
+                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $assigns->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
+                                                                <!-- Delete Confirmation Modal -->
+                                                                <div class="modal fade" id="delete-<?php echo $assigns->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body text-center text-danger">
+                                                                                <h4>Delete <?php echo $assigns->lec_name; ?> Module Allocation ?</h4>
+                                                                                <br>
+                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                <a href="module_allocations.php?delete=<?php echo $assigns->id; ?>&code=<?php echo $assigns->module_code; ?>&view=<?php echo $course->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Delete Confirmation Modal -->
                                                             </td>
                                                         </tr>
                                                     <?php $cnt = $cnt + 1;
@@ -407,10 +424,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
-                </div>
             </div>
-            <!-- ./wrapper -->
-            <?php require_once('public/partials/_scripts.php'); ?>
+        </div>
+        <!-- ./wrapper -->
+        <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>

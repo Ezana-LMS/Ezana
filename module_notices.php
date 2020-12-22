@@ -374,9 +374,12 @@ require_once('public/partials/_head.php');
                                                                         <small><?php echo $not->created_at; ?></small>
                                                                     </div>
                                                                     <small>
-                                                                         <?php
-                                                                            echo $not->announcements;
-                                                                            ?> ~ By <?php echo $not->created_by; ?>
+                                                                        <?php
+                                                                        echo $not->announcements;
+                                                                        ?> ~ By <?php echo $not->created_by; ?>
+                                                                        <br>
+                                                                    </small>
+                                                                    <div class="card-footer">
                                                                         <div class="row">
                                                                             <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $mod->id; ?>">
                                                                                 <i class="fas fa-edit"></i>
@@ -436,13 +439,34 @@ require_once('public/partials/_head.php');
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <a class="badge badge-danger" href="module_notices.php?delete=<?php echo $not->id; ?>&view=<?php echo $mod->id; ?>">
+
+                                                                            <a class="badge badge-danger" href="#delete-<?php echo $not->id; ?>" data-toggle="modal">
                                                                                 <i class="fas fa-trash"></i>
                                                                                 Delete
                                                                             </a>
+                                                                            <!-- Delete Confirmation Modal -->
+                                                                            <div class="modal fade" id="delete-<?php echo $not->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body text-center text-danger">
+                                                                                            <h4>Delete Notice ?</h4>
+                                                                                            <br>
+                                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                            <a href="module_notices.php?delete=<?php echo $not->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- End Delete Confirmation Modal -->
                                                                         </div>
-                                                                        <hr>
-                                                                    </small>
+                                                                    </div>
+                                                                    <hr>
                                                                 <?php $cnt = $cnt + 1;
                                                                 } ?>
                                                             </div>
@@ -459,10 +483,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
+                </div>
             </div>
-        </div>
-        <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php'); ?>
+            <!-- ./wrapper -->
+            <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>

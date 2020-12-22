@@ -244,10 +244,10 @@ require_once('public/partials/_head.php');
                                 while ($faculty = $res->fetch_object()) {
                                 ?>
                                     <div class="col-md-12">
-                                        <div class="card card-primary collapsed-card">
+                                        <div class="card  collapsed-card">
                                             <div class="card-header">
                                                 <a href="faculty_dashboard.php?view=<?php echo $faculty->id; ?>">
-                                                    <h3 class="card-title"><?php echo $cnt; ?>. <?php echo $faculty->name; ?></h3>
+                                                    <h3 class="text-primary card-title"><?php echo $cnt; ?>. <?php echo $faculty->name; ?></h3>
                                                     <div class="card-tools text-right">
                                                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                         </button>
