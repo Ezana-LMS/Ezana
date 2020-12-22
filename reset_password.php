@@ -70,7 +70,7 @@ include __DIR__ . "/public/partials/_authhead.php"
                         </button>
                     </div>
                 </form>
-                <div class="login100-more" style="background-image: url('images/bg-01.jpg');">
+                <div class="login100-more" style="background-image: url('public/dist/img/logo.png');">
                 </div>
             </div>
         </div>
