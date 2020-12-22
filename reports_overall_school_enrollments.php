@@ -199,7 +199,6 @@ require_once('public/partials/_analytics.php');
                                 <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Admission</th>
                                             <th>Name</th>
                                             <th>Course</th>
@@ -221,7 +220,6 @@ require_once('public/partials/_analytics.php');
                                         ?>
 
                                             <tr>
-                                                <td><?php echo $cnt; ?></td>
                                                 <td><?php echo $en->student_adm; ?></td>
                                                 <td><?php echo $en->student_name; ?></td>
                                                 <td><?php echo $en->course_name; ?></td>

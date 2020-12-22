@@ -8,7 +8,7 @@ if (isset($_POST['systemSettings'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (isset($_POST['sysname']) && !empty($_POST['sysname'])) {
-        $sysname = mysqli_real_escape_string($mysqli, trim($_POST['admno']));
+        $sysname = mysqli_real_escape_string($mysqli, trim($_POST['sysname']));
     } else {
         $error = 1;
         $err = "System Name Cannot Be Empty";
@@ -17,7 +17,7 @@ if (isset($_POST['systemSettings'])) {
         $id = $_POST['id'];
         $sysname = $_POST['sysname'];
         $logo = $_FILES['logo']['name'];
-        move_uploaded_file($_FILES["logo"]["tmp_name"], "public/uploads/dist/img/" . $_FILES["logo"]["name"]);
+        move_uploaded_file($_FILES["logo"]["tmp_name"], "public/dist/img/" . $_FILES["logo"]["name"]);
 
         $query = "UPDATE ezanaLMS_Settings SET sysname =?, logo =? WHERE id = ?";
         $stmt = $mysqli->prepare($query);
@@ -157,7 +157,7 @@ while ($sys = $res->fetch_object()) {
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark">System Settings </h1>
+                                <h1 class="m-0 text-danger">System Settings -  This Module Is At Beta </h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -189,7 +189,7 @@ while ($sys = $res->fetch_object()) {
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">System Name</label>
-                                                                    <input type="text" required name="name" value="<?php echo $sys->sysname; ?>" class="form-control">
+                                                                    <input type="text" required name="sysname" value="<?php echo $sys->sysname; ?>" class="form-control">
                                                                     <input type="hidden" required name="id" value="<?php echo $sys->id ?>" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
@@ -204,7 +204,7 @@ while ($sys = $res->fetch_object()) {
                                                             </div>
                                                         </div>
                                                         <div class="card-footer text-right">
-                                                            <button type="submit" name="update_student" class="btn btn-primary">Submit</button>
+                                                            <button type="submit" name="systemSettings" class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </form>
                                                 </div>

@@ -199,7 +199,6 @@ require_once('public/partials/_analytics.php');
                                 <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Module Name</th>
                                             <th>Module Code</th>
                                             <th>Teaching Duration</th>
@@ -219,7 +218,6 @@ require_once('public/partials/_analytics.php');
                                         while ($mod = $res->fetch_object()) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $cnt; ?></td>
                                                 <td><?php echo $mod->name; ?></td>
                                                 <td><?php echo $mod->code; ?></td>
                                                 <td><?php echo $mod->course_duration; ?></td>
