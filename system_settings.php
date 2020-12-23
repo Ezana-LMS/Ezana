@@ -34,7 +34,6 @@ if (isset($_POST['systemSettings'])) {
 
 /* Back Up Database */
 if (isset($_POST['DumpDatabase'])) {
-    
 }
 
 /* Restore Database */
