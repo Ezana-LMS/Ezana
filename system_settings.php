@@ -32,6 +32,25 @@ if (isset($_POST['systemSettings'])) {
     }
 }
 
+/* Back Up Database */
+if (isset($_POST['DumpDatabase'])) {
+    $DBUSER = "root";
+    $DBPASSWD = "";
+    $DATABASE = "ezana_lms";
+
+    $filename = "backup-" . date("d-m-Y") . ".sql.gz";
+    $mime = "application/x-gzip";
+
+    header("Content-Type: " . $mime);
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+
+    $cmd = "mysqldump -u $DBUSER --password=$DBPASSWD $DATABASE | gzip --best";
+
+    passthru($cmd);
+
+    exit(0);
+}
+
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
@@ -212,7 +231,7 @@ while ($sys = $res->fetch_object()) {
                                                     <br>
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="text-center">
-                                                            <button type="submit" name="Backup_Data" class="btn btn-primary">Backup System Data</button>
+                                                            <button type="submit" name="DumpDatabase" class="btn btn-primary">Backup System Data</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -221,7 +240,7 @@ while ($sys = $res->fetch_object()) {
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <div class="form-group col-md-6">
+                                                                <div class="form-group col-md-12">
                                                                     <label for="">Import .SQL Back Up File</label>
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
