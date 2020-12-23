@@ -34,21 +34,16 @@ if (isset($_POST['systemSettings'])) {
 
 /* Back Up Database */
 if (isset($_POST['DumpDatabase'])) {
-    $DBUSER = "root";
-    $DBPASSWD = "";
-    $DATABASE = "ezana_lms";
+    //define("BACKUP_PATH", "/home/abdul/");
+    $server_name   = "localhost";
+    $username      = "root";
+    $password      = "";
+    $database_name = "ezana_lms";
+    $date_string   = date("Ymd");
 
-    $filename = "backup-" . date("d-m-Y") . ".sql.gz";
-    $mime = "application/x-gzip";
+    $cmd = "mysqldump --routines -h {$server_name} -u {$username} -p{$password} {$database_name} > {$date_string}_{$database_name}.sql";
 
-    header("Content-Type: " . $mime);
-    header('Content-Disposition: attachment; filename="' . $filename . '"');
-
-    $cmd = "mysqldump -u $DBUSER --password=$DBPASSWD $DATABASE | gzip --best";
-
-    passthru($cmd);
-
-    exit(0);
+    exec($cmd);
 }
 
 require_once('configs/codeGen.php');
