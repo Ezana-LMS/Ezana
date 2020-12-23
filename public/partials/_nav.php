@@ -11,7 +11,7 @@ while ($admin = $res->fetch_object()) {
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+                <a class="nav-link"   data-widget="pushmenu" data-enable-remember="true" href="#"><i class="fas fa-bars"></i></a>
             </li>
         </ul>
         <!-- Right navbar links -->
