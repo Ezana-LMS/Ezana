@@ -38,7 +38,7 @@ if (isset($_POST['DumpDatabase'])) {
     define("DB_PASSWORD", '');
     define("DB_NAME", 'ezana_lms');
     define("DB_HOST", 'localhost');
-    define("BACKUP_DIR", 'public/backup/'); // Comment this line to use same script's directory ('.')
+    define("BACKUP_DIR", 'public/backup'); // Comment this line to use same script's directory ('.')
     define("TABLES", '*'); // Full backup
     define('IGNORE_TABLES', array(
         'tbl_token_auth',
@@ -126,7 +126,7 @@ if (isset($_POST['DumpDatabase'])) {
             $this->charset                 = $charset;
             $this->conn                    = $this->initializeDatabase();
             $this->backupDir               = BACKUP_DIR ? BACKUP_DIR : '.';
-            $this->backupFile              = 'myphp-backup-' . $this->dbName . '-' . date("Ymd_His", time()) . '.sql';
+            $this->backupFile              = 'backup-' . $this->dbName . '-' . date("Ymd_His", time()) . '.sql';
             $this->gzipBackupFile          = defined('GZIP_BACKUP_FILE') ? GZIP_BACKUP_FILE : true;
             $this->disableForeignKeyChecks = defined('DISABLE_FOREIGN_KEY_CHECKS') ? DISABLE_FOREIGN_KEY_CHECKS : true;
             $this->batchSize               = defined('BATCH_SIZE') ? BATCH_SIZE : 1000; // default 1000 rows
