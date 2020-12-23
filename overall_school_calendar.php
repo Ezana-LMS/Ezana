@@ -120,7 +120,6 @@ if (isset($_POST['update_school_calendar'])) {
 /* Delete Important Dates */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $view = $_GET['view'];
     $adn = "DELETE FROM ezanaLMS_Calendar WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
@@ -228,20 +227,13 @@ require_once('public/partials/_head.php');
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="data_backup.php" class="nav-link">
-                                        <i class="fas fa-angle-right nav-icon"></i>
-                                        <p>Data Backup</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="system_settings.php" class="nav-link">
                                         <i class="fas fa-angle-right nav-icon"></i>
-                                        <p>Settings</p>
+                                        <p>System Settings</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-
                     </ul>
                 </nav>
             </div>
@@ -401,7 +393,6 @@ require_once('public/partials/_head.php');
                                                 <table id="example1" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
                                                             <th>Semester</th>
                                                             <th>Opening </th>
                                                             <th>Closing </th>
@@ -420,7 +411,6 @@ require_once('public/partials/_head.php');
                                                         ?>
 
                                                             <tr>
-                                                                <td><?php echo $cnt; ?></td>
                                                                 <td><?php echo $cal->semester_name; ?></td>
                                                                 <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
                                                                 <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
@@ -496,7 +486,7 @@ require_once('public/partials/_head.php');
                                                                                     <h4>Delete Dates?</h4>
                                                                                     <br>
                                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                    <a href="school_calendar.php?delete=<?php echo $cal->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                    <a href="overall_school_calendar.php?delete=<?php echo $cal->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
