@@ -118,7 +118,7 @@ while ($sys = $res->fetch_object()) {
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item   has-treeview">
+                            <li class="nav-item has-treeview">
                                 <a href="#" class="active nav-link">
                                     <i class="nav-icon fas fa-cogs"></i>
                                     <p>
@@ -134,15 +134,9 @@ while ($sys = $res->fetch_object()) {
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="data_backup.php" class=" nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Data Backup</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a href="system_settings.php" class="active nav-link">
                                             <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Settings</p>
+                                            <p>System Settings</p>
                                         </a>
                                     </li>
                                 </ul>
