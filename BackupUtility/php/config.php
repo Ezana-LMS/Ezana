@@ -1,7 +1,7 @@
 <?php
 
-$admin_name = '';
-$admin_pass = '';
+$admin_name = 'sysadmin@ezana.org';
+$admin_pass = 'SystemAdmin';
 
 define('ROOT_DIR', '/');  //Root folder for backup dirs/files
 

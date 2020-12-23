@@ -62,7 +62,6 @@ if (isset($_SESSION['pbm_admin'])) {
       $tplv['zip_dirs'] = $zp_f['zip_dirs'];  //radio-buttons for zip files with dirs/files backup
       $tpl_index['re_cnt'] = $bk->template(file_get_contents(TPL . 'zip_files.htm'), $tplv);  //zip with sql/dirs backup
     }
-
     //set data for $nav_links
     $bk->setTplv(['msg_bk_df', 'msg_conn_db', 'msg_logout', 'msg_show_files']);  //add texts from #lang in $tplv
     $tplv['msg_conn_to'] = isset($_SESSION['pbm_mysql']) ? sprintf($bk->langTxt('msg_conn_to'), $_SESSION['pbm_mysql']['dbname']) : '';

@@ -1,8 +1,4 @@
 <?php
-/*
- Base Class for PHP Backup Manager script
- From: http://coursesweb.net/
-*/
 
 class pbm
 {
