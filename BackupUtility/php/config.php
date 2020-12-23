@@ -1,9 +1,7 @@
 <?php
-// sPBM - Simple PHP Backup Manager
 
-// Set name and password for Admin 
-$admin_name = 'admin';
-$admin_pass = 'pass';
+$admin_name = '';
+$admin_pass = '';
 
 define('ROOT_DIR', '/');  //Root folder for backup dirs/files
 
@@ -21,11 +19,11 @@ define('TPL', 'templ/');  //folder with template files (htm, css, js)
 
 //Data for connecting to database
 $bk_cron_mysql = [
- 'host'=> 'localhost',
- 'user'=> 'root',
- 'pass'=> '',
- 'dbname'=> 'ezana_lms',
- 'tables'=> []  //array with tables to backup. If empty, will backup the tables
+    'host' => 'localhost',
+    'user' => 'root',
+    'pass' => '',
+    'dbname' => 'ezana_lms',
+    'tables' => []  //array with tables to backup. If empty, will backup the tables
 ];
 
 //array with folders from ROOT_DIR which to backup ['dir1', 'dir2', '...']. Let [''] to backup all the folders from ROOT_DIR
