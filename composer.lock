@@ -4,8 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b62b211c78cb81c33524cdfcd7ad278",
+    "content-hash": "a9fede939bb651a4ec3abd4ed1e7c740",
     "packages": [
+        {
+            "name": "coderatio/simple-backup",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/coderatio/simple-backup.git",
+                "reference": "73975f7be97facb9e694bb8dbd49aa640a53b1e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/coderatio/simple-backup/zipball/73975f7be97facb9e694bb8dbd49aa640a53b1e0",
+                "reference": "73975f7be97facb9e694bb8dbd49aa640a53b1e0",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6|^7.0|^7.1|^7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=7"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ],
+                "psr-4": {
+                    "Coderatio\\SimpleBackup\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Coderatio",
+                    "email": "josiahoyahaya@gmail.com"
+                }
+            ],
+            "description": "A simple mysql database backup library for php.",
+            "time": "2020-05-10T19:46:32+00:00"
+        },
         {
             "name": "maennchen/zipstream-php",
             "version": "2.1.0",

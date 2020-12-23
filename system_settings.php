@@ -32,6 +32,9 @@ if (isset($_POST['systemSettings'])) {
     }
 }
 
+/* Restore Database */
+if (isset($_POST['RestoreDatabase'])) {
+}
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
@@ -54,7 +57,7 @@ while ($sys = $res->fetch_object()) {
                 <!-- Brand Logo -->
                 <a href="dashboard.php" class="brand-link">
                     <img src="public/dist/img/logo.png" alt="Ezana LMS Logo" class="brand-image img-circle elevation-3">
-                    <span class="brand-text font-weight-light"><?php echo $sys->sysname;?></span>
+                    <span class="brand-text font-weight-light"><?php echo $sys->sysname; ?></span>
                 </a>
                 <!-- Sidebar -->
                 <div class="sidebar">
@@ -118,7 +121,7 @@ while ($sys = $res->fetch_object()) {
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item   has-treeview">
+                            <li class="nav-item has-treeview">
                                 <a href="#" class="active nav-link">
                                     <i class="nav-icon fas fa-cogs"></i>
                                     <p>
@@ -134,15 +137,9 @@ while ($sys = $res->fetch_object()) {
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="data_backup.php" class=" nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Data Backup</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a href="system_settings.php" class="active nav-link">
                                             <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Settings</p>
+                                            <p>System Settings</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -157,7 +154,7 @@ while ($sys = $res->fetch_object()) {
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-danger">System Settings -  This Module Is At Beta </h1>
+                                <h1 class="m-0">System Settings</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -179,6 +176,9 @@ while ($sys = $res->fetch_object()) {
                                             <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
                                                 <li class="nav-item">
                                                     <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">System Settings</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home-data-backup" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Data Backup And Restore Utility</a>
                                                 </li>
                                             </ul>
                                             <div class="tab-content" id="custom-content-below-tabContent">
@@ -207,6 +207,12 @@ while ($sys = $res->fetch_object()) {
                                                             <button type="submit" name="systemSettings" class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </form>
+                                                </div>
+                                                <div class="tab-pane fade show " id="custom-content-below-home-data-backup" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                    <br>
+                                                    <div class="text-center">
+                                                        <a href="BackupUtility/index.php" target="_blank" class="btn btn-primary">Backup And Restore Utility</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
