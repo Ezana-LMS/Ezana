@@ -197,7 +197,6 @@ require_once('public/partials/_head.php');
                                     </li>
                                 </ul>
                             </li>
-
                         </ul>
                     </nav>
                 </div>

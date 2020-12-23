@@ -198,20 +198,13 @@ require_once('public/partials/_head.php');
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="data_backup.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Data Backup</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a href="system_settings.php" class="nav-link">
                                             <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Settings</p>
+                                            <p>System Settings</p>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
-
                         </ul>
                     </nav>
                 </div>
