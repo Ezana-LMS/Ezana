@@ -217,7 +217,7 @@ while ($sys = $res->fetch_object()) {
                                                 </div>
                                                 <div class="tab-pane fade show " id="custom-content-below-home-data-backup" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                     <br>
-                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                    <form method="post" enctype="multipart/form-data" action="BackupUtility/" role="form">
                                                         <div class="text-center">
                                                             <button type="submit" name="DumpDatabase" class="btn btn-primary">Backup System Data</button>
                                                         </div>
