@@ -229,15 +229,9 @@ require_once('public/partials/_head.php');
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="data_backup.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Data Backup</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a href="system_settings.php" class="nav-link">
                                             <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Settings</p>
+                                            <p>System Settings</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -416,7 +410,7 @@ require_once('public/partials/_head.php');
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="enrollments.php?view=<?php echo $module->id; ?>">
+                                                            <a href="module_enrollments.php?view=<?php echo $module->id; ?>">
                                                                 Module Enrollments
                                                             </a>
                                                         </li>
@@ -567,10 +561,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
-        </div>
-    </div>
-    <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php'); ?>
+                </div>
+            </div>
+            <!-- ./wrapper -->
+            <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
