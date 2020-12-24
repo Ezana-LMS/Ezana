@@ -229,13 +229,16 @@ require_once('public/partials/_head.php');
 
                     <section class="content">
                         <div class="container-fluid">
-                            <div class="text-left">
+                            <div class="">
                                 <nav class="navbar navbar-light bg-light col-md-12">
                                     <form class="form-inline" action="module_search_result.php" method="GET">
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module Allocation</button>
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module Allocation</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#guest-lec-modal">Add Guest Lecturer </button>
+                                    </div>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -278,6 +281,76 @@ require_once('public/partials/_head.php');
                                                                         <option selected>Select Module Code </option>
                                                                         <?php
                                                                         $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE ass_status = '0' AND course_id = '$course->id'  ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        while ($mod = $res->fetch_object()) {
+                                                                        ?>
+                                                                            <option><?php echo $mod->code; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Module Name</label>
+                                                                    <input type="text" id="ModuleName" required name="module_name" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-right">
+                                                            <button type="submit" name="assign_module" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="guest-lec-modal">
+                                        <div class="modal-dialog  modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Fill All Required Values </h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Lecturer Number</label>
+                                                                    <select class='form-control basic' id="LecNumber" onchange="getLecturerDetails(this.value);" name="">
+                                                                        <option selected>Select Lecturer Number</option>
+                                                                        <?php
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$course->faculty_id'  ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        while ($lec = $res->fetch_object()) {
+                                                                        ?>
+                                                                            <option><?php echo $lec->number; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Lecturer Name</label>
+                                                                    <input type="hidden" id="lecID" readonly required name="lec_id" class="form-control">
+                                                                    <input type="text" id="lecName" readonly required name="lec_name" class="form-control">
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
+                                                                </div>
+                                                                <hr>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Module Name</label>
+                                                                    <select class='form-control basic' id="ModuleCode" onchange="OptimizedModuleDetails(this.value);" name="module_code">
+                                                                        <option selected>Select Module Code </option>
+                                                                        <?php
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE  course_id = '$course->id'  ";
                                                                         $stmt = $mysqli->prepare($ret);
                                                                         $stmt->execute(); //ok
                                                                         $res = $stmt->get_result();
@@ -401,6 +474,7 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                                 <!-- End Delete Confirmation Modal -->
+
                                                             </td>
                                                         </tr>
                                                     <?php $cnt = $cnt + 1;
@@ -417,10 +491,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
+                </div>
             </div>
-        </div>
-        <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php'); ?>
+            <!-- ./wrapper -->
+            <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
