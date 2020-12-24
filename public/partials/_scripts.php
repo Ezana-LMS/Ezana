@@ -228,6 +228,21 @@
             }
         });
     }
+
+
+    /* Optimized Guest Module Details */
+    function guestLecModule(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'moduleCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#moduleName').val(data);
+            }
+        });
+    }
+
     /* Lecturer Details */
     function getLecDetails(val) {
         $.ajax({
@@ -262,7 +277,7 @@
             }
         });
     }
-    
+
     /* Guest Lecturer Details */
     function getGuestLec(val) {
         $.ajax({
