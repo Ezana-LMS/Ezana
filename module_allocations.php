@@ -393,7 +393,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Lecturer Number</label>
-                                                                    <select class='form-control basic' id="LecNumber" onchange="getLecturerDetails(this.value);" name="">
+                                                                    <select class='form-control basic' id="lecNumber" onchange="getGuestLec(this.value);" name="">
                                                                         <option selected>Select Lecturer Number</option>
                                                                         <?php
                                                                         $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$course->faculty_id'  ";
@@ -408,8 +408,8 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Lecturer Name</label>
-                                                                    <input type="hidden" id="lecID" readonly required name="lec_id" class="form-control">
-                                                                    <input type="text" id="lecName" readonly required name="lec_name" class="form-control">
+                                                                    <input type="hidden" id="LecID" readonly required name="lec_id" class="form-control">
+                                                                    <input type="text" id="LecName" readonly required name="lec_name" class="form-control">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
                                                                 </div>
