@@ -112,34 +112,34 @@ if (isset($_POST['assign_guest_lec'])) {
                 $err =  "Module Already Assigned Lecturer";
             }
         } else { */
-            $id = $_POST['id'];
-            $module_code = $_POST['module_code'];
-            $module_name = $_POST['module_name'];
-            $lec_id = $_POST['lec_id'];
-            $lec_name = $_POST['lec_name'];
-            $created_at = date('d M Y');
-            $view = $_GET['view'];
-            $faculty = $_POST['faculty'];
-            $status = 'Guest Lecturer';
+        $id = $_POST['id'];
+        $module_code = $_POST['module_code'];
+        $module_name = $_POST['module_name'];
+        $lec_id = $_POST['lec_id'];
+        $lec_name = $_POST['lec_name'];
+        $created_at = date('d M Y');
+        $view = $_GET['view'];
+        $faculty = $_POST['faculty'];
+        $status = 'Guest Lecturer';
 
-            //On Assign, Update Module Status to Assigned
-            $ass_status = 1;
+        //On Assign, Update Module Status to Assigned
+        $ass_status = 1;
 
-            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at, status) VALUES(?,?,?,?,?,?,?,?,?)";
-            $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
-            $stmt = $mysqli->prepare($query);
-            $modstmt = $mysqli->prepare($modUpdate);
-            $rc = $stmt->bind_param('sssssssss', $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at, $status);
-            $rc = $modstmt->bind_param('is', $ass_status, $module_code);
-            $stmt->execute();
-            $modstmt->execute();
-            if ($stmt && $modstmt) {
-                $success = "Module Assignment Added" && header("refresh:1; url=module_allocations.php?view=$view");
-            } else {
-                $info = "Please Try Again Or Try Later";
-            }
+        $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at, status) VALUES(?,?,?,?,?,?,?,?,?)";
+        $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
+        $stmt = $mysqli->prepare($query);
+        $modstmt = $mysqli->prepare($modUpdate);
+        $rc = $stmt->bind_param('sssssssss', $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at, $status);
+        $rc = $modstmt->bind_param('is', $ass_status, $module_code);
+        $stmt->execute();
+        $modstmt->execute();
+        if ($stmt && $modstmt) {
+            $success = "Module Assignment Added" && header("refresh:1; url=module_allocations.php?view=$view");
+        } else {
+            $info = "Please Try Again Or Try Later";
         }
     }
+}
 
 
 /* Delete Module Alloca */
@@ -416,7 +416,7 @@ require_once('public/partials/_head.php');
                                                                 <hr>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Module Name</label>
-                                                                    <select class='form-control basic' id="ModuleCode" onchange="OptimizedModuleDetails(this.value);" name="module_code">
+                                                                    <select class='form-control basic' id="moduleCode" onchange="guestLecModule(this.value);" name="module_code">
                                                                         <option selected>Select Module Code </option>
                                                                         <?php
                                                                         $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE  course_id = '$course->id'  ";
@@ -432,7 +432,7 @@ require_once('public/partials/_head.php');
 
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Module Name</label>
-                                                                    <input type="text" id="ModuleName" required name="module_name" class="form-control">
+                                                                    <input type="text" id="moduleName" required name="module_name" class="form-control">
                                                                 </div>
                                                             </div>
                                                         </div>
