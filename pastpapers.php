@@ -271,7 +271,7 @@ require_once('public/partials/_head.php');
 
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Exam Paper Name</label>
-                                                                    <input type="text" name="paper_name" class="form-control">
+                                                                    <input type="text" value="<?php echo $mod->name;?>" name="paper_name" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Exam Paper Visibility / Availability</label>
@@ -454,6 +454,8 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="card-footer">
                                                                 <small class="text-muted">Uploaded: <?php echo $pastExas->created_at; ?></small>
+                                                                <br>
+                                                                <input type="checkbox" checked data-toggle="toggle" data-on="Ready" data-off="Not Ready" data-onstyle="success" data-offstyle="danger">
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-visibility-<?php echo $pastExas->id; ?>">Edit Visiblity</a>
 
                                                                 <!-- Upload Solution Modal -->
