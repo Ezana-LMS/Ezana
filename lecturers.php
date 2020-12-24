@@ -430,7 +430,6 @@ require_once('public/partials/_head.php');
                                 </li>
                             </ul>
                         </li>
-
                     </ul>
                 </nav>
             </div>
@@ -679,7 +678,7 @@ require_once('public/partials/_head.php');
                                                 </a>
                                                 <!-- Update Lec Modal -->
                                                 <div class="modal fade" id="update-lecturer-<?php echo $lec->id; ?>">
-                                                    <div class="modal-dialog  modal-lg">
+                                                    <div class="modal-dialog  modal-xl">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h4 class="modal-title">Fill All Values </h4>
@@ -757,6 +756,13 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                 </form>
+                                                                <!-- Email Password Reset Link -->
+                                                                <h4 class="text-center">Email <?php echo $lec->name; ?> Password Reset Link</h4>
+                                                                <div class="card-body">
+                                                                    <div class="text-right">
+                                                                        <a href="mailto:<?php echo $lec->email; ?>" class="btn btn-primary">Mail Password Reset Link</a>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer justify-content-between">
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -499,7 +499,7 @@ require_once('public/partials/_head.php');
                                                                         $cnt = 1;
                                                                         while ($Glecturer = $res->fetch_object()) {
                                                                         ?>
-                                                                            <div classs='text-success'>
+                                                                            <div class='text-success'>
                                                                                 <li class="list-group-item">
                                                                                     <b>Guest Lecturer Assigned Name: </b> <a class="float-right"><?php echo $Glecturer->name; ?></a>
                                                                                 </li>
