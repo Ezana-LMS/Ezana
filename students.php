@@ -847,6 +847,15 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                     <!-- End Delete Confirmation Modal -->
+                                                    <!-- Email Password Reset Link -->
+                                                    <h4 class="text-center">Email <?php echo $std->name; ?> Password Reset Instructions</h4>
+                                                    <div class="card-body">
+                                                        <div class="text-center">
+                                                            <a onClick="javascript:window.open('mailto:<?php echo $std->email; ?>?subject=Password Reset Link!&body=Hello <?php echo $std->name; ?> - <?php echo $std->admno; ?>, Kindly Click On Forgot Password Link Then Follow The Prompts', 'mail');event.preventDefault()" class="btn btn-primary" href="mailto:<?php echo $lec->email; ?>">
+                                                                Mail Password Reset Link And Instructions
+                                                            </a>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         <?php $cnt = $cnt + 1;
