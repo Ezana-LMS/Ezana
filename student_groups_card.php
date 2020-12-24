@@ -60,7 +60,7 @@ if (isset($_POST['add_group'])) {
             $rc = $stmt->bind_param('sssssss', $id, $module_id, $faculty, $name, $code, $created_at, $details);
             $stmt->execute();
             if ($stmt) {
-                $success = "Student Group  Added" && header("refresh:1; url=student_groups.php?view=$module_id");
+                $success = "Student Group  Added" && header("refresh:1; url=student_groups_card.php?view=$module_id");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -112,7 +112,7 @@ if (isset($_POST['update_group'])) {
         $rc = $stmt->bind_param('sssss', $name, $code, $updated_at, $details, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Student Group  Updated" && header("refresh:1; url=student_groups.php?view=$view");
+            $success = "Student Group  Updated" && header("refresh:1; url=student_groups_card.php?view=$view");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -129,7 +129,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=student_groups.php?view=$view");
+        $success = "Deleted" && header("refresh:1; url=student_groups_card.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
