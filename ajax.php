@@ -138,6 +138,32 @@ if (!empty($_POST["lecID"])) {
 <?php
     }
 }
+/* Guest Lec Details */
+if (!empty($_POST["lecNumber"])) {
+    $id = $_POST['lecNumber'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Lecturers WHERE number = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['id']); ?>
+<?php
+    }
+}
+
+if (!empty($_POST["LecID"])) {
+    $id = $_POST['LecID'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Lecturers WHERE number = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['name']); ?>
+<?php
+    }
+}
 
 /* Student Details */
 if (!empty($_POST["StudentAdmn"])) {
