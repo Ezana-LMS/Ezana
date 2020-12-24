@@ -601,7 +601,7 @@ require_once('public/partials/_head.php');
                         <hr>
                         <div class="row">
                             <div class="col-12">
-                                <table id="filter-table" class="table table-bordered table-striped">
+                                <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Adm No</th>
@@ -716,7 +716,7 @@ require_once('public/partials/_head.php');
                                                     </a>
                                                     <!-- Update Student Modal -->
                                                     <div class="modal fade" id="update-student-<?php echo $std->id; ?>">
-                                                        <div class="modal-dialog  modal-lg">
+                                                        <div class="modal-dialog  modal-xl">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h4 class="modal-title">Fill All Values </h4>
@@ -815,6 +815,15 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                         </div>
                                                                     </form>
+                                                                    <!-- Email Password Reset Link -->
+                                                                    <h4 class="text-center">Email <?php echo $std->name; ?> Password Reset Instructions</h4>
+                                                                    <div class="card-body">
+                                                                        <div class="text-center">
+                                                                            <a onClick="javascript:window.open('mailto:<?php echo $std->email; ?>?subject=Password Reset Link!&body=Hello <?php echo $std->name; ?> - <?php echo $std->admno; ?>, Kindly Click On Forgot Password Link Then Follow The Prompts', 'mail');event.preventDefault()" class="btn btn-primary" href="mailto:<?php echo $std->email; ?>">
+                                                                                Mail Password Reset Link And Instructions
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

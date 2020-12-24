@@ -430,7 +430,6 @@ require_once('public/partials/_head.php');
                                 </li>
                             </ul>
                         </li>
-
                     </ul>
                 </nav>
             </div>
@@ -594,7 +593,7 @@ require_once('public/partials/_head.php');
                     <div class="row">
                         <div class="col-12">
 
-                            <table id="filter-table" class="table table-bordered table-striped">
+                            <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Number</th>
@@ -679,7 +678,7 @@ require_once('public/partials/_head.php');
                                                 </a>
                                                 <!-- Update Lec Modal -->
                                                 <div class="modal fade" id="update-lecturer-<?php echo $lec->id; ?>">
-                                                    <div class="modal-dialog  modal-lg">
+                                                    <div class="modal-dialog  modal-xl">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h4 class="modal-title">Fill All Values </h4>
@@ -757,6 +756,17 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                 </form>
+                                                                <hr>
+                                                                <!-- Email Password Reset Link -->
+                                                                <h4 class="text-center">Email <?php echo $lec->name; ?> Password Reset Instructions</h4>
+                                                                <div class="card-body">
+                                                                    <div class="text-center">
+                                                                        <a onClick="javascript:window.open('mailto:<?php echo $lec->email; ?>?subject=Password Reset Link!&body=Hello <?php echo $lec->name;?> - <?php echo $lec->number;?>, Kindly Click On Forgot Password Link Then Follow The Prompts', 'mail');event.preventDefault()"
+                                                                         class="btn btn-primary" href="mailto:<?php echo $lec->email; ?>">
+                                                                         Mail Password Reset Link And Instructions
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer justify-content-between">
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

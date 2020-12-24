@@ -32,8 +32,11 @@
     <link rel="manifest" href="public/dist/img/favicons/site.webmanifest">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="public/plugins/fontawesome-free/css/all.min.css">
+    <!-- Icons CSS -->
+    <link rel="stylesheet" href="public/dist/css/icons.css">
     <!-- Data Tables -->
     <link rel="stylesheet" href="public/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="public/dist/css/data-table.css">
     <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/datatables.css"> -->
     <link rel="stylesheet" type="text/css" href="public/plugins/datatable/custom_dt_html5.css">
     <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/dt-global_style.css">  -->

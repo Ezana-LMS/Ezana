@@ -424,7 +424,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <br>
                                                             <ul class="list-group  mb-3">
-                                                                <ul class="list-group list-group-unbordered mb-3">
+                                                                <ul class="list-group list-group-bordered mb-3">
                                                                     <li class="list-group-item">
                                                                         <b>Module Name: </b> <a class="float-right"><?php echo $mod->name; ?></a>
                                                                     </li>
@@ -480,6 +480,43 @@ require_once('public/partials/_head.php');
                                                                             <li class="list-group-item">
                                                                                 <b>Lecturer Assigned Address</b> <a class="float-right"><?php echo $lecturer->adr; ?></a>
                                                                             </li>
+
+                                                                        <?php
+                                                                        }
+                                                                    }
+                                                                    $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE module_code = '$mod->code' AND status= 'Guest Lecturer'  ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    $cnt = 1;
+                                                                    while ($GuestLec = $res->fetch_object()) {
+
+                                                                        $Guestlecture = $GuestLec->lec_id;
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id = '$Guestlecture'  ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        $cnt = 1;
+                                                                        while ($Glecturer = $res->fetch_object()) {
+                                                                        ?>
+                                                                            <div class='text-success'>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Guest Lecturer Assigned Name: </b> <a class="float-right"><?php echo $Glecturer->name; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Guest Lecturer Assigned Email: </b> <a class="float-right"><?php echo $Glecturer->email; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Guest Lecturer Assigned ID / Passport: </b> <a class="float-right"><?php echo $Glecturer->idno; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Guest Lecturer Assigned Phone: </b> <a class="float-right"><?php echo $Glecturer->phone; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Guest Lecturer Assigned Address</b> <a class="float-right"><?php echo $Glecturer->adr; ?></a>
+                                                                                </li>
+                                                                            </div>
+
                                                                     <?php
                                                                         }
                                                                     } ?>

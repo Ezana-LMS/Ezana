@@ -13,6 +13,8 @@
 <!-- Data Tables -->
 <script src="public/plugins/datatables/jquery.dataTables.js"></script>
 <script src="public/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script src="public/dist/js/data-table.js"></script>
+<script src="public/dist/js/data-table-init.js"></script>
 <script>
     $(function() {
         $("#example1").DataTable();
@@ -39,29 +41,39 @@
             window.document.location = $(this).data("href");
         });
     });
-	
-$(document).ready(function() {
-    // Setup - add a text input to each footer cell
-    $('#filter-table thead tr').clone(true).appendTo( '#filter-table thead' );
-    $('#filter-table thead tr:eq(1) th').each( function (i) {
-        var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
- 
-        $( 'input', this ).on( 'keyup change', function () {
-            if ( table.column(i).search() !== this.value ) {
-                table
-                    .column(i)
-                    .search( this.value )
-                    .draw();
+
+    /* $(document).ready(function() {
+        // Setup - add a text input to each footer cell
+        $('#filter-table thead tr').clone(true).appendTo('#filter-table thead');
+        $('#filter-table thead tr:eq(1) th').each(function(i) {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+            $('input', this).on('keyup change', function() {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+
+        var table = $('#filter-table').DataTable({
+            orderCellsTop: true,
+            fixedHeader: true
+        });
+    }); */
+    $(document).ready(function() {
+        $('#advanced-filter').DataTable({
+            "initComplete": function() {
+                var api = this.api();
+                api.$('td').click(function() {
+                    api.search(this.innerHTML).draw();
+                });
             }
-        } );
-    } );
- 
-    var table = $('#filter-table').DataTable( {
-        orderCellsTop: true,
-        fixedHeader: true
-    } );
-} );
+        });
+    });
 </script>
 
 <!-- Data Tables V2.01 -->
@@ -228,6 +240,21 @@ $(document).ready(function() {
             }
         });
     }
+
+
+    /* Optimized Guest Module Details */
+    function guestLecModule(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'moduleCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#moduleName').val(data);
+            }
+        });
+    }
+
     /* Lecturer Details */
     function getLecDetails(val) {
         $.ajax({
@@ -262,6 +289,29 @@ $(document).ready(function() {
             }
         });
     }
+
+    /* Guest Lecturer Details */
+    function getGuestLec(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'lecNumber=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#LecID').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'LecID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#LecName').val(data);
+            }
+        });
+    }
+
 
     /* Student Details */
     function getStudentDetails(val) {

@@ -73,6 +73,75 @@ if (isset($_POST['assign_module'])) {
     }
 }
 
+/* Guest Lec Allocation */
+if (isset($_POST['assign_guest_lec'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
+        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
+    } else {
+        $error = 1;
+        $err = "Module Code Cannot Be Empty";
+    }
+    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
+        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (isset($_POST['lec_id']) && !empty($_POST['lec_id'])) {
+        $lec_id = mysqli_real_escape_string($mysqli, trim($_POST['lec_id']));
+    } else {
+        $error = 1;
+        $err = "Lec ID Cannot Be Empty";
+    }
+    if (isset($_POST['lec_name']) && !empty($_POST['lec_name'])) {
+        $lec_name = mysqli_real_escape_string($mysqli, trim($_POST['lec_name']));
+    } else {
+        $error = 1;
+        $err = "Lec Name Cannot Be Empty";
+    }
+    if (!$error) {
+
+        //prevent Double entries
+        /* $sql = "SELECT * FROM  ezanaLMS_ModuleAssigns WHERE  (lec_id='$lec_id' AND module_code ='$module_code') ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if (($lec_id == $row['lec_id']) && ($module_code == $row['module_code'])) {
+                $err =  "Module Already Assigned Lecturer";
+            }
+        } else { */
+        $id = $_POST['id'];
+        $module_code = $_POST['module_code'];
+        $module_name = $_POST['module_name'];
+        $lec_id = $_POST['lec_id'];
+        $lec_name = $_POST['lec_name'];
+        $created_at = date('d M Y');
+        $view = $_GET['view'];
+        $faculty = $_POST['faculty'];
+        $status = 'Guest Lecturer';
+
+        //On Assign, Update Module Status to Assigned
+        $ass_status = 1;
+
+        $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at, status) VALUES(?,?,?,?,?,?,?,?,?)";
+        $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
+        $stmt = $mysqli->prepare($query);
+        $modstmt = $mysqli->prepare($modUpdate);
+        $rc = $stmt->bind_param('sssssssss', $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at, $status);
+        $rc = $modstmt->bind_param('is', $ass_status, $module_code);
+        $stmt->execute();
+        $modstmt->execute();
+        if ($stmt && $modstmt) {
+            $success = "Module Assignment Added" && header("refresh:1; url=module_allocations.php?view=$view");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
+
 /* Delete Module Alloca */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
@@ -229,13 +298,16 @@ require_once('public/partials/_head.php');
 
                     <section class="content">
                         <div class="container-fluid">
-                            <div class="text-left">
+                            <div class="">
                                 <nav class="navbar navbar-light bg-light col-md-12">
                                     <form class="form-inline" action="module_search_result.php" method="GET">
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module Allocation</button>
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module Allocation</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#guest-lec-modal">Add Guest Lecturer </button>
+                                    </div>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -296,6 +368,76 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                         <div class="text-right">
                                                             <button type="submit" name="assign_module" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="guest-lec-modal">
+                                        <div class="modal-dialog  modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Fill All Required Values </h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Lecturer Number</label>
+                                                                    <select class='form-control basic' id="lecNumber" onchange="getGuestLec(this.value);" name="">
+                                                                        <option selected>Select Lecturer Number</option>
+                                                                        <?php
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$course->faculty_id'  ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        while ($lec = $res->fetch_object()) {
+                                                                        ?>
+                                                                            <option><?php echo $lec->number; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Lecturer Name</label>
+                                                                    <input type="hidden" id="LecID" readonly required name="lec_id" class="form-control">
+                                                                    <input type="text" id="LecName" readonly required name="lec_name" class="form-control">
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
+                                                                </div>
+                                                                <hr>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Module Name</label>
+                                                                    <select class='form-control basic' id="moduleCode" onchange="guestLecModule(this.value);" name="module_code">
+                                                                        <option selected>Select Module Code </option>
+                                                                        <?php
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE  course_id = '$course->id'  ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        while ($mod = $res->fetch_object()) {
+                                                                        ?>
+                                                                            <option><?php echo $mod->code; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Module Name</label>
+                                                                    <input type="text" id="moduleName" required name="module_name" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-right">
+                                                            <button type="submit" name="assign_guest_lec" class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -375,7 +517,16 @@ require_once('public/partials/_head.php');
                                                         <tr>
                                                             <td><?php echo $assigns->module_name; ?></td>
                                                             <td><?php echo $assigns->module_code; ?></td>
-                                                            <td><?php echo $assigns->lec_name; ?></td>
+                                                            <td>
+                                                                <?php
+                                                                /* Indicate This Lec Is A Guest */
+                                                                if ($assigns->status != '') {
+                                                                    echo "<span class='text-success' title='Guest Lecturer'>$assigns->lec_name</span>";
+                                                                }else{
+                                                                    echo $assigns->lec_name;
+                                                                }
+                                                                ?>
+                                                            </td>
                                                             <td>
                                                                 <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $assigns->id; ?>">
                                                                     <i class="fas fa-trash"></i>
@@ -407,7 +558,6 @@ require_once('public/partials/_head.php');
                                                     } ?>
                                                 </tbody>
                                             </table>
-
                                         </div>
                                     </div>
                                 </div>
@@ -417,10 +567,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
+                </div>
             </div>
-        </div>
-        <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php'); ?>
+            <!-- ./wrapper -->
+            <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
