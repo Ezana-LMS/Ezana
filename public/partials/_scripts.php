@@ -40,7 +40,7 @@
         });
     });
 
-    $(document).ready(function() {
+    /* $(document).ready(function() {
         // Setup - add a text input to each footer cell
         $('#filter-table thead tr').clone(true).appendTo('#filter-table thead');
         $('#filter-table thead tr:eq(1) th').each(function(i) {
@@ -60,6 +60,16 @@
         var table = $('#filter-table').DataTable({
             orderCellsTop: true,
             fixedHeader: true
+        });
+    }); */
+    $(document).ready(function() {
+        $('#advanced-filter').DataTable({
+            "initComplete": function() {
+                var api = this.api();
+                api.$('td').click(function() {
+                    api.search(this.innerHTML).draw();
+                });
+            }
         });
     });
 </script>
