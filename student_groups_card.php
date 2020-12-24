@@ -394,11 +394,14 @@ require_once('public/partials/_head.php');
                                             ?>
                                                 <div class="col-md-6">
                                                     <div class="card">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title"><?php echo $g->name; ?> - <?php echo $g->code; ?></h5>
-                                                            <br>
-                                                            <hr>
-                                                        </div>
+                                                        <!-- Make Card Clickable -->
+                                                        <a href="group_details.php?group=<?php echo $g->id; ?>&view=<?php echo $mod->id;?>">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title"><?php echo $g->name; ?> - <?php echo $g->code; ?></h5>
+                                                                <br>
+                                                                <hr>
+                                                            </div>
+                                                        </a>
                                                         <div class="card-footer">
                                                             <small class="text-muted">Created At: <?php echo $g->created_at; ?></small>
                                                             <br>
