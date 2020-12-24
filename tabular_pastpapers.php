@@ -365,66 +365,28 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12 col-lg-12">
-                                            <table id="example1" class="table table-bordered table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Paper</th>
-                                                        <th>Date Uploaded</th>
-                                                        <th>Manage</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name'   ";
-                                                    $stmt = $mysqli->prepare($ret);
-                                                    $stmt->execute(); //ok
-                                                    $res = $stmt->get_result();
-                                                    $cnt = 1;
-                                                    while ($pastExas = $res->fetch_object()) {
-                                                    ?>
-                                                        <tr>
-                                                            <td><?php echo $pastExas->paper_name; ?> </td>
-                                                            <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
-                                                            <td>
-                                                                <?php
-                                                                /* If It Lacks upload_solutionSolution Give Option to upload else Download solution */
-                                                                if ($pastExas->solution == '') {
-                                                                    echo
-                                                                        "
-                                                                        <a  data-toggle='modal' href= '#solution-$pastExas->id' class='badge badge-primary'>
-                                                                            <i class='fas fa-upload'></i>
-                                                                            Upload Solution
-                                                                        </a>
-                                                                        ";
-                                                                } else {
-                                                                    echo
-                                                                        "
-                                                                        <a target='_blank' href= 'public/uploads/EzanaLMSData/PastPapers/$pastExas->solution' class='badge badge-success'>
-                                                                        <i class='fas fa-eye'></i>
-                                                                            View Solution
-                                                                        </a>
-                                                                        ";
-                                                                }
-                                                                ?>
-                                                                <a target="_blank" href="public/uploads/EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="badge badge-secondary">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    View Paper
-                                                                </a>
-                                                                <a class="badge badge-warning" href="update_past_exam_papers.php?id=<?php echo $pastExas->id; ?>&faculty=<?php echo $row->id; ?>">
-                                                                    <i class="fas fa-edit"></i>
-                                                                    Edit Visibility
-                                                                </a>
-
-                                                                <a class="badge badge-danger" href="past_exam_papers.php?delete=<?php echo $pastExas->id; ?>&faculty=<?php echo $row->id; ?>">
-                                                                    <i class="fas fa-trash"></i>
-                                                                    Delete Paper
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                    <?php $cnt = $cnt + 1;
-                                                    } ?>
-                                                </tbody>
-                                            </table>
+                                            <div class="card-box">
+                                                <div class="mb-2">
+                                                    <div class="row">
+                                                        <div class="col-12 text-right form-inline">
+                                                            <div class="form-group mr-2" style="display: none;">
+                                                                <select id="demo-foo-filter-status" class="custom-select custom-select-sm">
+                                                                    <option value="">Show all</option>
+                                                                    <option value="active">Active</option>
+                                                                    <option value="disabled">Disabled</option>
+                                                                    <option value="suspended">Suspended</option>
+                                                                </select>
+                                                            </div> 
+                                                            <div class="form-group">
+                                                                <input id="demo-foo-search" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="table-responsive">
+                                                    
+                                                </div> 
+                                            </div> 
                                         </div>
                                     </div>
                                 </div>
