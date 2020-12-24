@@ -517,7 +517,16 @@ require_once('public/partials/_head.php');
                                                         <tr>
                                                             <td><?php echo $assigns->module_name; ?></td>
                                                             <td><?php echo $assigns->module_code; ?></td>
-                                                            <td><?php echo $assigns->lec_name; ?></td>
+                                                            <td>
+                                                                <?php
+                                                                /* Indicate This Lec Is A Guest */
+                                                                if ($assigns->status != '') {
+                                                                    echo "<span class='text-success' title='Guest Lecturer'>$assigns->lec_name</span>";
+                                                                }else{
+                                                                    echo $assigns->lec_name;
+                                                                }
+                                                                ?>
+                                                            </td>
                                                             <td>
                                                                 <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $assigns->id; ?>">
                                                                     <i class="fas fa-trash"></i>
