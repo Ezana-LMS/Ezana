@@ -480,7 +480,7 @@ require_once('public/partials/_head.php');
                                                                             <i class="fas fa-eye"></i>
                                                                             View Paper
                                                                         </a>
-                                                                        <a class="badge badge-warning" href="update_past_exam_papers.php?id=<?php echo $pastExas->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                        <a class="badge badge-warning" data-toggle="modal" href="#edit-visibility-<?php echo $pastExas->id; ?>">
                                                                             <i class="fas fa-edit"></i>
                                                                             Edit Visibility
                                                                         </a>
@@ -527,7 +527,7 @@ require_once('public/partials/_head.php');
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div class="card-footer text-right">
+                                                                                            <div class="text-right">
                                                                                                 <button type="submit" name="update_pastpaper" class="btn btn-primary">Update Exam Paper</button>
                                                                                             </div>
                                                                                         </form>
@@ -540,7 +540,7 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                         <!-- End Edit Visibilty Modal -->
 
-                                                                        <a class="badge badge-danger" href="past_exam_papers.php?delete=<?php echo $pastExas->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                        <a class="badge badge-danger"  data-toggle="modal" href="#delete-<?php echo $pastExas->id; ?>">
                                                                             <i class="fas fa-trash"></i>
                                                                             Delete Paper
                                                                         </a>
