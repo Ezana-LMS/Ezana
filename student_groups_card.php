@@ -454,9 +454,9 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </div>
                                                             <!-- End  Modal -->
-                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $pastExas->id; ?>">Delete Paper</a>
+                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $g->id; ?>">Delete Paper</a>
                                                             <!-- Delete Confirmation Modal -->
-                                                            <div class="modal fade" id="delete-<?php echo $pastExas->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal fade" id="delete-<?php echo $g->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
@@ -466,10 +466,10 @@ require_once('public/partials/_head.php');
                                                                             </button>
                                                                         </div>
                                                                         <div class="modal-body text-center text-danger">
-                                                                            <h4>Delete <?php echo $pastExas->paper_name; ?> ?</h4>
+                                                                            <h4>Delete <?php echo $g->name; ?> ?</h4>
                                                                             <br>
                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                            <a href="pastpapers.php?delete=<?php echo $pastExas->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                            <a href="student_groups.php?delete=<?php echo $g->id; ?>&faculty=<?php echo $row->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
