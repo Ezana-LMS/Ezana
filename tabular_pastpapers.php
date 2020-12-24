@@ -33,7 +33,7 @@ if (isset($_POST['add_paper'])) {
         $rc = $stmt->bind_param('ssssssss', $id, $paper_name, $paper_visibility, $faculty, $course_name, $module_name, $created_at, $pastpaper);
         $stmt->execute();
         if ($stmt) {
-            $success = "Past Paper Uploaded" && header("refresh:1; url=pastpapers.php?view=$module_id");
+            $success = "Past Paper Uploaded" && header("refresh:1; url=tabular_pastpapers.php?view=$module_id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -54,7 +54,7 @@ if (isset($_POST['upload_solution'])) {
     $rc = $stmt->bind_param('sss', $solution_visibility, $solution, $id);
     $stmt->execute();
     if ($stmt) {
-        $success = "Past Paper Solution Uploaded" && header("refresh:1; url=pastpapers.php?view=$module_id");
+        $success = "Past Paper Solution Uploaded" && header("refresh:1; url=tabular_pastpapers.php?view=$module_id");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -73,7 +73,7 @@ if (isset($_POST['update_pastpaper'])) {
     $rc = $stmt->bind_param('ssss', $paper_name, $paper_visibility, $solution_visibility, $id);
     $stmt->execute();
     if ($stmt) {
-        $success = "Past Paper Updated" && header("refresh:1; url=pastpapers.php?view=$view");
+        $success = "Past Paper Updated" && header("refresh:1; url=tabular_pastpapers.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -89,7 +89,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=pastpapers.php?view=$view");
+        $success = "Deleted" && header("refresh:1; url=tabular_pastpapers.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -484,11 +484,86 @@ require_once('public/partials/_head.php');
                                                                             <i class="fas fa-edit"></i>
                                                                             Edit Visibility
                                                                         </a>
+                                                                        <!-- Edit Visibility Solution Modal -->
+                                                                        <div class="modal fade" id="edit-visibility-<?php echo $pastExas->id; ?>">
+                                                                            <div class="modal-dialog  modal-lg">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <!-- Form -->
+                                                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                                                            <div class="card-body">
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <input type="hidden" required name="id" value="<?php echo $pastExas->id; ?>" class="form-control">
+                                                                                                        <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-12">
+                                                                                                        <label for="">Exam Paper Name</label>
+                                                                                                        <input type="text" value="<?php echo $pastExas->paper_name; ?>" name="paper_name" class="form-control">
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Exam Paper Visibility / Availability</label>
+                                                                                                        <select class='form-control basic' name="paper_visibility">
+                                                                                                            <option selected><?php echo $pastExas->paper_visibility; ?></option>
+                                                                                                            <option>Available</option>
+                                                                                                            <option>Hidden</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Exam Paper Solution Visibility / Availability</label>
+                                                                                                        <select class='form-control basic' name="solution_visibility">
+                                                                                                            <option selected><?php echo $pastExas->solution_visibility; ?></option>
+                                                                                                            <option selected>Available</option>
+                                                                                                            <option>Hidden</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="card-footer text-right">
+                                                                                                <button type="submit" name="update_pastpaper" class="btn btn-primary">Update Exam Paper</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                    <div class="modal-footer justify-content-between">
+                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End Edit Visibilty Modal -->
 
                                                                         <a class="badge badge-danger" href="past_exam_papers.php?delete=<?php echo $pastExas->id; ?>&faculty=<?php echo $row->id; ?>">
                                                                             <i class="fas fa-trash"></i>
                                                                             Delete Paper
                                                                         </a>
+                                                                        <!-- Delete Confirmation Modal -->
+                                                                        <div class="modal fade" id="delete-<?php echo $pastExas->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body text-center text-danger">
+                                                                                        <h4>Delete <?php echo $pastExas->paper_name; ?> ?</h4>
+                                                                                        <br>
+                                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                        <a href="pastpapers.php?delete=<?php echo $pastExas->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End Delete Confirmation Modal -->
                                                                     </td>
                                                                 </tr>
                                                             <?php $cnt = $cnt + 1;

@@ -460,7 +460,7 @@ require_once('public/partials/_head.php');
                                                                 <br>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-visibility-<?php echo $pastExas->id; ?>">Edit Visiblity</a>
 
-                                                                <!-- Upload Solution Modal -->
+                                                                <!-- Edit Visibility Solution Modal -->
                                                                 <div class="modal fade" id="edit-visibility-<?php echo $pastExas->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
                                                                         <div class="modal-content">
