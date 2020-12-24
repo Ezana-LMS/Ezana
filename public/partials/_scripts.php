@@ -13,6 +13,7 @@
 <!-- Data Tables -->
 <script src="public/plugins/datatables/jquery.dataTables.js"></script>
 <script src="public/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<script src="public/dist/js/data-table.js"></script>
 <script>
     $(function() {
         $("#example1").DataTable();
