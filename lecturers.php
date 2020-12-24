@@ -756,11 +756,15 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                 </form>
+                                                                <hr>
                                                                 <!-- Email Password Reset Link -->
                                                                 <h4 class="text-center">Email <?php echo $lec->name; ?> Password Reset Link</h4>
                                                                 <div class="card-body">
-                                                                    <div class="text-right">
-                                                                        <a href="mailto:<?php echo $lec->email; ?>" class="btn btn-primary">Mail Password Reset Link</a>
+                                                                    <div class="text-center">
+                                                                        <a onClick="javascript:window.open('mailto:<?php echo $lec->email; ?>', 'mail');event.preventDefault()"
+                                                                         class="btn btn-primary" href="mailto:<?php echo $lec->email; ?>subject=<?php echo $lec->name;?>%20Password%20Reset%20Link&body=Hey%20<?php echo $lec->name;?>-<?php echo $lec->number;?>20Kindly%20Click'%20On%20The%20Link%Below%To%20Reset%20Password%3A%0D%0A%0D%0Ezana%2C%0D%0ALMS%20Team”">
+                                                                         Mail Password Reset Link
+                                                                        </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
