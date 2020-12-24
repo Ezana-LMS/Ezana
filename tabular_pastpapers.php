@@ -425,6 +425,57 @@ require_once('public/partials/_head.php');
                                                                         ";
                                                                         }
                                                                         ?>
+                                                                        <!-- Upload Solution Modal -->
+                                                                        <div class="modal fade" id="solution-<?php echo $pastExas->id; ?>">
+                                                                            <div class="modal-dialog  modal-lg">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <!-- Form -->
+                                                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                                                            <div class="card-body">
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <input type="hidden" required name="id" value="<?php echo $pastExas->id; ?>" class="form-control">
+                                                                                                        <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-12">
+                                                                                                        <label for="">Exam Paper Solution Visibility / Availability</label>
+                                                                                                        <select class='form-control basic' name="solution_visibility">
+                                                                                                            <option selected>Available</option>
+                                                                                                            <option>Hidden</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-12">
+                                                                                                        <label for="exampleInputFile">Upload Past Exam Paper Solution ( PDF / Docx )</label>
+                                                                                                        <div class="input-group">
+                                                                                                            <div class="custom-file">
+                                                                                                                <input required name="solution" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="text-right">
+                                                                                                    <button type="submit" name="upload_solution" class="btn btn-primary">Upload</button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                    <div class="modal-footer justify-content-between">
+                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End SOlution Modal -->
                                                                         <a target="_blank" href="public/uploads/EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="badge badge-secondary">
                                                                             <i class="fas fa-eye"></i>
                                                                             View Paper
@@ -455,10 +506,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
+                </div>
             </div>
-        </div>
-        <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php'); ?>
+            <!-- ./wrapper -->
+            <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
