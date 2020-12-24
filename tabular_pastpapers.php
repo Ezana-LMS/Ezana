@@ -376,7 +376,7 @@ require_once('public/partials/_head.php');
                                                                     <option value="disabled">Disabled</option>
                                                                     <option value="suspended">Suspended</option>
                                                                 </select>
-                                                            </div> 
+                                                            </div>
                                                             <div class="form-group">
                                                                 <input id="demo-foo-search" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
                                                             </div>
@@ -384,9 +384,68 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </div>
                                                 <div class="table-responsive">
-                                                    
-                                                </div> 
-                                            </div> 
+                                                    <table id="demo-foo-filtering" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th data-toggle="true">Paper</th>
+                                                                <th data-toggle="true">Date Uploaded</th>
+                                                                <th data-hide="all">Manage</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name'   ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            $cnt = 1;
+                                                            while ($pastExas = $res->fetch_object()) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td><?php echo $pastExas->paper_name; ?> </td>
+                                                                    <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
+                                                                    <td>
+                                                                        <?php
+                                                                        /* If It Lacks upload_solutionSolution Give Option to upload else Download solution */
+                                                                        if ($pastExas->solution == '') {
+                                                                            echo
+                                                                                "
+                                                                        <a  data-toggle='modal' href= '#solution-$pastExas->id' class='badge badge-primary'>
+                                                                            <i class='fas fa-upload'></i>
+                                                                            Upload Solution
+                                                                        </a>
+                                                                        ";
+                                                                        } else {
+                                                                            echo
+                                                                                "
+                                                                        <a target='_blank' href= 'public/uploads/EzanaLMSData/PastPapers/$pastExas->solution' class='badge badge-success'>
+                                                                        <i class='fas fa-eye'></i>
+                                                                            View Solution
+                                                                        </a>
+                                                                        ";
+                                                                        }
+                                                                        ?>
+                                                                        <a target="_blank" href="public/uploads/EzanaLMSData/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="badge badge-secondary">
+                                                                            <i class="fas fa-eye"></i>
+                                                                            View Paper
+                                                                        </a>
+                                                                        <a class="badge badge-warning" href="update_past_exam_papers.php?id=<?php echo $pastExas->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                            <i class="fas fa-edit"></i>
+                                                                            Edit Visibility
+                                                                        </a>
+
+                                                                        <a class="badge badge-danger" href="past_exam_papers.php?delete=<?php echo $pastExas->id; ?>&faculty=<?php echo $row->id; ?>">
+                                                                            <i class="fas fa-trash"></i>
+                                                                            Delete Paper
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php $cnt = $cnt + 1;
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -396,10 +455,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
-                </div>
             </div>
-            <!-- ./wrapper -->
-            <?php require_once('public/partials/_scripts.php'); ?>
+        </div>
+        <!-- ./wrapper -->
+        <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
