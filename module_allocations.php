@@ -552,14 +552,12 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                                 <!-- End Delete Confirmation Modal -->
-
                                                             </td>
                                                         </tr>
                                                     <?php $cnt = $cnt + 1;
                                                     } ?>
                                                 </tbody>
                                             </table>
-
                                         </div>
                                     </div>
                                 </div>

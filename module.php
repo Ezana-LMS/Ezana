@@ -424,7 +424,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <br>
                                                             <ul class="list-group  mb-3">
-                                                                <ul class="list-group list-group-unbordered mb-3">
+                                                                <ul class="list-group list-group-bordered mb-3">
                                                                     <li class="list-group-item">
                                                                         <b>Module Name: </b> <a class="float-right"><?php echo $mod->name; ?></a>
                                                                     </li>
@@ -465,21 +465,22 @@ require_once('public/partials/_head.php');
                                                                         $cnt = 1;
                                                                         while ($lecturer = $res->fetch_object()) {
                                                                     ?>
-                                                                            <li class="list-group-item">
-                                                                                <b>Lecturer Assigned Name: </b> <a class="float-right"><?php echo $lecturer->name; ?></a>
-                                                                            </li>
-                                                                            <li class="list-group-item">
-                                                                                <b>Lecturer Assigned Email: </b> <a class="float-right"><?php echo $lecturer->email; ?></a>
-                                                                            </li>
-                                                                            <li class="list-group-item">
-                                                                                <b>Lecturer Assigned ID / Passport: </b> <a class="float-right"><?php echo $lecturer->idno; ?></a>
-                                                                            </li>
-                                                                            <li class="list-group-item">
-                                                                                <b>Lecturer Assigned Phone: </b> <a class="float-right"><?php echo $lecturer->phone; ?></a>
-                                                                            </li>
-                                                                            <li class="list-group-item">
-                                                                                <b>Lecturer Assigned Address</b> <a class="float-right"><?php echo $lecturer->adr; ?></a>
-                                                                            </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Lecturer Assigned Name: </b> <a class="float-right"><?php echo $lecturer->name; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Lecturer Assigned Email: </b> <a class="float-right"><?php echo $lecturer->email; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Lecturer Assigned ID / Passport: </b> <a class="float-right"><?php echo $lecturer->idno; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Lecturer Assigned Phone: </b> <a class="float-right"><?php echo $lecturer->phone; ?></a>
+                                                                                </li>
+                                                                                <li class="list-group-item">
+                                                                                    <b>Lecturer Assigned Address</b> <a class="float-right"><?php echo $lecturer->adr; ?></a>
+                                                                                </li>
+                                                                            
                                                                     <?php
                                                                         }
                                                                     } ?>
