@@ -42,7 +42,6 @@ $ret = "SELECT * FROM `ezanaLMS_Settings` ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
-$cnt = 1;
 while ($sys = $res->fetch_object()) {
 ?>
 

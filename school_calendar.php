@@ -70,7 +70,6 @@ if (isset($_POST['add_school_calendar'])) {
 }
 
 /* Update Important Dates */
-
 if (isset($_POST['update_school_calendar'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
