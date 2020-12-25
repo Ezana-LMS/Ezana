@@ -187,14 +187,7 @@ require_once('public/partials/_head.php');
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-cogs"></i>
-                                <p>
-                                    System Settings
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
+
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-cogs"></i>
