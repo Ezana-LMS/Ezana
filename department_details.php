@@ -285,7 +285,6 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                     </div>
-
                                 </nav>
                             </div>
                             <hr>
