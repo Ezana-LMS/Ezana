@@ -377,6 +377,23 @@ require_once('public/partials/_head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
+                                                <a href="non_teaching_staff.php">
+                                                    <div class="small-box bg-info">
+                                                        <div class="inner">
+                                                            <h3>Non Teaching Staff</h3>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="fas fa-user-secret"></i>
+                                                        </div>
+                                                        <div class="small-box-footer">
+                                                            <i class="fas fa-arrow-circle-right"></i>
+                                                            <?php echo $admins; ?>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+
+                                            <div class="col-lg-4 col-6">
                                                 <a href="lecturers.php">
 
                                                     <div class="small-box bg-info">

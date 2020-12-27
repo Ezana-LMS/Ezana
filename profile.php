@@ -4,7 +4,6 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 if (isset($_POST['profile_update'])) {
-
     $id = $_SESSION['id'];
     $name = $_POST['name'];
     $email = $_POST['email'];
