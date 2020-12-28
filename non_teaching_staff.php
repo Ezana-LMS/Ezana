@@ -83,21 +83,21 @@ if (isset($_POST['add_non_teaching_staff'])) {
     }
 }
 
-/* Update Lec */
+/* Update  */
 if (isset($_POST['update_non_teaching_staff'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['number']) && !empty($_POST['number'])) {
-        $number = mysqli_real_escape_string($mysqli, trim($_POST['number']));
+    if (isset($_POST['id']) && !empty($_POST['id'])) {
+        $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
     } else {
         $error = 1;
-        $err = "Lecturer Number Cannot Be Empty";
+        $err = "ID Cannot Be Empty";
     }
-    if (isset($_POST['idno']) && !empty($_POST['idno'])) {
-        $idno = mysqli_real_escape_string($mysqli, trim($_POST['idno']));
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
     } else {
         $error = 1;
-        $err = "National ID / Passport Number Cannot Be Empty";
+        $err = "Name Cannot Be Empty";
     }
     if (isset($_POST['email']) && !empty($_POST['email'])) {
         $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
@@ -105,37 +105,52 @@ if (isset($_POST['update_non_teaching_staff'])) {
         $error = 1;
         $err = "Email Cannot Be Empty";
     }
+    if (isset($_POST['password']) && !empty($_POST['password'])) {
+        $password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['password']))));
+    } else {
+        $error = 1;
+        $err = "Password Cannot Be Empty";
+    }
+    if (isset($_POST['rank']) && !empty($_POST['rank'])) {
+        $rank = mysqli_real_escape_string($mysqli, trim($_POST['rank']));
+    } else {
+        $error = 1;
+        $err = "Rank Cannot Be Empty";
+    }
     if (isset($_POST['phone']) && !empty($_POST['phone'])) {
         $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
     } else {
         $error = 1;
-        $err = "Phone Number Cannot Be Empty";
+        $err = "Phone Cannot Be Empty";
     }
-    if (!$error) {
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-        $number = $_POST['number'];
-        $idno  = $_POST['idno'];
-        $adr = $_POST['adr'];
-        $profile_pic = $_FILES['profile_pic']['name'];
-        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $_FILES["profile_pic"]["name"]);
 
-        $query = "UPDATE ezanaLMS_Lecturers SET  name =?, email =?, phone =?, idno =?, adr =?, profile_pic =?, number =? WHERE id =?";
+    if (isset($_POST['adr']) && !empty($_POST['adr'])) {
+        $adr = mysqli_real_escape_string($mysqli, trim($_POST['adr']));
+    } else {
+        $error = 1;
+        $err = "Address Cannot Be Empty";
+    }
+
+    if (!$error) {
+
+        $profile_pic = $_FILES['profile_pic']['name'];
+        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/admins/" . $_FILES["profile_pic"]["name"]);
+
+        $query = "UPDATE ezanaLMS_Admins SET name =?, email =?, password =?, rank =?, phone =?, adr =?, profile_pic =? WHERE id = ?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssss', $name, $email, $phone, $idno, $adr, $profile_pic, $number, $id);
+        $rc = $stmt->bind_param('ssssssss', $name, $email, $password, $rank, $phone, $adr, $profile_pic, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Lecturer Updated" && header("refresh:1; url=lecturers.php");
+            $success = "Non Teaching Staff Updated" && header("refresh:1; url=non_teaching_staff.php");
         } else {
-            //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
         }
     }
 }
 
-/* Delete Lec */
+
+
+/* Delete  */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
     $adn = "DELETE FROM ezanaLMS_Admins WHERE id=?";
@@ -150,7 +165,7 @@ if (isset($_GET['delete'])) {
     }
 }
 
-/* Change Lec Password */
+/* Change Password */
 if (isset($_POST['change_password'])) {
 
     $error = 0;
@@ -493,21 +508,21 @@ require_once('public/partials/_head.php');
                                                                         <div class="row">
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Name</label>
-                                                                                <input type="text" required value="<?php echo $admin->name;?>" name="name" class="form-control" id="exampleInputEmail1">
-                                                                                <input type="hidden" required name="id" value="<?php echo $admin->id;?>" class="form-control">
+                                                                                <input type="text" required value="<?php echo $admin->name; ?>" name="name" class="form-control" id="exampleInputEmail1">
+                                                                                <input type="hidden" required name="id" value="<?php echo $admin->id; ?>" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Email</label>
-                                                                                <input type="text" value="<?php echo $admin->email;?>" required name="email" class="form-control">
+                                                                                <input type="text" value="<?php echo $admin->email; ?>" required name="email" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Phone Number</label>
-                                                                                <input type="text" value="<?php echo $admin->phone;?>" required name="phone" class="form-control">
+                                                                                <input type="text" value="<?php echo $admin->phone; ?>" required name="phone" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Rank</label>
                                                                                 <select class="form-control basic" name="rank">
-                                                                                    <option><?php echo $admin->rank;?></option>
+                                                                                    <option><?php echo $admin->rank; ?></option>
                                                                                     <option>System Administrator</option>
                                                                                     <option>Education Administrator</option>
                                                                                 </select>
@@ -527,7 +542,7 @@ require_once('public/partials/_head.php');
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="exampleInputPassword1">Address</label>
-                                                                                <textarea required name="adr" rows="2" class="form-control"><?php echo $admin->adr;?></textarea>
+                                                                                <textarea required name="adr" rows="2" class="form-control"><?php echo $admin->adr; ?></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
