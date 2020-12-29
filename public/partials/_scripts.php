@@ -127,6 +127,11 @@
         bsCustomFileInput.init();
     });
 </script>
+<!-- Full Calendar Js -->
+<script src="public/lugins/fullcalendar/moment.min.js"></script>
+<script src="public/plugins/flatpickr/flatpickr.js"></script>
+<script src="public/plugins/fullcalendar/fullcalendar.min.js"></script>
+<script src="public/plugins/fullcalendar/custom-fullcalendar.advance.js"></script>
 
 <!-- Select2 -->
 <script src="public/plugins/select2/select2.min.js"></script>
