@@ -274,7 +274,7 @@ require_once('public/partials/_head.php');
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
                                     <div class="text-right">
-                                        <a href="student_groups.php?view=<?php echo $mod->id; ?>" title="View <?php echo $mod->name; ?> Student Groups In Tabular Formart" class="btn btn-primary"><i class="fas fa-list-alt"></i></a>
+                                        <a href="student_groups.php?view=<?php echo $mod->id; ?>" title="View <?php echo $mod->name; ?> Student Groups In Tabular Formart" class="btn btn-primary"><i class="fas fa-table"></i></a>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Create Group</button>
                                     </div>
                                     <div class="modal fade" id="modal-default">

@@ -165,6 +165,7 @@ require_once('public/partials/_analytics.php');
                     </ul>
                 </nav>
             </div>
+            
         </aside>
 
         <div class="content-wrapper">
