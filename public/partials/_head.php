@@ -44,6 +44,9 @@
     <!-- <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script> -->
     <!-- Scroll Bars -->
     <link rel="stylesheet" href="public/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Full Calendar Plug In -->
+    <link href="public/plugins/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css" />
+    <link href="public/plugins/fullcalendar/custom-fullcalendar.advance.css" rel="stylesheet" type="text/css" />
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="public/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Select2 -->
