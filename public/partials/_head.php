@@ -47,6 +47,9 @@
     <!-- Full Calendar Plug In -->
     <link href="public/plugins/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css" />
     <link href="public/plugins/fullcalendar/custom-fullcalendar.advance.css" rel="stylesheet" type="text/css" />
+    <!-- FlatPickr PlugIn CSS -->
+    <link href="public/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+    <link href="public/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="public/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Select2 -->
@@ -56,7 +59,6 @@
     <link rel="stylesheet" href="public/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <!-- SWAL ALERTS INJECTION-->
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="public/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <!--load swal js -->
