@@ -276,7 +276,7 @@ require_once('public/partials/_head.php');
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
                                     <div class="text-right">
-                                        <a href="school_calendar_tabular.php?view=<?php echo $faculty->id;?>" class="btn btn-primary" title="View <?php echo $faculty->name;?> School Calendar In Tabular Formart"><i class="fas fa-table"></i></a>
+                                        <a href="school_calendar.php?view=<?php echo $faculty->id;?>" class="btn btn-primary" title="View <?php echo $faculty->name;?> School Calendar In Calendar Formart"><i class="fas fa-calendar"></i></a>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Important Dates</button>
                                     </div>
                                     <div class="modal fade" id="modal-default">
