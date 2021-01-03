@@ -46,7 +46,8 @@
     <link rel="stylesheet" href="public/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Full Calendar Plug In -->
     <link rel="stylesheet" href="public/plugins/fullcalendar/main.min.css">
-    <link rel="stylesheet" href=public/plugins/fullcalendar-daygrid/main.min.css"> <link rel="stylesheet" href="public/plugins/fullcalendar-timegrid/main.min.css">
+    <link rel="stylesheet" href="public/plugins/fullcalendar-daygrid/main.min.css">
+    <link rel="stylesheet" href="public/plugins/fullcalendar-timegrid/main.min.css">
     <link rel="stylesheet" href="public/plugins/fullcalendar-bootstrap/main.min.css">
     <!-- FlatPickr PlugIn CSS -->
     <link href="public/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
