@@ -483,7 +483,7 @@ require_once('public/partials/_head.php');
                                                                                 <h4>Delete <?php echo $g->name; ?> ?</h4>
                                                                                 <br>
                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="student_groups.php?delete=<?php echo $g->id; ?>&faculty=<?php echo $row->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                <a href="student_groups.php?delete=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
