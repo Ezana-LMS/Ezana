@@ -154,10 +154,7 @@ require_once('public/partials/_head.php');
             <!-- Main Sidebar Container -->
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
                 <!-- Brand Logo -->
-                <a href="dashboard.php" class="brand-link">
-                    <img src="public/dist/img/logo.png" alt="Ezana LMS Logo" class="brand-image img-circle elevation-3">
-                    <span class="brand-text font-weight-light">Ezana LMS</span>
-                </a>
+                <?php require_once('public/partials/_brand.php'); ?>
                 <!-- Sidebar -->
                 <div class="sidebar">
                     <!-- Sidebar Menu -->
@@ -408,7 +405,7 @@ require_once('public/partials/_head.php');
                                                             <td><?php echo $g->name; ?></td>
                                                             <td><?php echo $g->created_at; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="group_details.php?group=<?php echo $g->id; ?>&view=<?php echo $mod->id;?>">
+                                                                <a class="badge badge-success" href="group_details.php?group=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">
                                                                     <i class="fas fa-eye"></i>
                                                                     View
                                                                 </a>
@@ -469,8 +466,8 @@ require_once('public/partials/_head.php');
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
                                                                 </a>
-                                                                 <!-- Delete Confirmation Modal -->
-                                                                 <div class="modal fade" id="delete-<?php echo $g->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <!-- Delete Confirmation Modal -->
+                                                                <div class="modal fade" id="delete-<?php echo $g->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">

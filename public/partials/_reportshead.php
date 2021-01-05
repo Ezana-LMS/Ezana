@@ -1,5 +1,5 @@
 <?php
-/* Persist System Settings */
+/* Load System Settings */
 $ret = "SELECT * FROM `ezanaLMS_Settings` ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
@@ -13,7 +13,7 @@ while ($sys = $res->fetch_object()) {
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title><?php echo $sys->sysname; ?></title>
+        <title><?php echo $sys->sysname; ?> Reports</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- SEO META TAGS -->
         <meta name="title" content="Ezana LMS">
