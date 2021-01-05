@@ -176,29 +176,39 @@ require_once('public/partials/_head.php');
                                         <div class="tab-content" id="custom-content-below-tabContent">
                                             <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                 <br>
-                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">System Name</label>
-                                                                <input type="text" required name="sysname" value="<?php echo $sys->sysname; ?>" class="form-control">
-                                                                <input type="hidden" required name="id" value="<?php echo $sys->id ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">System Logo</label>
-                                                                <div class="input-group">
-                                                                    <div class="custom-file">
-                                                                        <input required name="logo" type="file" class="custom-file-input">
-                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                <?php
+                                                /* Persisit System Settings On Brand */
+                                                $ret = "SELECT * FROM `ezanaLMS_Settings` ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                while ($sys = $res->fetch_object()) {
+                                                ?>
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">System Name</label>
+                                                                    <input type="text" required name="sysname" value="<?php echo $sys->sysname; ?>" class="form-control">
+                                                                    <input type="hidden" required name="id" value="<?php echo $sys->id ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">System Logo</label>
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <input required name="logo" type="file" class="custom-file-input">
+                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="card-footer text-right">
-                                                        <button type="submit" name="systemSettings" class="btn btn-primary">Submit</button>
-                                                    </div>
-                                                </form>
+                                                        <div class="card-footer text-right">
+                                                            <button type="submit" name="systemSettings" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                <?php
+                                                } ?>
                                             </div>
                                             <div class="tab-pane fade show " id="custom-content-below-home-data-backup" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                 <br>
