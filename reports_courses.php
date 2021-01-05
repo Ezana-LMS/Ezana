@@ -5,6 +5,7 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
+
 /* Load System Settings */
 $ret = "SELECT * FROM `ezanaLMS_Settings` ";
 $stmt = $mysqli->prepare($ret);
