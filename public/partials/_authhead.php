@@ -13,7 +13,7 @@
     ?>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Ezana Learning Management System</title>
+        <title><?php echo $sys->sysname;?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- SEO META TAGS -->
         <meta name="title" content="Ezana LMS">
@@ -38,6 +38,8 @@
         <link rel="icon" type="image/png" sizes="32x32" href="public/dist/img/favicons/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="public/dist/img/favicons/favicon-16x16.png">
         <link rel="manifest" href="public/dist/img/favicons/site.webmanifest">
+        
+        <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="public/dist/vendor/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="public/dist/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="public/dist/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
