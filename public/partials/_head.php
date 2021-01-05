@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<html>
-<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <?php
+/* Persist System Settings */
 $ret = "SELECT * FROM `ezanaLMS_Settings` ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
 while ($sys = $res->fetch_object()) {
 ?>
+    <!DOCTYPE html>
+    <html>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title><?php echo $sys->name; ?></title>
+        <title><?php echo $sys->sysname; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- SEO META TAGS -->
         <meta name="title" content="Ezana LMS">
