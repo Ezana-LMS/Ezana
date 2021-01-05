@@ -74,10 +74,7 @@ require_once('public/partials/_head.php');
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="dashboard.php" class="brand-link">
-                <img src="public/dist/img/logo.png" alt="Ezana LMS Logo" class="brand-image img-circle elevation-3">
-                <span class="brand-text font-weight-light">Ezana LMS</span>
-            </a>
+            <?php require_once('public/partials/_brand.php'); ?>
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar Menu -->
