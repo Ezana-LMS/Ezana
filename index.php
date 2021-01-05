@@ -19,16 +19,21 @@ if (isset($_POST['login'])) {
         $err = "Access Denied Please Check Your Credentials";
     }
 }
-include __DIR__ . "/public/partials/_authhead.php"
-?>
-
+include __DIR__ . "/public/partials/_authhead.php";
+/* Persisit System Settings On Auth */
+$ret = "SELECT * FROM `ezanaLMS_Settings` ";
+$stmt = $mysqli->prepare($ret);
+$stmt->execute(); //ok
+$res = $stmt->get_result();
+while ($sys = $res->fetch_object()) {
+    ?>
 <body style="background-color: #666666;">
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
                 <form method="POST" class="login100-form validate-form">
                     <div class="text-center">
-                        <img height="150" width="160" src="public/dist/img/logo.png" alt="wrapkit">
+                        <img height="150" width="160" src="public/dist/img/<?php echo $sys->logo;?>" alt="wrapkit">
                     </div>
                     <h2 class="mt-3 text-center">Log In</h2>
                     <p class="text-center">Enter Your Email Address And Password</p>
@@ -68,5 +73,6 @@ include __DIR__ . "/public/partials/_authhead.php"
     </div>
     <?php require_once("public/partials/_authscripts.php"); ?>
 </body>
-
+<?php
+}?>
 </html>
