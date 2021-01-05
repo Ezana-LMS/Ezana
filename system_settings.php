@@ -35,14 +35,15 @@ if (isset($_POST['systemSettings'])) {
 /* Restore Database */
 if (isset($_POST['RestoreDatabase'])) {
 }
+
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
-require_once('public/partials/_head.php');
 $ret = "SELECT * FROM `ezanaLMS_Settings` ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
 while ($sys = $res->fetch_object()) {
+    require_once('public/partials/_head.php');
 ?>
 
     <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -55,7 +56,7 @@ while ($sys = $res->fetch_object()) {
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
                 <!-- Brand Logo -->
                 <a href="dashboard.php" class="brand-link">
-                    <img src="public/dist/img/<?php echo $sys->logo;?>" alt="<?php echo $sys->name;?> Logo" class="brand-image img-circle elevation-3">
+                    <img src="public/dist/img/<?php echo $sys->logo; ?>" alt="<?php echo $sys->name; ?> Logo" class="brand-image img-circle elevation-3">
                     <span class="brand-text font-weight-light"><?php echo $sys->sysname; ?></span>
                 </a>
                 <!-- Sidebar -->
