@@ -303,37 +303,64 @@ require_once('public/partials/_head.php');
                                                         <form method="post" enctype="multipart/form-data" role="form">
                                                             <div class="card-body">
                                                                 <div class="row">
-                                                                    <div class="form-group col-md-4">
-                                                                        <label for="">Class Name</label>
-                                                                        <input type="text" required name="classname" value="<?php echo $course->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                    <div class="form-group col-md-3">
+                                                                        <!-- Hidden values -->
                                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                         <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
                                                                         <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
                                                                         <input type="hidden" required name="course_code" value="<?php echo $course->code; ?>" class="form-control">
+                                                                        <input type="hidden" required name="course_name" value="<?php echo $course->name; ?>" class="form-control">
+                                                                        <!-- Fetch Module Code, Module Name And Lecturer Using Ajax -->
+                                                                        <label for="">Module Code</label>
+                                                                        <select class='form-control basic' id="ModuleCode" onchange="getAllocatedModuleDetails(this.value);" name="module_code">
+                                                                            <option selected>Select Module Code</option>
+                                                                            <?php
+                                                                            $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE course_id = '$course->id'  ";
+                                                                            $stmt = $mysqli->prepare($ret);
+                                                                            $stmt->execute(); //ok
+                                                                            $res = $stmt->get_result();
+                                                                            while ($module_allocations = $res->fetch_object()) {
+                                                                            ?>
+                                                                                <option><?php echo $module_allocations->code; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
                                                                     </div>
-                                                                    <div class="form-group col-md-4">
+                                                                    <div class="form-group col-md-3">
+                                                                        <label for="">Module Name</label>
+                                                                        <input type="text" id="ModuleAllocatedLecName" readonly required name="lecturer" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-3">
                                                                         <label for="">Lecturer Name</label>
-                                                                        <input type="text" required name="classlecturer" class="form-control">
-                                                                    </div>
-                                                                    <div class="form-group col-md-4">
-                                                                        <label for="">Lecture Hall / Room / Location</label>
-                                                                        <input type="text" required name="classlocation" class="form-control" id="exampleInputEmail1">
+                                                                        <input type="text" id="AllocatedModuleName" readonly required name="module_name" class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="">Time</label>
-                                                                        <input type="text" required name="classtime" class="form-control">
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="">Class Day</label>
+                                                                        <select class='form-control basic' name="day">
+                                                                            <option selected>Select Day</option>
+                                                                                <option>Sunday</option>
+                                                                                <option>Monday</option>
+                                                                                <option>Tuesday</option>
+                                                                                <option>Wednesday</option>
+                                                                                <option>Thursday</option>
+                                                                                <option>Friday</option>
+                                                                                <option>Saturday</option>
+                                                                        </select>
                                                                     </div>
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="">Date</label>
-                                                                        <input type="date" required name="classdate" class="form-control">
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="">Time</label>
+                                                                        <input type="text" required name="time" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="">Room</label>
+                                                                        <input type="text" required name="room" class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="form-group col-md-12">
                                                                         <label for="exampleInputPassword1">Class Link <small class="text-danger">If Its Virtual Class </small></label>
-                                                                        <input type="text" name="classlink" class="form-control">
+                                                                        <input type="text" name="link" class="form-control">
                                                                     </div>
                                                                 </div>
                                                             </div>
