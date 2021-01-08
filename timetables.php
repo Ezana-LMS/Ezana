@@ -67,28 +67,9 @@ if (isset($_POST['add_class'])) {
 }
 
 /*  Update Time Table*/
-
 if (isset($_POST['update_class'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
-        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
-    } else {
-        $error = 1;
-        $err = "Module Code Cannot Be Blank";
-    }
-    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
-        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
-    } else {
-        $error = 1;
-        $err = "Module Name Cannot Be Blank";
-    }
-    if (isset($_POST['lecturer']) && !empty($_POST['lecturer'])) {
-        $lecturer = mysqli_real_escape_string($mysqli, trim($_POST['lecturer']));
-    } else {
-        $error = 1;
-        $err = "Lecturer Assigned Cannot Be Blank";
-    }
     if (isset($_POST['day']) && !empty($_POST['day'])) {
         $day = mysqli_real_escape_string($mysqli, trim($_POST['day']));
     } else {
@@ -102,24 +83,17 @@ if (isset($_POST['update_class'])) {
         $err = "Time Cannot Name Be Blank";
     }
 
-
     if (!$error) {
         $id = $_POST['id'];
-        $faculty = $_POST['faculty'];
-        $course_code = $_POST['course_code'];
-        $course_name = $_POST['course_name'];
-        $module_code = $_POST['module_code'];
-        $module_name = $_POST['module_name'];
-        $lecturer  = $_POST['lecturer'];
         $day = $_POST['day'];
         $time = $_POST['time'];
         $room = $_POST['room'];
         $link = $_POST['link'];
         /* Course Id  */
         $course_id = $_POST['course_id'];
-        $query = "UPDATE  ezanaLMS_TimeTable SET module_code =?, module_name =?, lecturer =?, day =?, time =?,  room =?, link =? WHERE id =?";
+        $query = "UPDATE  ezanaLMS_TimeTable SET  day =?, time =?,  room =?, link =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssss',  $module_code, $module_name, $lecturer, $day, $time, $room, $link, $id);
+        $rc = $stmt->bind_param('sssss',  $day, $time, $room, $link, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Class Updated" && header("refresh:1; url=timetables.php?view=$course_id");
@@ -499,7 +473,7 @@ require_once('public/partials/_head.php');
                                                                                 <div class="modal-dialog  modal-lg">
                                                                                     <div class="modal-content">
                                                                                         <div class="modal-header">
-                                                                                            <h4 class="modal-title">Update <?php echo $tt->module_name;?> Time Table;</h4>
+                                                                                            <h4 class="modal-title">Update <?php echo $tt->module_name; ?> Time Table;</h4>
                                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                                 <span aria-hidden="true">&times;</span>
                                                                                             </button>
@@ -518,7 +492,7 @@ require_once('public/partials/_head.php');
                                                                                                         <div class="form-group col-md-4">
                                                                                                             <label for="">Class Day</label>
                                                                                                             <select class='form-control basic' name="day">
-                                                                                                                <option selected><?php echo $tt->day;?></option>
+                                                                                                                <option selected><?php echo $tt->day; ?></option>
                                                                                                                 <option>Sunday</option>
                                                                                                                 <option>Monday</option>
                                                                                                                 <option>Tuesday</option>
@@ -530,17 +504,17 @@ require_once('public/partials/_head.php');
                                                                                                         </div>
                                                                                                         <div class="form-group col-md-4">
                                                                                                             <label for="">Time</label>
-                                                                                                            <input type="text" value="<?php echo $tt->time;?>" required name="time" class="form-control">
+                                                                                                            <input type="text" value="<?php echo $tt->time; ?>" required name="time" class="form-control">
                                                                                                         </div>
                                                                                                         <div class="form-group col-md-4">
                                                                                                             <label for="">Room</label>
-                                                                                                            <input type="text" value="<?php echo $tt->room;?>" required name="room" class="form-control">
+                                                                                                            <input type="text" value="<?php echo $tt->room; ?>" required name="room" class="form-control">
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="row">
                                                                                                         <div class="form-group col-md-12">
                                                                                                             <label for="exampleInputPassword1">Class Link <small class="text-danger">If Its Virtual Class </small></label>
-                                                                                                            <input type="text"  value="<?php echo $tt->link;?>" name="link" class="form-control">
+                                                                                                            <input type="text" value="<?php echo $tt->link; ?>" name="link" class="form-control">
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
@@ -571,7 +545,7 @@ require_once('public/partials/_head.php');
                                                                                             </button>
                                                                                         </div>
                                                                                         <div class="modal-body text-center text-danger">
-                                                                                            <h4>Delete <?php echo $tt->module_name; ?>  ?</h4>
+                                                                                            <h4>Delete <?php echo $tt->module_name; ?> ?</h4>
                                                                                             <br>
                                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
                                                                                             <a href="timetables.php?delete=<?php echo $tt->id; ?>&view=<?php echo $course->id; ?>" class="text-center btn btn-danger"> Delete </a>
