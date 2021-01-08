@@ -339,13 +339,13 @@ require_once('public/partials/_head.php');
                                                                         <label for="">Class Day</label>
                                                                         <select class='form-control basic' name="day">
                                                                             <option selected>Select Day</option>
-                                                                                <option>Sunday</option>
-                                                                                <option>Monday</option>
-                                                                                <option>Tuesday</option>
-                                                                                <option>Wednesday</option>
-                                                                                <option>Thursday</option>
-                                                                                <option>Friday</option>
-                                                                                <option>Saturday</option>
+                                                                            <option>Sunday</option>
+                                                                            <option>Monday</option>
+                                                                            <option>Tuesday</option>
+                                                                            <option>Wednesday</option>
+                                                                            <option>Thursday</option>
+                                                                            <option>Friday</option>
+                                                                            <option>Saturday</option>
                                                                         </select>
                                                                     </div>
                                                                     <div class="form-group col-md-4">
@@ -499,7 +499,7 @@ require_once('public/partials/_head.php');
                                                                                 <div class="modal-dialog  modal-lg">
                                                                                     <div class="modal-content">
                                                                                         <div class="modal-header">
-                                                                                            <h4 class="modal-title">Fill All Values </h4>
+                                                                                            <h4 class="modal-title">Update <?php echo $tt->module_name;?> Time Table;</h4>
                                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                                 <span aria-hidden="true">&times;</span>
                                                                                             </button>
@@ -508,40 +508,44 @@ require_once('public/partials/_head.php');
                                                                                             <form method="post" enctype="multipart/form-data" role="form">
                                                                                                 <div class="card-body">
                                                                                                     <div class="row">
-                                                                                                        <div class="form-group col-md-4">
-                                                                                                            <label for="">Class Name</label>
-                                                                                                            <input type="text" value="<?php echo $tt->classname; ?>" required name="classname" class="form-control" id="exampleInputEmail1">
-                                                                                                            <input type="hidden" required name="id" value="<?php echo $tt->id; ?>" class="form-control">
+                                                                                                        <div class="form-group col-md-3">
+                                                                                                            <!-- Hidden values -->
+                                                                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                                                             <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
-                                                                                                        </div>
-                                                                                                        <div class="form-group col-md-4">
-                                                                                                            <label for="">Lecturer Name</label>
-                                                                                                            <input type="text" value="<?php echo $tt->classlecturer; ?>" required name="classlecturer" class="form-control">
-                                                                                                        </div>
-                                                                                                        <div class="form-group col-md-4">
-                                                                                                            <label for="">Lecture Hall / Room / Location</label>
-                                                                                                            <input type="text" required value='<?php echo $tt->classlocation; ?>' name="classlocation" class="form-control" id="exampleInputEmail1">
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="row">
-                                                                                                        <div class="form-group col-md-6">
-                                                                                                            <label for="">Time</label>
-                                                                                                            <input type="text" value="<?php echo $tt->classtime; ?>" required name="classtime" class="form-control">
+                                                                                                        <div class="form-group col-md-4">
+                                                                                                            <label for="">Class Day</label>
+                                                                                                            <select class='form-control basic' name="day">
+                                                                                                                <option selected><?php echo $tt->day;?></option>
+                                                                                                                <option>Sunday</option>
+                                                                                                                <option>Monday</option>
+                                                                                                                <option>Tuesday</option>
+                                                                                                                <option>Wednesday</option>
+                                                                                                                <option>Thursday</option>
+                                                                                                                <option>Friday</option>
+                                                                                                                <option>Saturday</option>
+                                                                                                            </select>
                                                                                                         </div>
-                                                                                                        <div class="form-group col-md-6">
-                                                                                                            <label for="">Date</label>
-                                                                                                            <input type="text" required value="<?php echo $tt->classdate; ?>" name="classdate" class="form-control">
+                                                                                                        <div class="form-group col-md-4">
+                                                                                                            <label for="">Time</label>
+                                                                                                            <input type="text" value="<?php echo $tt->time;?>" required name="time" class="form-control">
+                                                                                                        </div>
+                                                                                                        <div class="form-group col-md-4">
+                                                                                                            <label for="">Room</label>
+                                                                                                            <input type="text" value="<?php echo $tt->room;?>" required name="room" class="form-control">
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="row">
                                                                                                         <div class="form-group col-md-12">
                                                                                                             <label for="exampleInputPassword1">Class Link <small class="text-danger">If Its Virtual Class </small></label>
-                                                                                                            <input type="text" name="classlink" value="<?php echo $tt->classlink; ?>" class="form-control">
+                                                                                                            <input type="text"  value="<?php echo $tt->link;?>" name="link" class="form-control">
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div class="card-footer text-right">
-                                                                                                    <button type="submit" name="update_class" class="btn btn-primary">Update Class</button>
+                                                                                                    <button type="submit" name="update_class" class="btn btn-primary">Create Class</button>
                                                                                                 </div>
                                                                                             </form>
                                                                                         </div>
@@ -567,7 +571,7 @@ require_once('public/partials/_head.php');
                                                                                             </button>
                                                                                         </div>
                                                                                         <div class="modal-body text-center text-danger">
-                                                                                            <h4>Delete <?php echo $tt->classname; ?> ?</h4>
+                                                                                            <h4>Delete <?php echo $tt->module_name; ?>  ?</h4>
                                                                                             <br>
                                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
                                                                                             <a href="timetables.php?delete=<?php echo $tt->id; ?>&view=<?php echo $course->id; ?>" class="text-center btn btn-danger"> Delete </a>
