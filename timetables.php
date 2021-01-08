@@ -456,12 +456,13 @@ require_once('public/partials/_head.php');
                                                         <table id="export-dt" class="table table-bordered table-striped responsive">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Class</th>
-                                                                    <th>Lecturer </th>
-                                                                    <th>Location</th>
-                                                                    <th>Link</th>
-                                                                    <th>Date</th>
+                                                                    <th>Module Code</th>
+                                                                    <th>Module Name </th>
+                                                                    <th>Lecturer</th>
+                                                                    <th>Day</th>
                                                                     <th>Time</th>
+                                                                    <th>Room</th>
+                                                                    <th>Link</th>
                                                                     <th>Manage</th>
                                                                 </tr>
                                                             </thead>
@@ -476,16 +477,18 @@ require_once('public/partials/_head.php');
                                                                 ?>
 
                                                                     <tr>
-                                                                        <td><?php echo $tt->classname; ?></td>
-                                                                        <td><?php echo $tt->classlecturer; ?></td>
-                                                                        <td><?php echo $tt->classlocation; ?></td>
+                                                                        <td><?php echo $tt->module_code; ?></td>
+                                                                        <td><?php echo $tt->module_name; ?></td>
+                                                                        <td><?php echo $tt->lecturer; ?></td>
+                                                                        <td><?php echo $tt->day; ?></td>
+                                                                        <td><?php echo $tt->time; ?></td>
+                                                                        <td><?php echo $tt->room; ?></td>
+
                                                                         <td>
                                                                             <?php if ($tt->classlink != '') {
                                                                                 echo "<a href='$tt->classlink' target='_blank'>Open Link</a>";
                                                                             } ?>
                                                                         </td>
-                                                                        <td><?php echo $tt->classdate; ?></td>
-                                                                        <td><?php echo $tt->classtime; ?></td>
                                                                         <td>
                                                                             <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $tt->id; ?>">
                                                                                 <i class="fas fa-edit"></i>
