@@ -47,7 +47,7 @@ if (isset($_POST['add_class'])) {
         $course_name = $_POST['course_name'];
         $module_code = $_POST['module_code'];
         $module_name = $_POST['module_name'];
-        $lecturer  =$_POST['lecturer'];
+        $lecturer  = $_POST['lecturer'];
         $day = $_POST['day'];
         $time = $_POST['time'];
         $room = $_POST['room'];
@@ -71,45 +71,55 @@ if (isset($_POST['add_class'])) {
 if (isset($_POST['update_class'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['classdate']) && !empty($_POST['classdate'])) {
-        $classdate = mysqli_real_escape_string($mysqli, trim($_POST['classdate']));
+    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
+        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
     } else {
         $error = 1;
-        $err = "Date Cannot Be Empty";
+        $err = "Module Code Cannot Be Blank";
     }
-    if (isset($_POST['classtime']) && !empty($_POST['classtime'])) {
-        $classtime = mysqli_real_escape_string($mysqli, trim($_POST['classtime']));
+    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
+        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
     } else {
         $error = 1;
-        $err = "Time Cannot Be Empty";
+        $err = "Module Name Cannot Be Blank";
     }
-    if (isset($_POST['classlocation']) && !empty($_POST['classlocation'])) {
-        $classlocation = mysqli_real_escape_string($mysqli, trim($_POST['classlocation']));
+    if (isset($_POST['lecturer']) && !empty($_POST['lecturer'])) {
+        $lecturer = mysqli_real_escape_string($mysqli, trim($_POST['lecturer']));
     } else {
         $error = 1;
-        $err = "Lecture Hall Be Empty";
+        $err = "Lecturer Assigned Cannot Be Blank";
     }
-    if (isset($_POST['classlecturer']) && !empty($_POST['classlecturer'])) {
-        $classlecturer = mysqli_real_escape_string($mysqli, trim($_POST['classlecturer']));
+    if (isset($_POST['day']) && !empty($_POST['day'])) {
+        $day = mysqli_real_escape_string($mysqli, trim($_POST['day']));
     } else {
         $error = 1;
-        $err = "Lecturer Name Be Empty";
+        $err = "Day Cannot Name Be Blank";
     }
-
+    if (isset($_POST['time']) && !empty($_POST['time'])) {
+        $time = mysqli_real_escape_string($mysqli, trim($_POST['time']));
+    } else {
+        $error = 1;
+        $err = "Time Cannot Name Be Blank";
+    }
 
 
     if (!$error) {
         $id = $_POST['id'];
-        $classdate = $_POST['classdate'];
-        $classtime  = $_POST['classtime'];
-        $classlocation = $_POST['classlocation'];
-        $classlecturer = $_POST['classlecturer'];
-        $classname  = $_POST['classname'];
-        $classlink = $_POST['classlink'];
+        $faculty = $_POST['faculty'];
+        $course_code = $_POST['course_code'];
+        $course_name = $_POST['course_name'];
+        $module_code = $_POST['module_code'];
+        $module_name = $_POST['module_name'];
+        $lecturer  = $_POST['lecturer'];
+        $day = $_POST['day'];
+        $time = $_POST['time'];
+        $room = $_POST['room'];
+        $link = $_POST['link'];
+        /* Course Id  */
         $course_id = $_POST['course_id'];
-        $query = "UPDATE ezanaLMS_TimeTable SET classdate =?, classtime =?, classlocation =?, classlecturer =?, classname =?, classlink =? WHERE id =?";
+        $query = "UPDATE  ezanaLMS_TimeTable SET module_code =?, module_name =?, lecturer =?, day =?, time =?,  room =?, link =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $classdate, $classtime, $classlocation, $classlecturer, $classname, $classlink, $id);
+        $rc = $stmt->bind_param('ssssssss',  $module_code, $module_name, $lecturer, $day, $time, $room, $link, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Class Updated" && header("refresh:1; url=timetables.php?view=$course_id");
@@ -555,10 +565,10 @@ require_once('public/partials/_head.php');
                 require_once('public/partials/_footer.php');
             }
         } ?>
-        </div>
-    </div>
-    <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php'); ?>
+                    </div>
+                </div>
+                <!-- ./wrapper -->
+                <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
