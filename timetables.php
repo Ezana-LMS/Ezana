@@ -9,47 +9,54 @@ require_once('configs/codeGen.php');
 if (isset($_POST['add_class'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['classdate']) && !empty($_POST['classdate'])) {
-        $classdate = mysqli_real_escape_string($mysqli, trim($_POST['classdate']));
+    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
+        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
     } else {
         $error = 1;
-        $err = "Date Cannot Be Empty";
+        $err = "Module Code Cannot Be Blank";
     }
-    if (isset($_POST['classtime']) && !empty($_POST['classtime'])) {
-        $classtime = mysqli_real_escape_string($mysqli, trim($_POST['classtime']));
+    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
+        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
     } else {
         $error = 1;
-        $err = "Time Cannot Be Empty";
+        $err = "Module Name Cannot Be Blank";
     }
-    if (isset($_POST['classlocation']) && !empty($_POST['classlocation'])) {
-        $classlocation = mysqli_real_escape_string($mysqli, trim($_POST['classlocation']));
+    if (isset($_POST['lecturer']) && !empty($_POST['lecturer'])) {
+        $lecturer = mysqli_real_escape_string($mysqli, trim($_POST['lecturer']));
     } else {
         $error = 1;
-        $err = "Lecture Hall Cannot Be Empty";
+        $err = "Lecturer Assigned Cannot Be Blank";
     }
-    if (isset($_POST['classlecturer']) && !empty($_POST['classlecturer'])) {
-        $classlecturer = mysqli_real_escape_string($mysqli, trim($_POST['classlecturer']));
+    if (isset($_POST['day']) && !empty($_POST['day'])) {
+        $day = mysqli_real_escape_string($mysqli, trim($_POST['day']));
     } else {
         $error = 1;
-        $err = "Lecturer Cannot Name Be Empty";
+        $err = "Day Cannot Name Be Blank";
     }
-
+    if (isset($_POST['time']) && !empty($_POST['time'])) {
+        $time = mysqli_real_escape_string($mysqli, trim($_POST['time']));
+    } else {
+        $error = 1;
+        $err = "Time Cannot Name Be Blank";
+    }
 
     if (!$error) {
         $id = $_POST['id'];
-        $course_code = $_POST['course_code'];
-        $classdate = $_POST['classdate'];
-        $classtime  = $_POST['classtime'];
-        $classlocation = $_POST['classlocation'];
-        $classlecturer = $_POST['classlecturer'];
-        $classname  = $_POST['classname'];
-        $classlink = $_POST['classlink'];
         $faculty = $_POST['faculty'];
-        /* Course Id */
+        $course_code = $_POST['course_code'];
+        $course_name = $_POST['course_name'];
+        $module_code = $_POST['module_code'];
+        $module_name = $_POST['module_name'];
+        $lecturer  = $_POST['lecturer'];
+        $day = $_POST['day'];
+        $time = $_POST['time'];
+        $room = $_POST['room'];
+        $link = $_POST['link'];
+        /* Course Id  */
         $course_id = $_POST['course_id'];
-        $query = "INSERT INTO ezanaLMS_TimeTable (id, course_code, faculty_id, classdate, classtime, classlocation, classlecturer, classname, classlink) VALUES(?,?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_TimeTable (id, faculty_id, course_code, course_name, module_code, module_name, lecturer, day, time, room, link) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssssss', $id, $course_code, $faculty, $classdate, $classtime, $classlocation, $classlecturer, $classname, $classlink);
+        $rc = $stmt->bind_param('sssssssssss', $id, $faculty, $course_code, $course_name, $module_code, $module_name, $lecturer, $day, $time, $room, $link);
         $stmt->execute();
         if ($stmt) {
             $success = "Class Added" && header("refresh:1; url=timetables.php?view=$course_id");
@@ -60,49 +67,33 @@ if (isset($_POST['add_class'])) {
 }
 
 /*  Update Time Table*/
-
 if (isset($_POST['update_class'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['classdate']) && !empty($_POST['classdate'])) {
-        $classdate = mysqli_real_escape_string($mysqli, trim($_POST['classdate']));
+    if (isset($_POST['day']) && !empty($_POST['day'])) {
+        $day = mysqli_real_escape_string($mysqli, trim($_POST['day']));
     } else {
         $error = 1;
-        $err = "Date Cannot Be Empty";
+        $err = "Day Cannot Name Be Blank";
     }
-    if (isset($_POST['classtime']) && !empty($_POST['classtime'])) {
-        $classtime = mysqli_real_escape_string($mysqli, trim($_POST['classtime']));
+    if (isset($_POST['time']) && !empty($_POST['time'])) {
+        $time = mysqli_real_escape_string($mysqli, trim($_POST['time']));
     } else {
         $error = 1;
-        $err = "Time Cannot Be Empty";
+        $err = "Time Cannot Name Be Blank";
     }
-    if (isset($_POST['classlocation']) && !empty($_POST['classlocation'])) {
-        $classlocation = mysqli_real_escape_string($mysqli, trim($_POST['classlocation']));
-    } else {
-        $error = 1;
-        $err = "Lecture Hall Be Empty";
-    }
-    if (isset($_POST['classlecturer']) && !empty($_POST['classlecturer'])) {
-        $classlecturer = mysqli_real_escape_string($mysqli, trim($_POST['classlecturer']));
-    } else {
-        $error = 1;
-        $err = "Lecturer Name Be Empty";
-    }
-
-
 
     if (!$error) {
         $id = $_POST['id'];
-        $classdate = $_POST['classdate'];
-        $classtime  = $_POST['classtime'];
-        $classlocation = $_POST['classlocation'];
-        $classlecturer = $_POST['classlecturer'];
-        $classname  = $_POST['classname'];
-        $classlink = $_POST['classlink'];
+        $day = $_POST['day'];
+        $time = $_POST['time'];
+        $room = $_POST['room'];
+        $link = $_POST['link'];
+        /* Course Id  */
         $course_id = $_POST['course_id'];
-        $query = "UPDATE ezanaLMS_TimeTable SET classdate =?, classtime =?, classlocation =?, classlecturer =?, classname =?, classlink =? WHERE id =?";
+        $query = "UPDATE  ezanaLMS_TimeTable SET  day =?, time =?,  room =?, link =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $classdate, $classtime, $classlocation, $classlecturer, $classname, $classlink, $id);
+        $rc = $stmt->bind_param('sssss',  $day, $time, $room, $link, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Class Updated" && header("refresh:1; url=timetables.php?view=$course_id");
@@ -287,36 +278,63 @@ require_once('public/partials/_head.php');
                                                             <div class="card-body">
                                                                 <div class="row">
                                                                     <div class="form-group col-md-4">
-                                                                        <label for="">Class Name</label>
-                                                                        <input type="text" required name="classname" value="<?php echo $course->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                        <!-- Hidden values -->
                                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                         <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
                                                                         <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
                                                                         <input type="hidden" required name="course_code" value="<?php echo $course->code; ?>" class="form-control">
+                                                                        <input type="hidden" required name="course_name" value="<?php echo $course->name; ?>" class="form-control">
+                                                                        <!-- Fetch Module Code, Module Name And Lecturer Using Ajax -->
+                                                                        <label for="">Module Code</label>
+                                                                        <select class='form-control basic' id="AllocatedModuleCode" onchange="getAllocatedModuleDetails(this.value);" name="module_code">
+                                                                            <option selected>Select Module Code</option>
+                                                                            <?php
+                                                                            $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE course_id = '$course->id'  ";
+                                                                            $stmt = $mysqli->prepare($ret);
+                                                                            $stmt->execute(); //ok
+                                                                            $res = $stmt->get_result();
+                                                                            while ($module_allocations = $res->fetch_object()) {
+                                                                            ?>
+                                                                                <option><?php echo $module_allocations->module_code; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="">Module Name</label>
+                                                                        <input type="text" id="AllocatedModuleName"  required name="module_name" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-4">
                                                                         <label for="">Lecturer Name</label>
-                                                                        <input type="text" required name="classlecturer" class="form-control">
-                                                                    </div>
-                                                                    <div class="form-group col-md-4">
-                                                                        <label for="">Lecture Hall / Room / Location</label>
-                                                                        <input type="text" required name="classlocation" class="form-control" id="exampleInputEmail1">
+                                                                        <input type="text" id="AllocatedLecturerName"  required name="lecturer" class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="">Time</label>
-                                                                        <input type="text" required name="classtime" class="form-control">
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="">Class Day</label>
+                                                                        <select class='form-control basic' name="day">
+                                                                            <option selected>Select Day</option>
+                                                                            <option>Sunday</option>
+                                                                            <option>Monday</option>
+                                                                            <option>Tuesday</option>
+                                                                            <option>Wednesday</option>
+                                                                            <option>Thursday</option>
+                                                                            <option>Friday</option>
+                                                                            <option>Saturday</option>
+                                                                        </select>
                                                                     </div>
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="">Date</label>
-                                                                        <input type="date" required name="classdate" class="form-control">
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="">Time</label>
+                                                                        <input type="text" required name="time" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="">Room</label>
+                                                                        <input type="text" required name="room" class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="form-group col-md-12">
                                                                         <label for="exampleInputPassword1">Class Link <small class="text-danger">If Its Virtual Class </small></label>
-                                                                        <input type="text" name="classlink" class="form-control">
+                                                                        <input type="text" name="link" class="form-control">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -412,12 +430,13 @@ require_once('public/partials/_head.php');
                                                         <table id="export-dt" class="table table-bordered table-striped responsive">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Class</th>
-                                                                    <th>Lecturer </th>
-                                                                    <th>Location</th>
-                                                                    <th>Link</th>
-                                                                    <th>Date</th>
+                                                                    <th>Module Code</th>
+                                                                    <th>Module Name </th>
+                                                                    <th>Lecturer</th>
+                                                                    <th>Day</th>
                                                                     <th>Time</th>
+                                                                    <th>Room</th>
+                                                                    <th>Link</th>
                                                                     <th>Manage</th>
                                                                 </tr>
                                                             </thead>
@@ -432,16 +451,18 @@ require_once('public/partials/_head.php');
                                                                 ?>
 
                                                                     <tr>
-                                                                        <td><?php echo $tt->classname; ?></td>
-                                                                        <td><?php echo $tt->classlecturer; ?></td>
-                                                                        <td><?php echo $tt->classlocation; ?></td>
+                                                                        <td><?php echo $tt->module_code; ?></td>
+                                                                        <td><?php echo $tt->module_name; ?></td>
+                                                                        <td><?php echo $tt->lecturer; ?></td>
+                                                                        <td><?php echo $tt->day; ?></td>
+                                                                        <td><?php echo $tt->time; ?></td>
+                                                                        <td><?php echo $tt->room; ?></td>
+
                                                                         <td>
-                                                                            <?php if ($tt->classlink != '') {
-                                                                                echo "<a href='$tt->classlink' target='_blank'>Open Link</a>";
+                                                                            <?php if ($tt->link != '') {
+                                                                                echo "<a href='$tt->link' target='_blank'>Open Link</a>";
                                                                             } ?>
                                                                         </td>
-                                                                        <td><?php echo $tt->classdate; ?></td>
-                                                                        <td><?php echo $tt->classtime; ?></td>
                                                                         <td>
                                                                             <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $tt->id; ?>">
                                                                                 <i class="fas fa-edit"></i>
@@ -452,7 +473,7 @@ require_once('public/partials/_head.php');
                                                                                 <div class="modal-dialog  modal-lg">
                                                                                     <div class="modal-content">
                                                                                         <div class="modal-header">
-                                                                                            <h4 class="modal-title">Fill All Values </h4>
+                                                                                            <h4 class="modal-title">Update <?php echo $tt->module_name; ?> Time Table;</h4>
                                                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                                 <span aria-hidden="true">&times;</span>
                                                                                             </button>
@@ -461,40 +482,44 @@ require_once('public/partials/_head.php');
                                                                                             <form method="post" enctype="multipart/form-data" role="form">
                                                                                                 <div class="card-body">
                                                                                                     <div class="row">
-                                                                                                        <div class="form-group col-md-4">
-                                                                                                            <label for="">Class Name</label>
-                                                                                                            <input type="text" value="<?php echo $tt->classname; ?>" required name="classname" class="form-control" id="exampleInputEmail1">
-                                                                                                            <input type="hidden" required name="id" value="<?php echo $tt->id; ?>" class="form-control">
+                                                                                                        <div class="form-group col-md-3">
+                                                                                                            <!-- Hidden values -->
+                                                                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                                                             <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
-                                                                                                        </div>
-                                                                                                        <div class="form-group col-md-4">
-                                                                                                            <label for="">Lecturer Name</label>
-                                                                                                            <input type="text" value="<?php echo $tt->classlecturer; ?>" required name="classlecturer" class="form-control">
-                                                                                                        </div>
-                                                                                                        <div class="form-group col-md-4">
-                                                                                                            <label for="">Lecture Hall / Room / Location</label>
-                                                                                                            <input type="text" required value='<?php echo $tt->classlocation; ?>' name="classlocation" class="form-control" id="exampleInputEmail1">
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="row">
-                                                                                                        <div class="form-group col-md-6">
-                                                                                                            <label for="">Time</label>
-                                                                                                            <input type="text" value="<?php echo $tt->classtime; ?>" required name="classtime" class="form-control">
+                                                                                                        <div class="form-group col-md-4">
+                                                                                                            <label for="">Class Day</label>
+                                                                                                            <select class='form-control basic' name="day">
+                                                                                                                <option selected><?php echo $tt->day; ?></option>
+                                                                                                                <option>Sunday</option>
+                                                                                                                <option>Monday</option>
+                                                                                                                <option>Tuesday</option>
+                                                                                                                <option>Wednesday</option>
+                                                                                                                <option>Thursday</option>
+                                                                                                                <option>Friday</option>
+                                                                                                                <option>Saturday</option>
+                                                                                                            </select>
                                                                                                         </div>
-                                                                                                        <div class="form-group col-md-6">
-                                                                                                            <label for="">Date</label>
-                                                                                                            <input type="text" required value="<?php echo $tt->classdate; ?>" name="classdate" class="form-control">
+                                                                                                        <div class="form-group col-md-4">
+                                                                                                            <label for="">Time</label>
+                                                                                                            <input type="text" value="<?php echo $tt->time; ?>" required name="time" class="form-control">
+                                                                                                        </div>
+                                                                                                        <div class="form-group col-md-4">
+                                                                                                            <label for="">Room</label>
+                                                                                                            <input type="text" value="<?php echo $tt->room; ?>" required name="room" class="form-control">
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="row">
                                                                                                         <div class="form-group col-md-12">
                                                                                                             <label for="exampleInputPassword1">Class Link <small class="text-danger">If Its Virtual Class </small></label>
-                                                                                                            <input type="text" name="classlink" value="<?php echo $tt->classlink; ?>" class="form-control">
+                                                                                                            <input type="text" value="<?php echo $tt->link; ?>" name="link" class="form-control">
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div class="card-footer text-right">
-                                                                                                    <button type="submit" name="update_class" class="btn btn-primary">Update Class</button>
+                                                                                                    <button type="submit" name="update_class" class="btn btn-primary">Create Class</button>
                                                                                                 </div>
                                                                                             </form>
                                                                                         </div>
@@ -520,7 +545,7 @@ require_once('public/partials/_head.php');
                                                                                             </button>
                                                                                         </div>
                                                                                         <div class="modal-body text-center text-danger">
-                                                                                            <h4>Delete <?php echo $tt->classname; ?> ?</h4>
+                                                                                            <h4>Delete <?php echo $tt->module_name; ?> ?</h4>
                                                                                             <br>
                                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
                                                                                             <a href="timetables.php?delete=<?php echo $tt->id; ?>&view=<?php echo $course->id; ?>" class="text-center btn btn-danger"> Delete </a>
@@ -548,10 +573,10 @@ require_once('public/partials/_head.php');
                 require_once('public/partials/_footer.php');
             }
         } ?>
-        </div>
-    </div>
-    <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php'); ?>
+                    </div>
+                </div>
+                <!-- ./wrapper -->
+                <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>

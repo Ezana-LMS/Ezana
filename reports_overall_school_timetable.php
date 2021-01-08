@@ -131,20 +131,23 @@ require_once('public/partials/_reportshead.php');
                         <hr>
                         <div class="row">
                             <div class="col-12">
-                                <table id="export-dt" class="table table-bordered table-striped">
+                                <table id="export-dt" class="table table-bordered table-striped responsive">
                                     <thead>
                                         <tr>
-                                            <th>Class Name</th>
-                                            <th>Lecturer </th>
-                                            <th>Location</th>
-                                            <th>Date</th>
+                                            <th>Course</th>
+                                            <th>Module Code</th>
+                                            <th>Module Name </th>
+                                            <th>Lecturer</th>
+                                            <th>Day</th>
                                             <th>Time</th>
-                                            <th>Virtual Link</th>
+                                            <th>Room</th>
+                                            <th>Link</th>
+                                            <th>Manage</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_TimeTable`  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_TimeTable` ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
@@ -153,12 +156,19 @@ require_once('public/partials/_reportshead.php');
                                         ?>
 
                                             <tr>
-                                                <td><?php echo $tt->classname; ?></td>
-                                                <td><?php echo $tt->classlecturer; ?></td>
-                                                <td><?php echo $tt->classlocation; ?></td>
-                                                <td><?php echo $tt->classdate; ?></td>
-                                                <td><?php echo $tt->classtime; ?></td>
-                                                <td><?php echo $tt->classlink; ?></td>
+                                                <td><?php echo $tt->course_name; ?></td>
+                                                <td><?php echo $tt->module_code; ?></td>
+                                                <td><?php echo $tt->module_name; ?></td>
+                                                <td><?php echo $tt->lecturer; ?></td>
+                                                <td><?php echo $tt->day; ?></td>
+                                                <td><?php echo $tt->time; ?></td>
+                                                <td><?php echo $tt->room; ?></td>
+
+                                                <td>
+                                                    <?php if ($tt->link != '') {
+                                                        echo "<a href='$tt->link' target='_blank'>Open Link</a>";
+                                                    } ?>
+                                                </td>
                                             </tr>
                                         <?php $cnt = $cnt + 1;
                                         } ?>

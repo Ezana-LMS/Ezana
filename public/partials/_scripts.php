@@ -158,7 +158,6 @@
 <!-- Get Department Details Script -->
 <script>
     /* Ajaxing Aint Easy */
-
     /*Department Details  */
     function getDepartmentDetails(val) {
         $.ajax({
@@ -177,6 +176,28 @@
             success: function(data) {
                 //alert(data);
                 $('#DepartmentFacultyId').val(data);
+            }
+        });
+    }
+
+    /* getAllocatedModuleDetails */
+    function getAllocatedModuleDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'AllocatedModuleCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#AllocatedModuleName').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'AllocatedModuleName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#AllocatedLecturerName').val(data);
             }
         });
     }
