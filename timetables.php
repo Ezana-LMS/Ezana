@@ -277,7 +277,7 @@ require_once('public/partials/_head.php');
                                                         <form method="post" enctype="multipart/form-data" role="form">
                                                             <div class="card-body">
                                                                 <div class="row">
-                                                                    <div class="form-group col-md-3">
+                                                                    <div class="form-group col-md-4">
                                                                         <!-- Hidden values -->
                                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                         <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
@@ -295,15 +295,15 @@ require_once('public/partials/_head.php');
                                                                             $res = $stmt->get_result();
                                                                             while ($module_allocations = $res->fetch_object()) {
                                                                             ?>
-                                                                                <option><?php echo $module_allocations->code; ?></option>
+                                                                                <option><?php echo $module_allocations->module_code; ?></option>
                                                                             <?php } ?>
                                                                         </select>
                                                                     </div>
-                                                                    <div class="form-group col-md-3">
+                                                                    <div class="form-group col-md-4">
                                                                         <label for="">Module Name</label>
                                                                         <input type="text" id="ModuleAllocatedLecName" readonly required name="lecturer" class="form-control">
                                                                     </div>
-                                                                    <div class="form-group col-md-3">
+                                                                    <div class="form-group col-md-4">
                                                                         <label for="">Lecturer Name</label>
                                                                         <input type="text" id="AllocatedModuleName" readonly required name="module_name" class="form-control">
                                                                     </div>
