@@ -185,22 +185,23 @@
         $.ajax({
             type: "POST",
             url: "ajax.php",
-            data: 'ModuleCode=' + val,
-            success: function(data) {
-                //alert(data);
-                $('#ModuleAllocatedLecName').val(data);
-            }
-        });
-        $.ajax({
-            type: "POST",
-            url: "ajax.php",
-            data: 'ModuleAllocatedLecName=' + val,
+            data: 'AllocatedModuleCode=' + val,
             success: function(data) {
                 //alert(data);
                 $('#AllocatedModuleName').val(data);
             }
         });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'AllocatedModuleName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#AllocatedLecturerName').val(data);
+            }
+        });
     }
+
     /* Course Details */
     function getCourseDetails(val) {
         $.ajax({

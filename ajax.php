@@ -1,6 +1,34 @@
 <?php
 include('configs/pdoconfig.php');
 
+/* Get Allocated Module Name */
+if (!empty($_POST["AllocatedModuleCode"])) {
+    $id = $_POST['AllocatedModuleCode'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_ModuleAssigns WHERE module_code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['module_name']); ?>
+<?php
+    }
+}
+
+/* Get Allocated Module Lec Name */
+if (!empty($_POST["AllocatedModuleName"])) {
+    $id = $_POST['AllocatedModuleName'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_ModuleAssigns WHERE module_code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['lec_name']); ?>
+<?php
+    }
+}
+
 
 /* Department ID */
 if (!empty($_POST["DepartmentName"])) {

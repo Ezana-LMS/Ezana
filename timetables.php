@@ -286,7 +286,7 @@ require_once('public/partials/_head.php');
                                                                         <input type="hidden" required name="course_name" value="<?php echo $course->name; ?>" class="form-control">
                                                                         <!-- Fetch Module Code, Module Name And Lecturer Using Ajax -->
                                                                         <label for="">Module Code</label>
-                                                                        <select class='form-control basic' id="ModuleCode" onchange="getAllocatedModuleDetails(this.value);" name="module_code">
+                                                                        <select class='form-control basic' id="AllocatedModuleCode" onchange="getAllocatedModuleDetails(this.value);" name="module_code">
                                                                             <option selected>Select Module Code</option>
                                                                             <?php
                                                                             $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE course_id = '$course->id'  ";
@@ -301,11 +301,11 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                     <div class="form-group col-md-4">
                                                                         <label for="">Module Name</label>
-                                                                        <input type="text" id="ModuleAllocatedLecName" readonly required name="lecturer" class="form-control">
+                                                                        <input type="text" id="AllocatedModuleName"  required name="module_name" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-4">
                                                                         <label for="">Lecturer Name</label>
-                                                                        <input type="text" id="AllocatedModuleName" readonly required name="module_name" class="form-control">
+                                                                        <input type="text" id="AllocatedLecturerName"  required name="lecturer" class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
@@ -459,8 +459,8 @@ require_once('public/partials/_head.php');
                                                                         <td><?php echo $tt->room; ?></td>
 
                                                                         <td>
-                                                                            <?php if ($tt->classlink != '') {
-                                                                                echo "<a href='$tt->classlink' target='_blank'>Open Link</a>";
+                                                                            <?php if ($tt->link != '') {
+                                                                                echo "<a href='$tt->link' target='_blank'>Open Link</a>";
                                                                             } ?>
                                                                         </td>
                                                                         <td>
