@@ -273,8 +273,8 @@ require_once('public/partials/_head.php');
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
                                     <div class="text-right">
-                                        <a href="school_calendar_tabular.php?view=<?php echo $faculty->id;?>" class="btn btn-primary" title="View <?php echo $faculty->name;?> School Calendar In Tabular Formart"><i class="fas fa-table"></i></a>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Important Dates</button>
+<!--                                         <a href="school_calendar.php?view=<?php echo $faculty->id;?>" class="btn btn-primary" title="View <?php echo $faculty->name;?> School Calendar In Calendar Formart"><i class="fas fa-calendar"></i></a>
+ -->                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Important Dates</button>
                                     </div>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
@@ -376,7 +376,117 @@ require_once('public/partials/_head.php');
                                             <br>
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <div id="calendar"></div>
+
+                                                    <table id="example1" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Semester</th>
+                                                                <th>Opening </th>
+                                                                <th>Closing </th>
+                                                                <th>Academic Year</th>
+                                                                <th>Manage</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$view'  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            $cnt = 1;
+                                                            while ($cal = $res->fetch_object()) {
+                                                            ?>
+
+                                                                <tr>
+                                                                    <td><?php echo $cal->semester_name; ?></td>
+                                                                    <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
+                                                                    <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
+                                                                    <td><?php echo $cal->academic_yr; ?></td>
+                                                                    <td>
+                                                                        <a class="badge badge-primary" data-toggle="modal" href="#update-calendar-<?php echo $cal->id; ?>">
+                                                                            <i class="fas fa-edit"></i>
+                                                                            Update
+                                                                        </a>
+                                                                        <!-- Update Modal -->
+                                                                        <div class="modal fade" id="update-calendar-<?php echo $cal->id; ?>">
+                                                                            <div class="modal-dialog  modal-lg">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h4 class="modal-title">Fill All Values </h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                                                            <div class="card-body">
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Semester Name</label>
+                                                                                                        <input type="text" value="<?php echo $cal->semester_name; ?>" required name="semester_name" class="form-control" id="exampleInputEmail1">
+                                                                                                        <input type="hidden" required name="id" value="<?php echo $cal->id; ?>" class="form-control">
+                                                                                                        <input type="hidden" required name="view" value="<?php echo $cal->faculty_id; ?>" class="form-control">
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Academic Year Name</label>
+                                                                                                        <input type="text" value="<?php echo $cal->academic_yr; ?>" required name="academic_yr" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Semester Opening Dates</label>
+                                                                                                        <input type="date" value="<?php echo $cal->semester_start; ?>" required name="semester_start" class="form-control" id="exampleInputEmail1">
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Semester Closing Dates</label>
+                                                                                                        <input type="date" value="<?php echo $cal->semester_end; ?>" required name="semester_end" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="card-footer text-right">
+                                                                                                <button type="submit" name="update_school_calendar" class="btn btn-primary">Submit</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                    <div class="modal-footer justify-content-between">
+                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End Update Modal -->
+
+                                                                        <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $cal->id; ?>">
+                                                                            <i class="fas fa-trash"></i>
+                                                                            Delete
+                                                                        </a>
+                                                                        <!-- Delete Confirmation Modal -->
+                                                                        <div class="modal fade" id="delete-<?php echo $cal->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body text-center text-danger">
+                                                                                        <h4>Delete ?</h4>
+                                                                                        <br>
+                                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                        <a href="school_calendar.php?delete=<?php echo $cal->id; ?>&view=<?php echo $view; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End Delete Confirmation Modal -->
+                                                                    </td>
+                                                                </tr>
+                                                            <?php $cnt = $cnt + 1;
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
+
                                                 </div>
                                             </div>
                                         </div>
