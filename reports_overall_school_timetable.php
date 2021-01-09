@@ -142,7 +142,6 @@ require_once('public/partials/_reportshead.php');
                                             <th>Time</th>
                                             <th>Room</th>
                                             <th>Link</th>
-                                            <th>Manage</th>
                                         </tr>
                                     </thead>
                                     <tbody>
