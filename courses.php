@@ -316,7 +316,7 @@ require_once('public/partials/_head.php');
                                 while ($course = $res->fetch_object()) {
                                 ?>
                                     <div class="col-md-12">
-                                        <div class="card card-primary collapsed-card">
+                                        <div class="card collapsed-card">
                                             <div class="card-header">
                                                 <a href="course.php?view=<?php echo $course->id; ?>">
                                                     <h3 class="card-title"><?php echo $cnt; ?>. <?php echo $course->name; ?></h3>
