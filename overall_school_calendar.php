@@ -326,7 +326,7 @@ require_once('public/partials/_head.php');
                                 while ($faculty = $res->fetch_object()) {
                                 ?>
                                     <div class="col-md-12">
-                                        <div class="card card-primary collapsed-card">
+                                        <div class="card  collapsed-card">
                                             <div class="card-header">
                                                 <a href="faculty_dashboard.php?view=<?php echo $faculty->id; ?>">
                                                     <h3 class="card-title"><?php echo $cnt; ?>. <?php echo $faculty->name; ?></h3>
@@ -358,7 +358,7 @@ require_once('public/partials/_head.php');
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="school_calendar.php?view=<?php echo $faculty->id; ?>">
-                                                            Calendar
+                                                            Important Dates
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -406,7 +406,7 @@ require_once('public/partials/_head.php');
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_Calendar` ORDER BY `ezanaLMS_Calendar`.`semester_start` ASC   ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = ''  ORDER BY `ezanaLMS_Calendar`.`semester_start` ASC   ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
