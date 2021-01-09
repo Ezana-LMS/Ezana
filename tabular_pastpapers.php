@@ -481,10 +481,12 @@ require_once('public/partials/_head.php');
                                                                             <i class="fas fa-edit"></i>
                                                                             Edit Visibility
                                                                         </a>
-                                                                        <div class="custom-control custom-switch">
-                                                                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                                                                            <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
-                                                                        </div> <!-- Edit Visibility Solution Modal -->
+                                                                       <!--  <div class="custom-control custom-switch">
+                                                                            <input type="checkbox" name="solution_visibility" value="<?php echo $pastExas->solution_visibility;?>" class="custom-control-input" id="customSwitch1">
+                                                                            <label class="custom-control-label" for="customSwitch1">Visibility</label>
+                                                                        </div>  -->
+
+                                                                        <!-- Edit Visibility Solution Modal -->
                                                                         <div class="modal fade" id="edit-visibility-<?php echo $pastExas->id; ?>">
                                                                             <div class="modal-dialog  modal-lg">
                                                                                 <div class="modal-content">
