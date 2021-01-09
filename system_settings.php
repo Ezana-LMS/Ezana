@@ -32,7 +32,35 @@ if (isset($_POST['systemSettings'])) {
         }
     }
 }
+/* Current Academic Year And Academic Semester */
+if (isset($_POST['CurrentAcademicTerm'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['sysname']) && !empty($_POST['sysname'])) {
+        $sysname = mysqli_real_escape_string($mysqli, trim($_POST['sysname']));
+    } else {
+        $error = 1;
+        $err = "System Name Cannot Be Empty";
+    }
+    if (!$error) {
+        $id = $_POST['id'];
+        $version = $_POST['version'];
+        $sysname = $_POST['sysname'];
+        $logo = $_FILES['logo']['name'];
+        move_uploaded_file($_FILES["logo"]["tmp_name"], "public/dist/img/" . $_FILES["logo"]["name"]);
 
+        $query = "UPDATE ezanaLMS_Settings SET sysname =?, logo =?, version=? WHERE id = ?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ssss',  $sysname,  $logo, $version, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Settings Updated" && header("refresh:1; url=system_settings.php");
+        } else {
+            //inject alert that profile update task failed
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
 /* Restore Database */
 if (isset($_POST['RestoreDatabase'])) {
 }
@@ -168,7 +196,10 @@ require_once('public/partials/_head.php');
                                     <div class="card-body">
                                         <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">System Settings</a>
+                                                <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Customization</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home-academic" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Academic Settings</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home-data-backup" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Data Backup And Restore Utility</a>
@@ -214,6 +245,27 @@ require_once('public/partials/_head.php');
                                                     </form>
                                                 <?php
                                                 } ?>
+                                            </div>
+                                            <div class="tab-pane fade show " id="custom-content-below-home-academic" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                <br>
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Current Academic Year</label>
+                                                                <input type="text" required name="current_academic_yr"  class="form-control">
+                                                                <input type="hidden" required name="id" value="<?php echo $sys->id ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Current Semester</label>
+                                                                <input type="text" required name="current_semester"  class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <button type="submit" name="CurrentAcademicTerm" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                             <div class="tab-pane fade show " id="custom-content-below-home-data-backup" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                 <br>
