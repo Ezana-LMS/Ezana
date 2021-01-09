@@ -120,7 +120,7 @@ require_once('public/partials/_reportshead.php');
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="reports.php">System</a></li>
                                 <li class="breadcrumb-item"><a href="reports.php">Reports</a></li>
-                                <li class="breadcrumb-item active">School Calendar</li>
+                                <li class="breadcrumb-item active">Important Dates</li>
                             </ol>
                         </div>
                     </div>
@@ -134,15 +134,16 @@ require_once('public/partials/_reportshead.php');
                                 <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Semester Name</th>
-                                            <th>Opening Dates</th>
-                                            <th>Closing Dates</th>
                                             <th>Academic Year</th>
+                                            <th>Semester</th>
+                                            <th>Start Date </th>
+                                            <th>End Date </th>
+                                            <th>Description</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Calendar` ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Calendar`   ORDER BY `ezanaLMS_Calendar`.`semester_start` ASC   ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
@@ -150,10 +151,11 @@ require_once('public/partials/_reportshead.php');
                                         while ($cal = $res->fetch_object()) {
                                         ?>
                                             <tr>
+                                                <td><?php echo $cal->academic_yr; ?></td>
                                                 <td><?php echo $cal->semester_name; ?></td>
                                                 <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
                                                 <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
-                                                <td><?php echo $cal->academic_yr; ?></td>
+                                                <td><?php echo $cal->description; ?></td>
                                             </tr>
                                         <?php $cnt = $cnt + 1;
                                         } ?>
