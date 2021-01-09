@@ -267,7 +267,7 @@ require_once('public/partials/_head.php');
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="school_calendar.php?view=<?php echo $faculty->id; ?>">
-                                                            Calendar
+                                                            Important Dates
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -364,7 +364,7 @@ require_once('public/partials/_head.php');
 
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
-                                                            <h3>Calendar</h3>
+                                                            <h3>Important Dates</h3>
                                                         </div>
                                                         <div class="icon">
                                                             <i class="fas fa-calendar"></i>

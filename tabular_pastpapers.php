@@ -116,7 +116,7 @@ require_once('public/partials/_head.php');
                 <!-- Brand Logo -->
                 <?php require_once('public/partials/_brand.php'); ?>
                 <!-- Sidebar -->
-                <div class="sidebar">
+                <div class="sidebar ">
                     <!-- Sidebar Menu -->
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -481,6 +481,11 @@ require_once('public/partials/_head.php');
                                                                             <i class="fas fa-edit"></i>
                                                                             Edit Visibility
                                                                         </a>
+                                                                       <!--  <div class="custom-control custom-switch">
+                                                                            <input type="checkbox" name="solution_visibility" value="<?php echo $pastExas->solution_visibility;?>" class="custom-control-input" id="customSwitch1">
+                                                                            <label class="custom-control-label" for="customSwitch1">Visibility</label>
+                                                                        </div>  -->
+
                                                                         <!-- Edit Visibility Solution Modal -->
                                                                         <div class="modal fade" id="edit-visibility-<?php echo $pastExas->id; ?>">
                                                                             <div class="modal-dialog  modal-lg">
@@ -536,8 +541,7 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                         </div>
                                                                         <!-- End Edit Visibilty Modal -->
-
-                                                                        <a class="badge badge-danger"  data-toggle="modal" href="#delete-<?php echo $pastExas->id; ?>">
+                                                                        <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $pastExas->id; ?>">
                                                                             <i class="fas fa-trash"></i>
                                                                             Delete Paper
                                                                         </a>

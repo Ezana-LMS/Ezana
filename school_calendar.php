@@ -55,10 +55,11 @@ if (isset($_POST['add_school_calendar'])) {
             $semester_name = $_POST['semester_name'];
             $semester_end = $_POST['semester_end'];
             $view = $_POST['view'];
+            $description = $_POST['description'];
 
-            $query = "INSERT INTO ezanaLMS_Calendar (id, faculty_id,  academic_yr, semester_start, semester_name, semester_end) VALUES(?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Calendar (id, faculty_id,  academic_yr, semester_start, semester_name, semester_end, description) VALUES(?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssss', $id, $view,  $academic_yr, $semester_start, $semester_name, $semester_end);
+            $rc = $stmt->bind_param('sssssss', $id, $view,  $academic_yr, $semester_start, $semester_name, $semester_end, $description);
             $stmt->execute();
             if ($stmt) {
                 $success = "Educational Dates Added" && header("refresh:1; url=school_calendar.php?view=$view");
@@ -104,13 +105,14 @@ if (isset($_POST['update_school_calendar'])) {
         $semester_start = $_POST['semester_start'];
         $semester_name = $_POST['semester_name'];
         $semester_end = $_POST['semester_end'];
+        $description = $_POST['description'];
         /* fACULTY id */
         $view = $_POST['view'];
 
 
-        $query = "UPDATE ezanaLMS_Calendar SET academic_yr =?, semester_start =?, semester_name =?, semester_end =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Calendar SET academic_yr =?, semester_start =?, semester_name =?, semester_end =?, description =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssss',  $academic_yr, $semester_start, $semester_name, $semester_end, $id);
+        $rc = $stmt->bind_param('ssssss',  $academic_yr, $semester_start, $semester_name, $semester_end, $description, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Educational Dates Updated" && header("refresh:1; url=school_calendar.php?view=$view");
@@ -273,14 +275,14 @@ require_once('public/partials/_head.php');
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
                                     <div class="text-right">
-                                        <a href="school_calendar_tabular.php?view=<?php echo $faculty->id;?>" class="btn btn-primary" title="View <?php echo $faculty->name;?> School Calendar In Tabular Formart"><i class="fas fa-table"></i></a>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Important Dates</button>
+                                        <!--<a href="school_calendar.php?view=<?php echo $faculty->id; ?>" class="btn btn-primary" title="View <?php echo $faculty->name; ?> School Calendar In Calendar Formart"><i class="fas fa-calendar"></i></a>-->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Faculty Important Dates</button>
                                     </div>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Fill All Values </h4>
+                                                    <h4 class="modal-title">Faculty Important Dates </h4>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -290,28 +292,32 @@ require_once('public/partials/_head.php');
                                                         <div class="card-body">
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="">Semester Name</label>
+                                                                    <label for="">Academic Year </label>
+                                                                    <input type="text" required name="academic_yr" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Semester </label>
                                                                     <input type="text" required name="semester_name" class="form-control" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" required name="view" value="<?php echo $faculty->id; ?>" class="form-control">
                                                                 </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Academic Year Name</label>
-                                                                    <input type="text" required name="academic_yr" class="form-control">
-                                                                </div>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="">Semester Opening Dates</label>
+                                                                    <label for="">Start Date</label>
                                                                     <input type="date" required name="semester_start" class="form-control" id="exampleInputEmail1">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="">Semester Closing Dates</label>
+                                                                    <label for="">End Date</label>
                                                                     <input type="date" required name="semester_end" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="">Description</label>
+                                                                    <textarea rows="3" type="text" required name="description" class="form-control"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="card-footer text-right">
+                                                        <div class="text-right">
                                                             <button type="submit" name="add_school_calendar" class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </form>
@@ -365,7 +371,7 @@ require_once('public/partials/_head.php');
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="text-center">
-                                                <h1 class="display-4">Important Dates</h1>
+                                                <h1 class="display-4">Faculty Important Dates</h1>
                                             </div>
                                             <div class="text-left">
                                                 <a href="faculty_dashboard.php?view=<?php echo $view; ?>" class="btn btn-outline-success">
@@ -376,7 +382,124 @@ require_once('public/partials/_head.php');
                                             <br>
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <div id="calendar"></div>
+
+                                                    <table id="example1" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Academic Year</th>
+                                                                <th>Semester</th>
+                                                                <th>Start Date </th>
+                                                                <th>End Date </th>
+                                                                <th>Description</th>
+                                                                <th>Manage</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$faculty->id'  ORDER BY `ezanaLMS_Calendar`.`semester_start` ASC   ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            $cnt = 1;
+                                                            while ($cal = $res->fetch_object()) {
+                                                            ?>
+
+                                                                <tr>
+
+                                                                    <td><?php echo $cal->academic_yr; ?></td>
+                                                                    <td><?php echo $cal->semester_name; ?></td>
+                                                                    <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
+                                                                    <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
+                                                                    <td><?php echo $cal->description; ?></td>
+                                                                    <td>
+                                                                        <a class="badge badge-primary" data-toggle="modal" href="#update-calendar-<?php echo $cal->id; ?>">
+                                                                            <i class="fas fa-edit"></i>
+                                                                            Update
+                                                                        </a>
+                                                                        <!-- Update Modal -->
+                                                                        <div class="modal fade" id="update-calendar-<?php echo $cal->id; ?>">
+                                                                            <div class="modal-dialog  modal-lg">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h4 class="modal-title">Update <?php echo $cal->academic_yr; ?> <?php echo $cal->semester_name; ?> Important Dates </h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                                                            <div class="card-body">
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Academic Year Name</label>
+                                                                                                        <input type="text" value="<?php echo $cal->academic_yr; ?>" required name="academic_yr" class="form-control">
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Semester Name</label>
+                                                                                                        <input type="text" value="<?php echo $cal->semester_name; ?>" required name="semester_name" class="form-control" id="exampleInputEmail1">
+                                                                                                        <input type="hidden" required name="id" value="<?php echo $cal->id; ?>" class="form-control">
+                                                                                                        <input type="hidden" required name="view" value="<?php echo $faculty->id; ?>" class="form-control">
+                                                                                                    </div>
+
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Start Date</label>
+                                                                                                        <input type="date" value="<?php echo $cal->semester_start; ?>" required name="semester_start" class="form-control" id="exampleInputEmail1">
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">End Date</label>
+                                                                                                        <input type="date" value="<?php echo $cal->semester_end; ?>" required name="semester_end" class="form-control">
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-12">
+                                                                                                        <label for="">Description</label>
+                                                                                                        <textarea rows="3" type="text" required name="description" class="form-control"><?php echo $cal->description; ?></textarea>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="text-right">
+                                                                                                <button type="submit" name="update_school_calendar" class="btn btn-primary">Submit</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                    <div class="modal-footer justify-content-between">
+                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End Update Modal -->
+
+                                                                        <a class="badge badge-danger" href="#delete-<?php echo $cal->id; ?>" data-toggle="modal">
+                                                                            <i class="fas fa-trash"></i>
+                                                                            Delete
+                                                                        </a>
+                                                                        <!-- Delete Confirmation Modal -->
+                                                                        <div class="modal fade" id="delete-<?php echo $cal->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body text-center text-danger">
+                                                                                        <h4>Delete Dates?</h4>
+                                                                                        <br>
+                                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                        <a href="overall_school_calendar.php?delete=<?php echo $cal->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End Delete Confirmation Modal -->
+                                                                    </td>
+                                                                </tr>
+                                                            <?php $cnt = $cnt + 1;
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>

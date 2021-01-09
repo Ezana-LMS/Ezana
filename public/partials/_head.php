@@ -67,6 +67,8 @@ while ($sys = $res->fetch_object()) {
         <link rel="stylesheet" href="public/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="public/dist/css/adminlte.min.css">
+        <!-- Bootstrap Toggle CDN -->
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
         <!-- Google Font: Source Sans Pro -->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
         <!-- SweetAlert2 -->

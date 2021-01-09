@@ -7,7 +7,7 @@ $res = $stmt->get_result();
 while ($admin = $res->fetch_object()) {
 ?>
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <nav class="main-header navbar  navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -43,6 +43,10 @@ while ($admin = $res->fetch_object()) {
                     <a href="profile.php" class="dropdown-item">
                         <i class="fas fa-user mr-2"></i>
                         Profile
+                    </a>
+                    <a href="calendar.php" class="dropdown-item">
+                        <i class="fas fa-calendar mr-2"></i>
+                        Calendar
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="logout.php" class="dropdown-item">
