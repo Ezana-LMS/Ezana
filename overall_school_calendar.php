@@ -33,41 +33,42 @@ if (isset($_POST['add_school_calendar'])) {
         $error = 1;
         $err = "Semester Closing  Dates Cannot Be Empty";
     }
-    if (isset($_POST['view']) && !empty($_POST['view'])) {
+    /*  if (isset($_POST['view']) && !empty($_POST['view'])) {
         $view = mysqli_real_escape_string($mysqli, trim($_GET['view']));
     } else {
         $error = 1;
         $err = "Faculty ID  Dates Cannot Be Empty";
-    }
+    } */
     if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Calendar WHERE  (semester_name='$semester_name' AND academic_yr = '$academic_yr' AND faculty_id = '$view')   ";
+        /* //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_Calendar WHERE  (semester_name='$semester_name' AND academic_yr = '$academic_yr'   ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
-            if (($semester_name == $row['semester_name']) && ($academic_yr == $row['academic_yr']) && ($view == $row['faculty_id'])) {
-                $err =  "Academic Dates Already Added";
+            if (($semester_name == $row['semester_name']) && ($academic_yr == $row['academic_yr']) ) {
+                $err =  "Important Dates Already Added";
             }
-        } else {
-            $id = $_POST['id'];
-            $academic_yr = $_POST['academic_yr'];
-            $semester_start = $_POST['semester_start'];
-            $semester_name = $_POST['semester_name'];
-            $semester_end = $_POST['semester_end'];
-            //$view = $_POST['view'];
+        } else { */
+        $id = $_POST['id'];
+        $academic_yr = $_POST['academic_yr'];
+        $semester_start = $_POST['semester_start'];
+        $semester_name = $_POST['semester_name'];
+        $semester_end = $_POST['semester_end'];
+        $description = $_POST['description'];
+        //$view = $_POST['view'];
 
-            $query = "INSERT INTO ezanaLMS_Calendar (id,  academic_yr, semester_start, semester_name, semester_end) VALUES(?,?,?,?,?)";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssss', $id,  $academic_yr, $semester_start, $semester_name, $semester_end);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "Educational Dates Added" && header("refresh:1; url=overall_school_calendar.php");
-            } else {
-                $info = "Please Try Again Or Try Later";
-            }
+        $query = "INSERT INTO ezanaLMS_Calendar (id,  academic_yr, semester_start, semester_name, semester_end, description) VALUES(?,?,?,?,?,?)";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ssssss', $id,  $academic_yr, $semester_start, $semester_name, $semester_end, $description);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Educational Dates Added" && header("refresh:1; url=overall_school_calendar.php");
+        } else {
+            $info = "Please Try Again Or Try Later";
         }
     }
 }
+
 
 /* Update Important Dates */
 
@@ -105,10 +106,11 @@ if (isset($_POST['update_school_calendar'])) {
         $semester_start = $_POST['semester_start'];
         $semester_name = $_POST['semester_name'];
         $semester_end = $_POST['semester_end'];
+        $description = $_POST['description'];
 
-        $query = "UPDATE ezanaLMS_Calendar SET academic_yr =?, semester_start =?, semester_name =?, semester_end =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Calendar SET academic_yr =?, semester_start =?, semester_name =?, semester_end =?, description =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssss',  $academic_yr, $semester_start, $semester_name, $semester_end, $id);
+        $rc = $stmt->bind_param('ssssss',  $academic_yr, $semester_start, $semester_name, $semester_end, $description, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Educational Dates Updated" && header("refresh:1; url=overall_school_calendar.php");
@@ -241,12 +243,12 @@ require_once('public/partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Overall School Calendar</h1>
+                            <h1 class="m-0 text-dark">Overall School Important Dates</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                <li class="breadcrumb-item active">Overall School Calendar</li>
+                                <li class="breadcrumb-item active">Important Dates</li>
                             </ol>
                         </div>
                     </div>
@@ -265,7 +267,7 @@ require_once('public/partials/_head.php');
                                     <div class="modal-dialog  modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Fill All Values </h4>
+                                                <h4 class="modal-title">Add Important Dates </h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -275,27 +277,31 @@ require_once('public/partials/_head.php');
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
-                                                                <label for="">Semester Name</label>
-                                                                <input type="text" required name="semester_name" class="form-control" id="exampleInputEmail1">
-                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                <label for="">Academic Year </label>
+                                                                <input type="text" required name="academic_yr" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-6">
-                                                                <label for="">Academic Year Name</label>
-                                                                <input type="text" required name="academic_yr" class="form-control">
+                                                                <label for="">Semester </label>
+                                                                <input type="text" required name="semester_name" class="form-control" id="exampleInputEmail1">
+                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
-                                                                <label for="">Semester Opening Dates</label>
+                                                                <label for="">Start Date</label>
                                                                 <input type="date" required name="semester_start" class="form-control" id="exampleInputEmail1">
                                                             </div>
                                                             <div class="form-group col-md-6">
-                                                                <label for="">Semester Closing Dates</label>
+                                                                <label for="">End Date</label>
                                                                 <input type="date" required name="semester_end" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-12">
+                                                                <label for="">Description</label>
+                                                                <textarea rows="3" type="text" required name="description" class="form-control"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card-footer text-right">
+                                                    <div class="text-right">
                                                         <button type="submit" name="add_school_calendar" class="btn btn-primary">Submit</button>
                                                     </div>
                                                 </form>
@@ -390,16 +396,17 @@ require_once('public/partials/_head.php');
                                                 <table id="example1" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th>Semester</th>
-                                                            <th>Opening </th>
-                                                            <th>Closing </th>
                                                             <th>Academic Year</th>
+                                                            <th>Semester</th>
+                                                            <th>Start Date </th>
+                                                            <th>End Date </th>
+                                                            <th>Description</th>
                                                             <th>Manage</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_Calendar`  ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_Calendar` ORDER BY `ezanaLMS_Calendar`.`semester_start` ASC   ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
@@ -408,10 +415,12 @@ require_once('public/partials/_head.php');
                                                         ?>
 
                                                             <tr>
+
+                                                                <td><?php echo $cal->academic_yr; ?></td>
                                                                 <td><?php echo $cal->semester_name; ?></td>
                                                                 <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
                                                                 <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
-                                                                <td><?php echo $cal->academic_yr; ?></td>
+                                                                <td><?php echo $cal->description; ?></td>
                                                                 <td>
                                                                     <a class="badge badge-primary" data-toggle="modal" href="#update-calendar-<?php echo $cal->id; ?>">
                                                                         <i class="fas fa-edit"></i>
@@ -422,7 +431,7 @@ require_once('public/partials/_head.php');
                                                                         <div class="modal-dialog  modal-lg">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
-                                                                                    <h4 class="modal-title">Fill All Values </h4>
+                                                                                    <h4 class="modal-title">Update <?php echo $cal->academic_yr; ?> <?php echo $cal->semester_name; ?> Important Dates </h4>
                                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                         <span aria-hidden="true">&times;</span>
                                                                                     </button>
@@ -432,27 +441,32 @@ require_once('public/partials/_head.php');
                                                                                         <div class="card-body">
                                                                                             <div class="row">
                                                                                                 <div class="form-group col-md-6">
+                                                                                                    <label for="">Academic Year Name</label>
+                                                                                                    <input type="text" value="<?php echo $cal->academic_yr; ?>" required name="academic_yr" class="form-control">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-6">
                                                                                                     <label for="">Semester Name</label>
                                                                                                     <input type="text" value="<?php echo $cal->semester_name; ?>" required name="semester_name" class="form-control" id="exampleInputEmail1">
                                                                                                     <input type="hidden" required name="id" value="<?php echo $cal->id; ?>" class="form-control">
                                                                                                 </div>
-                                                                                                <div class="form-group col-md-6">
-                                                                                                    <label for="">Academic Year Name</label>
-                                                                                                    <input type="text" value="<?php echo $cal->academic_yr; ?>" required name="academic_yr" class="form-control">
-                                                                                                </div>
+
                                                                                             </div>
                                                                                             <div class="row">
                                                                                                 <div class="form-group col-md-6">
-                                                                                                    <label for="">Semester Opening Dates</label>
+                                                                                                    <label for="">Start Date</label>
                                                                                                     <input type="date" value="<?php echo $cal->semester_start; ?>" required name="semester_start" class="form-control" id="exampleInputEmail1">
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-6">
-                                                                                                    <label for="">Semester Closing Dates</label>
+                                                                                                    <label for="">End Date</label>
                                                                                                     <input type="date" value="<?php echo $cal->semester_end; ?>" required name="semester_end" class="form-control">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-12">
+                                                                                                    <label for="">Description</label>
+                                                                                                    <textarea rows="3" type="text" required name="description" class="form-control"><?php echo $cal->description; ?></textarea>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div class="card-footer text-right">
+                                                                                        <div class="text-right">
                                                                                             <button type="submit" name="update_school_calendar" class="btn btn-primary">Submit</button>
                                                                                         </div>
                                                                                     </form>
