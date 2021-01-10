@@ -5,6 +5,8 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
+
+/* Add Faculty */
 if (isset($_POST['add_faculty'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -42,7 +44,7 @@ if (isset($_POST['add_faculty'])) {
             $rc = $stmt->bind_param('ssss', $id, $code, $name, $details);
             $stmt->execute();
             if ($stmt) {
-                $success = "$name Faculty Added";
+                $success = "Added" && header("refresh:1; url=faculties.php");
             } else {
                 //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";
@@ -50,6 +52,41 @@ if (isset($_POST['add_faculty'])) {
         }
     }
 }
+/* Update Faculty */
+if (isset($_POST['update_faculty'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Faculty Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Faculty Name Cannot Be Empty";
+    }
+    if (!$error) {
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $code = $_POST['code'];
+        $details = $_POST['details'];
+
+        $query = "UPDATE ezanaLMS_Faculties SET code =?, name =?, details =? WHERE idd =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Added" && header("refresh:1; url=faculties.php");
+        } else {
+            //inject alert that profile update task failed
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
 
 /* Delete Faculty */
 if (isset($_GET['delete'])) {
@@ -353,18 +390,18 @@ require_once('public/partials/_head.php');
                                                                                     <div class="row">
                                                                                         <div class="form-group col-md-6">
                                                                                             <label for="">Faculty Name</label>
-                                                                                            <input type="text" required name="name" value="<?php echo $faculty->name;?>" class="form-control" id="exampleInputEmail1">
+                                                                                            <input type="text" required name="name" value="<?php echo $faculty->name; ?>" class="form-control" id="exampleInputEmail1">
                                                                                             <input type="hidden" required name="id" value="<?php echo $faculty->id; ?>" class="form-control">
                                                                                         </div>
                                                                                         <div class="form-group col-md-6">
                                                                                             <label for="">Faculty Number / Code</label>
-                                                                                            <input type="text" required name="code" value="<?php echo $faculty->code;?>" class="form-control">
+                                                                                            <input type="text" required name="code" value="<?php echo $faculty->code; ?>" class="form-control">
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="row">
                                                                                         <div class="form-group col-md-12">
                                                                                             <label for="exampleInputPassword1">Faculty Description</label>
-                                                                                            <textarea id="textarea" name="details" rows="5" class="form-control"><?php echo $faculty->details;?></textarea>
+                                                                                            <textarea id="textarea" name="details" rows="5" class="form-control"><?php echo $faculty->details; ?></textarea>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
