@@ -313,10 +313,10 @@ require_once('public/partials/_head.php');
                                                         <td><?php echo $faculty->code; ?></td>
                                                         <td><?php echo $faculty->name; ?></td>
                                                         <td>
-                                                            <a class="badge badge-success" href="faculty_dashboard.php?view=<?php echo $faculty->id; ?>">
+                                                            <!-- <a class="badge badge-success" href="faculty_dashboard.php?view=<?php echo $faculty->id; ?>">
                                                                 <i class="fas fa-eye"></i>
                                                                 View
-                                                            </a>
+                                                            </a> -->
                                                             <a class="badge badge-primary" data-toggle="modal" href="#edit-faculty-<?php echo $faculty->id; ?>">
                                                                 <i class="fas fa-edit"></i>
                                                                 Update

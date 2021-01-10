@@ -167,7 +167,7 @@ require_once('public/partials/_head.php');
             <!-- Main Sidebar Container -->
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
                 <!-- Brand Logo -->
-                    <?php require_once('public/partials/_brand.php'); ?>
+                <?php require_once('public/partials/_brand.php'); ?>
                 <!-- Sidebar -->
                 <div class="sidebar">
                     <!-- Sidebar Menu -->
@@ -469,10 +469,26 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                                 <!-- End Update Modal -->
-                                                                <a class="badge badge-danger" href="department_courses.php.php?delete=<?php echo $courses->id; ?>&view=<?php echo $department->id; ?>">
-                                                                    <i class="fas fa-trash"></i>
-                                                                    Delete
-                                                                </a>
+                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $department->id; ?>"> <i class="fas fa-trash"></i> Delete</a>
+                                                                <!-- Delete Confirmation Modal -->
+                                                                <div class="modal fade" id="delete-<?php echo $faculty->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body text-center text-danger">
+                                                                                <h4>Delete <?php echo $courses->name; ?> ?</h4>
+                                                                                <br>
+                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                <a href="department_courses.php.php?delete=<?php echo $courses->id; ?>&view=<?php echo $department->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                     <?php $cnt = $cnt + 1;
