@@ -158,7 +158,7 @@ require_once('public/partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Faculties</h1>
+                            <h1 class="m-0 text-dark">Faculties Search Results</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -223,7 +223,7 @@ require_once('public/partials/_head.php');
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-12">
                                 <?php
                                 $query = $_GET['query'];
                                 $min_length = 5;
@@ -235,7 +235,7 @@ require_once('public/partials/_head.php');
                                         while ($results = mysqli_fetch_array($raw_results)) {
                                 ?>
                                             <div class="col-md-12">
-                                                <div class="card card-primary collapsed-card">
+                                                <div class="card  collapsed-card">
                                                     <div class="card-header">
                                                         <a href="faculty_dashboard.php?view=<?php echo $results['id']; ?>">
                                                             <h3 class="card-title"><?php echo $results['name']; ?></h3>
@@ -294,7 +294,7 @@ require_once('public/partials/_head.php');
                                 }
                                 ?>
                             </div>
-                            <div class="col-md-9">
+                            <!-- <div class="col-md-9">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="jumbotron">
@@ -408,7 +408,7 @@ require_once('public/partials/_head.php');
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </section>
