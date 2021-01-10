@@ -454,13 +454,6 @@ require_once('public/partials/_head.php');
                                                                                         <button type="submit" name="update_course" class="btn btn-primary">Update</button>
                                                                                     </div>
                                                                                 </form>
-                                                                                <!-- End Update Course Form -->
-                                                                                <!-- Inline CK Editor Script -->
-                                                                                <script>
-                                                                                    CKEDITOR.replace('editor-<?php echo $courses->id; ?>');
-                                                                                </script>
-                                                                                <!-- End Inline Ck Editor Script -->
-
                                                                             </div>
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -471,7 +464,7 @@ require_once('public/partials/_head.php');
                                                                 <!-- End Update Modal -->
                                                                 <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $department->id; ?>"> <i class="fas fa-trash"></i> Delete</a>
                                                                 <!-- Delete Confirmation Modal -->
-                                                                <div class="modal fade" id="delete-<?php echo $faculty->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal fade" id="delete-<?php echo $department->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">

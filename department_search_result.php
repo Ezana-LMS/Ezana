@@ -82,15 +82,15 @@ require_once('public/partials/_head.php');
                         </li>
 
                         <li class="nav-item">
-                            <a href="faculties.php" class="active nav-link">
+                            <a href="faculties.php" class=" nav-link">
                                 <i class="nav-icon fas fa-university"></i>
                                 <p>
                                     Faculties
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="departments.php" class="nav-link">
+                        <li class="nav-item ">
+                            <a href="departments.php" class="active nav-link">
                                 <i class="nav-icon fas fa-building"></i>
                                 <p>
                                     Departments
@@ -167,7 +167,7 @@ require_once('public/partials/_head.php');
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
+                                <li class="breadcrumb-item"><a href="departments.php">Departments</a></li>
                                 <li class="breadcrumb-item active">Search Results</li>
                             </ol>
                         </div>
