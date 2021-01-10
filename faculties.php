@@ -332,33 +332,33 @@ require_once('public/partials/_head.php');
                                                                             </button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <!-- Update Course Form -->
+                                                                            <!-- Update Faculty Modal -->
                                                                             <form method="post" enctype="multipart/form-data" role="form">
                                                                                 <div class="card-body">
                                                                                     <div class="row">
                                                                                         <div class="form-group col-md-6">
-                                                                                            <label for="">Course Name</label>
-                                                                                            <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                                                            <input type="hidden" required name="id" value="<?php echo $courses->id; ?>" class="form-control" id="exampleInputEmail1">
-                                                                                            <input type="hidden" required name="view" value="<?php echo $department->id; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                            <label for="">Faculty Name</label>
+                                                                                            <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                                         </div>
                                                                                         <div class="form-group col-md-6">
-                                                                                            <label for="">Course Number / Code</label>
-                                                                                            <input type="text" required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
+                                                                                            <label for="">Faculty Number / Code</label>
+                                                                                            <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="row">
                                                                                         <div class="form-group col-md-12">
-                                                                                            <label for="exampleInputPassword1">Course Description</label>
-                                                                                            <textarea required name="details" id="editor-<?php echo $courses->id; ?>" rows="10" class="form-control"><?php echo $courses->details; ?></textarea>
+                                                                                            <label for="exampleInputPassword1">Faculty Description</label>
+                                                                                            <textarea id="textarea" name="details" rows="10" class="form-control"></textarea>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="card-footer text-right">
-                                                                                    <button type="submit" name="update_course" class="btn btn-primary">Update</button>
+                                                                                <div class="text-right">
+                                                                                    <button type="submit" name="add_faculty" class=" btn btn-primary">Add Faculty</button>
                                                                                 </div>
                                                                             </form>
-                                                                            <!-- End Update Course Form -->
+
+                                                                            <!-- End Update Faculty Modal -->
                                                                         </div>
                                                                         <div class="modal-footer justify-content-between">
                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -367,10 +367,9 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </div>
                                                             <!-- End Update Modal -->
-                                                            <!-- End  Modal -->
-                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $rm->id; ?>">Delete</a>
+                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $faculty->id; ?>"> <i class="fas fa-trash"></i> Delete</a>
                                                             <!-- Delete Confirmation Modal -->
-                                                            <div class="modal fade" id="delete-<?php echo $rm->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal fade" id="delete-<?php echo $faculty->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
@@ -380,10 +379,10 @@ require_once('public/partials/_head.php');
                                                                             </button>
                                                                         </div>
                                                                         <div class="modal-body text-center text-danger">
-                                                                            <h4>Delete <?php echo $rm->readingMaterials; ?> ?</h4>
+                                                                            <h4>Delete <?php echo $faculty->name; ?> ?</h4>
                                                                             <br>
                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                            <a href="course_materials.php?delete=<?php echo $rm->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                            <a href="faculties.php?delete=<?php echo $faculty->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
