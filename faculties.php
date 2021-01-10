@@ -338,26 +338,25 @@ require_once('public/partials/_head.php');
                                                                                     <div class="row">
                                                                                         <div class="form-group col-md-6">
                                                                                             <label for="">Faculty Name</label>
-                                                                                            <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                                            <input type="text" required name="name" value="<?php echo $faculty->name;?>" class="form-control" id="exampleInputEmail1">
+                                                                                            <input type="hidden" required name="id" value="<?php echo $faculty->id; ?>" class="form-control">
                                                                                         </div>
                                                                                         <div class="form-group col-md-6">
                                                                                             <label for="">Faculty Number / Code</label>
-                                                                                            <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                                                            <input type="text" required name="code" value="<?php echo $faculty->code;?>" class="form-control">
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="row">
                                                                                         <div class="form-group col-md-12">
                                                                                             <label for="exampleInputPassword1">Faculty Description</label>
-                                                                                            <textarea id="textarea" name="details" rows="10" class="form-control"></textarea>
+                                                                                            <textarea id="textarea" name="details" rows="5" class="form-control"><?php echo $faculty->details;?></textarea>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="text-right">
-                                                                                    <button type="submit" name="add_faculty" class=" btn btn-primary">Add Faculty</button>
+                                                                                    <button type="submit" name="update_faculty" class=" btn btn-primary">Update Faculty</button>
                                                                                 </div>
                                                                             </form>
-
                                                                             <!-- End Update Faculty Modal -->
                                                                         </div>
                                                                         <div class="modal-footer justify-content-between">
