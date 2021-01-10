@@ -5,6 +5,8 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
+
+/* Add Faculty */
 if (isset($_POST['add_faculty'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -42,12 +44,62 @@ if (isset($_POST['add_faculty'])) {
             $rc = $stmt->bind_param('ssss', $id, $code, $name, $details);
             $stmt->execute();
             if ($stmt) {
-                $success = "$name Faculty Added";
+                $success = "Added" && header("refresh:1; url=faculties.php");
             } else {
                 //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";
             }
         }
+    }
+}
+/* Update Faculty */
+if (isset($_POST['update_faculty'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Faculty Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Faculty Name Cannot Be Empty";
+    }
+    if (!$error) {
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $code = $_POST['code'];
+        $details = $_POST['details'];
+
+        $query = "UPDATE ezanaLMS_Faculties SET code =?, name =?, details =? WHERE idd =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Added" && header("refresh:1; url=faculties.php");
+        } else {
+            //inject alert that profile update task failed
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
+
+/* Delete Faculty */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $adn = "DELETE FROM ezanaLMS_Faculties WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=faculties.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
     }
 }
 require_once('public/partials/_head.php');
@@ -267,7 +319,7 @@ require_once('public/partials/_head.php');
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="school_calendar.php?view=<?php echo $faculty->id; ?>">
-                                                            Calendar
+                                                            Important Dates
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -291,7 +343,108 @@ require_once('public/partials/_head.php');
                             <div class="col-md-9">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="jumbotron">
+                                        <!-- Perform Crud On Faculties -->
+                                        <table id="example1" class=" table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Faculty Code Number</th>
+                                                    <th>Faculty Name</th>
+                                                    <th>Manage Faculty</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                $cnt = 1;
+                                                while ($faculty = $res->fetch_object()) {
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $faculty->code; ?></td>
+                                                        <td><?php echo $faculty->name; ?></td>
+                                                        <td>
+                                                            <!-- <a class="badge badge-success" href="faculty_dashboard.php?view=<?php echo $faculty->id; ?>">
+                                                                <i class="fas fa-eye"></i>
+                                                                View
+                                                            </a> -->
+                                                            <a class="badge badge-primary" data-toggle="modal" href="#edit-faculty-<?php echo $faculty->id; ?>">
+                                                                <i class="fas fa-edit"></i>
+                                                                Update
+                                                            </a>
+                                                            <!-- Update Faculty Modal -->
+                                                            <div class="modal fade" id="edit-faculty-<?php echo $faculty->id; ?>">
+                                                                <div class="modal-dialog  modal-lg">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">Edit <?php echo $faculty->name; ?> Details</h4>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <!-- Update Faculty Modal -->
+                                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                                <div class="card-body">
+                                                                                    <div class="row">
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="">Faculty Name</label>
+                                                                                            <input type="text" required name="name" value="<?php echo $faculty->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                            <input type="hidden" required name="id" value="<?php echo $faculty->id; ?>" class="form-control">
+                                                                                        </div>
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="">Faculty Number / Code</label>
+                                                                                            <input type="text" required name="code" value="<?php echo $faculty->code; ?>" class="form-control">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="form-group col-md-12">
+                                                                                            <label for="exampleInputPassword1">Faculty Description</label>
+                                                                                            <textarea id="textarea" name="details" rows="5" class="form-control"><?php echo $faculty->details; ?></textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="text-right">
+                                                                                    <button type="submit" name="update_faculty" class=" btn btn-primary">Update Faculty</button>
+                                                                                </div>
+                                                                            </form>
+                                                                            <!-- End Update Faculty Modal -->
+                                                                        </div>
+                                                                        <div class="modal-footer justify-content-between">
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- End Update Modal -->
+                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $faculty->id; ?>"> <i class="fas fa-trash"></i> Delete</a>
+                                                            <!-- Delete Confirmation Modal -->
+                                                            <div class="modal fade" id="delete-<?php echo $faculty->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">&times;</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body text-center text-danger">
+                                                                            <h4>Delete <?php echo $faculty->name; ?> ?</h4>
+                                                                            <br>
+                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                            <a href="faculties.php?delete=<?php echo $faculty->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php $cnt = $cnt + 1;
+                                                } ?>
+                                            </tbody>
+                                        </table>
+                                        <!-- <div class="jumbotron">
                                             <div class="row">
 
                                                 <div class="col-lg-4 col-6">
@@ -399,7 +552,7 @@ require_once('public/partials/_head.php');
                                                     </a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>

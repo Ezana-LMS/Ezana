@@ -180,7 +180,7 @@ require_once('public/partials/_head.php');
                         <div class="text-left">
                             <nav class="navbar navbar-light bg-light col-md-12">
                                 <form class="form-inline" action="course_search_result.php" method="GET">
-                                    <input class="form-control mr-sm-2" type="search" name="query" placeholder="Dep Name Or Code">
+                                    <input class="form-control mr-sm-2" type="search" name="query" placeholder="Course Name Or Code">
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                 </form>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
@@ -276,22 +276,27 @@ require_once('public/partials/_head.php');
 
                                                     <div class="card-body">
                                                         <ul class="list-group">
+
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="course_modules.php?view=<?php echo $course->id; ?>">
+                                                                <a href="course_modules.php?view=<?php echo $results['id']; ?>">
                                                                     Modules
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="timetables.php?view=<?php echo $course->id; ?>">
-                                                                    Time Table
+                                                                <a href="module_allocations.php?view=<?php echo $results['id']; ?>">
+                                                                    Modules Allocations
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="enrollments.php?view=<?php echo $course->id; ?>">
-                                                                    Enrolled Students
+                                                                <a href="timetables.php?view=<?php echo $results['id']; ?>">
+                                                                    TimeTable
                                                                 </a>
                                                             </li>
-
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <a href="enrollments.php?view=<?php echo $results['id']; ?>">
+                                                                    Enrollments
+                                                                </a>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
