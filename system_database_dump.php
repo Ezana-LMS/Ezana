@@ -4,7 +4,7 @@ define("DB_USER", 'root');
 define("DB_PASSWORD", '');
 define("DB_NAME", 'ezana_lms');
 define("DB_HOST", 'localhost');
-define("BACKUP_DIR", 'public/backup/'); // Comment this line to use same script's directory ('.')
+define("BACKUP_DIR", 'public/backup'); // Comment this line to use same script's directory ('.')
 define("TABLES", '*'); // Full backup
 //define("TABLES", 'table1, table2, table3'); // Partial backup
 define('IGNORE_TABLES', array(
@@ -94,7 +94,7 @@ class Backup_Database
         $this->charset                 = $charset;
         $this->conn                    = $this->initializeDatabase();
         $this->backupDir               = BACKUP_DIR ? BACKUP_DIR : '.';
-        $this->backupFile              = 'myphp-backup-' . $this->dbName . '-' . date("Ymd_His", time()) . '.sql';
+        $this->backupFile              = 'Ezana_LMS_Backup-' . $this->dbName . '-' . date("Ymd_His", time()) . '.sql';
         $this->gzipBackupFile          = defined('GZIP_BACKUP_FILE') ? GZIP_BACKUP_FILE : true;
         $this->disableForeignKeyChecks = defined('DISABLE_FOREIGN_KEY_CHECKS') ? DISABLE_FOREIGN_KEY_CHECKS : true;
         $this->batchSize               = defined('BATCH_SIZE') ? BATCH_SIZE : 1000; // default 1000 rows
