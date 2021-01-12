@@ -56,7 +56,7 @@ if (isset($_POST['CurrentAcademicTerm'])) {
         
         $query = "UPDATE ezanaLMS_AcademicSettings SET current_academic_year =?, current_semester =? WHERE id = ?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ss',  $current_academic_year,  $current_semester, $id);
+        $rc = $stmt->bind_param('sss',  $current_academic_year,  $current_semester, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Settings Updated" && header("refresh:1; url=system_settings.php");
