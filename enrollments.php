@@ -400,7 +400,7 @@ require_once('public/partials/_head.php');
                                                                         <select class='form-control basic' name="semester_enrolled">
                                                                             <option selected>Select Semester Name</option>
                                                                             <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$course->faculty_id'  ";
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar`   ";
                                                                             $stmt = $mysqli->prepare($ret);
                                                                             $stmt->execute(); //ok
                                                                             $res = $stmt->get_result();
@@ -415,7 +415,7 @@ require_once('public/partials/_head.php');
                                                                         <select class='form-control basic' name="academic_year_enrolled">
                                                                             <option selected>Academic Year Enrolled</option>
                                                                             <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$course->faculty_id'  ";
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar`   ";
                                                                             $stmt = $mysqli->prepare($ret);
                                                                             $stmt->execute(); //ok
                                                                             $res = $stmt->get_result();
@@ -430,7 +430,7 @@ require_once('public/partials/_head.php');
                                                                         <select class='form-control basic' name="semester_start">
                                                                             <option selected>Semester Start Date</option>
                                                                             <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$course->faculty_id'  ";
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar`   ";
                                                                             $stmt = $mysqli->prepare($ret);
                                                                             $stmt->execute(); //ok
                                                                             $res = $stmt->get_result();
@@ -446,7 +446,7 @@ require_once('public/partials/_head.php');
                                                                         <select class='form-control basic' name="semester_end">
                                                                             <option selected>Semester End Date</option>
                                                                             <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$course->faculty_id'  ";
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar`   ";
                                                                             $stmt = $mysqli->prepare($ret);
                                                                             $stmt->execute(); //ok
                                                                             $res = $stmt->get_result();

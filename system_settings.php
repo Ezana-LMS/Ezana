@@ -61,9 +61,7 @@ if (isset($_POST['CurrentAcademicTerm'])) {
         }
     }
 }
-/* Restore Database */
-if (isset($_POST['RestoreDatabase'])) {
-}
+
 
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
@@ -270,7 +268,7 @@ require_once('public/partials/_head.php');
                                             <div class="tab-pane fade show " id="custom-content-below-home-data-backup" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                 <br>
                                                 <div class="text-center">
-                                                    <a href="BackupUtility/index.php" target="_blank" class="btn btn-primary">Backup And Restore Utility</a>
+                                                    <a href="system_database_dump.php" target="_blank" class="btn btn-primary">Backup </a>
                                                 </div>
                                             </div>
                                         </div>
