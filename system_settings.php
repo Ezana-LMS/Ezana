@@ -49,14 +49,29 @@ if (isset($_POST['CurrentAcademicTerm'])) {
         $error = 1;
         $err = "Current Academic Year Cannot Be Empty";
     }
+    if (isset($_POST['end_date']) && !empty($_POST['end_date'])) {
+        $end_date = mysqli_real_escape_string($mysqli, trim($_POST['end_date']));
+    } else {
+        $error = 1;
+        $err = "Semester Closing Date   Cannot Be Empty";
+    }
+    if (isset($_POST['start_date']) && !empty($_POST['start_date'])) {
+        $start_date = mysqli_real_escape_string($mysqli, trim($_POST['start_date']));
+    } else {
+        $error = 1;
+        $err = "Semester Start Date  Cannot Be Empty";
+    }
+
     if (!$error) {
         $id = $_POST['id'];
         $current_academic_year = $_POST['current_academic_year'];
         $current_semester = $_POST['current_semester'];
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
         
-        $query = "UPDATE ezanaLMS_AcademicSettings SET current_academic_year =?, current_semester =? WHERE id = ?";
+        $query = "UPDATE ezanaLMS_AcademicSettings SET current_academic_year =?, current_semester =?, start_date =?, end_date = ? WHERE id = ?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sss',  $current_academic_year,  $current_semester, $id);
+        $rc = $stmt->bind_param('sssss',  $current_academic_year,  $current_semester, $start_date, $end_date, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Settings Updated" && header("refresh:1; url=system_settings.php");
