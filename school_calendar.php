@@ -290,18 +290,30 @@ require_once('public/partials/_head.php');
                                                 <div class="modal-body">
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Academic Year </label>
-                                                                    <input type="text" required name="academic_yr" class="form-control">
+
+                                                            <?php
+                                                            /* Persisit Academic Settings */
+                                                            $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($academic_settings = $res->fetch_object()) {
+                                                            ?>
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Academic Year </label>
+                                                                        <input type="text" required value="<?php echo $academic_settings->current_academic_year; ?>" name="academic_yr" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Semester </label>
+                                                                        <input type="text" required value="<?php echo $academic_settings->current_semester; ?>" name="semester_name" class="form-control" id="exampleInputEmail1">
+                                                                        <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                        <input type="hidden" required name="view" value="<?php echo $faculty->id; ?>" class="form-control">
+
+                                                                    </div>
                                                                 </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Semester </label>
-                                                                    <input type="text" required name="semester_name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <input type="hidden" required name="view" value="<?php echo $faculty->id; ?>" class="form-control">
-                                                                </div>
-                                                            </div>
+                                                            <?php
+                                                            } ?>
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Start Date</label>

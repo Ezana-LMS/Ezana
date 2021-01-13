@@ -302,3 +302,5 @@ if (!empty($_POST["FacultyName"])) {
 <?php
     }
 }
+
+/* Optimized Module Details Ajax */

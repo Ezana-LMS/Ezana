@@ -32,26 +32,46 @@ if (isset($_POST['systemSettings'])) {
         }
     }
 }
+
 /* Current Academic Year And Academic Semester */
 if (isset($_POST['CurrentAcademicTerm'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['sysname']) && !empty($_POST['sysname'])) {
-        $sysname = mysqli_real_escape_string($mysqli, trim($_POST['sysname']));
+    if (isset($_POST['current_academic_year']) && !empty($_POST['current_academic_year'])) {
+        $current_academic_year = mysqli_real_escape_string($mysqli, trim($_POST['current_academic_year']));
     } else {
         $error = 1;
-        $err = "System Name Cannot Be Empty";
+        $err = "Current Academic Year Cannot Be Empty";
     }
+    if (isset($_POST['current_semester']) && !empty($_POST['current_semester'])) {
+        $current_semester = mysqli_real_escape_string($mysqli, trim($_POST['current_semester']));
+    } else {
+        $error = 1;
+        $err = "Current Academic Year Cannot Be Empty";
+    }
+    if (isset($_POST['end_date']) && !empty($_POST['end_date'])) {
+        $end_date = mysqli_real_escape_string($mysqli, trim($_POST['end_date']));
+    } else {
+        $error = 1;
+        $err = "Semester Closing Date   Cannot Be Empty";
+    }
+    if (isset($_POST['start_date']) && !empty($_POST['start_date'])) {
+        $start_date = mysqli_real_escape_string($mysqli, trim($_POST['start_date']));
+    } else {
+        $error = 1;
+        $err = "Semester Start Date  Cannot Be Empty";
+    }
+
     if (!$error) {
         $id = $_POST['id'];
-        $version = $_POST['version'];
-        $sysname = $_POST['sysname'];
-        $logo = $_FILES['logo']['name'];
-        move_uploaded_file($_FILES["logo"]["tmp_name"], "public/dist/img/" . $_FILES["logo"]["name"]);
-
-        $query = "UPDATE ezanaLMS_Settings SET sysname =?, logo =?, version=? WHERE id = ?";
+        $current_academic_year = $_POST['current_academic_year'];
+        $current_semester = $_POST['current_semester'];
+        $start_date = $_POST['start_date'];
+        $end_date = $_POST['end_date'];
+        
+        $query = "UPDATE ezanaLMS_AcademicSettings SET current_academic_year =?, current_semester =?, start_date =?, end_date = ? WHERE id = ?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssss',  $sysname,  $logo, $version, $id);
+        $rc = $stmt->bind_param('sssss',  $current_academic_year,  $current_semester, $start_date, $end_date, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Settings Updated" && header("refresh:1; url=system_settings.php");
@@ -60,9 +80,6 @@ if (isset($_POST['CurrentAcademicTerm'])) {
             $info = "Please Try Again Or Try Later";
         }
     }
-}
-/* Restore Database */
-if (isset($_POST['RestoreDatabase'])) {
 }
 
 require_once('configs/codeGen.php');
@@ -202,7 +219,7 @@ require_once('public/partials/_head.php');
                                                 <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home-academic" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Academic Settings</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home-data-backup" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Data Backup And Restore Utility</a>
+                                                <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home-data-backup" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Data Backup Utility</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content" id="custom-content-below-tabContent">
@@ -248,29 +265,47 @@ require_once('public/partials/_head.php');
                                             </div>
                                             <div class="tab-pane fade show " id="custom-content-below-home-academic" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                 <br>
-                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Current Academic Year</label>
-                                                                <input type="text" required name="current_academic_yr"  class="form-control">
-                                                                <input type="hidden" required name="id" value="<?php echo $sys->id ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Current Semester</label>
-                                                                <input type="text" required name="current_semester"  class="form-control">
+                                                <?php
+                                                /* Persisit Academic Settings */
+                                                $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                while ($academic_settings = $res->fetch_object()) {
+                                                ?>
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Current Academic Year</label>
+                                                                    <input type="text" required value="<?php echo $academic_settings->current_academic_year; ?> " name="current_academic_year" class="form-control">
+                                                                    <input type="hidden" required name="id" value="<?php echo $academic_settings->id ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Current Semester</label>
+                                                                    <input type="text" required value="<?php echo $academic_settings->current_semester; ?>" name="current_semester" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Current Semester Opening Date</label>
+                                                                    <input type="date" required value="<?php echo $academic_settings->start_date; ?>" name="start_date" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Current Semester Closing Dates</label>
+                                                                    <input type="date" required value="<?php echo $academic_settings->end_date; ?>" name="end_date" class="form-control">
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="text-right">
-                                                        <button type="submit" name="CurrentAcademicTerm" class="btn btn-primary">Submit</button>
-                                                    </div>
-                                                </form>
+                                                        <div class="text-right">
+                                                            <button type="submit" name="CurrentAcademicTerm" class="btn btn-primary">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                <?php
+                                                } ?>
                                             </div>
                                             <div class="tab-pane fade show " id="custom-content-below-home-data-backup" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                 <br>
                                                 <div class="text-center">
-                                                    <a href="BackupUtility/index.php" target="_blank" class="btn btn-primary">Backup And Restore Utility</a>
+                                                    <a href="system_database_dump.php" target="_blank" class="btn btn-primary">Backup </a>
                                                 </div>
                                             </div>
                                         </div>

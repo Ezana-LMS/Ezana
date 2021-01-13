@@ -387,71 +387,35 @@ require_once('public/partials/_head.php');
                                                                         <label for="">Module Code</label>
                                                                         <input type="text" value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
                                                                     </div>
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="">Semester Enrolled</label>
-                                                                        <select class='form-control basic' name="semester_enrolled">
-                                                                            <option selected>Select Semester Name</option>
-                                                                            <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$mod->faculty_id'  ";
-                                                                            $stmt = $mysqli->prepare($ret);
-                                                                            $stmt->execute(); //ok
-                                                                            $res = $stmt->get_result();
-                                                                            while ($cal = $res->fetch_object()) {
-                                                                            ?>
-                                                                                <option><?php echo $cal->semester_name; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="">Academic Year Enrolled</label>
-                                                                        <select class='form-control basic' name="academic_year_enrolled">
-                                                                            <option selected>Academic Year Enrolled</option>
-                                                                            <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$mod->faculty_id'  ";
-                                                                            $stmt = $mysqli->prepare($ret);
-                                                                            $stmt->execute(); //ok
-                                                                            $res = $stmt->get_result();
-                                                                            while ($cal = $res->fetch_object()) {
-                                                                            ?>
-                                                                                <option><?php echo $cal->academic_yr; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="">Semester Start Date</label>
-                                                                        <select class='form-control basic' name="semester_start">
-                                                                            <option selected>Semester Start Date</option>
-                                                                            <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$mod->faculty_id'  ";
-                                                                            $stmt = $mysqli->prepare($ret);
-                                                                            $stmt->execute(); //ok
-                                                                            $res = $stmt->get_result();
-                                                                            while ($cal = $res->fetch_object()) {
-                                                                            ?>
-                                                                                <option><?php echo $cal->semester_start; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="">Semester End Date</label>
-                                                                        <select class='form-control basic' name="semester_end">
-                                                                            <option selected>Semester End Date</option>
-                                                                            <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$mod->faculty_id'  ";
-                                                                            $stmt = $mysqli->prepare($ret);
-                                                                            $stmt->execute(); //ok
-                                                                            $res = $stmt->get_result();
-                                                                            while ($cal = $res->fetch_object()) {
-                                                                            ?>
-                                                                                <option><?php echo $cal->semester_end; ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-
+                                                                    <?php
+                                                                    /* Persisit Academic Settings */
+                                                                    $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    while ($academic_settings = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Academic Year Enrolled</label>
+                                                                            <input type="text" value="<?php echo $academic_settings->current_academic_year; ?>" required name="academic_year_enrolled" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Semester Enrolled</label>
+                                                                            <input type="text" value="<?php echo $academic_settings->current_semester; ?>" required name="semester_enrolled" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Semester Start Date</label>
+                                                                            <input type="text" value="<?php echo $academic_settings->start_date; ?>" required name="semester_start" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Semester End Date</label>
+                                                                            <input type="text" value="<?php echo $academic_settings->end_date; ?>" required name="semester_end" class="form-control">
+                                                                        </div>
+                                                                    <?php
+                                                                    } ?>
                                                                 </div>
                                                             </div>
-                                                            <div class="card-footer text-right">
+                                                            <div class="text-right">
                                                                 <button type="submit" name="add_enroll" class="btn btn-primary">Submit</button>
                                                             </div>
                                                         </form>
@@ -588,11 +552,11 @@ require_once('public/partials/_head.php');
                 require_once('public/partials/_footer.php');
             }
         }
-        ?>
-        </div>
-    </div>
-    <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php'); ?>
+                ?>
+                    </div>
+                </div>
+                <!-- ./wrapper -->
+                <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
