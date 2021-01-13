@@ -285,6 +285,14 @@ require_once('public/partials/_head.php');
                                                                     <label for="">Current Semester</label>
                                                                     <input type="text" required value="<?php echo $academic_settings->current_semester; ?>" name="current_semester" class="form-control">
                                                                 </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Current Semester Opening Date</label>
+                                                                    <input type="text" required value="<?php echo $academic_settings->start_date; ?>" name="start_date" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Current Semester Closing Dates</label>
+                                                                    <input type="text" required value="<?php echo $academic_settings->end_date; ?>" name="end_date" class="form-control">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="text-right">
