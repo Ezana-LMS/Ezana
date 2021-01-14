@@ -363,23 +363,6 @@ require_once('public/partials/_head.php');
                                     <div class="row">
                                         <div class="col-md-12 col-lg-12">
                                             <div class="card-box">
-                                                <div class="mb-2">
-                                                    <div class="row">
-                                                        <div class="col-12 text-right form-inline">
-                                                            <div class="form-group mr-2" style="display: none;">
-                                                                <select id="demo-foo-filter-status" class="custom-select custom-select-sm">
-                                                                    <option value="">Show all</option>
-                                                                    <option value="active">Active</option>
-                                                                    <option value="disabled">Disabled</option>
-                                                                    <option value="suspended">Suspended</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <input id="demo-foo-search" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="table-responsive">
                                                     <table class="table">
                                                         <thead>
@@ -396,7 +379,6 @@ require_once('public/partials/_head.php');
                                                                 <td>Cell</td>
                                                                 <td>Cell</td>
                                                                 <td>Cell</td>
-
                                                             </tr>
                                                             <tr class="hide-table-padding">
                                                                 <td></td>
