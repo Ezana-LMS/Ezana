@@ -146,14 +146,5 @@
         tags: true,
     });
 </script>
-
-<script>
-    /* CK Editor */
-
-    /*  CKEDITOR.replace('textarea');
-     CKEDITOR.replace('department_details');
-     CKEDITOR.replace('dep_details');
-     CKEDITOR.replace('dep_memo'); */
-</script>
 <!-- Load Ajax Scripts -->
 <?php require_once('_ajax.php'); ?>
