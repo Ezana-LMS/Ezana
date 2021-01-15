@@ -648,7 +648,7 @@ require_once('public/partials/_head.php');
                                                                                 <?php
                                                                                 //Get Default Profile Picture
                                                                                 if ($std->profile_pic == '') {
-                                                                                    echo "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/logo.png' alt='User profile picture'>";
+                                                                                    echo "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/no-profile.png' alt='User profile picture'>";
                                                                                 } else {
                                                                                     echo "<img class='profile-user-img img-fluid img-circle' src='public/uploads/UserImages/students/$std->profile_pic' alt='User profile picture'>";
                                                                                 } ?>

@@ -4,6 +4,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+
 /* Import Lecs From Excel Sheet */
 
 use EzanaLmsAPI\DataSource;
@@ -13,107 +14,6 @@ require_once('configs/DataSource.php');
 $db = new DataSource();
 $conn = $db->getConnection();
 require_once('vendor/autoload.php');
-
-
-if (isset($_POST["upload"])) {
-
-    $allowedFileType = [
-        'application/vnd.ms-excel',
-        'text/xls',
-        'text/xlsx',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    ];
-
-    if (in_array($_FILES["file"]["type"], $allowedFileType)) {
-
-        $targetPath = 'EzanaLMSData/XLSFiles/' . $_FILES['file']['name'];
-        move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
-
-        $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-
-        $spreadSheet = $Reader->load($targetPath);
-        $excelSheet = $spreadSheet->getActiveSheet();
-        $spreadSheetAry = $excelSheet->toArray();
-        $sheetCount = count($spreadSheetAry);
-
-        for ($i = 0; $i <= $sheetCount; $i++) {
-
-            $id = "";
-            if (isset($spreadSheetAry[$i][0])) {
-                $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
-            }
-
-            $number = "";
-            if (isset($spreadSheetAry[$i][1])) {
-                $number = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
-            }
-            $name = "";
-            if (isset($spreadSheetAry[$i][2])) {
-                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
-            }
-
-            $idno = "";
-            if (isset($spreadSheetAry[$i][3])) {
-                $idno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
-            }
-
-            $phone = "";
-            if (isset($spreadSheetAry[$i][4])) {
-                $phone = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
-            }
-
-            $email = "";
-            if (isset($spreadSheetAry[$i][5])) {
-                $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
-            }
-
-            $adr = "";
-            if (isset($spreadSheetAry[$i][6])) {
-                $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
-            }
-
-            $password = "";
-            if (isset($spreadSheetAry[$i][7])) {
-                $password = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
-            }
-
-            $created_at = "";
-            if (isset($spreadSheetAry[$i][8])) {
-                $created_at = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
-            }
-
-            $facuty_id = "";
-            if (isset($spreadSheetAry[$i][9])) {
-                $facuty_id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
-            }
-
-            if (!empty($name) || !empty($admno) || !empty($idno) || !empty($gender) || !empty($email)) {
-                $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, number, name, idno, phone, email, adr, password, created_at) VALUES(?,?,?,?,?,?,?,?,?,?)";
-                $paramType = "ssssssssss";
-                $paramArray = array(
-                    $id,
-                    $facuty_id,
-                    $number,
-                    $name,
-                    $idno,
-                    $phone,
-                    $email,
-                    $adr,
-                    $password,
-                    $created_at
-                );
-                $insertId = $db->insert($query, $paramType, $paramArray);
-                if (!empty($insertId)) {
-                    $success = "Excel Data Imported into the Database";
-                } else {
-                    $success = "Excel Data Imported into the Database";
-                }
-            }
-        }
-    } else {
-        $info = "Invalid File Type. Upload Excel File.";
-    }
-}
 
 /* Add Lects */
 if (isset($_POST['add_lec'])) {
@@ -192,6 +92,7 @@ if (isset($_POST['add_lec'])) {
         }
     }
 }
+
 /* Update Lec */
 if (isset($_POST['update_lec'])) {
     //Error Handling and prevention of posting double entries
@@ -243,6 +144,7 @@ if (isset($_POST['update_lec'])) {
         }
     }
 }
+
 /* Delete Lec */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
@@ -257,9 +159,8 @@ if (isset($_GET['delete'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
-/* Change Lec Password */
 
-//Change Password
+/* Change Lec Password */
 if (isset($_POST['change_password'])) {
 
     $error = 0;
@@ -287,48 +188,14 @@ if (isset($_POST['change_password'])) {
             $rc = $stmt->bind_param('ss', $new_password, $update);
             $stmt->execute();
             if ($stmt) {
-                $success = "Password Changed" && header("refresh:1; url=view_lecturer.php?view=$view&faculty=$faculty");
+                $success = "Password Changed" && header("refresh:1; url=lecturers.php");
             } else {
                 $err = "Please Try Again Or Try Later";
             }
         }
     }
 }
-//Change Password
-if (isset($_POST['change_password'])) {
 
-    $error = 0;
-    if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
-        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
-    } else {
-        $error = 1;
-        $err = "New Password Cannot Be Empty";
-    }
-    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
-        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
-    } else {
-        $error = 1;
-        $err = "Confirmation Password Cannot Be Empty";
-    }
-
-    if (!$error) {
-        if ($new_password != $confirm_password) {
-            $err = "Password Does Not Match";
-        } else {
-            $id = $_POST['id'];
-            $new_password  = sha1(md5($_POST['new_password']));
-            $query = "UPDATE ezanaLMS_Lecturers SET  password =? WHERE id =?";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ss', $new_password, $update);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "Password Changed" && header("refresh:1; url=view_lecturer.php?view=$view&faculty=$faculty");
-            } else {
-                $err = "Please Try Again Or Try Later";
-            }
-        }
-    }
-}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -455,7 +322,6 @@ require_once('public/partials/_head.php');
                             <form class="form-inline">
                             </form>
                             <div class="text-left">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-import-lecs">Import Lecturers</button>
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">Add Lecturer</button>
                             </div>
                             <!-- Add Lec Modal -->
@@ -547,44 +413,6 @@ require_once('public/partials/_head.php');
                                 </div>
                             </div>
                             <!-- End Add Lec Modal -->
-
-                            <!-- Import Lecs Modal -->
-                            <div class="modal fade" id="modal-import-lecs">
-                                <div class="modal-dialog  modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title text-danger">This Feature Is At Beta </h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form method="post" enctype="multipart/form-data" role="form">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-12">
-                                                            <label for="exampleInputFile">Select File</label>
-                                                            <div class="input-group">
-                                                                <div class="custom-file">
-                                                                    <input required name="file" accept=".xls,.xlsx" type="file" class="custom-file-input" id="exampleInputFile">
-                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="text-right">
-                                                    <button type="submit" name="upload" class="btn btn-primary">Upload File</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Import Lecs Modal -->
                         </nav>
                     </div>
                     <hr>
@@ -637,7 +465,7 @@ require_once('public/partials/_head.php');
                                                                     <div class="text-center">
                                                                         <?php
                                                                         if ($lec->profile_pic == '') {
-                                                                            echo  "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/logo.jpeg' alt='User profile picture'>";
+                                                                            echo  "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/no-profile.png' alt='User profile picture'>";
                                                                         } else {
                                                                             echo  "<img class='profile-user-img img-fluid img-circle' src='public/uploads/UserImages/lecturers/$lec->profile_pic' alt='User profile picture'>";
                                                                         }
@@ -674,6 +502,7 @@ require_once('public/partials/_head.php');
                                                     <i class="fas fa-edit"></i>
                                                     Update
                                                 </a>
+
                                                 <!-- Update Lec Modal -->
                                                 <div class="modal fade" id="update-lecturer-<?php echo $lec->id; ?>">
                                                     <div class="modal-dialog  modal-xl">
@@ -695,7 +524,7 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                             <div class="form-group col-md-4">
                                                                                 <label for="">Number</label>
-                                                                                <input type="text" required name="number" value="<?php echo $lec->name; ?>" class="form-control">
+                                                                                <input type="text" required name="number" value="<?php echo $lec->number; ?>" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-4">
                                                                                 <label for="">ID / Passport Number</label>
@@ -734,16 +563,17 @@ require_once('public/partials/_head.php');
                                                                         <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
                                                                     </div>
                                                                 </form>
+
                                                                 <!-- Change Password -->
                                                                 <h4 class="text-center">Change <?php echo $lec->name; ?> Password</h4>
                                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                                     <div class="card-body">
                                                                         <div class="row">
-                                                                            <div class="form-group col-md-12">
+                                                                            <div class="form-group col-md-6">
                                                                                 <label for="">New Password</label>
                                                                                 <input type="password" required name="new_password" class="form-control">
                                                                             </div>
-                                                                            <div class="form-group col-md-12">
+                                                                            <div class="form-group col-md-6">
                                                                                 <label for="">Confirm Password</label>
                                                                                 <input type="password" required name="confirm_password" class="form-control">
                                                                                 <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
@@ -759,9 +589,8 @@ require_once('public/partials/_head.php');
                                                                 <h4 class="text-center">Email <?php echo $lec->name; ?> Password Reset Instructions</h4>
                                                                 <div class="card-body">
                                                                     <div class="text-center">
-                                                                        <a onClick="javascript:window.open('mailto:<?php echo $lec->email; ?>?subject=Password Reset Link!&body=Hello <?php echo $lec->name;?> - <?php echo $lec->number;?>, Kindly Click On Forgot Password Link Then Follow The Prompts', 'mail');event.preventDefault()"
-                                                                         class="btn btn-primary" href="mailto:<?php echo $lec->email; ?>">
-                                                                         Mail Password Reset Link And Instructions
+                                                                        <a onClick="javascript:window.open('mailto:<?php echo $lec->email; ?>?subject=Password Reset Link!&body=Hello <?php echo $lec->name; ?> - <?php echo $lec->number; ?>, Kindly Click On Forgot Password Link Then Follow The Prompts', 'mail');event.preventDefault()" class="btn btn-primary" href="mailto:<?php echo $lec->email; ?>">
+                                                                            Mail Password Reset Link And Instructions
                                                                         </a>
                                                                     </div>
                                                                 </div>
@@ -772,12 +601,14 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <!-- End Lec Modal -->
                                                 <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $lec->id; ?>">
                                                     <i class="fas fa-trash"></i>
                                                     Delete
                                                 </a>
                                                 <!-- Delete Confirmation Modal -->
+
                                                 <div class="modal fade" id="delete-<?php echo $lec->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
@@ -796,6 +627,7 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <!-- End Delete Confirmation Modal -->
                                             </td>
                                         </tr>
