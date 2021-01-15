@@ -6,6 +6,7 @@ check_login();
 require_once('configs/codeGen.php');
 
 /* Import Lecs From Excel Sheet */
+
 use EzanaLmsAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -464,7 +465,7 @@ require_once('public/partials/_head.php');
                                                                     <div class="text-center">
                                                                         <?php
                                                                         if ($lec->profile_pic == '') {
-                                                                            echo  "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/logo.jpeg' alt='User profile picture'>";
+                                                                            echo  "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/no-profile.png' alt='User profile picture'>";
                                                                         } else {
                                                                             echo  "<img class='profile-user-img img-fluid img-circle' src='public/uploads/UserImages/lecturers/$lec->profile_pic' alt='User profile picture'>";
                                                                         }
@@ -501,6 +502,7 @@ require_once('public/partials/_head.php');
                                                     <i class="fas fa-edit"></i>
                                                     Update
                                                 </a>
+
                                                 <!-- Update Lec Modal -->
                                                 <div class="modal fade" id="update-lecturer-<?php echo $lec->id; ?>">
                                                     <div class="modal-dialog  modal-xl">
@@ -522,7 +524,7 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                             <div class="form-group col-md-4">
                                                                                 <label for="">Number</label>
-                                                                                <input type="text" required name="number" value="<?php echo $lec->name; ?>" class="form-control">
+                                                                                <input type="text" required name="number" value="<?php echo $lec->number; ?>" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-4">
                                                                                 <label for="">ID / Passport Number</label>
@@ -561,16 +563,17 @@ require_once('public/partials/_head.php');
                                                                         <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
                                                                     </div>
                                                                 </form>
+
                                                                 <!-- Change Password -->
                                                                 <h4 class="text-center">Change <?php echo $lec->name; ?> Password</h4>
                                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                                     <div class="card-body">
                                                                         <div class="row">
-                                                                            <div class="form-group col-md-12">
+                                                                            <div class="form-group col-md-6">
                                                                                 <label for="">New Password</label>
                                                                                 <input type="password" required name="new_password" class="form-control">
                                                                             </div>
-                                                                            <div class="form-group col-md-12">
+                                                                            <div class="form-group col-md-6">
                                                                                 <label for="">Confirm Password</label>
                                                                                 <input type="password" required name="confirm_password" class="form-control">
                                                                                 <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
@@ -598,12 +601,14 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <!-- End Lec Modal -->
                                                 <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $lec->id; ?>">
                                                     <i class="fas fa-trash"></i>
                                                     Delete
                                                 </a>
                                                 <!-- Delete Confirmation Modal -->
+
                                                 <div class="modal fade" id="delete-<?php echo $lec->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
@@ -622,6 +627,7 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <!-- End Delete Confirmation Modal -->
                                             </td>
                                         </tr>

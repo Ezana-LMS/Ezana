@@ -628,6 +628,58 @@ require_once('public/partials/_head.php');
                                                             <td><?php echo $lec->phone; ?></td>
                                                             <td><?php echo $lec->idno; ?></td>
                                                             <td>
+                                                                <a class="badge badge-success" data-toggle="modal" href="#view-lecturer-<?php echo $lec->id; ?>">
+                                                                    <i class="fas fa-user-tie"></i>
+                                                                    View
+                                                                </a>
+                                                                <!-- View Lec -->
+                                                                <div class="modal fade" id="view-lecturer-<?php echo $lec->id; ?>">
+                                                                    <div class="modal-dialog  modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title"><?php echo $lec->name; ?> Profile</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="card-body box-profile">
+                                                                                    <div class="text-center">
+                                                                                        <?php
+                                                                                        if ($lec->profile_pic == '') {
+                                                                                            echo  "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/no-profile.png' alt='User profile picture'>";
+                                                                                        } else {
+                                                                                            echo  "<img class='profile-user-img img-fluid img-circle' src='public/uploads/UserImages/lecturers/$lec->profile_pic' alt='User profile picture'>";
+                                                                                        }
+                                                                                        ?>
+                                                                                    </div>
+
+                                                                                    <h3 class="profile-username text-center"><?php echo $lec->name; ?></h3>
+
+                                                                                    <p class="text-muted text-center"><?php echo $lec->number; ?></p>
+
+                                                                                    <ul class="list-group list-group-unbordered mb-3">
+                                                                                        <li class="list-group-item">
+                                                                                            <b>Email: </b> <a class="float-right"><?php echo $lec->email; ?></a>
+                                                                                        </li>
+                                                                                        <li class="list-group-item">
+                                                                                            <b>ID / Passport: </b> <a class="float-right"><?php echo $lec->idno; ?></a>
+                                                                                        </li>
+                                                                                        <li class="list-group-item">
+                                                                                            <b>Phone: </b> <a class="float-right"><?php echo $lec->phone; ?></a>
+                                                                                        </li>
+                                                                                        <li class="list-group-item">
+                                                                                            <b>Address</b> <a class="float-right"><?php echo $lec->adr; ?></a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer justify-content-between">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 <a class="badge badge-primary" data-toggle="modal" href="#update-lecturer-<?php echo $lec->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
@@ -653,7 +705,7 @@ require_once('public/partials/_head.php');
                                                                                             </div>
                                                                                             <div class="form-group col-md-4">
                                                                                                 <label for="">Number</label>
-                                                                                                <input type="text" required name="number" value="<?php echo $lec->name; ?>" class="form-control">
+                                                                                                <input type="text" required name="number" value="<?php echo $lec->number; ?>" class="form-control">
                                                                                             </div>
                                                                                             <div class="form-group col-md-4">
                                                                                                 <label for="">ID / Passport Number</label>
@@ -688,20 +740,21 @@ require_once('public/partials/_head.php');
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="card-footer text-right">
+                                                                                    <div class="text-right">
                                                                                         <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
                                                                                     </div>
                                                                                 </form>
+                                                                                <hr>
                                                                                 <!-- Change Password -->
                                                                                 <h4 class="text-center">Change <?php echo $lec->name; ?> Password</h4>
                                                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                                                     <div class="card-body">
                                                                                         <div class="row">
-                                                                                            <div class="form-group col-md-12">
+                                                                                            <div class="form-group col-md-6">
                                                                                                 <label for="">New Password</label>
                                                                                                 <input type="password" required name="new_password" class="form-control">
                                                                                             </div>
-                                                                                            <div class="form-group col-md-12">
+                                                                                            <div class="form-group col-md-6">
                                                                                                 <label for="">Confirm Password</label>
                                                                                                 <input type="password" required name="confirm_password" class="form-control">
                                                                                                 <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
