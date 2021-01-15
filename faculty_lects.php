@@ -6,6 +6,7 @@ require_once('configs/codeGen.php');
 check_login();
 
 /* Import Lec Via Excel Sheets */
+
 use EzanaLmsAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -77,7 +78,7 @@ if (isset($_POST["upload"])) {
                 $password = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
             } */
 
-            
+
             $created_at = "";
             if (isset($spreadSheetAry[$i][7])) {
                 $created_at = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
@@ -86,7 +87,7 @@ if (isset($_POST["upload"])) {
             /* Get Faculty ID From Url */
 
             $facuty_id = $_GET['view'];
-            
+
             if (!empty($id) || !empty($number) || !empty($name) || !empty($email) || !empty($adr)) {
                 $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, number, name, idno, phone, email, adr,created_at) VALUES(?,?,?,?,?,?,?,?,?)";
                 $paramType = "sssssssss";
@@ -240,55 +241,40 @@ if (isset($_POST['update_lec'])) {
     }
 }
 
-/* Change Password */
-if (isset($_POST['update_lec'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['number']) && !empty($_POST['number'])) {
-        $number = mysqli_real_escape_string($mysqli, trim($_POST['number']));
-    } else {
-        $error = 1;
-        $err = "Lecturer Number Cannot Be Empty";
-    }
-    if (isset($_POST['idno']) && !empty($_POST['idno'])) {
-        $idno = mysqli_real_escape_string($mysqli, trim($_POST['idno']));
-    } else {
-        $error = 1;
-        $err = "National ID / Passport Number Cannot Be Empty";
-    }
-    if (isset($_POST['email']) && !empty($_POST['email'])) {
-        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
-    } else {
-        $error = 1;
-        $err = "Email Cannot Be Empty";
-    }
-    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
-        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
-    } else {
-        $error = 1;
-        $err = "Phone Number Cannot Be Empty";
-    }
-    if (!$error) {
-        $view = $_POST['view'];/* Faculty ID */
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-        $number = $_POST['number'];
-        $idno  = $_POST['idno'];
-        $adr = $_POST['adr'];
-        $profile_pic = $_FILES['profile_pic']['name'];
-        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $_FILES["profile_pic"]["name"]);
 
-        $query = "UPDATE ezanaLMS_Lecturers SET  name =?, email =?, phone =?, idno =?, adr =?, profile_pic =?, number =? WHERE id =?";
-        $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssss', $name, $email, $phone, $idno, $adr, $profile_pic, $number, $id);
-        $stmt->execute();
-        if ($stmt) {
-            $success = "Lecturer Updated" && header("refresh:1; url=faculty_lects.php?view=$view");
+/* Change Lec Password */
+if (isset($_POST['change_password'])) {
+
+    $error = 0;
+    if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
+        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
+    } else {
+        $error = 1;
+        $err = "New Password Cannot Be Empty";
+    }
+    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
+        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
+    } else {
+        $error = 1;
+        $err = "Confirmation Password Cannot Be Empty";
+    }
+
+    if (!$error) {
+        if ($new_password != $confirm_password) {
+            $err = "Password Does Not Match";
         } else {
-            //inject alert that profile update task failed
-            $info = "Please Try Again Or Try Later";
+            $id = $_POST['id'];
+            $view = $_GET['view']; /* Faculty ID */
+            $new_password  = sha1(md5($_POST['new_password']));
+            $query = "UPDATE ezanaLMS_Lecturers SET  password =? WHERE id =?";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ss', $new_password, $id);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Password Changed" && header("refresh:1; url=faculty_lects.php?view=$view");
+            } else {
+                $err = "Please Try Again Or Try Later";
+            }
         }
     }
 }
@@ -648,7 +634,7 @@ require_once('public/partials/_head.php');
                                                                 </a>
                                                                 <!-- Update Lec Modal -->
                                                                 <div class="modal fade" id="update-lecturer-<?php echo $lec->id; ?>">
-                                                                    <div class="modal-dialog  modal-lg">
+                                                                    <div class="modal-dialog  modal-xl">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
                                                                                 <h4 class="modal-title">Fill All Values </h4>
@@ -664,7 +650,6 @@ require_once('public/partials/_head.php');
                                                                                                 <label for="">Name</label>
                                                                                                 <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control">
                                                                                                 <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
-                                                                                                <input type="hidden" required name="view" value="<?php echo $faculty->id; ?>" class="form-control">
                                                                                             </div>
                                                                                             <div class="form-group col-md-4">
                                                                                                 <label for="">Number</label>
@@ -699,14 +684,44 @@ require_once('public/partials/_head.php');
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="exampleInputPassword1">Address</label>
-                                                                                                <textarea required name="adr" id="textarea" rows="5" class="form-control"><?php echo $lec->adr; ?></textarea>
+                                                                                                <textarea required name="adr" rows="5" class="form-control"><?php echo $lec->adr; ?></textarea>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="text-right">
+                                                                                    <div class="card-footer text-right">
                                                                                         <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
                                                                                     </div>
                                                                                 </form>
+                                                                                <!-- Change Password -->
+                                                                                <h4 class="text-center">Change <?php echo $lec->name; ?> Password</h4>
+                                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                                    <div class="card-body">
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="">New Password</label>
+                                                                                                <input type="password" required name="new_password" class="form-control">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="">Confirm Password</label>
+                                                                                                <input type="password" required name="confirm_password" class="form-control">
+                                                                                                <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="text-right">
+                                                                                            <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                                <hr>
+                                                                                <!-- Email Password Reset Link -->
+                                                                                <h4 class="text-center">Email <?php echo $lec->name; ?> Password Reset Instructions</h4>
+                                                                                <div class="card-body">
+                                                                                    <div class="text-center">
+                                                                                        <a onClick="javascript:window.open('mailto:<?php echo $lec->email; ?>?subject=Password Reset Link!&body=Hello <?php echo $lec->name; ?> - <?php echo $lec->number; ?>, Kindly Click On Forgot Password Link Then Follow The Prompts', 'mail');event.preventDefault()" class="btn btn-primary" href="mailto:<?php echo $lec->email; ?>">
+                                                                                            Mail Password Reset Link And Instructions
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
