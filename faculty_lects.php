@@ -39,37 +39,37 @@ if (isset($_POST["upload"])) {
         for ($i = 1; $i <= $sheetCount; $i++) {
 
             $id = "";
-            if (isset($spreadSheetAry[$i][1])) {
-                $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
+            if (isset($spreadSheetAry[$i][0])) {
+                $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
             }
 
             $number = "";
-            if (isset($spreadSheetAry[$i][2])) {
-                $number = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
+            if (isset($spreadSheetAry[$i][1])) {
+                $number = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
             }
             $name = "";
-            if (isset($spreadSheetAry[$i][3])) {
-                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
+            if (isset($spreadSheetAry[$i][2])) {
+                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
             }
 
             $idno = "";
-            if (isset($spreadSheetAry[$i][4])) {
-                $idno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
+            if (isset($spreadSheetAry[$i][3])) {
+                $idno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
             }
 
             $phone = "";
-            if (isset($spreadSheetAry[$i][5])) {
-                $phone = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
+            if (isset($spreadSheetAry[$i][4])) {
+                $phone = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
             }
 
             $email = "";
-            if (isset($spreadSheetAry[$i][6])) {
-                $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
+            if (isset($spreadSheetAry[$i][5])) {
+                $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
             }
 
             $adr = "";
-            if (isset($spreadSheetAry[$i][7])) {
-                $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
+            if (isset($spreadSheetAry[$i][6])) {
+                $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
             }
 
             /* $password = "";
@@ -79,8 +79,8 @@ if (isset($_POST["upload"])) {
 
             
             $created_at = "";
-            if (isset($spreadSheetAry[$i][8])) {
-                $created_at = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
+            if (isset($spreadSheetAry[$i][7])) {
+                $created_at = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
             }
 
             /* Get Faculty ID From Url */
