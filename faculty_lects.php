@@ -5,6 +5,115 @@ require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
 
+/* Import Lec Via Excel Sheets */
+use EzanaLmsAPI\DataSource;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
+require_once('configs/DataSource.php');
+$db = new DataSource();
+$conn = $db->getConnection();
+require_once('vendor/autoload.php');
+
+
+if (isset($_POST["upload"])) {
+
+    $allowedFileType = [
+        'application/vnd.ms-excel',
+        'text/xls',
+        'text/xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ];
+
+    if (in_array($_FILES["file"]["type"], $allowedFileType)) {
+
+        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $_FILES['file']['name'];
+        move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
+
+        $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+
+        $spreadSheet = $Reader->load($targetPath);
+        $excelSheet = $spreadSheet->getActiveSheet();
+        $spreadSheetAry = $excelSheet->toArray();
+        $sheetCount = count($spreadSheetAry);
+
+        for ($i = 0; $i <= $sheetCount; $i++) {
+
+            $id = "";
+            if (isset($spreadSheetAry[$i][0])) {
+                $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
+            }
+
+            $number = "";
+            if (isset($spreadSheetAry[$i][1])) {
+                $number = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
+            }
+            $name = "";
+            if (isset($spreadSheetAry[$i][2])) {
+                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
+            }
+
+            $idno = "";
+            if (isset($spreadSheetAry[$i][3])) {
+                $idno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
+            }
+
+            $phone = "";
+            if (isset($spreadSheetAry[$i][4])) {
+                $phone = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
+            }
+
+            $email = "";
+            if (isset($spreadSheetAry[$i][5])) {
+                $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
+            }
+
+            $adr = "";
+            if (isset($spreadSheetAry[$i][6])) {
+                $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
+            }
+
+            /* $password = "";
+            if (isset($spreadSheetAry[$i][7])) {
+                $password = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
+            } */
+
+            
+            $created_at = "";
+            if (isset($spreadSheetAry[$i][8])) {
+                $created_at = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
+            }
+
+            /* Get Faculty ID From Url */
+
+            $facuty_id = $_GET['view'];
+            
+            if (!empty($id) || !empty($number) || !empty($name) || !empty($email) || !empty($adr)) {
+                $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, number, name, idno, phone, email, adr,created_at) VALUES(?,?,?,?,?,?,?,?,?)";
+                $paramType = "sssssssss";
+                $paramArray = array(
+                    $id,
+                    $facuty_id,
+                    $number,
+                    $name,
+                    $idno,
+                    $phone,
+                    $email,
+                    $adr,
+                    $created_at
+                );
+                $insertId = $db->insert($query, $paramType, $paramArray);
+                if (!empty($insertId)) {
+                    $success = "Well Well";
+                } else {
+                    $success = "Excel Data Imported into the Database";
+                }
+            }
+        }
+    } else {
+        $info = "Invalid File Type. Upload Excel File.";
+    }
+}
+
 /* Add Lec */
 if (isset($_POST['add_lec'])) {
     //Error Handling and prevention of posting double entries
@@ -76,6 +185,7 @@ if (isset($_POST['add_lec'])) {
         }
     }
 }
+
 /* Update Lec */
 
 if (isset($_POST['update_lec'])) {
@@ -362,14 +472,13 @@ require_once('public/partials/_head.php');
                                         </div>
                                     </div>
                                     <!-- End Modal -->
-
                                     <!-- Import Lecturer Modal -->
                                     <!-- Import Lecs Modal -->
                                     <div class="modal fade" id="modal-import-lecs">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title text-danger">This Feature Is At Beta </h4>
+                                                    <h4 class="modal-title text-danger">To Import Lecturers, First Download Excel Template</h4>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -378,6 +487,14 @@ require_once('public/partials/_head.php');
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="exampleInputFile">Download Excel Template</label>
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <a href="public/templates/lecturers.xls" class="btn btn-primary">Download Template</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputFile">Select File</label>
                                                                     <div class="input-group">
