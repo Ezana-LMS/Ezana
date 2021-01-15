@@ -257,9 +257,9 @@ if (isset($_GET['delete'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
-/* Change Lec Password */
 
-//Change Password
+
+/* Change Lec Password */
 if (isset($_POST['change_password'])) {
 
     $error = 0;
@@ -287,48 +287,14 @@ if (isset($_POST['change_password'])) {
             $rc = $stmt->bind_param('ss', $new_password, $update);
             $stmt->execute();
             if ($stmt) {
-                $success = "Password Changed" && header("refresh:1; url=view_lecturer.php?view=$view&faculty=$faculty");
+                $success = "Password Changed" && header("refresh:1; url=lecturers.php");
             } else {
                 $err = "Please Try Again Or Try Later";
             }
         }
     }
 }
-//Change Password
-if (isset($_POST['change_password'])) {
 
-    $error = 0;
-    if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
-        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
-    } else {
-        $error = 1;
-        $err = "New Password Cannot Be Empty";
-    }
-    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
-        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
-    } else {
-        $error = 1;
-        $err = "Confirmation Password Cannot Be Empty";
-    }
-
-    if (!$error) {
-        if ($new_password != $confirm_password) {
-            $err = "Password Does Not Match";
-        } else {
-            $id = $_POST['id'];
-            $new_password  = sha1(md5($_POST['new_password']));
-            $query = "UPDATE ezanaLMS_Lecturers SET  password =? WHERE id =?";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ss', $new_password, $update);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "Password Changed" && header("refresh:1; url=view_lecturer.php?view=$view&faculty=$faculty");
-            } else {
-                $err = "Please Try Again Or Try Later";
-            }
-        }
-    }
-}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -720,9 +686,8 @@ require_once('public/partials/_head.php');
                                                                 <h4 class="text-center">Email <?php echo $lec->name; ?> Password Reset Instructions</h4>
                                                                 <div class="card-body">
                                                                     <div class="text-center">
-                                                                        <a onClick="javascript:window.open('mailto:<?php echo $lec->email; ?>?subject=Password Reset Link!&body=Hello <?php echo $lec->name;?> - <?php echo $lec->number;?>, Kindly Click On Forgot Password Link Then Follow The Prompts', 'mail');event.preventDefault()"
-                                                                         class="btn btn-primary" href="mailto:<?php echo $lec->email; ?>">
-                                                                         Mail Password Reset Link And Instructions
+                                                                        <a onClick="javascript:window.open('mailto:<?php echo $lec->email; ?>?subject=Password Reset Link!&body=Hello <?php echo $lec->name; ?> - <?php echo $lec->number; ?>, Kindly Click On Forgot Password Link Then Follow The Prompts', 'mail');event.preventDefault()" class="btn btn-primary" href="mailto:<?php echo $lec->email; ?>">
+                                                                            Mail Password Reset Link And Instructions
                                                                         </a>
                                                                     </div>
                                                                 </div>
