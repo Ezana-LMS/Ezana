@@ -4,6 +4,132 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
+/* Import Students */
+
+use EzanaLmsAPI\DataSource;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
+require_once('configs/DataSource.php');
+$db = new DataSource();
+$conn = $db->getConnection();
+require_once('vendor/autoload.php');
+
+
+if (isset($_POST["upload"])) {
+
+    $allowedFileType = [
+        'application/vnd.ms-excel',
+        'text/xls',
+        'text/xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ];
+
+    if (in_array($_FILES["file"]["type"], $allowedFileType)) {
+
+        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $_FILES['file']['name'];
+        move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
+
+        $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+
+        $spreadSheet = $Reader->load($targetPath);
+        $excelSheet = $spreadSheet->getActiveSheet();
+        $spreadSheetAry = $excelSheet->toArray();
+        $sheetCount = count($spreadSheetAry);
+
+        for ($i = 1; $i <= $sheetCount; $i++) {
+
+            $id = "";
+            if (isset($spreadSheetAry[$i][0])) {
+                $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
+            }
+
+            $admno = "";
+            if (isset($spreadSheetAry[$i][1])) {
+                $admno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
+            }
+            $name = "";
+            if (isset($spreadSheetAry[$i][2])) {
+                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
+            }
+
+            $email = "";
+            if (isset($spreadSheetAry[$i][3])) {
+                $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
+            }
+
+            /* $password = "";
+            if (isset($spreadSheetAry[$i][4])) {
+                $password = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
+            } */
+
+            $phone = "";
+            if (isset($spreadSheetAry[$i][4])) {
+                $phone = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
+            }
+
+            $adr = "";
+            if (isset($spreadSheetAry[$i][5])) {
+                $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
+            }
+
+            $dob = "";
+            if (isset($spreadSheetAry[$i][6])) {
+                $dob = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
+            }
+
+            $idno = "";
+            if (isset($spreadSheetAry[$i][7])) {
+                $idno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
+            }
+
+            $gender = "";
+            if (isset($spreadSheetAry[$i][8])) {
+                $gender = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
+            }
+
+            /* $acc_status = "";
+            if (isset($spreadSheetAry[$i][10])) {
+                $acc_status = mysqli_real_escape_string($conn, $spreadSheetAry[$i][10]);
+            } */
+
+            $created_at = "";
+            if (isset($spreadSheetAry[$i][9])) {
+                $created_at = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
+            }
+
+            $faculty = $_GET['view'];
+            
+
+            if (!empty($name) || !empty($admno) || !empty($idno) || !empty($gender) || !empty($email)) {
+                $query = "INSERT INTO ezanaLMS_Students (id, faculty_id,  admno, name, email,phone, adr, dob, idno, gender, created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+                $paramType = "sssssssssss";
+                $paramArray = array(
+                    $id,
+                    $faculty,
+                    $admno,
+                    $name,
+                    $email,
+                    $phone,
+                    $adr,
+                    $dob,
+                    $idno,
+                    $gender,
+                    $created_at
+                );
+                $insertId = $db->insert($query, $paramType, $paramArray);
+                // $query = "insert into tbl_info(name,description) values('" . $name . "','" . $description . "')";
+                // $result = mysqli_query($conn, $query);
+                if (!empty($insertId)) {
+                    $err = "Error Occured While Importing Data";
+                } else {
+                    $success = "Data Imported";
+                }
+            }
+        }
+    } else {
+        $info = "Invalid File Type. Upload Excel File.";
+    }
+}
 
 /* Add Std */
 if (isset($_POST['add_student'])) {
@@ -79,6 +205,8 @@ if (isset($_POST['add_student'])) {
         }
     }
 }
+
+
 /* Update Student */
 if (isset($_POST['update_student'])) {
     //Error Handling and prevention of posting double entries
@@ -136,6 +264,45 @@ if (isset($_POST['update_student'])) {
         }
     }
 }
+
+
+
+/* Update Student Passwords */
+if (isset($_POST['change_password'])) {
+    $error = 0;
+    if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
+        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
+    } else {
+        $error = 1;
+        $err = "New Password Cannot Be Empty";
+    }
+    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
+        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
+    } else {
+        $error = 1;
+        $err = "Confirmation Password Cannot Be Empty";
+    }
+
+    if (!$error) {
+        if ($new_password != $confirm_password) {
+            $err = "Password Does Not Match";
+        } else {
+            $view = $_GET['view']; /* Faculty ID */
+            $id = $_POST['id'];
+            $new_password  = sha1(md5($_POST['new_password']));
+            $query = "UPDATE ezanaLMS_Students SET  password =? WHERE id =?";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ss', $new_password, $id);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Password Changed" && header("refresh:1; url=faculty_students.php?view=$view");
+            } else {
+                $err = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+
 /* Delete Student */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
@@ -285,13 +452,17 @@ require_once('public/partials/_head.php');
 
                     <section class="content">
                         <div class="container-fluid">
-                            <div class="text-left">
+                            <div class="">
                                 <nav class="navbar navbar-light bg-light col-md-12">
                                     <form class="form-inline" action="faculty_search_result.php" method="GET">
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Faculty Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Student</button>
+                                    <div class="text-left">
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-import-students">Import Students</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Student</button>
+                                    </div>
+                                    <!-- Add Student Modal -->
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -377,6 +548,53 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- End Add Student Modal -->
+
+                                    <!-- Import Students Modal -->
+                                    <div class="modal fade" id="modal-import-students">
+                                        <div class="modal-dialog  modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title text-danger">To Import Students, First Download Excel Template</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="exampleInputFile">Download Excel Template</label>
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <a href="public/templates/students.xls" class="btn btn-primary">Download Template</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="exampleInputFile">Select File</label>
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <input required name="file" accept=".xls,.xlsx" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-right">
+                                                            <button type="submit" name="upload" class="btn btn-primary">Upload File</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End Import Students Modal -->
                                 </nav>
                             </div>
                             <hr>
@@ -449,16 +667,96 @@ require_once('public/partials/_head.php');
                                                             <td><?php echo $std->idno; ?></td>
                                                             <td><?php echo $std->gender; ?></td>
                                                             <td>
+                                                                <a class="badge badge-success" data-toggle="modal" href="#view-student-<?php echo $std->id; ?>">
+                                                                    <i class="fas fa-user-graduate"></i>
+                                                                    View
+                                                                </a>
+                                                                <!-- View Student Modal -->
+                                                                <div class="modal fade" id="view-student-<?php echo $std->id; ?>">
+                                                                    <div class="modal-dialog  modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title"><?php echo $std->name; ?> Profile</h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12 card-body box-profile">
+                                                                                        <div class="text-center">
+                                                                                            <?php
+                                                                                            //Get Default Profile Picture
+                                                                                            if ($std->profile_pic == '') {
+                                                                                                echo "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/no-profile.png' alt='User profile picture'>";
+                                                                                            } else {
+                                                                                                echo "<img class='profile-user-img img-fluid img-circle' src='public/uploads/UserImages/students/$std->profile_pic' alt='User profile picture'>";
+                                                                                            } ?>
+                                                                                        </div>
+
+                                                                                        <h3 class="profile-username text-center"><?php echo $std->name; ?></h3>
+
+                                                                                        <p class="text-muted text-center"><?php echo $std->admno; ?></p>
+
+                                                                                        <ul class="list-group list-group-unbordered mb-3">
+                                                                                            <li class="list-group-item">
+                                                                                                <b>Email: </b> <a class="float-right"><?php echo $std->email; ?></a>
+                                                                                            </li>
+                                                                                            <li class="list-group-item">
+                                                                                                <b>ID / Passport: </b> <a class="float-right"><?php echo $std->idno; ?></a>
+                                                                                            </li>
+                                                                                            <li class="list-group-item">
+                                                                                                <b>Phone: </b> <a class="float-right"><?php echo $std->phone; ?></a>
+                                                                                            </li>
+                                                                                            <li class="list-group-item">
+                                                                                                <b>Address</b> <a class="float-right"><?php echo $std->adr; ?></a>
+                                                                                            </li>
+                                                                                            <li class="list-group-item">
+                                                                                                <b>DOB</b> <a class="float-right"><?php echo $std->dob; ?></a>
+                                                                                            </li>
+                                                                                            <li class="list-group-item">
+                                                                                                <b>Gender</b> <a class="float-right"><?php echo $std->gender; ?></a>
+                                                                                            </li>
+                                                                                            <li class="list-group-item">
+                                                                                                <b>Added At </b> <a class="float-right"><?php echo $std->created_at; ?></a>
+                                                                                            </li>
+                                                                                            <li class="list-group-item">
+                                                                                                <b>Updated At </b> <a class="float-right"><?php echo $std->updated_at; ?></a>
+                                                                                            </li>
+                                                                                            <li class="list-group-item">
+                                                                                                <b>Account Status</b>
+                                                                                                <a class="float-right">
+                                                                                                    <?php
+                                                                                                    if ($std->acc_status == 'Active') {
+                                                                                                        echo "<span class='badge badge-success'>$std->acc_status</span>";
+                                                                                                    } else {
+                                                                                                        echo "<span class='badge badge-danger'>$std->acc_status</span>";
+                                                                                                    }
+                                                                                                    ?>
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        </ul>
+                                                                                    </div>
+
+                                                                                    <div class="modal-footer justify-content-between">
+                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
                                                                 <a class="badge badge-primary" data-toggle="modal" href="#update-student-<?php echo $std->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
                                                                 </a>
-                                                                <!-- Update Lec Modal -->
+                                                                <!-- Update Student Modal -->
                                                                 <div class="modal fade" id="update-student-<?php echo $std->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
-                                                                                <h4 class="modal-title">Fill All Values </h4>
+                                                                                <h4 class="modal-title">Update <?php echo $std->name; ?> Profile</h4>
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                     <span aria-hidden="true">&times;</span>
                                                                                 </button>
@@ -534,6 +832,37 @@ require_once('public/partials/_head.php');
                                                                                         <button type="submit" name="update_student" class="btn btn-primary">Update Students Profile</button>
                                                                                     </div>
                                                                                 </form>
+
+                                                                                <!-- Change Password -->
+                                                                                <h4 class="text-center">Change <?php echo $std->name; ?> Password</h4>
+                                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                                    <div class="card-body">
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">New Password</label>
+                                                                                                <input type="password" required name="new_password" class="form-control">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Confirm Password</label>
+                                                                                                <input type="password" required name="confirm_password" class="form-control">
+                                                                                                <input type="hidden" required name="id" value="<?php echo $std->id; ?>" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="text-right">
+                                                                                            <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                                <hr>
+                                                                                <!-- Email Password Reset Link -->
+                                                                                <h4 class="text-center">Email <?php echo $std->name; ?> Password Reset Instructions</h4>
+                                                                                <div class="card-body">
+                                                                                    <div class="text-center">
+                                                                                        <a onClick="javascript:window.open('mailto:<?php echo $std->email; ?>?subject=Password Reset Link!&body=Hello <?php echo $std->name; ?> - <?php echo $std->admno; ?>, Kindly Click On Forgot Password Link Then Follow The Prompts', 'mail');event.preventDefault()" class="btn btn-primary" href="mailto:<?php echo $std->email; ?>">
+                                                                                            Mail Password Reset Link And Instructions
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -542,6 +871,7 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                                 <!-- End Modal -->
+
                                                                 <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $std->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete

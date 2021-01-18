@@ -104,7 +104,7 @@ if (isset($_POST["upload"])) {
                 );
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
-                    $success = "Well Well";
+                    $err = "Error Occured While Importing Data";
                 } else {
                     $success = "Excel Data Imported into the Database";
                 }
@@ -188,7 +188,6 @@ if (isset($_POST['add_lec'])) {
 }
 
 /* Update Lec */
-
 if (isset($_POST['update_lec'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
