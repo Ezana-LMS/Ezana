@@ -108,7 +108,7 @@ require_once('public/partials/_head.php');
             <!-- Main Sidebar Container -->
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
                 <!-- Brand Logo -->
-                    <?php require_once('public/partials/_brand.php'); ?>
+                <?php require_once('public/partials/_brand.php'); ?>
                 <!-- Sidebar -->
                 <div class="sidebar">
                     <!-- Sidebar Menu -->
@@ -363,9 +363,19 @@ require_once('public/partials/_head.php');
                                                 ?>
                                                     <div class="col-md-4">
                                                         <div class="card">
-                                                            <a href="public/uploads/EzanaLMSData/Reading_Materials/<?php echo $rm->readingMaterials; ?>" target="_blank">
+                                                            <a href="reading_materials_viewer.php?id=<?php echo $rm->id; ?>&view=<?php echo $view; ?>" target="_blank">
                                                                 <div class="card-body">
-                                                                    <p class="card-title"><?php echo $rm->readingMaterials; ?></p>
+                                                                    <p class="card-title">
+                                                                        <?php
+                                                                        /* Trim Topic */
+                                                                        if (strlen($rm->readingMaterials) > 30) {
+                                                                            $trimstring = substr($rm->readingMaterials, 0, 30) . '...';
+                                                                        } else {
+                                                                            $trimstring = $rm->readingMaterials;;
+                                                                        }
+                                                                        echo $trimstring
+                                                                        ?>
+                                                                    </p>
                                                                     <br>
                                                                     <hr>
                                                                     <div class="text-center">
@@ -375,7 +385,7 @@ require_once('public/partials/_head.php');
                                                                             /* Yall Know Silence Is Best Answer */
                                                                         } else {
                                                                             echo
-                                                                                "
+                                                                            "
                                                                         <a target='_blank' href= '$rm->external_link' class='btn btn-outline-success'>
                                                                             Open Link
                                                                         </a>
