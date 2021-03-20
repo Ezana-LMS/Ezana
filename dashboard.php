@@ -390,6 +390,38 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </a>
                                             </div>
+
+                                        </div>
+                                        <!-- Login Activity -->
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <table id="example1" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Email Address</th>
+                                                                <th>Logged In At</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_UserLog` ORDER BY `ezanaLMS_UserLog`.`loginTime` DESC ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($LogActivity = $res->fetch_object()) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td><?php echo $LogActivity->code; ?></td>
+                                                                    <td><?php echo date('d M Y g:ia', strtotime($LogActivity->loginTime)); ?></td>
+                                                                </tr>
+                                                            <?php
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
