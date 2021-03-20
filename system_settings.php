@@ -317,6 +317,7 @@ require_once('public/partials/_head.php');
 
                                             <div class="tab-pane fade show " id="delete_functionalities" role="tabpanel">
                                                 <br>
+                                                <p>Select Any Module To Access Delete Functionalities</p>
                                                 <div class="col-md-12">
                                                     <div class="card collapsed-card card-success">
                                                         <div class="card-header">
