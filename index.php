@@ -4,19 +4,33 @@ include('configs/config.php');
 
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
-    $password = sha1(md5($_POST['password'])); //double encrypt to increase security
-    $stmt = $mysqli->prepare("SELECT email, password, id, name  FROM ezanaLMS_Admins  WHERE email =? AND password =?");
-    $stmt->bind_param('ss', $email, $password); //bind fetched parameters
-    $stmt->execute(); //execute bind 
-    $stmt->bind_result($email, $password, $id, $name); //bind result
-    $rs = $stmt->fetch();
-    $_SESSION['id'] = $id;
-    $_SESSION['email'] = $email;
-    $_SESSION['name'] = $name;
-    if ($rs) {
-        header("location:dashboard.php");
-    } else {
-        $err = "Access Denied Please Check Your Credentials";
+    $password = sha1(md5($_POST['password']));
+    //query for match  the user inputs
+    $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Admins WHERE email='$email'  and password='$password'");
+    $num = mysqli_fetch_array($ret);
+    // if user inputs match if condition will runn
+    if ($num > 0) {
+        $_SESSION['id'] = $id;
+        $_SESSION['email'] = $email;
+        $_SESSION['name'] = $name;
+        $uip = $_SERVER['REMOTE_ADDR']; // get the user ip
+        // query for inser user log in to data base
+        mysqli_query($con, "INSERT  INTO ezanaLMS_UserLog (userId, username, userIp) values('" . $_SESSION['id'] . "','" . $_SESSION['email'] . "','$uip')");
+        // code redirect the page after login
+        $extra = "dashboard.php";
+        $host = $_SERVER['HTTP_HOST'];
+        $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+        header("location:http://$host$uri/$extra");
+        exit();
+    }
+    // If the userinput no matched with database else condition will run
+    else {
+        $err = "Invalid username or password";
+        $extra = "index.php";
+        $host  = $_SERVER['HTTP_HOST'];
+        $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+        header("location:http://$host$uri/$extra");
+        exit();
     }
 }
 include __DIR__ . "/public/partials/_authhead.php";

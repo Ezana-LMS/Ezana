@@ -5,52 +5,6 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
-check_login();
-if (isset($_POST['add_faculty'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['code']) && !empty($_POST['code'])) {
-        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
-    } else {
-        $error = 1;
-        $err = "Faculty Code Cannot Be Empty";
-    }
-    if (isset($_POST['name']) && !empty($_POST['name'])) {
-        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
-    } else {
-        $error = 1;
-        $err = "Faculty Name Cannot Be Empty";
-    }
-    if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Faculties WHERE  code='$code' || name ='$name' ";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if ($code == $row['code']) {
-                $err =  "Faculty With This Code Already Exists";
-            } else {
-                $err = "Faculty Name Already Exists";
-            }
-        } else {
-            $id = $_POST['id'];
-            $name = $_POST['name'];
-            $code = $_POST['code'];
-            $details = $_POST['details'];
-
-            $query = "INSERT INTO ezanaLMS_Faculties (id, code, name, details) VALUES(?,?,?,?)";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssss', $id, $code, $name, $details);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "Faculty Added";
-            } else {
-                //inject alert that profile update task failed
-                $info = "Please Try Again Or Try Later";
-            }
-        }
-    }
-}
 require_once('public/partials/_head.php');
 ?>
 
@@ -233,7 +187,7 @@ require_once('public/partials/_head.php');
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-3">
+                            <!-- <div class="col-md-3">
                                 <?php
                                 $ret = "SELECT * FROM `ezanaLMS_Faculties` ORDER BY `name` ASC ";
                                 $stmt = $mysqli->prepare($ret);
@@ -296,7 +250,8 @@ require_once('public/partials/_head.php');
                                     $cnt = $cnt + 1;
                                 } ?>
                             </div>
-                            <div class="col-md-9">
+                             -->
+                            <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
