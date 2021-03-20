@@ -90,7 +90,7 @@ require_once('public/partials/_head.php');
         $res = $stmt->get_result();
         while ($admin = $res->fetch_object()) {
             //Get Default Profile Picture
-            if ($admin->profile_pic != '') {
+            if ($admin->profile_pic == '') {
                 $dpic = "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/no-profile.png' alt='User profile picture'>";
             } else {
                 $dpic = "<img class='profile-user-img img-fluid img-circle' src='public/uploads/UserImages/admins/$admin->profile_pic' alt='User profile picture'>";

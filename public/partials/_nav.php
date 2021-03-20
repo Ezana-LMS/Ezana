@@ -11,7 +11,7 @@ while ($admin = $res->fetch_object()) {
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link"   data-widget="pushmenu" data-enable-remember="true" href="#"><i class="fas fa-bars"></i></a>
+                <a class="nav-link" data-widget="pushmenu" data-enable-remember="true" href="#"><i class="fas fa-bars"></i></a>
             </li>
         </ul>
         <!-- Right navbar links -->
@@ -37,7 +37,7 @@ while ($admin = $res->fetch_object()) {
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="fas fa-user"></i>
-                    <?php echo $_SESSION['name']; ?>
+                    Hello <i><?php echo $admin->name; ?></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <a href="profile.php" class="dropdown-item">
@@ -48,7 +48,7 @@ while ($admin = $res->fetch_object()) {
                         <i class="fas fa-calendar mr-2"></i>
                         Calendar
                     </a>
-                     
+
                     <div class="dropdown-divider"></div>
                     <a href="logout.php" class="dropdown-item">
                         <i class="fas fa-power-off mr-2"></i>
