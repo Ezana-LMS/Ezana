@@ -1,39 +1,25 @@
 <?php
 session_start();
 include('configs/config.php');
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
-    $password = sha1(md5($_POST['password'])); //double encrypt to increase security
-    $stmt = $mysqli->prepare("SELECT email, password, id, name  FROM ezanaLMS_Admins  WHERE email =? AND password =?");
-    $stmt->bind_param('ss', $email, $password); //bind fetched parameters
-    $stmt->execute(); //execute bind 
-    $stmt->bind_result($email, $password, $id, $name); //bind result
-    $rs = $stmt->fetch();
-
-    if ($rs) {
-        $_SESSION['id'] = $id;
+    $password = sha1(md5($_POST['password']));
+    $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Admins WHERE email='$email'  AND password='$password'");
+    $num = mysqli_fetch_array($ret);
+    if ($num > 0) {
+        $_SESSION['id'] = $num['id'];
         $_SESSION['email'] = $email;
-        $_SESSION['name'] = $name;
-        $uip = $_SERVER['REMOTE_ADDR'];
-        $Logquery = "INSERT INTO ezanaLMS_UserLog (userId, username, userIp) VALUES (?,?,?) ";
-        $LogStmt = $mysqli->prepare($Logquery);
-        $rc = $LogStmt->bind_param('sss', $id, $email, $uip);
-        $LogStmt->execute();
-        mysqli_query($mysqli, $Logquery);
-        if ($LogStmt) {
-            $extra = "dashboard.php";
-            $host = $_SERVER['HTTP_HOST'];
-            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            header("location:http://$host$uri/$extra");
-            exit();
-        } else {
-            $info = "Fuck Me";
-        }
-    } else {
-        $err = "Access Denied Please Check Your Credentials";
+        $uip = $_SERVER['REMOTE_ADDR']; // get the user ip
+        mysqli_query($mysqli, "INSERT INTO ezanaLMS_UserLog(user_id, name, ip) values('" . $_SESSION['id'] . "','" . $_SESSION['email'] . "','$uip')");
+        $extra = "dashboard.php";
+        $host = $_SERVER['HTTP_HOST'];
+        $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+        header("location:http://$host$uri/$extra");
+        exit();
+    }
+    else {
+        $err = "Invalid username or password";
     }
 }
 
