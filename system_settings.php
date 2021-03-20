@@ -227,6 +227,9 @@ require_once('public/partials/_head.php');
                                                 <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home-academic" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Academic Settings</a>
                                             </li>
                                             <li class="nav-item">
+                                                <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home-data-delete" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Delete Functionalities</a>
+                                            </li>
+                                            <li class="nav-item">
                                                 <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home-data-backup" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Data Backup Utility</a>
                                             </li>
                                         </ul>
@@ -271,6 +274,7 @@ require_once('public/partials/_head.php');
                                                 <?php
                                                 } ?>
                                             </div>
+
                                             <div class="tab-pane fade show " id="custom-content-below-home-academic" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                 <br>
                                                 <?php
@@ -310,6 +314,11 @@ require_once('public/partials/_head.php');
                                                 <?php
                                                 } ?>
                                             </div>
+                                            <div class="tab-pane fade show " id="custom-content-below-home-data-delete" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                <br>
+                                                
+                                            </div>
+
                                             <div class="tab-pane fade show " id="custom-content-below-home-data-backup" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                 <br>
                                                 <div class="text-center">

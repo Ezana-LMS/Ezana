@@ -410,7 +410,7 @@ require_once('public/partials/_head.php');
                                                             </thead>
                                                             <tbody>
                                                                 <?php
-                                                                $ret = "SELECT * FROM `ezanaLMS_UserLog` ORDER BY `ezanaLMS_UserLog`.`loginTime` DESC ";
+                                                                $ret = "SELECT * FROM `ezanaLMS_UserLog` ORDER BY `ezanaLMS_UserLog`.`loginTime` DESC LIMIT  5 ";
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
