@@ -221,17 +221,20 @@ require_once('public/partials/_head.php');
                                     <div class="card-body">
                                         <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Customization</a>
+                                                <a class="nav-link active" data-toggle="pill" href="#customization" role="tab">Customization</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home-academic" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Academic Settings</a>
+                                                <a class="nav-link" data-toggle="pill" href="#academic_settings" role="tab">Academic Settings</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link " id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home-data-backup" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Data Backup Utility</a>
+                                                <a class="nav-link" data-toggle="pill" href="#delete_functionalities" role="tab">Delete Functionalities</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="pill" href="#back_up_utillity" role="tab">Data Backup Utility</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content" id="custom-content-below-tabContent">
-                                            <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                            <div class="tab-pane fade show active" id="customization" role="tabpanel">
                                                 <br>
                                                 <?php
                                                 /* Persisit System Settings On Brand */
@@ -271,7 +274,8 @@ require_once('public/partials/_head.php');
                                                 <?php
                                                 } ?>
                                             </div>
-                                            <div class="tab-pane fade show " id="custom-content-below-home-academic" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+
+                                            <div class="tab-pane fade show " id="academic_settings" role="tabpanel">
                                                 <br>
                                                 <?php
                                                 /* Persisit Academic Settings */
@@ -310,7 +314,122 @@ require_once('public/partials/_head.php');
                                                 <?php
                                                 } ?>
                                             </div>
-                                            <div class="tab-pane fade show " id="custom-content-below-home-data-backup" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+
+                                            <div class="tab-pane fade show " id="delete_functionalities" role="tabpanel">
+                                                <br>
+                                                <p>Select Any Module To Access Delete Functionalities</p>
+                                                <div class="col-md-12">
+                                                    <div class="card collapsed-card card-success">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">Faculties</h3>
+                                                            <div class="card-tools">
+                                                                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                                            </div>
+                                                            <!-- /.card-tools -->
+                                                        </div>
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            The body of the card
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+
+                                                    <!-- Departments -->
+                                                    <div class="card collapsed-card card-success">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">Departments</h3>
+                                                            <div class="card-tools">
+                                                                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                                            </div>
+                                                            <!-- /.card-tools -->
+                                                        </div>
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            The body of the card
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+
+                                                    <!-- Courses -->
+                                                    <div class="card collapsed-card card-success">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">Courses</h3>
+                                                            <div class="card-tools">
+                                                                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                                            </div>
+                                                            <!-- /.card-tools -->
+                                                        </div>
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            The body of the card
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+
+                                                    <!-- Modules -->
+                                                    <div class="card collapsed-card card-success">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">Modules</h3>
+                                                            <div class="card-tools">
+                                                                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                                            </div>
+                                                            <!-- /.card-tools -->
+                                                        </div>
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            The body of the card
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+
+                                                    <!-- Lecturers -->
+                                                    <div class="card collapsed-card card-success">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">Lecturers</h3>
+                                                            <div class="card-tools">
+                                                                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                                            </div>
+                                                            <!-- /.card-tools -->
+                                                        </div>
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            The body of the card
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+
+                                                    <!-- Students -->
+                                                    <div class="card collapsed-card card-success">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">Students</h3>
+                                                            <div class="card-tools">
+                                                                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                                            </div>
+                                                            <!-- /.card-tools -->
+                                                        </div>
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            The body of the card
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="tab-pane fade show " id="back_up_utillity" role="tabpanel">
                                                 <br>
                                                 <div class="text-center">
                                                     <a href="system_database_dump.php" target="_blank" class="btn btn-primary">Backup </a>
@@ -321,7 +440,6 @@ require_once('public/partials/_head.php');
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </section>
                 <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php'); ?>
