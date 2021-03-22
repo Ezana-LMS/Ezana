@@ -701,30 +701,11 @@ require_once('public/partials/_head.php');
                                                                             <td><?php echo $docs->created_by; ?></td>
                                                                             <td><?php echo $docs->created_at; ?></td>
                                                                             <td>
-                                                                                <a class="badge badge-success" data-toggle="modal" href="#download-<?php echo $docs->id; ?>">
+                                                                                <a class="badge badge-success"  href="public/uploads/EzanaLMSData/departmental_docs/<?php $docs->attachments;?>" target="_blank">
                                                                                     <i class="fas fa-download"></i>
                                                                                     Download
                                                                                 </a>
-                                                                                <!-- Delete Confirmation -->
-                                                                                <div class="modal fade" id="download-<?php echo $docs->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                                        <div class="modal-content">
-                                                                                            <div class="modal-header">
-                                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM DOWNLOAD</h5>
-                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                                </button>
-                                                                                            </div>
-                                                                                            <div class="modal-body text-center text-danger">
-                                                                                                <h4>Download This Document?</h4>
-                                                                                                <br>
-                                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                <a href="public/uploads/EzanaLMSData/memos/<?php $docs->attachments; ?>" target="_blank" class="text-center btn btn-danger"> Download </a>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
+                                                                                
                                                                                 <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $docs->id; ?>">
                                                                                     <i class="fas fa-edit"></i>
                                                                                     Update
