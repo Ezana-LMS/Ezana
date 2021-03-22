@@ -78,7 +78,7 @@ if (isset($_POST['update_faculty'])) {
         $head = $_POST['head'];
         $email = $_POST['email'];
 
-        $query = "UPDATE ezanaLMS_Faculties SET code =?, name =?, details =?, head = ?, email =? WHERE idd =?";
+        $query = "UPDATE ezanaLMS_Faculties SET code =?, name =?, details =?, head = ?, email =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('ssssss', $code, $name, $details, $head, $email, $id);
         $stmt->execute();
@@ -388,6 +388,8 @@ require_once('public/partials/_head.php');
                                                     <tr>
                                                         <td><?php echo $faculty->code; ?></td>
                                                         <td><?php echo $faculty->name; ?></td>
+                                                        <td><?php echo $faculty->head; ?></td>
+                                                        <td><?php echo $faculty->email; ?></td>
                                                         <td>
                                                             <!-- <a class="badge badge-success" href="faculty_dashboard.php?view=<?php echo $faculty->id; ?>">
                                                                 <i class="fas fa-eye"></i>

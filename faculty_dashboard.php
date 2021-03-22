@@ -74,10 +74,12 @@ if (isset($_POST['update_faculty'])) {
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
+        $head = $_POST['head'];
+        $email = $_POST['email'];
 
-        $query = "UPDATE ezanaLMS_Faculties SET code =?, name =?, details =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Faculties SET code =?, name =?, details =?, head=?, email =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
+        $rc = $stmt->bind_param('ssssss', $code, $name, $details, $head, $email, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Added" && header("refresh:1; url=faculty_dashboard.php?view=$id");
@@ -308,6 +310,16 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </div>
                                                             <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Faculty Head</label>
+                                                                    <input type="text" required name="head" value="<?php echo $faculty->head; ?>" class="form-control" id="exampleInputEmail1">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Faculty Email</label>
+                                                                    <input type="text" required name="email" value="<?php echo $faculty->email; ?>" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Faculty Description</label>
                                                                     <textarea id="textarea" name="details" rows="5" class="form-control"><?php echo $faculty->details; ?></textarea>
@@ -381,10 +393,16 @@ require_once('public/partials/_head.php');
                                                                     </span>
                                                                 </li>
                                                                 <li class="nav-item">
+                                                                    <span class="nav-link text-primary">
+                                                                        Faculty Head: <span class="float-right "><?php echo $faculty->head; ?></span>
+                                                                    </span>
+                                                                </li>
+                                                                <li class="nav-item">
                                                                     <a href="faculty_departments.php?view=<?php echo $view; ?>" class="nav-link">
                                                                         Departments: <span class="float-right badge bg-success"><?php echo $faculty_departments; ?></span>
                                                                     </a>
                                                                 </li>
+
                                                                 <li class="nav-item">
                                                                     <a href="faculty_lects.php?view=<?php echo $view; ?>" class="nav-link">
                                                                         Lecturers <span class="float-right badge bg-danger"><?php echo $faculty_lecs; ?></span>
@@ -394,6 +412,11 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                         <div class="col-md-6">
                                                             <ul class="nav flex-column">
+                                                                <li class="nav-item">
+                                                                    <span class="nav-link text-primary">
+                                                                        Faculty Email: <span class="float-right "><?php echo $faculty->email; ?></span>
+                                                                    </span>
+                                                                </li>
                                                                 <li class="nav-item">
                                                                     <a href="faculty_courses.php?view=<?php echo $view; ?>" class="nav-link">
                                                                         Courses Offered: <span class="float-right badge bg-primary"><?php echo $faculty_courses; ?></span>
