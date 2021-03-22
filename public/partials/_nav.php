@@ -16,6 +16,13 @@ while ($admin = $res->fetch_object()) {
         </ul>
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
+
+            <!-- Emails Dropdown Menu -->
+            <li class="nav-item dropdown">
+                <a class="nav-link" target="_blank" href="ezanamail/">
+                    <i class="far fa-envelope"></i>
+                </a>
+            </li>
             <!-- Notifications Dropdown Menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">

@@ -11,7 +11,8 @@
 <script src="public/dist/js/demo.js"></script>
 <!-- Dropify Plug in -->
 <script src="public/plugins/dropify/dropify.min.js"></script>
-
+<!-- Summernote -->
+<script src="public/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- Data Tables -->
 <script src="public/plugins/datatables/jquery.dataTables.js"></script>
 <script src="public/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
