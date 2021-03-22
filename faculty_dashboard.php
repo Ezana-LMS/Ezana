@@ -185,7 +185,7 @@ require_once('public/partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
-                                    <li class="breadcrumb-item active"><?php echo $faculty->name; ?></li>
+                                    <li class="breadcrumb-item active"><?php echo $faculty->name; ?> Dashboard</li>
                                 </ol>
                             </div>
                         </div>
@@ -253,7 +253,7 @@ require_once('public/partials/_head.php');
                                     <div class="col-md-12">
                                         <div class="card card-primary">
                                             <div class="card-header">
-                                                <h3 class="card-title"><?php echo $faculty->name; ?> Departments</h3>
+                                                <h3 class="card-title"><?php echo $faculty->name; ?> Dashboard</h3>
                                                 <div class="card-tools text-right">
                                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                     </button>
@@ -282,169 +282,68 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- All Other Faculties 
-                                    //This Has A Bug It Only Fetches The Active Faculty And Only One Inactive Faculty"
-                                    <?php
-                                    $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id != '$faculty->id' ORDER BY `name` ASC ";
-                                    $stmt = $mysqli->prepare($ret);
-                                    $stmt->execute(); //ok
-                                    $res = $stmt->get_result();
-                                    while ($unactive_faculties = $res->fetch_object()) {
-                                    ?>
-                                        <div class="col-md-12">
-                                            <div class="card card-primary collapsed-card">
-                                                <div class="card-header">
-                                                    <a href="faculty_dashboard.php?view=<?php echo $unactive_faculties->id; ?>">
-                                                        <h3 class="card-title"><?php echo $unactive_faculties->name; ?></h3>
-                                                        <div class="card-tools text-right">
-                                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </a>
-                                                </div>
-
-                                                <div class="card-body">
-                                                    <ul class="list-group">
-                                                    <?php
-                                                    /* List All Departments Under This Faculty */
-                                                    $InactivedepartmentFacultyID = $unactive_faculties->id;
-                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$InactivedepartmentFacultyID' ORDER BY `name` ASC  ";
-                                                    $stmt = $mysqli->prepare($ret);
-                                                    $stmt->execute(); //ok
-                                                    $res = $stmt->get_result();
-                                                    $cnt = 1;
-                                                    while ($inactivefacultyDepartment = $res->fetch_object()) {
-                                                    ?>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="departments.php?view=<?php echo $inactivefacultyDepartment->id; ?>">
-                                                                <?php echo $inactivefacultyDepartment->name; ?>
-                                                            </a>
-                                                        </li>
-
-                                                    <?php } ?>
-
-                                                        
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="courses.php?view=<?php echo $unactive_faculties->id; ?>">
-                                                                Courses
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="modules.php?view=<?php echo $unactive_faculties->id; ?>">
-                                                                Modules
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="school_calendar.phpview=<?php echo $unactive_faculties->id; ?>">
-                                                                Calendar
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="lects.php?view=<?php echo $unactive_faculties->id; ?>">
-                                                                Lecturers
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="students.php?view=<?php echo $unactive_faculties->id; ?>">
-                                                                Students
-                                                            </a>
-                                                        </li> 
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php
-                                    } ?>
-                                    -->
                                 </div>
 
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="text-center">
-                                                <h1 class="display-4">Departments</h1>
-                                            </div>
-                                            <div class="text-left">
-                                                <a href="dashboard.php" class="btn btn-outline-success">
-                                                    <i class="fas fa-arrow-left"></i>
-                                                    Back
-                                                </a>
-                                            </div>
-                                            <br>
-                                            <div class="jumbotron">
-                                                <div class="row">
-                                                    <?php
-                                                    /* List All Departments Under This Faculty */
-                                                    $departmentFacultyID = $faculty->id;
-                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$departmentFacultyID' ORDER BY `name` ASC  ";
-                                                    $stmt = $mysqli->prepare($ret);
-                                                    $stmt->execute(); //ok
-                                                    $res = $stmt->get_result();
-                                                    $cnt = 1;
-                                                    while ($facultyDepartment = $res->fetch_object()) {
-                                                    ?>
-                                                        <div class="col-lg-4 col-6">
-                                                            <div class="small-box bg-primary">
-                                                                <a href="department.php?view=<?php echo $facultyDepartment->id; ?>">
-                                                                    <div class="inner">
-                                                                        <h4 class="text-center">
-                                                                            <?php echo $facultyDepartment->name; ?>
-                                                                        </h4>
-                                                                        <p class="text-center">
-                                                                            <?php echo $facultyDepartment->code; ?>
-                                                                        </p>
-                                                                    </div>
-                                                                    <div class="icon">
-                                                                        <i class="fas fa-building"></i>
-                                                                    </div>
+                                            <div class="card card-widget widget-user-2">
+                                                <div class="widget-user-header bg-primary">
+                                                    <h3 class="widget-user-username"><?php echo $faculty->name; ?></h3>
+                                                </div>
+                                                <div class="card-footer p-0">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <ul class="nav flex-column">
+                                                                <li class="nav-item">
+                                                                    <a href="" class="nav-link">
+                                                                        Faculty Code: <span class="float-right "><?php echo $faculty->code; ?></span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a href="" class="nav-link">
+                                                                        Departments: <span class="float-right badge bg-success">12</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a href="" class="nav-link">
+                                                                        Lecturers <span class="float-right badge bg-danger">842</span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <ul class="nav flex-column">
+                                                                <li class="nav-item">
+                                                                    <a href="" class="nav-link">
+                                                                        Courses Offered: <span class="float-right badge bg-primary">31</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a href="" class="nav-link">
+                                                                        Modules: <span class="float-right badge bg-info">5</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a href="" class="nav-link">
+                                                                        Administrators <span class="float-right badge bg-success">12</span>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="col-md-12">
+                                                        <ul class="nav flex-column">
+                                                            <li class="nav-item">
+                                                                <a href="" class="nav-link text-center">
+                                                                    Faculty Details
                                                                 </a>
-                                                                <div class="small-box-footer text-center">
-                                                                    <?php echo $facultyDepartment->hod; ?>
-                                                                    <!-- Push Deparment Info  To The Right -->
-                                                                    <button type="button" class="fas fa-info-circle float-right" data-toggle="modal" data-target="#modal-sm-<?php echo $facultyDepartment->id; ?>"></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Department Details Modal -->
-                                                        <div class="modal fade" id="modal-sm-<?php echo $facultyDepartment->id; ?>">
-                                                            <div class="modal-dialog modal-lg">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h4 class="modal-title"><?php echo $facultyDepartment->name; ?> Description</h4>
-                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <?php echo $facultyDepartment->details; ?>
-                                                                    </div>
-                                                                    <div class="modal-footer justify-content-between">
-                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                    <!-- Add New Department -->
-                                                    <div class="col-lg-4 col-6">
-                                                        <a data-toggle="modal" href="#modal-default">
-                                                            <div class="small-box bg-success">
-                                                                <div class="inner">
-                                                                    <h4 class="text-center">
-                                                                        Register New Department
-                                                                    </h4>
-                                                                </div>
-                                                                <div class="icon">
-                                                                    <i class="fas fa-building"></i>
-                                                                </div>
-                                                                <div class="small-box-footer text-center">
-                                                                    <i class="fas fa-plus"></i>
-                                                                </div>
-                                                            </div>
-                                                        </a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <?php echo $faculty->details; ?>
+                                                            </li>
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
