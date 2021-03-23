@@ -355,6 +355,11 @@ require_once('public/partials/_head.php');
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="course_memos.php?view=<?php echo $course->id; ?>">
+                                                            Memos & Notices
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="module_allocations.php?view=<?php echo $course->id; ?>">
                                                             Modules Allocations
                                                         </a>

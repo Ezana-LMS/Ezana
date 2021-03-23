@@ -383,13 +383,23 @@ require_once('public/partials/_head.php');
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="course_memos.php?view=<?php echo $course->id; ?>">
+                                                                Memos & Notices
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="module_allocations.php?view=<?php echo $course->id; ?>">
+                                                                Modules Allocations
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="timetables.php?view=<?php echo $course->id; ?>">
-                                                                TimeTable
+                                                                Time Table
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="enrollments.php?view=<?php echo $course->id; ?>">
-                                                                Enrollments
+                                                                Enrolled Students
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -581,10 +591,10 @@ require_once('public/partials/_head.php');
                 require_once('public/partials/_footer.php');
             }
         } ?>
-        </div>
-    </div>
-    <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php'); ?>
+                    </div>
+                </div>
+                <!-- ./wrapper -->
+                <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
