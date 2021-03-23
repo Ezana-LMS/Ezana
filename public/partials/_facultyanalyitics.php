@@ -41,3 +41,10 @@ $stmt->bind_result($faculty_students);
 $stmt->fetch();
 $stmt->close();
 
+/* Modules */
+$query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE faculty_id = '$view' ";
+$stmt = $mysqli->prepare($query);
+$stmt->execute();
+$stmt->bind_result($faculty_modules);
+$stmt->fetch();
+$stmt->close();

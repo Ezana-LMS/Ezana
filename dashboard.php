@@ -392,6 +392,7 @@ require_once('public/partials/_head.php');
                                             </div>
 
                                         </div>
+                                        <hr>
                                         <!-- Login Activity -->
                                         <div class="col-md-12">
                                             <div class="row">
@@ -426,18 +427,85 @@ require_once('public/partials/_head.php');
                                                         </table>
                                                     </div>
                                                 </div>
-<hr>
+
                                                 <div class="card col-md-6">
                                                     <div class="card-head text-center">
                                                         <br>
                                                         <h4>User Login Activity Chart</h4>
                                                     </div>
                                                     <div class="card-body">
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- Student Requests -->
+                                        <hr>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="card col-md-6">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">
+                                                            Requests
+                                                        </h3>
+
+                                                        <div class="card-tools">
+                                                            <ul class="pagination pagination-sm">
+                                                                <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
+                                                                <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                                                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                                                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                                                                <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.card-header -->
+                                                    <div class="card-body">
+                                                        <ul class="todo-list" data-widget="todo-list">
+                                                            <li>
+                                                                <!-- checkbox -->
+                                                                <div class="icheck-primary d-inline ml-2">
+                                                                    <input type="checkbox" value="" name="todo1" id="todoCheck1">
+                                                                    <label for="todoCheck1"></label>
+                                                                </div>
+                                                                <!-- todo text -->
+                                                                <span class="text">Please Share Course Materials </span>
+                                                                <!-- Emphasis label -->
+                                                                <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                                                                <!-- General tools such as edit or delete-->
+                                                                <!-- <div class="tools">
+                                                                    <i class="fas fa-edit"></i>
+                                                                    <i class="fas fa-trash-o"></i>
+                                                                </div> -->
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <!-- /.card-body -->
+                                                    <!-- <div class="card-footer clearfix">
+                                                        <button type="button" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add item</button>
+                                                    </div> -->
+                                                </div>
+
+                                                <div class="card col-md-6">
+                                                    <div class="card-header text-center">
+                                                        <h3 class="card-title">
+                                                            Server Status, Database Status And Error Checkings
+                                                        </h3>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <?php
+                                                        $server_info = mysqli_get_server_info($mysqli);
+                                                        echo "Database Server: " . $server_info . "<br>";
+                                                        $array = explode("  ", mysqli_stat($mysqli));
+                                                        foreach ($array as $value) {
+                                                            echo "Server " . $value . "<br />";
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

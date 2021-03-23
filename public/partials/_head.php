@@ -52,7 +52,8 @@ while ($sys = $res->fetch_object()) {
         <!-- <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script> -->
         <!-- Scroll Bars -->
         <link rel="stylesheet" href="public/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-        
+        <!-- Summernote -->
+        <link rel="stylesheet" href="public/plugins/summernote/summernote-bs4.css">
         <!-- FlatPickr PlugIn CSS -->
         <link href="public/plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
         <link href="public/plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">

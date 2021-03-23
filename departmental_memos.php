@@ -70,10 +70,11 @@ if (isset($_POST['add_memo'])) {
     $created_at = date('d M Y g:i');
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
+    $created_by = $_POST['created_by'];
 
-    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, attachments, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, department_id, department_name, type, departmental_memo, attachments, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssssss', $id, $department_id, $department_name, $type, $departmental_memo, $attachments, $created_at, $faculty);
+    $rc = $stmt->bind_param('sssssssss', $id, $created_by, $department_id, $department_name, $type, $departmental_memo, $attachments, $created_at, $faculty);
     $stmt->execute();
     if ($stmt) {
         $success = "Departmental Memo Added"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
@@ -93,10 +94,11 @@ if (isset($_POST['add_notice'])) {
     $created_at = date('d M Y g:i');
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
+    $created_by = $_POST['created_by'];
 
-    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, created_at, faculty_id) VALUES(?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, department_id, department_name, type, departmental_memo, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssss', $id, $department_id, $department_name, $type, $departmental_memo, $created_at, $faculty);
+    $rc = $stmt->bind_param('ssssssss', $id, $created_by, $department_id, $department_name, $type, $departmental_memo, $created_at, $faculty);
     $stmt->execute();
     if ($stmt) {
         $success = "Notice Posted"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
@@ -116,7 +118,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=department.php?view=$view");
+        $success = "Deleted" && header("refresh:1; url=departmental_memos.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -132,10 +134,11 @@ if (isset($_POST['update'])) {
     $created_at = date('d M Y g:i');
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
+    $created_by = $_POST['created_by'];
 
-    $query = "UPDATE ezanaLMS_DepartmentalMemos SET  departmental_memo =?, attachments =?, created_at =?, type =?, faculty_id =? WHERE id =?";
+    $query = "UPDATE ezanaLMS_DepartmentalMemos SET  created_by=?, departmental_memo =?, attachments =?, created_at =?, type =?, faculty_id =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss',  $departmental_memo, $attachments, $created_at, $type, $faculty, $id);
+    $rc = $stmt->bind_param('sssssss',  $created_by, $departmental_memo, $attachments, $created_at, $type, $faculty, $id);
     $stmt->execute();
     if ($stmt) {
         $success = "Updated";
@@ -290,8 +293,13 @@ require_once('public/partials/_head.php');
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Dep Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
-
+                                    <div class="text-right">
+                                        <a href="#add-memo" data-toggle="modal" class=" pull-left btn btn-outline-success">
+                                            <i class="fas fa-file"></i>
+                                            Add Memo
+                                        </a>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
+                                    </div>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -368,6 +376,11 @@ require_once('public/partials/_head.php');
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="departmental_documents.php?view=<?php echo $department->id; ?>">
+                                                            Department Documents
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="courses.php?view=<?php echo $department->id; ?>">
                                                             Courses
                                                         </a>
@@ -392,10 +405,6 @@ require_once('public/partials/_head.php');
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
                                                 </a>
-                                                <a href="#add-memo" data-toggle="modal" class=" pull-left btn btn-outline-success">
-                                                    <i class="fas fa-file"></i>
-                                                    Add Memo
-                                                </a>
                                                 <div class="modal fade" id="add-memo">
                                                     <div class="modal-dialog  modal-lg">
                                                         <div class="modal-content">
@@ -415,7 +424,7 @@ require_once('public/partials/_head.php');
                                                                                 <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
                                                                                 <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
                                                                             </div>
-                                                                            <div class="form-group col-md-12">
+                                                                            <div class="form-group col-md-6">
                                                                                 <label for="">Upload Departmental Memo (PDF Or Docx)</label>
                                                                                 <div class="input-group">
                                                                                     <div class="custom-file">
@@ -423,6 +432,10 @@ require_once('public/partials/_head.php');
                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                     </div>
                                                                                 </div>
+                                                                            </div>
+                                                                            <div class="form-group col-md-6">
+                                                                                <label for="">Created By</label>
+                                                                                <input type="text" required name="created_by" class="form-control">
                                                                             </div>
                                                                             <div style="display:none" class="form-group col-md-6">
                                                                                 <label for="">Type</label>
@@ -462,7 +475,7 @@ require_once('public/partials/_head.php');
                                                             <table id="example1" class="table table-bordered table-striped">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>#</th>
+                                                                        <th>Posted By</th>
                                                                         <th>Date Posted</th>
                                                                         <th>Type</th>
                                                                         <th>Manage</th>
@@ -479,7 +492,7 @@ require_once('public/partials/_head.php');
                                                                     ?>
 
                                                                         <tr>
-                                                                            <td><?php echo $cnt; ?></td>
+                                                                            <td><?php echo $memo->created_by; ?></td>
                                                                             <td><?php echo $memo->created_at; ?></td>
                                                                             <td><?php echo $memo->type; ?></td>
                                                                             <td>
@@ -498,7 +511,7 @@ require_once('public/partials/_head.php');
                                                                                                 </button>
                                                                                             </div>
                                                                                             <div class="modal-body">
-                                                                                                <?php echo $memo->departmental_memo;?>
+                                                                                                <?php echo $memo->departmental_memo; ?>
                                                                                                 <hr>
                                                                                                 <?php
 
@@ -546,7 +559,7 @@ require_once('public/partials/_head.php');
                                                                                                                 </select>
                                                                                                             </div>
                                                                                                             <div class="form-group col-md-6">
-                                                                                                                <label for="">Upload Memo | Notice (PDF Or Docx)</label>
+                                                                                                                <label for="">Upload Memo | Notice (PDF r Docx)</label>
                                                                                                                 <div class="input-group">
                                                                                                                     <div class="custom-file">
                                                                                                                         <input name="attachments" type="file" class="custom-file-input">
@@ -556,6 +569,11 @@ require_once('public/partials/_head.php');
                                                                                                                     </div>
                                                                                                                 </div>
                                                                                                             </div>
+                                                                                                            <div class="form-group col-md-12">
+                                                                                                                <label for="">Created By</label>
+                                                                                                                <input type="text" name="created_by" class="form-control" value="<?php echo $memo->created_by; ?>">
+                                                                                                            </div>
+
                                                                                                         </div>
                                                                                                         <h2 class="text-center">Or </h2>
                                                                                                         <div class="row">
@@ -577,7 +595,7 @@ require_once('public/partials/_head.php');
                                                                                     </div>
                                                                                 </div>
                                                                                 <!-- End Update Departmental Memo Modal -->
-                                                                                <a class="badge badge-danger" data-toggle="modal" href="delete-<?php echo $memo->id; ?>">
+                                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $memo->id; ?>">
                                                                                     <i class="fas fa-trash"></i>
                                                                                     Delete
                                                                                 </a>

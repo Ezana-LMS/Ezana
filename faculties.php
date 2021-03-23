@@ -38,10 +38,12 @@ if (isset($_POST['add_faculty'])) {
             $name = $_POST['name'];
             $code = $_POST['code'];
             $details = $_POST['details'];
+            $head = $_POST['head'];
+            $email = $_POST['email'];
 
-            $query = "INSERT INTO ezanaLMS_Faculties (id, code, name, details) VALUES(?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Faculties (id, code, name, details, head, email) VALUES(?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssss', $id, $code, $name, $details);
+            $rc = $stmt->bind_param('ssssss', $id, $code, $name, $details, $head, $email);
             $stmt->execute();
             if ($stmt) {
                 $success = "Added" && header("refresh:1; url=faculties.php");
@@ -73,10 +75,12 @@ if (isset($_POST['update_faculty'])) {
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
+        $head = $_POST['head'];
+        $email = $_POST['email'];
 
-        $query = "UPDATE ezanaLMS_Faculties SET code =?, name =?, details =? WHERE idd =?";
+        $query = "UPDATE ezanaLMS_Faculties SET code =?, name =?, details =?, head = ?, email =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
+        $rc = $stmt->bind_param('ssssss', $code, $name, $details, $head, $email, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Added" && header("refresh:1; url=faculties.php");
@@ -87,21 +91,6 @@ if (isset($_POST['update_faculty'])) {
     }
 }
 
-
-/* Delete Faculty */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $adn = "DELETE FROM ezanaLMS_Faculties WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=faculties.php");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 require_once('public/partials/_head.php');
 ?>
 
@@ -263,6 +252,16 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                         </div>
                                                         <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty Head</label>
+                                                                <input type="text" required name="head" class="form-control" id="exampleInputEmail1">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty Head Email</label>
+                                                                <input type="email" required name="email" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Faculty Description</label>
                                                                 <textarea id="textarea" name="details" rows="10" class="form-control"></textarea>
@@ -355,9 +354,11 @@ require_once('public/partials/_head.php');
                                         <table id="example1" class=" table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Faculty Code Number</th>
-                                                    <th>Faculty Name</th>
-                                                    <th>Manage Faculty</th>
+                                                    <th>Code Number</th>
+                                                    <th>Name</th>
+                                                    <th>Head</th>
+                                                    <th>Email</th>
+                                                    <th>Manage</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -372,11 +373,9 @@ require_once('public/partials/_head.php');
                                                     <tr>
                                                         <td><?php echo $faculty->code; ?></td>
                                                         <td><?php echo $faculty->name; ?></td>
+                                                        <td><?php echo $faculty->head; ?></td>
+                                                        <td><?php echo $faculty->email; ?></td>
                                                         <td>
-                                                            <!-- <a class="badge badge-success" href="faculty_dashboard.php?view=<?php echo $faculty->id; ?>">
-                                                                <i class="fas fa-eye"></i>
-                                                                View
-                                                            </a> -->
                                                             <a class="badge badge-primary" data-toggle="modal" href="#edit-faculty-<?php echo $faculty->id; ?>">
                                                                 <i class="fas fa-edit"></i>
                                                                 Update
@@ -407,6 +406,16 @@ require_once('public/partials/_head.php');
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="row">
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="">Faculty Head</label>
+                                                                                            <input type="text" required name="head" value="<?php echo $faculty->head; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                        </div>
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="">Faculty Email</label>
+                                                                                            <input type="text" required name="email" value="<?php echo $faculty->email; ?>" class="form-control">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
                                                                                         <div class="form-group col-md-12">
                                                                                             <label for="exampleInputPassword1">Faculty Description</label>
                                                                                             <textarea id="textarea" name="details" rows="5" class="form-control"><?php echo $faculty->details; ?></textarea>
@@ -425,142 +434,13 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <!-- End Update Modal -->
-                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $faculty->id; ?>"> <i class="fas fa-trash"></i> Delete</a>
-                                                            <!-- Delete Confirmation Modal -->
-                                                            <div class="modal fade" id="delete-<?php echo $faculty->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="modal-body text-center text-danger">
-                                                                            <h4>Delete <?php echo $faculty->name; ?> ?</h4>
-                                                                            <br>
-                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                            <a href="faculties.php?delete=<?php echo $faculty->id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                         </td>
                                                     </tr>
                                                 <?php $cnt = $cnt + 1;
                                                 } ?>
                                             </tbody>
                                         </table>
-                                        <!-- <div class="jumbotron">
-                                            <div class="row">
-
-                                                <div class="col-lg-4 col-6">
-                                                    <a href="departments.php">
-                                                        <div class="small-box bg-info">
-                                                            <div class="inner">
-                                                                <h3>Departments</h3>
-                                                            </div>
-                                                            <div class="icon">
-                                                                <i class="fas fa-building"></i>
-                                                            </div>
-                                                            <div class="small-box-footer">
-                                                                <i class="fas fa-arrow-circle-right"></i>
-                                                                <?php echo $departments; ?>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-
-                                                <div class="col-lg-4 col-6">
-                                                    <a href="courses.php">
-                                                        <div class="small-box bg-info">
-                                                            <div class="inner">
-                                                                <h3>Courses</h3>
-                                                            </div>
-                                                            <div class="icon">
-                                                                <i class="fas fa-chalkboard-teacher"></i>
-                                                            </div>
-                                                            <div class="small-box-footer">
-                                                                <i class="fas fa-arrow-circle-right"></i>
-                                                                <?php echo $courses; ?>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-
-                                                <div class="col-lg-4 col-6">
-                                                    <a href="modules.php">
-                                                        <div class="small-box bg-info">
-                                                            <div class="inner">
-                                                                <h3>Modules</h3>
-                                                            </div>
-                                                            <div class="icon">
-                                                                <i class="fas fa-chalkboard"></i>
-                                                            </div>
-                                                            <div class="small-box-footer">
-                                                                <i class="fas fa-arrow-circle-right"></i>
-                                                                <?php echo $modules; ?>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-
-                                                <div class="col-lg-4 col-6">
-                                                    <a href="overall_school_calendar.php">
-
-                                                        <div class="small-box bg-info">
-                                                            <div class="inner">
-                                                                <h3>Calendar</h3>
-                                                            </div>
-                                                            <div class="icon">
-                                                                <i class="fas fa-calendar"></i>
-                                                            </div>
-                                                            <div class="small-box-footer">
-                                                                <i class="fas fa-arrow-circle-right"></i>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-
-                                                <div class="col-lg-4 col-6">
-                                                    <a href="lecturers.php">
-
-                                                        <div class="small-box bg-info">
-                                                            <div class="inner">
-                                                                <h3>Lecturers</h3>
-                                                            </div>
-                                                            <div class="icon">
-                                                                <i class="fas fa-user-tie"></i>
-                                                            </div>
-                                                            <div class="small-box-footer">
-                                                                <i class="fas fa-arrow-circle-right"></i>
-                                                                <?php echo $lecs; ?>
-                                                            </div>
-
-                                                        </div>
-                                                    </a>
-                                                </div>
-
-                                                <div class="col-lg-4 col-6">
-                                                    <a href="students.php">
-
-                                                        <div class="small-box bg-info">
-                                                            <div class="inner">
-                                                                <h3>Students</h3>
-                                                            </div>
-                                                            <div class="icon">
-                                                                <i class="fas fa-user-graduate"></i>
-                                                            </div>
-                                                            <div class="small-box-footer">
-                                                                <i class="fas fa-arrow-circle-right"></i>
-                                                                <?php echo $students; ?>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                                        
                                     </div>
                                 </div>
                             </div>

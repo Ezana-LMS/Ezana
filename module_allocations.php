@@ -479,8 +479,8 @@ require_once('public/partials/_head.php');
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="timetables.php?view=<?php echo $course->id; ?>">
-                                                            TimeTable
+                                                        <a href="course_memos.php?view=<?php echo $course->id; ?>">
+                                                            Memos & Notices
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -489,8 +489,13 @@ require_once('public/partials/_head.php');
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="timetables.php?view=<?php echo $course->id; ?>">
+                                                            Time Table
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="enrollments.php?view=<?php echo $course->id; ?>">
-                                                            Enrollments
+                                                            Enrolled Students
                                                         </a>
                                                     </li>
                                                 </ul>

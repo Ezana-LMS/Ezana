@@ -11,7 +11,8 @@
 <script src="public/dist/js/demo.js"></script>
 <!-- Dropify Plug in -->
 <script src="public/plugins/dropify/dropify.min.js"></script>
-
+<!-- Summernote -->
+<script src="public/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- Data Tables -->
 <script src="public/plugins/datatables/jquery.dataTables.js"></script>
 <script src="public/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
@@ -27,7 +28,14 @@
         $("#course-materials").DataTable();
         $("#studentGroups").DataTable();
         $("#group_ass").DataTable();
-        $("#")
+        /* Delete Functionalities Data Tables Init */
+        $("#faculties").DataTable();
+        $("#departments").DataTable();
+        $("#courses").DataTable();
+        $("#modules").DataTable();
+        $("#lecturers").DataTable();
+        $("#students").DataTable();
+        
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,
