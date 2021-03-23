@@ -82,6 +82,95 @@ if (isset($_POST['CurrentAcademicTerm'])) {
     }
 }
 
+/* Delete Faculty */
+if (isset($_GET['delete_faculty'])) {
+    $delete = $_GET['delete_faculty'];
+    $adn = "DELETE FROM ezanaLMS_Faculties WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=system_settings.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete Departments */
+if (isset($_GET['delete_department'])) {
+    $delete = $_GET['delete_department'];
+    $adn = "DELETE FROM ezanaLMS_Departments WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Department Details Deleted" && header("refresh:1; url=system_settings.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete Courses */
+if (isset($_GET['delete_course'])) {
+    $delete = $_GET['delete_course'];
+    $adn = "DELETE FROM ezanaLMS_Courses WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=system_settings.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete Modules */
+if (isset($_GET['delete_module'])) {
+    $delete = $_GET['delete_module'];
+    $adn = "DELETE FROM ezanaLMS_Modules WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=system_settings.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete Student */
+if (isset($_GET['delete_student'])) {
+    $delete = $_GET['delete_student'];
+    $adn = "DELETE FROM ezanaLMS_Students WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=system_settings.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete Lecturers */
+if (isset($_GET['delete_lecturer'])) {
+    $delete = $_GET['delete_lecturer'];
+    $adn = "DELETE FROM ezanaLMS_Lecturers WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=system_settings.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
@@ -318,7 +407,7 @@ require_once('public/partials/_head.php');
 
                                             <div class="tab-pane fade show " id="delete_functionalities" role="tabpanel">
                                                 <br>
-                                                <p class="text-danger">Select  Any Module To Access Delete Functionalities</p>
+                                                <p class="text-danger">Select Any Module To Access Delete Functionalities</p>
                                                 <div class="col-md-12">
                                                     <div class="card collapsed-card">
                                                         <div class="card-header">
@@ -372,7 +461,7 @@ require_once('public/partials/_head.php');
                                                                                                 <h4>Delete <?php echo $faculty->name; ?> ?</h4>
                                                                                                 <br>
                                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                <a href="faculties.php?delete=<?php echo $faculty->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                <a href="system_settings.php?delete_faculty=<?php echo $faculty->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -441,7 +530,7 @@ require_once('public/partials/_head.php');
                                                                                                 <h4>Delete <?php echo $dep->name; ?> ?</h4>
                                                                                                 <br>
                                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                <a href="departments.php?delete=<?php echo $dep->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                <a href="system_settings.php?delete_department=<?php echo $dep->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -511,7 +600,7 @@ require_once('public/partials/_head.php');
                                                                                                 <h4>Delete <?php echo $courses->name; ?> ?</h4>
                                                                                                 <br>
                                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                <a href="courses.php?delete=<?php echo $courses->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                <a href="system_settings.php?delete_course=<?php echo $courses->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -583,7 +672,7 @@ require_once('public/partials/_head.php');
                                                                                                 <h4>Delete <?php echo $mod->name; ?> ?</h4>
                                                                                                 <br>
                                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                <a href="modules.php?delete=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                <a href="modules.php?delete_module=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -659,7 +748,7 @@ require_once('public/partials/_head.php');
                                                                                                 <h4>Delete <?php echo $lec->name; ?> Details ?</h4>
                                                                                                 <br>
                                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                <a href="lecturers.php?delete=<?php echo $lec->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                <a href="lecturers.php?delete_lecturer=<?php echo $lec->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -735,7 +824,7 @@ require_once('public/partials/_head.php');
                                                                                                 <h4>Delete <?php echo $std->name; ?> Details ?</h4>
                                                                                                 <br>
                                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                <a href="students.php?delete=<?php echo $std->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                <a href="students.php?delete_student=<?php echo $std->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>

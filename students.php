@@ -145,21 +145,6 @@ if (isset($_POST['update_student'])) {
     }
 }
 
-/* Delete Student */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $adn = "DELETE FROM ezanaLMS_Students WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=students.php");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
-
 
 /* Update Student Passwords */
 if (isset($_POST['change_password'])) {
