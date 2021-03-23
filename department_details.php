@@ -430,7 +430,7 @@ require_once('public/partials/_head.php');
                                                                         <b>Faculty: </b> <a class="float-right"><?php echo $faculty->name; ?></a>
                                                                     </li>
                                                                     <li class="list-group-item">
-                                                                        <b>Email: </b> <a class="float-right"><?php echo $faculty->email; ?></a>
+                                                                        <b>Faculty Head Email: </b> <a class="float-right"><?php echo $faculty->email; ?></a>
                                                                     </li>
                                                                 <?php } ?>
 

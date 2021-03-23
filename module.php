@@ -341,7 +341,7 @@ require_once('public/partials/_head.php');
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="text-right">
-                                                <a href="courses.php" class="float-left btn btn-outline-success">
+                                                <a href="modules.php" class="float-left btn btn-outline-success">
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
                                                 </a>
