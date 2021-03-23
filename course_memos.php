@@ -373,17 +373,15 @@ require_once('public/partials/_head.php');
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
-                                                                    <input type="hidden" required name="course_name" value="<?php echo $course->name; ?>" class="form-control">
-                                                                    <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
-                                                                </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Upload Memo (PDF Or Docx)</label>
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
                                                                             <input name="attachments" type="file" class="custom-file-input">
+                                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                            <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
+                                                                            <input type="hidden" required name="course_name" value="<?php echo $course->name; ?>" class="form-control">
+                                                                            <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
                                                                             <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                         </div>
                                                                     </div>
@@ -548,16 +546,7 @@ require_once('public/partials/_head.php');
                                                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                                                     <div class="card-body">
                                                                                         <div class="row">
-
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Upload Memo | Notice (PDF r Docx)</label>
-                                                                                                <div class="input-group">
-                                                                                                    <div class="custom-file">
-                                                                                                        <input name="attachments" type="file" class="custom-file-input">
-                                                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file </label>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
+                                                                                            
                                                                                             <div class="form-group col-md-12">
                                                                                                 <input type="hidden" required name="id" value="<?php echo $memo->id; ?>" class="form-control">
                                                                                                 <input type="hidden" required name="course_id" value="<?php echo $memo->course_id; ?>" class="form-control">
@@ -567,6 +556,15 @@ require_once('public/partials/_head.php');
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Created By</label>
                                                                                                 <input type="text" name="created_by" class="form-control" value="<?php echo $memo->created_by; ?>">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Upload Memo | Notice (PDF r Docx)</label>
+                                                                                                <div class="input-group">
+                                                                                                    <div class="custom-file">
+                                                                                                        <input name="attachments" type="file" class="custom-file-input">
+                                                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                                                    </div>
+                                                                                                </div>
                                                                                             </div>
 
                                                                                         </div>
