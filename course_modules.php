@@ -550,5 +550,4 @@ require_once('public/partials/_head.php');
             <!-- ./wrapper -->
             <?php require_once('public/partials/_scripts.php'); ?>
 </body>
-
 </html>
