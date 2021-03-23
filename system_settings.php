@@ -171,6 +171,21 @@ if (isset($_GET['delete_lecturer'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+
+/* Delete On Non Teaching Staff */
+if (isset($_GET['delete_staff'])) {
+    $delete = $_GET['delete_staff'];
+    $adn = "DELETE FROM ezanaLMS_Admins WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=system_settings.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
@@ -672,7 +687,7 @@ require_once('public/partials/_head.php');
                                                                                                 <h4>Delete <?php echo $mod->name; ?> ?</h4>
                                                                                                 <br>
                                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                <a href="modules.php?delete_module=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                <a href="system_settings.php?delete_module=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -685,6 +700,80 @@ require_once('public/partials/_head.php');
                                                                 </tbody>
                                                             </table>
 
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+
+                                                    <!-- Non Teaching Staff -->
+                                                    <div class="card collapsed-card ">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">Non Teaching Staffs</h3>
+                                                            <div class="card-tools">
+                                                                <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                                            </div>
+                                                            <!-- /.card-tools -->
+                                                        </div>
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            <table id="example1" class="table table-bordered table-striped">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Name</th>
+                                                                        <th>Email</th>
+                                                                        <th>Phone</th>
+                                                                        <th>Rank</th>
+                                                                        <th>Manage</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Admins`  ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    $cnt = 1;
+                                                                    while ($admin = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <tr>
+                                                                            <td><?php echo $admin->name; ?></td>
+                                                                            <td><?php echo $admin->email; ?></td>
+                                                                            <td><?php echo $admin->phone; ?></td>
+                                                                            <td><?php echo $admin->rank; ?></td>
+                                                                            <td>
+                                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $admin->id; ?>">
+                                                                                    <i class="fas fa-trash"></i>
+                                                                                    Delete
+                                                                                </a>
+                                                                                <!-- Delete Confirmation Modal -->
+
+                                                                                <div class="modal fade" id="delete-<?php echo $admin->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header">
+                                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <div class="modal-body text-center text-danger">
+                                                                                                <h4>Delete <?php echo $admin->name; ?> Details ?</h4>
+                                                                                                <br>
+                                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                                <a href="system_settings.php?delete_staff=<?php echo $admin->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <!-- End Delete Confirmation Modal -->
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php $cnt = $cnt + 1;
+                                                                    } ?>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                         <!-- /.card-body -->
                                                     </div>
@@ -748,7 +837,7 @@ require_once('public/partials/_head.php');
                                                                                                 <h4>Delete <?php echo $lec->name; ?> Details ?</h4>
                                                                                                 <br>
                                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                <a href="lecturers.php?delete_lecturer=<?php echo $lec->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                <a href="system_settings.php?delete_lecturer=<?php echo $lec->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -824,7 +913,7 @@ require_once('public/partials/_head.php');
                                                                                                 <h4>Delete <?php echo $std->name; ?> Details ?</h4>
                                                                                                 <br>
                                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                <a href="students.php?delete_student=<?php echo $std->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                <a href="system_settings.php?delete_student=<?php echo $std->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -854,6 +943,7 @@ require_once('public/partials/_head.php');
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </section>
                 <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php'); ?>
