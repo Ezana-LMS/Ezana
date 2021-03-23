@@ -409,11 +409,31 @@ require_once('public/partials/_head.php');
                                                                     <b>Name: </b> <a class="float-right"><?php echo $department->name; ?></a>
                                                                 </li>
                                                                 <li class="list-group-item">
-                                                                    <b>Code / Number : </b> <a class="float-right"><?php echo $department->code; ?></a>
+                                                                    <b>Code / Number: </b> <a class="float-right"><?php echo $department->code; ?></a>
                                                                 </li>
                                                                 <li class="list-group-item">
-                                                                    <b>HOD</b> <a class="float-right"><?php echo $department->hod; ?></a>
+                                                                    <b>HOD: </b> <a class="float-right"><?php echo $department->hod; ?></a>
                                                                 </li>
+                                                                <?php
+                                                                /* Fetch Details Of Facuty That This Department Is Registered To */
+                                                                $faculty_id = $department->faculty_id;
+                                                                $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id= '$faculty_id' ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($faculty = $res->fetch_object()) {
+                                                                ?>
+                                                                    <li class="list-group-item">
+                                                                        <b>Faculty Code: </b> <a class="float-right"><?php echo $faculty->code; ?></a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Faculty: </b> <a class="float-right"><?php echo $faculty->name; ?></a>
+                                                                    </li>
+                                                                    <li class="list-group-item">
+                                                                        <b>Email: </b> <a class="float-right"><?php echo $faculty->email; ?></a>
+                                                                    </li>
+                                                                <?php } ?>
+
                                                             </ul>
                                                             <p class="text-left font-weight-bold">Details</p>
                                                             <?php echo $department->details; ?>

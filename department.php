@@ -468,10 +468,6 @@ require_once('public/partials/_head.php');
                                                     <i class="fas fa-file"></i>
                                                     Add Memo
                                                 </a>
-                                                <a href="#add-dept-document" data-toggle="modal" class=" pull-left btn btn-outline-success">
-                                                    <i class="fas fa-file"></i>
-                                                    Add Department Document
-                                                </a>
                                                 <div class="modal fade" id="add-memo">
                                                     <div class="modal-dialog  modal-lg">
                                                         <div class="modal-content">
@@ -521,57 +517,6 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                     <div class="card-footer text-right">
                                                                         <button type="submit" name="add_memo" class="btn btn-primary">Add Departmental Memo</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                            <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal fade" id="add-dept-document">
-                                                    <div class="modal-dialog  modal-lg">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Fill All Values </h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="form-group col-md-12">
-                                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                                <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
-                                                                                <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
-                                                                                <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="">Posted By</label>
-                                                                                <input type="text" required name="created_by" value="<?php echo $created_by; ?>" class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="">Departmental Documents(PDF Or Docx)</label>
-                                                                                <div class="input-group">
-                                                                                    <div class="custom-file">
-                                                                                        <input name="attachments" type="file" class="custom-file-input">
-                                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file </label>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div style="display:none" class="form-group col-md-6">
-                                                                                <label for="">Type</label>
-                                                                                <select class='form-control basic' name="type">
-                                                                                    <option selected>Departmental Documents</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="card-footer text-right">
-                                                                        <button type="submit" name="add_departmental_doc" class="btn btn-primary">Submit</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
