@@ -28,7 +28,14 @@
         $("#course-materials").DataTable();
         $("#studentGroups").DataTable();
         $("#group_ass").DataTable();
-        $("#")
+        /* Delete Functionalities Data Tables Init */
+        $("#faculties").DataTable();
+        $("#departments").DataTable();
+        $("#courses").DataTable();
+        $("#modules").DataTable();
+        $("#lecturers").DataTable();
+        $("#students").DataTable();
+        
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,

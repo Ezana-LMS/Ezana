@@ -318,9 +318,9 @@ require_once('public/partials/_head.php');
 
                                             <div class="tab-pane fade show " id="delete_functionalities" role="tabpanel">
                                                 <br>
-                                                <p class="text-danger">Select Any Module To Access Delete Functionalities</p>
+                                                <p class="text-danger">Select  Any Module To Access Delete Functionalities</p>
                                                 <div class="col-md-12">
-                                                    <div class="card collapsed-card card-success">
+                                                    <div class="card collapsed-card">
                                                         <div class="card-header">
                                                             <h3 class="card-title">Faculties</h3>
                                                             <div class="card-tools">
@@ -388,7 +388,7 @@ require_once('public/partials/_head.php');
                                                     </div>
 
                                                     <!-- Departments -->
-                                                    <div class="card collapsed-card card-success">
+                                                    <div class="card collapsed-card ">
                                                         <div class="card-header">
                                                             <h3 class="card-title">Departments</h3>
                                                             <div class="card-tools">
@@ -458,7 +458,7 @@ require_once('public/partials/_head.php');
                                                     </div>
 
                                                     <!-- Courses -->
-                                                    <div class="card collapsed-card card-success">
+                                                    <div class="card collapsed-card ">
                                                         <div class="card-header">
                                                             <h3 class="card-title">Courses</h3>
                                                             <div class="card-tools">
@@ -528,7 +528,7 @@ require_once('public/partials/_head.php');
                                                     </div>
 
                                                     <!-- Modules -->
-                                                    <div class="card collapsed-card card-success">
+                                                    <div class="card collapsed-card">
                                                         <div class="card-header">
                                                             <h3 class="card-title">Modules</h3>
                                                             <div class="card-tools">
@@ -601,7 +601,7 @@ require_once('public/partials/_head.php');
                                                     </div>
 
                                                     <!-- Lecturers -->
-                                                    <div class="card collapsed-card card-success">
+                                                    <div class="card collapsed-card ">
                                                         <div class="card-header">
                                                             <h3 class="card-title">Lecturers</h3>
                                                             <div class="card-tools">
@@ -676,7 +676,7 @@ require_once('public/partials/_head.php');
                                                     </div>
 
                                                     <!-- Students -->
-                                                    <div class="card collapsed-card card-success">
+                                                    <div class="card collapsed-card ">
                                                         <div class="card-header">
                                                             <h3 class="card-title">Students</h3>
                                                             <div class="card-tools">
