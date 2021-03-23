@@ -5,6 +5,7 @@ require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
 
+
 /* Add Course */
 if (isset($_POST['add_course'])) {
     //Error Handling and prevention of posting double entries
@@ -51,7 +52,7 @@ if (isset($_POST['add_course'])) {
             $rc = $stmt->bind_param('ssssss', $id, $code, $name, $details, $department_id, $department_name);
             $stmt->execute();
             if ($stmt) {
-                $success = "$name Course Added";
+                $success = "Added" && header("refresh:1; url=departmental_documents.php?view=$department_id");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -59,58 +60,55 @@ if (isset($_POST['add_course'])) {
     }
 }
 
-/* Add Departmental Notice / Memo */
-if (isset($_POST['add_memo'])) {
+/* Add Departmental Documents */
+if (isset($_POST['add_departmental_doc'])) {
     $id = $_POST['id'];
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
     $attachments = $_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
-    $departmental_memo = $_POST['departmental_memo'];
     $created_at = date('d M Y g:i');
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
 
-    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, department_id, department_name, type, departmental_memo, attachments, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by,  department_id, department_name, type, attachments, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssssss', $id, $created_by, $department_id, $department_name, $type, $departmental_memo, $attachments, $created_at, $faculty);
+    $rc = $stmt->bind_param('ssssssss', $id, $created_by, $department_id, $department_name, $type,  $attachments, $created_at, $faculty);
     $stmt->execute();
     if ($stmt) {
-        $success = "Departmental Memo Added"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
+        $success = "Departmental Memo Added" && header("refresh:1; url=departmental_documents.php?view=$department_id");
     } else {
         //inject alert that profile update task failed
         $info = "Please Try Again Or Try Later";
     }
 }
-
-/* Add Notice */
-if (isset($_POST['add_notice'])) {
+/* Update Departmental Documents */
+if (isset($_POST['update_departmental_doc'])) {
 
     $id = $_POST['id'];
-    $department_id = $_POST['department_id'];
-    $department_name = $_POST['department_name'];
-    $departmental_memo = $_POST['departmental_memo'];
+    $attachments = $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
     $created_at = date('d M Y g:i');
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
+    $department_id = $_POST['department_id'];
 
-    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, department_id, department_name, type, departmental_memo, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?)";
+    $query = "UPDATE ezanaLMS_DepartmentalMemos SET  created_by = ?, attachments =?, created_at =?, type =?, faculty_id =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssssss', $id, $created_by, $department_id, $department_name, $type, $departmental_memo, $created_at, $faculty);
+    $rc = $stmt->bind_param('ssssss',  $created_by, $attachments, $created_at, $type, $faculty, $id);
     $stmt->execute();
     if ($stmt) {
-        $success = "Notice Posted"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
+        $success = "Updated" && header("refresh:1; url=departmental_documents.php?view=$department_id");
     } else {
-        //inject alert that profile update task failed
         $info = "Please Try Again Or Try Later";
     }
 }
 
-/* Delete Departmental Memo */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
+/* Delete Departmental Documents */
+if (isset($_GET['delete_departmental_doc'])) {
+    $delete = $_GET['delete_departmental_doc'];
     $view = $_GET['view'];
     $adn = "DELETE FROM ezanaLMS_DepartmentalMemos WHERE id=?";
     $stmt = $mysqli->prepare($adn);
@@ -118,34 +116,12 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=departmental_memos.php?view=$view");
+        $success = "Deleted" && header("refresh:1; url=departmental_documents.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
 }
-/* Update Departmental Notices */
 
-if (isset($_POST['update'])) {
-
-    $id = $_POST['id'];
-    $departmental_memo = $_POST['departmental_memo'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
-    $created_at = date('d M Y g:i');
-    $type = $_POST['type'];
-    $faculty = $_POST['faculty'];
-    $created_by = $_POST['created_by'];
-
-    $query = "UPDATE ezanaLMS_DepartmentalMemos SET  created_by=?, departmental_memo =?, attachments =?, created_at =?, type =?, faculty_id =? WHERE id =?";
-    $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssss',  $created_by, $departmental_memo, $attachments, $created_at, $type, $faculty, $id);
-    $stmt->execute();
-    if ($stmt) {
-        $success = "Updated";
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 require_once('public/partials/_head.php');
 ?>
 
