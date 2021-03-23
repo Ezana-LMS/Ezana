@@ -369,11 +369,11 @@ require_once('public/partials/_head.php');
                                         <table id="example1" class=" table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Faculty Code Number</th>
-                                                    <th>Faculty Name</th>
-                                                    <th>Faculty Head</th>
-                                                    <th>Faculty Email</th>
-                                                    <th>Manage Faculty</th>
+                                                    <th>Code Number</th>
+                                                    <th>Name</th>
+                                                    <th>Head</th>
+                                                    <th>Email</th>
+                                                    <th>Manage</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

@@ -435,6 +435,11 @@ require_once('public/partials/_head.php');
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="departmental_documents.php?view=<?php echo $department->id; ?>">
+                                                            Department Documents
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="courses.php?view=<?php echo $department->id; ?>">
                                                             Courses
                                                         </a>
