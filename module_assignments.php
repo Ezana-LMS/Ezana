@@ -16,14 +16,14 @@ if (isset($_POST['add_assignment'])) {
     $attachments = $_FILES['attachments']['name'];
     /* Module ID */
     $module_id = $_POST['module_id'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments/" . $_FILES["pastpaper"]["name"]);
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments/" . $_FILES["attachments"]["name"]);
 
     $query = "INSERT INTO ezanaLMS_ModuleAssignments (id, faculty, module_code, module_name, submission_deadline, attachments) VALUES(?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('ssssss', $id, $faculty, $module_code, $module_name, $submission_deadline, $attachments);
     $stmt->execute();
     if ($stmt) {
-        $success = "Assignment Uploaded" && header("refresh:1; url=module_assignments.php.php?view=$module_id");
+        $success = "Assignment Uploaded" && header("refresh:1; url=module_assignments.php?view=$module_id");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -40,13 +40,13 @@ if (isset($_POST['update_assignment'])) {
     /* Module ID */
     $module_id = $_POST['module_id'];
 
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments/" . $_FILES["pastpaper"]["name"]);
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments/" . $_FILES["attachments"]["name"]);
     $query = "UPDATE ezanaLMS_ModuleAssignments SET submission_deadline = ?, attachments =? WHERE id = ?";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('sss', $submission_deadline, $attachments, $id);
     $stmt->execute();
     if ($stmt) {
-        $success = "Assignment Updated" && header("refresh:1; url=module_assignments.php.php?view=$module_id");
+        $success = "Assignment Updated" && header("refresh:1; url=module_assignments.php?view=$module_id");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -62,12 +62,11 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=ezanaLMS_ModuleAssignments.php?view=$view");
+        $success = "Deleted" && header("refresh:1; url=module_assignments.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
 }
-require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
 
@@ -213,7 +212,6 @@ require_once('public/partials/_head.php');
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
                                     <div class="text-right">
-                                        <a href="pastpapers.php?view=<?php echo $mod->id; ?>" title="View <?php echo $mod->name; ?> Past Papers In List Formart" class="btn btn-primary"><i class="fas fa-list-alt"></i></a>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Upload Assignment</button>
                                     </div>
                                     <div class="modal fade" id="modal-default">
@@ -369,8 +367,8 @@ require_once('public/partials/_head.php');
                                                                     <td><?php echo date('d M Y - g:i', strtotime($assignments->created_at)); ?></td>
                                                                     <td><?php echo date('d M Y', strtotime($assignments->submission_deadline)); ?></td>
                                                                     <td>
-                                                                        <a target="_blank" href="public/uploads/EzanaLMSData/PastPapers/<?php echo $assignments->attachments; ?>" class="badge badge-secondary">
-                                                                            <i class="fas fa-eye"></i>
+                                                                        <a target="_blank" href="public/uploads/EzanaLMSData/Module_Assignments/<?php echo $assignments->attachments; ?>" class="badge badge-secondary">
+                                                                            <i class="fas fa-download"></i>
                                                                             Download
                                                                         </a>
                                                                         <a class="badge badge-warning" data-toggle="modal" href="#edit-<?php echo $assignments->id; ?>">
@@ -399,7 +397,7 @@ require_once('public/partials/_head.php');
                                                                                                 <div class="row">
                                                                                                     <div class="form-group col-md-6">
                                                                                                         <label for="">Submission Deadline</label>
-                                                                                                        <input type="date" name="submission_deadline" value="<?php echo $assignments->submission_date; ?>" required class="form-control">
+                                                                                                        <input type="date" name="submission_deadline" value="<?php echo $assignments->submission_deadline; ?>" required class="form-control">
                                                                                                     </div>
                                                                                                     <div class="form-group col-md-6">
                                                                                                         <label for="exampleInputFile">Upload Assignment ( PDF / Docx )</label>
