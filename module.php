@@ -81,7 +81,7 @@ if (isset($_POST['add_notice'])) {
         $rc = $stmt->bind_param('sssssss', $id, $module_name, $module_code, $announcements, $created_by, $attachments, $faculty_id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Updated" && header("refresh:1; url=module.php?view=$module_id");
+            $success = "Updated" && header("refresh:1; url=module_notices.php?view=$module_id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -248,7 +248,7 @@ require_once('public/partials/_head.php');
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <div class="form-group col-md-12">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">Announcement Posted By</label>
                                                                     <?php
                                                                     $id = $_SESSION['id'];
@@ -262,13 +262,14 @@ require_once('public/partials/_head.php');
                                                                     <?php
                                                                     } ?>
                                                                 </div>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Upload Module Memo (PDF Or Docx)</label>
-                                                                <div class="input-group">
-                                                                    <div class="custom-file">
-                                                                        <input name="attachments" type="file" class="custom-file-input">
-                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Upload Module Memo (PDF Or Docx)</label>
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <input name="attachments" type="file" class="custom-file-input">
+                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -287,7 +288,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                         </div>
                                                         <div class="card-footer text-right">
-                                                            <button type="submit" name="add_notice" class="btn btn-primary">Add Notice</button>
+                                                            <button type="submit" name="add_notice" class="btn btn-primary">Post</button>
                                                         </div>
                                                     </form>
                                                     <!-- End Module Notice Form -->

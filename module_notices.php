@@ -33,20 +33,24 @@ if (isset($_POST['add_notice'])) {
         $module_code = $_POST['module_code'];
         $announcements = $_POST['announcements'];
         $created_by = $_POST['created_by'];
-        $created_at = date('d M Y');
         $faculty_id = $_POST['faculty_id'];
         $module_id = $_POST['module_id'];
-        $query = "INSERT INTO ezanaLMS_ModulesAnnouncements (id, module_name, module_code, announcements, created_by, created_at, faculty_id) VALUES(?,?,?,?,?,?,?)";
+
+        $attachments = $_FILES['attachments']['name'];
+        move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+        $query = "INSERT INTO ezanaLMS_ModulesAnnouncements (id, module_name, module_code, announcements, created_by,attachments, faculty_id) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $id, $module_name, $module_code, $announcements, $created_by, $created_at, $faculty_id);
+        $rc = $stmt->bind_param('sssssss', $id, $module_name, $module_code, $announcements, $created_by, $attachments, $faculty_id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Posted" && header("refresh:1; url=module_notices.php?view=$module_id");
+            $success = "Updated" && header("refresh:1; url=module_notices.php?view=$module_id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
     }
 }
+
+
 /* Update Module Notice */
 if (isset($_POST['update_notice'])) {
     //Error Handling and prevention of posting double entries
@@ -60,15 +64,17 @@ if (isset($_POST['update_notice'])) {
     if (!$error) {
         $announcements = $_POST['announcements'];
         $created_by = $_POST['created_by'];
-        $created_at = date('d M Y g:i');
         $module_id = $_POST['module_id'];
+        $attachments = $_FILES['attachments']['name'];
+        move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
         $id = $_POST['id'];
-        $query = "UPDATE  ezanaLMS_ModulesAnnouncements SET announcements =?, created_by =?, created_at =? WHERE id = ?";
+        $module_id = $_POST['module_id'];
+        $query = "UPDATE  ezanaLMS_ModulesAnnouncements SET announcements =?, created_by =?, attachments =? WHERE id = ?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssss', $announcements, $created_by, $created_at, $id);
+        $rc = $stmt->bind_param('ssss', $announcements, $created_by, $attachments, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Posted" && header("refresh:1; url=module_notices.php?view=$module_id");
+            $success = "Updated" && header("refresh:1; url=module_notices.php?view=$module_id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -250,7 +256,7 @@ require_once('public/partials/_head.php');
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <div class="form-group col-md-12">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">Announcement Posted By</label>
                                                                     <?php
                                                                     $id = $_SESSION['id'];
@@ -264,21 +270,33 @@ require_once('public/partials/_head.php');
                                                                     <?php
                                                                     } ?>
                                                                 </div>
+
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Upload Module Memo (PDF Or Docx)</label>
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <input name="attachments" type="file" class="custom-file-input">
+                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
+                                                            <h2 class="text-center">Or</h2>
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Module Announcements</label>
+                                                                    <label for="exampleInputPassword1">Type Module Announcements</label>
                                                                     <textarea required id="textarea" name="announcements" rows="20" class="form-control"></textarea>
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
                                                                     <input type="hidden" value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
-                                                                    <input type="hidden" value="<?php echo $mod->id; ?>" required name="module_id" class="form-control">
                                                                     <input type="hidden" required name="faculty_id" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+                                                                    <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
+
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="card-footer text-right">
-                                                            <button type="submit" name="add_notice" class="btn btn-primary">Add Notice</button>
+                                                            <button type="submit" name="add_notice" class="btn btn-primary">Post</button>
                                                         </div>
                                                     </form>
                                                     <!-- End Module Notice Form -->
@@ -398,17 +416,26 @@ require_once('public/partials/_head.php');
                                                                                             <form method="post" enctype="multipart/form-data" role="form">
                                                                                                 <div class="card-body">
                                                                                                     <div class="row">
-                                                                                                        <div class="form-group col-md-4">
+                                                                                                        <div class="form-group col-md-6">
                                                                                                             <label for="">Module Name</label>
                                                                                                             <input readonly type="text" value="<?php echo $not->module_name; ?>" id="ModuleCode" required name="module_code" class="form-control">
                                                                                                         </div>
-                                                                                                        <div class="form-group col-md-4">
+                                                                                                        <div class="form-group col-md-6">
                                                                                                             <label for="">Module Code</label>
                                                                                                             <input readonly type="text" id="ModuleCode" value="<?php echo $not->module_code; ?>" required name="module_code" class="form-control">
                                                                                                         </div>
-                                                                                                        <div class="form-group col-md-4">
+                                                                                                        <div class="form-group col-md-6">
                                                                                                             <label for="">Announcement Posted By</label>
                                                                                                             <input type="text" required name="created_by" value="<?php echo $not->created_by; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                        </div>
+                                                                                                        <div class="form-group col-md-6">
+                                                                                                            <label for="">Upload Module Memo (PDF Or Docx)</label>
+                                                                                                            <div class="input-group">
+                                                                                                                <div class="custom-file">
+                                                                                                                    <input name="attachments" type="file" class="custom-file-input">
+                                                                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                                                                </div>
+                                                                                                            </div>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="row">
@@ -426,7 +453,7 @@ require_once('public/partials/_head.php');
                                                                                                 </script>
 
                                                                                                 <div class="card-footer text-right">
-                                                                                                    <button type="submit" name="update_notice" class="btn btn-primary">Update Notice</button>
+                                                                                                    <button type="submit" name="update_notice" class="btn btn-primary">Update</button>
                                                                                                 </div>
                                                                                             </form>
                                                                                             <!-- End Module Notice Form -->
@@ -481,10 +508,10 @@ require_once('public/partials/_head.php');
                     <!-- Main Footer -->
                 <?php require_once('public/partials/_footer.php');
             } ?>
+                </div>
             </div>
-        </div>
-        <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php'); ?>
+            <!-- ./wrapper -->
+            <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
