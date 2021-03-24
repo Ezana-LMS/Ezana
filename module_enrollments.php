@@ -450,45 +450,50 @@ require_once('public/partials/_head.php');
                                                 </div>
 
                                                 <div class="card-body">
-                                                <ul class="list-group">
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="module_notices.php?view=<?php echo $mod->id; ?>">
-                                                            Notices & Memos
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="pastpapers.php?view=<?php echo $mod->id; ?>">
-                                                            Past Papers
-                                                        </a>
-                                                    </li>
-                                                    
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="course_materials.php?view=<?php echo $mod->id; ?>">
-                                                            Reading Materials
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="class_recordings.php?view=<?php echo $mod->id; ?>">
-                                                            Class Recordings
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="module_assignments.php?view=<?php echo $mod->id; ?>">
-                                                            Assignments 
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="student_groups.php?view=<?php echo $mod->id; ?>">
-                                                            Student Groups
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="module_enrollments.php?view=<?php echo $mod->id; ?>">
-                                                            Module Enrollments
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="module_notices.php?view=<?php echo $mod->id; ?>">
+                                                                Notices & Memos
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="pastpapers.php?view=<?php echo $mod->id; ?>">
+                                                                Past Papers
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="course_materials.php?view=<?php echo $mod->id; ?>">
+                                                                Reading Materials
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="class_recordings.php?view=<?php echo $mod->id; ?>">
+                                                                Class Recordings
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="module_assignments.php?view=<?php echo $mod->id; ?>">
+                                                                Assignments
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="student_groups.php?view=<?php echo $mod->id; ?>">
+                                                                Student Groups
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="grades.php?view=<?php echo $mod->id; ?>">
+                                                                Grades
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="module_enrollments.php?view=<?php echo $mod->id; ?>">
+                                                                Module Enrollments
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -566,11 +571,11 @@ require_once('public/partials/_head.php');
                 require_once('public/partials/_footer.php');
             }
         }
-    ?>
-        </div>
-    </div>
-    <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php'); ?>
+                ?>
+                    </div>
+                </div>
+                <!-- ./wrapper -->
+                <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
