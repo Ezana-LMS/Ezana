@@ -370,7 +370,7 @@ require_once('public/partials/_head.php');
                                                     <div class="col-md-12">
                                                         <div class="card ">
                                                             <div class="card-header">
-                                                                <h3 class="card-title">Module Notices And Announcements</h3>
+                                                                <h3 class="card-title">Module Notices, Announcements And Memos</h3>
                                                                 <div class="card-tools">
                                                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                                     </button>
@@ -378,7 +378,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="card-body">
                                                                 <?php
-                                                                $ret = "SELECT * FROM `ezanaLMS_ModulesAnnouncements` WHERE module_code  = '$mod->code'  ";
+                                                                $ret = "SELECT * FROM `ezanaLMS_ModulesAnnouncements` WHERE module_code  = '$mod->code'  ORDER BY `ezanaLMS_ModulesAnnouncements`.`created_at` DESC  ";
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
@@ -387,19 +387,32 @@ require_once('public/partials/_head.php');
                                                                 ?>
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <h5 class="mb-1"></h5>
-                                                                        <small><?php echo $not->created_at; ?></small>
+                                                                        <small class="text-bold"><?php echo date('d M Y g:ia', strtotime($not->created_at)); ?></small>
                                                                     </div>
                                                                     <small>
                                                                         <?php
-                                                                        echo $not->announcements;
-                                                                        ?> ~ By <?php echo $not->created_by; ?>
+                                                                        echo
+                                                                        $not->announcements . "  ~ By " .
+                                                                           "<b> " . $not->created_by . " </b> ";
+                                                                        /* Show A Button To Download Attachment */
+                                                                        if ($not->attachments != '') {
+                                                                            echo
+                                                                            "   <hr>
+                                                                                <div class='text-center'>
+                                                                                    <a href='public/uploads/EzanaLMSData/memos/$not->attachments' target='_blank' class='btn btn-outline-success'>Download Memo Attachment</a>
+                                                                                </div>
+                                                                            ";
+                                                                        } else {
+                                                                            /* Nothing Just Be Dumb */
+                                                                        }
+                                                                        ?>
                                                                         <br>
                                                                     </small>
                                                                     <div class="card-footer">
-                                                                        <div class="row">
-                                                                            <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $mod->id; ?>">
+                                                                        <div class="row ">
+                                                                            <a class="badge badge-primary text-right" data-toggle="modal" href="#update-<?php echo $mod->id; ?>">
                                                                                 <i class="fas fa-edit"></i>
-                                                                                Update
+                                                                                 Update
                                                                             </a>
                                                                             <!-- Udpate Notice Modal -->
                                                                             <div class="modal fade" id="update-<?php echo $mod->id; ?>">
@@ -467,7 +480,7 @@ require_once('public/partials/_head.php');
 
                                                                             <a class="badge badge-danger" href="#delete-<?php echo $not->id; ?>" data-toggle="modal">
                                                                                 <i class="fas fa-trash"></i>
-                                                                                Delete
+                                                                                 Delete
                                                                             </a>
                                                                             <!-- Delete Confirmation Modal -->
                                                                             <div class="modal fade" id="delete-<?php echo $not->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -480,7 +493,7 @@ require_once('public/partials/_head.php');
                                                                                             </button>
                                                                                         </div>
                                                                                         <div class="modal-body text-center text-danger">
-                                                                                            <h4>Delete Notice ?</h4>
+                                                                                            <h4>Delete?</h4>
                                                                                             <br>
                                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
                                                                                             <a href="module_notices.php?delete=<?php echo $not->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
