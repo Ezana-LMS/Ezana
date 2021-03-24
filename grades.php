@@ -42,7 +42,7 @@ if (isset($_POST['update_grade'])) {
 
     $query = "UPDATE  ezanaLMS_StudentModuleGrades SET  module_code =?, module_name =?, regno =?, name =?, marks =? WHERE id = ?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss', $module_code, $module_name, $regno, $name, $marks, $marks);
+    $rc = $stmt->bind_param('ssssss', $module_code, $module_name, $regno, $name, $marks, $id);
     $stmt->execute();
     if ($stmt) {
         $success = "Grades Updated" && header("refresh:1; url=grades.php?view=$module_id");
@@ -212,7 +212,8 @@ require_once('public/partials/_head.php');
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
                                     <div class="text-right">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Upload Assignment</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-export">Export Marks Entries</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Enter Marks | Grade</button>
                                     </div>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
@@ -243,7 +244,7 @@ require_once('public/partials/_head.php');
                                                                         $res = $stmt->get_result();
                                                                         while ($std = $res->fetch_object()) {
                                                                         ?>
-                                                                            <option><?php echo $std->admno; ?></option>
+                                                                            <option><?php echo $std->student_adm; ?></option>
                                                                         <?php } ?>
                                                                     </select>
                                                                 </div>
@@ -258,12 +259,51 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                         </div>
                                                         <div class="card-footer text-right">
-                                                            <button type="submit" name="add_grade" class="btn btn-primary">Upload</button>
+                                                            <button type="submit" name="add_grade" class="btn btn-primary">Add Marks</button>
                                                         </div>
                                                     </form>
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="modal-export">
+                                        <div class="modal-dialog  modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+
+                                                    <!--Export DT -->
+                                                    <table id="export-dt" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Admission Number</th>
+                                                                <th>Name</th>
+                                                                <th>Marks | Grade Attained</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_StudentModuleGrades` WHERE module_code = '$mod->code' ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($grade = $res->fetch_object()) {
+                                                            ?>
+
+                                                                <tr>
+                                                                    <td><?php echo $grade->regno; ?></td>
+                                                                    <td><?php echo $grade->name; ?></td>
+                                                                    <td><?php echo $grade->marks; ?></td>
+                                                                </tr>
+                                                            <?php $cnt = $cnt + 1;
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -363,7 +403,7 @@ require_once('public/partials/_head.php');
                                                             <td>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-<?php echo $grade->id; ?>">
                                                                     <i class="fas fa-edit"></i>
-                                                                    Update
+                                                                    Update Entry
                                                                 </a>
                                                                 <!-- Update Modal -->
                                                                 <div class="modal fade" id="edit-<?php echo $grade->id; ?>">
@@ -384,20 +424,20 @@ require_once('public/partials/_head.php');
                                                                                         <input type="hidden" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
                                                                                         <input type="hidden" name="module_code" value="<?php echo $mod->code; ?>" class="form-control">
                                                                                         <div class="row">
-                                                                                           
+
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Student Admission Number</label>
-                                                                                                <input type="text" value="<?php echo $grade->regno;?>" required name="regno" class="form-control">
+                                                                                                <input type="text" value="<?php echo $grade->regno; ?>" required name="regno" class="form-control">
                                                                                             </div>
 
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Student Name</label>
-                                                                                                <input type="text" value="<?php echo $grade->name;?>" required name="name" class="form-control">
+                                                                                                <input type="text" value="<?php echo $grade->name; ?>" required name="name" class="form-control">
                                                                                             </div>
 
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="">Attained Marks | Grade</label>
-                                                                                                <input type="text" required  value="<?php echo $grade->marks;?>" name="marks" class="form-control">
+                                                                                                <input type="text" required value="<?php echo $grade->marks; ?>" name="marks" class="form-control">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
