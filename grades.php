@@ -7,23 +7,21 @@ require_once('configs/codeGen.php');
 
 /* Add Student Grades */
 if (isset($_POST['add_grade'])) {
-
-    $faculty = $_POST['faculty'];
-    $module_name = $_POST['module_name'];
     $id = $_POST['id'];
     $module_code = $_POST['module_code'];
-    $submission_deadline = $_POST['submission_deadline'];
-    $attachments = $_FILES['attachments']['name'];
+    $module_name = $_POST['module_name'];
+    $regno = $_POST['regno'];
+    $name = $_POST['name'];
+    $marks = $_POST['marks'];
     /* Module ID */
     $module_id = $_POST['module_id'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments/" . $_FILES["attachments"]["name"]);
 
-    $query = "INSERT INTO ezanaLMS_ModuleAssignments (id, faculty, module_code, module_name, submission_deadline, attachments) VALUES(?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_StudentModuleGrades (id, module_code, module_name, regno, name, marks) VALUES(?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss', $id, $faculty, $module_code, $module_name, $submission_deadline, $attachments);
+    $rc = $stmt->bind_param('ssssss', $id, $module_code, $module_name, $regno, $name, $marks);
     $stmt->execute();
     if ($stmt) {
-        $success = "Assignment Uploaded" && header("refresh:1; url=module_assignments.php?view=$module_id");
+        $success = "Grades Submitted" && header("refresh:1; url=grades.php?view=$module_id");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -31,42 +29,44 @@ if (isset($_POST['add_grade'])) {
 
 
 
-/* Update Assignment */
-if (isset($_POST['update_assignment'])) {
-
+/* Update Student Grades */
+if (isset($_POST['update_grade'])) {
     $id = $_POST['id'];
-    $submission_deadline = $_POST['submission_deadline'];
-    $attachments = $_FILES['attachments']['name'];
+    $module_code = $_POST['module_code'];
+    $module_name = $_POST['module_name'];
+    $regno = $_POST['regno'];
+    $name = $_POST['name'];
+    $marks = $_POST['marks'];
     /* Module ID */
     $module_id = $_POST['module_id'];
 
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments/" . $_FILES["attachments"]["name"]);
-    $query = "UPDATE ezanaLMS_ModuleAssignments SET submission_deadline = ?, attachments =? WHERE id = ?";
+    $query = "UPDATE  ezanaLMS_StudentModuleGrades SET  module_code =?, module_name =?, regno =?, name =?, marks =? WHERE id = ?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sss', $submission_deadline, $attachments, $id);
+    $rc = $stmt->bind_param('ssssss', $module_code, $module_name, $regno, $name, $marks, $marks);
     $stmt->execute();
     if ($stmt) {
-        $success = "Assignment Updated" && header("refresh:1; url=module_assignments.php?view=$module_id");
+        $success = "Grades Updated" && header("refresh:1; url=grades.php?view=$module_id");
     } else {
         $info = "Please Try Again Or Try Later";
     }
 }
 
-/* Delete Assignment */
+/* Delete Student Grade */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
     $view = $_GET['view'];
-    $adn = "DELETE FROM ezanaLMS_ModuleAssignments WHERE id=?";
+    $adn = "DELETE FROM ezanaLMS_StudentModuleGrades WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=module_assignments.php?view=$view");
+        $success = "Deleted" && header("refresh:1; url=grades.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
 }
+
 require_once('public/partials/_head.php');
 ?>
 
@@ -191,7 +191,7 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Assignments</h1>
+                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Student Grades</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -230,26 +230,35 @@ require_once('public/partials/_head.php');
                                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                             <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
                                                             <input type="hidden" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
-                                                            <input type="hidden" name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
                                                             <input type="hidden" name="module_code" value="<?php echo $mod->code; ?>" class="form-control">
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="">Submission Deadline</label>
-                                                                    <input type="date" name="submission_deadline" required class="form-control">
+                                                                    <label for="">Student Admission Number</label>
+                                                                    <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="regno">
+                                                                        <option selected>Select Student Admission Number</option>
+                                                                        <?php
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE module_code  = '$mod->code'  ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        while ($std = $res->fetch_object()) {
+                                                                        ?>
+                                                                            <option><?php echo $std->admno; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="exampleInputFile">Upload Assignment ( PDF / Docx )</label>
-                                                                    <div class="input-group">
-                                                                        <div class="custom-file">
-                                                                            <input required name="attachments" type="file" class="custom-file-input" id="exampleInputFile">
-                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                        </div>
-                                                                    </div>
+                                                                    <label for="">Student Name</label>
+                                                                    <input type="text" id="StudentName" required name="name" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="">Attained Marks | Grade</label>
+                                                                    <input type="text" required name="marks" class="form-control">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="card-footer text-right">
-                                                            <button type="submit" name="add_assignment" class="btn btn-primary">Upload</button>
+                                                            <button type="submit" name="add_grade" class="btn btn-primary">Upload</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -325,136 +334,115 @@ require_once('public/partials/_head.php');
                                     </div>
 
                                 </div>
+
                                 <div class="col-md-9">
                                     <div class="row">
-                                        <div class="col-md-12 col-lg-12">
-                                            <div class="card-box">
-                                                <div class="mb-2">
-                                                    <div class="row">
-                                                        <div class="col-12 text-right form-inline">
-                                                            <div class="form-group mr-2" style="display: none;">
-                                                                <select id="demo-foo-filter-status" class="custom-select custom-select-sm">
-                                                                    <option value="">Show all</option>
-                                                                    <option value="active">Active</option>
-                                                                    <option value="disabled">Disabled</option>
-                                                                    <option value="suspended">Suspended</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <input id="demo-foo-search" type="text" placeholder="Search" class="form-control form-control-sm" autocomplete="on">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="table-responsive">
-                                                    <table id="demo-foo-filtering" class="table table-bordered table-striped">
-                                                        <thead>
-                                                            <tr>
-                                                                <th data-toggle="true">Date Uploaded</th>
-                                                                <th data-toggle="true">Submission Deadline</th>
-                                                                <th data-hide="all">Manage</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_ModuleAssignments` WHERE module_code = '$mod->code'   ";
-                                                            $stmt = $mysqli->prepare($ret);
-                                                            $stmt->execute(); //ok
-                                                            $res = $stmt->get_result();
-                                                            while ($assignments = $res->fetch_object()) {
-                                                            ?>
-                                                                <tr>
-                                                                    <td><?php echo date('d M Y - g:i', strtotime($assignments->created_at)); ?></td>
-                                                                    <td><?php echo date('d M Y', strtotime($assignments->submission_deadline)); ?></td>
-                                                                    <td>
-                                                                        <a target="_blank" href="public/uploads/EzanaLMSData/Module_Assignments/<?php echo $assignments->attachments; ?>" class="badge badge-secondary">
-                                                                            <i class="fas fa-download"></i>
-                                                                            Download
-                                                                        </a>
-                                                                        <a class="badge badge-warning" data-toggle="modal" href="#edit-<?php echo $assignments->id; ?>">
-                                                                            <i class="fas fa-edit"></i>
-                                                                            Update
-                                                                        </a>
-                                                                        <!-- Update Modal -->
-                                                                        <div class="modal fade" id="edit-<?php echo $assignments->id; ?>">
-                                                                            <div class="modal-dialog  modal-lg">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h4 class="modal-title">Fill All Required Values </h4>
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                            <span aria-hidden="true">&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        <!-- Form -->
-                                                                                        <form method="post" enctype="multipart/form-data" role="form">
-                                                                                            <div class="card-body">
-                                                                                                <input type="hidden" required name="id" value="<?php echo $assignments->id; ?>" class="form-control">
-                                                                                                <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                                                <input type="hidden" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
-                                                                                                <input type="hidden" name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
-                                                                                                <input type="hidden" name="module_code" value="<?php echo $mod->code; ?>" class="form-control">
-                                                                                                <div class="row">
-                                                                                                    <div class="form-group col-md-6">
-                                                                                                        <label for="">Submission Deadline</label>
-                                                                                                        <input type="date" name="submission_deadline" value="<?php echo $assignments->submission_deadline; ?>" required class="form-control">
-                                                                                                    </div>
-                                                                                                    <div class="form-group col-md-6">
-                                                                                                        <label for="exampleInputFile">Upload Assignment ( PDF / Docx )</label>
-                                                                                                        <div class="input-group">
-                                                                                                            <div class="custom-file">
-                                                                                                                <input required name="attachments" type="file" class="custom-file-input" id="exampleInputFile">
-                                                                                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="card-footer text-right">
-                                                                                                <button type="submit" name="update_assignment" class="btn btn-primary">Upload</button>
-                                                                                            </div>
-                                                                                        </form>
-                                                                                    </div>
-                                                                                    <div class="modal-footer justify-content-between">
-                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- End Update Modal -->
-                                                                        <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $assignments->id; ?>">
-                                                                            <i class="fas fa-trash"></i>
-                                                                            Delete
-                                                                        </a>
-                                                                        <!-- Delete Confirmation Modal -->
-                                                                        <div class="modal fade" id="delete-<?php echo $assignments->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                            <span aria-hidden="true">&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body text-center text-danger">
-                                                                                        <h4>Delete?</h4>
-                                                                                        <br>
-                                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                        <a href="module_assignments.php?delete=<?php echo $assignments->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- End Delete Confirmation Modal -->
-                                                                    </td>
+                                        <div class="col-md-12">
+                                            <table id="example1" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Admission Number</th>
+                                                        <th>Name</th>
+                                                        <th>Marks | Grade Attained</th>
+                                                        <th>Manage</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $ret = "SELECT * FROM `ezanaLMS_StudentModuleGrades` WHERE module_code = '$mod->code' ";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    while ($grade = $res->fetch_object()) {
+                                                    ?>
 
-                                                                </tr>
-                                                            <?php $cnt = $cnt + 1;
-                                                            } ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
+                                                        <tr>
+                                                            <td><?php echo $grade->regno; ?></td>
+                                                            <td><?php echo $grade->name; ?></td>
+                                                            <td><?php echo $grade->marks; ?></td>
+                                                            <td>
+                                                                <a class="badge badge-warning" data-toggle="modal" href="#edit-<?php echo $grade->id; ?>">
+                                                                    <i class="fas fa-edit"></i>
+                                                                    Update
+                                                                </a>
+                                                                <!-- Update Modal -->
+                                                                <div class="modal fade" id="edit-<?php echo $grade->id; ?>">
+                                                                    <div class="modal-dialog  modal-lg">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <!-- Form -->
+                                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                                    <div class="card-body">
+                                                                                        <input type="hidden" required name="id" value="<?php echo $grade->id; ?>" class="form-control">
+                                                                                        <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                        <input type="hidden" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
+                                                                                        <input type="hidden" name="module_code" value="<?php echo $mod->code; ?>" class="form-control">
+                                                                                        <div class="row">
+                                                                                           
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Student Admission Number</label>
+                                                                                                <input type="text" value="<?php echo $grade->regno;?>" required name="regno" class="form-control">
+                                                                                            </div>
+
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Student Name</label>
+                                                                                                <input type="text" value="<?php echo $grade->name;?>" required name="name" class="form-control">
+                                                                                            </div>
+
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <label for="">Attained Marks | Grade</label>
+                                                                                                <input type="text" required  value="<?php echo $grade->marks;?>" name="marks" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="card-footer text-right">
+                                                                                        <button type="submit" name="update_grade" class="btn btn-primary">Update</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                            <div class="modal-footer justify-content-between">
+                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Update Modal -->
+                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $grade->id; ?>">
+                                                                    <i class="fas fa-trash"></i>
+                                                                    Delete Entry
+                                                                </a>
+                                                                <!-- Delete Confirmation Modal -->
+                                                                <div class="modal fade" id="delete-<?php echo $grade->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body text-center text-danger">
+                                                                                <h4>Delete <?php echo $grade->admno . " " . $grade->name; ?> Marks Entry ?</h4>
+                                                                                <br>
+                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                <a href="grades.php?delete=<?php echo $grade->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Delete Confirmation Modal -->
+                                                            </td>
+                                                        </tr>
+                                                    <?php $cnt = $cnt + 1;
+                                                    } ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
