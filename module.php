@@ -42,8 +42,8 @@ if (isset($_POST['update_module'])) {
         }
     }
 }
-/* Add Module Notice */
 
+/* Add Module Notice */
 if (isset($_POST['add_notice'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -71,15 +71,17 @@ if (isset($_POST['add_notice'])) {
         $module_code = $_POST['module_code'];
         $announcements = $_POST['announcements'];
         $created_by = $_POST['created_by'];
-        $created_at = date('d M Y');
         $faculty_id = $_POST['faculty_id'];
-        //$module_id = $_POST['module_id'];
-        $query = "INSERT INTO ezanaLMS_ModulesAnnouncements (id, module_name, module_code, announcements, created_by, created_at, faculty_id) VALUES(?,?,?,?,?,?,?)";
+        $module_id = $_POST['module_id'];
+
+        $attachments = $_FILES['attachments']['name'];
+        move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+        $query = "INSERT INTO ezanaLMS_ModulesAnnouncements (id, module_name, module_code, announcements, created_by,attachments, faculty_id) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $id, $module_name, $module_code, $announcements, $created_by, $created_at, $faculty_id);
+        $rc = $stmt->bind_param('sssssss', $id, $module_name, $module_code, $announcements, $created_by, $attachments, $faculty_id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Posted";
+            $success = "Updated" && header("refresh:1; url=module_notices.php?view=$module_id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -231,7 +233,7 @@ require_once('public/partials/_head.php');
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Module Notice</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Module Notice Or Memo</button>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
@@ -246,7 +248,7 @@ require_once('public/partials/_head.php');
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <div class="form-group col-md-12">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">Announcement Posted By</label>
                                                                     <?php
                                                                     $id = $_SESSION['id'];
@@ -260,20 +262,33 @@ require_once('public/partials/_head.php');
                                                                     <?php
                                                                     } ?>
                                                                 </div>
+
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Upload Module Memo (PDF Or Docx)</label>
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <input name="attachments" type="file" class="custom-file-input">
+                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
+                                                            <h2 class="text-center">Or</h2>
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Module Announcements</label>
+                                                                    <label for="exampleInputPassword1">Type Module Announcements</label>
                                                                     <textarea required id="textarea" name="announcements" rows="20" class="form-control"></textarea>
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
                                                                     <input type="hidden" value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
                                                                     <input type="hidden" required name="faculty_id" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+                                                                    <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
+
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="card-footer text-right">
-                                                            <button type="submit" name="add_notice" class="btn btn-primary">Add Notice</button>
+                                                            <button type="submit" name="add_notice" class="btn btn-primary">Post</button>
                                                         </div>
                                                     </form>
                                                     <!-- End Module Notice Form -->
@@ -303,7 +318,7 @@ require_once('public/partials/_head.php');
                                                 <ul class="list-group">
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="module_notices.php?view=<?php echo $mod->id; ?>">
-                                                            Notices
+                                                            Notices & Memos
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -311,6 +326,7 @@ require_once('public/partials/_head.php');
                                                             Past Papers
                                                         </a>
                                                     </li>
+                                                    
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="course_materials.php?view=<?php echo $mod->id; ?>">
                                                             Reading Materials
@@ -322,8 +338,18 @@ require_once('public/partials/_head.php');
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="module_assignments.php?view=<?php echo $mod->id; ?>">
+                                                            Assignments 
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="student_groups.php?view=<?php echo $mod->id; ?>">
                                                             Student Groups
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="grades.php?view=<?php echo $mod->id; ?>">
+                                                            Grades
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -341,7 +367,7 @@ require_once('public/partials/_head.php');
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="text-right">
-                                                <a href="courses.php" class="float-left btn btn-outline-success">
+                                                <a href="modules.php" class="float-left btn btn-outline-success">
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
                                                 </a>
@@ -451,6 +477,47 @@ require_once('public/partials/_head.php');
                                                                     <li class="list-group-item">
                                                                         <b>Exam Weight Percentage : </b> <a class="float-right"><?php echo $mod->exam_weight_percentage; ?></a>
                                                                     </li>
+                                                                    <!-- Course And Department  Module Registered To -->
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE id = '$mod->course_id'  ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    while ($course = $res->fetch_object()) {
+                                                                        $department_id = $course->department_id;
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE id = '$department_id'  ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        while ($department = $res->fetch_object()) {
+                                                                            /* Number Of Students Registered To This Module */
+                                                                            $query = "SELECT COUNT(*)  FROM `ezanaLMS_Enrollments` WHERE module_code = '$mod->code' ";
+                                                                            $stmt = $mysqli->prepare($query);
+                                                                            $stmt->execute();
+                                                                            $stmt->bind_result($enrolled_students);
+                                                                            $stmt->fetch();
+                                                                            $stmt->close();
+
+                                                                    ?>
+                                                                            <li class="list-group-item">
+                                                                                <b>Department Code : </b> <a class="float-right"><?php echo $department->code; ?></a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Department Name : </b> <a class="float-right"><?php echo $department->name; ?></a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Course Registered To Code : </b> <a class="float-right"><?php echo $course->code; ?></a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Course Name : </b> <a class="float-right"><?php echo $course->name; ?></a>
+                                                                            </li>
+                                                                            <li class="list-group-item">
+                                                                                <b>Enrolled Students : </b> <a class="float-right"><?php echo $enrolled_students; ?></a>
+                                                                            </li>
+                                                                    <?php
+                                                                        }
+                                                                    } ?>
+
                                                                     <!-- Assigned Lec Details -->
                                                                     <?php
                                                                     $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE module_code = '$mod->code'  ";
@@ -460,7 +527,7 @@ require_once('public/partials/_head.php');
                                                                     $cnt = 1;
                                                                     while ($ass = $res->fetch_object()) {
                                                                         /*
-                                                                            Lec dETAILS
+                                                                            Lec Details
                                                                         */
                                                                         $lec = $ass->lec_id;
                                                                         $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id = '$lec'  ";
@@ -469,6 +536,7 @@ require_once('public/partials/_head.php');
                                                                         $res = $stmt->get_result();
                                                                         $cnt = 1;
                                                                         while ($lecturer = $res->fetch_object()) {
+
                                                                     ?>
                                                                             <li class="list-group-item">
                                                                                 <b>Lecturer Assigned Name: </b> <a class="float-right"><?php echo $lecturer->name; ?></a>
@@ -489,6 +557,7 @@ require_once('public/partials/_head.php');
                                                                         <?php
                                                                         }
                                                                     }
+
                                                                     $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE module_code = '$mod->code' AND status= 'Guest Lecturer'  ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok

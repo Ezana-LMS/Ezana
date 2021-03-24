@@ -30,14 +30,13 @@ if (isset($_POST['add_reading_materials'])) {
         $readingMaterials = $_FILES['readingMaterials']['name'];
         move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "public/uploads/EzanaLMSData/Reading_Materials/" . $_FILES["readingMaterials"]["name"]);
         $external_link = $_POST['external_link'];
-        $created_at = date('d M Y');
         $faculty = $_POST['faculty'];
         /* Module ID  */
         $view = $_POST['view'];
 
-        $query = "INSERT INTO ezanaLMS_ModuleRecommended (id, visibility, faculty_id, module_name, module_code, readingMaterials, created_at, external_link) VALUES(?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_ModuleRecommended (id, visibility, faculty_id, module_name, module_code, readingMaterials, external_link) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssss', $id, $visibility,  $faculty, $module_name, $module_code, $readingMaterials, $created_at, $external_link);
+        $rc = $stmt->bind_param('sssssss', $id, $visibility,  $faculty, $module_name, $module_code, $readingMaterials,$external_link);
         $stmt->execute();
         if ($stmt) {
             $success = "Reading Materials Shared" && header("refresh:1; url=course_materials.php?view=$view");
@@ -57,12 +56,11 @@ if (isset($_POST['update_reading_materials'])) {
         $readingMaterials = $_FILES['readingMaterials']['name'];
         move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "public/uploads/EzanaLMSData/Reading_Materials/" . $_FILES["readingMaterials"]["name"]); */
     $external_link = $_POST['external_link'];
-    $created_at = date('d M Y');
     /* Module ID  */
     $view = $_POST['view'];
-    $query = "UPDATE ezanaLMS_ModuleRecommended SET visibility =?, created_at =?, external_link =? WHERE id =?";
+    $query = "UPDATE ezanaLMS_ModuleRecommended SET visibility =?, external_link =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssss', $visibility,  $created_at, $external_link, $id);
+    $rc = $stmt->bind_param('sss', $visibility, $external_link, $id);
     $stmt->execute();
     if ($stmt) {
         $success = "Reading Materials Updated" && header("refresh:1; url=course_materials.php?view=$view");
@@ -315,7 +313,7 @@ require_once('public/partials/_head.php');
                                                 <ul class="list-group">
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="module_notices.php?view=<?php echo $mod->id; ?>">
-                                                            Notices
+                                                            Notices & Memos
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -323,6 +321,7 @@ require_once('public/partials/_head.php');
                                                             Past Papers
                                                         </a>
                                                     </li>
+                                                    
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="course_materials.php?view=<?php echo $mod->id; ?>">
                                                             Reading Materials
@@ -334,8 +333,18 @@ require_once('public/partials/_head.php');
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="module_assignments.php?view=<?php echo $mod->id; ?>">
+                                                            Assignments 
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="student_groups.php?view=<?php echo $mod->id; ?>">
                                                             Student Groups
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="grades.php?view=<?php echo $mod->id; ?>">
+                                                            Grades
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">

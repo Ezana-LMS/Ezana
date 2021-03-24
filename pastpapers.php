@@ -22,15 +22,14 @@ if (isset($_POST['add_paper'])) {
         $course_name = $_POST['course_name'];
         $paper_name = $_POST['paper_name'];
         $paper_visibility = $_POST['paper_visibility'];
-        $created_at = date('d M Y h:m:s');
         $pastpaper = $_FILES['pastpaper']['name'];
         /* Module ID */
         $module_id = $_POST['module_id'];
         move_uploaded_file($_FILES["pastpaper"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $_FILES["pastpaper"]["name"]);
 
-        $query = "INSERT INTO ezanaLMS_PastPapers (id, paper_name, paper_visibility, faculty_id, course_name, module_name,  created_at, pastpaper) VALUES(?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_PastPapers (id, paper_name, paper_visibility, faculty_id, course_name, module_name,  created_at, pastpaper) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssss', $id, $paper_name, $paper_visibility, $faculty, $course_name, $module_name, $created_at, $pastpaper);
+        $rc = $stmt->bind_param('sssssss', $id, $paper_name, $paper_visibility, $faculty, $course_name, $module_name, $pastpaper);
         $stmt->execute();
         if ($stmt) {
             $success = "Past Paper Uploaded" && header("refresh:1; url=pastpapers.php?view=$module_id");
@@ -333,7 +332,7 @@ require_once('public/partials/_head.php');
                                                 <ul class="list-group">
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="module_notices.php?view=<?php echo $mod->id; ?>">
-                                                            Notices
+                                                            Notices & Memos
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -341,9 +340,10 @@ require_once('public/partials/_head.php');
                                                             Past Papers
                                                         </a>
                                                     </li>
+                                                    
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="course_materials.php?view=<?php echo $mod->id; ?>">
-                                                            Course Materials
+                                                            Reading Materials
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -352,8 +352,18 @@ require_once('public/partials/_head.php');
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="module_assignments.php?view=<?php echo $mod->id; ?>">
+                                                            Assignments 
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="student_groups.php?view=<?php echo $mod->id; ?>">
                                                             Student Groups
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="grades.php?view=<?php echo $mod->id; ?>">
+                                                            Grades
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
