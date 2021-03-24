@@ -309,7 +309,7 @@ require_once('public/partials/_head.php');
                                                     <ul class="list-group">
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="module_notices.php?view=<?php echo $mod->id; ?>">
-                                                                Notices
+                                                                Notices & Memos
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -317,6 +317,7 @@ require_once('public/partials/_head.php');
                                                                 Past Papers
                                                             </a>
                                                         </li>
+
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="course_materials.php?view=<?php echo $mod->id; ?>">
                                                                 Reading Materials
@@ -325,6 +326,11 @@ require_once('public/partials/_head.php');
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                                             <a href="class_recordings.php?view=<?php echo $mod->id; ?>">
                                                                 Class Recordings
+                                                            </a>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            <a href="module_assignments.php?view=<?php echo $mod->id; ?>">
+                                                                Assignments
                                                             </a>
                                                         </li>
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -422,10 +428,10 @@ require_once('public/partials/_head.php');
                 <?php require_once('public/partials/_footer.php');
             }
         } ?>
-        </div>
-    </div>
-    <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php'); ?>
+                    </div>
+                </div>
+                <!-- ./wrapper -->
+                <?php require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
