@@ -141,9 +141,9 @@ if (isset($_POST['update_non_teaching_staff'])) {
         $date_employed = $_POST['date_employed'];
         $school  = $_POST['school'];
 
-        $query = "UPDATE ezanaLMS_Admins SET name =?, email =?, password =?, rank =?, phone =?, adr =?, gender = ?, employee_id =?, date_employed =?, school =? WHERE id = ?";
+        $query = "UPDATE ezanaLMS_Admins SET name =?, email =?,  rank =?, phone =?, adr =?, gender = ?, employee_id =?, date_employed =?, school =? WHERE id = ?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssss', $name, $email, $password, $rank, $phone, $adr, $gender, $employee_id, $date_employed, $school, $id);
+        $rc = $stmt->bind_param('ssssssssss', $name, $email, $rank, $phone, $adr, $gender, $employee_id, $date_employed, $school, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Non Teaching Staff Updated" && header("refresh:1; url=non_teaching_staff.php");
@@ -153,7 +153,21 @@ if (isset($_POST['update_non_teaching_staff'])) {
     }
 }
 
-/* Adjust Previldges */
+/* Suspend Account */
+if (isset($_GET['suspend'])) {
+    $suspend = $_GET['suspend'];
+    $adn = "UPDATE  ezanaLMS_Admins SET status = 'Suspended' WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $suspend);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Suspended" && header("refresh:1; url=non_teaching_staff.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+/*  */
 
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
@@ -293,7 +307,7 @@ require_once('public/partials/_head.php');
                             </div>
                             <!-- Add Lec Modal -->
                             <div class="modal fade" id="modal-default">
-                                <div class="modal-dialog  modal-lg">
+                                <div class="modal-dialog  modal-xl">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h4 class="modal-title">Fill All Values </h4>
@@ -311,7 +325,7 @@ require_once('public/partials/_head.php');
                                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Email</label>
+                                                            <label for="">Work Email</label>
                                                             <input type="text" required name="email" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
@@ -319,13 +333,50 @@ require_once('public/partials/_head.php');
                                                             <input type="text" required name="phone" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
+                                                            <label for="">Employee ID</label>
+                                                            <input type="text" required name="employee_id" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
                                                             <label for="">Rank</label>
                                                             <select class="form-control basic" name="rank">
                                                                 <option>System Administrator</option>
                                                                 <option>Education Administrator</option>
                                                             </select>
                                                         </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Gender</label>
+                                                            <select class="form-control basic" name="gender">
+                                                                <option>Male</option>
+                                                                <option>Female</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Date Employed</label>
+                                                            <input type="text" placeholder="DD-MM-YYYY" required name="date_employed" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">School / Faculty</label>
+                                                            <select class="form-control basic" name="school">
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($faculty = $res->fetch_object()) {
+                                                                ?>
+                                                                    <option><?php echo $faculty->name; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Previledges</label>
+                                                            <select class="form-control basic" name="previledge">
+                                                                <option>View</option>
+                                                                <option>Edit And Delete</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
+
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label for="">Password</label>
@@ -341,6 +392,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label for="exampleInputPassword1">Address</label>
@@ -391,7 +443,7 @@ require_once('public/partials/_head.php');
                                             <td><?php echo $admin->email; ?></td>
                                             <td><?php echo $admin->school; ?></td>
                                             <td><?php echo $admin->rank; ?></td>
-                                            <td><?php echo $admin->previledges; ?></td>
+                                            <td><?php echo $admin->previledge; ?></td>
                                             <td>
                                                 <a class="badge badge-success" data-toggle="modal" href="#view-<?php echo $admin->id; ?>">
                                                     <i class="fas fa-eye"></i>
@@ -454,114 +506,38 @@ require_once('public/partials/_head.php');
                                                     Suspend
                                                 </a>
 
-                                                <a class="badge badge-success" data-toggle="modal" href="#suspend-<?php echo $admin->id; ?>">
+                                                <a class="badge badge-success" data-toggle="modal" href="#previledge-<?php echo $admin->id; ?>">
                                                     <i class="fas fa-user-shield"></i>
                                                     Previledges
                                                 </a>
 
                                                 <!-- Suspend Modal -->
-                                                <div class="modal fade" id="suspend-<?php echo $admin->id; ?>">
-                                                    <div class="modal-dialog  modal-xl">
+                                                <div class="modal fade" id="suspend-<?php echo $admin->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title">Fill All Values </h4>
+                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM ACCOUNT SUSPEND</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            <div class="modal-body">
-                                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="">Name</label>
-                                                                                <input type="text" required value="<?php echo $admin->name; ?>" name="name" class="form-control" id="exampleInputEmail1">
-                                                                                <input type="hidden" required name="id" value="<?php echo $admin->id; ?>" class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="">Email</label>
-                                                                                <input type="text" value="<?php echo $admin->email; ?>" required name="email" class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="">Phone Number</label>
-                                                                                <input type="text" value="<?php echo $admin->phone; ?>" required name="phone" class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="">Rank</label>
-                                                                                <select class="form-control basic" name="rank">
-                                                                                    <option><?php echo $admin->rank; ?></option>
-                                                                                    <option>System Administrator</option>
-                                                                                    <option>Education Administrator</option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="form-group col-md-12">
-                                                                                <label for="">Profile Picture</label>
-                                                                                <div class="input-group">
-                                                                                    <div class="custom-file">
-                                                                                        <input required name="profile_pic" type="file" class="custom-file-input">
-                                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="form-group col-md-12">
-                                                                                <label for="exampleInputPassword1">Address</label>
-                                                                                <textarea required name="adr" rows="2" class="form-control"><?php echo $admin->adr; ?></textarea>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="card-footer text-right">
-                                                                        <button type="submit" name="update_non_teaching_staff" class="btn btn-primary">Submit</button>
-                                                                    </div>
-                                                                </form>
-
-                                                                <!-- Change Password -->
-                                                                <h4 class="text-center">Change <?php echo $admin->name; ?> Password</h4>
-                                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="">New Password</label>
-                                                                                <input type="password" required name="new_password" class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="">Confirm Password</label>
-                                                                                <input type="password" required name="confirm_password" class="form-control">
-                                                                                <input type="hidden" required name="id" value="<?php echo $admin->id; ?>" class="form-control">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="text-right">
-                                                                            <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                                <hr>
-                                                                <!-- Email Password Reset Link -->
-                                                                <h4 class="text-center">Email <?php echo $admin->name; ?> Password Reset Instructions</h4>
-                                                                <div class="card-body">
-                                                                    <div class="text-center">
-                                                                        <a onClick="javascript:window.open('mailto:<?php echo $admin->email; ?>?subject=Password Reset Link!&body=Hello <?php echo $admin->name; ?>, Kindly Click On Forgot Password Link Then Follow The Prompts', 'mail');event.preventDefault()" class="btn btn-primary" href="mailto:<?php echo $admin->email; ?>">
-                                                                            Mail Password Reset Link And Instructions
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            <div class="modal-body text-center text-danger">
+                                                                <h4>Suspend <?php echo $admin->name; ?> Account ?</h4>
+                                                                <br>
+                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                <a href="non_teaching_staff.php?suspend=<?php echo $admin->id; ?>" class="text-center btn btn-danger"> Suspend Account </a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- End Modal -->
-                                                <!-- Suspend Modal -->
+                                                <!-- End Suspend -->
+
+                                                <!-- Edit Modal -->
                                                 <div class="modal fade" id="edit-<?php echo $admin->id; ?>">
                                                     <div class="modal-dialog  modal-xl">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title">Update <?php echo $admin->name;?> Details </h4>
+                                                                <h4 class="modal-title">Update <?php echo $admin->name; ?> Details </h4>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
@@ -609,7 +585,6 @@ require_once('public/partials/_head.php');
                                                                                 <label for="">Employee ID</label>
                                                                                 <input type="text" value="<?php echo $admin->employee_id; ?>" required name="employee_id" class="form-control">
                                                                             </div>
-
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
@@ -629,6 +604,10 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- End Modal -->
+
+                                                <!-- Previledge Modal  -->
+
                                                 <!-- End Modal -->
 
                                             </td>
