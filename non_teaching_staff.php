@@ -156,11 +156,11 @@ if (isset($_POST['update_non_teaching_staff'])) {
     }
 }
 
-
-/* Update Non Teaching Staff */
+/* Update Non Teaching Staff Previlegge */
 if (isset($_POST['update_previledge'])) {
+
     $id = $_POST['id'];
-    $previledge  = $_POST['school'];
+    $previledge  = $_POST['previledge'];
 
     $query = "UPDATE ezanaLMS_Admins SET previledge =? WHERE id = ?";
     $stmt = $mysqli->prepare($query);
@@ -172,7 +172,6 @@ if (isset($_POST['update_previledge'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
-
 
 /* Suspend Account */
 if (isset($_GET['suspend'])) {
@@ -593,12 +592,13 @@ require_once('public/partials/_head.php');
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            <div class="modal-body text-center text-danger">
+                                                            <div class="modal-body text-center">
                                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                                     <div class="card-body">
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
                                                                                 <label for=""><?php echo $admin->name; ?> Previledges</label>
+                                                                                <input type="hidden" required name="id" value="<?php echo $admin->id; ?>" class="form-control">
                                                                                 <select class="form-control basic" name="previledge">
                                                                                     <option><?php echo $admin->previledge; ?></option>
                                                                                     <option>View</option>
