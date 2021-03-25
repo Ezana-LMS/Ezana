@@ -55,7 +55,7 @@ if (isset($_POST['add_non_teaching_staff'])) {
 
     if (!$error) {
         //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Admins WHERE  email='$email' || phone ='$phone' ";
+        $sql = "SELECT * FROM  ezanaLMS_Admins WHERE  email='$email' || phone ='$phone' || employee_id = '$employee_id' ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
@@ -63,8 +63,11 @@ if (isset($_POST['add_non_teaching_staff'])) {
                 $err =  "Account With This Email Already Exists";
             } elseif ($phone == $row['phone']) {
                 $err = "Account With That Phone Number Exists";
+            } elseif ($employee_id == $row['employee_id']) {
+                $err = "Account With That Employee ID Exists";
             } else {
                 //Silence
+
             }
         } else {
             $gender = $_POST['gender'];
@@ -153,6 +156,24 @@ if (isset($_POST['update_non_teaching_staff'])) {
     }
 }
 
+
+/* Update Non Teaching Staff */
+if (isset($_POST['update_previledge'])) {
+    $id = $_POST['id'];
+    $previledge  = $_POST['school'];
+
+    $query = "UPDATE ezanaLMS_Admins SET previledge =? WHERE id = ?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('ss', $previledge, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Previledge Updated" && header("refresh:1; url=non_teaching_staff.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+
 /* Suspend Account */
 if (isset($_GET['suspend'])) {
     $suspend = $_GET['suspend'];
@@ -170,7 +191,7 @@ if (isset($_GET['suspend'])) {
 
 /* Unsuspend Account  */
 if (isset($_GET['unsuspend'])) {
-    $suspend = $_GET['unsuspend'];
+    $unsuspend = $_GET['unsuspend'];
     $adn = "UPDATE  ezanaLMS_Admins SET status = '' WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $unsuspend);
@@ -563,20 +584,33 @@ require_once('public/partials/_head.php');
                                                 <!-- End Suspend -->
 
                                                 <!-- Unsuspend Modal -->
-                                                <div class="modal fade" id="unsuspend-<?php echo $admin->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="previledge-<?php echo $admin->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title " id="exampleModalLabel">CONFIRM ACCOUNT RESTORATION</h5>
+                                                                <h5 class="modal-title " id="exampleModalLabel">Update <?php echo $admin->name; ?> Previldges</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body text-center text-danger">
-                                                                <h4>UnSuspend <?php echo $admin->name; ?> Account ?</h4>
-                                                                <br>
-                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                <a href="non_teaching_staff.php?unsuspend=<?php echo $admin->id; ?>" class="text-center btn btn-danger"> Suspend Account </a>
+                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="form-group col-md-12">
+                                                                                <label for=""><?php echo $admin->name; ?> Previledges</label>
+                                                                                <select class="form-control basic" name="previledge">
+                                                                                    <option><?php echo $admin->previledge; ?></option>
+                                                                                    <option>View</option>
+                                                                                    <option>Edit And Delete </option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="card-footer text-right">
+                                                                        <button type="submit" name="update_previledge" class="btn btn-primary">Submit</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -658,7 +692,24 @@ require_once('public/partials/_head.php');
                                                 <!-- End Modal -->
 
                                                 <!-- Previledge Modal  -->
-
+                                                <div class="modal fade" id="unsuspend-<?php echo $admin->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title " id="exampleModalLabel">CONFIRM ACCOUNT RESTORATION</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body text-center text-danger">
+                                                                <h4>UnSuspend <?php echo $admin->name; ?> Account ?</h4>
+                                                                <br>
+                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                <a href="non_teaching_staff.php?unsuspend=<?php echo $admin->id; ?>" class="text-center btn btn-danger"> Unsuspend Account </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <!-- End Modal -->
 
                                             </td>
