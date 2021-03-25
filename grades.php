@@ -28,7 +28,6 @@ if (isset($_POST['add_grade'])) {
 }
 
 
-
 /* Update Student Grades */
 if (isset($_POST['update_grade'])) {
     $id = $_POST['id'];

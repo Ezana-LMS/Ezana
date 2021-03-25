@@ -51,13 +51,12 @@ if (isset($_POST['add_group'])) {
             $module_id = $_POST['module_id'];
             $name = $_POST['name'];
             $code = $_POST['code'];
-            $created_at = date('d M Y');
             $details = $_POST['details'];
             $faculty = $_POST['faculty_id'];
 
-            $query = "INSERT INTO ezanaLMS_Groups (id, module_id, faculty_id, name, code, created_at, details) VALUES(?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Groups (id, module_id, faculty_id, name, code, details) VALUES(?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssss', $id, $module_id, $faculty, $name, $code, $created_at, $details);
+            $rc = $stmt->bind_param('ssssss', $id, $module_id, $faculty, $name, $code, $details);
             $stmt->execute();
             if ($stmt) {
                 $success = "Student Group  Added" && header("refresh:1; url=student_groups.php?view=$module_id");
@@ -417,7 +416,7 @@ require_once('public/partials/_head.php');
                                                         <tr>
                                                             <td><?php echo $g->code; ?></td>
                                                             <td><?php echo $g->name; ?></td>
-                                                            <td><?php echo $g->created_at; ?></td>
+                                                            <td><?php echo date('d M Y, g:ia',strtotime($g->created_at)); ?></td>
                                                             <td>
                                                                 <a class="badge badge-success" href="group_details.php?group=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">
                                                                     <i class="fas fa-eye"></i>
