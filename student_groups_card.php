@@ -51,13 +51,12 @@ if (isset($_POST['add_group'])) {
             $module_id = $_POST['module_id'];
             $name = $_POST['name'];
             $code = $_POST['code'];
-            $created_at = date('d M Y');
             $details = $_POST['details'];
             $faculty = $_POST['faculty_id'];
 
-            $query = "INSERT INTO ezanaLMS_Groups (id, module_id, faculty_id, name, code, created_at, details) VALUES(?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Groups (id, module_id, faculty_id, name, code, details) VALUES(?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssss', $id, $module_id, $faculty, $name, $code, $created_at, $details);
+            $rc = $stmt->bind_param('ssssss', $id, $module_id, $faculty, $name, $code, $details);
             $stmt->execute();
             if ($stmt) {
                 $success = "Student Group  Added" && header("refresh:1; url=student_groups_card.php?view=$module_id");
@@ -415,7 +414,7 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </a>
                                                             <div class="card-footer">
-                                                                <small class="text-muted">Created At: <?php echo $g->created_at; ?></small>
+                                                                <small class="text-muted">Created At: <?php echo date('d M Y',strtotime($g->created_at)); ?></small>
                                                                 <br>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-<?php echo $g->id; ?>">Edit</a>
                                                                 <!-- Edit Visibility Solution Modal -->

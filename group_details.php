@@ -12,16 +12,15 @@ if (isset($_POST['add_notice'])) {
     $group_name = $_POST['group_name'];
     $announcement = $_POST['announcement'];
     $created_by = $_POST['created_by'];
-    $created_at = date('d M Y');
     $faculty = $_POST['faculty'];
     /* Module ID */
     $view = $_POST['view'];
     /* Group id */
     $group = $_POST['group'];
 
-    $query = "INSERT INTO ezanaLMS_GroupsAnnouncements (id, faculty_id, group_name, group_code, announcement, created_by, created_at) VALUES(?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_GroupsAnnouncements (id, faculty_id, group_name, group_code, announcement, created_by) VALUES(?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssss', $id, $faculty, $group_name, $group_code, $announcement, $created_by, $created_at);
+    $rc = $stmt->bind_param('ssssss', $id, $faculty, $group_name, $group_code, $announcement, $created_by);
     $stmt->execute();
     if ($stmt) {
         $success = "Posted" && header("refresh:1; url=group_details.php?view=$view&group=$group");
@@ -146,7 +145,6 @@ if (isset($_POST['add_group_project'])) {
     $faculty = $_POST['faculty'];
     $attachments = $_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["attachments"]["name"]);
-    $created_at = date('d M Y g:i');
     $submitted_on = $_POST['submitted_on'];
     $group_code = $_POST['group_code'];
     $group_name  = $_POST['group_name'];
@@ -155,9 +153,9 @@ if (isset($_POST['add_group_project'])) {
     /* Group ID */
     $group_id = $_POST['group'];
 
-    $query = "INSERT INTO ezanaLMS_GroupsAssignments (id, faculty_id, module_id, group_code, group_name,  attachments, details, created_at, submitted_on) VALUES(?,?,?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_GroupsAssignments (id, faculty_id, module_id, group_code, group_name,  attachments, details, submitted_on) VALUES(?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssssss', $id, $faculty, $view, $group_code, $group_name,  $attachments, $details, $created_at, $submitted_on);
+    $rc = $stmt->bind_param('ssssssss', $id, $faculty, $view, $group_code, $group_name,  $attachments, $details, $submitted_on);
     $stmt->execute();
     if ($stmt) {
         $success = "Group Assignment Added" && header("refresh:1; url=group_details.php?view=$view&group=$group_id");
@@ -439,7 +437,7 @@ require_once('public/partials/_head.php');
                                                         <div class="card card-primary card-outline">
                                                             <div class="card-header">
                                                                 <h3 class="card-title">
-                                                                    <?php echo $g->code; ?> - <?php echo $g->name; ?> Created On <span class="text-success"> <?php echo $g->created_at; ?></span> And Updated On <span class="text-warning"><?php echo $g->updated_at; ?></span>
+                                                                    <?php echo $g->code; ?> - <?php echo $g->name; ?> Created On <span class="text-success"> <?php echo date('d M Y g:ia', strtotime($g->created_at)); ?></span> And Updated On <span class="text-warning"><?php echo $g->updated_at; ?></span>
                                                                 </h3>
                                                             </div>
                                                             <div class="card-body">
@@ -559,7 +557,7 @@ require_once('public/partials/_head.php');
                                                                                 ?>
                                                                                     <div class="d-flex w-100 justify-content-between">
                                                                                         <h5 class="mb-1"></h5>
-                                                                                        <small><b><?php echo $ga->created_at; ?></b></small>
+                                                                                        <small><b><?php echo date('d M Y',strtotime($ga->created_at)); ?></b></small>
                                                                                     </div>
                                                                                     <small>
                                                                                         <?php

@@ -11,14 +11,13 @@ if (isset($_POST['add_group_project'])) {
     $faculty = $_POST['faculty'];
     $attachments = $_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["attachments"]["name"]);
-    $created_at = date('d M Y g:i');
     $submitted_on = $_POST['submitted_on'];
     /* Module ID */
     $view = $_POST['view'];
 
-    $query = "INSERT INTO ezanaLMS_GroupsAssignments (id, faculty_id, module_id,  attachments, details, created_at, submitted_on) VALUES(?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_GroupsAssignments (id, faculty_id, module_id,  attachments, details, submitted_on) VALUES(?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssss', $id, $faculty, $view,  $attachments, $details, $created_at, $submitted_on);
+    $rc = $stmt->bind_param('ssssss', $id, $faculty, $view,  $attachments, $details, $submitted_on);
     $stmt->execute();
     if ($stmt) {
         $success = "Group Assignment Added" && header("refresh:1; url=student_groups_assignments.php?view=$view");
