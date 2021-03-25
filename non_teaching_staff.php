@@ -167,7 +167,21 @@ if (isset($_GET['suspend'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
-/*  */
+
+/* Unsuspend Account  */
+if (isset($_GET['unsuspend'])) {
+    $suspend = $_GET['unsuspend'];
+    $adn = "UPDATE  ezanaLMS_Admins SET status = '' WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $unsuspend);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "UnSuspended" && header("refresh:1; url=non_teaching_staff.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
@@ -496,17 +510,33 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </div>
 
-                                                <a class="badge badge-success" data-toggle="modal" href="#edit-<?php echo $admin->id; ?>">
+                                                <a class="badge badge-warning" data-toggle="modal" href="#edit-<?php echo $admin->id; ?>">
                                                     <i class="fas fa-user-edit"></i>
                                                     Update
                                                 </a>
+                                                <?php
+                                                /* Suspend  */
+                                                if ($admin->status == '') {
+                                                    echo
+                                                    "
+                                                    <a class='badge badge-danger' data-toggle='modal' href='#suspend-$admin->id'>
+                                                        <i class='fas fa-user-clock'></i>
+                                                        Suspend
+                                                    </a>
+                                                    ";
+                                                } else {
+                                                    echo
+                                                    "
+                                                    <a class='badge badge-success' data-toggle='modal' href='#unsuspend-$admin->id'>
+                                                        <i class='fas fa-user-check'></i>
+                                                        UnSuspend
+                                                    </a>
+                                                    ";
+                                                }
+                                                ?>
 
-                                                <a class="badge badge-success" data-toggle="modal" href="#suspend-<?php echo $admin->id; ?>">
-                                                    <i class="fas fa-user-clock"></i>
-                                                    Suspend
-                                                </a>
 
-                                                <a class="badge badge-success" data-toggle="modal" href="#previledge-<?php echo $admin->id; ?>">
+                                                <a class="badge badge-primary" data-toggle="modal" href="#previledge-<?php echo $admin->id; ?>">
                                                     <i class="fas fa-user-shield"></i>
                                                     Previledges
                                                 </a>
@@ -526,6 +556,27 @@ require_once('public/partials/_head.php');
                                                                 <br>
                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
                                                                 <a href="non_teaching_staff.php?suspend=<?php echo $admin->id; ?>" class="text-center btn btn-danger"> Suspend Account </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Suspend -->
+
+                                                <!-- Unsuspend Modal -->
+                                                <div class="modal fade" id="unsuspend-<?php echo $admin->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title " id="exampleModalLabel">CONFIRM ACCOUNT RESTORATION</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body text-center text-danger">
+                                                                <h4>UnSuspend <?php echo $admin->name; ?> Account ?</h4>
+                                                                <br>
+                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                <a href="non_teaching_staff.php?unsuspend=<?php echo $admin->id; ?>" class="text-center btn btn-danger"> Suspend Account </a>
                                                             </div>
                                                         </div>
                                                     </div>
