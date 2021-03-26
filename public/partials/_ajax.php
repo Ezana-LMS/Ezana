@@ -23,6 +23,28 @@
         });
     }
 
+    /* Optimized Department Ajax */
+    function OptimizedGetDepartmentDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepartmentCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepartmentID').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepartmentID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepartmentName').val(data);
+            }
+        });
+    }
+
     /* getAllocatedModuleDetails */
     function getAllocatedModuleDetails(val) {
         $.ajax({

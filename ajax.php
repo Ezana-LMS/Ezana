@@ -303,4 +303,30 @@ if (!empty($_POST["FacultyName"])) {
     }
 }
 
-/* Optimized Module Details Ajax */
+/* Optimized Department Function */
+if (!empty($_POST["DepartmentCode"])) {
+    $id = $_POST['DepartmentCode'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['id']); ?>
+<?php
+    }
+}
+
+/* Department Faculty ID */
+if (!empty($_POST["DepartmentID"])) {
+    $id = $_POST['DepartmentID'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['name']); ?>
+<?php
+    }
+}
