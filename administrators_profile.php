@@ -100,7 +100,7 @@ if (isset($_POST['add_departmental_doc'])) {
     $rc = $stmt->bind_param('sssssss', $id, $created_by, $department_id, $department_name, $type,  $attachments, $faculty);
     $stmt->execute();
     if ($stmt) {
-        $success = "Departmental Memo Added" && header("refresh:1; url=departmental_documents.php?view=$department_id");
+        $success = "$type Posted";
     } else {
         //inject alert that profile update task failed
         $info = "Please Try Again Or Try Later";
@@ -420,7 +420,7 @@ require_once('public/partials/_head.php');
                                                                         <label for="">Department Name</label>
                                                                         <input type="text" required name="department_name" id="DepName" class="form-control">
                                                                         <input type="hidden" required name="department_id" id="DepID" class="form-control">
-                                                                        <input type="hidden" required name="faculty_id" id="DepFacID" class="form-control">
+                                                                        <input type="hidden" required name="faculty" id="DepFacID" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-6">
                                                                         <label for="">Upload Departmental Document (PDF Or Docx)</label>
@@ -433,7 +433,7 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                     <div class="form-group col-md-6">
                                                                         <label for="">Created By</label>
-                                                                        <input type="text" required name="created_by" value="<?php echo $admin->name;?>" class="form-control">
+                                                                        <input type="text" required name="created_by" value="<?php echo $admin->name; ?>" class="form-control">
                                                                     </div>
                                                                     <div style="display:none" class="form-group col-md-6">
                                                                         <label for="">Type</label>
@@ -507,16 +507,14 @@ require_once('public/partials/_head.php');
                                     <div class="card-body">
                                         <div class="tab-content">
                                             <div class="active tab-pane" id="notices">
-                                                <div class="card-header">
-                                                    <h4>
-                                                        Recently Posted Departmental Memos And Notices
-                                                        <a href="#add-memo" data-toggle="modal" class="text-right btn btn-outline-success">
-                                                            <i class="fas fa-file"></i>
-                                                            Add Memo / Notice
-                                                        </a>
-                                                    </h4>
+                                                <div class="text-right">
+
+                                                    <a href="#add-memo" data-toggle="modal" class=" btn btn-outline-success">
+                                                        <i class="fas fa-file"></i>
+                                                        Add Memo / Notice
+                                                    </a>
                                                 </div>
-                                                <br>
+                                                <hr>
                                                 <table id="example1" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
@@ -588,77 +586,75 @@ require_once('public/partials/_head.php');
                                             </div>
 
                                             <div class="tab-pane" id="dep_docs">
-                                                <div class="card-header">
-                                                    <h4>
-                                                        Recently Posted Departmental Documents
-                                                        <a href="#add-document" data-toggle="modal" class=" pull-left btn btn-outline-success">
-                                                            <i class="fas fa-file"></i>
-                                                            Add Department Document
-                                                        </a>
-                                                    </h4>
+                                                <div class="text-right">
+                                                    <a href="#add-document" data-toggle="modal" class=" pull-right btn btn-outline-success">
+                                                        <i class="fas fa-file"></i>
+                                                        Add Department Document
+                                                    </a>
                                                 </div>
-                                                <div class="card-body">
-                                                    <table id="faculties" class="table table-bordered table-striped">
-                                                        <thead>
+                                                <hr>
+                                                <table id="faculties" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Department </th>
+                                                            <th>Posted By</th>
+                                                            <th>Date Posted</th>
+                                                            <th>Manage</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE  type = 'Departmental Document'  ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        while ($doc = $res->fetch_object()) {
+                                                        ?>
+
                                                             <tr>
-                                                                <th>Posted By</th>
-                                                                <th>Date Posted</th>
-                                                                <th>Manage</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE  type = 'Departmental Document'  ";
-                                                            $stmt = $mysqli->prepare($ret);
-                                                            $stmt->execute(); //ok
-                                                            $res = $stmt->get_result();
-                                                            while ($doc = $res->fetch_object()) {
-                                                            ?>
-
-                                                                <tr>
-                                                                    <td><?php echo $doc->created_by; ?></td>
-                                                                    <td><?php echo $doc->created_at; ?></td>
-                                                                    <td>
-                                                                        <a class="badge badge-success" data-toggle="modal" href="#view-<?php echo $doc->id; ?>">
-                                                                            <i class="fas fa-eye"></i>
-                                                                            View
-                                                                        </a>
-                                                                        <!-- View Deptmental Memo Modal -->
-                                                                        <div class="modal fade" id="view-<?php echo $doc->id; ?>">
-                                                                            <div class="modal-dialog  modal-lg">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header text-center">
-                                                                                        <h4 class="modal-title"><?php echo $doc->department_name . " " . $doc->type; ?> Created On <span class='text-success'><?php echo $doc->created_at; ?></span></h4>
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                            <span aria-hidden="true">&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body text-center">
-                                                                                        <?php
-                                                                                        if ($doc->attachments != '') {
-                                                                                            echo
-                                                                                            "<a href='public/uploads/EzanaLMSData/memos/$doc->attachments' target='_blank' class='btn btn-outline-success'><i class='fas fa-download'></i> Download $memo->type </a>";
-                                                                                        } else {
-                                                                                            echo
-                                                                                            "<a  class='btn btn-outline-danger'><i class='fas fa-times'></i> $doc->type Attachment Not Available </a>";
-                                                                                        }
-                                                                                        ?>
-
-                                                                                    </div>
-                                                                                    <div class="modal-footer justify-content-between">
-                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                    </div>
+                                                                <td><?php echo $doc->department_name; ?></td>
+                                                                <td><?php echo $doc->created_by; ?></td>
+                                                                <td><?php echo $doc->created_at; ?></td>
+                                                                <td>
+                                                                    <a class="badge badge-success" data-toggle="modal" href="#view-<?php echo $doc->id; ?>">
+                                                                        <i class="fas fa-eye"></i>
+                                                                        View
+                                                                    </a>
+                                                                    <!-- View Deptmental Memo Modal -->
+                                                                    <div class="modal fade" id="view-<?php echo $doc->id; ?>">
+                                                                        <div class="modal-dialog  modal-lg">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header text-center">
+                                                                                    <h4 class="modal-title"><?php echo $doc->department_name . " " . $doc->type; ?> Created On <span class='text-success'><?php echo $doc->created_at; ?></span></h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
                                                                                 </div>
+                                                                                <div class="modal-body text-center">
+                                                                                    <?php
+                                                                                    if ($doc->attachments != '') {
+                                                                                        echo
+                                                                                        "<a href='public/uploads/EzanaLMSData/memos/$doc->attachments' target='_blank' class='btn btn-outline-success'><i class='fas fa-download'></i> Download $memo->type </a>";
+                                                                                    } else {
+                                                                                        echo
+                                                                                        "<a  class='btn btn-outline-danger'><i class='fas fa-times'></i> $doc->type Attachment Not Available </a>";
+                                                                                    }
+                                                                                    ?>
 
+                                                                                </div>
+                                                                                <div class="modal-footer justify-content-between">
+                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                </div>
                                                                             </div>
+
                                                                         </div>
-                                                                    </td>
-                                                                </tr>
-                                                            <?php
-                                                            } ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        <?php
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
                                             </div>
 
                                             <div class="tab-pane" id="changePassword">
