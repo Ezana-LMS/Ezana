@@ -4,27 +4,6 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 
-if (isset($_POST['profile_update'])) {
-    $id = $_SESSION['id'];
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $adr = $_POST['adr'];
-    $profile_pic = $_FILES['profile_pic']['name'];
-    move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/admins/" . $_FILES["profile_pic"]["name"]);
-    $query = "UPDATE ezanaLMS_Admins  SET name =?, email =?, phone =?, adr =?, profile_pic =? WHERE id =?";
-    $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss', $name, $email, $phone, $adr,  $profile_pic, $id);
-    $stmt->execute();
-    if ($stmt) {
-        //inject alert that profile is updated 
-        $success = "Profile Updated"&& header("Refresh: 0");
-    } else {
-        //inject alert that profile update task failed
-        $info = "Please Try Again Or Try Later";
-    }
-}
-
 /* Update Profile Picture */
 
 if (isset($_POST['update_picture'])) {
@@ -47,12 +26,7 @@ if (isset($_POST['change_password'])) {
 
     //Change Password
     $error = 0;
-    if (isset($_POST['old_password']) && !empty($_POST['old_password'])) {
-        $old_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['old_password']))));
-    } else {
-        $error = 1;
-        $err = "Old Password Cannot Be Empty";
-    }
+
     if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
         $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
     } else {
@@ -67,31 +41,51 @@ if (isset($_POST['change_password'])) {
     }
 
     if (!$error) {
-        $id = $_SESSION['id'];
-        $sql = "SELECT * FROM  ezanaLMS_Admins  WHERE id = '$id'";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if ($old_password != $row['password']) {
-                $err =  "Please Enter Correct Old Password";
-            } elseif ($new_password != $confirm_password) {
-                $err = "Confirmation Password Does Not Match";
+        if ($_POST['new_password'] != $_POST['confirm_password']) {
+            $err = "Passwords Do Not Match";
+        } else {
+            $view = $_GET['view'];
+            $new_password  = sha1(md5($_POST['new_password']));
+            $query = "UPDATE ezanaLMS_Admins SET  password =? WHERE id =?";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ss', $new_password, $view);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Password Changed" && header("Refresh: 0");
             } else {
-                $id = $_SESSION['id'];
-                $new_password  = sha1(md5($_POST['new_password']));
-                $query = "UPDATE ezanaLMS_Admins SET  password =? WHERE id =?";
-                $stmt = $mysqli->prepare($query);
-                $rc = $stmt->bind_param('ss', $new_password, $id);
-                $stmt->execute();
-                if ($stmt) {
-                    $success = "Password Changed" && header("Refresh: 0");
-                } else {
-                    $err = "Please Try Again Or Try Later";
-                }
+                $err = "Please Try Again Or Try Later";
             }
         }
     }
 }
+
+/* Add Department Memo */
+if (isset($_POST['add_memo'])) {
+    $id = $_POST['id'];
+    $department_id = $_POST['department_id'];
+    $department_name = $_POST['department_name'];
+    $attachments = $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    $departmental_memo = $_POST['departmental_memo'];
+    $created_at = date('d M Y g:i');
+    $type = $_POST['type'];
+    $faculty = $_POST['faculty'];
+    $created_by = $_POST['created_by'];
+
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, department_id, department_name, type, departmental_memo, attachments, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?,?)";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sssssssss', $id, $created_by, $department_id, $department_name, $type, $departmental_memo, $attachments, $created_at, $faculty);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Departmental Memo Added"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
+    } else {
+        //inject alert that profile update task failed
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Add Department Documents */
+
 
 require_once('public/partials/_head.php');
 ?>
@@ -249,6 +243,7 @@ require_once('public/partials/_head.php');
                                             <?php echo $dpic; ?>
                                             <span><a href="#edit-profile-pic" class="fas fa-pen text-primary" data-toggle="modal"></a></span>
                                         </div>
+
                                         <!-- Edit Profile Picture Modal -->
                                         <div class="modal fade" id="edit-profile-pic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -278,6 +273,67 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </div>
                                                         </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Modal -->
+
+                                        <!-- Add Department Memo Modal -->
+                                        <div class="modal fade" id="add-memo">
+                                            <div class="modal-dialog  modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Fill All Values </h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-12">
+                                                                        <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                        <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
+                                                                        <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
+                                                                        <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Upload Departmental Memo (PDF Or Docx)</label>
+                                                                        <div class="input-group">
+                                                                            <div class="custom-file">
+                                                                                <input name="attachments" type="file" class="custom-file-input">
+                                                                                <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Created By</label>
+                                                                        <input type="text" required name="created_by" class="form-control">
+                                                                    </div>
+                                                                    <div style="display:none" class="form-group col-md-6">
+                                                                        <label for="">Type</label>
+                                                                        <select class='form-control basic' name="type">
+                                                                            <option selected>Memo</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <h2 class="text-center">Or </h2>
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-12">
+                                                                        <label for="exampleInputPassword1">Type Departmental Memo</label>
+                                                                        <textarea name="departmental_memo" id="dep_memo" rows="10" class="form-control"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer text-right">
+                                                                <button type="submit" name="add_memo" class="btn btn-primary">Add Departmental Memo</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -327,65 +383,89 @@ require_once('public/partials/_head.php');
                                 <div class="card">
                                     <div class="card-header p-2">
                                         <ul class="nav nav-pills">
-                                            <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a></li>
-                                            <li class="nav-item"><a class="nav-link " href="#changePassword" data-toggle="tab">Change Password</a></li>
+                                            <li class="nav-item"><a class="nav-link active" href="#notices" data-toggle="tab">Memos And Notices</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#dep_docs" data-toggle="tab">School / Departments Documents</a></li>
+                                            <li class="nav-item"><a class="nav-link " href="#changePassword" data-toggle="tab">Password Reset</a></li>
                                         </ul>
                                     </div><!-- /.card-header -->
                                     <div class="card-body">
                                         <div class="tab-content">
-                                            <div class="active tab-pane" id="settings">
-                                                <form method='post' enctype="multipart/form-data" class="form-horizontal">
-                                                    <div class="form-group row">
-                                                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" required class="form-control" value="<?php echo $admin->name; ?>" name="name" id="inputName">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="email" required class="form-control" value="<?php echo $admin->email; ?>" name="email" id="inputEmail">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="inputName2" class="col-sm-2 col-form-label">Phone Number</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" required class="form-control" value="<?php echo $admin->phone; ?>" name="phone" id="inputName2">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="inputExperience" class="col-sm-2 col-form-label">Address</label>
-                                                        <div class="col-sm-10">
-                                                            <textarea required class="form-control" name="adr" id="textarea"><?php echo $admin->adr; ?></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="inputSkills" class="col-sm-2 col-form-label">Profile Picture</label>
-                                                        <div class="col-sm-10">
-                                                            <div class="input-group">
-                                                                <div class="custom-file">
-                                                                    <input type="file" name="profile_pic" class="custom-file-input" id="exampleInputFile">
-                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <div class="offset-sm-2 col-sm-10">
-                                                            <button type="submit" name="profile_update" class="btn btn-primary">Update Profile</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
+                                            <div class="active tab-pane" id="notices">
+
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Posted By</th>
+                                                            <th>Date Posted</th>
+                                                            <th>Type</th>
+                                                            <th>Manage</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE type !='Departmental Document' ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($memo = $res->fetch_object()) {
+                                                        ?>
+
+                                                            <tr>
+                                                                <td><?php echo $memo->created_by; ?></td>
+                                                                <td><?php echo $memo->created_at; ?></td>
+                                                                <td><?php echo $memo->type; ?></td>
+                                                                <td>
+                                                                    <a class="badge badge-success" data-toggle="modal" href="#view-<?php echo $memo->id; ?>">
+                                                                        <i class="fas fa-eye"></i>
+                                                                        View
+                                                                    </a>
+                                                                    <!-- View Deptmental Memo Modal -->
+                                                                    <div class="modal fade" id="view-<?php echo $memo->id; ?>">
+                                                                        <div class="modal-dialog  modal-lg">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title"><?php echo $department->name; ?> <?php echo $memo->type; ?> Created On <span class='text-success'><?php echo $memo->created_at; ?></span></h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <?php echo $memo->departmental_memo; ?>
+                                                                                    <hr>
+                                                                                    <?php
+
+                                                                                    if ($memo->attachments != '') {
+                                                                                        echo
+                                                                                        "<a href='public/uploads/EzanaLMSData/memos/$memo->attachments' target='_blank' class='btn btn-outline-success'><i class='fas fa-download'></i> Download $memo->type </a>";
+                                                                                    } else {
+                                                                                        echo
+                                                                                        "<a  class='btn btn-outline-danger'><i class='fas fa-times'></i> $memo->type Attachment Not Available </a>";
+                                                                                    }
+                                                                                    ?>
+
+                                                                                </div>
+                                                                                <div class="modal-footer justify-content-between">
+                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="tab-pane" id="dep_docs">
+
                                             </div>
 
                                             <div class="tab-pane" id="changePassword">
                                                 <form method='post' class="form-horizontal">
-                                                    <div class="form-group row">
-                                                        <label for="inputName" class="col-sm-2 col-form-label">Old Password</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="password" name="old_password" required class="form-control" id="inputName">
-                                                        </div>
-                                                    </div>
                                                     <div class="form-group row">
                                                         <label for="inputEmail" class="col-sm-2 col-form-label">New Password</label>
                                                         <div class="col-sm-10">
@@ -398,7 +478,7 @@ require_once('public/partials/_head.php');
                                                             <input type="password" name="confirm_password" required class="form-control" id="inputName2">
                                                         </div>
                                                     </div>
-                                                    <div class="form-group row">
+                                                    <div class="form-group text-right row">
                                                         <div class="offset-sm-2 col-sm-10">
                                                             <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
                                                         </div>
