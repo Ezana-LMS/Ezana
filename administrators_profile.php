@@ -18,7 +18,7 @@ if (isset($_POST['profile_update'])) {
     $stmt->execute();
     if ($stmt) {
         //inject alert that profile is updated 
-        $success = "Profile Updated";
+        $success = "Profile Updated"&& header("Refresh: 0");
     } else {
         //inject alert that profile update task failed
         $info = "Please Try Again Or Try Later";
@@ -33,10 +33,10 @@ if (isset($_POST['update_picture'])) {
     move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/admins/" . $_FILES["profile_pic"]["name"]);
     $query = "UPDATE ezanaLMS_Admins  SET  profile_pic =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ss', $profile_pic, $id);
+    $rc = $stmt->bind_param('ss', $profile_pic, $view);
     $stmt->execute();
     if ($stmt) {
-        $success = "Profile Picture Updated";
+        $success = "Profile Picture Updated" && header("Refresh: 0");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -84,7 +84,7 @@ if (isset($_POST['change_password'])) {
                 $rc = $stmt->bind_param('ss', $new_password, $id);
                 $stmt->execute();
                 if ($stmt) {
-                    $success = "Password Changed";
+                    $success = "Password Changed" && header("Refresh: 0");
                 } else {
                     $err = "Please Try Again Or Try Later";
                 }
@@ -272,7 +272,7 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group row">
+                                                            <div class="form-group text-right row">
                                                                 <div class="offset-sm-2 col-sm-10">
                                                                     <button type="submit" name="update_picture" class="btn btn-primary">Submit</button>
                                                                 </div>
