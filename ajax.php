@@ -317,7 +317,7 @@ if (!empty($_POST["DepartmentCode"])) {
     }
 }
 
-/* Department Faculty ID */
+/* Department Name */
 if (!empty($_POST["DepartmentID"])) {
     $id = $_POST['DepartmentID'];
     $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE code = :id");
@@ -327,6 +327,64 @@ if (!empty($_POST["DepartmentID"])) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 ?>
 <?php echo htmlentities($row['name']); ?>
+<?php
+    }
+}
+
+/* Department Faculty ID */
+if (!empty($_POST["DepartmentName"])) {
+    $id = $_POST['DepartmentName'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['faculty_id']); ?>
+<?php
+    }
+}
+
+
+
+/* Optimized Department Function */
+if (!empty($_POST["DepCode"])) {
+    $id = $_POST['DepCode'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['id']); ?>
+<?php
+    }
+}
+
+/* Department Name */
+if (!empty($_POST["DepID"])) {
+    $id = $_POST['DepID'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['name']); ?>
+<?php
+    }
+}
+
+/* Department Faculty ID */
+if (!empty($_POST["DepName"])) {
+    $id = $_POST['DepName'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['faculty_id']); ?>
 <?php
     }
 }
