@@ -25,6 +25,23 @@ if (isset($_POST['profile_update'])) {
     }
 }
 
+/* Update Profile Picture */
+
+if (isset($_POST['update_picture'])) {
+    $view = $_GET['view'];
+    $profile_pic = $_FILES['profile_pic']['name'];
+    move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/admins/" . $_FILES["profile_pic"]["name"]);
+    $query = "UPDATE ezanaLMS_Admins  SET  profile_pic =? WHERE id =?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('ss', $profile_pic, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Profile Picture Updated";
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 //Change Password
 if (isset($_POST['change_password'])) {
 
@@ -233,20 +250,34 @@ require_once('public/partials/_head.php');
                                             <span><a href="#edit-profile-pic" class="fas fa-pen text-primary" data-toggle="modal"></a></span>
                                         </div>
                                         <!-- Edit Profile Picture Modal -->
-                                        <div class="modal fade" id="unsuspend-<?php echo $admin->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="edit-profile-pic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title " id="exampleModalLabel">CONFIRM ACCOUNT RESTORATION</h5>
+                                                        <h5 class="modal-title " id="exampleModalLabel">Update <?php echo $admin->name; ?> Profile Picture</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <div class="modal-body text-center text-danger">
-                                                        <h4>UnSuspend <?php echo $admin->name; ?> Account ?</h4>
-                                                        <br>
-                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                        <a href="non_teaching_staff.php?unsuspend=<?php echo $admin->id; ?>" class="text-center btn btn-danger"> Unsuspend Account </a>
+                                                    <div class="modal-body">
+                                                        <form method='post' enctype="multipart/form-data" class="form-horizontal">
+                                                            <div class="form-group row">
+                                                                <label for="inputSkills" class="col-sm-2 col-form-label">Profile Picture</label>
+                                                                <div class="col-sm-10">
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <input type="file" name="profile_pic" class="custom-file-input" id="exampleInputFile">
+                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="offset-sm-2 col-sm-10">
+                                                                    <button type="submit" name="update_picture" class="btn btn-primary">Submit</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
