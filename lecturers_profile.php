@@ -245,7 +245,7 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1><?php echo $lec->name; ?> Profile And Allocated Modules</h1>
+                                <h1><?php echo $lec->name; ?> Profile </h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -364,50 +364,6 @@ require_once('public/partials/_head.php');
                             </div>
                             <!-- /.col -->
                             <div class="col-md-8">
-                                <div class="row">
-                                    <div class="col-lg-12 my-3">
-                                        <table id="example1" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Module Name</th>
-                                                    <th>Module Code</th>
-                                                    <th>Lecturer Name</th>
-                                                    <th>Date Allocated</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns`  WHERE lec_id = '$view'   ";
-                                                $stmt = $mysqli->prepare($ret);
-                                                $stmt->execute(); //ok
-                                                $res = $stmt->get_result();
-                                                while ($assigns = $res->fetch_object()) {
-                                                ?>
-                                                    <tr>
-                                                        <td><?php echo $assigns->module_name; ?></td>
-                                                        <td><?php echo $assigns->module_code; ?></td>
-                                                        <td>
-                                                            <?php
-                                                            /* Indicate This Lec Is A Guest */
-                                                            if ($assigns->status != '') {
-                                                                echo "<span class='text-success' title='Guest Lecturer'>$assigns->lec_name</span>";
-                                                            } else {
-                                                                echo $assigns->lec_name;
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                        <td><?php echo date('d M Y', strtotime($assigns->created_at)); ?></td>
-                                                    </tr>
-                                                <?php
-                                                } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /.col -->
-                                </div>
-                                <!-- /.row -->
-                            </div><!-- /.container-fluid -->
-                            <div class="col-md-8">
                                 <div class="card">
                                     <div class="card-header p-2">
                                         <ul class="nav nav-pills">
@@ -418,35 +374,29 @@ require_once('public/partials/_head.php');
                                     </div><!-- /.card-header -->
                                     <div class="card-body">
                                         <div class="tab-content">
-                                            <div class="active tab-pane" id="notices">
-                                                <div class="text-right">
-
-                                                </div>
-                                                <hr>
+                                            <div class="active tab-pane" id="update_profile">
                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                     <div class="card-body">
                                                         <div class="row">
-                                                            <div class="form-group col-md-3">
+                                                            <div class="form-group col-md-6">
                                                                 <label for="">Name</label>
                                                                 <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control" id="exampleInputEmail1">
                                                                 <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
                                                             </div>
-                                                            <div class="form-group col-md-3">
-                                                                <label for="">Gender</label>
-                                                                <select class='form-control basic' name="gender">
-                                                                    <option selected><?php echo $lec->gender; ?></option>
-                                                                    <option>Female</option>
-                                                                    <option>Male</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group col-md-3">
+
+                                                            <div class="form-group col-md-6">
                                                                 <label for="">Number</label>
                                                                 <input type="text" required name="number" value="<?php echo $lec->number; ?>" class="form-control">
                                                             </div>
-                                                            <div class="form-group col-md-3">
+                                                            <div class="form-group col-md-6">
                                                                 <label for="">ID / Passport Number</label>
                                                                 <input type="text" required name="idno" value="<?php echo $lec->idno; ?>" class="form-control">
                                                             </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Phone Number</label>
+                                                                <input type="text" required name="phone" value=<?php echo $lec->phone; ?> class="form-control">
+                                                            </div>
+
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group col-md-4">
@@ -458,8 +408,12 @@ require_once('public/partials/_head.php');
                                                                 <input type="email" required name="work_email" value="<?php echo $lec->work_email; ?>" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-4">
-                                                                <label for="">Phone Number</label>
-                                                                <input type="text" required name="phone" value=<?php echo $lec->phone; ?> class="form-control">
+                                                                <label for="">Gender</label>
+                                                                <select class='form-control basic' name="gender">
+                                                                    <option selected><?php echo $lec->gender; ?></option>
+                                                                    <option>Female</option>
+                                                                    <option>Male</option>
+                                                                </select>
                                                             </div>
                                                         </div>
 
@@ -487,14 +441,43 @@ require_once('public/partials/_head.php');
                                                 </form>
                                             </div>
 
-                                            <div class="tab-pane" id="dep_docs">
-                                                <div class="text-right">
-                                                    <a href="#add-document" data-toggle="modal" class=" pull-right btn btn-outline-success">
-                                                        <i class="fas fa-file"></i>
-                                                        Add Department Document
-                                                    </a>
-                                                </div>
-                                                <hr>
+                                            <div class="tab-pane" id="allocated_modules">
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Module Name</th>
+                                                            <th>Module Code</th>
+                                                            <th>Lecturer Name</th>
+                                                            <th>Date Allocated</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns`  WHERE lec_id = '$view'   ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        while ($assigns = $res->fetch_object()) {
+                                                        ?>
+                                                            <tr>
+                                                                <td><?php echo $assigns->module_name; ?></td>
+                                                                <td><?php echo $assigns->module_code; ?></td>
+                                                                <td>
+                                                                    <?php
+                                                                    /* Indicate This Lec Is A Guest */
+                                                                    if ($assigns->status != '') {
+                                                                        echo "<span class='text-success' title='Guest Lecturer'>$assigns->lec_name</span>";
+                                                                    } else {
+                                                                        echo $assigns->lec_name;
+                                                                    }
+                                                                    ?>
+                                                                </td>
+                                                                <td><?php echo date('d M Y', strtotime($assigns->created_at)); ?></td>
+                                                            </tr>
+                                                        <?php
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
 
                                             </div>
 
@@ -527,6 +510,7 @@ require_once('public/partials/_head.php');
                                 <!-- /.nav-tabs-custom -->
                             </div>
                         </div>
+                    </div>
                 </section>
                 <!-- /.content -->
             </div>
