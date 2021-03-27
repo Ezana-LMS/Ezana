@@ -52,6 +52,8 @@
         });
     });
 
+    
+
     /* $(document).ready(function() {
         // Setup - add a text input to each footer cell
         $('#filter-table thead tr').clone(true).appendTo('#filter-table thead');

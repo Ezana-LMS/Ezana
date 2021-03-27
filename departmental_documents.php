@@ -67,14 +67,13 @@ if (isset($_POST['add_departmental_doc'])) {
     $department_name = $_POST['department_name'];
     $attachments = $_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
-    $created_at = date('d M Y g:i');
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
 
-    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by,  department_id, department_name, type, attachments, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by,  department_id, department_name, type, attachments, faculty_id) VALUES(?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssssss', $id, $created_by, $department_id, $department_name, $type,  $attachments, $created_at, $faculty);
+    $rc = $stmt->bind_param('sssssss', $id, $created_by, $department_id, $department_name, $type,  $attachments, $faculty);
     $stmt->execute();
     if ($stmt) {
         $success = "Departmental Memo Added" && header("refresh:1; url=departmental_documents.php?view=$department_id");
@@ -83,21 +82,21 @@ if (isset($_POST['add_departmental_doc'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+
 /* Update Departmental Documents */
 if (isset($_POST['update_departmental_doc'])) {
 
     $id = $_POST['id'];
     $attachments = $_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
-    $created_at = date('d M Y g:i');
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
     $department_id = $_POST['department_id'];
 
-    $query = "UPDATE ezanaLMS_DepartmentalMemos SET  created_by = ?, attachments =?, created_at =?, type =?, faculty_id =? WHERE id =?";
+    $query = "UPDATE ezanaLMS_DepartmentalMemos SET  created_by = ?, attachments =?,  type =?, faculty_id =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss',  $created_by, $attachments, $created_at, $type, $faculty, $id);
+    $rc = $stmt->bind_param('sssss',  $created_by, $attachments, $type, $faculty, $id);
     $stmt->execute();
     if ($stmt) {
         $success = "Updated" && header("refresh:1; url=departmental_documents.php?view=$department_id");

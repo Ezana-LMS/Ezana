@@ -23,6 +23,68 @@
         });
     }
 
+    /* Optimized Department Ajax */
+    function OptimizedGetDepartmentDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepartmentCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepartmentID').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepartmentID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepartmentName').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepartmentName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#FacultyID').val(data);
+            }
+        });
+    }
+
+    /* Optimized Department Ajax */
+    function getDepartmentDetailsOnDocuments(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepID').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepName').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepFacID').val(data);
+            }
+        });
+    }
+
     /* getAllocatedModuleDetails */
     function getAllocatedModuleDetails(val) {
         $.ajax({
@@ -254,6 +316,28 @@
             success: function(data) {
                 //alert(data);
                 $('#FacultyId').val(data);
+            }
+        });
+    }
+
+    /*  Optimized Faculty Function*/
+    function OptimizedFacultyDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'FacultyCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#FacultyID').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'FacultyID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#FacultyName').val(data);
             }
         });
     }

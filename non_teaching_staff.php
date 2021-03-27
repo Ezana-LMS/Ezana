@@ -479,56 +479,10 @@ require_once('public/partials/_head.php');
                                             <td><?php echo $admin->rank; ?></td>
                                             <td><?php echo $admin->previledge; ?></td>
                                             <td>
-                                                <a class="badge badge-success" data-toggle="modal" href="#view-<?php echo $admin->id; ?>">
+                                                <a class="badge badge-success" href="administrators_profile.php?view=<?php echo $admin->id; ?>">
                                                     <i class="fas fa-eye"></i>
                                                     View
                                                 </a>
-
-                                                <!-- Non Teaching Staff -->
-                                                <div class="modal fade" id="view-<?php echo $admin->id; ?>">
-                                                    <div class="modal-dialog  modal-lg">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title"><?php echo $admin->name; ?> Profile</h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="card-body box-profile">
-                                                                    <div class="text-center">
-                                                                        <?php
-                                                                        if ($admin->profile_pic == '') {
-                                                                            echo  "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/no-profile.png' alt='User profile picture'>";
-                                                                        } else {
-                                                                            echo  "<img class='profile-user-img img-fluid img-circle' src='public/uploads/UserImages/admins/$admin->profile_pic' alt='User profile picture'>";
-                                                                        }
-                                                                        ?>
-                                                                    </div>
-                                                                    <h3 class="profile-username text-center"><?php echo $admin->name; ?></h3>
-
-                                                                    <ul class="list-group list-group-unbordered mb-3">
-                                                                        <li class="list-group-item">
-                                                                            <b>Email: </b> <a class="float-right"><?php echo $admin->email; ?></a>
-                                                                        </li>
-                                                                        <li class="list-group-item">
-                                                                            <b>Rank: </b> <a class="float-right"><?php echo $admin->rank; ?></a>
-                                                                        </li>
-                                                                        <li class="list-group-item">
-                                                                            <b>Phone: </b> <a class="float-right"><?php echo $admin->phone; ?></a>
-                                                                        </li>
-                                                                        <li class="list-group-item">
-                                                                            <b>Address: </b> <a class="float-right"><?php echo $admin->adr; ?></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-<?php echo $admin->id; ?>">
                                                     <i class="fas fa-user-edit"></i>
@@ -650,7 +604,7 @@ require_once('public/partials/_head.php');
                                                                                 <input type="text" value="<?php echo $admin->school; ?>" required name="school" class="form-control">
                                                                             </div>
 
-                                                                            <div class="form-group col-md-4">
+                                                                            <div class="form-group col-md-3">
                                                                                 <label for="">Rank</label>
                                                                                 <select class="form-control basic" name="rank">
                                                                                     <option><?php echo $admin->rank; ?></option>
@@ -658,7 +612,7 @@ require_once('public/partials/_head.php');
                                                                                     <option>Education Administrator</option>
                                                                                 </select>
                                                                             </div>
-                                                                            <div class="form-group col-md-4">
+                                                                            <div class="form-group col-md-3">
                                                                                 <label for="">Gender</label>
                                                                                 <select class="form-control basic" name="gender">
                                                                                     <option><?php echo $admin->gender; ?></option>
@@ -666,9 +620,13 @@ require_once('public/partials/_head.php');
                                                                                     <option>Female</option>
                                                                                 </select>
                                                                             </div>
-                                                                            <div class="form-group col-md-4">
+                                                                            <div class="form-group col-md-3">
                                                                                 <label for="">Employee ID</label>
                                                                                 <input type="text" value="<?php echo $admin->employee_id; ?>" required name="employee_id" class="form-control">
+                                                                            </div>
+                                                                            <div class="form-group col-md-3">
+                                                                                <label for="">Date Employed</label>
+                                                                                <input type="text" placeholder="DD-MM-YYYY" required name="date_employed" class="form-control">
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
