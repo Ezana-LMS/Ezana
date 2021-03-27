@@ -5,16 +5,6 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 
-/* Import Lecs From Excel Sheet */
-
-use EzanaLmsAPI\DataSource;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-
-require_once('configs/DataSource.php');
-$db = new DataSource();
-$conn = $db->getConnection();
-require_once('vendor/autoload.php');
-
 /* Add Lects */
 if (isset($_POST['add_lec'])) {
     //Error Handling and prevention of posting double entries
@@ -43,8 +33,8 @@ if (isset($_POST['add_lec'])) {
         $error = 1;
         $err = "Phone Number Cannot Be Empty";
     }
-    if (isset($_POST['faculty']) && !empty($_POST['faculty'])) {
-        $faculty = mysqli_real_escape_string($mysqli, trim($_POST['faculty']));
+    if (isset($_POST['faculty_id']) && !empty($_POST['faculty_id'])) {
+        $faculty_id = mysqli_real_escape_string($mysqli, trim($_POST['faculty_id']));
     } else {
         $error = 1;
         $err = "Faculty Cannot Be Empty";
@@ -66,7 +56,7 @@ if (isset($_POST['add_lec'])) {
                 $err = "Lecturer Number Already Exists";
             }
         } else {
-            $faculty = $_POST['faculty'];
+            $faculty_id = $_POST['faculty_id'];
             $faculty_name = $_POST['faculty_name'];
             $gender = $_POST['gender'];
             $work_email = $_POST['work_email'];
@@ -84,7 +74,7 @@ if (isset($_POST['add_lec'])) {
             $profile_pic = $_FILES['profile_pic']['name'];
             move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $_FILES["profile_pic"]["name"]);
 
-            $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, gender,  faculty_name, work_email, employee_id, date_employed, name, email, phone, idno, adr, profile_pic, created_at, password, number) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, gender, faculty_name, work_email, employee_id, date_employed, name, email, phone, idno, adr, profile_pic, created_at, password, number) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ssssssssssssssss', $id, $faculty_id, $gender, $faculty_name, $work_email, $employee_id, $date_employed, $name, $email, $phone, $idno, $adr, $profile_pic, $created_at, $password, $number);
             $stmt->execute();
@@ -191,6 +181,35 @@ if (isset($_POST['change_password'])) {
     }
 }
 
+/* On Leave */
+if (isset($_GET['leave'])) {
+    $leave = $_GET['leave'];
+    $adn = "UPDATE  ezanaLMS_Lecturers SET status = 'On Leave' WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $leave);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Suspended" && header("refresh:1; url=lecturers.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* On Work */
+if (isset($_GET['onwork'])) {
+    $onwork = $_GET['onwork'];
+    $adn = "UPDATE  ezanaLMS_Lecturers SET status = 'On Work' WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $onwork);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Lecturer Is On OWK" && header("refresh:1; url=lecturers.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -359,7 +378,7 @@ require_once('public/partials/_head.php');
                                                         <div class="form-group col-md-8">
                                                             <label for="">Faculty Name</label>
                                                             <input type="text" required name="faculty_name" class="form-control" id="FacultyName">
-                                                            <input type="hidden" required name="faculty" id="FacultyID" class="form-control">
+                                                            <input type="hidden" required name="faculty_id" id="FacultyID" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-3">
                                                             <label for="">Name</label>
@@ -451,9 +470,12 @@ require_once('public/partials/_head.php');
                                     <tr>
                                         <th>Number</th>
                                         <th>Name</th>
+                                        <th>Gender</th>
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>ID/Passport </th>
+                                        <th>Employee ID</th>
+                                        <th>Date Employed</th>
                                         <th>Manage</th>
                                     </tr>
                                 </thead>
@@ -463,72 +485,44 @@ require_once('public/partials/_head.php');
                                     $stmt = $mysqli->prepare($ret);
                                     $stmt->execute(); //ok
                                     $res = $stmt->get_result();
-                                    $cnt = 1;
                                     while ($lec = $res->fetch_object()) {
                                     ?>
                                         <tr>
                                             <td><?php echo $lec->number; ?></td>
                                             <td><?php echo $lec->name; ?></td>
+                                            <td><?php echo $lec->gender;?></td>
                                             <td><?php echo $lec->email; ?></td>
                                             <td><?php echo $lec->phone; ?></td>
                                             <td><?php echo $lec->idno; ?></td>
+                                            <td><?php echo $lec->employee_id;?></td>
+                                            <td><?php echo $lec->date_employed;?></td>
                                             <td>
-                                                <a class="badge badge-success" data-toggle="modal" href="#view-lecturer-<?php echo $lec->id; ?>">
-                                                    <i class="fas fa-user-tie"></i>
-                                                    View
-                                                </a>
-                                                <!-- View Lec -->
-                                                <div class="modal fade" id="view-lecturer-<?php echo $lec->id; ?>">
-                                                    <div class="modal-dialog  modal-lg">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title"><?php echo $lec->name; ?> Profile</h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="card-body box-profile">
-                                                                    <div class="text-center">
-                                                                        <?php
-                                                                        if ($lec->profile_pic == '') {
-                                                                            echo  "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/no-profile.png' alt='User profile picture'>";
-                                                                        } else {
-                                                                            echo  "<img class='profile-user-img img-fluid img-circle' src='public/uploads/UserImages/lecturers/$lec->profile_pic' alt='User profile picture'>";
-                                                                        }
-                                                                        ?>
-                                                                    </div>
-
-                                                                    <h3 class="profile-username text-center"><?php echo $lec->name; ?></h3>
-
-                                                                    <p class="text-muted text-center"><?php echo $lec->number; ?></p>
-
-                                                                    <ul class="list-group list-group-unbordered mb-3">
-                                                                        <li class="list-group-item">
-                                                                            <b>Email: </b> <a class="float-right"><?php echo $lec->email; ?></a>
-                                                                        </li>
-                                                                        <li class="list-group-item">
-                                                                            <b>ID / Passport: </b> <a class="float-right"><?php echo $lec->idno; ?></a>
-                                                                        </li>
-                                                                        <li class="list-group-item">
-                                                                            <b>Phone: </b> <a class="float-right"><?php echo $lec->phone; ?></a>
-                                                                        </li>
-                                                                        <li class="list-group-item">
-                                                                            <b>Address</b> <a class="float-right"><?php echo $lec->adr; ?></a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <a class="badge badge-primary" data-toggle="modal" href="#update-lecturer-<?php echo $lec->id; ?>">
                                                     <i class="fas fa-edit"></i>
                                                     Update
                                                 </a>
+                                                
+                                                <?php
+                                                    if($lec->status == 'On Leave'){
+                                                        echo 
+                                                        "
+                                                        <a class='badge badge-danger' data-toggle='modal' href='#onwork-$lec->id'>
+                                                            <i class='fas fa-user-lock'></i>
+                                                            On Leave
+                                                        </a>
+
+                                                        ";
+                                                    }
+                                                    else{
+                                                        echo 
+                                                        "
+                                                        <a class='badge badge-primary' data-toggle='modal' href='#leave-$lec->id'>
+                                                            <i class='fas fa-user-check'></i>
+                                                            On Work
+                                                        </a>
+                                                        ";
+                                                    }
+                                                ?>
                                                 <!-- Update Lec Modal -->
                                                 <div class="modal fade" id="update-lecturer-<?php echo $lec->id; ?>">
                                                     <div class="modal-dialog  modal-xl">
@@ -627,6 +621,48 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <!-- Onleave Or WOrk -->
+                                                <div class="modal fade" id="leave-<?php echo $lec->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title " id="exampleModalLabel">Update <?php echo $lec->name;?> Leave Status</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body text-center text-danger">
+                                                                <h4>Give <?php echo $lec->name; ?>  Leave ?</h4>
+                                                                <br>
+                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                <a href="lecturers.php?leave=<?php echo $lec->id; ?>" class="text-center btn btn-danger"> Yes </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- End -->
+
+                                                <!-- Onleave Or WOrk -->
+                                                <div class="modal fade" id="onwork-<?php echo $lec->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title " id="exampleModalLabel"><?php echo $lec->name;?> On Leave Status </h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body text-center text-danger">
+                                                                <h4>Set <?php echo $lec->name; ?> To Be On Work  ?</h4>
+                                                                <br>
+                                                                <a href="lecturers.php?onwork=<?php echo $lec->id; ?>" class="text-center btn btn-success"> Confirm  </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </td>
                                         </tr>
                                     <?php $cnt = $cnt + 1;
