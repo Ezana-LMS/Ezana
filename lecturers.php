@@ -124,16 +124,14 @@ if (isset($_POST['update_lec'])) {
         $number = $_POST['number'];
         $idno  = $_POST['idno'];
         $adr = $_POST['adr'];
-        $faculty = $_POST['faculty'];
-        $faculty_name = $_POST['faculty_name'];
         $gender = $_POST['gender'];
         $work_email = $_POST['work_email'];
         $employee_id = $_POST['employee_id'];
         $date_employed = $_POST['date_employed'];
 
-        $query = "UPDATE ezanaLMS_Lecturers SET  name =?, faculty_name =?, facuty =?, gender = ?, work_email =?, employee_id = ?, date_employed = ?,email =?, phone =?, idno =?, adr =?, profile_pic =?, number =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Lecturers SET  name =?,  gender = ?, work_email =?, employee_id = ?, date_employed = ?,email =?, phone =?, idno =?, adr =?, number =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssssssssss', $name, $faculty_name, $faculty, $gender, $work_email, $employee_id, $date_employed, $email, $phone, $idno, $adr, $profile_pic, $number, $id);
+        $rc = $stmt->bind_param('sssssssssss', $name,  $gender, $work_email, $employee_id, $date_employed, $email, $phone, $idno, $adr, $number, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Lecturer Updated" && header("refresh:1; url=lecturers.php");
@@ -471,11 +469,10 @@ require_once('public/partials/_head.php');
                                         <th>Number</th>
                                         <th>Name</th>
                                         <th>Gender</th>
-                                        <th>Email</th>
+                                        <th>Work Email</th>
                                         <th>Phone</th>
                                         <th>ID/Passport </th>
-                                        <th>Employee ID</th>
-                                        <th>Date Employed</th>
+                                        <th>Faculty/School</th>
                                         <th>Manage</th>
                                     </tr>
                                 </thead>
@@ -491,12 +488,15 @@ require_once('public/partials/_head.php');
                                             <td><?php echo $lec->number; ?></td>
                                             <td><?php echo $lec->name; ?></td>
                                             <td><?php echo $lec->gender; ?></td>
-                                            <td><?php echo $lec->email; ?></td>
+                                            <td><?php echo $lec->work_email; ?></td>
                                             <td><?php echo $lec->phone; ?></td>
                                             <td><?php echo $lec->idno; ?></td>
-                                            <td><?php echo $lec->employee_id; ?></td>
-                                            <td><?php echo $lec->date_employed; ?></td>
+                                            <td><?php echo $lec->faculty_name; ?></td>
                                             <td>
+                                                <a class="badge badge-success" href="lecturers_profile.php?view=<?php echo $lec->id; ?>">
+                                                    <i class="fas fa-eye"></i>
+                                                    View
+                                                </a>
                                                 <a class="badge badge-primary" data-toggle="modal" href="#update-lecturer-<?php echo $lec->id; ?>">
                                                     <i class="fas fa-edit"></i>
                                                     Update
@@ -538,13 +538,13 @@ require_once('public/partials/_head.php');
                                                                         <div class="row">
                                                                             <div class="form-group col-md-3">
                                                                                 <label for="">Name</label>
-                                                                                <input type="text" required name="name" value="<?php echo $lec->name;?>" class="form-control" id="exampleInputEmail1">
-                                                                                <input type="hidden" required name="id" value="<?php echo $le->id; ?>" class="form-control">
+                                                                                <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-3">
                                                                                 <label for="">Gender</label>
                                                                                 <select class='form-control basic' name="gender">
-                                                                                    <option selected><?php echo $lec->gender;?></option>
+                                                                                    <option selected><?php echo $lec->gender; ?></option>
                                                                                     <option>Female</option>
                                                                                     <option>Male</option>
                                                                                 </select>
@@ -555,39 +555,39 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                             <div class="form-group col-md-3">
                                                                                 <label for="">ID / Passport Number</label>
-                                                                                <input type="text" required name="idno" value="<?php echo $lec->idno;?>" class="form-control">
+                                                                                <input type="text" required name="idno" value="<?php echo $lec->idno; ?>" class="form-control">
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="form-group col-md-4">
                                                                                 <label for="">Personal Email</label>
-                                                                                <input type="email" required name="email" value=<?php echo $lec->email;?> class="form-control">
+                                                                                <input type="email" required name="email" value=<?php echo $lec->email; ?> class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-4">
                                                                                 <label for="">Work Email</label>
-                                                                                <input type="email" required name="work_email"  value="<?php echo $work_email;?>" class="form-control">
+                                                                                <input type="email" required name="work_email" value="<?php echo $lec->work_email; ?>" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-4">
                                                                                 <label for="">Phone Number</label>
-                                                                                <input type="text" required name="phone" value=<?php echo $lec->phone;?> class="form-control">
+                                                                                <input type="text" required name="phone" value=<?php echo $lec->phone; ?> class="form-control">
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="row">
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Employee ID</label>
-                                                                                <input type="text" required name="employee_id" value="<?php echo $lec->employee_id;?>" class="form-control">
+                                                                                <input type="text" required name="employee_id" value="<?php echo $lec->employee_id; ?>" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Date Employed</label>
-                                                                                <input type="text" required name="date_employed" value="<?php echo $lec->date_employed;?>" placeholder="DD - MM - YYYY" class="form-control">
+                                                                                <input type="text" required name="date_employed" value="<?php echo $lec->date_employed; ?>" placeholder="DD - MM - YYYY" class="form-control">
                                                                             </div>
-                                                                            
+
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="exampleInputPassword1">Address</label>
-                                                                                <textarea required name="adr" rows="2" class="form-control"><?php echo $lec->adr;?></textarea>
+                                                                                <textarea required name="adr" rows="2" class="form-control"><?php echo $lec->adr; ?></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
