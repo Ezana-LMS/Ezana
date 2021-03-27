@@ -61,6 +61,60 @@ if (isset($_POST['change_password'])) {
     }
 }
 
+/* Update Profile */
+if (isset($_POST['update_lec'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['number']) && !empty($_POST['number'])) {
+        $number = mysqli_real_escape_string($mysqli, trim($_POST['number']));
+    } else {
+        $error = 1;
+        $err = "Lecturer Number Cannot Be Empty";
+    }
+    if (isset($_POST['idno']) && !empty($_POST['idno'])) {
+        $idno = mysqli_real_escape_string($mysqli, trim($_POST['idno']));
+    } else {
+        $error = 1;
+        $err = "National ID / Passport Number Cannot Be Empty";
+    }
+    if (isset($_POST['email']) && !empty($_POST['email'])) {
+        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
+    } else {
+        $error = 1;
+        $err = "Email Cannot Be Empty";
+    }
+    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
+        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
+    } else {
+        $error = 1;
+        $err = "Phone Number Cannot Be Empty";
+    }
+    if (!$error) {
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $number = $_POST['number'];
+        $idno  = $_POST['idno'];
+        $adr = $_POST['adr'];
+        $gender = $_POST['gender'];
+        $work_email = $_POST['work_email'];
+        $employee_id = $_POST['employee_id'];
+        $date_employed = $_POST['date_employed'];
+
+        $query = "UPDATE ezanaLMS_Lecturers SET  name =?,  gender = ?, work_email =?, employee_id = ?, date_employed = ?,email =?, phone =?, idno =?, adr =?, number =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssssssssss', $name,  $gender, $work_email, $employee_id, $date_employed, $email, $phone, $idno, $adr, $number, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Profile Updated";
+        } else {
+            //inject alert that profile update task failed
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
 require_once('public/partials/_head.php');
 ?>
 
@@ -342,7 +396,7 @@ require_once('public/partials/_head.php');
                                                             }
                                                             ?>
                                                         </td>
-                                                        <td><?php echo date('d M Y', strtotime($assigns->created_at));?></td>
+                                                        <td><?php echo date('d M Y', strtotime($assigns->created_at)); ?></td>
                                                     </tr>
                                                 <?php
                                                 } ?>
@@ -353,6 +407,125 @@ require_once('public/partials/_head.php');
                                 </div>
                                 <!-- /.row -->
                             </div><!-- /.container-fluid -->
+                            <div class="col-md-8">
+                                <div class="card">
+                                    <div class="card-header p-2">
+                                        <ul class="nav nav-pills">
+                                            <li class="nav-item"><a class="nav-link active" href="#update_profile" data-toggle="tab">Update Profile</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#allocated_modules" data-toggle="tab">Allocated Modules</a></li>
+                                            <li class="nav-item"><a class="nav-link " href="#changePassword" data-toggle="tab">Password Reset</a></li>
+                                        </ul>
+                                    </div><!-- /.card-header -->
+                                    <div class="card-body">
+                                        <div class="tab-content">
+                                            <div class="active tab-pane" id="notices">
+                                                <div class="text-right">
+
+                                                </div>
+                                                <hr>
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-3">
+                                                                <label for="">Name</label>
+                                                                <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label for="">Gender</label>
+                                                                <select class='form-control basic' name="gender">
+                                                                    <option selected><?php echo $lec->gender; ?></option>
+                                                                    <option>Female</option>
+                                                                    <option>Male</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label for="">Number</label>
+                                                                <input type="text" required name="number" value="<?php echo $lec->number; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label for="">ID / Passport Number</label>
+                                                                <input type="text" required name="idno" value="<?php echo $lec->idno; ?>" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Personal Email</label>
+                                                                <input type="email" required name="email" value=<?php echo $lec->email; ?> class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Work Email</label>
+                                                                <input type="email" required name="work_email" value="<?php echo $lec->work_email; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Phone Number</label>
+                                                                <input type="text" required name="phone" value=<?php echo $lec->phone; ?> class="form-control">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Employee ID</label>
+                                                                <input type="text" required name="employee_id" value="<?php echo $lec->employee_id; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Date Employed</label>
+                                                                <input type="text" required name="date_employed" value="<?php echo $lec->date_employed; ?>" placeholder="DD - MM - YYYY" class="form-control">
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="exampleInputPassword1">Address</label>
+                                                                <textarea required name="adr" rows="2" class="form-control"><?php echo $lec->adr; ?></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer text-right">
+                                                        <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            <div class="tab-pane" id="dep_docs">
+                                                <div class="text-right">
+                                                    <a href="#add-document" data-toggle="modal" class=" pull-right btn btn-outline-success">
+                                                        <i class="fas fa-file"></i>
+                                                        Add Department Document
+                                                    </a>
+                                                </div>
+                                                <hr>
+
+                                            </div>
+
+                                            <div class="tab-pane" id="changePassword">
+                                                <form method='post' class="form-horizontal">
+                                                    <div class="form-group row">
+                                                        <label for="inputEmail" class="col-sm-2 col-form-label">New Password</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="password" name="new_password" required class="form-control" id="inputEmail">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="inputName2" class="col-sm-2 col-form-label">Confirm New Password</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="password" name="confirm_password" required class="form-control" id="inputName2">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group text-right row">
+                                                        <div class="offset-sm-2 col-sm-10">
+                                                            <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <!-- /.tab-pane -->
+                                        </div>
+                                        <!-- /.tab-content -->
+                                    </div><!-- /.card-body -->
+                                </div>
+                                <!-- /.nav-tabs-custom -->
+                            </div>
                         </div>
                 </section>
                 <!-- /.content -->
