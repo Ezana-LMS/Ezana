@@ -191,7 +191,7 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1><?php echo $lec->name; ?> Profile</h1>
+                                <h1><?php echo $lec->name; ?> Profile And Allocated Modules</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -252,7 +252,7 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                         <!-- End Modal -->
-                                       
+
 
                                         <h3 class="profile-username text-center"></h3>
 
@@ -276,10 +276,10 @@ require_once('public/partials/_head.php');
                                             </li>
                                             <li class="list-group-item">
                                                 <b>Personal Email: </b> <a class="float-right"><?php echo $lec->email; ?></a>
-                                            </li>   
+                                            </li>
                                             <li class="list-group-item">
                                                 <b>Address</b> <a class="float-right"><?php echo $lec->adr; ?></a>
-                                            </li>                                       
+                                            </li>
 
                                             <li class="list-group-item">
                                                 <b>Date Employed: </b> <a class="float-right"><?php echo $lec->date_employed; ?></a>
@@ -288,9 +288,9 @@ require_once('public/partials/_head.php');
                                                 <b>School / Faculty</b> <a class="float-right"><?php echo $lec->faculty_name; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>No Of Modules Assigned</b> 
+                                                <b>No Of Modules Assigned</b>
                                                 <a class="float-right">
-                                                    <?php 
+                                                    <?php
                                                     $lecid = $lec->id;
                                                     $query = "SELECT COUNT(*)  FROM `ezanaLMS_ModuleAssigns` WHERE lec_id = '$lecid' ";
                                                     $stmt = $mysqli->prepare($query);
@@ -302,19 +302,58 @@ require_once('public/partials/_head.php');
                                                     echo $allocated;
                                                     ?>
                                                 </a>
-                                            </li>                                            
+                                            </li>
                                         </ul>
                                     </div>
                                     <!-- /.card-body -->
                                 </div>
                             </div>
                             <!-- /.col -->
-                            
-                            
-                            <!-- /.col -->
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-lg-12 my-3">
+                                        <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Module Name</th>
+                                                    <th>Module Code</th>
+                                                    <th>Lecturer Name</th>
+                                                    <th>Date Allocated</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns`  WHERE lec_id = '$view'   ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                while ($assigns = $res->fetch_object()) {
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $assigns->module_name; ?></td>
+                                                        <td><?php echo $assigns->module_code; ?></td>
+                                                        <td>
+                                                            <?php
+                                                            /* Indicate This Lec Is A Guest */
+                                                            if ($assigns->status != '') {
+                                                                echo "<span class='text-success' title='Guest Lecturer'>$assigns->lec_name</span>";
+                                                            } else {
+                                                                echo $assigns->lec_name;
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                        <td><?php echo date('d M Y', strtotime($assigns->created_at));?></td>
+                                                    </tr>
+                                                <?php
+                                                } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                            </div><!-- /.container-fluid -->
                         </div>
-                        <!-- /.row -->
-                    </div><!-- /.container-fluid -->
                 </section>
                 <!-- /.content -->
             </div>
