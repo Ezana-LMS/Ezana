@@ -319,4 +319,26 @@
             }
         });
     }
+
+    /*  Optimized Faculty Function*/
+    function OptimizedFacultyDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'FacultyCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#FacultyID').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'FacultyID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#FacultyName').val(data);
+            }
+        });
+    }
 </script>

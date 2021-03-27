@@ -388,3 +388,32 @@ if (!empty($_POST["DepName"])) {
 <?php
     }
 }
+
+
+/* Optimized Faculty Function */
+if (!empty($_POST["FacultyCode"])) {
+    $id = $_POST['FacultyCode'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Faculties WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['id']); ?>
+<?php
+    }
+}
+
+/* Faculty Name */
+if (!empty($_POST["FacultyID"])) {
+    $id = $_POST['FacultyID'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Faculties WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['name']); ?>
+<?php
+    }
+}

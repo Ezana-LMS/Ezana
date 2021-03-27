@@ -67,6 +67,11 @@ if (isset($_POST['add_lec'])) {
             }
         } else {
             $faculty = $_POST['faculty'];
+            $faculty_name = $_POST['faculty_name'];
+            $gender = $_POST['gender'];
+            $work_email = $_POST['work_email'];
+            $employee_id = $_POST['employee_id'];
+            $date_employed = $_POST['date_employed']; 
             $id = $_POST['id'];
             $name = $_POST['name'];
             $email = $_POST['email'];
@@ -79,9 +84,9 @@ if (isset($_POST['add_lec'])) {
             $profile_pic = $_FILES['profile_pic']['name'];
             move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $_FILES["profile_pic"]["name"]);
 
-            $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, name, email, phone, idno, adr, profile_pic, created_at, password, number) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, gender,  faculty_name, work_email, employee_id, date_employed, name, email, phone, idno, adr, profile_pic, created_at, password, number) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssssssss', $id, $faculty, $name, $email, $phone, $idno, $adr, $profile_pic, $created_at, $password, $number);
+            $rc = $stmt->bind_param('ssssssssssssssss', $id, $faculty_id, $gender, $faculty_name, $work_email, $employee_id, $date_employed, $name, $email, $phone, $idno, $adr, $profile_pic, $created_at, $password, $number);
             $stmt->execute();
             if ($stmt) {
                 $success = "Lecturer Added" && header("refresh:1; url=lecturers.php");
@@ -129,12 +134,16 @@ if (isset($_POST['update_lec'])) {
         $number = $_POST['number'];
         $idno  = $_POST['idno'];
         $adr = $_POST['adr'];
-        $profile_pic = $_FILES['profile_pic']['name'];
-        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $_FILES["profile_pic"]["name"]);
+        $faculty = $_POST['faculty'];
+        $faculty_name = $_POST['faculty_name'];
+        $gender = $_POST['gender'];
+        $work_email = $_POST['work_email'];
+        $employee_id = $_POST['employee_id'];
+        $date_employed = $_POST['date_employed']; 
 
-        $query = "UPDATE ezanaLMS_Lecturers SET  name =?, email =?, phone =?, idno =?, adr =?, profile_pic =?, number =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Lecturers SET  name =?, faculty_name =?, facuty =?, gender = ?, work_email =?, employee_id = ?, date_employed = ?,email =?, phone =?, idno =?, adr =?, profile_pic =?, number =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssss', $name, $email, $phone, $idno, $adr, $profile_pic, $number, $id);
+        $rc = $stmt->bind_param('ssssssssssssss', $name, $faculty_name, $faculty, $gender, $work_email, $employee_id, $date_employed, $email, $phone, $idno, $adr, $profile_pic, $number, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Lecturer Updated" && header("refresh:1; url=lecturers.php");
@@ -320,7 +329,7 @@ require_once('public/partials/_head.php');
                             </div>
                             <!-- Add Lec Modal -->
                             <div class="modal fade" id="modal-default">
-                                <div class="modal-dialog  modal-lg">
+                                <div class="modal-dialog  modal-xl">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h4 class="modal-title">Fill All Values </h4>
@@ -332,10 +341,10 @@ require_once('public/partials/_head.php');
                                             <form method="post" enctype="multipart/form-data" role="form">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Faculty Name</label>
-                                                            <select class='form-control basic' id="FacultyName" onchange="getFacutyDetails(this.value);">
-                                                                <option selected>Select Faculty Name </option>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Faculty Code</label>
+                                                            <select class='form-control basic' id="FacultyCode" onchange="OptimizedFacultyDetails(this.value);" id='F'>
+                                                                <option selected>Select Faculty Code Name </option>
                                                                 <?php
                                                                 $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
                                                                 $stmt = $mysqli->prepare($ret);
@@ -343,40 +352,64 @@ require_once('public/partials/_head.php');
                                                                 $res = $stmt->get_result();
                                                                 while ($row = $res->fetch_object()) {
                                                                 ?>
-                                                                    <option><?php echo $row->name; ?></option>
+                                                                    <option><?php echo $row->code; ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                         </div>
-                                                        <input type="hidden" required name="faculty" id="FacultyId" class="form-control">
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-8">
+                                                            <label for="">Faculty Name</label>
+                                                            <input type="text" required name="faculty_name" class="form-control" id="FacultyName">
+                                                            <input type="hidden" required name="faculty" id="FacultyID" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-3">
                                                             <label for="">Name</label>
                                                             <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-3">
+                                                            <label for="">Gender</label>
+                                                            <select class='form-control basic' name="gender">
+                                                                <option selected>Male</option>
+                                                                    <option>Female</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-3">
                                                             <label for="">Number</label>
                                                             <input type="text" required name="number" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-3">
                                                             <label for="">ID / Passport Number</label>
                                                             <input type="text" required name="idno" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Email</label>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Personal Email</label>
                                                             <input type="email" required name="email" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Work Email</label>
+                                                            <input type="email" required name="work_email" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
                                                             <label for="">Phone Number</label>
                                                             <input type="text" required name="phone" class="form-control">
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
+                                                    
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Password</label>
-                                                            <input type="text" value="<?php echo $defaultPass; ?>" required name="password" class="form-control">
+                                                            <label for="">Default Password</label>
+                                                            <input type="text" value="Lecturer" required name="password" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Employee ID</label>
+                                                            <input type="text"  required name="employee_id" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Date Employed</label>
+                                                            <input type="text"  required name="date_employed" placeholder="DD - MM - YYYY" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Profile Picture</label>
