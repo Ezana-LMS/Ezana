@@ -390,8 +390,8 @@ if (!empty($_POST["DepName"])) {
 }
 
 /* Department Faculty Name */
-if (!empty($_POST["DepFacName"])) {
-    $id = $_POST['DepFacName'];
+if (!empty($_POST["DepFacID"])) {
+    $id = $_POST['DepFacID'];
     $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Departments WHERE code = :id");
     $stmt->execute(array(':id' => $id));
 ?>
