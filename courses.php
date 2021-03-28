@@ -249,26 +249,6 @@ require_once('public/partials/_head.php');
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
-                                                                <label for="">Faculty Code</label>
-                                                                <select class='form-control basic' id="FacultyCode" onchange="OptimizedFacultyDetails(this.value);">
-                                                                    <option selected>Select Department Code</option>
-                                                                    <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
-                                                                    $stmt = $mysqli->prepare($ret);
-                                                                    $stmt->execute(); //ok
-                                                                    $res = $stmt->get_result();
-                                                                    while ($dep = $res->fetch_object()) {
-                                                                    ?>
-                                                                        <option><?php echo $dep->code; ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Faculty Name</label>
-                                                                <input type="text" id="FacultyName" required name="faculty_name" class="form-control">
-                                                                <input type="hidden" id="FacultyID" readonly required name="faculty_id" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
                                                                 <label for="">Department Code</label>
                                                                 <select class='form-control basic' id="DepCode" onchange="getDepartmentDetailsOnDocuments(this.value);">
                                                                     <option selected>Select Department Code</option>
@@ -287,6 +267,11 @@ require_once('public/partials/_head.php');
                                                                 <label for="">Department Name</label>
                                                                 <input type="text" id="DepName" required name="department_name" class="form-control">
                                                                 <input type="hidden" id="DepID" readonly required name="department_id" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty Name</label>
+                                                                <input type="text" id="DepFacultyName" required name="faculty_name" class="form-control">
+                                                                <input type="hidden" id="DepFacID" readonly required name="faculty_id" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">

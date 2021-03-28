@@ -83,6 +83,15 @@
                 $('#DepFacID').val(data);
             }
         });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepFacID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepFacName').val(data);
+            }
+        });
     }
 
     /* getAllocatedModuleDetails */
