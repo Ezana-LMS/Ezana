@@ -58,6 +58,12 @@ if (isset($_POST['add_student'])) {
             }
         } else {
             $faculty = $_POST['faculty'];
+            $day_enrolled = $_POST['date_enrolled'];
+            $school = $_POST['school'];
+            $course = $_POST['course'];
+            $department = $_POST['department'];
+            $current_year = $_POST['current_year'];
+            $no_of_modules = $_POST['no_of_modules'];
             $id = $_POST['id'];
             $name = $_POST['name'];
             $email = $_POST['email'];
@@ -73,9 +79,32 @@ if (isset($_POST['add_student'])) {
             $profile_pic = $_FILES['profile_pic']['name'];
             move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
 
-            $query = "INSERT INTO ezanaLMS_Students (id, faculty_id,  name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, no_of_modules, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic)
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssssssssss', $id, $faculty,  $name, $email, $phone, $admno,  $idno, $adr, $dob, $gender, $acc_status, $created_at, $password,  $profile_pic);
+            $rc = $stmt->bind_param(
+                'ssssssssssssssssssss',
+                $id,
+                $faculty,
+                $day_enrolled,
+                $school,
+                $course,
+                $department,
+                $current_year,
+                $no_of_modules,
+                $name,
+                $email,
+                $phone,
+                $admno,
+                $idno,
+                $adr,
+                $dob,
+                $gender,
+                $acc_status,
+                $created_at,
+                $password,
+                $profile_pic
+            );
             $stmt->execute();
             if ($stmt) {
                 $success = "Student Add " && header("refresh:1; url=students.php");
@@ -118,6 +147,12 @@ if (isset($_POST['update_student'])) {
     }
 
     if (!$error) {
+        $day_enrolled = $_POST['date_enrolled'];
+        $school = $_POST['school'];
+        $course = $_POST['course'];
+        $department = $_POST['department'];
+        $current_year = $_POST['current_year'];
+        $no_of_modules = $_POST['no_of_modules'];
         $id = $_POST['id'];
         $name = $_POST['name'];
         $email = $_POST['email'];
@@ -127,14 +162,14 @@ if (isset($_POST['update_student'])) {
         $adr = $_POST['adr'];
         $dob = $_POST['dob'];
         $gender = $_POST['gender'];
-        $acc_status = $_POST['acc_status'];
         $updated_at = date('d M Y');
         $profile_pic = $_FILES['profile_pic']['name'];
         move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
 
-        $query = "UPDATE ezanaLMS_Students SET name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, acc_status =?, updated_at =?, profile_pic =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?, no_of_modules =?, name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =?, profile_pic =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssssssss', $name, $email, $phone, $admno,  $idno, $adr, $dob, $gender, $acc_status, $updated_at, $profile_pic, $id);
+        $rc = $stmt->bind_param('sssssssssssssssss', 
+        $day_enrolled, $school, $course, $department, $current_year, $no_of_modules, $name, $email, $phone, $admno,  $idno, $adr, $dob, $gender, $updated_at, $profile_pic, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Updated Profile" && header("refresh:1; url=students.php");
@@ -178,6 +213,36 @@ if (isset($_POST['change_password'])) {
                 $err = "Please Try Again Or Try Later";
             }
         }
+    }
+}
+
+/* Suspend Account */
+if (isset($_GET['suspend'])) {
+    $suspend = $_GET['suspend'];
+    $adn = "UPDATE  ezanaLMS_Students SET acc_status = 'Suspended' WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $suspend);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Suspended" && header("refresh:1; url=students.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* UnSuspend Account */
+if (isset($_GET['unsuspend'])) {
+    $unsuspend = $_GET['unsuspend'];
+    $adn = "UPDATE  ezanaLMS_Students SET acc_status = 'Active' WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $unsuspend);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Un Suspended" && header("refresh:1; url=students.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
     }
 }
 
