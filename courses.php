@@ -47,9 +47,11 @@ if (isset($_POST['add_course'])) {
             $department_name = $_POST['department_name'];
             $faculty_id = $_POST['faculty_id'];
             $faculty_name = $_POST['faculty_name'];
-            $query = "INSERT INTO ezanaLMS_Courses (id, code, name, details, department_id, faculty_id, faculty_name, department_name) VALUES(?,?,?,?,?,?,?,?)";
+            $hod = $_POST['hod'];
+            $email = $_POST['email'];
+            $query = "INSERT INTO ezanaLMS_Courses (id, hod, email, code, name, details, department_id, faculty_id, faculty_name, department_name) VALUES(?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssss', $id, $code, $name, $details, $department_id, $faculty_id, $faculty_name,  $department_name);
+            $rc = $stmt->bind_param('ssssssssss', $id, $hod, $email, $code, $name, $details, $department_id, $faculty_id, $faculty_name,  $department_name);
             $stmt->execute();
             if ($stmt) {
                 $success = "Course Added" && header("refresh:1; url=courses.php");
@@ -247,17 +249,6 @@ require_once('public/partials/_head.php');
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
-                                                                <label for="">Course Name</label>
-                                                                <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Course Number / Code</label>
-                                                                <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
                                                                 <label for="">Faculty Code</label>
                                                                 <select class='form-control basic' id="FacultyCode" onchange="OptimizedFacultyDetails(this.value);">
                                                                     <option selected>Select Department Code</option>
@@ -279,7 +270,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Department Code</label>
-                                                                <select class='form-control basic' id="DepartmentCode" onchange="getOptimzedDepartmentDetails(this.value);">
+                                                                <select class='form-control basic' id="DepCode" onchange="getDepartmentDetailsOnDocuments(this.value);">
                                                                     <option selected>Select Department Code</option>
                                                                     <?php
                                                                     $ret = "SELECT * FROM `ezanaLMS_Departments`  ";
@@ -294,8 +285,29 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Department Name</label>
-                                                                <input type="text" id="DepartmentName" required name="department_name" class="form-control">
-                                                                <input type="hidden" id="DepartmentID" readonly required name="department_id" class="form-control">
+                                                                <input type="text" id="DepName" required name="department_name" class="form-control">
+                                                                <input type="hidden" id="DepID" readonly required name="department_id" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Course Name</label>
+                                                                <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Course Number / Code</label>
+                                                                <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Course HOD Name</label>
+                                                                <input type="text" required name="hod" class="form-control" id="exampleInputEmail1">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Course HOD Email</label>
+                                                                <input type="text" required name="email" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -405,7 +417,7 @@ require_once('public/partials/_head.php');
                                                         <td><?php echo $courses->code; ?></td>
                                                         <td><?php echo $courses->name; ?></td>
                                                         <td><?php echo $courses->department_name; ?></td>
-                                                        <td><?php echo $course->faculty_name;?></td>
+                                                        <td><?php echo $courses->faculty_name; ?></td>
                                                         <td>
                                                             <a class="badge badge-success" href="course.php?view=<?php echo $courses->id; ?>">
                                                                 <i class="fas fa-eye"></i>
