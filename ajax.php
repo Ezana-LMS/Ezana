@@ -417,3 +417,56 @@ if (!empty($_POST["FacultyID"])) {
 <?php
     }
 }
+
+/* Student Course, Department, Faculty Ajax */
+if (!empty($_POST["CourseCode"])) {
+    $id = $_POST['CourseCode'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Courses WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['name']); ?>
+<?php
+    }
+}
+
+if (!empty($_POST["CourseName"])) {
+    $id = $_POST['CourseName'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Courses WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['department_name']); ?>
+<?php
+    }
+}
+
+if (!empty($_POST["DepartmentName"])) {
+    $id = $_POST['DepartmentName'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Courses WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['faculty_id']); ?>
+<?php
+    }
+}
+
+if (!empty($_POST["FacultyID"])) {
+    $id = $_POST['FacultyID'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Courses WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['faculty_name']); ?>
+<?php
+    }
+}

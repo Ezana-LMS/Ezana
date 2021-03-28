@@ -385,7 +385,7 @@ require_once('public/partials/_head.php');
                                 </div>
                                 <!-- Add Student Modal -->
                                 <div class="modal fade" id="modal-default">
-                                    <div class="modal-dialog  modal-lg">
+                                    <div class="modal-dialog  modal-xl">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Fill All Values </h4>
@@ -423,7 +423,7 @@ require_once('public/partials/_head.php');
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Faculty / School Name</label>
                                                                 <input type="text" required name="school" class="form-control" id="FacultyName">
-                                                                <input type="hidden" required name="faculty_id" class="form-control" id="FacultyID">
+                                                                <input type="hidde" required name="faculty_id" class="form-control" id="FacultyID">
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label for="">Current Year</label>
