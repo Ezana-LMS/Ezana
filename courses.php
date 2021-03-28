@@ -268,10 +268,10 @@ require_once('public/partials/_head.php');
                                                                 <input type="text" id="DepName" required name="department_name" class="form-control">
                                                                 <input type="hidden" id="DepID" readonly required name="department_id" class="form-control">
                                                             </div>
-                                                            <div class="form-group col-md-6">
+                                                            <div class="form-group col-md-12">
                                                                 <label for="">Faculty Name</label>
                                                                 <input type="text" id="DepFacName" required name="faculty_name" class="form-control">
-                                                                <input type="hidde" id="DepFacID" readonly required name="faculty_id" class="form-control">
+                                                                <input type="hidden" id="DepFacID" readonly required name="faculty_id" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
