@@ -40,10 +40,11 @@ if (isset($_POST['add_dept'])) {
             $details = $_POST['details'];
             $hod = $_POST['hod'];
             $created_at = date('d M Y');
+            $faculty_name = $_POST['faculty_name'];
 
-            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, details, hod, created_at) VALUES(?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, faculty_name, details, hod, created_at) VALUES(?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssss', $id, $code, $name, $faculty, $details, $hod, $created_at);
+            $rc = $stmt->bind_param('ssssssss', $id, $code, $name, $faculty, $faculty_name, $details, $hod, $created_at);
             $stmt->execute();
             if ($stmt) {
                 $success = "$name Department Added";
@@ -228,7 +229,7 @@ require_once('public/partials/_head.php');
                                 </form>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Department</button>
                                 <div class="modal fade" id="modal-default">
-                                    <div class="modal-dialog  modal-lg">
+                                    <div class="modal-dialog  modal-xl">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Fill All Required Values </h4>
@@ -241,34 +242,39 @@ require_once('public/partials/_head.php');
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
-                                                                <label for="">Department Name</label>
-                                                                <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Department Number / Code</label>
-                                                                <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">HOD</label>
-                                                                <input type="text" required name="hod" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Faculty Name</label>
-                                                                <select class='form-control basic' id="FacultyName" onchange="getFacutyDetails(this.value);">
-                                                                    <option selected>Select Faculty Name</option>
+                                                                <label for="">Faculty Code</label>
+                                                                <select class='form-control basic' id="FacultyCode" onchange="OptimizedFacultyDetails(this.value);">
+                                                                    <option selected>Select Faculty Code</option>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Faculties` ORDER BY `name` ASC  ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Faculties` ORDER BY `code` ASC  ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
                                                                     while ($fac = $res->fetch_object()) {
                                                                     ?>
-                                                                        <option><?php echo $fac->name; ?></option>
+                                                                        <option><?php echo $fac->code; ?></option>
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
-                                                            <input type="hidden" required name="faculty" id="FacultyId" class="form-control">
+                                                            <input type="hidden" required name="faculty" id="FacultyID" class="form-control">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty Name</label>
+                                                                <input type="text" required name="faculty_name" class="form-control" id="FacultyName">
+                                                            </div>
+
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department Name</label>
+                                                                <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department Number / Code</label>
+                                                                <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">HOD</label>
+                                                                <input type="text" required name="hod" class="form-control">
+                                                            </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
