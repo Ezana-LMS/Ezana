@@ -423,7 +423,7 @@ require_once('public/partials/_head.php');
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Faculty / School Name</label>
                                                                 <input type="text" required name="school" class="form-control" id="FacultyName">
-                                                                <input type="hidde" required name="faculty_id" class="form-control" id="FacultyID">
+                                                                <input type="hidden" required name="faculty_id" class="form-control" id="FacultyID">
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label for="">Current Year</label>
