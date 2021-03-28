@@ -398,21 +398,45 @@ require_once('public/partials/_head.php');
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
-                                                                <label for="">Faculty Name</label>
-                                                                <select class='form-control basic' id="FacultyName" onchange="getFacutyDetails(this.value);">
-                                                                    <option selected>Select Faculty Name </option>
+                                                                <label for="">Course Enrolled</label>
+                                                                <select class='form-control basic' id="CourseCode" onchange="getStudentCourseDetails(this.value);">
+                                                                    <option selected>Select Course Code </option>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
-                                                                    while ($row = $res->fetch_object()) {
+                                                                    while ($courses = $res->fetch_object()) {
                                                                     ?>
-                                                                        <option><?php echo $row->name; ?></option>
+                                                                        <option><?php echo $courses->code; ?></option>
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
-                                                            <input type="hidden" required name="faculty" id="FacultyId" class="form-control">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Course Name</label>
+                                                                <input type="text" required name="course" class="form-control" id="CourseName">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Department Name</label>
+                                                                <input type="text" required name="department" class="form-control" id="DepartmentName">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty / School Name</label>
+                                                                <input type="text" required name="school" class="form-control" id="FacultyName">
+                                                                <input type="hidden" required name="faculty_id" class="form-control" id="FacultyID">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Current Year</label>
+                                                                <input type="text" required name="current_year" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Date Enrolled</label>
+                                                                <input type="text" required name="day_enrolled" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">No Of Modules</label>
+                                                                <input type="text" required name="no_of_modules" class="form-control">
+                                                            </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Name</label>
                                                                 <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
@@ -468,7 +492,7 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
-                                                                <label for="exampleInputPassword1">Address</label>
+                                                                <label for="exampleInputPassword1">Current Address</label>
                                                                 <textarea required name="adr" rows="3" class="form-control"></textarea>
                                                             </div>
                                                         </div>
