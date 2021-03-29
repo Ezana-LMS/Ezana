@@ -139,20 +139,26 @@ require_once('public/partials/_reportshead.php');
                         <hr>
                         <div class="row">
                             <div class="col-12">
-                                <table id="export-dt" class="table table-bordered table-striped">
+                                <table id="export-dt" class="table table-bordered table-responsive table-striped">
                                     <thead>
                                         <tr>
                                             <th>Adm No</th>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>ID / Passport No</th>
+                                            <th>Phone No</th>
                                             <th>Gender</th>
+                                            <th>DOB</th>
+                                            <th>Email</th>
+                                            <th>School</th>
+                                            <th>Department</th>
+                                            <th>Course</th>
+                                            <th>Date Enrolled</th>
+                                            <th>No Of Modules</th>
+                                            <th>Year</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Students`  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Students` ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
@@ -162,10 +168,17 @@ require_once('public/partials/_reportshead.php');
                                             <tr>
                                                 <td><?php echo $std->admno; ?></td>
                                                 <td><?php echo $std->name; ?></td>
-                                                <td><?php echo $std->email; ?></td>
                                                 <td><?php echo $std->phone; ?></td>
-                                                <td><?php echo $std->idno; ?></td>
                                                 <td><?php echo $std->gender; ?></td>
+                                                <td><?php echo $std->dob; ?></td>
+                                                <td><?php echo $std->email; ?></td>
+                                                <td><?php echo $std->school; ?></td>
+                                                <td><?php echo $std->department; ?></td>
+                                                <td><?php echo $std->course; ?></td>
+                                                <td><?php echo $std->day_enrolled; ?></td>
+                                                <td><?php echo $std->no_of_modules; ?></td>
+                                                <td><?php echo $std->current_year; ?></td>
+
                                             </tr>
                                         <?php $cnt = $cnt + 1;
                                         } ?>

@@ -250,7 +250,7 @@ require_once('public/partials/_head.php');
                                 </form>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module</button>
                                 <div class="modal fade" id="modal-default">
-                                    <div class="modal-dialog  modal-lg">
+                                    <div class="modal-dialog  modal-xl">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Fill All Required Values </h4>
@@ -263,19 +263,19 @@ require_once('public/partials/_head.php');
                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                     <div class="card-body">
                                                         <div class="row">
-                                                            <div class="form-group col-md-4">
+                                                            <div class="form-group col-md-6">
                                                                 <label for="">Module Name</label>
                                                                 <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                             </div>
-                                                            <div class="form-group col-md-4">
+                                                            <div class="form-group col-md-6">
                                                                 <label for="">Module Number / Code</label>
                                                                 <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                                             </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Course Name</label>
-                                                                <select class='form-control basic' id="Cname" onchange="getCourseDetails(this.value);" name="course_name">
-                                                                    <option selected>Select Course Name</option>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Course Code</label>
+                                                                <select class='form-control basic' id="ModuleCourseCode" onchange="optimizedCourseDetails(this.value);">
+                                                                    <option selected>Select Course Code</option>
                                                                     <?php
                                                                     $ret = "SELECT * FROM `ezanaLMS_Courses` ";
                                                                     $stmt = $mysqli->prepare($ret);
@@ -283,19 +283,19 @@ require_once('public/partials/_head.php');
                                                                     $res = $stmt->get_result();
                                                                     while ($course = $res->fetch_object()) {
                                                                     ?>
-                                                                        <option><?php echo $course->name; ?></option>
+                                                                        <option><?php echo $course->code; ?></option>
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
-                                                        </div>
-                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Course Name</label>
+                                                                <input type="text" id="ModuleCourseName" required name="course_name" class="form-control">
+                                                                <input type="hidden" readonly id="ModuleCourseID" required name="course_id" class="form-control">
+                                                                <input type="hidden" readonly id="ModuleCourseFacultyID" required name="faculty_id" class="form-control">
 
-                                                            <div class="form-group col-md-4" style="display:none">
-                                                                <label for="">Course ID</label>
-                                                                <input type="text" readonly id="CourseID" required name="course_id" class="form-control">
-                                                                <input type="text" readonly id="CourseFacultyID" required name="faculty_id" class="form-control">
                                                             </div>
                                                         </div>
+
 
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
@@ -439,7 +439,7 @@ require_once('public/partials/_head.php');
                                                             </a>
                                                             <!-- Update Module Modal -->
                                                             <div class="modal fade" id="edit-modal-<?php echo $mod->id; ?>">
-                                                                <div class="modal-dialog  modal-lg">
+                                                                <div class="modal-dialog  modal-xl">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
                                                                             <h4 class="modal-title">Fill All Required Values </h4>

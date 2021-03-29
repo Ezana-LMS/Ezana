@@ -116,6 +116,7 @@
         });
     }
 
+
     /* Course Details */
     function getCourseDetails(val) {
         $.ajax({
@@ -127,6 +128,7 @@
                 $('#CourseCode').val(data);
             }
         });
+
         $.ajax({
             type: "POST",
             url: "ajax.php",
@@ -390,4 +392,36 @@
             }
         });
     }
+
+    /*Optimized Course Details  */
+    function optimizedCourseDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'ModuleCourseCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#ModuleCourseID').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'ModuleCourseID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#ModuleCourseName').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'ModuleCourseName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#ModuleCourseFacultyID').val(data);
+            }
+        });
+    }
+
 </script>

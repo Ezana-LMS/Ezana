@@ -142,28 +142,33 @@ require_once('public/partials/_reportshead.php');
                                 <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Lec Number</th>
+                                            <th>Number</th>
                                             <th>Name</th>
-                                            <th>Email</th>
+                                            <th>Gender</th>
+                                            <th>Work Email</th>
                                             <th>Phone</th>
-                                            <th>ID / Passport No</th>
+                                            <th>ID/Passport </th>
+                                            <th>Employee ID</th>
+                                            <th>Faculty/School</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Lecturers`  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
-                                        $cnt = 1;
                                         while ($lec = $res->fetch_object()) {
                                         ?>
                                             <tr>
                                                 <td><?php echo $lec->number; ?></td>
                                                 <td><?php echo $lec->name; ?></td>
-                                                <td><?php echo $lec->email; ?></td>
+                                                <td><?php echo $lec->gender; ?></td>
+                                                <td><?php echo $lec->work_email; ?></td>
                                                 <td><?php echo $lec->phone; ?></td>
                                                 <td><?php echo $lec->idno; ?></td>
+                                                <td><?php echo $lec->employee_id;?></td>
+                                                <td><?php echo $lec->faculty_name; ?></td>
                                             </tr>
                                         <?php $cnt = $cnt + 1;
                                         } ?>

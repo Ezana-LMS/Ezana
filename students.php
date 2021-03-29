@@ -4,107 +4,54 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
-check_login();
 
 /* Add STD */
 if (isset($_POST['add_student'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['admno']) && !empty($_POST['admno'])) {
-        $admno = mysqli_real_escape_string($mysqli, trim($_POST['admno']));
-    } else {
-        $error = 1;
-        $err = "Admission  Number Cannot Be Empty";
-    }
-    if (isset($_POST['idno']) && !empty($_POST['idno'])) {
-        $idno = mysqli_real_escape_string($mysqli, trim($_POST['idno']));
-    } else {
-        $error = 1;
-        $err = "National ID / Passport Number Cannot Be Empty";
-    }
-    if (isset($_POST['email']) && !empty($_POST['email'])) {
-        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
-    } else {
-        $error = 1;
-        $err = "Email Cannot Be Empty";
-    }
-    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
-        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
-    } else {
-        $error = 1;
-        $err = "Phone Number Cannot Be Empty";
-    }
-    if (isset($_POST['faculty']) && !empty($_POST['faculty'])) {
-        $faculty = mysqli_real_escape_string($mysqli, trim($_POST['faculty']));
-    } else {
-        $error = 1;
-        $err = "Faculty Cannot Be Empty";
-    }
-
     if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Students WHERE  email='$email' || phone ='$phone' || idno = '$idno' || admno ='$admno' ";
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $admno = $_POST['admno'];
+        $idno = $_POST['idno'];
+        $adr = $_POST['adr'];
+        $dob = $_POST['dob'];
+        $gender = $_POST['gender'];
+        $acc_status = 'Active';
+        $created_at = date('d M Y');
+        $password = sha1(md5($_POST['password']));
+        $faculty_id = $_POST['faculty_id'];
+        $day_enrolled = $_POST['day_enrolled'];
+        $school = $_POST['school'];
+        $course = $_POST['course'];
+        $department = $_POST['department'];
+        $current_year = $_POST['current_year'];
+        $no_of_modules = $_POST['no_of_modules'];
+
+        $profile_pic = $_FILES['profile_pic']['name'];
+        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
+
+        $sql = "SELECT * FROM ezanaLMS_Students WHERE email='$email' || phone ='$phone' || idno = '$idno' || admno ='$admno' ";
+
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
             if ($email == $row['email']) {
-                $err =  "Account With This Email Already Exists";
+                $err = "Account With This Email Already Exists";
             } elseif ($admno == $row['admno']) {
                 $err = "Student Admission Number Already Exists";
             } elseif ($idno == $row['idno']) {
-                $err = "National ID Number  / Passport Number Already Exists";
+                $err = "National ID Number / Passport Number Already Exists";
             } else {
                 $err = "Account With That Phone Number Exists";
             }
         } else {
-            $faculty = $_POST['faculty'];
-            $day_enrolled = $_POST['date_enrolled'];
-            $school = $_POST['school'];
-            $course = $_POST['course'];
-            $department = $_POST['department'];
-            $current_year = $_POST['current_year'];
-            $no_of_modules = $_POST['no_of_modules'];
-            $id = $_POST['id'];
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $phone = $_POST['phone'];
-            $admno = $_POST['admno'];
-            $idno  = $_POST['idno'];
-            $adr = $_POST['adr'];
-            $dob = $_POST['dob'];
-            $gender = $_POST['gender'];
-            $acc_status = 'Active';
-            $created_at = date('d M Y');
-            $password = sha1(md5($_POST['password']));
-            $profile_pic = $_FILES['profile_pic']['name'];
-            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
 
-            $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, no_of_modules, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, no_of_modules, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param(
-                'ssssssssssssssssssss',
-                $id,
-                $faculty,
-                $day_enrolled,
-                $school,
-                $course,
-                $department,
-                $current_year,
-                $no_of_modules,
-                $name,
-                $email,
-                $phone,
-                $admno,
-                $idno,
-                $adr,
-                $dob,
-                $gender,
-                $acc_status,
-                $created_at,
-                $password,
-                $profile_pic
-            );
+            $rc = $stmt->bind_param('ssssssssssssssssssss', $id, $faculty_id, $day_enrolled, $school, $course, $department, $current_year, $no_of_modules, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $acc_status, $created_at, $password, $profile_pic);
             $stmt->execute();
             if ($stmt) {
                 $success = "Student Add " && header("refresh:1; url=students.php");
@@ -116,63 +63,33 @@ if (isset($_POST['add_student'])) {
     }
 }
 
-
 /* Update Student */
 if (isset($_POST['update_student'])) {
-    //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['admno']) && !empty($_POST['admno'])) {
-        $admno = mysqli_real_escape_string($mysqli, trim($_POST['admno']));
-    } else {
-        $error = 1;
-        $err = "Admission  Number Cannot Be Empty";
-    }
-    if (isset($_POST['idno']) && !empty($_POST['idno'])) {
-        $idno = mysqli_real_escape_string($mysqli, trim($_POST['idno']));
-    } else {
-        $error = 1;
-        $err = "National ID / Passport Number Cannot Be Empty";
-    }
-    if (isset($_POST['email']) && !empty($_POST['email'])) {
-        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
-    } else {
-        $error = 1;
-        $err = "Email Cannot Be Empty";
-    }
-    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
-        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
-    } else {
-        $error = 1;
-        $err = "Phone Number Cannot Be Empty";
-    }
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $admno = $_POST['admno'];
+    $idno = $_POST['idno'];
+    $adr = $_POST['adr'];
+    $dob = $_POST['dob'];
+    $gender = $_POST['gender'];
+    $updated_at = date('d M Y');
+    $day_enrolled = $_POST['day_enrolled'];
+    $school = $_POST['school'];
+    $course = $_POST['course'];
+    $department = $_POST['department'];
+    $current_year = $_POST['current_year'];
+    $no_of_modules = $_POST['no_of_modules'];
 
     if (!$error) {
-        $day_enrolled = $_POST['date_enrolled'];
-        $school = $_POST['school'];
-        $course = $_POST['course'];
-        $department = $_POST['department'];
-        $current_year = $_POST['current_year'];
-        $no_of_modules = $_POST['no_of_modules'];
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-        $admno = $_POST['admno'];
-        $idno  = $_POST['idno'];
-        $adr = $_POST['adr'];
-        $dob = $_POST['dob'];
-        $gender = $_POST['gender'];
-        $updated_at = date('d M Y');
-        $profile_pic = $_FILES['profile_pic']['name'];
-        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
-
-        $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?, no_of_modules =?, name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =?, profile_pic =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?, no_of_modules =?, name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssssssssssssss', 
-        $day_enrolled, $school, $course, $department, $current_year, $no_of_modules, $name, $email, $phone, $admno,  $idno, $adr, $dob, $gender, $updated_at, $profile_pic, $id);
+        $rc = $stmt->bind_param('ssssssssssssssss', $day_enrolled, $school, $course, $department, $current_year, $no_of_modules, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $updated_at, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Updated Profile" && header("refresh:1; url=students.php");
+            $success = "Student Add " && header("refresh:1; url=students.php");
         } else {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
@@ -431,7 +348,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label for="">Date Enrolled</label>
-                                                                <input type="text" required name="day_enrolled" class="form-control">
+                                                                <input type="text" placeholder="DD - MM - YYYY" required name="day_enrolled" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label for="">No Of Modules</label>
@@ -446,17 +363,17 @@ require_once('public/partials/_head.php');
                                                                 <label for="">Admission Number</label>
                                                                 <input type="text" required name="admno" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                                             </div>
-                                                            <div class="form-group col-md-6">
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
                                                                 <label for="">ID / Passport Number</label>
                                                                 <input type="text" required name="idno" class="form-control">
                                                             </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
+                                                            <div class="form-group col-md-4">
                                                                 <label for="">Date Of Birth</label>
-                                                                <input type="text" required name="dob" class="form-control">
+                                                                <input type="text" placeholder="DD - MM - YYYY" required name="dob" class="form-control">
                                                             </div>
-                                                            <div class="form-group col-md-6">
+                                                            <div class="form-group col-md-4">
                                                                 <label for="">Gender</label>
                                                                 <select type="text" required name="gender" class="form-control basic">
                                                                     <option>Male</option>
@@ -520,9 +437,10 @@ require_once('public/partials/_head.php');
                                             <th>Adm No</th>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>ID/Passport</th>
-                                            <th>Gender</th>
+                                            <th>School</th>
+                                            <th>Department</th>
+                                            <th>Course</th>
+                                            <th>Year</th>
                                             <th>Manage</th>
                                         </tr>
                                     </thead>
@@ -539,11 +457,12 @@ require_once('public/partials/_head.php');
                                                 <td><?php echo $std->admno; ?></td>
                                                 <td><?php echo $std->name; ?></td>
                                                 <td><?php echo $std->email; ?></td>
-                                                <td><?php echo $std->phone; ?></td>
-                                                <td><?php echo $std->idno; ?></td>
-                                                <td><?php echo $std->gender; ?></td>
+                                                <td><?php echo $std->school; ?></td>
+                                                <td><?php echo $std->department; ?></td>
+                                                <td><?php echo $std->course; ?></td>
+                                                <td><?php echo $std->current_year; ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" data-toggle="modal" href="#view-student-<?php echo $std->id; ?>">
+                                                    <a class="badge badge-success"  href="student_profile.php?view=<?php echo $std->id; ?>">
                                                         <i class="fas fa-user-graduate"></i>
                                                         View
                                                     </a>
@@ -623,10 +542,31 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                     <!-- End Modal -->
+
                                                     <a class="badge badge-primary" data-toggle="modal" href="#update-student-<?php echo $std->id; ?>">
                                                         <i class="fas fa-edit"></i>
                                                         Update
                                                     </a>
+                                                    <?php
+                                                    /* Suspend  */
+                                                    if ($std->acc_status != 'Suspended') {
+                                                        echo
+                                                        "
+                                                        <a class='badge badge-danger' data-toggle='modal' href='#suspend-$std->id'>
+                                                            <i class='fas fa-user-clock'></i>
+                                                            Suspend Account
+                                                        </a>
+                                                        ";
+                                                    } else {
+                                                        echo
+                                                        "
+                                                        <a class='badge badge-success' data-toggle='modal' href='#unsuspend-$std->id'>
+                                                            <i class='fas fa-user-check'></i>
+                                                            UnSuspend Account
+                                                        </a>
+                                                        ";
+                                                    }
+                                                    ?>
                                                     <!-- Update Student Modal -->
                                                     <div class="modal fade" id="update-student-<?php echo $std->id; ?>">
                                                         <div class="modal-dialog  modal-xl">
@@ -641,105 +581,122 @@ require_once('public/partials/_head.php');
                                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                                         <div class="card-body">
                                                                             <div class="row">
-                                                                                <div class="form-group col-md-4">
-                                                                                    <label for="">Name</label>
-                                                                                    <input type="text" required name="name" value="<?php echo $std->name; ?>" class="form-control">
-                                                                                    <input type="hidden" required name="id" value="<?php echo $std->id ?>" class="form-control">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Course Name</label>
+                                                                                    <input type="text" value="<?php echo $std->course; ?>" required name="course" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Department Name</label>
+                                                                                    <input type="text" required name="department" class="form-control" value="<?php echo $std->department; ?>">
+                                                                                </div>
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label for="">Faculty / School Name</label>
+                                                                                    <input type="text" required name="school" class="form-control" value="<?php echo $std->school; ?>">
                                                                                 </div>
                                                                                 <div class="form-group col-md-4">
+                                                                                    <label for="">Current Year</label>
+                                                                                    <input type="text" required name="current_year" value="<?php echo $std->current_year; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">Date Enrolled</label>
+                                                                                    <input type="text" required name="day_enrolled" value="<?php echo $std->day_enrolled; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">No Of Modules</label>
+                                                                                    <input type="text" required name="no_of_modules" value="<?php echo $std->no_of_modules; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Name</label>
+                                                                                    <input type="text" required name="name" class="form-control" value="<?php echo $std->name; ?>">
+                                                                                    <input type="hidden" required name="id" value="<?php echo $std->id; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
                                                                                     <label for="">Admission Number</label>
                                                                                     <input type="text" required name="admno" value="<?php echo $std->admno; ?>" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-4">
-                                                                                    <label for="">ID / Passport Number</label>
-                                                                                    <input type="text" value="<?php echo $std->idno; ?>" required name="idno" class="form-control">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="row">
                                                                                 <div class="form-group col-md-4">
+                                                                                    <label for="">ID / Passport Number</label>
+                                                                                    <input type="text" required name="idno" value="<?php echo $std->idno; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
                                                                                     <label for="">Date Of Birth</label>
-                                                                                    <input type="text" value="<?php echo $std->dob; ?>" required name="dob" class="form-control">
+                                                                                    <input type="text" required name="dob" value="<?php echo $std->dob; ?>" class="form-control">
                                                                                 </div>
                                                                                 <div class="form-group col-md-4">
                                                                                     <label for="">Gender</label>
-                                                                                    <select type="text" required name="gender" class="basic form-control">
-                                                                                        <option selected><?php echo $std->gender; ?></option>
+                                                                                    <select type="text" required name="gender" class="form-control basic">
+                                                                                        <option><?php echo $std->gender; ?></option>
                                                                                         <option>Male</option>
                                                                                         <option>Female</option>
                                                                                     </select>
                                                                                 </div>
-                                                                                <div class="form-group col-md-4">
-                                                                                    <label for="">Student Account Status</label>
-                                                                                    <select type="text" required name="acc_status" class="basic form-control">
-                                                                                        <option selected><?php echo $std->acc_status; ?></option>
-                                                                                        <option>Active</option>
-                                                                                        <option>Disabled</option>
-                                                                                    </select>
-                                                                                </div>
                                                                             </div>
                                                                             <div class="row">
-                                                                                <div class="form-group col-md-4">
+                                                                                <div class="form-group col-md-6">
                                                                                     <label for="">Email</label>
-                                                                                    <input value="<?php echo $std->email; ?>" type="email" required name="email" class="form-control">
+                                                                                    <input type="email" required value="<?php echo $std->email; ?>" name="email" class="form-control">
                                                                                 </div>
-                                                                                <div class="form-group col-md-4">
+                                                                                <div class="form-group col-md-6">
                                                                                     <label for="">Phone Number</label>
-                                                                                    <input type="text" value="<?php echo $std->phone; ?>" required name="phone" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-4">
-                                                                                    <label for="">Profile Picture</label>
-                                                                                    <div class="input-group">
-                                                                                        <div class="custom-file">
-                                                                                            <input required name="profile_pic" type="file" class="custom-file-input">
-                                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    <input type="text" required name="phone" value="<?php echo $std->phone; ?>" class="form-control">
                                                                                 </div>
                                                                             </div>
+
                                                                             <div class="row">
                                                                                 <div class="form-group col-md-12">
-                                                                                    <label for="exampleInputPassword1">Address</label>
-                                                                                    <textarea required id='' name="adr" rows="3" class="form-control"><?php echo $std->adr; ?></textarea>
+                                                                                    <label for="exampleInputPassword1">Current Address</label>
+                                                                                    <textarea required name="adr" rows="3" class="form-control"><?php echo $std->adr; ?></textarea>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         <div class="card-footer text-right">
-                                                                            <button type="submit" name="update_student" class="btn btn-primary">Update Students Profile</button>
+                                                                            <button type="submit" name="update_student" class="btn btn-primary">Submit</button>
                                                                         </div>
                                                                     </form>
-                                                                    <!-- Change Password -->
-                                                                    <h3 class="text-center">Change <?php echo $std->name; ?> Password</h3>
-                                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                                        <div class="card-body">
-                                                                            <div class="row">
-                                                                                <div class="form-group col-md-12">
-                                                                                    <label for="">New Password</label>
-                                                                                    <input type="password" required name="new_password" class="form-control">
-                                                                                    <input type="hidden" required name="student" value="<?php echo $std->id ?>" class="form-control">
-
-                                                                                </div>
-                                                                                <div class="form-group col-md-12">
-                                                                                    <label for="">Confirm Password</label>
-                                                                                    <input type="password" required name="confirm_password" class="form-control">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="text-right">
-                                                                                <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
-                                                                    <!-- Email Password Reset Link -->
-                                                                    <h4 class="text-center">Email <?php echo $std->name; ?> Password Reset Instructions</h4>
-                                                                    <div class="card-body">
-                                                                        <div class="text-center">
-                                                                            <a onClick="javascript:window.open('mailto:<?php echo $std->email; ?>?subject=Password Reset Link!&body=Hello <?php echo $std->name; ?> - <?php echo $std->admno; ?>, Kindly Click On Forgot Password Link Then Follow The Prompts', 'mail');event.preventDefault()" class="btn btn-primary" href="mailto:<?php echo $std->email; ?>">
-                                                                                Mail Password Reset Link And Instructions
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Suspend Modal -->
+                                                    <div class="modal fade" id="suspend-<?php echo $std->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM ACCOUNT SUSPEND</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body text-center text-danger">
+                                                                    <h4>Suspend <?php echo  $std->admno . " - " . $std->name; ?> Account ?</h4>
+                                                                    <br>
+                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                    <a href="students.php?suspend=<?php echo $std->id; ?>" class="text-center btn btn-danger">Yes Suspend Account </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Suspend -->
+
+                                                    <div class="modal fade" id="unsuspend-<?php echo $std->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title " id="exampleModalLabel">CONFIRM ACCOUNT RESTORATION</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body text-center text-danger">
+                                                                    <h4>UnSuspend <?php echo  $std->admno . " " . $std->name; ?> Account ?</h4>
+                                                                    <br>
+                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                    <a href="students.php?unsuspend=<?php echo $std->id; ?>" class="text-center btn btn-danger">Yes Unsuspend Account </a>
                                                                 </div>
                                                             </div>
                                                         </div>

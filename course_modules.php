@@ -275,7 +275,7 @@ require_once('public/partials/_head.php');
                                     </form>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module</button>
                                     <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-lg">
+                                        <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Fill All Required Values </h4>
@@ -438,7 +438,7 @@ require_once('public/partials/_head.php');
                                                                 </a>
                                                                 <!-- Update Module Modal -->
                                                                 <div class="modal fade" id="edit-modal-<?php echo $mod->id; ?>">
-                                                                    <div class="modal-dialog  modal-lg">
+                                                                    <div class="modal-dialog  modal-xl">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
                                                                                 <h4 class="modal-title">Fill All Required Values </h4>

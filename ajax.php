@@ -484,3 +484,42 @@ if (!empty($_POST["FacultyID"])) {
 <?php
     }
 }
+
+
+/* Optimized Course Module */
+if (!empty($_POST["ModuleCourseCode"])) {
+    $id = $_POST['ModuleCourseCode'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Courses WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['id']); ?>
+<?php
+    }
+}
+if (!empty($_POST["ModuleCourseID"])) {
+    $id = $_POST['ModuleCourseID'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Courses WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['name']); ?>
+<?php
+    }
+}
+if (!empty($_POST["ModuleCourseName"])) {
+    $id = $_POST['ModuleCourseName'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Courses WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['faculty_id']); ?>
+<?php
+    }
+}

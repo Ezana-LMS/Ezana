@@ -648,8 +648,8 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </div>
                                                 <!-- End Modal -->
-
-                                                <!-- Previledge Modal  -->
+                                                
+                                                <!-- Unsuspend -->
                                                 <div class="modal fade" id="unsuspend-<?php echo $admin->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">

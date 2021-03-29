@@ -145,6 +145,7 @@ require_once('public/partials/_reportshead.php');
                                             <th>Department Code / Number</th>
                                             <th>Department Name</th>
                                             <th>Depeartment Head</th>
+                                            <th>Department Faculty</th>
                                             <th>Number Of Courses</th>
                                         </tr>
                                     </thead>
@@ -161,6 +162,7 @@ require_once('public/partials/_reportshead.php');
                                                 <td><?php echo $dep->code; ?></td>
                                                 <td><?php echo $dep->name; ?></td>
                                                 <td><?php echo $dep->hod; ?></td>
+                                                <td><?php echo $dep->faculty_name;?></td>
                                                 <td>
                                                     <?php
                                                     $query = "SELECT COUNT(*)  FROM `ezanaLMS_Courses` WHERE department_id = '$dep->id' ";
