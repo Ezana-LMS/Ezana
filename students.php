@@ -484,9 +484,10 @@ require_once('public/partials/_head.php');
                                             <th>Adm No</th>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>ID/Passport</th>
-                                            <th>Gender</th>
+                                            <th>School</th>
+                                            <th>Department</th>
+                                            <th>Course</th>
+                                            <th>Year</th>
                                             <th>Manage</th>
                                         </tr>
                                     </thead>
@@ -503,9 +504,10 @@ require_once('public/partials/_head.php');
                                                 <td><?php echo $std->admno; ?></td>
                                                 <td><?php echo $std->name; ?></td>
                                                 <td><?php echo $std->email; ?></td>
-                                                <td><?php echo $std->phone; ?></td>
-                                                <td><?php echo $std->idno; ?></td>
-                                                <td><?php echo $std->gender; ?></td>
+                                                <td><?php echo $std->school; ?></td>
+                                                <td><?php echo $std->department; ?></td>
+                                                <td><?php echo $std->course; ?></td>
+                                                <td><?php echo $std->current_year; ?></td>
                                                 <td>
                                                     <a class="badge badge-success" data-toggle="modal" href="#view-student-<?php echo $std->id; ?>">
                                                         <i class="fas fa-user-graduate"></i>
@@ -587,10 +589,31 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                     <!-- End Modal -->
+
                                                     <a class="badge badge-primary" data-toggle="modal" href="#update-student-<?php echo $std->id; ?>">
                                                         <i class="fas fa-edit"></i>
                                                         Update
                                                     </a>
+                                                    <?php
+                                                    /* Suspend  */
+                                                    if ($std->acc_status == '') {
+                                                        echo
+                                                        "
+                                                        <a class='badge badge-danger' data-toggle='modal' href='#suspend-$std->id'>
+                                                            <i class='fas fa-user-clock'></i>
+                                                            Suspend
+                                                        </a>
+                                                        ";
+                                                    } else {
+                                                        echo
+                                                        "
+                                                        <a class='badge badge-success' data-toggle='modal' href='#unsuspend-$std->id'>
+                                                            <i class='fas fa-user-check'></i>
+                                                            UnSuspend
+                                                        </a>
+                                                        ";
+                                                    }
+                                                    ?>
                                                     <!-- Update Student Modal -->
                                                     <div class="modal fade" id="update-student-<?php echo $std->id; ?>">
                                                         <div class="modal-dialog  modal-xl">
@@ -704,6 +727,45 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Suspend Modal -->
+                                                    <div class="modal fade" id="suspend-<?php echo $std->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM ACCOUNT SUSPEND</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body text-center text-danger">
+                                                                    <h4>Suspend <?php echo  $std->admno . " " . $std->name; ?> Account ?</h4>
+                                                                    <br>
+                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                    <a href="students.php?suspend=<?php echo $std->id; ?>" class="text-center btn btn-danger"> Suspend Account </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Suspend -->
+
+                                                    <div class="modal fade" id="unsuspend-<?php echo $std->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title " id="exampleModalLabel">CONFIRM ACCOUNT RESTORATION</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body text-center text-danger">
+                                                                    <h4>UnSuspend <?php echo  $std->admno . " " . $std->name; ?> Account ?</h4>
+                                                                    <br>
+                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                    <a href="students.php?unsuspend=<?php echo $std->id; ?>" class="text-center btn btn-danger"> Unsuspend Account </a>
                                                                 </div>
                                                             </div>
                                                         </div>
