@@ -45,10 +45,12 @@ if (isset($_POST['add_course'])) {
             $details = $_POST['details'];
             $department_id = $_POST['department_id'];
             $department_name = $_POST['department_name'];
+            $faculty_id = $_POST['faculty_id'];
+            $faculty_name = $_POST['faculty_name'];
 
-            $query = "INSERT INTO ezanaLMS_Courses (id, code, name, details, department_id, department_name) VALUES(?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Courses (id, code, name,faculty_id, faculty_name,  details, department_id, department_name) VALUES(?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssss', $id, $code, $name, $details, $department_id, $department_name);
+            $rc = $stmt->bind_param('ssssssss', $id, $code, $name, $faculty_id, $faculty_name, $details, $department_id, $department_name);
             $stmt->execute();
             if ($stmt) {
                 $success = "Added" && header("refresh:1; url=department.php?view=$department_id");
@@ -304,7 +306,7 @@ require_once('public/partials/_head.php');
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
                                     </div>
                                     <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-lg">
+                                        <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Fill All Values </h4>
@@ -322,6 +324,8 @@ require_once('public/partials/_head.php');
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
                                                                     <input type="hidden" required name="faculty_id" value="<?php echo $department->faculty_id; ?>" class="form-control">
+                                                                    <input type="hidden" required name="faculty_name" value="<?php echo $department->faculty_name; ?>" class="form-control">
+
 
                                                                 </div>
                                                                 <div class="form-group col-md-4">
@@ -340,7 +344,7 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="card-footer">
+                                                        <div class="card-footer text-right">
                                                             <button type="submit" name="add_course" class="btn btn-primary">Add Course</button>
                                                         </div>
                                                     </form>
