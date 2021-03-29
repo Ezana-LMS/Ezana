@@ -65,78 +65,31 @@ if (isset($_POST['add_student'])) {
 
 /* Update Student */
 if (isset($_POST['update_student'])) {
-    //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['admno']) && !empty($_POST['admno'])) {
-        $admno = mysqli_real_escape_string($mysqli, trim($_POST['admno']));
-    } else {
-        $error = 1;
-        $err = "Admission  Number Cannot Be Empty";
-    }
-    if (isset($_POST['idno']) && !empty($_POST['idno'])) {
-        $idno = mysqli_real_escape_string($mysqli, trim($_POST['idno']));
-    } else {
-        $error = 1;
-        $err = "National ID / Passport Number Cannot Be Empty";
-    }
-    if (isset($_POST['email']) && !empty($_POST['email'])) {
-        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
-    } else {
-        $error = 1;
-        $err = "Email Cannot Be Empty";
-    }
-    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
-        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
-    } else {
-        $error = 1;
-        $err = "Phone Number Cannot Be Empty";
-    }
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $admno = $_POST['admno'];
+    $idno = $_POST['idno'];
+    $adr = $_POST['adr'];
+    $dob = $_POST['dob'];
+    $gender = $_POST['gender'];
+    $updated_at = date('d M Y');
+    $day_enrolled = $_POST['day_enrolled'];
+    $school = $_POST['school'];
+    $course = $_POST['course'];
+    $department = $_POST['department'];
+    $current_year = $_POST['current_year'];
+    $no_of_modules = $_POST['no_of_modules'];
 
     if (!$error) {
-        $day_enrolled = $_POST['date_enrolled'];
-        $school = $_POST['school'];
-        $course = $_POST['course'];
-        $department = $_POST['department'];
-        $current_year = $_POST['current_year'];
-        $no_of_modules = $_POST['no_of_modules'];
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-        $admno = $_POST['admno'];
-        $idno  = $_POST['idno'];
-        $adr = $_POST['adr'];
-        $dob = $_POST['dob'];
-        $gender = $_POST['gender'];
-        $updated_at = date('d M Y');
-        $profile_pic = $_FILES['profile_pic']['name'];
-        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
-
-        $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?, no_of_modules =?, name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =?, profile_pic =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?, no_of_modules =?, name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param(
-            'sssssssssssssssss',
-            $day_enrolled,
-            $school,
-            $course,
-            $department,
-            $current_year,
-            $no_of_modules,
-            $name,
-            $email,
-            $phone,
-            $admno,
-            $idno,
-            $adr,
-            $dob,
-            $gender,
-            $updated_at,
-            $profile_pic,
-            $id
-        );
+        $rc = $stmt->bind_param('ssssssssssssssss', $day_enrolled, $school, $course, $department, $current_year, $no_of_modules, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $updated_at, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Updated Profile" && header("refresh:1; url=students.php");
+            $success = "Student Add " && header("refresh:1; url=students.php");
         } else {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
@@ -596,12 +549,12 @@ require_once('public/partials/_head.php');
                                                     </a>
                                                     <?php
                                                     /* Suspend  */
-                                                    if ($std->acc_status == '') {
+                                                    if ($std->acc_status != 'Suspended') {
                                                         echo
                                                         "
                                                         <a class='badge badge-danger' data-toggle='modal' href='#suspend-$std->id'>
                                                             <i class='fas fa-user-clock'></i>
-                                                            Suspend
+                                                            Suspend Account
                                                         </a>
                                                         ";
                                                     } else {
@@ -609,7 +562,7 @@ require_once('public/partials/_head.php');
                                                         "
                                                         <a class='badge badge-success' data-toggle='modal' href='#unsuspend-$std->id'>
                                                             <i class='fas fa-user-check'></i>
-                                                            UnSuspend
+                                                            UnSuspend Account
                                                         </a>
                                                         ";
                                                     }
@@ -742,10 +695,10 @@ require_once('public/partials/_head.php');
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body text-center text-danger">
-                                                                    <h4>Suspend <?php echo  $std->admno . " " . $std->name; ?> Account ?</h4>
+                                                                    <h4>Suspend <?php echo  $std->admno . " - " . $std->name; ?> Account ?</h4>
                                                                     <br>
                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                    <a href="students.php?suspend=<?php echo $std->id; ?>" class="text-center btn btn-danger"> Suspend Account </a>
+                                                                    <a href="students.php?suspend=<?php echo $std->id; ?>" class="text-center btn btn-danger">Yes Suspend Account </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -765,7 +718,7 @@ require_once('public/partials/_head.php');
                                                                     <h4>UnSuspend <?php echo  $std->admno . " " . $std->name; ?> Account ?</h4>
                                                                     <br>
                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                    <a href="students.php?unsuspend=<?php echo $std->id; ?>" class="text-center btn btn-danger"> Unsuspend Account </a>
+                                                                    <a href="students.php?unsuspend=<?php echo $std->id; ?>" class="text-center btn btn-danger">Yes Unsuspend Account </a>
                                                                 </div>
                                                             </div>
                                                         </div>
