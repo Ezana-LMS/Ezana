@@ -348,7 +348,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label for="">Date Enrolled</label>
-                                                                <input type="text" required name="day_enrolled" class="form-control">
+                                                                <input type="text" placeholder="DD - MM - YYYY" required name="day_enrolled" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label for="">No Of Modules</label>
@@ -371,7 +371,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label for="">Date Of Birth</label>
-                                                                <input type="text" required name="dob" class="form-control">
+                                                                <input type="text" placeholder="DD - MM - YYYY" required name="dob" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label for="">Gender</label>

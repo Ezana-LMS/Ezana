@@ -96,6 +96,7 @@ if (isset($_POST['update_academic_details'])) {
     $department = $_POST['department'];
     $current_year = $_POST['current_year'];
     $no_of_modules = $_POST['no_of_modules'];
+    $id = $_POST['id'];
 
     if (!$error) {
         $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?, no_of_modules =? WHERE id =?";
@@ -110,6 +111,7 @@ if (isset($_POST['update_academic_details'])) {
         }
     }
 }
+
 require_once('public/partials/_head.php');
 ?>
 
