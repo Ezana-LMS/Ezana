@@ -462,7 +462,7 @@ require_once('public/partials/_head.php');
                                                 <td><?php echo $std->course; ?></td>
                                                 <td><?php echo $std->current_year; ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" data-toggle="modal" href="#view-student-<?php echo $std->id; ?>">
+                                                    <a class="badge badge-success"  href="student_profile.php?view=<?php echo $std->id; ?>">
                                                         <i class="fas fa-user-graduate"></i>
                                                         View
                                                     </a>
