@@ -188,7 +188,7 @@ if (isset($_GET['leave'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Suspended" && header("refresh:1; url=lecturers.php");
+        $success = "On Leave" && header("refresh:1; url=lecturers.php");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -203,7 +203,7 @@ if (isset($_GET['onwork'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Lecturer Is On OWK" && header("refresh:1; url=lecturers.php");
+        $success = "Lecturer Is On Work" && header("refresh:1; url=lecturers.php");
     } else {
         $info = "Please Try Again Or Try Later";
     }

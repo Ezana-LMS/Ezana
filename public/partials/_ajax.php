@@ -83,6 +83,15 @@
                 $('#DepFacID').val(data);
             }
         });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepFacID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepFacName').val(data);
+            }
+        });
     }
 
     /* getAllocatedModuleDetails */
@@ -326,6 +335,46 @@
             type: "POST",
             url: "ajax.php",
             data: 'FacultyCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#FacultyID').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'FacultyID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#FacultyName').val(data);
+            }
+        });
+    }
+
+    /*Student Educational Details  */
+    function getStudentCourseDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'CourseCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#CourseName').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'CourseName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepartmentName').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepartmentName=' + val,
             success: function(data) {
                 //alert(data);
                 $('#FacultyID').val(data);

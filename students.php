@@ -58,6 +58,12 @@ if (isset($_POST['add_student'])) {
             }
         } else {
             $faculty = $_POST['faculty'];
+            $day_enrolled = $_POST['date_enrolled'];
+            $school = $_POST['school'];
+            $course = $_POST['course'];
+            $department = $_POST['department'];
+            $current_year = $_POST['current_year'];
+            $no_of_modules = $_POST['no_of_modules'];
             $id = $_POST['id'];
             $name = $_POST['name'];
             $email = $_POST['email'];
@@ -73,9 +79,32 @@ if (isset($_POST['add_student'])) {
             $profile_pic = $_FILES['profile_pic']['name'];
             move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
 
-            $query = "INSERT INTO ezanaLMS_Students (id, faculty_id,  name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, no_of_modules, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic)
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssssssssss', $id, $faculty,  $name, $email, $phone, $admno,  $idno, $adr, $dob, $gender, $acc_status, $created_at, $password,  $profile_pic);
+            $rc = $stmt->bind_param(
+                'ssssssssssssssssssss',
+                $id,
+                $faculty,
+                $day_enrolled,
+                $school,
+                $course,
+                $department,
+                $current_year,
+                $no_of_modules,
+                $name,
+                $email,
+                $phone,
+                $admno,
+                $idno,
+                $adr,
+                $dob,
+                $gender,
+                $acc_status,
+                $created_at,
+                $password,
+                $profile_pic
+            );
             $stmt->execute();
             if ($stmt) {
                 $success = "Student Add " && header("refresh:1; url=students.php");
@@ -118,6 +147,12 @@ if (isset($_POST['update_student'])) {
     }
 
     if (!$error) {
+        $day_enrolled = $_POST['date_enrolled'];
+        $school = $_POST['school'];
+        $course = $_POST['course'];
+        $department = $_POST['department'];
+        $current_year = $_POST['current_year'];
+        $no_of_modules = $_POST['no_of_modules'];
         $id = $_POST['id'];
         $name = $_POST['name'];
         $email = $_POST['email'];
@@ -127,14 +162,14 @@ if (isset($_POST['update_student'])) {
         $adr = $_POST['adr'];
         $dob = $_POST['dob'];
         $gender = $_POST['gender'];
-        $acc_status = $_POST['acc_status'];
         $updated_at = date('d M Y');
         $profile_pic = $_FILES['profile_pic']['name'];
         move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
 
-        $query = "UPDATE ezanaLMS_Students SET name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, acc_status =?, updated_at =?, profile_pic =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?, no_of_modules =?, name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =?, profile_pic =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssssssss', $name, $email, $phone, $admno,  $idno, $adr, $dob, $gender, $acc_status, $updated_at, $profile_pic, $id);
+        $rc = $stmt->bind_param('sssssssssssssssss', 
+        $day_enrolled, $school, $course, $department, $current_year, $no_of_modules, $name, $email, $phone, $admno,  $idno, $adr, $dob, $gender, $updated_at, $profile_pic, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Updated Profile" && header("refresh:1; url=students.php");
@@ -178,6 +213,36 @@ if (isset($_POST['change_password'])) {
                 $err = "Please Try Again Or Try Later";
             }
         }
+    }
+}
+
+/* Suspend Account */
+if (isset($_GET['suspend'])) {
+    $suspend = $_GET['suspend'];
+    $adn = "UPDATE  ezanaLMS_Students SET acc_status = 'Suspended' WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $suspend);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Suspended" && header("refresh:1; url=students.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* UnSuspend Account */
+if (isset($_GET['unsuspend'])) {
+    $unsuspend = $_GET['unsuspend'];
+    $adn = "UPDATE  ezanaLMS_Students SET acc_status = 'Active' WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $unsuspend);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Un Suspended" && header("refresh:1; url=students.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
     }
 }
 
@@ -320,7 +385,7 @@ require_once('public/partials/_head.php');
                                 </div>
                                 <!-- Add Student Modal -->
                                 <div class="modal fade" id="modal-default">
-                                    <div class="modal-dialog  modal-lg">
+                                    <div class="modal-dialog  modal-xl">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Fill All Values </h4>
@@ -333,21 +398,45 @@ require_once('public/partials/_head.php');
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
-                                                                <label for="">Faculty Name</label>
-                                                                <select class='form-control basic' id="FacultyName" onchange="getFacutyDetails(this.value);">
-                                                                    <option selected>Select Faculty Name </option>
+                                                                <label for="">Course Enrolled</label>
+                                                                <select class='form-control basic' id="CourseCode" onchange="getStudentCourseDetails(this.value);">
+                                                                    <option selected>Select Course Code </option>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
-                                                                    while ($row = $res->fetch_object()) {
+                                                                    while ($courses = $res->fetch_object()) {
                                                                     ?>
-                                                                        <option><?php echo $row->name; ?></option>
+                                                                        <option><?php echo $courses->code; ?></option>
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
-                                                            <input type="hidden" required name="faculty" id="FacultyId" class="form-control">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Course Name</label>
+                                                                <input type="text" required name="course" class="form-control" id="CourseName">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Department Name</label>
+                                                                <input type="text" required name="department" class="form-control" id="DepartmentName">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty / School Name</label>
+                                                                <input type="text" required name="school" class="form-control" id="FacultyName">
+                                                                <input type="hidden" required name="faculty_id" class="form-control" id="FacultyID">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Current Year</label>
+                                                                <input type="text" required name="current_year" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Date Enrolled</label>
+                                                                <input type="text" required name="day_enrolled" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">No Of Modules</label>
+                                                                <input type="text" required name="no_of_modules" class="form-control">
+                                                            </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Name</label>
                                                                 <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
@@ -403,7 +492,7 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
-                                                                <label for="exampleInputPassword1">Address</label>
+                                                                <label for="exampleInputPassword1">Current Address</label>
                                                                 <textarea required name="adr" rows="3" class="form-control"></textarea>
                                                             </div>
                                                         </div>
