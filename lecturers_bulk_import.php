@@ -5,6 +5,139 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 /* Bulk Import Lecturers Via .XLS  */
+
+/* Import Birth Registration Files From Excel Sheets */
+use EzanaLmsAPI\DataSource;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
+require_once('../config/DataSource.php');
+$db = new DataSource();
+$conn = $db->getConnection();
+require_once('../vendor/autoload.php');
+
+if (isset($_POST["upload"])) {
+
+    $allowedFileType = [
+        'application/vnd.ms-excel',
+        'text/xls',
+        'text/xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ];
+
+    /* Where Magic Happens */
+
+    if (in_array($_FILES["file"]["type"], $allowedFileType)) {
+
+        $targetPath = '../public/uploads/xls/' . $_FILES['file']['name'];
+        move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
+
+        $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+
+        $spreadSheet = $Reader->load($targetPath);
+        $excelSheet = $spreadSheet->getActiveSheet();
+        $spreadSheetAry = $excelSheet->toArray();
+        $sheetCount = count($spreadSheetAry);
+
+        for ($i = 1; $i <= $sheetCount; $i++) {
+
+            $id = "";
+            if (isset($spreadSheetAry[$i][0])) {
+                $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
+            }
+
+            $number = "";
+            if (isset($spreadSheetAry[$i][1])) {
+                $number = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
+            }
+
+            $name = "";
+            if (isset($spreadSheetAry[$i][2])) {
+                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
+            }
+
+            $idno = "";
+            if (isset($spreadSheetAry[$i][3])) {
+                $idno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
+            }
+
+            $phone = "";
+            if (isset($spreadSheetAry[$i][4])) {
+                $phone = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
+            }
+
+            $email = "";
+            if (isset($spreadSheetAry[$i][5])) {
+                $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
+            }
+
+            $adr = "";
+            if (isset($spreadSheetAry[$i][6])) {
+                $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
+            }
+
+            
+            $work_email = "";
+            if (isset($spreadSheetAry[$i][7])) {
+                $work_email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
+            }
+
+            $gender = "";
+            if (isset($spreadSheetAry[$i][8])) {
+                $gender = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
+            }
+
+            $employee_id = "";
+            if (isset($spreadSheetAry[$i][9])) {
+                $employee_id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
+            }
+
+            $date_employed = "";
+            if (isset($spreadSheetAry[$i][10])) {
+                $date_employed = mysqli_real_escape_string($conn, $spreadSheetAry[$i][10]);
+            }
+
+            /* Constant Values */
+            $faculty_id = $_POST['faculty_id'];
+            $faculty_name = $_POST['faculty_name'];
+            $created_at = date("d M Y");
+
+            /* Default Lecturer Account Password */
+            $password = sha1(md5("Lecturer"));
+
+
+            if (!empty($name) || !empty($employee_id) || !empty($idno) || !empty($email) || !empty($number)) {
+                $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, gender, faculty_name, work_email, employee_id, date_employed, name, email, phone, idno, adr, created_at, password, number) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $paramType = "sssssssssssssss";
+                $paramArray = array(
+                    $id,
+                    $faculty_id,
+                    $gender,
+                    $faculty_name,
+                    $work_email,
+                    $employee_id,
+                    $date_employed,
+                    $name,
+                    $email,
+                    $phone,
+                    $idno,
+                    $adr,
+                    $created_at,
+                    $password,
+                    $number                   
+                );
+                $insertId = $db->insert($query, $paramType, $paramArray);
+                if (!empty($insertId)) {
+                    $err = "Error Occured While Importing Data";
+                } else {
+                    $success = "Data Imported" && header("refresh:1; url=lecturers_bulk_import.php");
+                }
+            }
+        }
+    } else {
+        $info = "Invalid File Type. Upload Excel File.";
+    }
+}
+
 /* Add Lects */
 if (isset($_POST['add_lec'])) {
     //Error Handling and prevention of posting double entries
