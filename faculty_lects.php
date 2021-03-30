@@ -5,7 +5,7 @@ require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
 
-/* Import Lec Via Excel Sheets */
+/* Bulk Import Lecturers Via .XLS  */
 
 use EzanaLmsAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -15,7 +15,6 @@ $db = new DataSource();
 $conn = $db->getConnection();
 require_once('vendor/autoload.php');
 
-
 if (isset($_POST["upload"])) {
 
     $allowedFileType = [
@@ -24,6 +23,8 @@ if (isset($_POST["upload"])) {
         'text/xlsx',
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     ];
+
+    /* Where Magic Happens */
 
     if (in_array($_FILES["file"]["type"], $allowedFileType)) {
 
@@ -48,6 +49,7 @@ if (isset($_POST["upload"])) {
             if (isset($spreadSheetAry[$i][1])) {
                 $number = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
             }
+
             $name = "";
             if (isset($spreadSheetAry[$i][2])) {
                 $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
@@ -73,40 +75,67 @@ if (isset($_POST["upload"])) {
                 $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
             }
 
-            /* $password = "";
-            if (isset($spreadSheetAry[$i][7])) {
-                $password = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
-            } */
 
-
-            $created_at = "";
+            $work_email = "";
             if (isset($spreadSheetAry[$i][7])) {
-                $created_at = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
+                $work_email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
             }
 
-            /* Get Faculty ID From Url */
+            $gender = "";
+            if (isset($spreadSheetAry[$i][8])) {
+                $gender = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
+            }
 
-            $facuty_id = $_GET['view'];
+            $employee_id = "";
+            if (isset($spreadSheetAry[$i][9])) {
+                $employee_id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
+            }
 
-            if (!empty($id) || !empty($number) || !empty($name) || !empty($email) || !empty($adr)) {
-                $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, number, name, idno, phone, email, adr,created_at) VALUES(?,?,?,?,?,?,?,?,?)";
-                $paramType = "sssssssss";
+            $date_employed = "";
+            if (isset($spreadSheetAry[$i][10])) {
+                $date_employed = mysqli_real_escape_string($conn, $spreadSheetAry[$i][10]);
+            }
+
+            $status = "";
+            if (isset($spreadSheetAry[$i][11])) {
+                $status = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
+            }
+
+            /* Constant Values */
+            $view = $_POST['view'];
+            $faculty_name = $_POST['faculty_name'];
+            $created_at = date("d M Y");
+
+            /* Default Lecturer Account Password */
+            $password = sha1(md5("Lecturer"));
+
+
+            if (!empty($name) || !empty($employee_id) || !empty($idno) || !empty($email) || !empty($number)) {
+                $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, gender, faculty_name, work_email, employee_id, date_employed, name, email, phone, idno, adr, created_at, password, number, status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $paramType = "ssssssssssssssss";
                 $paramArray = array(
                     $id,
-                    $facuty_id,
-                    $number,
+                    $view,
+                    $gender,
+                    $faculty_name,
+                    $work_email,
+                    $employee_id,
+                    $date_employed,
                     $name,
-                    $idno,
-                    $phone,
                     $email,
+                    $phone,
+                    $idno,
                     $adr,
-                    $created_at
+                    $created_at,
+                    $password,
+                    $number,
+                    $status
                 );
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
                     $err = "Error Occured While Importing Data";
                 } else {
-                    $success = "Excel Data Imported into the Database";
+                    $success = "Data Imported" && header("refresh:1; url=faculty_lects.php?view=$view");
                 }
             }
         }
@@ -255,14 +284,14 @@ if (isset($_POST['update_lec'])) {
 /* On Leave */
 if (isset($_GET['leave'])) {
     $leave = $_GET['leave'];
-    $faculty_id = $_GET['faculty_id'];
+    $view = $_GET['view'];
     $adn = "UPDATE  ezanaLMS_Lecturers SET status = 'On Leave' WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $leave);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Lecturer On Leave" && header("refresh:1; url=faculty_lects.php?view=$faculty_id");;
+        $success = "Lecturer On Leave" && header("refresh:1; url=faculty_lects.php?view=$view");;
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -271,14 +300,14 @@ if (isset($_GET['leave'])) {
 /* On Work */
 if (isset($_GET['onwork'])) {
     $onwork = $_GET['onwork'];
-    $faculty_id = $_GET['faculty_id'];
+    $view = $_GET['view'];
     $adn = "UPDATE  ezanaLMS_Lecturers SET status = 'On Work' WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $onwork);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Lecturer On Work" && header("refresh:1; url=faculty_lects.php?view=$faculty_id");;
+        $success = "Lecturer On Work" && header("refresh:1; url=faculty_lects.php?view=$view");;
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -533,13 +562,11 @@ require_once('public/partials/_head.php');
                                         </div>
                                     </div>
                                     <!-- End Modal -->
-                                    <!-- Import Lecturer Modal -->
-                                    <!-- Import Lecs Modal -->
                                     <div class="modal fade" id="modal-import-lecs">
                                         <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title text-danger">To Import Lecturers, First Download Excel Template</h4>
+                                                    <h4 class="modal-title text-danger">Bulk Import Lecturers</h4>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -549,19 +576,14 @@ require_once('public/partials/_head.php');
                                                         <div class="card-body">
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
-                                                                    <label for="exampleInputFile">Download Excel Template</label>
-                                                                    <div class="input-group">
-                                                                        <div class="custom-file">
-                                                                            <a href="public/templates/lecturers.xls" class="btn btn-primary">Download Template</a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group col-md-12">
                                                                     <label for="exampleInputFile">Select File</label>
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
                                                                             <input required name="file" accept=".xls,.xlsx" type="file" class="custom-file-input" id="exampleInputFile">
                                                                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                            <!-- Hidden Values -->
+                                                                            <input type="hidden" required name="faculty_name" class="form-control" value="<?php echo $faculty->name; ?>">
+                                                                            <input type="hidden" required name="view" class="form-control" value="<?php echo $faculty->id; ?>">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -795,7 +817,7 @@ require_once('public/partials/_head.php');
                                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
-                                                                                <h5 class="modal-title " id="exampleModalLabel">Update <?php echo $lec->name; ?> Leave Status</h5>
+                                                                                <h5 class="modal-title " id="exampleModalLabel">CONFIRM LEAVE STATUS</h5>
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                     <span aria-hidden="true">&times;</span>
                                                                                 </button>
@@ -804,7 +826,7 @@ require_once('public/partials/_head.php');
                                                                                 <h4>Give <?php echo $lec->name; ?> Leave ?</h4>
                                                                                 <br>
                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="faculty_lects.php?leave=<?php echo $lec->id; ?>&faculty_id=<?php echo $view;?>" class="text-center btn btn-danger"> Yes </a>
+                                                                                <a href="faculty_lects.php?leave=<?php echo $lec->id; ?>&view=<?php echo $view; ?>" class="text-center btn btn-danger"> Yes </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -817,7 +839,7 @@ require_once('public/partials/_head.php');
                                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
-                                                                                <h5 class="modal-title " id="exampleModalLabel"><?php echo $lec->name; ?> On Leave Status </h5>
+                                                                                <h5 class="modal-title " id="exampleModalLabel">CONFIRM LEAVE STATUS</h5>
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                     <span aria-hidden="true">&times;</span>
                                                                                 </button>
@@ -825,7 +847,7 @@ require_once('public/partials/_head.php');
                                                                             <div class="modal-body text-center text-danger">
                                                                                 <h4>Set <?php echo $lec->name; ?> To Be On Work ?</h4>
                                                                                 <br>
-                                                                                <a href="faculty_lects.php?onwork=<?php echo $lec->id; ?>&faculty_id=<?php echo $view;?>" class="text-center btn btn-success"> Confirm </a>
+                                                                                <a href="faculty_lects.php?onwork=<?php echo $lec->id; ?>&view=<?php echo $view; ?>" class="text-center btn btn-success"> Confirm </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
