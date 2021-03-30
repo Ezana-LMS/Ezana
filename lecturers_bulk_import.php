@@ -480,7 +480,7 @@ require_once('public/partials/_head.php');
                     <hr>
                     <div class="row">
                         <div class="col-12">
-                            <h4 class="text-center">Select On Any Faculty To Import Lecturers To</h4>
+                            <h4 class="text-center">Select On Any Faculty To Import Lecturers </h4>
                             <table id="example1" class=" table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -520,6 +520,9 @@ require_once('public/partials/_head.php');
                                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                                     <div class="card-body">
                                                                         <div class="row">
+                                                                            <div class="form-group text-center col-md-12">
+                                                                                <label for="exampleInputFile">Allowed File Types: XLS, XLSX. Please, <a href="public/templates/ezanaLMS_Lecturers_XLS_Template.xlsx">Download</a> A Sample File. </label>
+                                                                            </div>
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="exampleInputFile">Select File</label>
                                                                                 <div class="input-group">
