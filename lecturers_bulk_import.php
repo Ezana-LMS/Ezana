@@ -4,16 +4,16 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+
 /* Bulk Import Lecturers Via .XLS  */
 
-/* Import Birth Registration Files From Excel Sheets */
 use EzanaLmsAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
-require_once('../config/DataSource.php');
+require_once('configs/DataSource.php');
 $db = new DataSource();
 $conn = $db->getConnection();
-require_once('../vendor/autoload.php');
+require_once('vendor/autoload.php');
 
 if (isset($_POST["upload"])) {
 
@@ -28,7 +28,7 @@ if (isset($_POST["upload"])) {
 
     if (in_array($_FILES["file"]["type"], $allowedFileType)) {
 
-        $targetPath = '../public/uploads/xls/' . $_FILES['file']['name'];
+        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $_FILES['file']['name'];
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -75,7 +75,7 @@ if (isset($_POST["upload"])) {
                 $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
             }
 
-            
+
             $work_email = "";
             if (isset($spreadSheetAry[$i][7])) {
                 $work_email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
@@ -123,7 +123,7 @@ if (isset($_POST["upload"])) {
                     $adr,
                     $created_at,
                     $password,
-                    $number                   
+                    $number
                 );
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
@@ -497,7 +497,7 @@ require_once('public/partials/_head.php');
                                             <td><?php echo $faculty->name; ?></td>
                                             <td>
                                                 <a class="badge badge-primary" data-toggle="modal" href="#edit-faculty-<?php echo $faculty->id; ?>">
-                                                    <i class="fas fa-edit"></i>
+                                                    <i class="fas fa-file-upload"></i>
                                                     Import Lecturers
                                                 </a>
                                                 <!-- Update Faculty Modal -->
@@ -520,6 +520,9 @@ require_once('public/partials/_head.php');
                                                                                     <div class="custom-file">
                                                                                         <input required name="file" accept=".xls,.xlsx" type="file" class="custom-file-input" id="exampleInputFile">
                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                                        <!-- Hidden Values -->
+                                                                                        <input type="hidden" required name="faculty_name" class="form-control" value="<?php echo $faculty->name; ?>">
+                                                                                        <input type="hidden" required name="faculty_id" class="form-control" value="<?php echo $faculty->id; ?>">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
