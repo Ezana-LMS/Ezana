@@ -4,7 +4,6 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
-
 /* Add Lects */
 if (isset($_POST['add_lec'])) {
     //Error Handling and prevention of posting double entries
@@ -342,7 +341,9 @@ require_once('public/partials/_head.php');
                             <form class="form-inline">
                             </form>
                             <div class="text-left">
+                                <a class="btn btn-primary" href="lecturers_bulk_import.php">Bulk Import Lecturers</a>
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">Add Lecturer</button>
+
                             </div>
                             <!-- Add Lec Modal -->
                             <div class="modal fade" id="modal-default">
