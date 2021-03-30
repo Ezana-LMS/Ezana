@@ -33,7 +33,7 @@ if (isset($_POST['add_school_calendar'])) {
         $error = 1;
         $err = "Semester Closing  Dates Cannot Be Empty";
     }
-    if (isset($_POST['view']) && !empty($_POST['view'])) {
+    if (isset($_GET['view']) && !empty($_GET['view'])) {
         $view = mysqli_real_escape_string($mysqli, trim($_GET['view']));
     } else {
         $error = 1;
