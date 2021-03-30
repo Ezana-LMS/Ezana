@@ -98,7 +98,7 @@ if (isset($_POST["upload"])) {
 
             $status = "";
             if (isset($spreadSheetAry[$i][11])) {
-                $date_employed = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
+                $status = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
             }
 
             /* Constant Values */
@@ -486,7 +486,7 @@ require_once('public/partials/_head.php');
                                     <tr>
                                         <th>Faculty Code Number</th>
                                         <th>Faculty Name</th>
-                                        <th>Manage</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
