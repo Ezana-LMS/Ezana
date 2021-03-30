@@ -189,7 +189,7 @@ if (isset($_POST['add_lec'])) {
             $rc = $stmt->bind_param('ssssssssssssssss', $id, $faculty_id, $gender, $faculty_name, $work_email, $employee_id, $date_employed, $name, $email, $phone, $idno, $adr, $profile_pic, $created_at, $password, $number);
             $stmt->execute();
             if ($stmt) {
-                $success = "Lecturer Added";
+                $success = "Lecturer Added" && header("refresh:1; url=faculty_lects.php?view=$faculty_id");;
             } else {
                 //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";
@@ -244,7 +244,7 @@ if (isset($_POST['update_lec'])) {
         $rc = $stmt->bind_param('sssssssssss', $name,  $gender, $work_email, $employee_id, $date_employed, $email, $phone, $idno, $adr, $number, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Lecturer Updated" && header("refresh:0;");
+            $success = "Lecturer Added" && header("refresh:1; url=faculty_lects.php?view=$faculty_id");;
         } else {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
@@ -255,13 +255,14 @@ if (isset($_POST['update_lec'])) {
 /* On Leave */
 if (isset($_GET['leave'])) {
     $leave = $_GET['leave'];
+    $faculty_id = $_GET['faculty_id'];
     $adn = "UPDATE  ezanaLMS_Lecturers SET status = 'On Leave' WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $leave);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "On Leave" && header("refresh:0");
+        $success = "Lecturer On Leave" && header("refresh:1; url=faculty_lects.php?view=$faculty_id");;
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -270,13 +271,14 @@ if (isset($_GET['leave'])) {
 /* On Work */
 if (isset($_GET['onwork'])) {
     $onwork = $_GET['onwork'];
+    $faculty_id = $_GET['faculty_id'];
     $adn = "UPDATE  ezanaLMS_Lecturers SET status = 'On Work' WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $onwork);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Lecturer Is On Work" && header("refresh:0");
+        $success = "Lecturer On Work" && header("refresh:1; url=faculty_lects.php?view=$faculty_id");;
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -435,7 +437,7 @@ require_once('public/partials/_head.php');
                                     </div>
                                     <!-- Add Lecturer Modal -->
                                     <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-lg">
+                                        <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Fill All Values </h4>
@@ -447,11 +449,22 @@ require_once('public/partials/_head.php');
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <div class="form-group col-md-4">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Faculty Name</label>
+                                                                    <input type="text" required name="faculty_name" class="form-control" value="<?php echo $faculty->name; ?>">
+                                                                    <input type="hidden" required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">Name</label>
                                                                     <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <input type="hidden" required name="view" value="<?php echo $faculty->id; ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Gender</label>
+                                                                    <select class='form-control basic' name="gender">
+                                                                        <option selected>Male</option>
+                                                                        <option>Female</option>
+                                                                    </select>
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="">Number</label>
@@ -463,20 +476,33 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Email</label>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Personal Email</label>
                                                                     <input type="email" required name="email" class="form-control">
                                                                 </div>
-                                                                <div class="form-group col-md-6">
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Work Email</label>
+                                                                    <input type="email" required name="work_email" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
                                                                     <label for="">Phone Number</label>
                                                                     <input type="text" required name="phone" class="form-control">
                                                                 </div>
                                                             </div>
 
                                                             <div class="row">
+
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="">Password</label>
-                                                                    <input type="text" value="<?php echo $defaultPass; ?>" required name="password" class="form-control">
+                                                                    <label for="">Default Password</label>
+                                                                    <input type="text" value="Lecturer" required name="password" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Employee ID</label>
+                                                                    <input type="text" required name="employee_id" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Date Employed</label>
+                                                                    <input type="text" required name="date_employed" placeholder="DD - MM - YYYY" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Profile Picture</label>
@@ -491,11 +517,11 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Address</label>
-                                                                    <textarea required name="adr" rows="5" class="form-control"></textarea>
+                                                                    <textarea required name="adr" rows="2" class="form-control"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="text-right">
+                                                        <div class="card-footer text-right">
                                                             <button type="submit" name="add_lec" class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </form>
@@ -636,20 +662,20 @@ require_once('public/partials/_head.php');
                                                                 if ($lec->status == 'On Leave') {
                                                                     echo
                                                                     "
-                                                        <a class='badge badge-danger' data-toggle='modal' href='#onwork-$lec->id'>
-                                                            <i class='fas fa-user-lock'></i>
-                                                            On Leave
-                                                        </a>
+                                                                        <a class='badge badge-danger' data-toggle='modal' href='#onwork-$lec->id'>
+                                                                            <i class='fas fa-user-lock'></i>
+                                                                            On Leave
+                                                                        </a>
 
-                                                        ";
+                                                                        ";
                                                                 } else {
                                                                     echo
                                                                     "
-                                                        <a class='badge badge-primary' data-toggle='modal' href='#leave-$lec->id'>
-                                                            <i class='fas fa-user-check'></i>
-                                                            On Work
-                                                        </a>
-                                                        ";
+                                                                        <a class='badge badge-primary' data-toggle='modal' href='#leave-$lec->id'>
+                                                                            <i class='fas fa-user-check'></i>
+                                                                            On Work
+                                                                        </a>
+                                                                        ";
                                                                 }
                                                                 ?>
                                                                 <!-- Update Lec Modal -->
@@ -778,7 +804,7 @@ require_once('public/partials/_head.php');
                                                                                 <h4>Give <?php echo $lec->name; ?> Leave ?</h4>
                                                                                 <br>
                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="lecturers.php?leave=<?php echo $lec->id; ?>" class="text-center btn btn-danger"> Yes </a>
+                                                                                <a href="faculty_lects.php?leave=<?php echo $lec->id; ?>&faculty_id=<?php echo $view;?>" class="text-center btn btn-danger"> Yes </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -799,7 +825,7 @@ require_once('public/partials/_head.php');
                                                                             <div class="modal-body text-center text-danger">
                                                                                 <h4>Set <?php echo $lec->name; ?> To Be On Work ?</h4>
                                                                                 <br>
-                                                                                <a href="lecturers.php?onwork=<?php echo $lec->id; ?>" class="text-center btn btn-success"> Confirm </a>
+                                                                                <a href="faculty_lects.php?onwork=<?php echo $lec->id; ?>&faculty_id=<?php echo $view;?>" class="text-center btn btn-success"> Confirm </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
