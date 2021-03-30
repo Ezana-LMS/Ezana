@@ -96,6 +96,11 @@ if (isset($_POST["upload"])) {
                 $date_employed = mysqli_real_escape_string($conn, $spreadSheetAry[$i][10]);
             }
 
+            $status = "";
+            if (isset($spreadSheetAry[$i][11])) {
+                $date_employed = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
+            }
+
             /* Constant Values */
             $faculty_id = $_POST['faculty_id'];
             $faculty_name = $_POST['faculty_name'];
@@ -106,8 +111,8 @@ if (isset($_POST["upload"])) {
 
 
             if (!empty($name) || !empty($employee_id) || !empty($idno) || !empty($email) || !empty($number)) {
-                $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, gender, faculty_name, work_email, employee_id, date_employed, name, email, phone, idno, adr, created_at, password, number) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                $paramType = "sssssssssssssss";
+                $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, gender, faculty_name, work_email, employee_id, date_employed, name, email, phone, idno, adr, created_at, password, number, status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $paramType = "ssssssssssssssss";
                 $paramArray = array(
                     $id,
                     $faculty_id,
@@ -123,7 +128,8 @@ if (isset($_POST["upload"])) {
                     $adr,
                     $created_at,
                     $password,
-                    $number
+                    $number,
+                    $status
                 );
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
