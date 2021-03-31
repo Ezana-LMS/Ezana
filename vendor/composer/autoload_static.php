@@ -83,6 +83,7 @@ class ComposerStaticInita1d19bcf2032dd363495d62981dac563
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'M' => 
         array (
@@ -122,6 +123,10 @@ class ComposerStaticInita1d19bcf2032dd363495d62981dac563
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
         ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
         'MyCLabs\\Enum\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
@@ -158,6 +163,7 @@ class ComposerStaticInita1d19bcf2032dd363495d62981dac563
         'Coderatio\\SimpleBackup\\Foundation\\TypeAdapterPgsql' => __DIR__ . '/..' . '/coderatio/simple-backup/src/Foundation/Mysqldump.php',
         'Coderatio\\SimpleBackup\\Foundation\\TypeAdapterSqlite' => __DIR__ . '/..' . '/coderatio/simple-backup/src/Foundation/Mysqldump.php',
         'Coderatio\\SimpleBackup\\SimpleBackup' => __DIR__ . '/..' . '/coderatio/simple-backup/src/SimpleBackup.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
