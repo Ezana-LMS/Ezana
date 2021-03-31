@@ -42,6 +42,8 @@ if (isset($_POST['change_password'])) {
         $err = "Confirmation Password Cannot Be Empty";
     }
 
+    $mailed_password = $_POST['confirm_password'];
+
     if (!$error) {
         if ($_POST['new_password'] != $_POST['confirm_password']) {
             $err = "Passwords Do Not Match";
@@ -52,7 +54,19 @@ if (isset($_POST['change_password'])) {
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ss', $new_password, $view);
             $stmt->execute();
-            if ($stmt) {
+            /* Email User New Password */
+            $recipientEmail = $_POST['email'];
+            $emailSubject = "Password Reset Mail";
+            $emailContext = "Hey, This is Your New Password: $mailed_password";
+
+            /* Use This When You Wanna Do cc And Bcc */
+            $emailHeaders = "Cc: " . "\r\n";
+            $emailHeaders .= "Bcc: " . "\r\n"; 
+
+            /* Change This To Defaulty System Mail */
+            $fromAddress = "martdevelopers254@gmail.com";
+            $emailStatus = mail($recipientEmail, $emailSubject, $emailContext, $emailHeaders, $fromAddress);
+            if ($emailStatus && $stmt) {
                 $success = "Password Changed" && header("Refresh: 0");
             } else {
                 $err = "Please Try Again Or Try Later";
@@ -494,6 +508,7 @@ require_once('public/partials/_head.php');
                                                         <label for="inputName2" class="col-sm-2 col-form-label">Confirm New Password</label>
                                                         <div class="col-sm-10">
                                                             <input type="password" name="confirm_password" required class="form-control" id="inputName2">
+                                                            <input type="hidden" name="email" required class="form-control" value="<?php echo $lec->email;?>">
                                                         </div>
                                                     </div>
                                                     <div class="form-group text-right row">

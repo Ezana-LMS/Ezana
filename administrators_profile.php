@@ -64,13 +64,13 @@ if (isset($_POST['change_password'])) {
             $emailSubject = "Password Reset Mail";
             $emailContext = "Hey, This is Your New Password: $mailed_password";
 
-            /* Use This When You Wanna Do cc And Bcc 
-            $emailHeaders = "Cc: Replace email address" . "\r\n";
-            $emailHeaders .= "Bcc: Replace email address" . "\r\n"; */
+            /* Use This When You Wanna Do cc And Bcc */
+            $emailHeaders = "Cc: " . "\r\n";
+            $emailHeaders .= "Bcc: " . "\r\n"; 
 
             /* Change This To Defaulty System Mail */
             $fromAddress = "martdevelopers254@gmail.com";
-            $emailStatus = mail($recipientEmail, $emailSubject, $emailContext, $fromAddress);
+            $emailStatus = mail($recipientEmail, $emailSubject, $emailContext, $emailHeaders, $fromAddress);
             if ($emailStatus && $stmt) {
                 $success = "Password Changed" && header("Refresh: 0");
             } else {
@@ -691,6 +691,8 @@ require_once('public/partials/_head.php');
                                                         <label for="inputName2" class="col-sm-2 col-form-label">Confirm New Password</label>
                                                         <div class="col-sm-10">
                                                             <input type="password" name="confirm_password" required class="form-control" id="inputName2">
+                                                            <input type="hidden" name="email" required class="form-control" value="<?php echo $admin->email; ?>">
+
                                                         </div>
                                                     </div>
                                                     <div class="form-group text-right row">
