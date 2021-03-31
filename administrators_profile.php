@@ -65,12 +65,12 @@ if (isset($_POST['change_password'])) {
             $emailContext = "Hey, This is Your New Password: $mailed_password";
 
             /* Use This When You Wanna Do cc And Bcc */
-            $emailHeaders = "Cc: " . "\r\n";
-            $emailHeaders .= "Bcc: " . "\r\n"; 
+           /*  $emailHeaders = "Cc: " . "\r\n";
+            $emailHeaders .= "Bcc: " . "\r\n";  */
 
             /* Change This To Defaulty System Mail */
-            $fromAddress = "martdevelopers254@gmail.com";
-            $emailStatus = mail($recipientEmail, $emailSubject, $emailContext, $emailHeaders, $fromAddress);
+            $fromAddress = "";
+            $emailStatus = mail($recipientEmail, $emailSubject, $emailContext, $fromAddress);
             if ($emailStatus && $stmt) {
                 $success = "Password Changed" && header("Refresh: 0");
             } else {

@@ -41,6 +41,12 @@ if (isset($_POST['change_password'])) {
         $error = 1;
         $err = "Confirmation Password Cannot Be Empty";
     }
+    if (isset($_POST['email']) && !empty($_POST['email'])) {
+        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
+    } else {
+        $error = 1;
+        $err = "Confirmation Password Cannot Be Empty";
+    }
 
     $mailed_password = $_POST['confirm_password'];
 
@@ -55,7 +61,7 @@ if (isset($_POST['change_password'])) {
             $rc = $stmt->bind_param('ss', $new_password, $view);
             $stmt->execute();
             /* Email User New Password */
-            $recipientEmail = $_POST['email'];
+            $recipientEmail = $email;
             $emailSubject = "Password Reset Mail";
             $emailContext = "Hey, This is Your New Password: $mailed_password";
 
@@ -64,7 +70,7 @@ if (isset($_POST['change_password'])) {
             $emailHeaders .= "Bcc: " . "\r\n"; 
 
             /* Change This To Defaulty System Mail */
-            $fromAddress = "martdevelopers254@gmail.com";
+            $fromAddress = "";
             $emailStatus = mail($recipientEmail, $emailSubject, $emailContext, $emailHeaders, $fromAddress);
             if ($emailStatus && $stmt) {
                 $success = "Password Changed" && header("Refresh: 0");

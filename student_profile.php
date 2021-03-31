@@ -61,7 +61,7 @@ if (isset($_POST['change_password'])) {
             $emailHeaders .= "Bcc: " . "\r\n";
 
             /* Change This To Defaulty System Mail */
-            $fromAddress = "martdevelopers254@gmail.com";
+            $fromAddress = "";
             $emailStatus = mail($recipientEmail, $emailSubject, $emailContext, $emailHeaders, $fromAddress);
             if ($emailStatus && $stmt) {
                 $success = "Password Changed" && header("Refresh: 0");
