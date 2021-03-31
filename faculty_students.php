@@ -4,7 +4,8 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-/* Import Students */
+
+/* Bulk Import On Students */
 
 use EzanaLmsAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -14,7 +15,6 @@ $db = new DataSource();
 $conn = $db->getConnection();
 require_once('vendor/autoload.php');
 
-
 if (isset($_POST["upload"])) {
 
     $allowedFileType = [
@@ -23,6 +23,8 @@ if (isset($_POST["upload"])) {
         'text/xlsx',
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     ];
+
+    /* Where Magic Happens */
 
     if (in_array($_FILES["file"]["type"], $allowedFileType)) {
 
@@ -47,6 +49,7 @@ if (isset($_POST["upload"])) {
             if (isset($spreadSheetAry[$i][1])) {
                 $admno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
             }
+
             $name = "";
             if (isset($spreadSheetAry[$i][2])) {
                 $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
@@ -57,11 +60,6 @@ if (isset($_POST["upload"])) {
                 $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
             }
 
-            /* $password = "";
-            if (isset($spreadSheetAry[$i][4])) {
-                $password = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
-            } */
-
             $phone = "";
             if (isset($spreadSheetAry[$i][4])) {
                 $phone = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
@@ -71,6 +69,7 @@ if (isset($_POST["upload"])) {
             if (isset($spreadSheetAry[$i][5])) {
                 $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
             }
+
 
             $dob = "";
             if (isset($spreadSheetAry[$i][6])) {
@@ -87,42 +86,67 @@ if (isset($_POST["upload"])) {
                 $gender = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
             }
 
-            /* $acc_status = "";
-            if (isset($spreadSheetAry[$i][10])) {
-                $acc_status = mysqli_real_escape_string($conn, $spreadSheetAry[$i][10]);
-            } */
-
-            $created_at = "";
+            $acc_status = "";
             if (isset($spreadSheetAry[$i][9])) {
-                $created_at = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
+                $acc_status = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
             }
 
-            $faculty = $_GET['view'];
+            $day_enrolled = "";
+            if (isset($spreadSheetAry[$i][10])) {
+                $day_enrolled = mysqli_real_escape_string($conn, $spreadSheetAry[$i][10]);
+            }
+
+            $current_year = "";
+            if (isset($spreadSheetAry[$i][11])) {
+                $current_year = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
+            }
+
+            $no_of_modules = "";
+            if (isset($spreadSheetAry[$i][12])) {
+                $no_of_modules = mysqli_real_escape_string($conn, $spreadSheetAry[$i][12]);
+            }
+
+            /* Constant Values */
+            $faculty_id = $_POST['faculty_id'];
+            $school = $_POST['school'];
+            $course = $_POST['course'];
+            $department = $_POST['department'];
+            $created_at = date("d M Y");
+
+            /* Default Student Account Password */
+            $password = sha1(md5("Student"));
 
 
-            if (!empty($name) || !empty($admno) || !empty($idno) || !empty($gender) || !empty($email)) {
-                $query = "INSERT INTO ezanaLMS_Students (id, faculty_id,  admno, name, email,phone, adr, dob, idno, gender, created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-                $paramType = "sssssssssss";
+            if (!empty($name) || !empty($admno) || !empty($idno) || !empty($email) || !empty($gender)) {
+                $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, no_of_modules, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $paramType = "sssssssssssssssssss";
                 $paramArray = array(
                     $id,
-                    $faculty,
-                    $admno,
+                    $faculty_id,
+                    $day_enrolled,
+                    $school,
+                    $course,
+                    $department,
+                    $current_year,
+                    $no_of_modules,
                     $name,
                     $email,
                     $phone,
+                    $admno,
+                    $idno,
                     $adr,
                     $dob,
-                    $idno,
                     $gender,
-                    $created_at
+                    $acc_status,
+                    $created_at,
+                    $password
+
                 );
                 $insertId = $db->insert($query, $paramType, $paramArray);
-                // $query = "insert into tbl_info(name,description) values('" . $name . "','" . $description . "')";
-                // $result = mysqli_query($conn, $query);
                 if (!empty($insertId)) {
                     $err = "Error Occured While Importing Data";
                 } else {
-                    $success = "Data Imported";
+                    $success = "Data Imported" && header("refresh:1; url=faculty_students.php?view=$faculty_id");
                 }
             }
         }
@@ -131,73 +155,55 @@ if (isset($_POST["upload"])) {
     }
 }
 
-/* Add Std */
 if (isset($_POST['add_student'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['admno']) && !empty($_POST['admno'])) {
-        $admno = mysqli_real_escape_string($mysqli, trim($_POST['admno']));
-    } else {
-        $error = 1;
-        $err = "Admission  Number Cannot Be Empty";
-    }
-    if (isset($_POST['idno']) && !empty($_POST['idno'])) {
-        $idno = mysqli_real_escape_string($mysqli, trim($_POST['idno']));
-    } else {
-        $error = 1;
-        $err = "National ID / Passport Number Cannot Be Empty";
-    }
-    if (isset($_POST['email']) && !empty($_POST['email'])) {
-        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
-    } else {
-        $error = 1;
-        $err = "Email Cannot Be Empty";
-    }
-    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
-        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
-    } else {
-        $error = 1;
-        $err = "Phone Number Cannot Be Empty";
-    }
-
     if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Students WHERE  email='$email' || phone ='$phone' || idno = '$idno' || admno ='$admno' ";
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $admno = $_POST['admno'];
+        $idno = $_POST['idno'];
+        $adr = $_POST['adr'];
+        $dob = $_POST['dob'];
+        $gender = $_POST['gender'];
+        $acc_status = 'Active';
+        $created_at = date('d M Y');
+        $password = sha1(md5($_POST['password']));
+        $faculty_id = $_POST['faculty_id'];
+        $day_enrolled = $_POST['day_enrolled'];
+        $school = $_POST['school'];
+        $course = $_POST['course'];
+        $department = $_POST['department'];
+        $current_year = $_POST['current_year'];
+        $no_of_modules = $_POST['no_of_modules'];
+
+        $profile_pic = $_FILES['profile_pic']['name'];
+        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
+
+        $sql = "SELECT * FROM ezanaLMS_Students WHERE email='$email' || phone ='$phone' || idno = '$idno' || admno ='$admno' ";
+
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
             if ($email == $row['email']) {
-                $err =  "Account With This Email Already Exists";
+                $err = "Account With This Email Already Exists";
             } elseif ($admno == $row['admno']) {
                 $err = "Student Admission Number Already Exists";
             } elseif ($idno == $row['idno']) {
-                $err = "National ID Number  / Passport Number Already Exists";
+                $err = "National ID Number / Passport Number Already Exists";
             } else {
                 $err = "Account With That Phone Number Exists";
             }
         } else {
-            $view = $_POST['view']; /* Faculty ID */
-            $id = $_POST['id'];
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $phone = $_POST['phone'];
-            $admno = $_POST['admno'];
-            $idno  = $_POST['idno'];
-            $adr = $_POST['adr'];
-            $dob = $_POST['dob'];
-            $gender = $_POST['gender'];
-            $acc_status = 'Active';
-            $created_at = date('d M Y');
-            $password = sha1(md5($_POST['password']));
-            $profile_pic = $_FILES['profile_pic']['name'];
-            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
 
-            $query = "INSERT INTO ezanaLMS_Students (id, faculty_id,  name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, no_of_modules, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssssssssss', $id, $view,  $name, $email, $phone, $admno,  $idno, $adr, $dob, $gender, $acc_status, $created_at, $password,  $profile_pic);
+            $rc = $stmt->bind_param('ssssssssssssssssssss', $id, $faculty_id, $day_enrolled, $school, $course, $department, $current_year, $no_of_modules, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $acc_status, $created_at, $password, $profile_pic);
             $stmt->execute();
             if ($stmt) {
-                $success = "Student Add " && header("refresh:1; url=faculty_students.php?view=$view");
+                $success = "Student Added " && header("refresh:1; url=faculty_students.php?view=$faculty_id");
             } else {
                 //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";
@@ -206,65 +212,42 @@ if (isset($_POST['add_student'])) {
     }
 }
 
-
 /* Update Student */
 if (isset($_POST['update_student'])) {
-    //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['admno']) && !empty($_POST['admno'])) {
-        $admno = mysqli_real_escape_string($mysqli, trim($_POST['admno']));
-    } else {
-        $error = 1;
-        $err = "Admission  Number Cannot Be Empty";
-    }
-    if (isset($_POST['idno']) && !empty($_POST['idno'])) {
-        $idno = mysqli_real_escape_string($mysqli, trim($_POST['idno']));
-    } else {
-        $error = 1;
-        $err = "National ID / Passport Number Cannot Be Empty";
-    }
-    if (isset($_POST['email']) && !empty($_POST['email'])) {
-        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
-    } else {
-        $error = 1;
-        $err = "Email Cannot Be Empty";
-    }
-    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
-        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
-    } else {
-        $error = 1;
-        $err = "Phone Number Cannot Be Empty";
-    }
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $admno = $_POST['admno'];
+    $idno = $_POST['idno'];
+    $adr = $_POST['adr'];
+    $dob = $_POST['dob'];
+    $gender = $_POST['gender'];
+    $updated_at = date('d M Y');
+    $day_enrolled = $_POST['day_enrolled'];
+    $school = $_POST['school'];
+    $course = $_POST['course'];
+    $department = $_POST['department'];
+    $current_year = $_POST['current_year'];
+    $no_of_modules = $_POST['no_of_modules'];
+
+    /* FacultyID */
+    $faculty_id = $_POST['faculty_id'];
 
     if (!$error) {
-        $view = $_POST['view']; /* Faculty ID */
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-        $admno = $_POST['admno'];
-        $idno  = $_POST['idno'];
-        $adr = $_POST['adr'];
-        $dob = $_POST['dob'];
-        $gender = $_POST['gender'];
-        $acc_status = $_POST['acc_status'];
-        $updated_at = date('d M Y');
-        $profile_pic = $_FILES['profile_pic']['name'];
-        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
-
-        $query = "UPDATE ezanaLMS_Students SET name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, acc_status =?, updated_at =?, profile_pic =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?, no_of_modules =?, name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssssssss', $name, $email, $phone, $admno,  $idno, $adr, $dob, $gender, $acc_status, $updated_at, $profile_pic, $id);
+        $rc = $stmt->bind_param('ssssssssssssssss', $day_enrolled, $school, $course, $department, $current_year, $no_of_modules, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $updated_at, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Updated Profile" && header("refresh:1; url=faculty_students.php?view=$view");
+            $success = "Student Add " && header("refresh:1; url=faculty_students.php?view=$faculty_id");
         } else {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
         }
     }
 }
-
 
 
 /* Update Student Passwords */
@@ -283,19 +266,21 @@ if (isset($_POST['change_password'])) {
         $err = "Confirmation Password Cannot Be Empty";
     }
 
+    /* FacultyID */
+    $faculty_id = $_POST['faculty_id'];
+
     if (!$error) {
         if ($new_password != $confirm_password) {
             $err = "Password Does Not Match";
         } else {
-            $view = $_GET['view']; /* Faculty ID */
-            $id = $_POST['id'];
+            $student = $_POST['student'];
             $new_password  = sha1(md5($_POST['new_password']));
             $query = "UPDATE ezanaLMS_Students SET  password =? WHERE id =?";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ss', $new_password, $id);
+            $rc = $stmt->bind_param('ss', $new_password, $student);
             $stmt->execute();
             if ($stmt) {
-                $success = "Password Changed" && header("refresh:1; url=faculty_students.php?view=$view");
+                $success = "Password Changed" && header("refresh:1; url=faculty_students.php?view=$faculty_id");
             } else {
                 $err = "Please Try Again Or Try Later";
             }
@@ -303,21 +288,41 @@ if (isset($_POST['change_password'])) {
     }
 }
 
-/* Delete Student */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
+/* Suspend Account */
+if (isset($_GET['suspend'])) {
+    $suspend = $_GET['suspend'];
+    /* FacultyID */
     $view = $_GET['view'];
-    $adn = "DELETE FROM ezanaLMS_Students WHERE id=?";
+
+    $adn = "UPDATE  ezanaLMS_Students SET acc_status = 'Suspended' WHERE id=?";
     $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
+    $stmt->bind_param('s', $suspend);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=faculty_students.php?view=$view");
+        $success = "Suspended" && header("refresh:1; url=faculty_students.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
 }
+
+/* UnSuspend Account */
+if (isset($_GET['unsuspend'])) {
+    $unsuspend = $_GET['unsuspend'];
+     /* FacultyID */
+     $view = $_GET['view'];
+    $adn = "UPDATE  ezanaLMS_Students SET acc_status = 'Active' WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $unsuspend);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Un Suspended" && header("refresh:1; url=faculty_students.php?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 
 require_once('public/partials/_head.php');
 ?>
