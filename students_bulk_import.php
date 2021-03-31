@@ -63,6 +63,161 @@ if (isset($_POST['add_student'])) {
     }
 }
 
+/* Bulk Import On Students */
+
+use EzanaLmsAPI\DataSource;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
+require_once('configs/DataSource.php');
+$db = new DataSource();
+$conn = $db->getConnection();
+require_once('vendor/autoload.php');
+
+if (isset($_POST["upload"])) {
+
+    $allowedFileType = [
+        'application/vnd.ms-excel',
+        'text/xls',
+        'text/xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ];
+
+    /* Where Magic Happens */
+
+    if (in_array($_FILES["file"]["type"], $allowedFileType)) {
+
+        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $_FILES['file']['name'];
+        move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
+
+        $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+
+        $spreadSheet = $Reader->load($targetPath);
+        $excelSheet = $spreadSheet->getActiveSheet();
+        $spreadSheetAry = $excelSheet->toArray();
+        $sheetCount = count($spreadSheetAry);
+
+        for ($i = 1; $i <= $sheetCount; $i++) {
+
+            $id = "";
+            if (isset($spreadSheetAry[$i][0])) {
+                $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
+            }
+
+            $admno = "";
+            if (isset($spreadSheetAry[$i][1])) {
+                $admno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
+            }
+
+            $name = "";
+            if (isset($spreadSheetAry[$i][2])) {
+                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
+            }
+
+            $email = "";
+            if (isset($spreadSheetAry[$i][3])) {
+                $email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
+            }
+
+            $phone = "";
+            if (isset($spreadSheetAry[$i][4])) {
+                $phone = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
+            }
+
+            $adr = "";
+            if (isset($spreadSheetAry[$i][5])) {
+                $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
+            }
+
+            $adr = "";
+            if (isset($spreadSheetAry[$i][6])) {
+                $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
+            }
+
+
+            $dob = "";
+            if (isset($spreadSheetAry[$i][7])) {
+                $dob = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
+            }
+
+            $idno = "";
+            if (isset($spreadSheetAry[$i][8])) {
+                $idno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
+            }
+
+            $gender = "";
+            if (isset($spreadSheetAry[$i][9])) {
+                $gender = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
+            }
+
+            $acc_status = "";
+            if (isset($spreadSheetAry[$i][10])) {
+                $acc_status = mysqli_real_escape_string($conn, $spreadSheetAry[$i][10]);
+            }
+
+            $day_enrolled = "";
+            if (isset($spreadSheetAry[$i][11])) {
+                $day_enrolled = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
+            }
+
+            $current_year = "";
+            if (isset($spreadSheetAry[$i][12])) {
+                $current_year = mysqli_real_escape_string($conn, $spreadSheetAry[$i][12]);
+            }
+
+            $no_of_modules = "";
+            if (isset($spreadSheetAry[$i][13])) {
+                $no_of_modules = mysqli_real_escape_string($conn, $spreadSheetAry[$i][13]);
+            }
+
+            /* Constant Values */
+            $faculty_id = $_POST['faculty_id'];
+            $school = $_POST['school'];
+            $course = $_POST['course'];
+            $department = $_POST['department'];
+            $created_at = date("d M Y");
+
+            /* Default Student Account Password */
+            $password = sha1(md5("Student"));
+
+
+            if (!empty($name) || !empty($admno) || !empty($idno) || !empty($email) || !empty($gender)) {
+                $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, no_of_modules, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $paramType = "sssssssssssssssssss";
+                $paramArray = array(
+                    $id,
+                    $faculty_id,
+                    $day_enrolled,
+                    $school,
+                    $course,
+                    $department,
+                    $current_year,
+                    $no_of_modules,
+                    $name,
+                    $email,
+                    $phone,
+                    $admno,
+                    $idno,
+                    $adr,
+                    $dob,
+                    $gender,
+                    $acc_status,
+                    $created_at,
+                    $password
+
+                );
+                $insertId = $db->insert($query, $paramType, $paramArray);
+                if (!empty($insertId)) {
+                    $err = "Error Occured While Importing Data";
+                } else {
+                    $success = "Data Imported" && header("refresh:1; url=students_bulk_import.php");
+                }
+            }
+        }
+    } else {
+        $info = "Invalid File Type. Upload Excel File.";
+    }
+}
+
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
