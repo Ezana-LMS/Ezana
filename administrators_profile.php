@@ -22,7 +22,7 @@ if (isset($_POST['update_picture'])) {
     }
 }
 
-//Change Password
+/* Change Password */
 if (isset($_POST['change_password'])) {
 
     //Change Password
@@ -40,6 +40,14 @@ if (isset($_POST['change_password'])) {
         $error = 1;
         $err = "Confirmation Password Cannot Be Empty";
     }
+    if (isset($_POST['email']) && !empty($_POST['email'])) {
+        $email = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['email']))));
+    } else {
+        $error = 1;
+        $err = "Email Cannot Be Empty";
+    }
+    $mailed_password = $_POST['confirm_password'];
+
 
     if (!$error) {
         if ($_POST['new_password'] != $_POST['confirm_password']) {
@@ -51,7 +59,19 @@ if (isset($_POST['change_password'])) {
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ss', $new_password, $view);
             $stmt->execute();
-            if ($stmt) {
+            /* Email User New Password */
+            $recipientEmail = $_POST['email'];
+            $emailSubject = "Password Reset Mail";
+            $emailContext = "Hey, This is Your New Password: $mailed_password";
+
+            /* Use This When You Wanna Do cc And Bcc 
+            $emailHeaders = "Cc: Replace email address" . "\r\n";
+            $emailHeaders .= "Bcc: Replace email address" . "\r\n"; */
+
+            /* Change This To Defaulty System Mail */
+            $fromAddress = "martdevelopers254@gmail.com";
+            $emailStatus = mail($recipientEmail, $emailSubject, $emailContext, $fromAddress);
+            if ($emailStatus && $stmt) {
                 $success = "Password Changed" && header("Refresh: 0");
             } else {
                 $err = "Please Try Again Or Try Later";
@@ -59,6 +79,8 @@ if (isset($_POST['change_password'])) {
         }
     }
 }
+
+
 
 /* Add Department Memo */
 if (isset($_POST['add_memo'])) {
