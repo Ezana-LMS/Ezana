@@ -299,6 +299,7 @@ require_once('public/partials/_head.php');
                                 </form>
                                 <div class="text-right">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Student</button>
+                                    <a href="students_bulk_import.php" class="btn btn-primary">Bulk Import Students</a>
                                 </div>
                                 <!-- Add Student Modal -->
                                 <div class="modal fade" id="modal-default">
@@ -395,7 +396,7 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Password</label>
-                                                                <input type="text" value="<?php echo $defaultPass; ?>" required name="password" class="form-control">
+                                                                <input type="text" value="Student" required name="password" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Profile Picture</label>

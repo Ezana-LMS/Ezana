@@ -366,66 +366,52 @@ require_once('public/partials/_head.php');
                             <hr>
                             <div class="row">
                                 <div class="col-md-3">
-
-                                    <?php
-                                    $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$view' ORDER BY RAND()  LIMIT 8";
-                                    $stmt = $mysqli->prepare($ret);
-                                    $stmt->execute(); //ok
-                                    $res = $stmt->get_result();
-                                    $cnt = 1;
-                                    while ($module = $res->fetch_object()) {
-                                    ?>
-                                        <div class="col-md-12">
-                                            <div class="card card-primary collapsed-card">
-                                                <div class="card-header">
-                                                    <a href="module.php?view=<?php echo $module->id; ?>">
-                                                        <h3 class="card-title"><?php echo $cnt; ?>. <?php echo $module->name; ?></h3>
-                                                        <div class="card-tools text-right">
-                                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </a>
-                                                </div>
-
-                                                <div class="card-body">
-                                                    <ul class="list-group">
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="module_notices.php?view=<?php echo $module->id; ?>">
-                                                                Notices
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="pastpapers.php?view=<?php echo $module->id; ?>">
-                                                                Past Papers
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="course_materials.php?view=<?php echo $module->id; ?>">
-                                                                Course Materials
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="class_recordings.php?view=<?php echo $module->id; ?>">
-                                                                Class Recordings
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="student_groups.php?view=<?php echo $module->id; ?>">
-                                                                Student Groups
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="module_enrollments.php?view=<?php echo $module->id; ?>">
-                                                                Module Enrollments
-                                                            </a>
-                                                        </li>
-                                                    </ul>
+                                    <div class="col-md-12">
+                                        <div class="card card-primary">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Menu</h3>
+                                                <div class="card-tools text-right">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                    </button>
                                                 </div>
                                             </div>
+                                            <div class="card-body">
+                                                <ul class="list-group">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_departments.php?view=<?php echo $faculty->id; ?>">
+                                                            Departments
+                                                        </a>
+                                                    </li>
+
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_courses.php?view=<?php echo $faculty->id; ?>">
+                                                            Courses
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_modules.php?view=<?php echo $faculty->id; ?>">
+                                                            Modules
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="school_calendar.php?view=<?php echo $faculty->id; ?>">
+                                                            Important Dates
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_lects.php?view=<?php echo $faculty->id; ?>">
+                                                            Lecturers
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_students.php?view=<?php echo $faculty->id; ?>">
+                                                            Students
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    <?php
-                                        $cnt = $cnt + 1;
-                                    } ?>
+                                    </div>
                                 </div>
                                 <div class="col-md-9">
                                     <div class="row">
@@ -454,6 +440,10 @@ require_once('public/partials/_head.php');
                                                             <td><?php echo $mod->code; ?></td>
                                                             <td><?php echo $mod->course_name; ?></td>
                                                             <td>
+                                                                <a class="badge badge-success" href="module.php?view=<?php echo $mod->id; ?>">
+                                                                    <i class="fas fa-eye"></i>
+                                                                    View
+                                                                </a>
                                                                 <a class="badge badge-primary" data-toggle="modal" href="#edit-modal-<?php echo $mod->id; ?>">
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
@@ -526,31 +516,7 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <!-- End Modal -->
-                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $mod->id; ?>">
-                                                                    <i class="fas fa-trash"></i>
-                                                                    Delete
-                                                                </a>
-                                                                <!-- Delete Confirmation Modal -->
-                                                                <div class="modal fade" id="delete-<?php echo $mod->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body text-center text-danger">
-                                                                                <h4>Delete <?php echo $mod->name; ?> ?</h4>
-                                                                                <br>
-                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="faculty_modules.php?delete=<?php echo $mod->id; ?>&view=<?php echo $faculty->faculty_id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- End Delete Confirmation Modal -->
+                                                                
                                                             </td>
                                                         </tr>
                                                     <?php $cnt = $cnt + 1;
