@@ -4,7 +4,6 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-
 /* Update Profile Picture */
 
 if (isset($_POST['update_picture'])) {
