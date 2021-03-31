@@ -262,7 +262,7 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?></h1>
+                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Important Dates</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -356,7 +356,7 @@ require_once('public/partials/_head.php');
                                     <div class="col-md-12">
                                         <div class="card card-primary">
                                             <div class="card-header">
-                                                <h3 class="card-title"><?php echo $faculty->name; ?> Departments</h3>
+                                                <h3 class="card-title">Menu</h3>
                                                 <div class="card-tools text-right">
                                                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
                                                     </button>
@@ -364,23 +364,37 @@ require_once('public/partials/_head.php');
                                             </div>
                                             <div class="card-body">
                                                 <ul class="list-group">
-                                                    <?php
-                                                    /* List All Departments Under This Faculty */
-                                                    $departmentFacultyID = $faculty->id;
-                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$departmentFacultyID' ORDER BY `name` ASC  ";
-                                                    $stmt = $mysqli->prepare($ret);
-                                                    $stmt->execute(); //ok
-                                                    $res = $stmt->get_result();
-                                                    $cnt = 1;
-                                                    while ($facultyDepartment = $res->fetch_object()) {
-                                                    ?>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="department.php?view=<?php echo $facultyDepartment->id; ?>">
-                                                                <?php echo $facultyDepartment->name; ?>
-                                                            </a>
-                                                        </li>
-                                                    <?php
-                                                    } ?>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_departments.php?view=<?php echo $faculty->id; ?>">
+                                                            Departments
+                                                        </a>
+                                                    </li>
+
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_courses.php?view=<?php echo $faculty->id; ?>">
+                                                            Courses
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_modules.php?view=<?php echo $faculty->id; ?>">
+                                                            Modules
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="school_calendar.php?view=<?php echo $faculty->id; ?>">
+                                                            Important Dates
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_lects.php?view=<?php echo $faculty->id; ?>">
+                                                            Lecturers
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="faculty_students.php?view=<?php echo $faculty->id; ?>">
+                                                            Students
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
