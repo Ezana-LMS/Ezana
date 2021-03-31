@@ -299,6 +299,7 @@ require_once('public/partials/_head.php');
                                 </form>
                                 <div class="text-right">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Student</button>
+                                    <a href="students_bulk_import.php" class="btn btn-primary">Bulk Import Students</a>
                                 </div>
                                 <!-- Add Student Modal -->
                                 <div class="modal fade" id="modal-default">
