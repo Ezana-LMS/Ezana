@@ -299,7 +299,6 @@ require_once('public/partials/_head.php');
                         <hr>
                         <div class="row">
                             <div class="col-md-3">
-
                                 <?php
                                 $ret = "SELECT * FROM `ezanaLMS_Departments`  ORDER BY RAND()  LIMIT 8";
                                 $stmt = $mysqli->prepare($ret);
@@ -309,30 +308,41 @@ require_once('public/partials/_head.php');
                                 while ($department = $res->fetch_object()) {
                                 ?>
                                     <div class="col-md-12">
-                                        <div class="card collapsed-card">
+                                        <div class="card collapsed-card card-primary">
                                             <div class="card-header">
-                                                <a href="department.php?view=<?php echo $department->id; ?>">
-                                                    <h3 class=" text-primary card-title"><?php echo $cnt; ?>. <?php echo $department->name; ?></h3>
-                                                    <div class="card-tools text-right">
-                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </a>
+                                                <h3 class="card-title">
+                                                    <a href="department_details.php?view=<?php echo $department->id; ?>">
+                                                        <?php echo $department->name; ?>
+                                                    </a>
+                                                </h3>
+                                                <div class="card-tools text-right">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                                                    </button>
+                                                </div>
                                             </div>
-
                                             <div class="card-body">
                                                 <ul class="list-group">
-
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="departmental_memos.php?view=<?php echo $department->id; ?>">
+                                                            Memos & Notices
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <a href="departmental_documents.php?view=<?php echo $department->id; ?>">
+                                                            Department Documents
+                                                        </a>
+                                                    </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="courses.php?view=<?php echo $department->id; ?>">
                                                             Courses
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="modules.php?view=<?php echo $department->id; ?>">
+                                                        <a href="modules.php?view=<?php echo $department->faculty_id; ?>">
                                                             Modules
                                                         </a>
                                                     </li>
+
                                                 </ul>
                                             </div>
                                         </div>
