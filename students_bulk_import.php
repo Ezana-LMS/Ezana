@@ -128,45 +128,41 @@ if (isset($_POST["upload"])) {
                 $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
             }
 
-            $adr = "";
-            if (isset($spreadSheetAry[$i][6])) {
-                $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
-            }
-
+            
 
             $dob = "";
-            if (isset($spreadSheetAry[$i][7])) {
-                $dob = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
+            if (isset($spreadSheetAry[$i][6])) {
+                $dob = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
             }
 
             $idno = "";
-            if (isset($spreadSheetAry[$i][8])) {
-                $idno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
+            if (isset($spreadSheetAry[$i][7])) {
+                $idno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
             }
 
             $gender = "";
-            if (isset($spreadSheetAry[$i][9])) {
-                $gender = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
+            if (isset($spreadSheetAry[$i][8])) {
+                $gender = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
             }
 
             $acc_status = "";
-            if (isset($spreadSheetAry[$i][10])) {
-                $acc_status = mysqli_real_escape_string($conn, $spreadSheetAry[$i][10]);
+            if (isset($spreadSheetAry[$i][9])) {
+                $acc_status = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
             }
 
             $day_enrolled = "";
-            if (isset($spreadSheetAry[$i][11])) {
-                $day_enrolled = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
+            if (isset($spreadSheetAry[$i][10])) {
+                $day_enrolled = mysqli_real_escape_string($conn, $spreadSheetAry[$i][10]);
             }
 
             $current_year = "";
-            if (isset($spreadSheetAry[$i][12])) {
-                $current_year = mysqli_real_escape_string($conn, $spreadSheetAry[$i][12]);
+            if (isset($spreadSheetAry[$i][11])) {
+                $current_year = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
             }
 
             $no_of_modules = "";
-            if (isset($spreadSheetAry[$i][13])) {
-                $no_of_modules = mysqli_real_escape_string($conn, $spreadSheetAry[$i][13]);
+            if (isset($spreadSheetAry[$i][12])) {
+                $no_of_modules = mysqli_real_escape_string($conn, $spreadSheetAry[$i][12]);
             }
 
             /* Constant Values */
