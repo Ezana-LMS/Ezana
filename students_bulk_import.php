@@ -356,11 +356,55 @@ require_once('public/partials/_head.php');
                                                 <td><?php echo $courses->department_name; ?></td>
                                                 <td><?php echo $courses->faculty_name; ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="course.php?view=<?php echo $courses->id; ?>">
-                                                        <i class="fas fa-eye"></i>
-                                                        View
+                                                    <a class="badge badge-primary" data-toggle="modal" href="#bulk-import-<?php echo $courses->id; ?>">
+                                                        <i class="fas fa-file-upload"></i>
+                                                        Bulk Import Students
                                                     </a>
+                                                    <!-- Update Faculty Modal -->
+                                                    <div class="modal fade" id="bulk-import-<?php echo $courses->id; ?>">
+                                                        <div class="modal-dialog  modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title">Bulk Import Students To <?php echo $courses->name; ?></h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="form-group text-center col-md-12">
+                                                                                    <label for="exampleInputFile">Allowed File Types: XLS, XLSX. Please, <a href="public/templates/ezanaLMS_Students_XLS_Template.xlsx">Download</a> A Sample File. </label>
+                                                                                </div>
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label for="exampleInputFile">Select File</label>
+                                                                                    <div class="input-group">
+                                                                                        <div class="custom-file">
+                                                                                            <input required name="file" accept=".xls,.xlsx" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                                            <!-- Hidden Values -->
+                                                                                            <input type="hidden" required name="school" class="form-control" value="<?php echo $courses->faculty_name; ?>">
+                                                                                            <input type="hidden" required name="faculty_id" class="form-control" value="<?php echo $courses->faculty_id; ?>">
+                                                                                            <input type="hidden" required name="course" class="form-control" value="<?php echo $courses->name; ?>">
+                                                                                            <input type="hidden" required name="department" class="form-control" value="<?php echo $courses->department_name; ?>">
 
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="text-right">
+                                                                            <button type="submit" name="upload" class="btn btn-primary">Upload File</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="modal-footer justify-content-between">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         <?php
