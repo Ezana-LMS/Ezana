@@ -269,7 +269,7 @@ require_once('public/partials/_head.php');
                                         </div>
                                     </div>
                                     <div class="modal fade" id="modal-export">
-                                        <div class="modal-dialog  modal-lg">
+                                        <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-body">
 

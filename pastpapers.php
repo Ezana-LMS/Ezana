@@ -27,7 +27,7 @@ if (isset($_POST['add_paper'])) {
         $module_id = $_POST['module_id'];
         move_uploaded_file($_FILES["pastpaper"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $_FILES["pastpaper"]["name"]);
 
-        $query = "INSERT INTO ezanaLMS_PastPapers (id, paper_name, paper_visibility, faculty_id, course_name, module_name,  created_at, pastpaper) VALUES(?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_PastPapers (id, paper_name, paper_visibility, faculty_id, course_name, module_name,  pastpaper) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('sssssss', $id, $paper_name, $paper_visibility, $faculty, $course_name, $module_name, $pastpaper);
         $stmt->execute();

@@ -64,6 +64,7 @@ if (isset($_POST['add_student'])) {
 }
 
 /* Bulk Import On Students */
+
 use EzanaLmsAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -127,7 +128,7 @@ if (isset($_POST["upload"])) {
                 $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
             }
 
-            
+
 
             $dob = "";
             if (isset($spreadSheetAry[$i][6])) {
@@ -330,7 +331,7 @@ require_once('public/partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Students</h1>
+                            <h1 class="m-0 text-dark">Bulk Import Students As Per Course</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -484,10 +485,10 @@ require_once('public/partials/_head.php');
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Code</th>
-                                            <th>Name</th>
-                                            <th>Department</th>
-                                            <th>Faculty</th>
+                                            <th>Course Code</th>
+                                            <th>Course Name</th>
+                                            <th>Course Department</th>
+                                            <th>Faculty / School</th>
                                             <th>Manage</th>
                                         </tr>
                                     </thead>
