@@ -678,7 +678,7 @@ require_once('public/partials/_head.php');
 
                                             </td>
                                         </tr>
-                                    <?php $cnt = $cnt + 1;
+                                    <?php 
                                     } ?>
                                 </tbody>
                             </table>

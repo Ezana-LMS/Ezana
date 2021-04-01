@@ -491,7 +491,6 @@ require_once('public/partials/_head.php');
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
-                                                    $cnt = 1;
                                                     while ($std = $res->fetch_object()) {
                                                     ?>
                                                         <tr>
@@ -670,7 +669,7 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                    <?php $cnt = $cnt + 1;
+                                                    <?php 
                                                     } ?>
                                                 </tbody>
                                             </table>
