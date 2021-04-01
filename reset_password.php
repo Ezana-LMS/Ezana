@@ -1,4 +1,24 @@
 <?php
+/*
+ * Created on Thu Apr 01 2021
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2021 MartDevelopers Inc
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 session_start();
 include('configs/config.php');
 require_once('configs/codeGen.php');
@@ -54,7 +74,7 @@ while ($sys = $res->fetch_object()) {
                 <div class="wrap-login100">
                     <form method="POST" class="login100-form validate-form">
                         <div class="text-center">
-                            <img height="150" width="160" src="public/dist/img/<?php echo $sys->logo;?>" alt="wrapkit">
+                            <img height="150" width="160" src="public/dist/img/<?php echo $sys->logo; ?>" alt="wrapkit">
                         </div>
                         <h2 class="mt-3 text-center">Reset Password</h2>
                         <p class="text-center">Enter Your Address To Reset Password</p>
@@ -76,7 +96,7 @@ while ($sys = $res->fetch_object()) {
                             </button>
                         </div>
                     </form>
-                    <div class="login100-more" style="background-image: url('public/dist/img/<?php echo $sys->logo;?>');">
+                    <div class="login100-more" style="background-image: url('public/dist/img/<?php echo $sys->logo; ?>');">
                     </div>
                 </div>
             </div>
@@ -85,4 +105,5 @@ while ($sys = $res->fetch_object()) {
     </body>
 <?php
 } ?>
+
 </html>

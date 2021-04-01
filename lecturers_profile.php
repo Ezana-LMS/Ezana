@@ -1,4 +1,24 @@
 <?php
+/*
+ * Created on Thu Apr 01 2021
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2021 MartDevelopers Inc
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
@@ -67,7 +87,7 @@ if (isset($_POST['change_password'])) {
 
             /* Use This When You Wanna Do cc And Bcc */
             $emailHeaders = "Cc: " . "\r\n";
-            $emailHeaders .= "Bcc: " . "\r\n"; 
+            $emailHeaders .= "Bcc: " . "\r\n";
 
             /* Change This To Defaulty System Mail */
             $fromAddress = "";
@@ -514,7 +534,7 @@ require_once('public/partials/_head.php');
                                                         <label for="inputName2" class="col-sm-2 col-form-label">Confirm New Password</label>
                                                         <div class="col-sm-10">
                                                             <input type="password" name="confirm_password" required class="form-control" id="inputName2">
-                                                            <input type="hidden" name="email" required class="form-control" value="<?php echo $lec->email;?>">
+                                                            <input type="hidden" name="email" required class="form-control" value="<?php echo $lec->email; ?>">
                                                         </div>
                                                     </div>
                                                     <div class="form-group text-right row">
