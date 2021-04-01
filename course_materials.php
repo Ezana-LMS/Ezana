@@ -1,4 +1,24 @@
 <?php
+/*
+ * Created on Thu Apr 01 2021
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2021 MartDevelopers Inc
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
@@ -36,7 +56,7 @@ if (isset($_POST['add_reading_materials'])) {
 
         $query = "INSERT INTO ezanaLMS_ModuleRecommended (id, visibility, faculty_id, module_name, module_code, readingMaterials, external_link) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $id, $visibility,  $faculty, $module_name, $module_code, $readingMaterials,$external_link);
+        $rc = $stmt->bind_param('sssssss', $id, $visibility,  $faculty, $module_name, $module_code, $readingMaterials, $external_link);
         $stmt->execute();
         if ($stmt) {
             $success = "Reading Materials Shared" && header("refresh:1; url=course_materials.php?view=$view");
@@ -321,7 +341,7 @@ require_once('public/partials/_head.php');
                                                             Past Papers
                                                         </a>
                                                     </li>
-                                                    
+
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="course_materials.php?view=<?php echo $mod->id; ?>">
                                                             Reading Materials
@@ -334,7 +354,7 @@ require_once('public/partials/_head.php');
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="module_assignments.php?view=<?php echo $mod->id; ?>">
-                                                            Assignments 
+                                                            Assignments
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
