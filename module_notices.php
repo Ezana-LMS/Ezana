@@ -1,4 +1,24 @@
 <?php
+/*
+ * Created on Thu Apr 01 2021
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2021 MartDevelopers Inc
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
@@ -336,7 +356,7 @@ require_once('public/partials/_head.php');
                                                             Past Papers
                                                         </a>
                                                     </li>
-                                                    
+
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="course_materials.php?view=<?php echo $mod->id; ?>">
                                                             Reading Materials
@@ -349,7 +369,7 @@ require_once('public/partials/_head.php');
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="module_assignments.php?view=<?php echo $mod->id; ?>">
-                                                            Assignments 
+                                                            Assignments
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -404,7 +424,7 @@ require_once('public/partials/_head.php');
                                                                         <?php
                                                                         echo
                                                                         $not->announcements . "  ~ By " .
-                                                                           "<b> " . $not->created_by . " </b> ";
+                                                                            "<b> " . $not->created_by . " </b> ";
                                                                         /* Show A Button To Download Attachment */
                                                                         if ($not->attachments != '') {
                                                                             echo
@@ -423,7 +443,7 @@ require_once('public/partials/_head.php');
                                                                         <div class="row ">
                                                                             <a class="badge badge-primary text-right" data-toggle="modal" href="#update-<?php echo $mod->id; ?>">
                                                                                 <i class="fas fa-edit"></i>
-                                                                                 Update
+                                                                                Update
                                                                             </a>
                                                                             <!-- Udpate Notice Modal -->
                                                                             <div class="modal fade" id="update-<?php echo $mod->id; ?>">
@@ -491,7 +511,7 @@ require_once('public/partials/_head.php');
 
                                                                             <a class="badge badge-danger" href="#delete-<?php echo $not->id; ?>" data-toggle="modal">
                                                                                 <i class="fas fa-trash"></i>
-                                                                                 Delete
+                                                                                Delete
                                                                             </a>
                                                                             <!-- Delete Confirmation Modal -->
                                                                             <div class="modal fade" id="delete-<?php echo $not->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
