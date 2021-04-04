@@ -50,7 +50,7 @@ while ($admin = $res->fetch_object()) {
                     ?>
                         <a href="notifications.php" class="dropdown-item">
                             <?php echo $notification->notification_detail; ?>
-                            <span class="float-right text-muted text-sm"><?php echo date('d M Y g:ia', strtotime($notification->created_at)); ?></span>
+                            <span class="float-right text-success text-sm"><?php echo date('d M Y g:ia', strtotime($notification->created_at)); ?></span>
                             <br>
                         </a>
                     <?php

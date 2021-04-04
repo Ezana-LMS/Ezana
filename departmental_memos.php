@@ -130,7 +130,7 @@ if (isset($_POST['add_notice'])) {
 
     $notif_type = $type;
     $status = 'Unread';
-    $notification_detail = "$type For $department_name";
+    $notification_detail = "Notice For $department_name";
 
 
     $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, department_id, department_name, type, departmental_memo, faculty_id) VALUES(?,?,?,?,?,?,?)";
