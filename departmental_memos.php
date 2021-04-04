@@ -182,7 +182,7 @@ if (isset($_POST['update'])) {
 
     $query = "UPDATE ezanaLMS_DepartmentalMemos SET  created_by=?, departmental_memo =?, attachments =?, type =?, faculty_id =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssss',  $created_by, $departmental_memo, $attachments, $type, $faculty, $id);
+    $rc = $stmt->bind_param('ssssss',  $created_by, $departmental_memo, $attachments, $type, $faculty, $id);
     $stmt->execute();
     if ($stmt) {
         $success = "Updated";
@@ -608,7 +608,6 @@ require_once('public/partials/_head.php');
                                                                                                                     <div class="custom-file">
                                                                                                                         <input name="attachments" type="file" class="custom-file-input">
                                                                                                                         <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
-                                                                                                                        <input type="hidden" required name="id" value="<?php echo $memo->id; ?>" class="form-control">
                                                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                     </div>
                                                                                                                 </div>
@@ -616,6 +615,8 @@ require_once('public/partials/_head.php');
                                                                                                             <div class="form-group col-md-12">
                                                                                                                 <label for="">Created By</label>
                                                                                                                 <input type="text" name="created_by" class="form-control" value="<?php echo $memo->created_by; ?>">
+                                                                                                                <input type="hidden" required name="id" value="<?php echo $memo->id; ?>" class="form-control">
+
                                                                                                             </div>
 
                                                                                                         </div>
