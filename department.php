@@ -147,11 +147,24 @@ if (isset($_POST['add_notice'])) {
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
 
+    /* Notify Me After Posting Memo / Notice */
+    $notif_type = 'Posted Notice';
+    $status = 'Unread';
+    $notification_detail = "$type For $department_name";
+
     $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, faculty_id) VALUES(?,?,?,?,?,?)";
+    $notif_querry = "INSERT INTO ezanaLMS_Notifications(type, status, notification_detail) VALUES(?,?,?)";
+
     $stmt = $mysqli->prepare($query);
+    $notif_stmt = $mysqli->prepare($notif_querry);
+
     $rc = $stmt->bind_param('ssssss', $id, $department_id, $department_name, $type, $departmental_memo, $faculty);
+    $rc = $notif_stmt->bind_param('sss', $notif_type, $status, $notification_detail);
+
     $stmt->execute();
-    if ($stmt) {
+    $notif_stmt->execute();
+
+    if ($stmt && $notif_stmt) {
         $success = "Added" && header("refresh:1; url=department.php?view=$department_id");
     } else {
         //inject alert that profile update task failed
