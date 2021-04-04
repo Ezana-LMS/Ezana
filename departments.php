@@ -59,12 +59,11 @@ if (isset($_POST['add_dept'])) {
             $faculty = $_POST['faculty'];
             $details = $_POST['details'];
             $hod = $_POST['hod'];
-            $created_at = date('d M Y');
             $faculty_name = $_POST['faculty_name'];
 
-            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, faculty_name, details, hod, created_at) VALUES(?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, faculty_name, details, hod) VALUES(?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssss', $id, $code, $name, $faculty, $faculty_name, $details, $hod, $created_at);
+            $rc = $stmt->bind_param('sssssss', $id, $code, $name, $faculty, $faculty_name, $details, $hod);
             $stmt->execute();
             if ($stmt) {
                 $success = "$name Department Added";
@@ -375,7 +374,7 @@ require_once('public/partials/_head.php');
                                 <div class="row">
                                     <div class="col-12">
 
-                                        <table id="example1" class="table table-bordered table-striped">
+                                        <table id="example1" class="table  table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>Code</th>

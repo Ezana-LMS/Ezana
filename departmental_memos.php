@@ -67,6 +67,8 @@ if (isset($_POST['add_course'])) {
             $department_id = $_POST['department_id'];
             $department_name = $_POST['department_name'];
 
+
+
             $query = "INSERT INTO ezanaLMS_Courses (id, code, name, details, department_id, department_name) VALUES(?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ssssss', $id, $code, $name, $details, $department_id, $department_name);
@@ -92,11 +94,20 @@ if (isset($_POST['add_memo'])) {
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
 
+    /* Notify Me After Posting Memo / Notice */
+    $notif_type = 'Posted Memo';
+    $status = 'Unread';
+    $notification_detail = "$type For $department_name";
+
     $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, department_id, department_name, type, departmental_memo, attachments, faculty_id) VALUES(?,?,?,?,?,?,?,?)";
+    $notif_querry = "INSERT INTO ezanaLMS_Notifications(type, status, notification_detail) VALUES(?,?,?)";
     $stmt = $mysqli->prepare($query);
+    $notif_stmt = $mysqli->prepare($notif_querry);
     $rc = $stmt->bind_param('ssssssss', $id, $created_by, $department_id, $department_name, $type, $departmental_memo, $attachments, $faculty);
+    $rc = $notif_stmt->bind_param('sss', $notif_type, $status, $notification_detail);
     $stmt->execute();
-    if ($stmt) {
+    $notif_stmt->execute();
+    if ($stmt && $notif_stmt) {
         $success = "Departmental Memo Added"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
     } else {
         //inject alert that profile update task failed
@@ -115,11 +126,26 @@ if (isset($_POST['add_notice'])) {
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
 
+    /* Notify Me After Posting Memo / Notice */
+
+    $notif_type = $type;
+    $status = 'Unread';
+    $notification_detail = "Notice For $department_name";
+
+
     $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, department_id, department_name, type, departmental_memo, faculty_id) VALUES(?,?,?,?,?,?,?)";
+    $notif_querry = "INSERT INTO ezanaLMS_Notifications(type, status, notification_detail) VALUES(?,?,?)";
+
     $stmt = $mysqli->prepare($query);
+    $notif_stmt = $mysqli->prepare($notif_querry);
+
     $rc = $stmt->bind_param('sssssss', $id, $created_by, $department_id, $department_name, $type, $departmental_memo, $faculty);
+    $rc = $notif_stmt->bind_param('sss', $notif_type, $status, $notification_detail);
+
     $stmt->execute();
-    if ($stmt) {
+    $notif_stmt->execute();
+
+    if ($stmt && $notif_type) {
         $success = "Notice Posted"; // && header("refresh:1; url=create_departmental_memo.php?department_name=$department_name&department_id=$department_id");
     } else {
         //inject alert that profile update task failed
@@ -156,7 +182,7 @@ if (isset($_POST['update'])) {
 
     $query = "UPDATE ezanaLMS_DepartmentalMemos SET  created_by=?, departmental_memo =?, attachments =?, type =?, faculty_id =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssss',  $created_by, $departmental_memo, $attachments, $type, $faculty, $id);
+    $rc = $stmt->bind_param('ssssss',  $created_by, $departmental_memo, $attachments, $type, $faculty, $id);
     $stmt->execute();
     if ($stmt) {
         $success = "Updated";
@@ -501,7 +527,7 @@ require_once('public/partials/_head.php');
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$department->id' AND type != 'Departmental Document' ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$department->id' AND type = 'Memo' ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
@@ -582,7 +608,6 @@ require_once('public/partials/_head.php');
                                                                                                                     <div class="custom-file">
                                                                                                                         <input name="attachments" type="file" class="custom-file-input">
                                                                                                                         <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
-                                                                                                                        <input type="hidden" required name="id" value="<?php echo $memo->id; ?>" class="form-control">
                                                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                     </div>
                                                                                                                 </div>
@@ -590,6 +615,8 @@ require_once('public/partials/_head.php');
                                                                                                             <div class="form-group col-md-12">
                                                                                                                 <label for="">Created By</label>
                                                                                                                 <input type="text" name="created_by" class="form-control" value="<?php echo $memo->created_by; ?>">
+                                                                                                                <input type="hidden" required name="id" value="<?php echo $memo->id; ?>" class="form-control">
+
                                                                                                             </div>
 
                                                                                                         </div>

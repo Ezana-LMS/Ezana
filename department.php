@@ -81,24 +81,32 @@ if (isset($_POST['add_course'])) {
     }
 }
 
-/* Add Departmental Notice / Memo */
+/* Add Departmental Notice / Memo And Post A Notification After Adding */
 if (isset($_POST['add_memo'])) {
     $id = $_POST['id'];
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
     $attachments = $_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
-    $created_at = date('d M Y g:i');
     $departmental_memo = $_POST['departmental_memo'];
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
 
-    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, departmental_memo,  department_id, department_name, type, attachments, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?,?)";
+    /* Notify Me After Posting Memo / Notice */
+    $notif_type = 'Posted Memo';
+    $status = 'Unread';
+    $notification_detail = "$type For $department_name";
+
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, departmental_memo,  department_id, department_name, type, attachments, faculty_id) VALUES(?,?,?,?,?,?,?,?)";
+    $notif_querry = "INSERT INTO ezanaLMS_Notifications(type, status, notification_detail) VALUES(?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssssss', $id, $created_by, $departmental_memo, $department_id, $department_name, $type,  $attachments, $created_at, $faculty);
+    $notif_stmt = $mysqli->prepare($notif_querry);
+    $rc = $stmt->bind_param('ssssssss', $id, $created_by, $departmental_memo, $department_id, $department_name, $type,  $attachments, $faculty);
+    $rc = $notif_stmt->bind_param('sss', $notif_type, $status, $notification_detail);
     $stmt->execute();
-    if ($stmt) {
+    $notif_stmt->execute();
+    if ($stmt && $notif_stmt) {
         $success = "Departmental Memo Added" && header("refresh:1; url=department.php?view=$department_id");
     } else {
         //inject alert that profile update task failed
@@ -113,14 +121,13 @@ if (isset($_POST['update'])) {
     $departmental_memo = $_POST['departmental_memo'];
     $attachments = $_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
-    $created_at = date('d M Y g:i');
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
 
-    $query = "UPDATE ezanaLMS_DepartmentalMemos SET  created_by = ?, departmental_memo =?, attachments =?, created_at =?, type =?, faculty_id =? WHERE id =?";
+    $query = "UPDATE ezanaLMS_DepartmentalMemos SET  created_by = ?, departmental_memo =?, attachments =?,  type =?, faculty_id =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssss',  $created_by, $departmental_memo, $attachments, $created_at, $type, $faculty, $id);
+    $rc = $stmt->bind_param('ssssss',  $created_by, $departmental_memo, $attachments, $type, $faculty, $id);
     $stmt->execute();
     if ($stmt) {
         $success = "Updated" && header("refresh:1; url=department.php?view=$department_id");
@@ -137,15 +144,27 @@ if (isset($_POST['add_notice'])) {
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
     $departmental_memo = $_POST['departmental_memo'];
-    $created_at = date('d M Y g:i');
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
 
-    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, created_at, faculty_id) VALUES(?,?,?,?,?,?,?)";
+    /* Notify Me After Posting Memo / Notice */
+    $notif_type = 'Posted Notice';
+    $status = 'Unread';
+    $notification_detail = "$type For $department_name";
+
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, faculty_id) VALUES(?,?,?,?,?,?)";
+    $notif_querry = "INSERT INTO ezanaLMS_Notifications(type, status, notification_detail) VALUES(?,?,?)";
+
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssss', $id, $department_id, $department_name, $type, $departmental_memo, $created_at, $faculty);
+    $notif_stmt = $mysqli->prepare($notif_querry);
+
+    $rc = $stmt->bind_param('ssssss', $id, $department_id, $department_name, $type, $departmental_memo, $faculty);
+    $rc = $notif_stmt->bind_param('sss', $notif_type, $status, $notification_detail);
+
     $stmt->execute();
-    if ($stmt) {
+    $notif_stmt->execute();
+
+    if ($stmt && $notif_stmt) {
         $success = "Added" && header("refresh:1; url=department.php?view=$department_id");
     } else {
         //inject alert that profile update task failed
@@ -493,10 +512,10 @@ require_once('public/partials/_head.php');
                                             </div>
                                             <br>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            Post Announcement / Notice
+                                                            Post Announcement
                                                         </div>
                                                         <div class="card-body">
                                                             <form method="post" enctype="multipart/form-data" role="form">
@@ -506,7 +525,6 @@ require_once('public/partials/_head.php');
                                                                         <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
                                                                         <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
                                                                         <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
-                                                                        <input type="hidden" required name="type" value="Notice" class="form-control">
                                                                         <input type="hidden" required name="type" value="Notice" class="form-control">
                                                                         <textarea name="departmental_memo" id="dep_memo" rows="3" class="form-control"></textarea>
                                                                     </div>
@@ -519,69 +537,43 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-6">
-                                                    <div class="card">
-                                                        <div class="card-header">
-                                                            Student Login Activity
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <table class="table table-striped">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th scope="col">#</th>
-                                                                        <th scope="col">Adm No</th>
-                                                                        <th scope="col">Login Time</th>
-                                                                        <th scope="col">Logout Time</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <th scope="row"></th>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="col-md-12">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            Recent Posted Notices
+                                                            Recent Posted Announcements
                                                         </div>
                                                         <div class="card-body">
-                                                            <div class="list-group">
-                                                                <?php
-                                                                $departmentId = $department->id;
-                                                                $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$departmentId' AND type = 'Notice' ORDER BY `ezanaLMS_DepartmentalMemos`.`created_at` ASC LIMIT 10  ";
-                                                                $stmt = $mysqli->prepare($ret);
-                                                                $stmt->execute(); //ok
-                                                                $res = $stmt->get_result();
-                                                                $cnt = 1;
-                                                                while ($memo = $res->fetch_object()) {
-                                                                ?>
+                                                            <?php
+                                                            $departmentId = $department->id;
+                                                            $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$departmentId' AND type = 'Notice' ORDER BY `ezanaLMS_DepartmentalMemos`.`created_at` ASC LIMIT 10  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            $cnt = 1;
+                                                            while ($memo = $res->fetch_object()) {
+                                                            ?>
+                                                                <div class="list-group">
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <h5 class="mb-1"></h5>
                                                                         <small><?php echo $memo->created_at; ?></small>
                                                                     </div>
-                                                                    <small>
+                                                                    <p>
                                                                         <?php
                                                                         /* Trancate This */
                                                                         $text = $memo->departmental_memo;
                                                                         echo substr($text, 0, 200);
                                                                         ?>
-                                                                        <hr>
-                                                                        <div class="row">
-                                                                            <a class="badge badge-danger" href="department.php?delete=<?php echo $memo->id; ?>&view=<?php echo $department->id; ?>">
-                                                                                <i class="fas fa-trash"></i>
-                                                                                Delete
-                                                                            </a>
-                                                                        </div>
-                                                                    </small>
-                                                                <?php } ?>
-                                                            </div>
+                                                                    </p>
+                                                                    <div class="row">
+                                                                        <a class="badge badge-danger" href="department.php?delete=<?php echo $memo->id; ?>&view=<?php echo $department->id; ?>">
+                                                                            <i class="fas fa-trash"></i>
+                                                                            Clear Announcement
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                            <?php } ?>
+
                                                         </div>
                                                     </div>
                                                 </div>
