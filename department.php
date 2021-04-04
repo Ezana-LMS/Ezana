@@ -88,15 +88,14 @@ if (isset($_POST['add_memo'])) {
     $department_name = $_POST['department_name'];
     $attachments = $_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
-    $created_at = date('d M Y g:i');
     $departmental_memo = $_POST['departmental_memo'];
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
 
-    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, departmental_memo,  department_id, department_name, type, attachments, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, departmental_memo,  department_id, department_name, type, attachments, faculty_id) VALUES(?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssssss', $id, $created_by, $departmental_memo, $department_id, $department_name, $type,  $attachments, $created_at, $faculty);
+    $rc = $stmt->bind_param('ssssssss', $id, $created_by, $departmental_memo, $department_id, $department_name, $type,  $attachments, $faculty);
     $stmt->execute();
     if ($stmt) {
         $success = "Departmental Memo Added" && header("refresh:1; url=department.php?view=$department_id");
@@ -113,14 +112,13 @@ if (isset($_POST['update'])) {
     $departmental_memo = $_POST['departmental_memo'];
     $attachments = $_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
-    $created_at = date('d M Y g:i');
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
 
-    $query = "UPDATE ezanaLMS_DepartmentalMemos SET  created_by = ?, departmental_memo =?, attachments =?, created_at =?, type =?, faculty_id =? WHERE id =?";
+    $query = "UPDATE ezanaLMS_DepartmentalMemos SET  created_by = ?, departmental_memo =?, attachments =?,  type =?, faculty_id =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssss',  $created_by, $departmental_memo, $attachments, $created_at, $type, $faculty, $id);
+    $rc = $stmt->bind_param('ssssss',  $created_by, $departmental_memo, $attachments, $type, $faculty, $id);
     $stmt->execute();
     if ($stmt) {
         $success = "Updated" && header("refresh:1; url=department.php?view=$department_id");
@@ -137,13 +135,12 @@ if (isset($_POST['add_notice'])) {
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
     $departmental_memo = $_POST['departmental_memo'];
-    $created_at = date('d M Y g:i');
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
 
-    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, created_at, faculty_id) VALUES(?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, faculty_id) VALUES(?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssss', $id, $department_id, $department_name, $type, $departmental_memo, $created_at, $faculty);
+    $rc = $stmt->bind_param('ssssss', $id, $department_id, $department_name, $type, $departmental_memo, $faculty);
     $stmt->execute();
     if ($stmt) {
         $success = "Added" && header("refresh:1; url=department.php?view=$department_id");
@@ -493,7 +490,7 @@ require_once('public/partials/_head.php');
                                             </div>
                                             <br>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="card">
                                                         <div class="card-header">
                                                             Post Announcement / Notice
@@ -519,33 +516,6 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-6">
-                                                    <div class="card">
-                                                        <div class="card-header">
-                                                            Student Login Activity
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <table class="table table-striped">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th scope="col">#</th>
-                                                                        <th scope="col">Adm No</th>
-                                                                        <th scope="col">Login Time</th>
-                                                                        <th scope="col">Logout Time</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <th scope="row"></th>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="col-md-12">
                                                     <div class="card">
                                                         <div class="card-header">
@@ -566,21 +536,22 @@ require_once('public/partials/_head.php');
                                                                         <h5 class="mb-1"></h5>
                                                                         <small><?php echo $memo->created_at; ?></small>
                                                                     </div>
-                                                                    <small>
+                                                                    <p>
                                                                         <?php
                                                                         /* Trancate This */
                                                                         $text = $memo->departmental_memo;
-                                                                        echo substr($text, 0, 200);
+                                                                        echo substr($text, 0, 200) . " <br> " . " ~ Posted By :" . $memo->created_by;
                                                                         ?>
-                                                                        <hr>
-                                                                        <div class="row">
-                                                                            <a class="badge badge-danger" href="department.php?delete=<?php echo $memo->id; ?>&view=<?php echo $department->id; ?>">
-                                                                                <i class="fas fa-trash"></i>
-                                                                                Delete
-                                                                            </a>
-                                                                        </div>
-                                                                    </small>
+                                                                    </p>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <a class="badge badge-danger" href="department.php?delete=<?php echo $memo->id; ?>&view=<?php echo $department->id; ?>">
+                                                                            <i class="fas fa-trash"></i>
+                                                                            Delete
+                                                                        </a>
+                                                                    </div>
                                                                 <?php } ?>
+
                                                             </div>
                                                         </div>
                                                     </div>

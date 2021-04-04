@@ -429,12 +429,13 @@ require_once('public/partials/_head.php');
                                         </div>
                                         <!-- Student Requests -->
                                         <hr>
+
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="card col-md-6">
                                                     <div class="card-header">
                                                         <h3 class="card-title">
-                                                            Requests
+                                                            Users Requests
                                                         </h3>
 
                                                         <div class="card-tools">
@@ -477,7 +478,7 @@ require_once('public/partials/_head.php');
                                                 <div class="card col-md-6">
                                                     <div class="card-header text-center">
                                                         <h3 class="card-title">
-                                                            Server Status, Database Status And Error Checkings
+                                                            System And Database Server Status / Error Checkings
                                                         </h3>
                                                     </div>
                                                     <div class="card-body">
@@ -489,7 +490,46 @@ require_once('public/partials/_head.php');
                                                             echo "Server " . $value . "<br />";
                                                         }
                                                         ?>
+                                                        <hr>
+                                                        <!-- System Requests -->
+
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="card col-md-12">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">
+                                                            Users Bug / Errors Reports
+                                                        </h3>
+
+                                                        <div class="card-tools">
+                                                            <ul class="pagination pagination-sm">
+                                                                <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
+                                                                <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                                                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                                                <li class="page-item"><a href="#" class="page-link">3</a></li>
+                                                                <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <ul class="todo-list" data-widget="todo-list">
+                                                            <li>
+                                                                <div class="icheck-primary d-inline ml-2">
+                                                                    <input type="checkbox" value="" name="todo1" id="todoCheck1">
+                                                                    <label for="todoCheck1"></label>
+                                                                </div>
+                                                                <span class="text">Please Share Course Materials </span>
+                                                                <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
