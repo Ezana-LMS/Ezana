@@ -81,7 +81,7 @@ if (isset($_POST['add_course'])) {
     }
 }
 
-/* Add Departmental Notice / Memo */
+/* Add Departmental Notice / Memo And Post A Notification After Adding */
 if (isset($_POST['add_memo'])) {
     $id = $_POST['id'];
     $department_id = $_POST['department_id'];
@@ -93,11 +93,20 @@ if (isset($_POST['add_memo'])) {
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
 
+    /* Notify Me After Posting Memo / Notice */
+    $notif_type = 'Posted Memo';
+    $status = 'Unread';
+    $notification_detail = "$type For $department_name";
+
     $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, departmental_memo,  department_id, department_name, type, attachments, faculty_id) VALUES(?,?,?,?,?,?,?,?)";
+    $notif_querry = "INSERT INTO ezanaLMS_Notifications(type, status, notification_detail) VALUES(?,?,?)";
     $stmt = $mysqli->prepare($query);
+    $notif_stmt = $mysqli->prepare($notif_querry);
     $rc = $stmt->bind_param('ssssssss', $id, $created_by, $departmental_memo, $department_id, $department_name, $type,  $attachments, $faculty);
+    $rc = $notif_stmt->bind_param('sss', $notif_type, $status, $notification_detail);
     $stmt->execute();
-    if ($stmt) {
+    $notif_stmt->execute();
+    if ($stmt && $notif_stmt) {
         $success = "Departmental Memo Added" && header("refresh:1; url=department.php?view=$department_id");
     } else {
         //inject alert that profile update task failed
