@@ -14,7 +14,7 @@
 <!-- Summernote -->
 <script src="public/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- Canvas Chart Js -->
-<script src="public/canvas/canvasjs.min.js"></script>
+<script src="public/plugins/canvas/canvasjs.min.js"></script>
 <!-- Data Tables -->
 <script src="public/plugins/datatables/jquery.dataTables.js"></script>
 <script src="public/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
@@ -37,7 +37,7 @@
         $("#modules").DataTable();
         $("#lecturers").DataTable();
         $("#students").DataTable();
-        
+
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -54,30 +54,7 @@
         });
     });
 
-    
-
-    /* $(document).ready(function() {
-        // Setup - add a text input to each footer cell
-        $('#filter-table thead tr').clone(true).appendTo('#filter-table thead');
-        $('#filter-table thead tr:eq(1) th').each(function(i) {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-
-            $('input', this).on('keyup change', function() {
-                if (table.column(i).search() !== this.value) {
-                    table
-                        .column(i)
-                        .search(this.value)
-                        .draw();
-                }
-            });
-        });
-
-        var table = $('#filter-table').DataTable({
-            orderCellsTop: true,
-            fixedHeader: true
-        });
-    }); */
+    /* Advanced Filter */
     $(document).ready(function() {
         $('#advanced-filter').DataTable({
             "initComplete": function() {
@@ -152,3 +129,118 @@
 </script>
 <!-- Load Ajax Scripts -->
 <?php require_once('_ajax.php'); ?>
+<!-- Load Chart Scripts -->
+<script>
+    /* User Login Activity Chart */
+    window.onload = function() {
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+            title: {
+                text: ""
+            },
+            axisX: {
+                title: "Time / Date"
+            },
+            axisY: {
+                title: "No Of Users"
+            },
+            data: [{
+                type: "line",
+                name: "User Login Activity",
+                connectNullData: true,
+                //nullDataLineDashType: "solid",
+                xValueType: "dateTime",
+                xValueFormatString: "DD MMM hh:mm TT",
+                yValueFormatString: "#,##0.##''",
+                dataPoints: [{
+                        x: 1501048673000,
+                        y: 35.939
+                    },
+                    {
+                        x: 1501052273000,
+                        y: 40.896
+                    },
+                    {
+                        x: 1501055873000,
+                        y: 56.625
+                    },
+                    {
+                        x: 1501059473000,
+                        y: 26.003
+                    },
+                    {
+                        x: 1501063073000,
+                        y: 20.376
+                    },
+                    {
+                        x: 1501066673000,
+                        y: 19.774
+                    },
+                    {
+                        x: 1501070273000,
+                        y: 23.508
+                    },
+                    {
+                        x: 1501073873000,
+                        y: 18.577
+                    },
+                    {
+                        x: 1501077473000,
+                        y: 15.918
+                    },
+                    {
+                        x: 1501081073000,
+                        y: null
+                    }, // Null Data
+                    {
+                        x: 1501084673000,
+                        y: 10.314
+                    },
+                    {
+                        x: 1501088273000,
+                        y: 10.574
+                    },
+                    {
+                        x: 1501091873000,
+                        y: 14.422
+                    },
+                    {
+                        x: 1501095473000,
+                        y: 18.576
+                    },
+                    {
+                        x: 1501099073000,
+                        y: 22.342
+                    },
+                    {
+                        x: 1501102673000,
+                        y: 22.836
+                    },
+                    {
+                        x: 1501106273000,
+                        y: 23.220
+                    },
+                    {
+                        x: 1501109873000,
+                        y: 23.594
+                    },
+                    {
+                        x: 1501113473000,
+                        y: 24.596
+                    },
+                    {
+                        x: 1501117073000,
+                        y: 31.947
+                    },
+                    {
+                        x: 1501120673000,
+                        y: 31.142
+                    }
+                ]
+            }]
+        });
+        chart.render();
+
+    }
+</script>
