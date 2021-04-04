@@ -493,7 +493,7 @@ require_once('public/partials/_head.php');
                                                 <div class="col-md-12">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            Post Announcement / Notice
+                                                            Post Announcement
                                                         </div>
                                                         <div class="card-body">
                                                             <form method="post" enctype="multipart/form-data" role="form">
@@ -503,7 +503,6 @@ require_once('public/partials/_head.php');
                                                                         <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
                                                                         <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
                                                                         <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
-                                                                        <input type="hidden" required name="type" value="Notice" class="form-control">
                                                                         <input type="hidden" required name="type" value="Notice" class="form-control">
                                                                         <textarea name="departmental_memo" id="dep_memo" rows="3" class="form-control"></textarea>
                                                                     </div>
@@ -519,19 +518,19 @@ require_once('public/partials/_head.php');
                                                 <div class="col-md-12">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            Recent Posted Notices
+                                                            Recent Posted Announcements
                                                         </div>
                                                         <div class="card-body">
-                                                            <div class="list-group">
-                                                                <?php
-                                                                $departmentId = $department->id;
-                                                                $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$departmentId' AND type = 'Notice' ORDER BY `ezanaLMS_DepartmentalMemos`.`created_at` ASC LIMIT 10  ";
-                                                                $stmt = $mysqli->prepare($ret);
-                                                                $stmt->execute(); //ok
-                                                                $res = $stmt->get_result();
-                                                                $cnt = 1;
-                                                                while ($memo = $res->fetch_object()) {
-                                                                ?>
+                                                            <?php
+                                                            $departmentId = $department->id;
+                                                            $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$departmentId' AND type = 'Notice' ORDER BY `ezanaLMS_DepartmentalMemos`.`created_at` ASC LIMIT 10  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            $cnt = 1;
+                                                            while ($memo = $res->fetch_object()) {
+                                                            ?>
+                                                                <div class="list-group">
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <h5 class="mb-1"></h5>
                                                                         <small><?php echo $memo->created_at; ?></small>
@@ -540,19 +539,19 @@ require_once('public/partials/_head.php');
                                                                         <?php
                                                                         /* Trancate This */
                                                                         $text = $memo->departmental_memo;
-                                                                        echo substr($text, 0, 200) . " <br> " . " ~ Posted By :" . $memo->created_by;
+                                                                        echo substr($text, 0, 200);
                                                                         ?>
                                                                     </p>
-                                                                    <hr>
                                                                     <div class="row">
                                                                         <a class="badge badge-danger" href="department.php?delete=<?php echo $memo->id; ?>&view=<?php echo $department->id; ?>">
                                                                             <i class="fas fa-trash"></i>
-                                                                            Delete
+                                                                            Clear Announcement
                                                                         </a>
                                                                     </div>
-                                                                <?php } ?>
+                                                                </div>
+                                                                <hr>
+                                                            <?php } ?>
 
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
