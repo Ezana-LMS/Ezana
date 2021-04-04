@@ -437,42 +437,27 @@ require_once('public/partials/_head.php');
                                                         <h3 class="card-title">
                                                             Users Requests
                                                         </h3>
-
-                                                        <div class="card-tools">
-                                                            <ul class="pagination pagination-sm">
-                                                                <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
-                                                                <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                                                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                                                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                                                                <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
-                                                            </ul>
-                                                        </div>
                                                     </div>
                                                     <!-- /.card-header -->
                                                     <div class="card-body">
                                                         <ul class="todo-list" data-widget="todo-list">
-                                                            <li>
-                                                                <!-- checkbox -->
-                                                                <div class="icheck-primary d-inline ml-2">
-                                                                    <input type="checkbox" value="" name="todo1" id="todoCheck1">
-                                                                    <label for="todoCheck1"></label>
-                                                                </div>
-                                                                <!-- todo text -->
-                                                                <span class="text">Please Share Course Materials </span>
-                                                                <!-- Emphasis label -->
-                                                                <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
-                                                                <!-- General tools such as edit or delete-->
-                                                                <!-- <div class="tools">
-                                                                    <i class="fas fa-edit"></i>
-                                                                    <i class="fas fa-trash-o"></i>
-                                                                </div> -->
-                                                            </li>
+                                                            <?php
+                                                            /* Load User Requests */
+                                                            $ret = "SELECT * FROM `ezanaLMS_UserRequests` ORDER BY `created_at` ASC   ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($req = $res->fetch_object()) {
+                                                            ?>
+                                                                <li>
+                                                                    <span class="text"><?php echo $req->request; ?></span>
+                                                                    <small class="badge badge-success"><i class="far fa-clock"></i> <?php echo date('d M Y - g:ia', strtotime($req->created_at)); ?></small>
+                                                                </li>
+                                                            <?php
+                                                            } ?>
                                                         </ul>
                                                     </div>
-                                                    <!-- /.card-body -->
-                                                    <!-- <div class="card-footer clearfix">
-                                                        <button type="button" class="btn btn-info float-right"><i class="fas fa-plus"></i> Add item</button>
-                                                    </div> -->
+
                                                 </div>
 
                                                 <div class="card col-md-6">
@@ -484,15 +469,12 @@ require_once('public/partials/_head.php');
                                                     <div class="card-body">
                                                         <?php
                                                         $server_info = mysqli_get_server_info($mysqli);
-                                                        echo "Database Server: " . $server_info . "<br>";
+                                                        echo "System / Database Server: " . $server_info . "<br>";
                                                         $array = explode("  ", mysqli_stat($mysqli));
                                                         foreach ($array as $value) {
                                                             echo "Server " . $value . "<br />";
                                                         }
                                                         ?>
-                                                        <hr>
-                                                        <!-- System Requests -->
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -505,31 +487,25 @@ require_once('public/partials/_head.php');
                                                         <h3 class="card-title">
                                                             Users Bug / Errors Reports
                                                         </h3>
-
-                                                        <div class="card-tools">
-                                                            <ul class="pagination pagination-sm">
-                                                                <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
-                                                                <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                                                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                                                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                                                                <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
-                                                            </ul>
-                                                        </div>
                                                     </div>
                                                     <div class="card-body">
                                                         <ul class="todo-list" data-widget="todo-list">
-                                                            <li>
-                                                                <div class="icheck-primary d-inline ml-2">
-                                                                    <input type="checkbox" value="" name="todo1" id="todoCheck1">
-                                                                    <label for="todoCheck1"></label>
-                                                                </div>
-                                                                <span class="text">Please Share Course Materials </span>
-                                                                <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
-
-                                                            </li>
+                                                            <?php
+                                                            /* Load Crashlytics */
+                                                            $ret = "SELECT * FROM `ezanaLMS_BugReports` ORDER BY `date_reported` ASC   ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($bugs = $res->fetch_object()) {
+                                                            ?>
+                                                                <li>
+                                                                    <span class="text"><?php echo $bugs->bug_title; ?></span>
+                                                                    <small class="badge badge-success"><i class="far fa-clock"></i> <?php echo date('d M Y - g:ia', strtotime($bugs->date_reported)); ?></small>
+                                                                </li>
+                                                            <?php
+                                                            } ?>
                                                         </ul>
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
