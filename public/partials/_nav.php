@@ -49,8 +49,9 @@ while ($admin = $res->fetch_object()) {
                     while ($notification = $res->fetch_object()) {
                     ?>
                         <a href="notifications.php" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> <?php echo $notification->notification_detail; ?>
+                            <?php echo $notification->notification_detail; ?>
                             <span class="float-right text-muted text-sm"><?php echo date('d M Y g:ia', strtotime($notification->created_at)); ?></span>
+                            <br>
                         </a>
                     <?php
                     }
