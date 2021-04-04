@@ -27,17 +27,37 @@ while ($admin = $res->fetch_object()) {
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-bell"></i>
-                    <span class="badge badge-success navbar-badge">0</span>
+                    <?php
+                    /* Count Unread Notifications */
+                    $query = "SELECT COUNT(*)  FROM `ezanaLMS_Notifications` WHERE status = 'Unread' ";
+                    $stmt = $mysqli->prepare($query);
+                    $stmt->execute();
+                    $stmt->bind_result($unread);
+                    $stmt->fetch();
+                    $stmt->close(); ?>
+                    <span class="badge badge-success navbar-badge"><?php echo $unread; ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-item dropdown-header">0 Notifications</span>
+                    <span class="dropdown-item dropdown-header"><?php echo $unread; ?> Notifications</span>
                     <div class="dropdown-divider"></div>
-                    <!-- <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope mr-2"></i> 4 new messages
-                        <span class="float-right text-muted text-sm">3 mins</span>
-                    </a> -->
+                    <?php
+                    /* Load Notifications On Order Created */
+                    $ret = "SELECT * FROM `ezanaLMS_Notifications` ORDER BY `created_at` ASC ";
+                    $stmt = $mysqli->prepare($ret);
+                    $stmt->execute(); //ok
+                    $res = $stmt->get_result();
+                    while ($notification = $res->fetch_object()) {
+                    ?>
+                        <a href="notifications.php" class="dropdown-item">
+                            <i class="fas fa-envelope mr-2"></i> <?php echo $notification->notification_detail; ?>
+                            <span class="float-right text-muted text-sm"><?php echo date('d M Y g:ia', strtotime($notification->created_at)); ?></span>
+                        </a>
+                    <?php
+                    }
+                    ?>
+
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                    <a href="notifications.php" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
             </li>
 
