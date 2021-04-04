@@ -465,11 +465,6 @@ require_once('public/partials/_head.php');
                                                                         Modules: <span class="float-right badge bg-info"><?php echo $faculty_modules; ?></span>
                                                                     </a>
                                                                 </li>
-                                                                <!-- <li class="nav-item">
-                                                                    <a href="" class="nav-link">
-                                                                        Administrators <span class="float-right badge bg-success">1</span>
-                                                                    </a>
-                                                                </li> -->
                                                             </ul>
                                                         </div>
                                                     </div>

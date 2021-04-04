@@ -371,7 +371,7 @@ require_once('public/partials/_head.php');
                                 <div class="row">
                                     <div class="col-md-12">
                                         <!-- Perform Crud On Faculties -->
-                                        <table id="example1" class=" table table-bordered table-striped">
+                                        <table id="example1" class="table table-responsive table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>Code Number</th>
@@ -396,6 +396,10 @@ require_once('public/partials/_head.php');
                                                         <td><?php echo $faculty->head; ?></td>
                                                         <td><?php echo $faculty->email; ?></td>
                                                         <td>
+                                                            <a class="badge badge-success"  href="faculty_dashboard.php?view=<?php echo $faculty->id;?>">
+                                                                <i class="fas fa-eye"></i>
+                                                                View
+                                                            </a>
                                                             <a class="badge badge-primary" data-toggle="modal" href="#edit-faculty-<?php echo $faculty->id; ?>">
                                                                 <i class="fas fa-edit"></i>
                                                                 Update

@@ -501,7 +501,7 @@ require_once('public/partials/_head.php');
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$department->id' AND type != 'Departmental Document' ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$department->id' AND type = 'Memo' ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
