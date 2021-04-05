@@ -442,6 +442,39 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- Departmental Menu -->
+                                                <div class="col-md-8">
+                                                    <div class="card">
+                                                        <div class="card-header p-2">
+                                                            <ul class="nav nav-pills">
+                                                                <li class="nav-item"><a class="nav-link active" href="#dept_anouncements" data-toggle="tab">Anouncements</a></li>
+                                                                <li class="nav-item"><a class="nav-link" href="#dept_memos" data-toggle="tab">Memos & Notices</a></li>
+                                                                <li class="nav-item"><a class="nav-link" href="#dept_docs" data-toggle="tab">Dept. Documents</a></li>
+                                                                <li class="nav-item"><a class="nav-link" href="#dept_courses" data-toggle="tab">Courses</a></li>
+                                                                <li class="nav-item"><a class="nav-link " href="#dept_modules" data-toggle="tab">Modules</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="tab-content">
+                                                                <div class="active tab-pane" id="dept_anouncements">
+
+                                                                </div>
+                                                                <div class="tab-pane" id="dept_memos">
+
+                                                                </div>
+                                                                <div class="tab-pane" id="dept_docs">
+
+                                                                </div>
+                                                                <div class="tab-pane" id="dept_courses">
+
+                                                                </div>
+                                                                <div class="tab-pane" id="dept_modules">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
