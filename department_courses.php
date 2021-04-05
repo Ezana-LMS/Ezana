@@ -78,6 +78,7 @@ if (isset($_POST['add_course'])) {
         }
     }
 }
+
 /* Update Department */
 if (isset($_POST['update_dept'])) {
     //Error Handling and prevention of posting double entries
@@ -150,21 +151,6 @@ if (isset($_POST['update_course'])) {
     }
 }
 
-/* Delete Course */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $view = $_GET['view'];
-    $adn = "DELETE FROM ezanaLMS_Courses WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=department_courses.php?view=$view");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 require_once('public/partials/_head.php');
 ?>
 

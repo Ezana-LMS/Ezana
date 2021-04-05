@@ -79,6 +79,42 @@ if (isset($_POST['add_course'])) {
     }
 }
 
+/*  Update Course*/
+if (isset($_POST['update_course'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Couse  Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Course Name Cannot Be Empty";
+    }
+    if (!$error) {
+
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+        $code = $_POST['code'];
+        $details = $_POST['details'];
+        $view = $_GET['view'];
+
+        $query = "UPDATE ezanaLMS_Courses SET  code =?, name =?, details =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Course Updated" && header("refresh:1; url=department_details.php?view=$view");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
 /* Update Department */
 if (isset($_POST['update_dept'])) {
     //Error Handling and prevention of posting double entries
@@ -251,6 +287,7 @@ if (isset($_POST['update_departmental_doc'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+
 /* Delete Departmental Memo/ Notice/ Announcemet / Departmental Documents */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
@@ -580,6 +617,60 @@ require_once('public/partials/_head.php');
                                                 </div>
                                             </div>
                                             <!-- End Add Memo / Notice Modal -->
+
+                                            <!-- Add Departmental Document -->
+                                            <div class="modal fade" id="add-dep-doc">
+                                                <div class="modal-dialog  modal-xl">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Fill All Values </h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-12">
+                                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                            <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
+                                                                            <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
+                                                                            <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Upload Departmental Document (PDF Or Docx)</label>
+                                                                            <div class="input-group">
+                                                                                <div class="custom-file">
+                                                                                    <input name="attachments" type="file" class="custom-file-input">
+                                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Created By</label>
+                                                                            <input type="text" required name="created_by" class="form-control">
+                                                                        </div>
+                                                                        <div style="display:none" class="form-group col-md-6">
+                                                                            <label for="">Type</label>
+                                                                            <select class='form-control basic' name="type">
+                                                                                <option selected>Departmental Document</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-footer text-right">
+                                                                    <button type="submit" name="add_departmental_doc" class="btn btn-primary">Add Departmental Document</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Add Departmental Document -->
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-4">
@@ -724,7 +815,7 @@ require_once('public/partials/_head.php');
                                                                                                 ?>
                                                                                             </p>
                                                                                             <div class="row">
-                                                                                                <a class="badge badge-danger" href="department_details.php?delete=<?php echo $announcement->id; ?>&view=<?php echo $announcement->id; ?>">
+                                                                                                <a class="badge badge-danger" href="department_details.php?delete=<?php echo $announcement->id; ?>&view=<?php echo $department->id; ?>">
                                                                                                     <i class="fas fa-trash"></i>
                                                                                                     Clear Announcement
                                                                                                 </a>
@@ -907,158 +998,155 @@ require_once('public/partials/_head.php');
 
                                                                 <div class="tab-pane" id="dept_docs">
                                                                     <div class="col-md-12">
-                                                                        <div class="card">
-                                                                            <div class="card-header ">
-                                                                                <div class="text-right">
-                                                                                    <a href="#add-dep-doc" data-toggle="modal" class=" btn btn-outline-success">
-                                                                                        <i class="fas fa-file"></i>
-                                                                                        Add Departmental Document
-                                                                                    </a>
-                                                                                </div>
+                                                                        <div class="card-header ">
+                                                                            <div class="text-right">
+                                                                                <a href="#add-dep-doc" data-toggle="modal" class=" btn btn-outline-success">
+                                                                                    <i class="fas fa-file"></i>
+                                                                                    Add Departmental Document
+                                                                                </a>
                                                                             </div>
-                                                                            <div class="card-body">
-                                                                                <table id="example1" class="table table-bordered table-striped">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>Posted By</th>
-                                                                                            <th>Date Posted</th>
-                                                                                            <th>Manage</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody>
-                                                                                        <?php
-                                                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$department->id' AND type = 'Departmental Document'  ";
-                                                                                        $stmt = $mysqli->prepare($ret);
-                                                                                        $stmt->execute(); //ok
-                                                                                        $res = $stmt->get_result();
-                                                                                        while ($dep_doc = $res->fetch_object()) {
-                                                                                        ?>
+                                                                        </div>
+                                                                        <br>
+                                                                        <table id="faculties" class="table table-bordered table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Posted By</th>
+                                                                                    <th>Date Posted</th>
+                                                                                    <th>Manage</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <?php
+                                                                                $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$department->id' AND type = 'Departmental Document'  ";
+                                                                                $stmt = $mysqli->prepare($ret);
+                                                                                $stmt->execute(); //ok
+                                                                                $res = $stmt->get_result();
+                                                                                while ($dep_doc = $res->fetch_object()) {
+                                                                                ?>
 
-                                                                                            <tr>
-                                                                                                <td><?php echo $dep_doc->created_by; ?></td>
-                                                                                                <td><?php echo $dep_doc->created_at; ?></td>
-                                                                                                <td>
-                                                                                                    <a class="badge badge-success" data-toggle="modal" href="#view-<?php echo $dep_doc->id; ?>">
-                                                                                                        <i class="fas fa-eye"></i>
-                                                                                                        View
-                                                                                                    </a>
-                                                                                                    <!-- View Deptmental Memo Modal -->
-                                                                                                    <div class="modal fade" id="view-<?php echo $dep_doc->id; ?>">
-                                                                                                        <div class="modal-dialog  modal-lg">
-                                                                                                            <div class="modal-content">
-                                                                                                                <div class="modal-header text-center">
-                                                                                                                    <h4 class="modal-title"><?php echo $department->name . " " . $dep_doc->type; ?> Created On <span class='text-success'><?php echo $dep_doc->created_at; ?></span></h4>
-                                                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                                                        <span aria-hidden="true">&times;</span>
-                                                                                                                    </button>
-                                                                                                                </div>
-                                                                                                                <div class="modal-body text-center">
-                                                                                                                    <?php
-                                                                                                                    if ($dep_doc->attachments != '') {
-                                                                                                                        echo
-                                                                                                                        "<a href='public/uploads/EzanaLMSData/memos/$dep_doc->attachments' target='_blank' class='btn btn-outline-success'><i class='fas fa-download'></i> Download $dep_doc->type </a>";
-                                                                                                                    } else {
-                                                                                                                        echo
-                                                                                                                        "<a  class='btn btn-outline-danger'><i class='fas fa-times'></i> $dep_doc->type Attachment Not Available </a>";
-                                                                                                                    }
-                                                                                                                    ?>
-
-                                                                                                                </div>
-                                                                                                                <div class="modal-footer justify-content-between">
-                                                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                                                </div>
-                                                                                                            </div>
+                                                                                    <tr>
+                                                                                        <td><?php echo $dep_doc->created_by; ?></td>
+                                                                                        <td><?php echo date('d M Y g:ia', strtotime($dep_doc->created_at)); ?></td>
+                                                                                        <td>
+                                                                                            <a class="badge badge-success" data-toggle="modal" href="#view-<?php echo $dep_doc->id; ?>">
+                                                                                                <i class="fas fa-eye"></i>
+                                                                                                View
+                                                                                            </a>
+                                                                                            <!-- View Deptmental Memo Modal -->
+                                                                                            <div class="modal fade" id="view-<?php echo $dep_doc->id; ?>">
+                                                                                                <div class="modal-dialog  modal-lg">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header text-center">
+                                                                                                            <h4 class="modal-title"><?php echo $department->name . "  " . $dep_doc->type; ?> Created On <br> <span class='text-success'><?php echo date('d M Y g:ia', strtotime($dep_doc->created_at)); ?></span></h4>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body text-center">
+                                                                                                            <?php
+                                                                                                            if ($dep_doc->attachments != '') {
+                                                                                                                echo
+                                                                                                                "<a href='public/uploads/EzanaLMSData/memos/$dep_doc->attachments' target='_blank' class='btn btn-outline-success'><i class='fas fa-download'></i> Download $dep_doc->type </a>";
+                                                                                                            } else {
+                                                                                                                echo
+                                                                                                                "<a  class='btn btn-outline-danger'><i class='fas fa-times'></i> $dep_doc->type Attachment Not Available </a>";
+                                                                                                            }
+                                                                                                            ?>
 
                                                                                                         </div>
+                                                                                                        <div class="modal-footer justify-content-between">
+                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                                        </div>
                                                                                                     </div>
-                                                                                                    <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $dep_doc->id; ?>">
-                                                                                                        <i class="fas fa-edit"></i>
-                                                                                                        Update
-                                                                                                    </a>
-                                                                                                    <!-- Update Departmental Memo Modal -->
-                                                                                                    <div class="modal fade" id="update-<?php echo $dep_doc->id; ?>">
-                                                                                                        <div class="modal-dialog  modal-lg">
-                                                                                                            <div class="modal-content">
-                                                                                                                <div class="modal-header">
-                                                                                                                    <h4 class="modal-title">Fill All Values </h4>
-                                                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                                                        <span aria-hidden="true">&times;</span>
-                                                                                                                    </button>
-                                                                                                                </div>
-                                                                                                                <div class="modal-body">
-                                                                                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                                                                                        <div class="card-body">
-                                                                                                                            <div class="row">
-                                                                                                                                <div class="form-group col-md-12">
-                                                                                                                                    <input type="hidden" required name="id" value="<?php echo $dep_doc->id; ?>" class="form-control">
-                                                                                                                                    <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
-                                                                                                                                    <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
-                                                                                                                                    <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
-                                                                                                                                </div>
-                                                                                                                                <div class="form-group col-md-6">
-                                                                                                                                    <label for="">Upload Departmental Document (PDF Or Docx)</label>
-                                                                                                                                    <div class="input-group">
-                                                                                                                                        <div class="custom-file">
-                                                                                                                                            <input name="attachments" type="file" class="custom-file-input">
-                                                                                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file </label>
-                                                                                                                                        </div>
-                                                                                                                                    </div>
-                                                                                                                                </div>
-                                                                                                                                <div class="form-group col-md-6">
-                                                                                                                                    <label for="">Created By</label>
-                                                                                                                                    <input type="text" value="<?php echo $dep_doc->created_by; ?>" required name="created_by" class="form-control">
-                                                                                                                                </div>
-                                                                                                                                <div style="display:none" class="form-group col-md-6">
-                                                                                                                                    <label for="">Type</label>
-                                                                                                                                    <select class='form-control basic' name="type">
-                                                                                                                                        <option selected>Departmental Document</option>
-                                                                                                                                    </select>
+
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $dep_doc->id; ?>">
+                                                                                                <i class="fas fa-edit"></i>
+                                                                                                Update
+                                                                                            </a>
+                                                                                            <!-- Update Departmental Memo Modal -->
+                                                                                            <div class="modal fade" id="update-<?php echo $dep_doc->id; ?>">
+                                                                                                <div class="modal-dialog  modal-xl">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h4 class="modal-title">Fill All Values </h4>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+                                                                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                                                                <div class="card-body">
+                                                                                                                    <div class="row">
+                                                                                                                        <div class="form-group col-md-12">
+                                                                                                                            <input type="hidden" required name="id" value="<?php echo $dep_doc->id; ?>" class="form-control">
+                                                                                                                            <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
+                                                                                                                            <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
+                                                                                                                            <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
+                                                                                                                        </div>
+                                                                                                                        <div class="form-group col-md-6">
+                                                                                                                            <label for="">Upload Departmental Document (PDF Or Docx)</label>
+                                                                                                                            <div class="input-group">
+                                                                                                                                <div class="custom-file">
+                                                                                                                                    <input name="attachments" type="file" class="custom-file-input">
+                                                                                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                                 </div>
                                                                                                                             </div>
                                                                                                                         </div>
-                                                                                                                        <div class="card-footer text-right">
-                                                                                                                            <button type="submit" name="update_departmental_doc" class="btn btn-primary">Update Departmental Document</button>
+                                                                                                                        <div class="form-group col-md-6">
+                                                                                                                            <label for="">Created By</label>
+                                                                                                                            <input type="text" value="<?php echo $dep_doc->created_by; ?>" required name="created_by" class="form-control">
                                                                                                                         </div>
-                                                                                                                    </form>
+                                                                                                                        <div style="display:none" class="form-group col-md-6">
+                                                                                                                            <label for="">Type</label>
+                                                                                                                            <select class='form-control basic' name="type">
+                                                                                                                                <option selected>Departmental Document</option>
+                                                                                                                            </select>
+                                                                                                                        </div>
+                                                                                                                    </div>
                                                                                                                 </div>
-                                                                                                                <div class="modal-footer justify-content-between">
-                                                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                                                <div class="card-footer text-right">
+                                                                                                                    <button type="submit" name="update_departmental_doc" class="btn btn-primary">Update Departmental Document</button>
                                                                                                                 </div>
-                                                                                                            </div>
+                                                                                                            </form>
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer justify-content-between">
+                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <!-- End Update Departmental Memo Modal -->
-                                                                                                    <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $dep_doc->id; ?>">
-                                                                                                        <i class="fas fa-trash"></i>
-                                                                                                        Delete
-                                                                                                    </a>
-                                                                                                    <!-- Delete Confirmation -->
-                                                                                                    <div class="modal fade" id="delete-<?php echo $dep_doc->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                                                            <div class="modal-content">
-                                                                                                                <div class="modal-header">
-                                                                                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                                                        <span aria-hidden="true">&times;</span>
-                                                                                                                    </button>
-                                                                                                                </div>
-                                                                                                                <div class="modal-body text-center text-danger">
-                                                                                                                    <h4>Delete This <?php echo $dep_doc->type; ?> ?</h4>
-                                                                                                                    <br>
-                                                                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                                    <a href="department_details.php?delete=<?php echo $dep_doc->id; ?>&view=<?php echo $dep_doc->department_id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                                                                </div>
-                                                                                                            </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!-- End Update Departmental Memo Modal -->
+                                                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $dep_doc->id; ?>">
+                                                                                                <i class="fas fa-trash"></i>
+                                                                                                Delete
+                                                                                            </a>
+                                                                                            <!-- Delete Confirmation -->
+                                                                                            <div class="modal fade" id="delete-<?php echo $dep_doc->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body text-center text-danger">
+                                                                                                            <h4>Delete This <?php echo $dep_doc->type; ?> ?</h4>
+                                                                                                            <br>
+                                                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                                            <a href="department_details.php?delete=<?php echo $dep_doc->id; ?>&view=<?php echo $dep_doc->department_id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        <?php
-                                                                                        } ?>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-                                                                        </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                <?php
+                                                                                } ?>
+                                                                            </tbody>
+                                                                        </table>
                                                                     </div>
                                                                 </div>
 
