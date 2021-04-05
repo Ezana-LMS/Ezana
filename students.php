@@ -48,7 +48,6 @@ if (isset($_POST['add_student'])) {
         $course = $_POST['course'];
         $department = $_POST['department'];
         $current_year = $_POST['current_year'];
-        $no_of_modules = $_POST['no_of_modules'];
 
         $profile_pic = $_FILES['profile_pic']['name'];
         move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
@@ -69,9 +68,9 @@ if (isset($_POST['add_student'])) {
             }
         } else {
 
-            $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, no_of_modules, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssssssssssssssss', $id, $faculty_id, $day_enrolled, $school, $course, $department, $current_year, $no_of_modules, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $acc_status, $created_at, $password, $profile_pic);
+            $rc = $stmt->bind_param('sssssssssssssssssss', $id, $faculty_id, $day_enrolled, $school, $course, $department, $current_year, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $acc_status, $created_at, $password, $profile_pic);
             $stmt->execute();
             if ($stmt) {
                 $success = "Student Add " && header("refresh:1; url=students.php");
@@ -101,12 +100,11 @@ if (isset($_POST['update_student'])) {
     $course = $_POST['course'];
     $department = $_POST['department'];
     $current_year = $_POST['current_year'];
-    $no_of_modules = $_POST['no_of_modules'];
 
     if (!$error) {
-        $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?, no_of_modules =?, name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?, name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssssssssssss', $day_enrolled, $school, $course, $department, $current_year, $no_of_modules, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $updated_at, $id);
+        $rc = $stmt->bind_param('sssssssssssssss', $day_enrolled, $school, $course, $department, $current_year, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $updated_at, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Student Add " && header("refresh:1; url=students.php");
@@ -336,46 +334,6 @@ require_once('public/partials/_head.php');
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
-                                                                <label for="">Course Enrolled</label>
-                                                                <select class='form-control basic' id="CourseCode" onchange="getStudentCourseDetails(this.value);">
-                                                                    <option selected>Select Course Code </option>
-                                                                    <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` ";
-                                                                    $stmt = $mysqli->prepare($ret);
-                                                                    $stmt->execute(); //ok
-                                                                    $res = $stmt->get_result();
-                                                                    while ($courses = $res->fetch_object()) {
-                                                                    ?>
-                                                                        <option><?php echo $courses->code; ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Course Name</label>
-                                                                <input type="text" required name="course" class="form-control" id="CourseName">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Department Name</label>
-                                                                <input type="text" required name="department" class="form-control" id="DepartmentName">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Faculty / School Name</label>
-                                                                <input type="text" required name="school" class="form-control" id="FacultyName">
-                                                                <input type="hidden" required name="faculty_id" class="form-control" id="FacultyID">
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Current Year</label>
-                                                                <input type="text" required name="current_year" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Date Enrolled</label>
-                                                                <input type="text" placeholder="DD - MM - YYYY" required name="day_enrolled" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">No Of Modules</label>
-                                                                <input type="text" required name="no_of_modules" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
                                                                 <label for="">Name</label>
                                                                 <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
@@ -426,6 +384,47 @@ require_once('public/partials/_head.php');
                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Course Enrolled</label>
+                                                                <select class='form-control basic' id="CourseCode" onchange="getStudentCourseDetails(this.value);">
+                                                                    <option selected>Select Course Code </option>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    while ($courses = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <option><?php echo $courses->code; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Course Name</label>
+                                                                <input type="text" required name="course" class="form-control" id="CourseName">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Department Name</label>
+                                                                <input type="text" required name="department" class="form-control" id="DepartmentName">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty / School Name</label>
+                                                                <input type="text" required name="school" class="form-control" id="FacultyName">
+                                                                <input type="hidden" required name="faculty_id" class="form-control" id="FacultyID">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Current Year</label>
+                                                                <select name="current_year" class='form-control basic'>
+                                                                    <option>1st Year </option>
+                                                                    <option>2nd Year </option>
+                                                                    <option>3rd Year </option>
+                                                                    <option>4th Year </option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Date Enrolled</label>
+                                                                <input type="text" placeholder="DD - MM - YYYY" required name="day_enrolled" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -487,82 +486,7 @@ require_once('public/partials/_head.php');
                                                         <i class="fas fa-user-graduate"></i>
                                                         View
                                                     </a>
-                                                    <!-- View Student Modal -->
-                                                    <div class="modal fade" id="view-student-<?php echo $std->id; ?>">
-                                                        <div class="modal-dialog  modal-lg">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h4 class="modal-title"><?php echo $std->name; ?> Profile</h4>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <div class="col-md-12 card-body box-profile">
-                                                                            <div class="text-center">
-                                                                                <?php
-                                                                                //Get Default Profile Picture
-                                                                                if ($std->profile_pic == '') {
-                                                                                    echo "<img class='profile-user-img img-fluid img-circle' src='public/dist/img/no-profile.png' alt='User profile picture'>";
-                                                                                } else {
-                                                                                    echo "<img class='profile-user-img img-fluid img-circle' src='public/uploads/UserImages/students/$std->profile_pic' alt='User profile picture'>";
-                                                                                } ?>
-                                                                            </div>
-
-                                                                            <h3 class="profile-username text-center"><?php echo $std->name; ?></h3>
-
-                                                                            <p class="text-muted text-center"><?php echo $std->admno; ?></p>
-
-                                                                            <ul class="list-group list-group-unbordered mb-3">
-                                                                                <li class="list-group-item">
-                                                                                    <b>Email: </b> <a class="float-right"><?php echo $std->email; ?></a>
-                                                                                </li>
-                                                                                <li class="list-group-item">
-                                                                                    <b>ID / Passport: </b> <a class="float-right"><?php echo $std->idno; ?></a>
-                                                                                </li>
-                                                                                <li class="list-group-item">
-                                                                                    <b>Phone: </b> <a class="float-right"><?php echo $std->phone; ?></a>
-                                                                                </li>
-                                                                                <li class="list-group-item">
-                                                                                    <b>Address</b> <a class="float-right"><?php echo $std->adr; ?></a>
-                                                                                </li>
-                                                                                <li class="list-group-item">
-                                                                                    <b>DOB</b> <a class="float-right"><?php echo $std->dob; ?></a>
-                                                                                </li>
-                                                                                <li class="list-group-item">
-                                                                                    <b>Gender</b> <a class="float-right"><?php echo $std->gender; ?></a>
-                                                                                </li>
-                                                                                <li class="list-group-item">
-                                                                                    <b>Added At </b> <a class="float-right"><?php echo $std->created_at; ?></a>
-                                                                                </li>
-                                                                                <li class="list-group-item">
-                                                                                    <b>Updated At </b> <a class="float-right"><?php echo $std->updated_at; ?></a>
-                                                                                </li>
-                                                                                <li class="list-group-item">
-                                                                                    <b>Account Status</b>
-                                                                                    <a class="float-right">
-                                                                                        <?php
-                                                                                        if ($std->acc_status == 'Active') {
-                                                                                            echo "<span class='badge badge-success'>$std->acc_status</span>";
-                                                                                        } else {
-                                                                                            echo "<span class='badge badge-danger'>$std->acc_status</span>";
-                                                                                        }
-                                                                                        ?>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-
-                                                                        <div class="modal-footer justify-content-between">
-                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End Modal -->
+                                                    
 
                                                     <a class="badge badge-primary" data-toggle="modal" href="#update-student-<?php echo $std->id; ?>">
                                                         <i class="fas fa-edit"></i>
@@ -602,30 +526,7 @@ require_once('public/partials/_head.php');
                                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                                         <div class="card-body">
                                                                             <div class="row">
-                                                                                <div class="form-group col-md-6">
-                                                                                    <label for="">Course Name</label>
-                                                                                    <input type="text" value="<?php echo $std->course; ?>" required name="course" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-6">
-                                                                                    <label for="">Department Name</label>
-                                                                                    <input type="text" required name="department" class="form-control" value="<?php echo $std->department; ?>">
-                                                                                </div>
-                                                                                <div class="form-group col-md-12">
-                                                                                    <label for="">Faculty / School Name</label>
-                                                                                    <input type="text" required name="school" class="form-control" value="<?php echo $std->school; ?>">
-                                                                                </div>
-                                                                                <div class="form-group col-md-4">
-                                                                                    <label for="">Current Year</label>
-                                                                                    <input type="text" required name="current_year" value="<?php echo $std->current_year; ?>" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-4">
-                                                                                    <label for="">Date Enrolled</label>
-                                                                                    <input type="text" required name="day_enrolled" value="<?php echo $std->day_enrolled; ?>" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-4">
-                                                                                    <label for="">No Of Modules</label>
-                                                                                    <input type="text" required name="no_of_modules" value="<?php echo $std->no_of_modules; ?>" class="form-control">
-                                                                                </div>
+                                                                                                                                                                
                                                                                 <div class="form-group col-md-6">
                                                                                     <label for="">Name</label>
                                                                                     <input type="text" required name="name" class="form-control" value="<?php echo $std->name; ?>">
@@ -662,6 +563,26 @@ require_once('public/partials/_head.php');
                                                                                 <div class="form-group col-md-6">
                                                                                     <label for="">Phone Number</label>
                                                                                     <input type="text" required name="phone" value="<?php echo $std->phone; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Course Name</label>
+                                                                                    <input type="text" value="<?php echo $std->course; ?>" required name="course" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Department Name</label>
+                                                                                    <input type="text" required name="department" class="form-control" value="<?php echo $std->department; ?>">
+                                                                                </div>
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label for="">Faculty / School Name</label>
+                                                                                    <input type="text" required name="school" class="form-control" value="<?php echo $std->school; ?>">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Current Year</label>
+                                                                                    <input type="text" required name="current_year" value="<?php echo $std->current_year; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Date Enrolled</label>
+                                                                                    <input type="text" required name="day_enrolled" value="<?php echo $std->day_enrolled; ?>" class="form-control">
                                                                                 </div>
                                                                             </div>
 

@@ -399,7 +399,7 @@ require_once('public/partials/_head.php');
                                                             <td><?php echo $dep->name; ?></td>
                                                             <td><?php echo $dep->hod; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="department.php?view=<?php echo $dep->id; ?>">
+                                                                <a class="badge badge-success" href="department_details.php?view=<?php echo $dep->id; ?>">
                                                                     <i class="fas fa-eye"></i>
                                                                     View
                                                                 </a>

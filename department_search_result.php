@@ -210,52 +210,6 @@ require_once('public/partials/_head.php');
                                     <input class="form-control mr-sm-2" type="search" name="query" placeholder="Dep Name Or Code">
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                 </form>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Department</button>
-                                <div class="modal fade" id="modal-default">
-                                    <div class="modal-dialog  modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Fill All Values </h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Department Name</label>
-                                                                <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Department Number / Code</label>
-                                                                <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Department HOD</label>
-                                                                <input type="text" required name="hod" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="exampleInputPassword1">Department Details</label>
-                                                                <textarea name="details" id="textarea" rows="10" class="form-control"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-footer text-right">
-                                                        <button type="submit" name="add_dept" class="btn btn-primary">Add Department</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </nav>
                         </div>
                         <hr>
@@ -274,29 +228,9 @@ require_once('public/partials/_head.php');
                                             <div class="col-md-12">
                                                 <div class="card card-primary collapsed-card">
                                                     <div class="card-header">
-                                                        <a href="department.php?view=<?php echo $results['id']; ?>">
-                                                            <h3 class="card-title"><?php echo $results['name']; ?></h3>
-                                                            <div class="card-tools text-right">
-                                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                                </button>
-                                                            </div>
+                                                        <a href="department_details.php?view=<?php echo $results['id']; ?>">
+                                                            <h2 class="card-title"><?php echo $results['name']; ?></h2>
                                                         </a>
-                                                    </div>
-
-                                                    <div class="card-body">
-                                                        <ul class="list-group">
-                                                            <li class="list-group-item  d-flex justify-content-between align-items-center">
-                                                                <a href="courses.php?view=<?php echo $results['id']; ?>">
-                                                                    Courses
-                                                                </a>
-                                                            </li>
-                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="module.php?view=<?php echo $results['id']; ?>">
-                                                                    Modules
-                                                                </a>
-                                                            </li>
-
-                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>

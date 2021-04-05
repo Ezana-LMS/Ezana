@@ -128,13 +128,12 @@ if (isset($_POST['update_academic_details'])) {
     $course = $_POST['course'];
     $department = $_POST['department'];
     $current_year = $_POST['current_year'];
-    $no_of_modules = $_POST['no_of_modules'];
     $id = $_POST['id'];
 
     if (!$error) {
-        $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?, no_of_modules =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?,  WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssss', $day_enrolled, $school, $course, $department, $current_year, $no_of_modules, $id);
+        $rc = $stmt->bind_param('ssssss', $day_enrolled, $school, $course, $department, $current_year, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Updated " && header("refresh:1; url=student_profile.php?view=$id");
@@ -378,8 +377,20 @@ require_once('public/partials/_head.php');
                                                 <b>Current Year: </b> <a class="float-right"><?php echo $std->current_year; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>No Of Modules: </b> <a class="float-right"><?php echo $std->no_of_modules; ?></a>
+                                                <b>No Of Modules: </b> <a class="float-right">
+                                                    <?php
+
+                                                    $query = "SELECT COUNT(module_name)  FROM `ezanaLMS_Enrollments` WHERE student_adm = '$std->admno' ";
+                                                    $stmt = $mysqli->prepare($query);
+                                                    $stmt->execute();
+                                                    $stmt->bind_result($enrolled_modules);
+                                                    $stmt->fetch();
+                                                    $stmt->close();
+                                                    echo $enrolled_modules;
+                                                    ?>
+                                                </a>
                                             </li>
+
                                             <li class="list-group-item">
                                                 <b>Account Status: </b> <a class="float-right"><?php echo $std->acc_status; ?></a>
                                             </li>
@@ -403,7 +414,7 @@ require_once('public/partials/_head.php');
                                     </div><!-- /.card-header -->
                                     <div class="card-body">
                                         <div class="tab-content">
-                                            <div class="active tab-pane" id="notices">
+                                            <div class="active tab-pane" id="edit">
                                                 <form method="post" enctype="multipart/form-data" role="form">
 
                                                     <div class="row">
@@ -487,19 +498,15 @@ require_once('public/partials/_head.php');
                                                             <input type="text" required name="school" class="form-control" id="FacultyName">
                                                             <input type="hidden" required name="faculty_id" class="form-control" id="FacultyID">
                                                         </div>
-                                                        <div class="form-group col-md-4">
+                                                        <div class="form-group col-md-6">
                                                             <label for="">Current Year</label>
                                                             <input type="text" value="<?php echo $std->current_year; ?>" required name="current_year" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-4">
+                                                        <div class="form-group col-md-6">
                                                             <label for="">Date Enrolled</label>
                                                             <input type="text" required value="<?php echo $std->day_enrolled; ?>" name="day_enrolled" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">No Of Modules</label>
-                                                            <input type="text" required value="<?php echo $std->no_of_modules; ?>" name="no_of_modules" class="form-control">
-                                                            <input type="hidden" required name="id" value="<?php echo $std->id; ?>" class="form-control">
-                                                        </div>
+
                                                     </div>
                                                     <div class="text-right">
                                                         <button type="submit" name="update_academic_details" class="btn btn-primary">Submit</button>

@@ -94,14 +94,13 @@ if (isset($_POST['add_non_teaching_staff'])) {
             $employee_id = $_POST['employee_id'];
             $date_employed = $_POST['date_employed'];
             $school  = $_POST['school'];
-            $previledge = $_POST['previledge'];
 
             $profile_pic = $_FILES['profile_pic']['name'];
             move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/admins/" . $_FILES["profile_pic"]["name"]);
 
-            $query = "INSERT INTO ezanaLMS_Admins (id, name, email, password, rank, phone, adr, profile_pic, gender, employee_id, date_employed, school, previledge) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Admins (id, name, email, password, rank, phone, adr, profile_pic, gender, employee_id, date_employed, school) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssssssssss', $id, $name, $email, $password, $rank, $phone, $adr, $profile_pic, $gender, $employee_id, $date_employed, $school, $previledge);
+            $rc = $stmt->bind_param('ssssssssssss', $id, $name, $email, $password, $rank, $phone, $adr, $profile_pic, $gender, $employee_id, $date_employed, $school);
             $stmt->execute();
             if ($stmt) {
                 $success = "Non Teaching Staff Added" && header("refresh:1; url=non_teaching_staff.php");
@@ -176,22 +175,7 @@ if (isset($_POST['update_non_teaching_staff'])) {
     }
 }
 
-/* Update Non Teaching Staff Previlegge */
-if (isset($_POST['update_previledge'])) {
 
-    $id = $_POST['id'];
-    $previledge  = $_POST['previledge'];
-
-    $query = "UPDATE ezanaLMS_Admins SET previledge =? WHERE id = ?";
-    $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ss', $previledge, $id);
-    $stmt->execute();
-    if ($stmt) {
-        $success = "Previledge Updated" && header("refresh:1; url=non_teaching_staff.php");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 
 /* Suspend Account */
 if (isset($_GET['suspend'])) {
@@ -408,27 +392,7 @@ require_once('public/partials/_head.php');
                                                             <label for="">Date Employed</label>
                                                             <input type="text" placeholder="DD-MM-YYYY" required name="date_employed" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">School / Faculty</label>
-                                                            <select class="form-control basic" name="school">
-                                                                <?php
-                                                                $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
-                                                                $stmt = $mysqli->prepare($ret);
-                                                                $stmt->execute(); //ok
-                                                                $res = $stmt->get_result();
-                                                                while ($faculty = $res->fetch_object()) {
-                                                                ?>
-                                                                    <option><?php echo $faculty->name; ?></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Previledges</label>
-                                                            <select class="form-control basic" name="previledge">
-                                                                <option>View</option>
-                                                                <option>Edit And Delete</option>
-                                                            </select>
-                                                        </div>
+                                                        
                                                     </div>
 
                                                     <div class="row">
@@ -444,6 +408,20 @@ require_once('public/partials/_head.php');
                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label for="">School / Faculty</label>
+                                                            <select class="form-control basic" name="school">
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($faculty = $res->fetch_object()) {
+                                                                ?>
+                                                                    <option><?php echo $faculty->name; ?></option>
+                                                                <?php } ?>
+                                                            </select>
                                                         </div>
                                                     </div>
 
@@ -479,7 +457,6 @@ require_once('public/partials/_head.php');
                                         <th>Email</th>
                                         <th>Faculty / School</th>
                                         <th>Rank</th>
-                                        <th>Previledges</th>
                                         <th>Manage</th>
                                     </tr>
                                 </thead>
@@ -497,7 +474,6 @@ require_once('public/partials/_head.php');
                                             <td><?php echo $admin->email; ?></td>
                                             <td><?php echo $admin->school; ?></td>
                                             <td><?php echo $admin->rank; ?></td>
-                                            <td><?php echo $admin->previledge; ?></td>
                                             <td>
                                                 <a class="badge badge-success" href="administrators_profile.php?view=<?php echo $admin->id; ?>">
                                                     <i class="fas fa-eye"></i>
@@ -528,12 +504,7 @@ require_once('public/partials/_head.php');
                                                     ";
                                                 }
                                                 ?>
-
-
-                                                <a class="badge badge-primary" data-toggle="modal" href="#previledge-<?php echo $admin->id; ?>">
-                                                    <i class="fas fa-user-shield"></i>
-                                                    Previledges
-                                                </a>
+                                              
 
                                                 <!-- Suspend Modal -->
                                                 <div class="modal fade" id="suspend-<?php echo $admin->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -555,42 +526,7 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </div>
                                                 <!-- End Suspend -->
-
-                                                <!-- Unsuspend Modal -->
-                                                <div class="modal fade" id="previledge-<?php echo $admin->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title " id="exampleModalLabel">Update <?php echo $admin->name; ?> Previldges</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body text-center">
-                                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="form-group col-md-12">
-                                                                                <label for=""><?php echo $admin->name; ?> Previledges</label>
-                                                                                <input type="hidden" required name="id" value="<?php echo $admin->id; ?>" class="form-control">
-                                                                                <select class="form-control basic" name="previledge">
-                                                                                    <option><?php echo $admin->previledge; ?></option>
-                                                                                    <option>View</option>
-                                                                                    <option>Edit And Delete </option>
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="card-footer text-right">
-                                                                        <button type="submit" name="update_previledge" class="btn btn-primary">Submit</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- End Suspend -->
-
+                                                
                                                 <!-- Edit Modal -->
                                                 <div class="modal fade" id="edit-<?php echo $admin->id; ?>">
                                                     <div class="modal-dialog  modal-xl">

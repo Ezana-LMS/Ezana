@@ -92,7 +92,6 @@ if (isset($_POST['add_module'])) {
 }
 
 /*  Update Module*/
-
 if (isset($_POST['update_module'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -161,7 +160,6 @@ require_once('public/partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        $cnt = 1;
         while ($course = $res->fetch_object()) {
         ?>
             <!-- /.navbar -->
@@ -202,7 +200,7 @@ require_once('public/partials/_head.php');
                             </li>
 
                             <li class="nav-item">
-                                <a href="courses.php" class=" nav-link">
+                                <a href="courses.php" class="active nav-link">
                                     <i class="nav-icon fas fa-chalkboard-teacher"></i>
                                     <p>
                                         Courses
@@ -210,7 +208,7 @@ require_once('public/partials/_head.php');
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="modules.php" class="active nav-link">
+                                <a href="modules.php" class=" nav-link">
                                     <i class="nav-icon fas fa-chalkboard"></i>
                                     <p>
                                         Modules
@@ -373,63 +371,20 @@ require_once('public/partials/_head.php');
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-md-3">
+                                <!-- Course Side Menu -->
+                                <?php require_once('public/partials/_coursemenu.php'); ?>
+                                <!-- End Course Side Menu -->
 
-                                    <div class="col-md-12">
-                                        <div class="card card-primary">
-                                            <div class="card-header">
-                                                <a href="course.php?view=<?php echo $course->id; ?>">
-                                                    <h3 class="card-title"><?php echo $course->name; ?></h3>
-                                                    <div class="card-tools text-right">
-                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </a>
-                                            </div>
-
-                                            <div class="card-body">
-                                                <ul class="list-group">
-
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="course_modules.php?view=<?php echo $course->id; ?>">
-                                                            Modules
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="course_memos.php?view=<?php echo $course->id; ?>">
-                                                            Memos & Notices
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="module_allocations.php?view=<?php echo $course->id; ?>">
-                                                            Modules Allocations
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="timetables.php?view=<?php echo $course->id; ?>">
-                                                            Time Table
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="enrollments.php?view=<?php echo $course->id; ?>">
-                                                            Enrolled Students
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-12">
-
                                             <table id="example1" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>Name</th>
-                                                        <th>Code</th>
-                                                        <th>Course</th>
+                                                        <th>Module Name</th>
+                                                        <th>Module Code</th>
+                                                        <th>Course Duration</th>
+                                                        <th>CAT & Exam Weight Percentage</th>
                                                         <th>Manage</th>
                                                     </tr>
                                                 </thead>
@@ -439,14 +394,14 @@ require_once('public/partials/_head.php');
                                                     $stmt = $mysqli->prepare($ret);
                                                     $stmt->execute(); //ok
                                                     $res = $stmt->get_result();
-                                                    $cnt = 1;
                                                     while ($mod = $res->fetch_object()) {
                                                     ?>
 
                                                         <tr>
                                                             <td><?php echo $mod->name; ?></td>
                                                             <td><?php echo $mod->code; ?></td>
-                                                            <td><?php echo $mod->course_name; ?></td>
+                                                            <td><?php echo $mod->course_duration; ?></td>
+                                                            <td><?php echo $mod->cat_weight_percentage . " &  " . $mod->exam_weight_percentage; ?></td>
                                                             <td>
                                                                 <a class="badge badge-success" href="module.php?view=<?php echo $mod->id; ?>">
                                                                     <i class="fas fa-eye"></i>
@@ -513,11 +468,6 @@ require_once('public/partials/_head.php');
                                                                                         <button type="submit" name="update_module" class="btn btn-primary">Update Module</button>
                                                                                     </div>
                                                                                 </form>
-                                                                                <!-- Inline CKEDITOR -->
-                                                                                <script>
-                                                                                    CKEDITOR.replace('<?php echo $mod->id; ?>');
-                                                                                </script>
-                                                                                <!-- End Module Form -->
                                                                             </div>
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -552,11 +502,10 @@ require_once('public/partials/_head.php');
                                                                 <!-- End Delete Confirmation Modal -->
                                                             </td>
                                                         </tr>
-                                                    <?php $cnt = $cnt + 1;
+                                                    <?php
                                                     } ?>
                                                 </tbody>
                                             </table>
-
                                         </div>
                                     </div>
                                 </div>

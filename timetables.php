@@ -153,7 +153,6 @@ require_once('public/partials/_head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        $cnt = 1;
         while ($course = $res->fetch_object()) {
             $CourseCode = $course->code;
             /* Time Tables Under This Course */
@@ -293,7 +292,7 @@ require_once('public/partials/_head.php');
                                         </form>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Class</button>
                                         <div class="modal fade" id="modal-default">
-                                            <div class="modal-dialog  modal-lg">
+                                            <div class="modal-dialog  modal-xl">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Fill All Required Values </h4>
@@ -382,52 +381,9 @@ require_once('public/partials/_head.php');
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="col-md-12">
-                                            <div class="card card-primary">
-                                                <div class="card-header">
-                                                    <a href="course.php?view=<?php echo $course->id; ?>">
-                                                        <h3 class="card-title"><?php echo $course->name; ?></h3>
-                                                        <div class="card-tools text-right">
-                                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </a>
-                                                </div>
-
-                                                <div class="card-body">
-                                                    <ul class="list-group">
-
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="course_modules.php?view=<?php echo $course->id; ?>">
-                                                                Modules
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="course_memos.php?view=<?php echo $course->id; ?>">
-                                                                Memos & Notices
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="module_allocations.php?view=<?php echo $course->id; ?>">
-                                                                Modules Allocations
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="timetables.php?view=<?php echo $course->id; ?>">
-                                                                Time Table
-                                                            </a>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <a href="enrollments.php?view=<?php echo $course->id; ?>">
-                                                                Enrolled Students
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!-- Course Side Menu -->
+                                    <?php require_once('public/partials/_coursemenu.php'); ?>
+                                    <!-- End Course Side Menu -->
                                     <div class="col-md-9">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -485,7 +441,6 @@ require_once('public/partials/_head.php');
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                $cnt = 1;
                                                                 while ($tt = $res->fetch_object()) {
                                                                 ?>
 
@@ -509,7 +464,7 @@ require_once('public/partials/_head.php');
                                                                             </a>
                                                                             <!-- Update Departmental Memo Modal -->
                                                                             <div class="modal fade" id="update-<?php echo $tt->id; ?>">
-                                                                                <div class="modal-dialog  modal-lg">
+                                                                                <div class="modal-dialog  modal-xl">
                                                                                     <div class="modal-content">
                                                                                         <div class="modal-header">
                                                                                             <h4 class="modal-title">Update <?php echo $tt->module_name; ?> Time Table;</h4>
@@ -595,7 +550,7 @@ require_once('public/partials/_head.php');
                                                                             <!-- End Delete Confirmation Modal -->
                                                                         </td>
                                                                     </tr>
-                                                                <?php $cnt = $cnt + 1;
+                                                                <?php
                                                                 } ?>
                                                             </tbody>
                                                         </table>
