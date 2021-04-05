@@ -78,8 +78,8 @@ if (isset($_POST['add_course'])) {
         }
     }
 }
-/* Update Department */
 
+/* Update Department */
 if (isset($_POST['update_dept'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -112,6 +112,115 @@ if (isset($_POST['update_dept'])) {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
         }
+    }
+}
+
+/* Add Announcement */
+if (isset($_POST['add_announcement'])) {
+
+    $id = $_POST['id'];
+    $department_id = $_POST['department_id'];
+    $department_name = $_POST['department_name'];
+    $departmental_memo = $_POST['departmental_memo'];
+    $type = $_POST['type'];
+    $faculty = $_POST['faculty'];
+
+    /* Notify Me After Posting Memo / Notice */
+    $notif_type = 'Posted Notice';
+    $status = 'Unread';
+    $notification_detail = "$type For $department_name";
+
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, department_id, department_name, type, departmental_memo, faculty_id) VALUES(?,?,?,?,?,?)";
+    $notif_querry = "INSERT INTO ezanaLMS_Notifications(type, status, notification_detail) VALUES(?,?,?)";
+
+    $stmt = $mysqli->prepare($query);
+    $notif_stmt = $mysqli->prepare($notif_querry);
+
+    $rc = $stmt->bind_param('ssssss', $id, $department_id, $department_name, $type, $departmental_memo, $faculty);
+    $rc = $notif_stmt->bind_param('sss', $notif_type, $status, $notification_detail);
+
+    $stmt->execute();
+    $notif_stmt->execute();
+
+    if ($stmt && $notif_stmt) {
+        $success = "Added" && header("refresh:1; url=department_details.php?view=$department_id");
+    } else {
+        //inject alert that profile update task failed
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Add Memo / Notice */
+if (isset($_POST['add_memo'])) {
+    $id = $_POST['id'];
+    $department_id = $_POST['department_id'];
+    $department_name = $_POST['department_name'];
+    $attachments = $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    $departmental_memo = $_POST['departmental_memo'];
+    $type = $_POST['type'];
+    $faculty = $_POST['faculty'];
+    $created_by = $_POST['created_by'];
+
+    /* Notify Me After Posting Memo / Notice */
+    $notif_type = 'Posted Memo';
+    $status = 'Unread';
+    $notification_detail = "$type For $department_name";
+
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, department_id, department_name, type, departmental_memo, attachments, faculty_id) VALUES(?,?,?,?,?,?,?,?)";
+    $notif_querry = "INSERT INTO ezanaLMS_Notifications(type, status, notification_detail) VALUES(?,?,?)";
+    $stmt = $mysqli->prepare($query);
+    $notif_stmt = $mysqli->prepare($notif_querry);
+    $rc = $stmt->bind_param('ssssssss', $id, $created_by, $department_id, $department_name, $type, $departmental_memo, $attachments, $faculty);
+    $rc = $notif_stmt->bind_param('sss', $notif_type, $status, $notification_detail);
+    $stmt->execute();
+    $notif_stmt->execute();
+    if ($stmt && $notif_stmt) {
+        $success = "Departmental Memo Added" && header("refresh:1; url=department_details.php?view=$department_id");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Update Memo / Notice */
+if (isset($_POST['update'])) {
+
+    $id = $_POST['id'];
+    $departmental_memo = $_POST['departmental_memo'];
+    $attachments = $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    $type = $_POST['type'];
+    $faculty = $_POST['faculty'];
+    $created_by = $_POST['created_by'];
+
+    /* Department_ID */
+    $department_id = $_POST['department_id'];
+
+    $query = "UPDATE ezanaLMS_DepartmentalMemos SET  created_by=?, departmental_memo =?, attachments =?, type =?, faculty_id =? WHERE id =?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('ssssss',  $created_by, $departmental_memo, $attachments, $type, $faculty, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Updated" && header("refresh:1; url=department_details.php?view=$department_id");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+
+/* Delete Departmental Memo/ Notice/ Announcemet */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $view = $_GET['view'];
+    $adn = "DELETE FROM ezanaLMS_DepartmentalMemos WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=department_details.php?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
     }
 }
 
@@ -367,6 +476,67 @@ require_once('public/partials/_head.php');
                                                 </div>
                                             </div>
                                             <!--End Update Department Modal -->
+
+                                            <!-- Add Memo / Notice Modal -->
+                                            <div class="modal fade" id="add-memo">
+                                                <div class="modal-dialog  modal-xl">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Fill All Values </h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-12">
+                                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                            <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
+                                                                            <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
+                                                                            <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Upload Departmental Memo (PDF Or Docx)</label>
+                                                                            <div class="input-group">
+                                                                                <div class="custom-file">
+                                                                                    <input name="attachments" type="file" class="custom-file-input">
+                                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Created By</label>
+                                                                            <input type="text" required name="created_by" class="form-control">
+                                                                        </div>
+                                                                        <div style="display:none" class="form-group col-md-6">
+                                                                            <label for="">Type</label>
+                                                                            <select class='form-control basic' name="type">
+                                                                                <option selected>Memo</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <h2 class="text-center">Or </h2>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="exampleInputPassword1">Type Departmental Memo</label>
+                                                                            <textarea name="departmental_memo" id="dep_memo" rows="10" class="form-control"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-footer text-right">
+                                                                    <button type="submit" name="add_memo" class="btn btn-primary">Add Departmental Memo</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Add Memo / Notice Modal -->
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-4">
@@ -457,10 +627,238 @@ require_once('public/partials/_head.php');
                                                         <div class="card-body">
                                                             <div class="tab-content">
                                                                 <div class="active tab-pane" id="dept_anouncements">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="card">
+                                                                                <div class="card-header">
+                                                                                    Post Announcement
+                                                                                </div>
+                                                                                <div class="card-body">
+                                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="type" value="Announcement" class="form-control">
+                                                                                                <textarea name="departmental_memo" id="dep_memo" rows="3" class="form-control"></textarea>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="text-right">
+                                                                                            <button type="submit" name="add_announcement" class="btn btn-primary">Post</button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
 
+                                                                        <div class="col-md-12">
+                                                                            <div class="card">
+                                                                                <div class="card-header">
+                                                                                    Recent Posted Announcements
+                                                                                </div>
+                                                                                <div class="card-body">
+                                                                                    <?php
+                                                                                    $departmentId = $department->id;
+                                                                                    $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$departmentId' AND type = 'Announcement' ORDER BY `ezanaLMS_DepartmentalMemos`.`created_at` ASC LIMIT 10  ";
+                                                                                    $stmt = $mysqli->prepare($ret);
+                                                                                    $stmt->execute(); //ok
+                                                                                    $res = $stmt->get_result();
+                                                                                    $cnt = 1;
+                                                                                    while ($announcement = $res->fetch_object()) {
+                                                                                    ?>
+                                                                                        <div class="list-group">
+                                                                                            <div class="d-flex w-100 justify-content-between">
+                                                                                                <h5 class="mb-1"></h5>
+                                                                                                <small><?php echo $announcement->created_at; ?></small>
+                                                                                            </div>
+                                                                                            <p>
+                                                                                                <?php
+                                                                                                /* Trancate This */
+                                                                                                $text = $announcement->departmental_memo;
+                                                                                                echo substr($text, 0, 200);
+                                                                                                ?>
+                                                                                            </p>
+                                                                                            <div class="row">
+                                                                                                <a class="badge badge-danger" href="department_details.php?delete=<?php echo $announcement->id; ?>&view=<?php echo $announcement->id; ?>">
+                                                                                                    <i class="fas fa-trash"></i>
+                                                                                                    Clear Announcement
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <hr>
+                                                                                    <?php } ?>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="tab-pane" id="dept_memos">
+                                                                    <div class="col-md-12">
+                                                                        <div class="card-header text-center">
+                                                                            <div class="text-right">
+                                                                                <a href="#add-memo" data-toggle="modal" class=" btn btn-outline-success">
+                                                                                    <i class="fas fa-file"></i>
+                                                                                    Add Memo / Notice
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <br>
+                                                                        <table id="example1" class="table table-bordered table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Posted By</th>
+                                                                                    <th>Date Posted</th>
+                                                                                    <th>Type</th>
+                                                                                    <th>Manage</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <?php
+                                                                                $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$department->id' AND type = 'Memo' || type = 'Notice' ";
+                                                                                $stmt = $mysqli->prepare($ret);
+                                                                                $stmt->execute(); //ok
+                                                                                $res = $stmt->get_result();
+                                                                                while ($memo = $res->fetch_object()) {
+                                                                                ?>
 
+                                                                                    <tr>
+                                                                                        <td><?php echo $memo->created_by; ?></td>
+                                                                                        <td><?php echo date('d M Y', strtotime($memo->created_at)); ?></td>
+                                                                                        <td><?php echo $memo->type; ?></td>
+                                                                                        <td>
+                                                                                            <a class="badge badge-success" data-toggle="modal" href="#view-<?php echo $memo->id; ?>">
+                                                                                                <i class="fas fa-eye"></i>
+                                                                                                View
+                                                                                            </a>
+                                                                                            <!-- View Deptmental Memo Modal -->
+                                                                                            <div class="modal fade" id="view-<?php echo $memo->id; ?>">
+                                                                                                <div class="modal-dialog  modal-lg">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h4 class="modal-title"><?php echo $department->name; ?> <?php echo $memo->type; ?> Created On <span class='text-success'><?php echo date('d M Y', strtotime($memo->created_at)); ?></span></h4>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+                                                                                                            <?php echo $memo->departmental_memo; ?>
+                                                                                                            <hr>
+                                                                                                            <?php
+
+                                                                                                            if ($memo->attachments != '') {
+                                                                                                                echo
+                                                                                                                "<a href='public/uploads/EzanaLMSData/memos/$memo->attachments' target='_blank' class='btn btn-outline-success'><i class='fas fa-download'></i> Download $memo->type </a>";
+                                                                                                            } else {
+                                                                                                                echo
+                                                                                                                "<a  class='btn btn-outline-danger'><i class='fas fa-times'></i> $memo->type Attachment Not Available </a>";
+                                                                                                            }
+                                                                                                            ?>
+
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer justify-content-between">
+                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                                        </div>
+                                                                                                    </div>
+
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $memo->id; ?>">
+                                                                                                <i class="fas fa-edit"></i>
+                                                                                                Update
+                                                                                            </a>
+                                                                                            <!-- Update Departmental Memo Modal -->
+                                                                                            <div class="modal fade" id="update-<?php echo $memo->id; ?>">
+                                                                                                <div class="modal-dialog  modal-xl">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h4 class="modal-title">Fill All Values </h4>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+                                                                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                                                                <div class="card-body">
+                                                                                                                    <div class="row">
+                                                                                                                        <div class="form-group col-md-6">
+                                                                                                                            <label for="">Type</label>
+                                                                                                                            <select class='form-control basic' name="type">
+                                                                                                                                <option selected><?php echo $memo->type; ?></option>
+                                                                                                                                <option>Notice</option>
+                                                                                                                                <option>Memo</option>
+                                                                                                                            </select>
+                                                                                                                        </div>
+                                                                                                                        <div class="form-group col-md-6">
+                                                                                                                            <label for="">Upload Memo | Notice (PDF r Docx)</label>
+                                                                                                                            <div class="input-group">
+                                                                                                                                <div class="custom-file">
+                                                                                                                                    <input name="attachments" type="file" class="custom-file-input">
+                                                                                                                                    <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
+                                                                                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="form-group col-md-12">
+                                                                                                                            <label for="">Created By</label>
+                                                                                                                            <input type="text" name="created_by" class="form-control" value="<?php echo $memo->created_by; ?>">
+                                                                                                                            <input type="hidden" required name="id" value="<?php echo $memo->id; ?>" class="form-control">
+                                                                                                                            <input type="hidden" required name="department_id" value="<?php echo $view; ?>" class="form-control">
+
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <h2 class="text-center">Or </h2>
+                                                                                                                    <div class="row">
+                                                                                                                        <div class="form-group col-md-12">
+                                                                                                                            <label for="exampleInputPassword1">Type Departmental Memo | Notice</label>
+                                                                                                                            <textarea name="departmental_memo" rows="10" class="form-control"><?php echo $memo->departmental_memo; ?></textarea>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="card-footer text-right">
+                                                                                                                    <button type="submit" name="update" class="btn btn-primary">Update</button>
+                                                                                                                </div>
+                                                                                                            </form>
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer justify-content-between">
+                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!-- End Update Departmental Memo Modal -->
+                                                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $memo->id; ?>">
+                                                                                                <i class="fas fa-trash"></i>
+                                                                                                Delete
+                                                                                            </a>
+                                                                                            <!-- Delete Confirmation -->
+                                                                                            <div class="modal fade" id="delete-<?php echo $memo->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body text-center text-danger">
+                                                                                                            <h4>Delete This <?php echo $memo->type; ?> ?</h4>
+                                                                                                            <br>
+                                                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                                            <a href="department_details.php?delete=<?php echo $memo->id; ?>&view=<?php echo $memo->department_id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                <?php
+                                                                                } ?>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="tab-pane" id="dept_docs">
 
