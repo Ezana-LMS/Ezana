@@ -241,7 +241,7 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $department->name; ?></h1>
+                                <h1 class="m-0 text-dark"><?php echo $department->name; ?> Dashboard</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -267,7 +267,7 @@ require_once('public/partials/_head.php');
                                     </div>
 
                                     <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-lg">
+                                        <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Fill All Values </h4>
@@ -321,15 +321,9 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <!-- <div class="text-right">
-                                                <a href="department.php?view=<?php echo $department->id; ?>" class="float-left btn btn-outline-success">
-                                                    <i class="fas fa-arrow-left"></i>
-                                                    Back
-                                                </a>
-                                            </div> -->
                                             <!-- Update Department Modal -->
                                             <div class="modal fade" id="update-department-<?php echo $department->id; ?>">
-                                                <div class="modal-dialog  modal-lg">
+                                                <div class="modal-dialog  modal-xl">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h4 class="modal-title">Fill All Values</h4>
@@ -375,17 +369,16 @@ require_once('public/partials/_head.php');
                                             <!--End Update Department Modal -->
                                             <br>
                                             <div class="row">
-
-                                                <div class="col-md-12">
+                                                <div class="col-md-4">
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="card card-widget widget-user-2">
                                                                 <div class="widget-user-header text-center bg-primary">
-                                                                    <h3 class="widget-user-username"><?php echo $department->name; ?></h3>
+                                                                    <h3 class=""><?php echo $department->name; ?></h3>
                                                                 </div>
                                                                 <div class="card-footer p-0">
                                                                     <div class="row">
-                                                                        <div class="col-md-6">
+                                                                        <div class="col-md-12">
                                                                             <ul class="nav flex-column">
                                                                                 <li class="nav-item">
                                                                                     <span class="nav-link text-primary">
@@ -397,11 +390,6 @@ require_once('public/partials/_head.php');
                                                                                         Department HOD : <span class="float-right "><?php echo $department->hod; ?></span>
                                                                                     </span>
                                                                                 </li>
-
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <ul class="nav flex-column">
                                                                                 <?php
                                                                                 /* Fetch Details Of Facuty That This Department Is Registered To */
                                                                                 $faculty_id = $department->faculty_id;
@@ -413,25 +401,26 @@ require_once('public/partials/_head.php');
                                                                                 ?>
                                                                                     <li class="nav-item">
                                                                                         <span class="nav-link text-primary">
-                                                                                            Faculty Code : <span class="float-right badge "><?php echo $faculty->code; ?></span>
+                                                                                            Faculty Code : <span class="float-right"><?php echo $faculty->code; ?></span>
                                                                                         </span>
                                                                                     </li>
 
                                                                                     <li class="nav-item">
                                                                                         <span class="nav-link text-primary">
-                                                                                            Faculty Name : <span class="float-right badge "><?php echo $faculty->name; ?></span>
+                                                                                            Faculty Name : <span class="float-right"><?php echo $faculty->name; ?></span>
                                                                                         </span>
                                                                                     </li>
 
                                                                                     <li class="nav-item">
 
                                                                                         <span class="nav-link text-primary">
-                                                                                            Faculty Head Email : <span class="float-right badge "><?php echo $faculty->email; ?></span>
+                                                                                            Faculty Email : <span class="float-right"><?php echo $faculty->email; ?></span>
                                                                                         </span>
                                                                                     </li>
 
                                                                                 <?php
                                                                                 } ?>
+
                                                                             </ul>
                                                                         </div>
                                                                     </div>

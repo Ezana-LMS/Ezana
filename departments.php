@@ -373,8 +373,7 @@ require_once('public/partials/_head.php');
                             <div class="col-md-9">
                                 <div class="row">
                                     <div class="col-12">
-
-                                        <table id="example1" class="table  table-bordered table-striped">
+                                        <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>Code</th>
@@ -396,7 +395,7 @@ require_once('public/partials/_head.php');
                                                         <td><?php echo $dep->name; ?></td>
                                                         <td><?php echo $dep->hod; ?></td>
                                                         <td>
-                                                            <a class="badge badge-success" href="department.php?view=<?php echo $dep->id; ?>">
+                                                            <a class="badge badge-success" href="department_details.php?view=<?php echo $dep->id; ?>">
                                                                 <i class="fas fa-eye"></i>
                                                                 View
                                                             </a>
@@ -435,7 +434,7 @@ require_once('public/partials/_head.php');
                                                                                     <div class="row">
                                                                                         <div class="form-group col-md-12">
                                                                                             <label for="exampleInputPassword1">Department Details</label>
-                                                                                            <textarea name="details" id="<?php echo $dep->id; ?>" rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
+                                                                                            <textarea name="details"  rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -443,11 +442,6 @@ require_once('public/partials/_head.php');
                                                                                     <button type="submit" name="update_dept" class="btn btn-primary">Update Department</button>
                                                                                 </div>
                                                                             </form>
-                                                                            <!-- Inline CK Editor Script -->
-                                                                            <script>
-                                                                                CKEDITOR.replace('<?php echo $dep->id; ?>');
-                                                                            </script>
-                                                                            <!-- End Inline Ck Editor Script -->
                                                                         </div>
                                                                         <div class="modal-footer justify-content-between">
                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
