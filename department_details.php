@@ -65,13 +65,16 @@ if (isset($_POST['add_course'])) {
             $details = $_POST['details'];
             $department_id = $_POST['department_id'];
             $department_name = $_POST['department_name'];
-
-            $query = "INSERT INTO ezanaLMS_Courses (id, code, name, details, department_id, department_name) VALUES(?,?,?,?,?,?)";
+            $faculty_id = $_POST['faculty_id'];
+            $faculty_name = $_POST['faculty_name'];
+            $hod = $_POST['hod'];
+            $email = $_POST['email'];
+            $query = "INSERT INTO ezanaLMS_Courses (id, hod, email, code, name, details, department_id, faculty_id, faculty_name, department_name) VALUES(?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssss', $id, $code, $name, $details, $department_id, $department_name);
+            $rc = $stmt->bind_param('ssssssssss', $id, $hod, $email, $code, $name, $details, $department_id, $faculty_id, $faculty_name,  $department_name);
             $stmt->execute();
             if ($stmt) {
-                $success = "$name Course Added";
+                $success = "Course Added" && header("refresh:1; url=department_details.php?view=$department_id");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -101,14 +104,15 @@ if (isset($_POST['update_course'])) {
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
-        $view = $_GET['view'];
+        $hod = $_POST['hod'];
+        $email = $_POST['email'];
 
-        $query = "UPDATE ezanaLMS_Courses SET  code =?, name =?, details =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Courses SET  code =?, hod =?, email =?,  name =?, details =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
+        $rc = $stmt->bind_param('ssssss', $code, $hod, $email, $name, $details, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Course Updated" && header("refresh:1; url=department_details.php?view=$view");
+            $success = "Course Updated" && header("refresh:1; url=department_details.php?view=$department_id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -454,55 +458,6 @@ require_once('public/partials/_head.php');
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-<?php echo $department->id; ?>">Edit Department</button>
                                     </div>
-
-                                    <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-xl">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Fill All Values </h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Course Name</label>
-                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
-                                                                    <input type="hidden" required name="faculty_id" value="<?php echo $department->faculty_id; ?>" class="form-control">
-
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Course Number / Code</label>
-                                                                    <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Department Name</label>
-                                                                    <input type="text" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Course Description</label>
-                                                                    <textarea required name="details" id="textarea" rows="10" class="form-control"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer">
-                                                            <button type="submit" name="add_course" class="btn btn-primary">Add Course</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </nav>
                             </div>
                             <hr>
@@ -671,6 +626,79 @@ require_once('public/partials/_head.php');
                                                 </div>
                                             </div>
                                             <!-- End Add Departmental Document -->
+
+                                            <!-- Add Course Modal -->
+                                            <div class="modal fade" id="modal-default">
+                                                <div class="modal-dialog  modal-xl">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Fill All Required Values </h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <!-- Add Course Form -->
+                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                <div class="card-body">
+                                                                    <div class="row" style="display:none">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Department Code</label>
+                                                                            <input type="text" value="<?php echo $department->code; ?>" required name="department_name" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Department Name</label>
+                                                                            <input type="text" value="<?php echo $department->name; ?>" required name="department_name" class="form-control">
+                                                                            <input type="hidden" value="<?php echo $department->id; ?>" readonly required name="department_id" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="">Faculty Name</label>
+                                                                            <input type="text" value="<?php echo $department->faculty_name; ?>" required name="faculty_name" class="form-control">
+                                                                            <input type="hidden" value="<?php echo $department->faculty_id; ?>" readonly required name="faculty_id" class="form-control">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Course Name</label>
+                                                                            <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Course Number / Code</label>
+                                                                            <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Course HOD Name</label>
+                                                                            <input type="text" required name="hod" class="form-control" id="exampleInputEmail1">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Course HOD Email</label>
+                                                                            <input type="text" required name="email" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="exampleInputPassword1">Course Description</label>
+                                                                            <textarea required name="details" id="textarea" rows="10" class="form-control"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-footer text-right">
+                                                                    <button type="submit" name="add_course" class="btn btn-primary">Add Course</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Course Modal -->
+
                                             <br>
                                             <div class="row">
                                                 <div class="col-md-4">
@@ -1151,7 +1179,93 @@ require_once('public/partials/_head.php');
                                                                 </div>
 
                                                                 <div class="tab-pane" id="dept_courses">
+                                                                    <div class="col-md-12">
 
+                                                                        <!-- Department Courses -->
+                                                                        <table id="example1" class="table table-bordered table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Course Code</th>
+                                                                                    <th>Course Name</th>
+                                                                                    <th>Course Head</th>
+                                                                                    <th>Course Email</th>
+                                                                                    <th>Manage</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <?php
+                                                                                $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE department_id  = '$department->id'";
+                                                                                $stmt = $mysqli->prepare($ret);
+                                                                                $stmt->execute(); //ok
+                                                                                $res = $stmt->get_result();
+                                                                                while ($courses = $res->fetch_object()) {
+                                                                                ?>
+                                                                                    <tr>
+                                                                                        <td><?php echo $courses->code; ?></td>
+                                                                                        <td><?php echo $courses->name; ?></td>
+                                                                                        <td><?php echo $courses->head; ?></td>
+                                                                                        <td><?php echo $courses->email; ?></td>
+                                                                                        <td>
+                                                                                            <a class="badge badge-success" href="course.php?view=<?php echo $courses->id; ?>">
+                                                                                                <i class="fas fa-eye"></i>
+                                                                                                View
+                                                                                            </a>
+                                                                                            <a class="badge badge-primary" data-toggle="modal" href="#edit-course-<?php echo $courses->id; ?>">
+                                                                                                <i class="fas fa-edit"></i>
+                                                                                                Update
+                                                                                            </a>
+                                                                                            <!-- Update Course Modal -->
+                                                                                            <div class="modal fade" id="edit-course-<?php echo $courses->id; ?>">
+                                                                                                <div class="modal-dialog  modal-lg">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+                                                                                                            <!-- Update Course Form -->
+                                                                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                                                                <div class="card-body">
+                                                                                                                    <div class="row">
+                                                                                                                        <div class="form-group col-md-6">
+                                                                                                                            <label for="">Course Name</label>
+                                                                                                                            <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                                            <input type="hidden" required name="id" value="<?php echo $courses->id; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                                            <input type="hidden" required name="view" value="<?php echo $department->id; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                                        </div>
+                                                                                                                        <div class="form-group col-md-6">
+                                                                                                                            <label for="">Course Number / Code</label>
+                                                                                                                            <input type="text" required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="row">
+                                                                                                                        <div class="form-group col-md-12">
+                                                                                                                            <label for="exampleInputPassword1">Course Description</label>
+                                                                                                                            <textarea required name="details" rows="10" class="form-control"><?php echo $courses->details; ?></textarea>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="card-footer text-right">
+                                                                                                                    <button type="submit" name="update_course" class="btn btn-primary">Update</button>
+                                                                                                                </div>
+                                                                                                            </form>
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer justify-content-between">
+                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!-- End Update Modal -->
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                <?php
+                                                                                } ?>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
                                                                 </div>
 
                                                                 <div class="tab-pane" id="dept_modules">
