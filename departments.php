@@ -317,60 +317,7 @@ require_once('public/partials/_head.php');
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-3">
-                                <?php
-                                $ret = "SELECT * FROM `ezanaLMS_Departments`  ORDER BY RAND()  LIMIT 8";
-                                $stmt = $mysqli->prepare($ret);
-                                $stmt->execute(); //ok
-                                $res = $stmt->get_result();
-                                $cnt = 1;
-                                while ($department = $res->fetch_object()) {
-                                ?>
-                                    <div class="col-md-12">
-                                        <div class="card collapsed-card card-primary">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <a href="department_details.php?view=<?php echo $department->id; ?>">
-                                                        <?php echo $department->name; ?>
-                                                    </a>
-                                                </h3>
-                                                <div class="card-tools text-right">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <ul class="list-group">
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="departmental_memos.php?view=<?php echo $department->id; ?>">
-                                                            Memos & Notices
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="departmental_documents.php?view=<?php echo $department->id; ?>">
-                                                            Department Documents
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="courses.php?view=<?php echo $department->id; ?>">
-                                                            Courses
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="modules.php?view=<?php echo $department->faculty_id; ?>">
-                                                            Modules
-                                                        </a>
-                                                    </li>
-
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php
-                                    $cnt = $cnt + 1;
-                                } ?>
-                            </div>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-12">
                                         <table id="example1" class="table table-bordered table-striped">
@@ -379,6 +326,7 @@ require_once('public/partials/_head.php');
                                                     <th>Code</th>
                                                     <th>Name</th>
                                                     <th>HOD</th>
+                                                    <th>School / Faculty</th>
                                                     <th>Manage</th>
                                                 </tr>
                                             </thead>
@@ -394,6 +342,7 @@ require_once('public/partials/_head.php');
                                                         <td><?php echo $dep->code; ?></td>
                                                         <td><?php echo $dep->name; ?></td>
                                                         <td><?php echo $dep->hod; ?></td>
+                                                        <td><?php echo $dep->faculty_name;?></td>
                                                         <td>
                                                             <a class="badge badge-success" href="department_details.php?view=<?php echo $dep->id; ?>">
                                                                 <i class="fas fa-eye"></i>
@@ -405,7 +354,7 @@ require_once('public/partials/_head.php');
                                                             </a>
                                                             <!-- Update Department Modal -->
                                                             <div class="modal fade" id="update-<?php echo $dep->id; ?>">
-                                                                <div class="modal-dialog  modal-lg">
+                                                                <div class="modal-dialog  modal-xl">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
                                                                             <h4 class="modal-title">Fill All Values </h4>
