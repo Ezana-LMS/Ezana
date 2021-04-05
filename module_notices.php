@@ -263,7 +263,7 @@ require_once('public/partials/_head.php');
                                     </form>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Module Notice</button>
                                     <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-lg">
+                                        <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Fill All Required Values </h4>
@@ -331,68 +331,9 @@ require_once('public/partials/_head.php');
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-md-3">
-                                    <div class="col-md-12">
-                                        <div class="card card-primary">
-                                            <div class="card-header">
-                                                <a href="module.php?view=<?php echo $mod->id; ?>">
-                                                    <h3 class="card-title"><?php echo $mod->name; ?></h3>
-                                                    <div class="card-tools text-right">
-                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </a>
-                                            </div>
-
-                                            <div class="card-body">
-                                                <ul class="list-group">
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="module_notices.php?view=<?php echo $mod->id; ?>">
-                                                            Notices & Memos
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="pastpapers.php?view=<?php echo $mod->id; ?>">
-                                                            Past Papers
-                                                        </a>
-                                                    </li>
-
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="course_materials.php?view=<?php echo $mod->id; ?>">
-                                                            Reading Materials
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="class_recordings.php?view=<?php echo $mod->id; ?>">
-                                                            Class Recordings
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="module_assignments.php?view=<?php echo $mod->id; ?>">
-                                                            Assignments
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="student_groups.php?view=<?php echo $mod->id; ?>">
-                                                            Student Groups
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="grades.php?view=<?php echo $mod->id; ?>">
-                                                            Grades
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="module_enrollments.php?view=<?php echo $mod->id; ?>">
-                                                            Module Enrollments
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
+                                <!-- Module Side Menu -->
+                                <?php require_once('public/partials/_modulemenu.php'); ?>
+                                <!-- Module Side Menu -->
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -413,7 +354,6 @@ require_once('public/partials/_head.php');
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                $cnt = 1;
                                                                 while ($not = $res->fetch_object()) {
                                                                 ?>
                                                                     <div class="d-flex w-100 justify-content-between">
@@ -447,7 +387,7 @@ require_once('public/partials/_head.php');
                                                                             </a>
                                                                             <!-- Udpate Notice Modal -->
                                                                             <div class="modal fade" id="update-<?php echo $mod->id; ?>">
-                                                                                <div class="modal-dialog  modal-lg">
+                                                                                <div class="modal-dialog  modal-xl">
                                                                                     <div class="modal-content">
                                                                                         <div class="modal-header">
                                                                                             <h4 class="modal-title">Fill All Required Values </h4>
@@ -485,16 +425,13 @@ require_once('public/partials/_head.php');
                                                                                                     <div class="row">
                                                                                                         <div class="form-group col-md-12">
                                                                                                             <label for="exampleInputPassword1">Module Announcements</label>
-                                                                                                            <textarea required id="<?php echo $not->id; ?>" name="announcements" rows="20" class="form-control"><?php echo $not->announcements; ?></textarea>
+                                                                                                            <textarea required  name="announcements" rows="20" class="form-control"><?php echo $not->announcements; ?></textarea>
                                                                                                             <input type="hidden" required name="id" value="<?php echo $not->id; ?>" class="form-control">
                                                                                                             <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
-                                                                                                <!-- Inline ck editor -->
-                                                                                                <script>
-                                                                                                    CKEDITOR.replace('<?php echo $not->id; ?>');
-                                                                                                </script>
+                                                                                                
 
                                                                                                 <div class="card-footer text-right">
                                                                                                     <button type="submit" name="update_notice" class="btn btn-primary">Update</button>
@@ -536,7 +473,7 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                     <hr>
-                                                                <?php $cnt = $cnt + 1;
+                                                                <?php 
                                                                 } ?>
                                                             </div>
                                                         </div>
