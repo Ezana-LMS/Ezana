@@ -106,13 +106,15 @@ if (isset($_POST['update_course'])) {
         $details = $_POST['details'];
         $hod = $_POST['hod'];
         $email = $_POST['email'];
+        /* Department ID */
+        $view = $_POST['view'];
 
         $query = "UPDATE ezanaLMS_Courses SET  code =?, hod =?, email =?,  name =?, details =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('ssssss', $code, $hod, $email, $name, $details, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Course Updated" && header("refresh:1; url=department_details.php?view=$department_id");
+            $success = "Course Updated" && header("refresh:1; url=department_details.php?view=$view");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -783,7 +785,6 @@ require_once('public/partials/_head.php');
                                                                 <li class="nav-item"><a class="nav-link" href="#dept_memos" data-toggle="tab">Memos & Notices</a></li>
                                                                 <li class="nav-item"><a class="nav-link" href="#dept_docs" data-toggle="tab">Dept. Documents</a></li>
                                                                 <li class="nav-item"><a class="nav-link" href="#dept_courses" data-toggle="tab">Courses</a></li>
-                                                                <li class="nav-item"><a class="nav-link " href="#dept_modules" data-toggle="tab">Modules</a></li>
                                                             </ul>
                                                         </div>
                                                         <div class="card-body">
@@ -1182,13 +1183,13 @@ require_once('public/partials/_head.php');
                                                                     <div class="col-md-12">
 
                                                                         <!-- Department Courses -->
-                                                                        <table id="example1" class="table table-bordered table-striped">
+                                                                        <table id="courses" class="table table-bordered table-striped">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th>Course Code</th>
-                                                                                    <th>Course Name</th>
-                                                                                    <th>Course Head</th>
-                                                                                    <th>Course Email</th>
+                                                                                    <th>Code</th>
+                                                                                    <th>Name</th>
+                                                                                    <th>Head</th>
+                                                                                    <th>Email</th>
                                                                                     <th>Manage</th>
                                                                                 </tr>
                                                                             </thead>
@@ -1203,7 +1204,7 @@ require_once('public/partials/_head.php');
                                                                                     <tr>
                                                                                         <td><?php echo $courses->code; ?></td>
                                                                                         <td><?php echo $courses->name; ?></td>
-                                                                                        <td><?php echo $courses->head; ?></td>
+                                                                                        <td><?php echo $courses->hod; ?></td>
                                                                                         <td><?php echo $courses->email; ?></td>
                                                                                         <td>
                                                                                             <a class="badge badge-success" href="course.php?view=<?php echo $courses->id; ?>">
@@ -1216,7 +1217,7 @@ require_once('public/partials/_head.php');
                                                                                             </a>
                                                                                             <!-- Update Course Modal -->
                                                                                             <div class="modal fade" id="edit-course-<?php echo $courses->id; ?>">
-                                                                                                <div class="modal-dialog  modal-lg">
+                                                                                                <div class="modal-dialog  modal-xl">
                                                                                                     <div class="modal-content">
                                                                                                         <div class="modal-header">
                                                                                                             <h4 class="modal-title">Fill All Required Values </h4>
@@ -1231,13 +1232,23 @@ require_once('public/partials/_head.php');
                                                                                                                     <div class="row">
                                                                                                                         <div class="form-group col-md-6">
                                                                                                                             <label for="">Course Name</label>
-                                                                                                                            <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                                                                                            <input type="hidden" required name="id" value="<?php echo $courses->id; ?>" class="form-control" id="exampleInputEmail1">
-                                                                                                                            <input type="hidden" required name="view" value="<?php echo $department->id; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                                            <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control">
+                                                                                                                            <input type="hidden" required name="id" value="<?php echo $courses->id; ?>" class="form-control">
+                                                                                                                            <input type="hidden" required name="view" value="<?php echo $department->id; ?>" class="form-control">
                                                                                                                         </div>
                                                                                                                         <div class="form-group col-md-6">
                                                                                                                             <label for="">Course Number / Code</label>
                                                                                                                             <input type="text" required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="row">
+                                                                                                                        <div class="form-group col-md-6">
+                                                                                                                            <label for="">Course HOD Name</label>
+                                                                                                                            <input type="text" required value="<?php echo $courses->hod; ?>" name="hod" class="form-control" id="exampleInputEmail1">
+                                                                                                                        </div>
+                                                                                                                        <div class="form-group col-md-6">
+                                                                                                                            <label for="">Course HOD Email</label>
+                                                                                                                            <input type="text" required value="<?php echo $courses->email; ?>" name="email" class="form-control">
                                                                                                                         </div>
                                                                                                                     </div>
                                                                                                                     <div class="row">
@@ -1251,6 +1262,7 @@ require_once('public/partials/_head.php');
                                                                                                                     <button type="submit" name="update_course" class="btn btn-primary">Update</button>
                                                                                                                 </div>
                                                                                                             </form>
+
                                                                                                         </div>
                                                                                                         <div class="modal-footer justify-content-between">
                                                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -1267,11 +1279,6 @@ require_once('public/partials/_head.php');
                                                                         </table>
                                                                     </div>
                                                                 </div>
-
-                                                                <div class="tab-pane" id="dept_modules">
-
-                                                                </div>
-
                                                             </div>
                                                         </div>
                                                     </div>
