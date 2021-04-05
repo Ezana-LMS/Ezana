@@ -200,7 +200,7 @@ require_once('public/partials/_head.php');
                             </li>
 
                             <li class="nav-item">
-                                <a href="courses.php" class=" nav-link">
+                                <a href="courses.php" class="active nav-link">
                                     <i class="nav-icon fas fa-chalkboard-teacher"></i>
                                     <p>
                                         Courses
@@ -208,7 +208,7 @@ require_once('public/partials/_head.php');
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="modules.php" class="active nav-link">
+                                <a href="modules.php" class=" nav-link">
                                     <i class="nav-icon fas fa-chalkboard"></i>
                                     <p>
                                         Modules
