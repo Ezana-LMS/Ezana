@@ -377,9 +377,7 @@ require_once('public/partials/_head.php');
                                             <li class="list-group-item">
                                                 <b>Current Year: </b> <a class="float-right"><?php echo $std->current_year; ?></a>
                                             </li>
-                                            <li class="list-group-item">
-                                                <b>No Of Modules: </b> <a class="float-right"><?php echo $std->no_of_modules; ?></a>
-                                            </li>
+                                            
                                             <li class="list-group-item">
                                                 <b>Account Status: </b> <a class="float-right"><?php echo $std->acc_status; ?></a>
                                             </li>

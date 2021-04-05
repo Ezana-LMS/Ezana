@@ -379,26 +379,7 @@ require_once('public/partials/_head.php');
                                             <form method="post" enctype="multipart/form-data" role="form">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Faculty Code</label>
-                                                            <select class='form-control basic' id="FacultyCode" onchange="OptimizedFacultyDetails(this.value);" id='F'>
-                                                                <option selected>Select Faculty Code Name </option>
-                                                                <?php
-                                                                $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
-                                                                $stmt = $mysqli->prepare($ret);
-                                                                $stmt->execute(); //ok
-                                                                $res = $stmt->get_result();
-                                                                while ($row = $res->fetch_object()) {
-                                                                ?>
-                                                                    <option><?php echo $row->code; ?></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group col-md-8">
-                                                            <label for="">Faculty Name</label>
-                                                            <input type="text" required name="faculty_name" class="form-control" id="FacultyName">
-                                                            <input type="hidden" required name="faculty_id" id="FacultyID" class="form-control">
-                                                        </div>
+
                                                         <div class="form-group col-md-3">
                                                             <label for="">Name</label>
                                                             <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
@@ -457,6 +438,26 @@ require_once('public/partials/_head.php');
                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Faculty Code</label>
+                                                            <select class='form-control basic' id="FacultyCode" onchange="OptimizedFacultyDetails(this.value);" id='F'>
+                                                                <option selected>Select Faculty Code Name </option>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($row = $res->fetch_object()) {
+                                                                ?>
+                                                                    <option><?php echo $row->code; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-8">
+                                                            <label for="">Faculty Name</label>
+                                                            <input type="text" required name="faculty_name" class="form-control" id="FacultyName">
+                                                            <input type="hidden" required name="faculty_id" id="FacultyID" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="row">
