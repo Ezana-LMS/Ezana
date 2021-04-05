@@ -400,8 +400,8 @@ require_once('public/partials/_head.php');
                                                         <tr>
                                                             <td><?php echo $mod->name; ?></td>
                                                             <td><?php echo $mod->code; ?></td>
-                                                            <td><?php echo $mod->course_duration;?></td>
-                                                            <td><?php echo $mod->cat_weight_percentage . " &  " . $mod->exam_weight_percentage;?></td>
+                                                            <td><?php echo $mod->course_duration; ?></td>
+                                                            <td><?php echo $mod->cat_weight_percentage . " &  " . $mod->exam_weight_percentage; ?></td>
                                                             <td>
                                                                 <a class="badge badge-success" href="module.php?view=<?php echo $mod->id; ?>">
                                                                     <i class="fas fa-eye"></i>
@@ -502,7 +502,7 @@ require_once('public/partials/_head.php');
                                                                 <!-- End Delete Confirmation Modal -->
                                                             </td>
                                                         </tr>
-                                                    <?php 
+                                                    <?php
                                                     } ?>
                                                 </tbody>
                                             </table>

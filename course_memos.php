@@ -305,7 +305,7 @@ require_once('public/partials/_head.php');
                                     </div>
 
                                     <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-lg">
+                                        <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Fill All Required Values </h4>
@@ -381,7 +381,7 @@ require_once('public/partials/_head.php');
                                     </div>
 
                                     <div class="modal fade" id="add_memo">
-                                        <div class="modal-dialog  modal-lg">
+                                        <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Fill All Required Values </h4>
@@ -440,53 +440,9 @@ require_once('public/partials/_head.php');
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-md-3">
-
-                                    <div class="col-md-12">
-                                        <div class="card card-primary">
-                                            <div class="card-header">
-                                                <a href="course.php?view=<?php echo $course->id; ?>">
-                                                    <h3 class="card-title"><?php echo $course->name; ?></h3>
-                                                    <div class="card-tools text-right">
-                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </a>
-                                            </div>
-
-                                            <div class="card-body">
-                                                <ul class="list-group">
-
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="course_modules.php?view=<?php echo $course->id; ?>">
-                                                            Modules
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="course_memos.php?view=<?php echo $course->id; ?>">
-                                                            Memos & Notices
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="module_allocations.php?view=<?php echo $course->id; ?>">
-                                                            Modules Allocations
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="timetables.php?view=<?php echo $course->id; ?>">
-                                                            Time Table
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="enrollments.php?view=<?php echo $course->id; ?>">
-                                                            Enrolled Students
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- Course Side Menu -->
+                                <?php require_once('public/partials/_coursemenu.php'); ?>
+                                <!-- End Course Side Menu -->
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-12">
@@ -507,7 +463,6 @@ require_once('public/partials/_head.php');
                                                     $res = $stmt->get_result();
                                                     while ($memo = $res->fetch_object()) {
                                                     ?>
-
                                                         <tr>
                                                             <td><?php echo $memo->created_by; ?></td>
                                                             <td><?php echo date('d M Y g:ia', strtotime($memo->created_on)); ?></td>
@@ -516,7 +471,7 @@ require_once('public/partials/_head.php');
                                                                     <i class="fas fa-eye"></i>
                                                                     View
                                                                 </a>
-                                                                <!-- View Deptmental Memo Modal -->
+                                                                <!-- View Course Memo Modal -->
                                                                 <div class="modal fade" id="view-<?php echo $memo->id; ?>">
                                                                     <div class="modal-dialog  modal-lg">
                                                                         <div class="modal-content">
@@ -552,9 +507,9 @@ require_once('public/partials/_head.php');
                                                                     <i class="fas fa-edit"></i>
                                                                     Update
                                                                 </a>
-                                                                <!-- Update Departmental Memo Modal -->
+                                                                <!-- Update Course Memo Modal -->
                                                                 <div class="modal fade" id="update-<?php echo $memo->id; ?>">
-                                                                    <div class="modal-dialog  modal-lg">
+                                                                    <div class="modal-dialog  modal-xl">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
                                                                                 <h4 class="modal-title">Fill All Values </h4>
@@ -607,7 +562,7 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <!-- End Update Departmental Memo Modal -->
+                                                                <!-- End Update Course Memo Modal -->
                                                                 <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $memo->id; ?>">
                                                                     <i class="fas fa-trash"></i>
                                                                     Delete
