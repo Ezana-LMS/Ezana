@@ -114,6 +114,7 @@ if (isset($_POST['update_dept'])) {
         }
     }
 }
+
 require_once('public/partials/_head.php');
 ?>
 
@@ -260,7 +261,10 @@ require_once('public/partials/_head.php');
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Dep Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-<?php echo $department->id; ?>">Edit Department</button>
+                                    </div>
 
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-lg">
@@ -314,65 +318,15 @@ require_once('public/partials/_head.php');
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-md-3">
-
-                                    <div class="col-md-12">
-                                        <div class="card card-primary">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <a href="department_details.php?view=<?php echo $department->id; ?>">
-                                                        <?php echo $department->name; ?>
-                                                    </a>
-                                                </h3>
-                                                <div class="card-tools text-right">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <ul class="list-group">
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="departmental_memos.php?view=<?php echo $department->id; ?>">
-                                                            Memos & Notices
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="departmental_documents.php?view=<?php echo $department->id; ?>">
-                                                            Department Documents
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="courses.php?view=<?php echo $department->id; ?>">
-                                                            Courses
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="modules.php?view=<?php echo $department->faculty_id; ?>">
-                                                            Modules
-                                                        </a>
-                                                    </li>
-
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="text-right">
+                                            <!-- <div class="text-right">
                                                 <a href="department.php?view=<?php echo $department->id; ?>" class="float-left btn btn-outline-success">
                                                     <i class="fas fa-arrow-left"></i>
                                                     Back
                                                 </a>
-                                                <span class="btn btn-outline-warning text-success">
-                                                    <a class="float-right" data-toggle="modal" href="#update-department-<?php echo $department->id; ?>">
-                                                        <i class="fas fa-edit"></i>
-                                                        Edit
-                                                    </a>
-                                                </span>
-                                            </div>
+                                            </div> -->
                                             <!-- Update Department Modal -->
                                             <div class="modal fade" id="update-department-<?php echo $department->id; ?>">
                                                 <div class="modal-dialog  modal-lg">
@@ -421,42 +375,81 @@ require_once('public/partials/_head.php');
                                             <!--End Update Department Modal -->
                                             <br>
                                             <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="card card-primary card-outline">
-                                                        <div class="card-body box-profile">
-                                                            <ul class="list-group list-group-unbordered mb-3">
-                                                                <li class="list-group-item">
-                                                                    <b>Name: </b> <a class="float-right"><?php echo $department->name; ?></a>
-                                                                </li>
-                                                                <li class="list-group-item">
-                                                                    <b>Code / Number: </b> <a class="float-right"><?php echo $department->code; ?></a>
-                                                                </li>
-                                                                <li class="list-group-item">
-                                                                    <b>HOD: </b> <a class="float-right"><?php echo $department->hod; ?></a>
-                                                                </li>
-                                                                <?php
-                                                                /* Fetch Details Of Facuty That This Department Is Registered To */
-                                                                $faculty_id = $department->faculty_id;
-                                                                $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id= '$faculty_id' ";
-                                                                $stmt = $mysqli->prepare($ret);
-                                                                $stmt->execute(); //ok
-                                                                $res = $stmt->get_result();
-                                                                while ($faculty = $res->fetch_object()) {
-                                                                ?>
-                                                                    <li class="list-group-item">
-                                                                        <b>Faculty Code: </b> <a class="float-right"><?php echo $faculty->code; ?></a>
-                                                                    </li>
-                                                                    <li class="list-group-item">
-                                                                        <b>Faculty: </b> <a class="float-right"><?php echo $faculty->name; ?></a>
-                                                                    </li>
-                                                                    <li class="list-group-item">
-                                                                        <b>Faculty Head Email: </b> <a class="float-right"><?php echo $faculty->email; ?></a>
-                                                                    </li>
-                                                                <?php } ?>
 
-                                                            </ul>
-                                                            <p class="text-left font-weight-bold">Details</p>
-                                                            <?php echo $department->details; ?>
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="card card-widget widget-user-2">
+                                                                <div class="widget-user-header text-center bg-primary">
+                                                                    <h3 class="widget-user-username"><?php echo $department->name; ?></h3>
+                                                                </div>
+                                                                <div class="card-footer p-0">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <ul class="nav flex-column">
+                                                                                <li class="nav-item">
+                                                                                    <span class="nav-link text-primary">
+                                                                                        Department Code : <span class="float-right "><?php echo $department->code; ?></span>
+                                                                                    </span>
+                                                                                </li>
+                                                                                <li class="nav-item">
+                                                                                    <span class="nav-link text-primary">
+                                                                                        Department HOD : <span class="float-right "><?php echo $department->hod; ?></span>
+                                                                                    </span>
+                                                                                </li>
+
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <ul class="nav flex-column">
+                                                                                <?php
+                                                                                /* Fetch Details Of Facuty That This Department Is Registered To */
+                                                                                $faculty_id = $department->faculty_id;
+                                                                                $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id= '$faculty_id' ";
+                                                                                $stmt = $mysqli->prepare($ret);
+                                                                                $stmt->execute(); //ok
+                                                                                $res = $stmt->get_result();
+                                                                                while ($faculty = $res->fetch_object()) {
+                                                                                ?>
+                                                                                    <li class="nav-item">
+                                                                                        <span class="nav-link text-primary">
+                                                                                            Faculty Code : <span class="float-right badge "><?php echo $faculty->code; ?></span>
+                                                                                        </span>
+                                                                                    </li>
+
+                                                                                    <li class="nav-item">
+                                                                                        <span class="nav-link text-primary">
+                                                                                            Faculty Name : <span class="float-right badge "><?php echo $faculty->name; ?></span>
+                                                                                        </span>
+                                                                                    </li>
+
+                                                                                    <li class="nav-item">
+
+                                                                                        <span class="nav-link text-primary">
+                                                                                            Faculty Head Email : <span class="float-right badge "><?php echo $faculty->email; ?></span>
+                                                                                        </span>
+                                                                                    </li>
+
+                                                                                <?php
+                                                                                } ?>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="col-md-12">
+                                                                        <ul class="nav flex-column">
+                                                                            <li class="nav-item">
+                                                                                <span class="nav-link text-center text-primary">
+                                                                                    Department Details
+                                                                                </span>
+                                                                            </li>
+                                                                            <li class="nav-item">
+                                                                                <?php echo $department->details; ?>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
