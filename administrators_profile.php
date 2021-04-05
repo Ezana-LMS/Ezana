@@ -524,9 +524,9 @@ require_once('public/partials/_head.php');
                                             <li class="list-group-item">
                                                 <b>School / Faculty</b> <a class="float-right"><?php echo $admin->school; ?></a>
                                             </li>
-                                            <li class="list-group-item">
+                                            <!-- <li class="list-group-item">
                                                 <b>Previledge</b> <a class="float-right"><?php echo $admin->previledge; ?></a>
-                                            </li>
+                                            </li> -->
                                             <li class="list-group-item">
                                                 <b>Rank</b> <a class="float-right"><?php echo $admin->rank; ?></a>
                                             </li>
