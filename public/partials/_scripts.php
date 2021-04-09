@@ -244,3 +244,17 @@
 
     }
 </script>
+<!-- Bulk Operations Process -->
+<script>
+    /* function setUpdateAction() {
+        document.notificationsForm.action = "";
+        document.notificationsForm.submit();
+    } */
+
+    function setDeleteAction() {
+        if (confirm("Are you sure want to delete these notifications?")) {
+            document.notificationsForm.action = "notifications_clear.php";
+            document.notificationsForm.submit();
+        }
+    }
+</script>

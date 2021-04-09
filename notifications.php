@@ -154,42 +154,51 @@ require_once('public/partials/_head.php');
                 <section class="content">
                     <div class="container-fluid">
                         <hr>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-12">
+                        <form name="notificationsForm" method="post" action="">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <!-- Operations -->
+                                            <div class="text-right">
+                                                <input type="button" class="btn btn-primary" value="Mark As Read" name="MarkAsRead" onClick="setUpdateAction();">
+                                                <input type="button" class="btn btn-danger" value="Clear Notifications" name="ClearNotifications" onClick="setDeleteAction();">
 
-                                        <table id="" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Action</th>
-                                                    <th>Type</th>
-                                                    <th>Nofitication Details</th>
-                                                    <th>Created At</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                /* Load All Notifications Based On Time They Were Generated */
-                                                $result = mysqli_query($mysqli, "SELECT * FROM `ezanaLMS_Notifications`  ORDER BY `created_at` DESC ");
-                                                $i = 0;
-                                                while ($notification = mysqli_fetch_array($result)) {
-                                                ?>
+                                            </div>
+                                            <hr>
+                                            <!-- End Operations -->
+                                            <table id="" class="table table-bordered table-striped">
+                                                <thead>
                                                     <tr>
-                                                        <td><input type="checkbox" name="notifications[]" value="<?php echo $notification["id"]; ?>"></td>
-                                                        <td><?php echo $notification["type"]; ?></td>
-                                                        <td><?php echo $notification["notification_detail"]; ?></td>
-                                                        <td><?php echo date('d M Y g:ia', strtotime($notification["created_at"])); ?></td>
+                                                        <th>Action</th>
+                                                        <th>Type</th>
+                                                        <th>Nofitication Details</th>
+                                                        <th>Created At</th>
                                                     </tr>
-                                                <?php
-                                                    $i++;
-                                                } ?>
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    /* Load All Notifications Based On Time They Were Generated */
+                                                    $result = mysqli_query($mysqli, "SELECT * FROM `ezanaLMS_Notifications`   ORDER BY `created_at` DESC ");
+                                                    $i = 0;
+                                                    while ($notification = mysqli_fetch_array($result)) {
+                                                    ?>
+                                                        <tr>
+                                                            <td><input type="checkbox" name="notifications[]" value="<?php echo $notification["id"]; ?>"></td>
+                                                            <td><?php echo $notification["type"]; ?></td>
+                                                            <td><?php echo $notification["notification_detail"]; ?></td>
+                                                            <td><?php echo date('d M Y g:ia', strtotime($notification["created_at"])); ?></td>
+                                                        </tr>
+                                                    <?php
+                                                        $i++;
+                                                    } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </section>
                 <!-- Main Footer -->
