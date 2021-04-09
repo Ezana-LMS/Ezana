@@ -21,7 +21,7 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-require_once('config/config.php');
+require_once('configs/config.php');
 
 $rowCount = count($_POST["notifications"]);
 for ($i = 0; $i < $rowCount; $i++) {

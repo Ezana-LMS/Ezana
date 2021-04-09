@@ -161,9 +161,7 @@ require_once('public/partials/_head.php');
                                         <div class="col-12">
                                             <!-- Operations -->
                                             <div class="text-right">
-                                                <input type="button" class="btn btn-primary" value="Mark As Read" name="MarkAsRead" onClick="setUpdateAction();">
                                                 <input type="button" class="btn btn-danger" value="Clear Notifications" name="ClearNotifications" onClick="setDeleteAction();">
-
                                             </div>
                                             <hr>
                                             <!-- End Operations -->
