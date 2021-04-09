@@ -38,11 +38,11 @@ while ($admin = $res->fetch_object()) {
                     <span class="badge badge-success navbar-badge"><?php echo $unread; ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-item dropdown-header"><?php echo $unread; ?> Notifications</span>
+                    <span class="dropdown-item dropdown-header"><?php echo $unread; ?> Notifications <a href="dashboard.php?notification='Read'" class="badge bg-danger"> Mark All Read </a></span>
                     <div class="dropdown-divider"></div>
                     <?php
                     /* Load Notifications On Order Created */
-                    $ret = "SELECT * FROM `ezanaLMS_Notifications` ORDER BY `created_at` DESC ";
+                    $ret = "SELECT * FROM `ezanaLMS_Notifications` WHERE status = 'Unread' ORDER BY `created_at` DESC ";
                     $stmt = $mysqli->prepare($ret);
                     $stmt->execute(); //ok
                     $res = $stmt->get_result();

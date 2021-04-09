@@ -25,6 +25,19 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
+/* Mark All Notications As Read */
+if (isset($_GET['notification'])) {
+    $notification = $_GET['notification'];
+    $adn = "UPDATE   ezanaLMS_Notifications SET  status = 'Read' ";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=dashboard.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('public/partials/_head.php');
 ?>
 
