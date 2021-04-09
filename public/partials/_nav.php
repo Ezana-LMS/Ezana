@@ -42,14 +42,14 @@ while ($admin = $res->fetch_object()) {
                     <div class="dropdown-divider"></div>
                     <?php
                     /* Load Notifications On Order Created */
-                    $ret = "SELECT * FROM `ezanaLMS_Notifications` ORDER BY `created_at` ASC ";
+                    $ret = "SELECT * FROM `ezanaLMS_Notifications` ORDER BY `created_at` DESC ";
                     $stmt = $mysqli->prepare($ret);
                     $stmt->execute(); //ok
                     $res = $stmt->get_result();
                     while ($notification = $res->fetch_object()) {
                     ?>
                         <a href="notifications.php" class="dropdown-item">
-                            <?php echo $notification->notification_detail; ?>
+                            <?php echo  substr($notification->notification_detail, 0, 30) . "..."; ?>
                             <span class="float-right text-success text-sm"><?php echo date('d M Y g:ia', strtotime($notification->created_at)); ?></span>
                             <br>
                         </a>
