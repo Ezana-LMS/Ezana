@@ -168,6 +168,7 @@
                     yValueFormatString: "#0.## ",
                     showInLegend: true,
                     dataPoints: [{
+
                             x: new Date(2017, 6, 24),
                             y: 31
                         },
