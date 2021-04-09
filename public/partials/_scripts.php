@@ -117,6 +117,14 @@
     $(document).ready(function() {
         bsCustomFileInput.init();
     });
+
+    /* Bulk Clear Notifications */
+    function setDeleteAction() {
+        if (confirm("Are you sure want to clear these notifications?")) {
+            document.notificationsForm.action = "notifications_clear.php";
+            document.notificationsForm.submit();
+        }
+    }
 </script>
 
 <!-- Select2 -->
@@ -129,7 +137,6 @@
 </script>
 <!-- Load Ajax Scripts -->
 <?php require_once('_ajax.php'); ?>
-<!-- Load Chart Scripts -->
 <script>
     /* User Login Activity Chart */
     window.onload = function() {
@@ -140,107 +147,139 @@
                 text: ""
             },
             axisX: {
-                title: "Time / Date"
+                valueFormatString: "DD MMM,YY"
             },
             axisY: {
-                title: "No Of Users"
+                title: "No Of Users",
+                includeZero: false,
+                suffix: ""
+            },
+            legend: {
+                cursor: "pointer",
+                fontSize: 16,
+                itemclick: toggleDataSeries
+            },
+            toolTip: {
+                shared: true
             },
             data: [{
-                type: "line",
-                name: "User Login Activity",
-                connectNullData: true,
-                //nullDataLineDashType: "solid",
-                xValueType: "dateTime",
-                xValueFormatString: "DD MMM hh:mm TT",
-                yValueFormatString: "#,##0.##''",
-                dataPoints: [{
-                        x: 1501048673000,
-                        y: 35.939
-                    },
-                    {
-                        x: 1501052273000,
-                        y: 40.896
-                    },
-                    {
-                        x: 1501055873000,
-                        y: 56.625
-                    },
-                    {
-                        x: 1501059473000,
-                        y: 26.003
-                    },
-                    {
-                        x: 1501063073000,
-                        y: 20.376
-                    },
-                    {
-                        x: 1501066673000,
-                        y: 19.774
-                    },
-                    {
-                        x: 1501070273000,
-                        y: 23.508
-                    },
-                    {
-                        x: 1501073873000,
-                        y: 18.577
-                    },
-                    {
-                        x: 1501077473000,
-                        y: 15.918
-                    },
-                    {
-                        x: 1501081073000,
-                        y: null
-                    }, // Null Data
-                    {
-                        x: 1501084673000,
-                        y: 10.314
-                    },
-                    {
-                        x: 1501088273000,
-                        y: 10.574
-                    },
-                    {
-                        x: 1501091873000,
-                        y: 14.422
-                    },
-                    {
-                        x: 1501095473000,
-                        y: 18.576
-                    },
-                    {
-                        x: 1501099073000,
-                        y: 22.342
-                    },
-                    {
-                        x: 1501102673000,
-                        y: 22.836
-                    },
-                    {
-                        x: 1501106273000,
-                        y: 23.220
-                    },
-                    {
-                        x: 1501109873000,
-                        y: 23.594
-                    },
-                    {
-                        x: 1501113473000,
-                        y: 24.596
-                    },
-                    {
-                        x: 1501117073000,
-                        y: 31.947
-                    },
-                    {
-                        x: 1501120673000,
-                        y: 31.142
-                    }
-                ]
-            }]
+                    name: "Administrators",
+                    type: "spline",
+                    yValueFormatString: "#0.## ",
+                    showInLegend: true,
+                    dataPoints: [{
+
+                            x: new Date(2017, 6, 24),
+                            y: 31
+                        },
+                        {
+                            x: new Date(2017, 6, 25),
+                            y: 31
+                        },
+                        {
+                            x: new Date(2017, 6, 26),
+                            y: 29
+                        },
+                        {
+                            x: new Date(2017, 6, 27),
+                            y: 29
+                        },
+                        {
+                            x: new Date(2017, 6, 28),
+                            y: 31
+                        },
+                        {
+                            x: new Date(2017, 6, 29),
+                            y: 30
+                        },
+                        {
+                            x: new Date(2017, 6, 30),
+                            y: 29
+                        }
+                    ]
+                },
+                {
+                    name: "Lecturers",
+                    type: "spline",
+                    yValueFormatString: "#0.## ",
+                    showInLegend: true,
+                    dataPoints: [{
+                            x: new Date(2017, 6, 24),
+                            y: 20
+                        },
+                        {
+                            x: new Date(2017, 6, 25),
+                            y: 20
+                        },
+                        {
+                            x: new Date(2017, 6, 26),
+                            y: 25
+                        },
+                        {
+                            x: new Date(2017, 6, 27),
+                            y: 25
+                        },
+                        {
+                            x: new Date(2017, 6, 28),
+                            y: 25
+                        },
+                        {
+                            x: new Date(2017, 6, 29),
+                            y: 25
+                        },
+                        {
+                            x: new Date(2017, 6, 30),
+                            y: 25
+                        }
+                    ]
+                },
+                {
+                    name: "Students",
+                    type: "spline",
+                    yValueFormatString: "#0.## ",
+                    showInLegend: true,
+                    dataPoints: [{
+                            x: new Date(2017, 6, 24),
+                            y: 22
+                        },
+                        {
+                            x: new Date(2017, 6, 25),
+                            y: 19
+                        },
+                        {
+                            x: new Date(2017, 6, 26),
+                            y: 23
+                        },
+                        {
+                            x: new Date(2017, 6, 27),
+                            y: 24
+                        },
+                        {
+                            x: new Date(2017, 6, 28),
+                            y: 24
+                        },
+                        {
+                            x: new Date(2017, 6, 29),
+                            y: 23
+                        },
+                        {
+                            x: new Date(2017, 6, 30),
+                            y: 23
+                        }
+                    ]
+                }
+            ]
         });
         chart.render();
+
+        function toggleDataSeries(e) {
+            if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                e.dataSeries.visible = false;
+            } else {
+                e.dataSeries.visible = true;
+            }
+            chart.render();
+        }
 
     }
 </script>
