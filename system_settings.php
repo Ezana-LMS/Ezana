@@ -206,6 +206,55 @@ if (isset($_GET['delete_staff'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+
+/* Add Faculty */
+if (isset($_POST['add_faculty'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Faculty Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Faculty Name Cannot Be Empty";
+    }
+    if (!$error) {
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_Faculties WHERE  code='$code' || name ='$name' ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($code == $row['code']) {
+                $err =  "Faculty With This Code Already Exists";
+            } else {
+                $err = "Faculty Name Already Exists";
+            }
+        } else {
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $code = $_POST['code'];
+            $details = $_POST['details'];
+            $head = $_POST['head'];
+            $email = $_POST['email'];
+
+            $query = "INSERT INTO ezanaLMS_Faculties (id, code, name, details, head, email) VALUES(?,?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ssssss', $id, $code, $name, $details, $head, $email);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Added" && header("refresh:1; url=system_settings.php");
+            } else {
+                //inject alert that profile update task failed
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
@@ -348,11 +397,14 @@ require_once('public/partials/_head.php');
                                                 <a class="nav-link active" data-toggle="pill" href="#customization" role="tab">Customization</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="pill" href="#academic_settings" role="tab">Academic Settings</a>
+                                                <a class="nav-link" data-toggle="pill" href="#academic_settings" role="tab">Academic / Localization Settings</a>
                                             </li>
 
                                             <li class="nav-item">
                                                 <a class="nav-link" data-toggle="pill" href="#back_up_utillity" role="tab">Data Backup Utility</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="pill" href="#add_functionality" role="tab">Summarized Add Functionality</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link text-danger" data-toggle="pill" href="#delete_functionalities" role="tab">Delete Functionalities</a>
@@ -950,6 +1002,52 @@ require_once('public/partials/_head.php');
                                                 <div class="text-center">
                                                     <a href="system_database_dump.php" target="_blank" class="btn btn-primary">Backup </a>
                                                 </div>
+                                            </div>
+
+                                            <div class="tab-pane fade show " id="add_functionality" role="tabpanel">
+                                                <br>
+                                                <div class="text-center">
+                                                    <h5>Add Faculty</h5>
+                                                </div>
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty Name</label>
+                                                                <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty Number / Code</label>
+                                                                <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty Head</label>
+                                                                <input type="text" required name="head" class="form-control" id="exampleInputEmail1">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty Head Email</label>
+                                                                <input type="email" required name="email" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="exampleInputPassword1">Faculty Description</label>
+                                                                <textarea id="textarea" name="details" rows="10" class="form-control"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <button type="submit" name="add_faculty" class=" btn btn-primary">Add Faculty</button>
+                                                    </div>
+                                                </form>
+                                                <hr>
+                                                <div class="text-center">
+                                                    <h5>Add Department</h5>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
