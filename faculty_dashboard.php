@@ -493,7 +493,7 @@ require_once('public/partials/_head.php');
                                                 <div class="card-footer p-0">
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                        
+                                                            <canvas id="facultyPersonnels" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -511,7 +511,49 @@ require_once('public/partials/_head.php');
             </div>
             <!-- ./wrapper -->
         <?php require_once('public/partials/_scripts.php');
+            /* Lecs  */
+            $query = "SELECT COUNT(*)  FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$view' ";
+            $stmt = $mysqli->prepare($query);
+            $stmt->execute();
+            $stmt->bind_result($faculty_lecs);
+            $stmt->fetch();
+            $stmt->close();
+
+            /*  Students */
+            $query = "SELECT COUNT(*)  FROM `ezanaLMS_Students` WHERE faculty_id = '$view' ";
+            $stmt = $mysqli->prepare($query);
+            $stmt->execute();
+            $stmt->bind_result($faculty_students);
+            $stmt->fetch();
+            $stmt->close();
         } ?>
+        <script>
+            /* Faculty Students Aganist Lecturers Donught Chart */
+            $(function() {
+                var donutChartCanvas = $('#facultyPersonnels').get(0).getContext('2d')
+                var donutData = {
+                    labels: [
+                        'Lecturers',
+                        'Students',
+                    ],
+                    datasets: [{
+                        data: [<?php echo $faculty_lecs; ?>, <?php echo $faculty_students; ?>],
+                        backgroundColor: ['#f56954', '#00a65a'],
+                    }]
+                }
+                var donutOptions = {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                }
+                /* You Can Switch From Donught To Pie Chart */
+
+                var donutChart = new Chart(donutChartCanvas, {
+                    type: 'pie',
+                    data: donutData,
+                    options: donutOptions
+                })
+            })
+        </script>
 </body>
 
 </html>
