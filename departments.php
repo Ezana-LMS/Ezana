@@ -105,7 +105,6 @@ if (isset($_POST['update_dept'])) {
         if ($stmt) {
             $success = "$name Department Updated" && header("refresh:1; url=departments.php");
         } else {
-            //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
         }
     }
@@ -342,7 +341,7 @@ require_once('public/partials/_head.php');
                                                         <td><?php echo $dep->code; ?></td>
                                                         <td><?php echo $dep->name; ?></td>
                                                         <td><?php echo $dep->hod; ?></td>
-                                                        <td><?php echo $dep->faculty_name;?></td>
+                                                        <td><?php echo $dep->faculty_name; ?></td>
                                                         <td>
                                                             <a class="badge badge-success" href="department_details.php?view=<?php echo $dep->id; ?>">
                                                                 <i class="fas fa-eye"></i>
@@ -383,7 +382,7 @@ require_once('public/partials/_head.php');
                                                                                     <div class="row">
                                                                                         <div class="form-group col-md-12">
                                                                                             <label for="exampleInputPassword1">Department Details</label>
-                                                                                            <textarea name="details"  rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
+                                                                                            <textarea name="details" rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
