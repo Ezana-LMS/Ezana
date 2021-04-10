@@ -255,6 +255,57 @@ if (isset($_POST['add_faculty'])) {
         }
     }
 }
+
+/* Add Departments */
+if (isset($_POST['add_dept'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Department Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Department Name Cannot Be Empty";
+    }
+    if (!$error) {
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_Departments WHERE  code='$code' || name ='$name' ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($code == $row['code']) {
+                $err =  "Department With This Code Already Exists";
+            } else {
+                $err = "Department Name Already Exists";
+            }
+        } else {
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $code = $_POST['code'];
+            $faculty = $_POST['faculty'];
+            $details = $_POST['details'];
+            $hod = $_POST['hod'];
+            $faculty_name = $_POST['faculty_name'];
+
+            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, faculty_name, details, hod) VALUES(?,?,?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('sssssss', $id, $code, $name, $faculty, $faculty_name, $details, $hod);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "$name Department Added" && header("refresh:1; url=system_settings.php");;
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+
+
 require_once('configs/codeGen.php');
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
@@ -1047,6 +1098,60 @@ require_once('public/partials/_head.php');
                                                 <div class="text-center">
                                                     <h5>Add Department</h5>
                                                 </div>
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty Code</label>
+                                                                <select class='form-control basic' id="FacultyCode" onchange="OptimizedFacultyDetails(this.value);">
+                                                                    <option selected>Select Faculty Code</option>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Faculties` ORDER BY `code` ASC  ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    while ($fac = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <option><?php echo $fac->code; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <input type="hidden" required name="faculty" id="FacultyID" class="form-control">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty Name</label>
+                                                                <input type="text" required name="faculty_name" class="form-control" id="FacultyName">
+                                                            </div>
+
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department Name</label>
+                                                                <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Department Number / Code</label>
+                                                                <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">HOD</label>
+                                                                <input type="text" required name="hod" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="exampleInputPassword1">Department Details</label>
+                                                                <textarea name="details" rows="10" class="form-control"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer text-right">
+                                                        <button type="submit" name="add_dept" class="btn btn-primary">Add Department</button>
+                                                    </div>
+                                                </form>
+                                                <hr>
+                                                <div class="text-center">
+                                                    <h5>Add Course</h5>
+                                                </div>
+                                                
 
                                             </div>
                                         </div>
