@@ -47,7 +47,6 @@ if (isset($_POST['add_student'])) {
         $course = $_POST['course'];
         $department = $_POST['department'];
         $current_year = $_POST['current_year'];
-        $no_of_modules = $_POST['no_of_modules'];
 
         /* Faculty ID  */
         $view = $_GET['view'];
@@ -71,9 +70,9 @@ if (isset($_POST['add_student'])) {
             }
         } else {
 
-            $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, no_of_modules, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year,  name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssssssssssssssss', $id, $faculty_id, $day_enrolled, $school, $course, $department, $current_year, $no_of_modules, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $acc_status, $created_at, $password, $profile_pic);
+            $rc = $stmt->bind_param('sssssssssssssssssss', $id, $faculty_id, $day_enrolled, $school, $course, $department, $current_year, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $acc_status, $created_at, $password, $profile_pic);
             $stmt->execute();
             if ($stmt) {
                 $success = "Student Added " && header("refresh:1; url=faculty_students.php?view=$view");
@@ -103,15 +102,14 @@ if (isset($_POST['update_student'])) {
     $course = $_POST['course'];
     $department = $_POST['department'];
     $current_year = $_POST['current_year'];
-    $no_of_modules = $_POST['no_of_modules'];
 
     /* FacultyID */
     $view = $_POST['view'];
 
     if (!$error) {
-        $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?, no_of_modules =?, name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?,  name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssssssssssss', $day_enrolled, $school, $course, $department, $current_year, $no_of_modules, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $updated_at, $id);
+        $rc = $stmt->bind_param('sssssssssssssss', $day_enrolled, $school, $course, $department, $current_year, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $updated_at, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Student Add " && header("refresh:1; url=faculty_students.php?view=$view");
@@ -324,6 +322,30 @@ require_once('public/partials/_head.php');
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                    <label for="">Name</label>
+                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Admission Number</label>
+                                                                    <input type="text" required name="admno" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">ID / Passport Number</label>
+                                                                    <input type="text" required name="idno" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Date Of Birth</label>
+                                                                    <input type="text" placeholder="DD - MM - YYYY" required name="dob" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Gender</label>
+                                                                    <select type="text" required name="gender" class="form-control basic">
+                                                                        <option>Male</option>
+                                                                        <option>Female</option>
+                                                                    </select>
+                                                                </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Course Enrolled</label>
                                                                     <select class='form-control basic' id="CourseCode" onchange="getStudentCourseDetails(this.value);">
@@ -352,45 +374,17 @@ require_once('public/partials/_head.php');
                                                                     <input type="text" required name="school" class="form-control" id="FacultyName">
                                                                     <input type="hidden" required name="faculty_id" class="form-control" id="FacultyID">
                                                                 </div>
-                                                                <div class="form-group col-md-4">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">Current Year</label>
                                                                     <input type="text" required name="current_year" class="form-control">
                                                                 </div>
-                                                                <div class="form-group col-md-4">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">Date Enrolled</label>
                                                                     <input type="text" placeholder="DD - MM - YYYY" required name="day_enrolled" class="form-control">
                                                                 </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">No Of Modules</label>
-                                                                    <input type="text" required name="no_of_modules" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Name</label>
-                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Admission Number</label>
-                                                                    <input type="text" required name="admno" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                                </div>
+                                                                
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">ID / Passport Number</label>
-                                                                    <input type="text" required name="idno" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Date Of Birth</label>
-                                                                    <input type="text" placeholder="DD - MM - YYYY" required name="dob" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Gender</label>
-                                                                    <select type="text" required name="gender" class="form-control basic">
-                                                                        <option>Male</option>
-                                                                        <option>Female</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
+                                                            
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Email</label>
@@ -577,18 +571,15 @@ require_once('public/partials/_head.php');
                                                                                                 <label for="">Faculty / School Name</label>
                                                                                                 <input type="text" required name="school" class="form-control" value="<?php echo $std->school; ?>">
                                                                                             </div>
-                                                                                            <div class="form-group col-md-4">
+                                                                                            <div class="form-group col-md-6">
                                                                                                 <label for="">Current Year</label>
                                                                                                 <input type="text" required name="current_year" value="<?php echo $std->current_year; ?>" class="form-control">
                                                                                             </div>
-                                                                                            <div class="form-group col-md-4">
+                                                                                            <div class="form-group col-md-6">
                                                                                                 <label for="">Date Enrolled</label>
                                                                                                 <input type="text" required name="day_enrolled" value="<?php echo $std->day_enrolled; ?>" class="form-control">
                                                                                             </div>
-                                                                                            <div class="form-group col-md-4">
-                                                                                                <label for="">No Of Modules</label>
-                                                                                                <input type="text" required name="no_of_modules" value="<?php echo $std->no_of_modules; ?>" class="form-control">
-                                                                                            </div>
+                                                                                            
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Name</label>
                                                                                                 <input type="text" required name="name" class="form-control" value="<?php echo $std->name; ?>">
