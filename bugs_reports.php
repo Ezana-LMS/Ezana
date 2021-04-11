@@ -36,7 +36,7 @@ if (isset($_GET['fix'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Resolved" && header("refresh:1; url=bug_reports.php?view=$view");
+        $success = "Resolved" && header("refresh:1; url=bugs_reports.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -52,7 +52,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Resolved" && header("refresh:1; url=bug_reports.php?view=$view");
+        $success = "Resolved" && header("refresh:1; url=bugs_reports.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -280,6 +280,8 @@ require_once('public/partials/_head.php');
                                             <hr>
                                             <div class="text-center">
                                                 <a class="btn btn-primary" data-toggle="modal" href="#status-<?php echo $bug_status->id; ?>"> <i class="fas fa-check"></i> Mark As Fixed</a>
+                                                <a class="btn btn-danger" data-toggle="modal" href="#delete-<?php echo $bug_status->id; ?>"> <i class="fas fa-trash"></i> Delete</a>
+
                                                 <div class="modal fade" id="status-<?php echo $bug_status->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
@@ -294,6 +296,25 @@ require_once('public/partials/_head.php');
                                                                 <br>
                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
                                                                 <a href="bugs_reports.php?view=<?php echo $view; ?>&fix=<?php echo $bug_status->id; ?>" class="text-center btn btn-danger"> Yes </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade" id="delete-<?php echo $bug_status->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body text-center text-danger">
+                                                                <h4>Delete?</h4>
+                                                                <br>
+                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                <a href="bugs_reports.php?view=<?php echo $view; ?>&delete=<?php echo $bug_status->id; ?>" class="text-center btn btn-danger"> Yes </a>
                                                             </div>
                                                         </div>
                                                     </div>
