@@ -255,10 +255,35 @@ require_once('public/partials/_head.php');
                                                         Bug / System Halt Description
                                                     </span>
                                                 </li>
+                                                <li class="nav-item text-center">
+                                                    <?php echo $bug_status->bug_title; ?>
+                                                </li>
                                                 <li class="nav-item">
                                                     <?php echo $bug_status->bug_details; ?>
                                                 </li>
                                             </ul>
+                                            <hr>
+                                            <div class="text-center">
+                                                <a class="btn btn-primary" data-toggle="modal" href="#status-<?php echo $bug_status->id; ?>"> <i class="fas fa-check"></i> Mark As Fixed</a>
+                                                <div class="modal fade" id="status-<?php echo $bug_status->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body text-center text-danger">
+                                                                <h4>Fixed This Bug / System Error ?</h4>
+                                                                <br>
+                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                <a href="bugs_reports.php?view=<?php echo $view; ?>&fix=<?php echo $bug_status->id; ?>" class="text-center btn btn-danger"> Yes </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
