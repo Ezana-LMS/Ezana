@@ -463,9 +463,18 @@ require_once('public/partials/_head.php');
                                                             while ($req = $res->fetch_object()) {
                                                             ?>
                                                                 <li>
-                                                                    <span class="text"><?php echo $req->request; ?></span>
-                                                                    <small class="badge badge-success"><i class="far fa-clock"></i> <?php echo date('d M Y - g:ia', strtotime($req->created_at)); ?></small>
+                                                                    <a href="user_requests.php?view=<?php echo $req->id; ?>">
+                                                                        <span class="text"><?php echo $req->request; ?></span>
+                                                                        <small class="badge badge-success"><i class="far fa-clock"></i> <?php echo date('d M Y - g:ia', strtotime($req->created_at)); ?></small>
+                                                                        <div class="progress">
+                                                                            <div class="progress-bar" style="width: <?php echo $req->progress; ?>%"></div>
+                                                                        </div>
+                                                                        <span class="progress-description">
+                                                                            Progress : <?php echo $req->progress; ?> %
+                                                                        </span>
+                                                                    </a>
                                                                 </li>
+                                                                </a>
                                                             <?php
                                                             } ?>
                                                         </ul>
