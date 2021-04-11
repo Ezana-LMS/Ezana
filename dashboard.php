@@ -463,9 +463,18 @@ require_once('public/partials/_head.php');
                                                             while ($req = $res->fetch_object()) {
                                                             ?>
                                                                 <li>
-                                                                    <span class="text"><?php echo $req->request; ?></span>
-                                                                    <small class="badge badge-success"><i class="far fa-clock"></i> <?php echo date('d M Y - g:ia', strtotime($req->created_at)); ?></small>
+                                                                    <a href="user_requests.php?view=<?php echo $req->id; ?>">
+                                                                        <span class="text"><?php echo $req->request; ?></span>
+                                                                        <small class="badge badge-success"><i class="far fa-clock"></i> <?php echo date('d M Y - g:ia', strtotime($req->created_at)); ?></small>
+                                                                        <div class="progress">
+                                                                            <div class="progress-bar" style="width: <?php echo $req->progress; ?>%"></div>
+                                                                        </div>
+                                                                        <span class="progress-description">
+                                                                            Progress : <?php echo $req->progress; ?> %
+                                                                        </span>
+                                                                    </a>
                                                                 </li>
+                                                                </a>
                                                             <?php
                                                             } ?>
                                                         </ul>
@@ -476,7 +485,7 @@ require_once('public/partials/_head.php');
                                                 <div class="card col-md-6">
                                                     <div class="card-header text-center">
                                                         <h3 class="card-title">
-                                                            System And Database Server Status / Error Checkings
+                                                            System And Database Server Status
                                                         </h3>
                                                     </div>
                                                     <div class="card-body">
@@ -498,22 +507,26 @@ require_once('public/partials/_head.php');
                                                 <div class="card col-md-12">
                                                     <div class="card-header">
                                                         <h3 class="card-title">
-                                                            Users Bug / Errors Reports
+                                                            Recent Bugs /System Errors Reports
                                                         </h3>
                                                     </div>
                                                     <div class="card-body">
                                                         <ul class="todo-list" data-widget="todo-list">
                                                             <?php
                                                             /* Load Crashlytics */
-                                                            $ret = "SELECT * FROM `ezanaLMS_BugReports` ORDER BY `date_reported` ASC   ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_BugReports` WHERE status  = 'Pending Fix'   ORDER BY `date_reported` ASC  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
                                                             while ($bugs = $res->fetch_object()) {
                                                             ?>
                                                                 <li>
-                                                                    <span class="text"><?php echo $bugs->bug_title; ?></span>
-                                                                    <small class="badge badge-success"><i class="far fa-clock"></i> <?php echo date('d M Y - g:ia', strtotime($bugs->date_reported)); ?></small>
+                                                                    <a href="bugs_reports.php?view=<?php echo $bugs->id; ?>">
+                                                                        <span class="text"> <?php echo $bugs->bug_title; ?> - Bug Status: <?php echo $bugs->status; ?> </span>
+                                                                        <div class="pull-right">
+                                                                            <small class="badge badge-success"><i class="far fa-clock"></i> Reported On: <?php echo date('d M Y - g:ia', strtotime($bugs->date_reported)); ?></small>
+                                                                        </div>
+                                                                    </a>
                                                                 </li>
                                                             <?php
                                                             } ?>
