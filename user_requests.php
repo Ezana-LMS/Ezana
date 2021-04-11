@@ -36,7 +36,7 @@ if (isset($_POST['update_status'])) {
 
     $query = "UPDATE  ezanaLMS_UserRequests SET progress =?, status =? WHERE id=?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ss', $progress, $status);
+    $rc = $stmt->bind_param('sss', $progress, $status, $view);
     $stmt->execute();
     if ($stmt) {
         $success = "Updated " && header("refresh:1; url=user_requests.php?view=$view");
@@ -250,7 +250,7 @@ require_once('public/partials/_head.php');
                                                                 </li>
                                                                 <li class="nav-item">
                                                                     <span class="nav-link text-primary">
-                                                                        Date Requested: <span class="float-right "><?php echo date('d M Y - g:ia', strtotime($bug_status->date_reported)); ?></span>
+                                                                        Date Requested: <span class="float-right "><?php echo date('d M Y - g:ia', strtotime($requests->created_at)); ?></span>
                                                                     </span>
                                                                 </li>
                                                             </ul>
@@ -281,21 +281,21 @@ require_once('public/partials/_head.php');
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Update Status</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            <div class="modal-body text-center text-danger">
+                                                            <div class="modal-body text-center">
                                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                                     <div class="card-body">
                                                                         <div class="row">
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Approval Status</label>
-                                                                                <select type="text" required name="gender" class="form-control basic">
+                                                                                <select type="text" required name="status" class="form-control basic">
                                                                                     <option><?php echo $requests->status; ?></option>
                                                                                     <option>Pending</option>
-                                                                                    <option>Aproved</option>
+                                                                                    <option>Approved</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="form-group col-md-6">
@@ -319,7 +319,7 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </div>
 
-                                                <div class="modal fade" id="delete-<?php echo $bug_status->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal fade" id="delete-<?php echo $requests->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -332,7 +332,7 @@ require_once('public/partials/_head.php');
                                                                 <h4>Delete?</h4>
                                                                 <br>
                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                <a href="bugs_reports.php?view=<?php echo $view; ?>&delete=<?php echo $bug_status->id; ?>" class="text-center btn btn-danger"> Yes </a>
+                                                                <a href="user_requests.php?view=<?php echo $view; ?>&delete=<?php echo $requests->id; ?>" class="text-center btn btn-danger"> Yes </a>
                                                             </div>
                                                         </div>
                                                     </div>
