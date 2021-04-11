@@ -512,8 +512,12 @@ require_once('public/partials/_head.php');
                                                             while ($bugs = $res->fetch_object()) {
                                                             ?>
                                                                 <li>
-                                                                    <span class="text"><?php echo $bugs->bug_title; ?></span>
-                                                                    <small class="badge badge-success"><i class="far fa-clock"></i> <?php echo date('d M Y - g:ia', strtotime($bugs->date_reported)); ?></small>
+                                                                    <a href="bugs_reports.php?view=<?php echo $bugs->id; ?>">
+                                                                        <span class="text"><?php echo $bugs->bug_title; ?> - Bug Status: <?php echo $bugs->status; ?> </span>
+                                                                        <div class="pull-right">
+                                                                            <small class="badge badge-success"><i class="far fa-clock"></i> Reported On: <?php echo date('d M Y - g:ia', strtotime($bugs->date_reported)); ?></small>
+                                                                        </div>
+                                                                    </a>
                                                                 </li>
                                                             <?php
                                                             } ?>
