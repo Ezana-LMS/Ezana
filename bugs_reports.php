@@ -26,18 +26,33 @@ require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
 
-/* Makr Bug / Error Report As Fixed */
-if (isset($_POST['fixed_bug'])) {
-
-    $id = $_GET['view'];
-    $status = $_POST['status'];
-
-    $query = "UPDATE ezanaLMS_BugReports SET status =?  WHERE id = ?";
-    $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ss', $status, $id);
+/* Mark As Fixed */
+if (isset($_GET['fix'])) {
+    $fix = $_GET['fix'];
+    $view = $_GET['view'];
+    $adn = "UPDATE ezanaLMS_BugReports SET status = 'Fixed'  WHERE id = ?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $fix);
     $stmt->execute();
+    $stmt->close();
     if ($stmt) {
-        $success = "Bug Status Updated" && header("refresh:1; url=bug_reports.php?view=$id");
+        $success = "Resolved" && header("refresh:1; url=bug_reports.php?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $view = $_GET['view'];
+    $adn = "DELETE FROM ezanaLMS_BugReports WHERE id = ?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Resolved" && header("refresh:1; url=bug_reports.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
