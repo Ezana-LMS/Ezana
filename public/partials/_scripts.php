@@ -144,7 +144,7 @@ require_once('_ajax.php');
 <script>
     /* User Login Activity Chart */
     window.onload = function() {
-       
+
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             title: {
@@ -171,19 +171,18 @@ require_once('_ajax.php');
                     type: "spline",
                     yValueFormatString: "#0.## ",
                     showInLegend: true,
-                    dataPoints: [{
-                        x: new Date(<?php echo date("d, m, y", time() - 60 * 60 * 48); ?>), 
-                        y: <?php
-                            $today = date('Y-m-d');
-                            $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Administrator' ";
-                            $stmt = $mysqli->prepare($query);
-                            $stmt->execute();
-                            $stmt->bind_result($admins);
-                            $stmt->fetch();
-                            $stmt->close();
-                            echo $admins;
-                            ?>
-                    }]
+                    dataPoints: [
+                        {
+                        /* Three Days Ago */
+                        x: new Date(<?php  date("Y, m, d", time() - 60 * 60 * 24); ?>),
+                        y: 30
+                    },
+                    {
+                        /* Two Days Ago */
+                        x: new Date(<?php echo date("Y, m, d", time() - 60 * 60 * 24); ?>),
+                        y: 50
+                    }
+                ]
                 },
                 {
                     name: "Lecturers",
@@ -191,11 +190,11 @@ require_once('_ajax.php');
                     yValueFormatString: "#0.## ",
                     showInLegend: true,
                     dataPoints: [{
-                            x:  new Date(<?php echo date("d, m, y", time() - 60 * 60 * 48); ?>),
+                        x: new Date(<?php  date("Y, m, d", time() - 60 * 60 * 48); ?>),
                             y: 20
                         },
                         {
-                            x:  new Date(<?php echo date("d, m, y", time() - 60 * 60 * 48); ?>),
+                            x: new Date(<?php echo  date("Y, m, d", time() - 60 * 60 * 24); ?>),
                             y: 29
                         },
                     ]
@@ -206,12 +205,12 @@ require_once('_ajax.php');
                     yValueFormatString: "#0.## ",
                     showInLegend: true,
                     dataPoints: [{
-                            x:  new Date(<?php echo date("d, m, y", time() - 60 * 60 * 48); ?>),
+                        x: new Date(<?php  date("Y, m, d", time() - 60 * 60 * 48); ?>),
                             y: 22
                         },
 
                         {
-                            x:  new Date(<?php echo date("d, m, y", time() - 60 * 60 * 48); ?>),
+                            x: new Date(<?php  echo date("Y, m, d", time() - 60 * 60 * 24); ?>),
                             y: 23
                         }
                     ]
