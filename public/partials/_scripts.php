@@ -138,7 +138,9 @@
     });
 </script>
 <!-- Load Ajax Scripts -->
-<?php require_once('_ajax.php'); ?>
+<?php
+require_once('_ajax.php');
+?>
 <script>
     /* User Login Activity Chart */
     window.onload = function() {
@@ -170,33 +172,32 @@
                     yValueFormatString: "#0.## ",
                     showInLegend: true,
                     dataPoints: [{
-
-                            x: new Date(2017, 6, 24),
-                            y: 31
+                            /* Yesterday */
+                            x: new Date(Date.now() - 864e5),
+                            y: <?php
+                                $today = date('Y-m-d', time() - 60 * 60 * 24);
+                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Administrator' ";
+                                $stmt = $mysqli->prepare($query);
+                                $stmt->execute();
+                                $stmt->bind_result($admins);
+                                $stmt->fetch();
+                                $stmt->close();
+                                echo $admins;
+                                ?>
                         },
                         {
-                            x: new Date(2017, 6, 25),
-                            y: 31
-                        },
-                        {
-                            x: new Date(2017, 6, 26),
-                            y: 29
-                        },
-                        {
-                            x: new Date(2017, 6, 27),
-                            y: 29
-                        },
-                        {
-                            x: new Date(2017, 6, 28),
-                            y: 31
-                        },
-                        {
-                            x: new Date(2017, 6, 29),
-                            y: 30
-                        },
-                        {
-                            x: new Date(2017, 6, 30),
-                            y: 29
+                            /* Today */
+                            x: new Date(),
+                            y: <?php
+                                $today = date('Y-m-d');
+                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Administrator' ";
+                                $stmt = $mysqli->prepare($query);
+                                $stmt->execute();
+                                $stmt->bind_result($admins);
+                                $stmt->fetch();
+                                $stmt->close();
+                                echo $admins;
+                                ?>
                         }
                     ]
                 },
@@ -206,32 +207,32 @@
                     yValueFormatString: "#0.## ",
                     showInLegend: true,
                     dataPoints: [{
-                            x: new Date(2017, 6, 24),
-                            y: 20
+                            /* Yesterday */
+                            x: new Date(Date.now() - 864e5),
+                            y: <?php
+                                $today = date('Y-m-d', time() - 60 * 60 * 24);
+                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Lecturer' ";
+                                $stmt = $mysqli->prepare($query);
+                                $stmt->execute();
+                                $stmt->bind_result($admins);
+                                $stmt->fetch();
+                                $stmt->close();
+                                echo $admins;
+                                ?>
                         },
                         {
-                            x: new Date(2017, 6, 25),
-                            y: 20
-                        },
-                        {
-                            x: new Date(2017, 6, 26),
-                            y: 25
-                        },
-                        {
-                            x: new Date(2017, 6, 27),
-                            y: 25
-                        },
-                        {
-                            x: new Date(2017, 6, 28),
-                            y: 25
-                        },
-                        {
-                            x: new Date(2017, 6, 29),
-                            y: 25
-                        },
-                        {
-                            x: new Date(2017, 6, 30),
-                            y: 25
+                            /* Today */
+                            x: new Date(),
+                            y: <?php
+                                $today = date('Y-m-d');
+                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Lecturer' ";
+                                $stmt = $mysqli->prepare($query);
+                                $stmt->execute();
+                                $stmt->bind_result($admins);
+                                $stmt->fetch();
+                                $stmt->close();
+                                echo $admins;
+                                ?>
                         }
                     ]
                 },
@@ -241,32 +242,32 @@
                     yValueFormatString: "#0.## ",
                     showInLegend: true,
                     dataPoints: [{
-                            x: new Date(2017, 6, 24),
-                            y: 22
+                            /* Yesterday */
+                            x: new Date(Date.now() - 864e5),
+                            y: <?php
+                                $today = date('Y-m-d', time() - 60 * 60 * 24);
+                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Student' ";
+                                $stmt = $mysqli->prepare($query);
+                                $stmt->execute();
+                                $stmt->bind_result($admins);
+                                $stmt->fetch();
+                                $stmt->close();
+                                echo $admins;
+                                ?>
                         },
                         {
-                            x: new Date(2017, 6, 25),
-                            y: 19
-                        },
-                        {
-                            x: new Date(2017, 6, 26),
-                            y: 23
-                        },
-                        {
-                            x: new Date(2017, 6, 27),
-                            y: 24
-                        },
-                        {
-                            x: new Date(2017, 6, 28),
-                            y: 24
-                        },
-                        {
-                            x: new Date(2017, 6, 29),
-                            y: 23
-                        },
-                        {
-                            x: new Date(2017, 6, 30),
-                            y: 23
+                            /* Today */
+                            x: new Date(),
+                            y: <?php
+                                $today = date('Y-m-d');
+                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Student' ";
+                                $stmt = $mysqli->prepare($query);
+                                $stmt->execute();
+                                $stmt->bind_result($admins);
+                                $stmt->fetch();
+                                $stmt->close();
+                                echo $admins;
+                                ?>
                         }
                     ]
                 }
