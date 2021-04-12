@@ -432,7 +432,7 @@ require_once('public/partials/_head.php');
                                                 <div class="card col-md-12">
                                                     <div class="card-head text-center">
                                                         <br>
-                                                        <h4>User Login Activity</h4>
+                                                        <h4>User Login Activity <a href="user_login_activity.php" class="pull-right badge badge-success">View Logs</a></h4>
                                                     </div>
                                                     <div class="card-body">
                                                         <div id="chartContainer" style="height: 370px; max-width: auto; margin: 0px auto;"></div>
