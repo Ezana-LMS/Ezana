@@ -227,17 +227,7 @@ require_once('public/partials/_head.php');
                                                 </li>
                                                 <li class="nav-item text-center">
                                                     <?php
-                                                    $geoplugin = new geoPlugin();
-                                                    $geoplugin->locate();
-
-                                                    echo "IP Address results for {$logs->ip}: <br />\n" .
-                                                        "Country Name: {$geoplugin->countryName} <br />\n" .
-                                                        "Country Code: {$geoplugin->countryCode} <br />\n" .
-                                                        "Latitude: {$geoplugin->latitude} <br />\n" .
-                                                        "Longitude: {$geoplugin->longitude} <br />\n" .
-                                                        "Radius of Accuracy (Miles): {$geoplugin->locationAccuracyRadius} <br />\n" .
-                                                        "Timezone: {$geoplugin->timezone}  <br />\n";
-
+                                                    
                                                     ?>
                                                 </li>
 
