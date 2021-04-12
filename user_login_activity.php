@@ -194,7 +194,7 @@ require_once('public/partials/_head.php');
                                                         <td><?php echo $log["loginTime"]; ?></td>
                                                         <td><?php echo $log["User_Rank"]; ?></td>
                                                         <td>
-                                                            <a class="badge badge-success" href="user_login_activity.php?view=<?php echo $log['id']; ?>">View Details</a>
+                                                            <a class="badge badge-success" href="user_login_activity_details.php?view=<?php echo $log['id']; ?>">View Details</a>
                                                             <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $log['id']; ?>">Delete User Log</a>
                                                             <!-- Delete User Log -->
                                                             <div class="modal fade" id="delete-<?php echo $log['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -210,7 +210,7 @@ require_once('public/partials/_head.php');
                                                                             <h4>Delete This Log ?</h4>
                                                                             <br>
                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                            <a href="user_login_activity.php.php?delete=<?php echo $log['id']; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                            <a href="user_login_activity.php?delete=<?php echo $log['id']; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
