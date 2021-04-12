@@ -176,7 +176,7 @@ require_once('_ajax.php');
                             x: new Date(Date.now() - 864e5),
                             y: <?php
                                 $today = date('Y-m-d', time() - 60 * 60 * 24);
-                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Administrator' ";
+                                $query = "SELECT COUNT(DISTINCT user_id)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Administrator' ";
                                 $stmt = $mysqli->prepare($query);
                                 $stmt->execute();
                                 $stmt->bind_result($admins);
@@ -190,7 +190,7 @@ require_once('_ajax.php');
                             x: new Date(),
                             y: <?php
                                 $today = date('Y-m-d');
-                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Administrator' ";
+                                $query = "SELECT COUNT(DISTINCT user_id)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Administrator' ";
                                 $stmt = $mysqli->prepare($query);
                                 $stmt->execute();
                                 $stmt->bind_result($admins);
@@ -211,7 +211,7 @@ require_once('_ajax.php');
                             x: new Date(Date.now() - 864e5),
                             y: <?php
                                 $today = date('Y-m-d', time() - 60 * 60 * 24);
-                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Lecturer' ";
+                                $query = "SELECT COUNT(DISTINCT user_id)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Lecturer' ";
                                 $stmt = $mysqli->prepare($query);
                                 $stmt->execute();
                                 $stmt->bind_result($admins);
@@ -225,7 +225,7 @@ require_once('_ajax.php');
                             x: new Date(),
                             y: <?php
                                 $today = date('Y-m-d');
-                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Lecturer' ";
+                                $query = "SELECT COUNT(DISTINCT user_id)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Lecturer' ";
                                 $stmt = $mysqli->prepare($query);
                                 $stmt->execute();
                                 $stmt->bind_result($admins);
@@ -246,7 +246,7 @@ require_once('_ajax.php');
                             x: new Date(Date.now() - 864e5),
                             y: <?php
                                 $today = date('Y-m-d', time() - 60 * 60 * 24);
-                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Student' ";
+                                $query = "SELECT COUNT(DISTINCT user_id)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Student' ";
                                 $stmt = $mysqli->prepare($query);
                                 $stmt->execute();
                                 $stmt->bind_result($admins);
@@ -260,7 +260,7 @@ require_once('_ajax.php');
                             x: new Date(),
                             y: <?php
                                 $today = date('Y-m-d');
-                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Student' ";
+                                $query = "SELECT COUNT(DISTINCT user_id)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Student' ";
                                 $stmt = $mysqli->prepare($query);
                                 $stmt->execute();
                                 $stmt->bind_result($admins);
