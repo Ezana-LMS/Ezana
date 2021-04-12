@@ -32,7 +32,8 @@ if (isset($_POST['login'])) {
         $_SESSION['email'] = $email;
         $uip = $_SERVER['REMOTE_ADDR']; // User IP Address
         $User_Rank = 'Administrator'; // User Rank
-        mysqli_query($mysqli, "INSERT INTO ezanaLMS_UserLog(user_id, name, ip, User_Rank) values('" . $_SESSION['id'] . "','" . $_SESSION['email'] . "','$uip', '$User_Rank')");
+        $loginTime = date('Y-m-d');
+        mysqli_query($mysqli, "INSERT INTO ezanaLMS_UserLog(user_id, name, ip, User_Rank, loginTime) values('" . $_SESSION['id'] . "','" . $_SESSION['email'] . "','$uip', '$User_Rank', '$loginTime')");
         $extra = "dashboard.php";
         $host = $_SERVER['HTTP_HOST'];
         $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');

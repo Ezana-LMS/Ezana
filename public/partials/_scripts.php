@@ -171,18 +171,35 @@ require_once('_ajax.php');
                     type: "spline",
                     yValueFormatString: "#0.## ",
                     showInLegend: true,
-                    dataPoints: [
+                    dataPoints: [{
+                            /* Yesterday */
+                            x: new Date(Date.now() - 864e5),
+                            y: <?php
+                                $today = date('Y-m-d', time() - 60 * 60 * 24);
+                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Administrator' ";
+                                $stmt = $mysqli->prepare($query);
+                                $stmt->execute();
+                                $stmt->bind_result($admins);
+                                $stmt->fetch();
+                                $stmt->close();
+                                echo $admins;
+                                ?>
+                        },
                         {
-                        /* Three Days Ago */
-                        x: new Date(<?php  date("Y, m, d", time() - 60 * 60 * 24); ?>),
-                        y: 30
-                    },
-                    {
-                        /* Two Days Ago */
-                        x: new Date(<?php echo date("Y, m, d", time() - 60 * 60 * 24); ?>),
-                        y: 50
-                    }
-                ]
+                            /* Today */
+                            x: new Date(),
+                            y: <?php
+                                $today = date('Y-m-d');
+                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Administrator' ";
+                                $stmt = $mysqli->prepare($query);
+                                $stmt->execute();
+                                $stmt->bind_result($admins);
+                                $stmt->fetch();
+                                $stmt->close();
+                                echo $admins;
+                                ?>
+                        }
+                    ]
                 },
                 {
                     name: "Lecturers",
@@ -190,13 +207,33 @@ require_once('_ajax.php');
                     yValueFormatString: "#0.## ",
                     showInLegend: true,
                     dataPoints: [{
-                        x: new Date(<?php  date("Y, m, d", time() - 60 * 60 * 48); ?>),
-                            y: 20
+                            /* Yesterday */
+                            x: new Date(Date.now() - 864e5),
+                            y: <?php
+                                $today = date('Y-m-d', time() - 60 * 60 * 24);
+                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Lecturer' ";
+                                $stmt = $mysqli->prepare($query);
+                                $stmt->execute();
+                                $stmt->bind_result($admins);
+                                $stmt->fetch();
+                                $stmt->close();
+                                echo $admins;
+                                ?>
                         },
                         {
-                            x: new Date(<?php echo  date("Y, m, d", time() - 60 * 60 * 24); ?>),
-                            y: 29
-                        },
+                            /* Today */
+                            x: new Date(),
+                            y: <?php
+                                $today = date('Y-m-d');
+                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Lecturer' ";
+                                $stmt = $mysqli->prepare($query);
+                                $stmt->execute();
+                                $stmt->bind_result($admins);
+                                $stmt->fetch();
+                                $stmt->close();
+                                echo $admins;
+                                ?>
+                        }
                     ]
                 },
                 {
@@ -205,13 +242,32 @@ require_once('_ajax.php');
                     yValueFormatString: "#0.## ",
                     showInLegend: true,
                     dataPoints: [{
-                        x: new Date(<?php  date("Y, m, d", time() - 60 * 60 * 48); ?>),
-                            y: 22
+                            /* Yesterday */
+                            x: new Date(Date.now() - 864e5),
+                            y: <?php
+                                $today = date('Y-m-d', time() - 60 * 60 * 24);
+                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Student' ";
+                                $stmt = $mysqli->prepare($query);
+                                $stmt->execute();
+                                $stmt->bind_result($admins);
+                                $stmt->fetch();
+                                $stmt->close();
+                                echo $admins;
+                                ?>
                         },
-
                         {
-                            x: new Date(<?php  echo date("Y, m, d", time() - 60 * 60 * 24); ?>),
-                            y: 23
+                            /* Today */
+                            x: new Date(),
+                            y: <?php
+                                $today = date('Y-m-d');
+                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Student' ";
+                                $stmt = $mysqli->prepare($query);
+                                $stmt->execute();
+                                $stmt->bind_result($admins);
+                                $stmt->fetch();
+                                $stmt->close();
+                                echo $admins;
+                                ?>
                         }
                     ]
                 }
