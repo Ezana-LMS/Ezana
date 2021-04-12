@@ -138,7 +138,9 @@
     });
 </script>
 <!-- Load Ajax Scripts -->
-<?php require_once('_ajax.php'); ?>
+<?php
+require_once('_ajax.php');
+?>
 <script>
     /* User Login Activity Chart */
     window.onload = function() {
