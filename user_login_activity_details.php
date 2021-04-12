@@ -39,7 +39,6 @@ require_once('public/partials/_head.php');
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($logs = $res->fetch_object()) {
-            require_once('configs/geo_plugin.php')
         ?>
             <!-- /.navbar -->
 
@@ -227,10 +226,33 @@ require_once('public/partials/_head.php');
                                                 </li>
                                                 <li class="nav-item text-center">
                                                     <?php
-                                                    
+                                                    $ip = $logs->ip;
+
+                                                    $ch = curl_init('http://ipwhois.app/json/' . $ip);
+                                                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                                                    $json = curl_exec($ch);
+                                                    curl_close($ch);
+
+                                                    // Decode JSON response
+                                                    $ipwhois_result = json_decode($json, true);
+
+                                                    // Country code output, field "country_code"
+                                                    echo "IP Address      : " .  $ipwhois_result['ip'] . "<br>";
+                                                    echo "IP Address Type : " .  $ipwhois_result['type'] . "<br>";
+                                                    echo "Continent Code  : " .  $ipwhois_result['continent_code'] . "<br>";
+                                                    echo "Country         : " .  $ipwhois_result['country'] . "<br>";
+                                                    echo "Country Code    : " .  $ipwhois_result['country_code'] . "<br>";
+                                                    echo "Country Capital : " .  $ipwhois_result['country_capital'] . "<br>";
+                                                    echo "Region          : " .  $ipwhois_result['region'] . "<br>";
+                                                    echo "City            : " .  $ipwhois_result['city'] . "<br>";
+                                                    echo "Latitude        : " .  $ipwhois_result['latitude'] . "<br>";
+                                                    echo "Longitude       : " .  $ipwhois_result['longitude'] . "<br>";
+                                                    echo "Organization    : " .  $ipwhois_result['org'] . "<br>";
+                                                    echo "ISP             : " .  $ipwhois_result['isp'] . "<br>";
+                                                    echo "Time Zone       : " .  $ipwhois_result['timezone'] . "<br>";
+                                                    echo "Time Zone Name  : " .  $ipwhois_result['timezone_name'] . "<br>";
                                                     ?>
                                                 </li>
-
                                             </ul>
                                         </div>
                                     </div>
