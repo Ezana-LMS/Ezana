@@ -172,7 +172,7 @@ require_once('_ajax.php');
                     yValueFormatString: "#0.## ",
                     showInLegend: true,
                     dataPoints: [{
-                        x: new Date(<?php echo date("d, m, y", time() - 60 * 60 * 24); ?>),
+                        x: new Date(<?php echo date("d, m, y", time() - 60 * 60 * 48); ?>), 
                         y: <?php
                             $today = date('Y-m-d');
                             $query = "SELECT COUNT(*)  FROM `ezanaLMS_UserLog` WHERE loginTime = '$today' AND User_Rank = 'Administrator' ";
@@ -191,11 +191,11 @@ require_once('_ajax.php');
                     yValueFormatString: "#0.## ",
                     showInLegend: true,
                     dataPoints: [{
-                            x:  new Date(<?php echo date("d, m, y", time() - 60 * 60 * 24); ?>),
+                            x:  new Date(<?php echo date("d, m, y", time() - 60 * 60 * 48); ?>),
                             y: 20
                         },
                         {
-                            x:  new Date(<?php echo date("d, m, y", time() - 60 * 60 * 24); ?>),
+                            x:  new Date(<?php echo date("d, m, y", time() - 60 * 60 * 48); ?>),
                             y: 29
                         },
                     ]
@@ -206,12 +206,12 @@ require_once('_ajax.php');
                     yValueFormatString: "#0.## ",
                     showInLegend: true,
                     dataPoints: [{
-                            x:  new Date(<?php echo date("d, m, y", time() - 60 * 60 * 24); ?>),
+                            x:  new Date(<?php echo date("d, m, y", time() - 60 * 60 * 48); ?>),
                             y: 22
                         },
 
                         {
-                            x:  new Date(<?php echo date("d, m, y", time() - 60 * 60 * 24); ?>),
+                            x:  new Date(<?php echo date("d, m, y", time() - 60 * 60 * 48); ?>),
                             y: 23
                         }
                     ]
