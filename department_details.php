@@ -205,7 +205,7 @@ if (isset($_POST['add_memo'])) {
     $created_by = $_POST['created_by'];
 
     /* Notify Me After Posting Memo / Notice */
-    $notif_type = 'Posted Memo';
+    $notif_type = 'Department Memo';
     $status = 'Unread';
     $notification_detail = "$type For $department_name";
 
@@ -890,7 +890,6 @@ require_once('public/partials/_head.php');
                                                                                     <tr>
                                                                                         <td><?php echo $memo->created_by; ?></td>
                                                                                         <td><?php echo date('d M Y', strtotime($memo->created_at)); ?></td>
-                                                                                        <td><?php echo $memo->type; ?></td>
                                                                                         <td>
                                                                                             <a class="badge badge-success" data-toggle="modal" href="#view-<?php echo $memo->id; ?>">
                                                                                                 <i class="fas fa-eye"></i>
@@ -919,7 +918,6 @@ require_once('public/partials/_head.php');
                                                                                                                 "<a  class='btn btn-outline-danger'><i class='fas fa-times'></i> $memo->type Attachment Not Available </a>";
                                                                                                             }
                                                                                                             ?>
-
                                                                                                         </div>
                                                                                                         <div class="modal-footer justify-content-between">
                                                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
