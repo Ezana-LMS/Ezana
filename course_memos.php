@@ -105,7 +105,7 @@ if (isset($_POST['add_memo'])) {
     /* Notify Me After Posting Memo / Notice */
     $notif_type = 'Course Memo';
     $status = 'Unread';
-    $notification_detail = "$type For $department_name";
+    $notification_detail = "Memo For $course_name";
 
     $query = "INSERT INTO ezanaLMS_CourseMemo (id, created_by, course_id, course_name, course_memo, attachments, faculty_id) VALUES(?,?,?,?,?,?,?)";
     $notif_querry = "INSERT INTO ezanaLMS_Notifications(type, status, notification_detail) VALUES(?,?,?)";
