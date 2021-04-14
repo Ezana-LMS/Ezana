@@ -911,4 +911,4 @@ require_once('public/partials/_head.php');
         } ?>
 </body>
 
-</html>
+</html> 
