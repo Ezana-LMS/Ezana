@@ -378,7 +378,7 @@ require_once('public/partials/_head.php');
                                                 <b>Current Year: </b> <a class="float-right"><?php echo $std->current_year; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>No Of Modules: </b> <a class="float-right">
+                                                <b>No Of Enrolled / Attempted Modules: </b> <a class="float-right">
                                                     <?php
 
                                                     $query = "SELECT COUNT(module_name)  FROM `ezanaLMS_Enrollments` WHERE student_adm = '$std->admno' ";
@@ -492,7 +492,9 @@ require_once('public/partials/_head.php');
                                                         <tr>
                                                             <th>Module Code</th>
                                                             <th>Module Name</th>
+                                                            <th>Grade / Marks Attained</th>
                                                             <th>Academic Year</th>
+
                                                             <th>Semester Enrolled</th>
                                                         </tr>
                                                     </thead>
@@ -508,6 +510,7 @@ require_once('public/partials/_head.php');
 
                                                             <tr>
                                                                 <td><?php echo $en->module_name; ?></td>
+                                                                <td><?php echo $en->module_code; ?></td>
                                                                 <td><?php echo $en->module_code; ?></td>
                                                                 <td><?php echo $en->academic_year_enrolled; ?></td>
                                                                 <td><?php echo $en->semester_enrolled; ?></td>
