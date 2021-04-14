@@ -390,7 +390,7 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="">Date Employed</label>
-                                                            <input type="text" placeholder="DD-MM-YYYY" required name="date_employed" class="form-control">
+                                                            <input type="date" placeholder="DD-MM-YYYY" required name="date_employed" class="form-control">
                                                         </div>
                                                         
                                                     </div>
@@ -582,7 +582,7 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                             <div class="form-group col-md-3">
                                                                                 <label for="">Date Employed</label>
-                                                                                <input type="text" placeholder="DD-MM-YYYY" value="<?php echo $admin->date_employed; ?>" required name="date_employed" class="form-control">
+                                                                                <input type="date" placeholder="DD-MM-YYYY" value="<?php echo $admin->date_employed; ?>" required name="date_employed" class="form-control">
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
