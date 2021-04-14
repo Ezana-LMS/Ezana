@@ -404,7 +404,7 @@ require_once('public/partials/_head.php');
                                                             <label for="">Profile Picture</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
-                                                                    <input required name="profile_pic" type="file" class="custom-file-input">
+                                                                    <input  name="profile_pic" type="file" class="custom-file-input">
                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                 </div>
                                                             </div>

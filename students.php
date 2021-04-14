@@ -424,7 +424,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Date Enrolled</label>
-                                                                <input type="text" placeholder="DD - MM - YYYY" required name="day_enrolled" class="form-control">
+                                                                <input type="date" placeholder="DD - MM - YYYY" required name="day_enrolled" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -582,7 +582,7 @@ require_once('public/partials/_head.php');
                                                                                 </div>
                                                                                 <div class="form-group col-md-6">
                                                                                     <label for="">Date Enrolled</label>
-                                                                                    <input type="text" required name="day_enrolled" value="<?php echo $std->day_enrolled; ?>" class="form-control">
+                                                                                    <input type="date" required name="day_enrolled" value="<?php echo $std->day_enrolled; ?>" class="form-control">
                                                                                 </div>
                                                                             </div>
 
