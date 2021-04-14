@@ -240,6 +240,18 @@ if (!empty($_POST["StudentAdmn"])) {
 <?php
     }
 }
+if (!empty($_POST["StudentName"])) {
+    $id = $_POST['StudentName'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Students WHERE admno = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['current_year']); ?>
+<?php
+    }
+}
 
 /* Get course name */
 if (!empty($_POST["Coursecode"])) {

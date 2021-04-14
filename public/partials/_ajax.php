@@ -271,6 +271,16 @@
                 $('#StudentName').val(data);
             }
         });
+        /* Student Stage */
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'StudentName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#StudentYear').val(data);
+            }
+        });
     }
 
     /* Semester Details */
