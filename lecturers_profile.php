@@ -363,13 +363,13 @@ require_once('public/partials/_head.php');
                                                 <b>Employee ID: </b> <a class="float-right"><?php echo $lec->employee_id; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Work Email: </b> <a href="mailto:<?php echo $lec->work_email;?>" class="float-right"><?php echo $lec->work_email; ?></a>
+                                                <b>Work Email: </b> <a href="mailto:<?php echo $lec->work_email; ?>" class="float-right"><?php echo $lec->work_email; ?></a>
                                             </li>
                                             <li class="list-group-item">
                                                 <b>Phone Number: </b> <a class="float-right"><?php echo $lec->phone; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Personal Email: </b> <a  href="mailto:<?php echo $lec->email;?>" class="float-right"><?php echo $lec->email; ?></a>
+                                                <b>Personal Email: </b> <a href="mailto:<?php echo $lec->email; ?>" class="float-right"><?php echo $lec->email; ?></a>
                                             </li>
                                             <li class="list-group-item">
                                                 <b>Address</b> <a class="float-right"><?php echo $lec->adr; ?></a>
@@ -416,64 +416,62 @@ require_once('public/partials/_head.php');
                                         <div class="tab-content">
                                             <div class="active tab-pane" id="update_profile">
                                                 <form method="post" enctype="multipart/form-data" role="form">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Name</label>
-                                                                <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                                <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
-                                                            </div>
-
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Number</label>
-                                                                <input type="text" required name="number" value="<?php echo $lec->number; ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">ID / Passport Number</label>
-                                                                <input type="text" required name="idno" value="<?php echo $lec->idno; ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Phone Number</label>
-                                                                <input type="text" required name="phone" value=<?php echo $lec->phone; ?> class="form-control">
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Personal Email</label>
-                                                                <input type="email" required name="email" value=<?php echo $lec->email; ?> class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Work Email</label>
-                                                                <input type="email" required name="work_email" value="<?php echo $lec->work_email; ?>" class="form-control">
-                                                            </div>
-
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Name</label>
+                                                            <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                            <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
                                                         </div>
 
-                                                        <div class="row">
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Gender</label>
-                                                                <select class='form-control basic' name="gender">
-                                                                    <option selected><?php echo $lec->gender; ?></option>
-                                                                    <option>Female</option>
-                                                                    <option>Male</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Employee ID</label>
-                                                                <input type="text" required name="employee_id" value="<?php echo $lec->employee_id; ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Date Employed</label>
-                                                                <input type="text" required name="date_employed" value="<?php echo $lec->date_employed; ?>" placeholder="DD - MM - YYYY" class="form-control">
-                                                            </div>
-
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Number</label>
+                                                            <input type="text" required name="number" value="<?php echo $lec->number; ?>" class="form-control">
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="exampleInputPassword1">Address</label>
-                                                                <textarea required name="adr" rows="2" class="form-control"><?php echo $lec->adr; ?></textarea>
-                                                            </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">ID / Passport Number</label>
+                                                            <input type="text" required name="idno" value="<?php echo $lec->idno; ?>" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Phone Number</label>
+                                                            <input type="text" required name="phone" value=<?php echo $lec->phone; ?> class="form-control">
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Personal Email</label>
+                                                            <input type="email" required name="email" value=<?php echo $lec->email; ?> class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Work Email</label>
+                                                            <input type="email" required name="work_email" value="<?php echo $lec->work_email; ?>" class="form-control">
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Gender</label>
+                                                            <select class='form-control basic' name="gender">
+                                                                <option selected><?php echo $lec->gender; ?></option>
+                                                                <option>Female</option>
+                                                                <option>Male</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Employee ID</label>
+                                                            <input type="text" required name="employee_id" value="<?php echo $lec->employee_id; ?>" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Date Employed</label>
+                                                            <input type="date" required name="date_employed" value="<?php echo $lec->date_employed; ?>" placeholder="DD - MM - YYYY" class="form-control">
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="exampleInputPassword1">Address</label>
+                                                            <textarea required name="adr" rows="2" class="form-control"><?php echo $lec->adr; ?></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="card-footer text-right">
@@ -527,13 +525,13 @@ require_once('public/partials/_head.php');
                                                     <div class="form-group row">
                                                         <label for="inputEmail" class="col-sm-2 col-form-label">New Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="password" name="new_password" required class="form-control" id="inputEmail">
+                                                            <input type="text" value="<?php echo $defaultPass; ?>" name="new_password" required class="form-control" id="inputEmail">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label for="inputName2" class="col-sm-2 col-form-label">Confirm New Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="password" name="confirm_password" required class="form-control" id="inputName2">
+                                                            <input type="text" value="<?php echo $defaultPass; ?>" name="confirm_password" required class="form-control" id="inputName2">
                                                             <input type="hidden" name="email" required class="form-control" value="<?php echo $lec->email; ?>">
                                                         </div>
                                                     </div>

@@ -551,13 +551,13 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Date Employed</label>
-                                                                    <input type="text" required name="date_employed" placeholder="DD - MM - YYYY" class="form-control">
+                                                                    <input type="date" required name="date_employed" placeholder="DD - MM - YYYY" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Profile Picture</label>
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
-                                                                            <input required name="profile_pic" type="file" class="custom-file-input">
+                                                                            <input name="profile_pic" type="file" class="custom-file-input">
                                                                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                         </div>
                                                                     </div>
@@ -795,7 +795,7 @@ require_once('public/partials/_head.php');
                                                                                             </div>
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Date Employed</label>
-                                                                                                <input type="text" required name="date_employed" value="<?php echo $lec->date_employed; ?>" placeholder="DD - MM - YYYY" class="form-control">
+                                                                                                <input type="date" required name="date_employed" value="<?php echo $lec->date_employed; ?>" placeholder="DD - MM - YYYY" class="form-control">
                                                                                             </div>
 
                                                                                         </div>
@@ -911,4 +911,4 @@ require_once('public/partials/_head.php');
         } ?>
 </body>
 
-</html>
+</html> 

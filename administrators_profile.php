@@ -703,20 +703,20 @@ require_once('public/partials/_head.php');
                                                     <div class="form-group row">
                                                         <label for="inputEmail" class="col-sm-2 col-form-label">New Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="password" name="new_password" required class="form-control" id="inputEmail">
+                                                            <input type="text" value="<?php echo $defaultPass;?>" name="new_password" required class="form-control" id="inputEmail">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label for="inputName2" class="col-sm-2 col-form-label">Confirm New Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="password" name="confirm_password" required class="form-control" id="inputName2">
+                                                            <input type="text" value="<?php echo $defaultPass;?>" name="confirm_password" required class="form-control" id="inputName2">
                                                             <input type="hidden" name="email" required class="form-control" value="<?php echo $admin->email; ?>">
 
                                                         </div>
                                                     </div>
                                                     <div class="form-group text-right row">
                                                         <div class="offset-sm-2 col-sm-10">
-                                                            <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
+                                                            <button type="submit" name="change_password" class="btn btn-primary">Change Password And Email Reset Instructions</button>
                                                         </div>
                                                     </div>
                                                 </form>

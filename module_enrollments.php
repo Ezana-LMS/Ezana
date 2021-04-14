@@ -96,9 +96,10 @@ if (isset($_POST['add_enroll'])) {
             $module_name = $_POST['module_name'];
             $module_code = $_POST['module_code'];
             $module_id = $_POST['module_id'];
-            $query = "INSERT INTO ezanaLMS_Enrollments (id, faculty_id, code, student_adm, student_name, semester_enrolled, created_at, course_code, course_name, semester_start, semester_end, academic_year_enrolled, module_name, module_code) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $stage = $_POST['stage'];
+            $query = "INSERT INTO ezanaLMS_Enrollments (id, stage, faculty_id, code, student_adm, student_name, semester_enrolled, created_at, course_code, course_name, semester_start, semester_end, academic_year_enrolled, module_name, module_code) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssssssssss', $id, $faculty, $code, $student_adm, $student_name, $semester_enrolled, $created_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code);
+            $rc = $stmt->bind_param('sssssssssssssss', $id, $stage, $faculty, $code, $student_adm, $student_name, $semester_enrolled, $created_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code);
             $stmt->execute();
             if ($stmt) {
                 $success = "Student Enrolled"  && header("refresh:1; url=module_enrollments.php?view=$module_id");
@@ -170,9 +171,10 @@ if (isset($_POST['update_enroll'])) {
         $module_name = $_POST['module_name'];
         $module_code = $_POST['module_code'];
         $module_id = $_POST['module_id'];
-        $query = "UPDATE ezanaLMS_Enrollments SET code =?, student_adm =?, student_name =?, semester_enrolled =?, updated_at =?, course_code =?, course_name =?, semester_start =?, semester_end =?, academic_year_enrolled =?, module_name =?, module_code =? WHERE id =?";
+        $stage = $_POST['stage'];
+        $query = "UPDATE ezanaLMS_Enrollments SET stage=?, code =?, student_adm =?, student_name =?, semester_enrolled =?, updated_at =?, course_code =?, course_name =?, semester_start =?, semester_end =?, academic_year_enrolled =?, module_name =?, module_code =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssssssssss',  $code, $student_adm, $student_name, $semester_enrolled, $updated_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code, $id);
+        $rc = $stmt->bind_param('ssssssssssssss',  $stage, $code, $student_adm, $student_name, $semester_enrolled, $updated_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Student Enrolled" && header("refresh:1; url=module_enrollments.php?view=$module_id");
@@ -378,7 +380,7 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
-                                                                    <div class="form-group col-md-6">
+                                                                    <div class="form-group col-md-4">
                                                                         <label for="">Student Admission Number</label>
                                                                         <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_adm">
                                                                             <option selected>Select Student Admission Number</option>
@@ -393,9 +395,13 @@ require_once('public/partials/_head.php');
                                                                             <?php } ?>
                                                                         </select>
                                                                     </div>
-                                                                    <div class="form-group col-md-6">
+                                                                    <div class="form-group col-md-4">
                                                                         <label for="">Student Name</label>
                                                                         <input type="text" id="StudentName" readonly required name="student_name" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="">Student Current Year</label>
+                                                                        <input type="text" id="StudentYear" readonly required name="stage" class="form-control">
                                                                     </div>
 
                                                                     <div class="form-group col-md-6">
@@ -469,6 +475,7 @@ require_once('public/partials/_head.php');
                                                         <tr>
                                                             <th>Adm</th>
                                                             <th>Name</th>
+                                                            <th>Year</th>
                                                             <th>Academic Yr</th>
                                                             <th>Sem Enrolled</th>
                                                             <th>Sem Start</th>
@@ -489,6 +496,7 @@ require_once('public/partials/_head.php');
                                                             <tr>
                                                                 <td><?php echo $en->student_adm; ?></td>
                                                                 <td><?php echo $en->student_name; ?></td>
+                                                                <td><?php echo $en->stage; ?></td>
                                                                 <td><?php echo $en->academic_year_enrolled; ?></td>
                                                                 <td><?php echo $en->semester_enrolled; ?></td>
                                                                 <td><?php echo date('d M Y', strtotime($en->semester_start)); ?></td>
