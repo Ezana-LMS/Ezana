@@ -363,13 +363,13 @@ require_once('public/partials/_head.php');
                                                 <b>Employee ID: </b> <a class="float-right"><?php echo $lec->employee_id; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Work Email: </b> <a class="float-right"><?php echo $lec->work_email; ?></a>
+                                                <b>Work Email: </b> <a href="mailto:<?php echo $lec->work_email;?>" class="float-right"><?php echo $lec->work_email; ?></a>
                                             </li>
                                             <li class="list-group-item">
                                                 <b>Phone Number: </b> <a class="float-right"><?php echo $lec->phone; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Personal Email: </b> <a class="float-right"><?php echo $lec->email; ?></a>
+                                                <b>Personal Email: </b> <a  href="mailto:<?php echo $lec->email;?>" class="float-right"><?php echo $lec->email; ?></a>
                                             </li>
                                             <li class="list-group-item">
                                                 <b>Address</b> <a class="float-right"><?php echo $lec->adr; ?></a>
