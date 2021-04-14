@@ -437,7 +437,7 @@ require_once('public/partials/_head.php');
                                                                         </li>
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Course Head Email : <span class="float-right "><?php echo $course->email; ?></span>
+                                                                                Course Head Email : <a href="mailto:<?php echo $course->email; ?>"><span class="float-right "><?php echo $course->email; ?></a></span>
                                                                             </span>
                                                                         </li>
                                                                         <li class="nav-item">

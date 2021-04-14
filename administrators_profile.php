@@ -512,7 +512,7 @@ require_once('public/partials/_head.php');
                                                 <b>Employee ID: </b> <a class="float-right"><?php echo $admin->employee_id; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Work Email: </b> <a class="float-right"><?php echo $admin->email; ?></a>
+                                                <b>Work Email: </b> <a class="float-right" href="mailto:<?php echo $admin->email; ?>"><?php echo $admin->email; ?></a>
                                             </li>
                                             <li class="list-group-item">
                                                 <b>Phone Number: </b> <a class="float-right"><?php echo $admin->phone; ?></a>

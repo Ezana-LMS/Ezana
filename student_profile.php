@@ -355,7 +355,7 @@ require_once('public/partials/_head.php');
                                                 <b>Student ID: </b> <a class="float-right"><?php echo $std->idno; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>Student Email : </b> <a class="float-right"><?php echo $std->email; ?></a>
+                                                <b>Student Email : </b> <a class="float-right" href="mailto:<?php echo $std->email; ?>"><?php echo $std->email; ?></a>
                                             </li>
                                             <li class="list-group-item">
                                                 <b>Studen Phone No: </b> <a class="float-right"><?php echo $std->phone; ?></a>
