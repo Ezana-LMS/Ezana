@@ -399,13 +399,13 @@ require_once('public/partials/_head.php');
                                                 <b>Current Address: </b> <a class="float-right"><?php echo $std->adr; ?></a>
                                             </li>
                                             <li class="list-group-item text-center">
-                                                <a href="#update-modal" class="badge badge-primary"><i class='fas fa-user-edit'></i> Edit Profile</a>
+                                                <a href="#update-modal" data-toggle="modal" class="badge badge-primary"><i class='fas fa-user-edit'></i> Edit Profile</a>
                                             </li>
                                         </ul>
                                     </div>
                                     <!-- /.card-body -->
-                                    <div class="modal fade" id="update-student-<?php echo $std->id; ?>">
-                                        <div class="modal-dialog  modal-xl">
+                                    <div class="modal fade" id="update-modal">
+                                        <div class="modal-dialog  modal-lg">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Fill All Values </h4>
@@ -415,77 +415,53 @@ require_once('public/partials/_head.php');
                                                 </div>
                                                 <div class="modal-body">
                                                     <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
 
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Name</label>
-                                                                    <input type="text" required name="name" class="form-control" value="<?php echo $std->name; ?>">
-                                                                    <input type="hidden" required name="id" value="<?php echo $std->id; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Admission Number</label>
-                                                                    <input type="text" required name="admno" value="<?php echo $std->admno; ?>" class="form-control">
-                                                                </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Name</label>
+                                                                <input type="text" required name="name" class="form-control" value="<?php echo $std->name; ?>">
+                                                                <input type="hidden" required name="id" value="<?php echo $std->id; ?>" class="form-control">
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">ID / Passport Number</label>
-                                                                    <input type="text" required name="idno" value="<?php echo $std->idno; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Date Of Birth</label>
-                                                                    <input type="text" required name="dob" value="<?php echo $std->dob; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Gender</label>
-                                                                    <select type="text" required name="gender" class="form-control basic">
-                                                                        <option><?php echo $std->gender; ?></option>
-                                                                        <option>Male</option>
-                                                                        <option>Female</option>
-                                                                    </select>
-                                                                </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Admission Number</label>
+                                                                <input type="text" required name="admno" value="<?php echo $std->admno; ?>" class="form-control">
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Email</label>
-                                                                    <input type="email" required value="<?php echo $std->email; ?>" name="email" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Phone Number</label>
-                                                                    <input type="text" required name="phone" value="<?php echo $std->phone; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Course Name</label>
-                                                                    <input type="text" value="<?php echo $std->course; ?>" required name="course" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Department Name</label>
-                                                                    <input type="text" required name="department" class="form-control" value="<?php echo $std->department; ?>">
-                                                                </div>
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="">Faculty / School Name</label>
-                                                                    <input type="text" required name="school" class="form-control" value="<?php echo $std->school; ?>">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Current Year</label>
-                                                                    <input type="text" required name="current_year" value="<?php echo $std->current_year; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Date Enrolled</label>
-                                                                    <input type="text" required name="day_enrolled" value="<?php echo $std->day_enrolled; ?>" class="form-control">
-                                                                </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">ID / Passport Number</label>
+                                                                <input type="text" required name="idno" value="<?php echo $std->idno; ?>" class="form-control">
                                                             </div>
-
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Current Address</label>
-                                                                    <textarea required name="adr" rows="3" class="form-control"><?php echo $std->adr; ?></textarea>
-                                                                </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Date Of Birth</label>
+                                                                <input type="text" required name="dob" value="<?php echo $std->dob; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Gender</label>
+                                                                <select type="text" required name="gender" class="form-control basic">
+                                                                    <option><?php echo $std->gender; ?></option>
+                                                                    <option>Male</option>
+                                                                    <option>Female</option>
+                                                                </select>
                                                             </div>
                                                         </div>
-                                                        <div class="card-footer text-right">
-                                                            <button type="submit" name="update_student" class="btn btn-primary">Submit</button>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Email</label>
+                                                                <input type="email" required value="<?php echo $std->email; ?>" name="email" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Phone Number</label>
+                                                                <input type="text" required name="phone" value="<?php echo $std->phone; ?>" class="form-control">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="exampleInputPassword1">Current Address</label>
+                                                                <textarea required name="adr" rows="3" class="form-control"><?php echo $std->adr; ?></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-right">
+                                                            <button type="submit" name="update_personal_info" class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -503,64 +479,44 @@ require_once('public/partials/_head.php');
                                 <div class="card">
                                     <div class="card-header p-2">
                                         <ul class="nav nav-pills">
-                                            <li class="nav-item"><a class="nav-link active" href="#edit" data-toggle="tab">Edit Personal Details </a></li>
+                                            <li class="nav-item"><a class="nav-link active" href="#enrolled_modules" data-toggle="tab">Enrolled / Attempted Modules </a></li>
                                             <li class="nav-item"><a class="nav-link" href="#school_details" data-toggle="tab">Edit Academic / School Details</a></li>
                                             <li class="nav-item"><a class="nav-link " href="#changePassword" data-toggle="tab">Password Reset</a></li>
                                         </ul>
                                     </div><!-- /.card-header -->
                                     <div class="card-body">
                                         <div class="tab-content">
-                                            <div class="active tab-pane" id="edit">
-                                                <form method="post" enctype="multipart/form-data" role="form">
+                                            <div class="active tab-pane" id="enrolled_modules">
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Module Code</th>
+                                                            <th>Module Name</th>
+                                                            <th>Academic Year</th>
+                                                            <th>Semester Enrolled</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE student_adm = '$std->admno' ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($en = $res->fetch_object()) {
+                                                        ?>
 
-                                                    <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Name</label>
-                                                            <input type="text" required name="name" class="form-control" value="<?php echo $std->name; ?>">
-                                                            <input type="hidden" required name="id" value="<?php echo $std->id; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Admission Number</label>
-                                                            <input type="text" required name="admno" value="<?php echo $std->admno; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">ID / Passport Number</label>
-                                                            <input type="text" required name="idno" value="<?php echo $std->idno; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Date Of Birth</label>
-                                                            <input type="text" required name="dob" value="<?php echo $std->dob; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Gender</label>
-                                                            <select type="text" required name="gender" class="form-control basic">
-                                                                <option><?php echo $std->gender; ?></option>
-                                                                <option>Male</option>
-                                                                <option>Female</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Email</label>
-                                                            <input type="email" required value="<?php echo $std->email; ?>" name="email" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Phone Number</label>
-                                                            <input type="text" required name="phone" value="<?php echo $std->phone; ?>" class="form-control">
-                                                        </div>
-                                                    </div>
+                                                            <tr>
+                                                                <td><?php echo $en->module_name; ?></td>
+                                                                <td><?php echo $en->module_code; ?></td>
+                                                                <td><?php echo $en->academic_year_enrolled; ?></td>
+                                                                <td><?php echo $en->semester_enrolled; ?></td>
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
 
-                                                    <div class="row">
-                                                        <div class="form-group col-md-12">
-                                                            <label for="exampleInputPassword1">Current Address</label>
-                                                            <textarea required name="adr" rows="3" class="form-control"><?php echo $std->adr; ?></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-right">
-                                                        <button type="submit" name="update_personal_info" class="btn btn-primary">Submit</button>
-                                                    </div>
-                                                </form>
                                             </div>
 
                                             <div class="tab-pane" id="school_details">
