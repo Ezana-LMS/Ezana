@@ -574,10 +574,13 @@ require_once('public/partials/_head.php');
                                             </li>
 
                                             <li class="nav-item">
+                                                <a class="nav-link" data-toggle="pill" href="#add_functionality" role="tab">Summarized Add Functionality</a>
+                                            </li>
+                                            <li class="nav-item">
                                                 <a class="nav-link" data-toggle="pill" href="#back_up_utillity" role="tab">Data Backup Utility</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="pill" href="#add_functionality" role="tab">Summarized Add Functionality</a>
+                                                <a class="nav-link" target="_blank" href="FileManager/" role="tab">Files Manager Utility</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link text-danger" data-toggle="pill" href="#delete_functionalities" role="tab">Delete Functionalities</a>
