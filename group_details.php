@@ -368,7 +368,7 @@ require_once('public/partials/_head.php');
                                                                 <div class="row">
                                                                     <div class="form-group col-md-12">
                                                                         <label for="exampleInputPassword1">Group Notice</label>
-                                                                        <textarea required id="textarea" name="announcement" rows="20" class="form-control"></textarea>
+                                                                        <textarea required name="announcement" rows="20" class="form-control Summernote"></textarea>
                                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                         <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
                                                                         <input type="hidden" required name="faculty" value="<?php echo $mod->faculty; ?>" class="form-control">
@@ -526,11 +526,9 @@ require_once('public/partials/_head.php');
                                                                                         <h5 class="mb-1"></h5>
                                                                                         <small><b><?php echo date('d M Y', strtotime($ga->created_at)); ?></b></small>
                                                                                     </div>
-                                                                                    <small>
-                                                                                        <?php
-                                                                                        echo $ga->announcement;
-                                                                                        ?> ~ <b><?php echo $ga->created_by; ?></b>
-                                                                                    </small>
+                                                                                    <?php
+                                                                                    echo $ga->announcement;
+                                                                                    ?> ~ <b> <small><?php echo $ga->created_by; ?></small></b>
                                                                                     <div class="card-footer row">
                                                                                         <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $ga->id; ?>">
                                                                                             <i class="fas fa-edit"></i>
@@ -558,7 +556,7 @@ require_once('public/partials/_head.php');
                                                                                                                 <div class="row">
                                                                                                                     <div class="form-group col-md-12">
                                                                                                                         <label for="exampleInputPassword1">Group Notice</label>
-                                                                                                                        <textarea required id="textarea" name="announcement" rows="20" class="form-control"><?php echo $ga->announcement; ?></textarea>
+                                                                                                                        <textarea required name="announcement" rows="20" class="form-control Summernote"><?php echo $ga->announcement; ?></textarea>
                                                                                                                         <!-- Hide This -->
                                                                                                                         <input type="hidden" required name="id" value="<?php echo $ga->id; ?>" class="form-control">
                                                                                                                         <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
@@ -639,7 +637,7 @@ require_once('public/partials/_head.php');
                                                                                 <div class="row">
                                                                                     <div class="form-group col-md-12">
                                                                                         <label for="exampleInputPassword1">Instructions</label>
-                                                                                        <textarea name="details" id="textarea" required rows="5" class="form-control"></textarea>
+                                                                                        <textarea name="details" required rows="5" class="form-control Summernote"></textarea>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

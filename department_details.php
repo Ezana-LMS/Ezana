@@ -504,7 +504,7 @@ require_once('public/partials/_head.php');
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="exampleInputPassword1">Department Details</label>
-                                                                                <textarea name="details" id="department_details" rows="10" class="form-control"><?php echo $department->details; ?></textarea>
+                                                                                <textarea name="details"  rows="10" class="form-control Summernote"><?php echo $department->details; ?></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -565,7 +565,7 @@ require_once('public/partials/_head.php');
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="exampleInputPassword1">Type Departmental Memo</label>
-                                                                                <textarea name="departmental_memo" id="dep_memo" rows="10" class="form-control"></textarea>
+                                                                                <textarea name="departmental_memo"  rows="10" class="form-control Summernote"></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -691,7 +691,7 @@ require_once('public/partials/_head.php');
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="exampleInputPassword1">Course Description</label>
-                                                                                <textarea required name="details" id="textarea" rows="10" class="form-control"></textarea>
+                                                                                <textarea required name="details" id="textarea" rows="10" class="form-control Summernote"></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -812,7 +812,7 @@ require_once('public/partials/_head.php');
                                                                                                     <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
                                                                                                     <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
                                                                                                     <input type="hidden" required name="type" value="Announcement" class="form-control">
-                                                                                                    <textarea name="departmental_memo" id="dep_memo" rows="3" class="form-control"></textarea>
+                                                                                                    <textarea name="departmental_memo" id="dep_memo" rows="3" class="form-control Summernote"></textarea>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="text-right">
@@ -982,7 +982,7 @@ require_once('public/partials/_head.php');
                                                                                                                         <div class="row">
                                                                                                                             <div class="form-group col-md-12">
                                                                                                                                 <label for="exampleInputPassword1">Type Departmental Memo | Notice</label>
-                                                                                                                                <textarea name="departmental_memo" rows="10" class="form-control"><?php echo $memo->departmental_memo; ?></textarea>
+                                                                                                                                <textarea name="departmental_memo" rows="10" class="form-control Summernote"><?php echo $memo->departmental_memo; ?></textarea>
                                                                                                                             </div>
                                                                                                                         </div>
                                                                                                                     </div>
@@ -1258,7 +1258,7 @@ require_once('public/partials/_head.php');
                                                                                                                         <div class="row">
                                                                                                                             <div class="form-group col-md-12">
                                                                                                                                 <label for="exampleInputPassword1">Course Description</label>
-                                                                                                                                <textarea required name="details" rows="10" class="form-control"><?php echo $courses->details; ?></textarea>
+                                                                                                                                <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $courses->details; ?></textarea>
                                                                                                                             </div>
                                                                                                                         </div>
                                                                                                                     </div>

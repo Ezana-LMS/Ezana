@@ -305,7 +305,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Type Module Announcements</label>
-                                                                    <textarea required id="textarea" name="announcements" rows="20" class="form-control"></textarea>
+                                                                    <textarea required name="announcements" rows="20" class="form-control Summernote"></textarea>
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
                                                                     <input type="hidden" value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
@@ -360,25 +360,23 @@ require_once('public/partials/_head.php');
                                                                         <h5 class="mb-1"></h5>
                                                                         <small class="text-bold"><?php echo date('d M Y g:ia', strtotime($not->created_at)); ?></small>
                                                                     </div>
-                                                                    <small>
-                                                                        <?php
+                                                                    <?php
+                                                                    echo
+                                                                    $not->announcements . "  ~ By " .
+                                                                        "<b> " . $not->created_by . " </b> ";
+                                                                    /* Show A Button To Download Attachment */
+                                                                    if ($not->attachments != '') {
                                                                         echo
-                                                                        $not->announcements . "  ~ By " .
-                                                                            "<b> " . $not->created_by . " </b> ";
-                                                                        /* Show A Button To Download Attachment */
-                                                                        if ($not->attachments != '') {
-                                                                            echo
-                                                                            "   <hr>
+                                                                        "   <hr>
                                                                                 <div class='text-center'>
                                                                                     <a href='public/uploads/EzanaLMSData/memos/$not->attachments' target='_blank' class='btn btn-outline-success'>Download Memo Attachment</a>
                                                                                 </div>
                                                                             ";
-                                                                        } else {
-                                                                            /* Nothing Just Be Dumb */
-                                                                        }
-                                                                        ?>
-                                                                        <br>
-                                                                    </small>
+                                                                    } else {
+                                                                        /* Nothing Just Be Dumb */
+                                                                    }
+                                                                    ?>
+                                                                    <br>
                                                                     <div class="card-footer">
                                                                         <div class="row ">
                                                                             <a class="badge badge-primary text-right" data-toggle="modal" href="#update-<?php echo $mod->id; ?>">
@@ -425,13 +423,13 @@ require_once('public/partials/_head.php');
                                                                                                     <div class="row">
                                                                                                         <div class="form-group col-md-12">
                                                                                                             <label for="exampleInputPassword1">Module Announcements</label>
-                                                                                                            <textarea required  name="announcements" rows="20" class="form-control"><?php echo $not->announcements; ?></textarea>
+                                                                                                            <textarea required name="announcements" rows="20" class="form-control Summernote"><?php echo $not->announcements; ?></textarea>
                                                                                                             <input type="hidden" required name="id" value="<?php echo $not->id; ?>" class="form-control">
                                                                                                             <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
-                                                                                                
+
 
                                                                                                 <div class="card-footer text-right">
                                                                                                     <button type="submit" name="update_notice" class="btn btn-primary">Update</button>
@@ -473,7 +471,7 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                     <hr>
-                                                                <?php 
+                                                                <?php
                                                                 } ?>
                                                             </div>
                                                         </div>

@@ -168,7 +168,7 @@ require_once('public/partials/_head.php');
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="card card-widget widget-user-2">
-                                                <div class="widget-user-header text-center bg-primary">
+                                                <div class="widget-user-header text-left bg-primary">
                                                     <h3 class="widget-user-username">User Details</h3>
                                                 </div>
                                                 <div class="card-footer p-0">
@@ -193,7 +193,7 @@ require_once('public/partials/_head.php');
                                         </div>
                                         <div class="col-md-6">
                                             <div class="card card-widget widget-user-2">
-                                                <div class="widget-user-header text-center bg-primary">
+                                                <div class="widget-user-header text-left bg-primary">
                                                     <h3 class="widget-user-username">System Details</h3>
                                                 </div>
                                                 <div class="card-footer p-0">
@@ -227,7 +227,6 @@ require_once('public/partials/_head.php');
                                                 <li class="nav-item text-center">
                                                     <?php
                                                     $ip = $logs->ip;
-
                                                     $ch = curl_init('http://ipwhois.app/json/' . $ip);
                                                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                                                     $json = curl_exec($ch);
@@ -235,23 +234,59 @@ require_once('public/partials/_head.php');
 
                                                     // Decode JSON response
                                                     $ipwhois_result = json_decode($json, true);
-
-                                                    // Country code output, field "country_code"
-                                                    echo "IP Address      : " .  $ipwhois_result['ip'] . "<br>";
-                                                    echo "IP Address Type : " .  $ipwhois_result['type'] . "<br>";
-                                                    echo "Continent Code  : " .  $ipwhois_result['continent_code'] . "<br>";
-                                                    echo "Country         : " .  $ipwhois_result['country'] . "<br>";
-                                                    echo "Country Code    : " .  $ipwhois_result['country_code'] . "<br>";
-                                                    echo "Country Capital : " .  $ipwhois_result['country_capital'] . "<br>";
-                                                    echo "Region          : " .  $ipwhois_result['region'] . "<br>";
-                                                    echo "City            : " .  $ipwhois_result['city'] . "<br>";
-                                                    echo "Latitude        : " .  $ipwhois_result['latitude'] . "<br>";
-                                                    echo "Longitude       : " .  $ipwhois_result['longitude'] . "<br>";
-                                                    echo "Organization    : " .  $ipwhois_result['org'] . "<br>";
-                                                    echo "ISP             : " .  $ipwhois_result['isp'] . "<br>";
-                                                    echo "Time Zone       : " .  $ipwhois_result['timezone'] . "<br>";
-                                                    echo "Time Zone Name  : " .  $ipwhois_result['timezone_name'] . "<br>";
                                                     ?>
+                                                    <table class='table table-hover'>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>IP Address</th>
+                                                                <th>IP Address Type</th>
+                                                                <th>Continent Code</th>
+                                                                <th>Country</th>
+                                                                <th>Country Code</th>
+                                                                <th>Country Capital</th>
+                                                                <th>Region</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><?php echo $ipwhois_result["ip"]; ?></td>
+                                                                <td><?php echo $ipwhois_result["type"]; ?></td>
+                                                                <td><?php echo $ipwhois_result["continent_code"]; ?></td>
+                                                                <td><?php echo $ipwhois_result["country"]; ?></td>
+                                                                <td><?php echo $ipwhois_result["country_code"]; ?></td>
+                                                                <td><?php echo $ipwhois_result["country_capital"]; ?></td>
+                                                                <td><?php echo $ipwhois_result["region"]; ?></td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                    <table class='table table-hover'>
+                                                        <thead>
+                                                            <tr>
+                                                                <th>City</th>
+                                                                <th>Time Zone </th>
+                                                                <th>Time Zone Name </th>
+                                                                <th>Latitude</th>
+                                                                <th>Longitude</th>
+                                                                <th>Organization</th>
+                                                                <th>ISP</th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td><?php echo $ipwhois_result["city"]; ?></td>
+                                                                <td><?php echo $ipwhois_result["timezone"]; ?></td>
+                                                                <td><?php echo $ipwhois_result["timezone_name"]; ?></td>
+                                                                <td><?php echo $ipwhois_result["latitude"]; ?></td>
+                                                                <td><?php echo $ipwhois_result["longitude"]; ?></td>
+                                                                <td><?php echo $ipwhois_result["org"]; ?></td>
+                                                                <td><?php echo $ipwhois_result["isp"]; ?></td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
                                                 </li>
                                             </ul>
                                         </div>

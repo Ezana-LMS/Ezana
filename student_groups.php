@@ -330,7 +330,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Group Description</label>
-                                                                    <textarea required id="textarea" name="details" rows="10" class="form-control"></textarea>
+                                                                    <textarea required name="details" rows="10" class="form-control Summernote"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -349,8 +349,8 @@ require_once('public/partials/_head.php');
                             </div>
                             <hr>
                             <div class="row">
-                               <!-- Module Side Menu -->
-                               <?php require_once('public/partials/_modulemenu.php'); ?>
+                                <!-- Module Side Menu -->
+                                <?php require_once('public/partials/_modulemenu.php'); ?>
                                 <!-- Module Side Menu -->
                                 <div class="col-md-9">
                                     <div class="row">
@@ -416,8 +416,7 @@ require_once('public/partials/_head.php');
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="exampleInputPassword1">Group Description</label>
-                                                                                                
-                                                                                                <textarea required  name="details" rows="10" class="form-control"><?php echo $g->details; ?></textarea>
+                                                                                                <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $g->details; ?></textarea>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
