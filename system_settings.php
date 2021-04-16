@@ -577,10 +577,10 @@ require_once('public/partials/_head.php');
                                                 <a class="nav-link" data-toggle="pill" href="#add_functionality" role="tab">Summarized Add Functionality</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="pill" href="#back_up_utillity" role="tab">Data Backup Utility</a>
+                                                <a class="nav-link" data-toggle="pill" href="#back_up_utillity" role="tab">Database Backup Utility</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" target="_blank" href="FileManager/" role="tab">Files Manager Utility</a>
+                                                <a class="nav-link" data-toggle="pill" href="#FileManager_utility" role="tab">Files Manager Utility</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link text-danger" data-toggle="pill" href="#delete_functionalities" role="tab">Delete Functionalities</a>
@@ -1176,7 +1176,14 @@ require_once('public/partials/_head.php');
                                             <div class="tab-pane fade show " id="back_up_utillity" role="tabpanel">
                                                 <br>
                                                 <div class="text-center">
-                                                    <a href="system_database_dump.php" target="_blank" class="btn btn-primary">Backup </a>
+                                                    <a href="system_database_dump.php" target="_blank" class="btn btn-primary">Backup System Database</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane fade show " id="FileManager_utility" role="tabpanel">
+                                                <br>
+                                                <div class="text-center">
+                                                    <a href="FileManager/" target="_blank" class="btn btn-primary">Access Ezana LMS Files Explorer</a>
                                                 </div>
                                             </div>
 
@@ -1211,7 +1218,7 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Faculty Description</label>
-                                                                <textarea id="textarea" name="details" rows="10" class="form-control"></textarea>
+                                                                <textarea name="details" rows="10" class="form-control Summernote"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1264,7 +1271,7 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Department Details</label>
-                                                                <textarea name="details" rows="10" class="form-control"></textarea>
+                                                                <textarea name="details" rows="10" class="form-control Summernote"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1329,7 +1336,7 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Course Description</label>
-                                                                <textarea required name="details" id="textarea" rows="10" class="form-control"></textarea>
+                                                                <textarea required name="details" rows="10" class="form-control Summernote"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1400,7 +1407,7 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Module Details</label>
-                                                                <textarea required id="textarea" name="details" rows="10" class="form-control"></textarea>
+                                                                <textarea required name="details" rows="10" class="form-control Summernote"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
