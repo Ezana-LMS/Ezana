@@ -14,6 +14,7 @@ define('VERSION', '2.4.3');
 //Application Title
 define('APP_TITLE', 'Ezana LMS File Manager');
 
+
 // --- EDIT BELOW CONFIGURATION CAREFULLY ---
 
 // Auth with login/password 
@@ -346,7 +347,7 @@ if ($use_auth) {
                         </div>
                         <div class="footer text-center">
                             &mdash;&mdash; &copy;
-                            <a href="https://tinyfilemanager.github.io/" target="_blank" class="text-muted" data-version="<?php echo VERSION; ?>">CCP Programmers</a> &mdash;&mdash;
+                            <a href="https://martdev.info/" target="_blank" class="text-muted" data-version="<?php echo VERSION; ?>">By MartDevelopers Inc</a> &mdash;&mdash;
                         </div>
                     </div>
                 </div>
@@ -1449,10 +1450,10 @@ if (isset($_GET['help'])) {
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
                         <p>
-                        <h3><a href="https://github.com/prasathmani/tinyfilemanager" target="_blank" class="app-v-title"> Tiny File Manager <?php echo VERSION; ?></a></h3>
+                        <h3><a href="https://martdev.info/" target="_blank" class="app-v-title"> Ezana LMS File Explorer Plugin <?php echo VERSION; ?></a></h3>
                         </p>
-                        <p>Author: Prasath Mani</p>
-                        <p>Mail Us: <a href="mailto:ccpprogrammers@gmail.com">ccpprogrammers[at]gmail.com</a> </p>
+                        <p>Author: MartDevelopers Inc</p>
+                        <p>Mail Us: <a href="mailto:martdevelopers254@gmail.com">mail@ezana.org</a> </p>
                     </div>
                     <div class="col-xs-12 col-sm-6">
                         <div class="card">
@@ -2074,9 +2075,9 @@ $tableTheme = (FM_THEME == "dark") ? "text-white bg-dark table-dark" : "bg-white
                     </li>
                 </ul>
             </div>
-            <div class="col-3 d-none d-sm-block"><a href="https://tinyfilemanager.github.io" target="_blank" class="float-right text-muted">Tiny File Manager <?php echo VERSION; ?></a></div>
+            <div class="col-3 d-none d-sm-block"><a href="https://ezana.org" target="_blank" class="float-right text-muted">Ezana LMS File Explorer PlugIn <?php echo VERSION; ?></a></div>
         <?php else : ?>
-            <div class="col-12"><a href="https://tinyfilemanager.github.io" target="_blank" class="float-right text-muted">Tiny File Manager <?php echo VERSION; ?></a></div>
+            <div class="col-12"><a href="https://ezana.org" target="_blank" class="float-right text-muted">Ezana LMS File Explorer PlugIn <?php echo VERSION; ?></a></div>
         <?php endif; ?>
     </div>
 
@@ -3406,7 +3407,7 @@ function fm_show_header_login()
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Web based File Manager in PHP, Manage your files efficiently and easily with Tiny File Manager">
+        <meta name="description" content="Web based File Manager in PHP, Manage your files efficiently and easily with EzanaLMS File Explorer">
         <meta name="author" content="CCP Programmers">
         <meta name="robots" content="noindex, nofollow">
         <meta name="googlebot" content="noindex">
@@ -3560,7 +3561,7 @@ function fm_show_header_login()
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Web based File Manager in PHP, Manage your files efficiently and easily with Tiny File Manager">
+        <meta name="description" content="Web based File Manager in PHP, Manage your files efficiently and easily with EzanaLMS File Explorer">
         <meta name="author" content="CCP Programmers">
         <meta name="robots" content="noindex, nofollow">
         <meta name="googlebot" content="noindex">
