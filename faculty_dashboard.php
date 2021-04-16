@@ -295,7 +295,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Department Details</label>
-                                                                    <textarea name="department_details" id="textarea" rows="10" class="form-control"></textarea>
+                                                                    <textarea name="department_details"  rows="10" class="form-control Summernote"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -346,12 +346,12 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Faculty Description</label>
-                                                                    <textarea id="edit_Faculty" name="details" rows="5" class="form-control"><?php echo $faculty->details; ?></textarea>
+                                                                    <textarea id="edit_Faculty" name="details" rows="5" class="form-control Summernote"><?php echo $faculty->details; ?></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="text-right">
-                                                            <button type="submit" name="update_faculty" class=" btn btn-primary">Update Faculty</button>
+                                                            <button type="submit" name="update_faculty" class=" btn btn-primary ">Update Faculty</button>
                                                         </div>
                                                     </form>
                                                 </div>
