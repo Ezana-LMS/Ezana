@@ -206,8 +206,8 @@ require_once('public/partials/_head.php');
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="card card-widget widget-user-2">
-                                                <div class="widget-user-header text-center bg-primary">
-                                                    <h3 class="widget-user-username">Request By</h3>
+                                                <div class="widget-user-header text-left bg-primary">
+                                                    <h3 class="widget-user-username"> Request By</h3>
                                                 </div>
                                                 <div class="card-footer p-0">
                                                     <div class="row">
@@ -236,7 +236,7 @@ require_once('public/partials/_head.php');
                                         </div>
                                         <div class="col-md-6">
                                             <div class="card card-widget widget-user-2">
-                                                <div class="widget-user-header text-center bg-primary">
+                                                <div class="widget-user-header text-left bg-primary">
                                                     <h3 class="widget-user-username">Request Details</h3>
                                                 </div>
                                                 <div class="card-footer p-0">
