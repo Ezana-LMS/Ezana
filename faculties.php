@@ -284,7 +284,7 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Faculty Description</label>
-                                                                <textarea id="addFaculty" name="details" rows="10" class="form-control"></textarea>
+                                                                <textarea id="addFaculty" name="details" rows="10" class="form-control Summernote"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -442,7 +442,7 @@ require_once('public/partials/_head.php');
                                                                                     <div class="row">
                                                                                         <div class="form-group col-md-12">
                                                                                             <label for="exampleInputPassword1">Faculty Description</label>
-                                                                                            <textarea  name="details" rows="5" class="form-control"><?php echo $faculty->details; ?></textarea>
+                                                                                            <textarea  name="details" rows="5" class="form-control Summernote"><?php echo $faculty->details; ?></textarea>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -477,19 +477,7 @@ require_once('public/partials/_head.php');
         </div>
         <!-- ./wrapper -->
         <?php require_once('public/partials/_scripts.php'); ?>
-        <!-- Page Level Scripts -->
-        <script>
-            /* Activate Summer Note Editor For Add Faculty */
-            $(document).ready(function() {
-                $('#addFaculty').summernote({
-                    height: 300,
-                    minHeight: null,
-                    maxHeight: null,
-                    focus: true
-                });
-            });
-        </script>
-
+        
 </body>
 
 </html>

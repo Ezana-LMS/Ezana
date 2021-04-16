@@ -264,7 +264,7 @@ require_once('public/partials/_head.php');
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Department</button>
                                     </div>
                                     <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-lg">
+                                        <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Fill All Values </h4>
@@ -295,7 +295,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Department Details</label>
-                                                                    <textarea name="details" id="textarea" rows="10" class="form-control"></textarea>
+                                                                    <textarea name="department_details" id="textarea" rows="10" class="form-control"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -311,7 +311,7 @@ require_once('public/partials/_head.php');
                                         </div>
                                     </div>
                                     <div class="modal fade" id="edit_faculty">
-                                        <div class="modal-dialog  modal-lg">
+                                        <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Fill All Values </h4>
@@ -346,7 +346,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Faculty Description</label>
-                                                                    <textarea id="textarea" name="details" rows="5" class="form-control"><?php echo $faculty->details; ?></textarea>
+                                                                    <textarea id="edit_Faculty" name="details" rows="5" class="form-control"><?php echo $faculty->details; ?></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -527,6 +527,9 @@ require_once('public/partials/_head.php');
             $stmt->fetch();
             $stmt->close();
         } ?>
+
+        <!-- Page Level Scripts -->
+
         <script>
             /* Faculty Students Aganist Lecturers Donught Chart */
             $(function() {
@@ -553,7 +556,24 @@ require_once('public/partials/_head.php');
                     options: donutOptions
                 })
             })
+            /* Edit Faculty */
+            $(document).ready(function() {
+                $('#edit_Faculty').summernote({
+                    height: 300,
+                    minHeight: null,
+                    maxHeight: null,
+                    focus: true
+                });
+
+                $('#department_details').summernote({
+                    height: 300,
+                    minHeight: null,
+                    maxHeight: null,
+                    focus: true
+                });
+            });
         </script>
+        
 </body>
 
 </html>

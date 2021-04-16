@@ -127,7 +127,15 @@
             document.notificationsForm.submit();
         }
     }
-    
+    /* Load Summernotes */
+    $(document).ready(function() {
+        $('.Summernote').summernote({
+            height: 300,
+            minHeight: null,
+            maxHeight: null,
+            focus: true
+        });
+    });
 </script>
 
 <!-- Select2 -->
