@@ -407,14 +407,15 @@ require_once('public/partials/_head.php');
                                 <div class="card">
                                     <div class="card-header p-2">
                                         <ul class="nav nav-pills">
-                                            <li class="nav-item"><a class="nav-link active" href="#update_profile" data-toggle="tab">Update Profile</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#allocated_modules" data-toggle="tab">Allocated Modules</a></li>
+                                            <li class="nav-item"><a class="nav-link active" href="#allocated_modules" data-toggle="tab">Allocated Modules</a></li>
+
+                                            <li class="nav-item"><a class="nav-link " href="#update_profile" data-toggle="tab">Update Profile</a></li>
                                             <li class="nav-item"><a class="nav-link " href="#changePassword" data-toggle="tab">Password Reset</a></li>
                                         </ul>
                                     </div><!-- /.card-header -->
                                     <div class="card-body">
                                         <div class="tab-content">
-                                            <div class="active tab-pane" id="update_profile">
+                                            <div class=" tab-pane" id="update_profile">
                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
@@ -471,7 +472,7 @@ require_once('public/partials/_head.php');
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label for="exampleInputPassword1">Address</label>
-                                                            <textarea required name="adr" rows="2" class="form-control"><?php echo $lec->adr; ?></textarea>
+                                                            <textarea required name="adr" rows="2" class="form-control Summernote"><?php echo $lec->adr; ?></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="card-footer text-right">
@@ -480,7 +481,7 @@ require_once('public/partials/_head.php');
                                                 </form>
                                             </div>
 
-                                            <div class="tab-pane" id="allocated_modules">
+                                            <div class="tab-pane active" id="allocated_modules">
                                                 <table id="example1" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
@@ -537,7 +538,7 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                     <div class="form-group text-right row">
                                                         <div class="offset-sm-2 col-sm-10">
-                                                            <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
+                                                            <button type="submit" name="change_password" class="btn btn-primary">Change Password And Email Reset Instructions</button>
                                                         </div>
                                                     </div>
                                                 </form>
