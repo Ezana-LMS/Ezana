@@ -408,7 +408,6 @@ require_once('public/partials/_head.php');
                                     <div class="card-header p-2">
                                         <ul class="nav nav-pills">
                                             <li class="nav-item"><a class="nav-link active" href="#allocated_modules" data-toggle="tab">Allocated Modules</a></li>
-
                                             <li class="nav-item"><a class="nav-link " href="#update_profile" data-toggle="tab">Update Profile</a></li>
                                             <li class="nav-item"><a class="nav-link " href="#changePassword" data-toggle="tab">Password Reset</a></li>
                                         </ul>
