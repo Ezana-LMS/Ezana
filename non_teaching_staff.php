@@ -428,7 +428,7 @@ require_once('public/partials/_head.php');
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label for="exampleInputPassword1">Address</label>
-                                                            <textarea required name="adr" rows="2" class="form-control"></textarea>
+                                                            <textarea required name="adr" rows="2" class="form-control Summernote"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -588,7 +588,7 @@ require_once('public/partials/_head.php');
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="exampleInputPassword1">Address</label>
-                                                                                <textarea required name="adr" rows="2" class="form-control"><?php echo $admin->adr; ?></textarea>
+                                                                                <textarea required name="adr" rows="2" class="form-control Summernote"><?php echo $admin->adr; ?></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>

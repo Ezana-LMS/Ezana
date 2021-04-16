@@ -403,11 +403,11 @@ require_once('public/partials/_head.php');
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                <h2 class="text-center">Or </h2>
+                                                                <h2 class="text-center"> Or  </h2>
                                                                 <div class="row">
                                                                     <div class="form-group col-md-12">
                                                                         <label for="exampleInputPassword1">Type Departmental Memo / Notice</label>
-                                                                        <textarea name="departmental_memo" rows="10" class="form-control"></textarea>
+                                                                        <textarea name="departmental_memo" rows="10" class="form-control Summernote"></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
