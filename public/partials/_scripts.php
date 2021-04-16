@@ -127,6 +127,10 @@
             document.notificationsForm.submit();
         }
     }
+    /* Activate Summer Note Editor */
+    $(document).ready(function() {
+        $('#summernote').summernote();
+    });
 </script>
 
 <!-- Select2 -->
