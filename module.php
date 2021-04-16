@@ -301,7 +301,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Type Module Announcements</label>
-                                                                    <textarea required id="textarea" name="announcements" rows="20" class="form-control"></textarea>
+                                                                    <textarea required  name="announcements" rows="20" class="form-control Summernote"></textarea>
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
                                                                     <input type="hidden" value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
@@ -374,7 +374,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Module Details</label>
-                                                                    <textarea required id="dep_details" name="details" rows="10" class="form-control"><?php echo $mod->details; ?></textarea>
+                                                                    <textarea required  name="details" rows="10" class="form-control Summernote"><?php echo $mod->details; ?></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
