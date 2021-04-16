@@ -129,7 +129,12 @@
     }
     /* Activate Summer Note Editor */
     $(document).ready(function() {
-        $('#summernote').summernote();
+        $('#textarea').summernote({
+            height: 300, 
+            minHeight: null, 
+            maxHeight: null, 
+            focus: true 
+        });
     });
 </script>
 
