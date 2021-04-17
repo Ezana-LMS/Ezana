@@ -86,7 +86,7 @@ if (isset($_POST['change_password'])) {
             /* Mail New Password */
             $mail = new PHPMailer\PHPMailer\PHPMailer();
             $mail->setFrom('noreply@ezana.org');
-            $mail->addAddress($_POST['email']);
+            $mail->addAddress($email);
             $mail->Subject = "Password Reset";
             $mail->Body = $_POST['message'];
             $mail->isHTML(true);
