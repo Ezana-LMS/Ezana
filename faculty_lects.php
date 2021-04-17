@@ -23,6 +23,10 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
+/* Load MAiler */
+include('vendor/PHPMailer/src/SMTP.php');
+include('vendor/PHPMailer/src/PHPMailer.php');
+require('vendor/PHPMailer/src/Exception.php');
 check_login();
 
 /* Bulk Import Lecturers Via .XLS  */
@@ -275,6 +279,13 @@ if (isset($_POST['update_lec'])) {
         $error = 1;
         $err = "Phone Number Cannot Be Empty";
     }
+
+    if (isset($_POST['faculty_id']) && !empty($_POST['faculty_id'])) {
+        $faculty_id = mysqli_real_escape_string($mysqli, trim($_POST['faculty_id']));
+    } else {
+        $error = 1;
+        $err = "Faculty Cannot Be Empty";
+    }
     if (!$error) {
         $id = $_POST['id'];
         $name = $_POST['name'];
@@ -300,6 +311,60 @@ if (isset($_POST['update_lec'])) {
         }
     }
 }
+
+/* Change Password And Email New Password */
+if (isset($_POST['change_password'])) {
+    /* Run Password Check */
+    $error = 0;
+
+    if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
+        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
+    } else {
+        $error = 1;
+        $err = "New Password Cannot Be Empty";
+    }
+    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
+        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
+    } else {
+        $error = 1;
+        $err = "Confirmation Password Cannot Be Empty";
+    }
+
+    if (!$error) {
+        if ($_POST['new_password'] != $_POST['confirm_password']) {
+            $err = "Passwords Do Not Match";
+        } else {
+            $id = $_POST['id'];
+            $faculty_id = $_POST['faculty_id'];
+            $query = "UPDATE ezanaLMS_Lecturers SET  password =? WHERE id =?";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ss', $confirm_password, $id);
+            $stmt->execute();
+
+            /* Mail Password To Respective Lec Email */
+            $mail = new PHPMailer\PHPMailer\PHPMailer();
+            $mail->setFrom('noreply@ezana.org');
+            $mail->addAddress($_POST['email']);
+            $mail->Subject = "Password Reset";
+            $mail->Body = $_POST['message'];
+            $mail->isHTML(true);
+            $mail->IsSMTP();
+            $mail->SMTPSecure = 'ssl';
+            $mail->Host = 'n3plcpnl0282.prod.ams3.secureserver.net';
+            $mail->SMTPAuth = true;
+            $mail->Port = 465;
+            $mail->Username = 'noreply@ezana.org';
+            $mail->Password = 'No_Reply@Ezana.Org';
+            if ($stmt && $mail->send()) {
+                $success = "Password Updated" && header("refresh:1; url=faculty_lects.php?view=$faculty_id");;
+            } else {
+                //inject alert that profile update task failed
+                $info = "Please Try Again Or Try Later, $mail->ErrorInfo";
+            }
+        }
+    }
+}
+
 
 /* On Leave */
 if (isset($_GET['leave'])) {
@@ -755,6 +820,7 @@ require_once('public/partials/_head.php');
                                                                                                 <label for="">Name</label>
                                                                                                 <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control" id="exampleInputEmail1">
                                                                                                 <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
                                                                                             </div>
                                                                                             <div class="form-group col-md-3">
                                                                                                 <label for="">Gender</label>
@@ -818,12 +884,15 @@ require_once('public/partials/_head.php');
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">New Password</label>
-                                                                                                <input type="password" required name="new_password" class="form-control">
+                                                                                                <input type="text" value="<?php echo $defaultPass; ?>" required name="new_password" class="form-control">
+                                                                                                <input type="hidden" required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
                                                                                             </div>
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Confirm Password</label>
-                                                                                                <input type="password" required name="confirm_password" class="form-control">
+                                                                                                <input type="text" required value="<?php echo $defaultPass; ?>" name="confirm_password" class="form-control">
                                                                                                 <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="email" value="<?php echo $lec->work_email; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="message" value="Hello There😊. <br> This is your new password: <b><?php echo $defaultPass; ?></b>. MAKE SURE YOU UPDATE IT UPOUN LOGIN." class="form-control">
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="text-right">
@@ -831,16 +900,7 @@ require_once('public/partials/_head.php');
                                                                                         </div>
                                                                                     </div>
                                                                                 </form>
-                                                                                <hr>
-                                                                                <!-- Email Password Reset Link -->
-                                                                                <h4 class="text-center">Email <?php echo $lec->name; ?> Password Reset Instructions</h4>
-                                                                                <div class="card-body">
-                                                                                    <div class="text-center">
-                                                                                        <a onClick="javascript:window.open('mailto:<?php echo $lec->email; ?>?subject=Password Reset Link!&body=Hello <?php echo $lec->name; ?> - <?php echo $lec->number; ?>, Kindly Click On Forgot Password Link Then Follow The Prompts', 'mail');event.preventDefault()" class="btn btn-primary" href="mailto:<?php echo $lec->email; ?>">
-                                                                                            Mail Password Reset Link And Instructions
-                                                                                        </a>
-                                                                                    </div>
-                                                                                </div>
+
                                                                             </div>
                                                                             <div class="modal-footer justify-content-between">
                                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -911,4 +971,4 @@ require_once('public/partials/_head.php');
         } ?>
 </body>
 
-</html> 
+</html>

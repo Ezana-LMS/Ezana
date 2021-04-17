@@ -23,6 +23,10 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
+/* Load MAiler */
+include('vendor/PHPMailer/src/SMTP.php');
+include('vendor/PHPMailer/src/PHPMailer.php');
+require('vendor/PHPMailer/src/Exception.php');
 check_login();
 /* Update Profile Picture */
 
@@ -60,13 +64,11 @@ if (isset($_POST['change_password'])) {
         $err = "Confirmation Password Cannot Be Empty";
     }
     if (isset($_POST['email']) && !empty($_POST['email'])) {
-        $email = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['email']))));
+        $email = mysqli_real_escape_string($mysqli, trim((($_POST['email']))));
     } else {
         $error = 1;
         $err = "Email Cannot Be Empty";
     }
-    $mailed_password = $_POST['confirm_password'];
-
 
     if (!$error) {
         if ($_POST['new_password'] != $_POST['confirm_password']) {
@@ -78,22 +80,25 @@ if (isset($_POST['change_password'])) {
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ss', $new_password, $view);
             $stmt->execute();
-            /* Email User New Password */
-            $recipientEmail = $_POST['email'];
-            $emailSubject = "Password Reset Mail";
-            $emailContext = "Hey, This is Your New Password: $mailed_password";
+            /* Mail New Password */
+            $mail = new PHPMailer\PHPMailer\PHPMailer();
+            $mail->setFrom('noreply@ezana.org');
+            $mail->addAddress($email);
+            $mail->Subject = "Password Reset";
+            $mail->Body = $_POST['message'];
+            $mail->isHTML(true);
+            $mail->IsSMTP();
+            $mail->SMTPSecure = 'ssl';
+            $mail->Host = 'n3plcpnl0282.prod.ams3.secureserver.net';
+            $mail->SMTPAuth = true;
+            $mail->Port = 465;
+            $mail->Username = 'noreply@ezana.org';
+            $mail->Password = 'No_Reply@Ezana.Org';
 
-            /* Use This When You Wanna Do cc And Bcc */
-            /*  $emailHeaders = "Cc: " . "\r\n";
-            $emailHeaders .= "Bcc: " . "\r\n";  */
-
-            /* Change This To Defaulty System Mail */
-            $fromAddress = "";
-            $emailStatus = mail($recipientEmail, $emailSubject, $emailContext, $fromAddress);
-            if ($emailStatus && $stmt) {
+            if ($stmt && $mail->send()) {
                 $success = "Password Changed" && header("Refresh: 0");
             } else {
-                $err = "Please Try Again Or Try Later";
+                $err = "Please Try Again Or Try Later, $mail->ErrorInfo";
             }
         }
     }
@@ -403,7 +408,7 @@ require_once('public/partials/_head.php');
                                                                         </select>
                                                                     </div>
                                                                 </div>
-                                                                <h2 class="text-center"> Or  </h2>
+                                                                <h2 class="text-center"> Or </h2>
                                                                 <div class="row">
                                                                     <div class="form-group col-md-12">
                                                                         <label for="exampleInputPassword1">Type Departmental Memo / Notice</label>
@@ -703,15 +708,15 @@ require_once('public/partials/_head.php');
                                                     <div class="form-group row">
                                                         <label for="inputEmail" class="col-sm-2 col-form-label">New Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" value="<?php echo $defaultPass;?>" name="new_password" required class="form-control" id="inputEmail">
+                                                            <input type="text" value="<?php echo $defaultPass; ?>" name="new_password" required class="form-control" id="inputEmail">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
                                                         <label for="inputName2" class="col-sm-2 col-form-label">Confirm New Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" value="<?php echo $defaultPass;?>" name="confirm_password" required class="form-control" id="inputName2">
+                                                            <input type="text" value="<?php echo $defaultPass; ?>" name="confirm_password" required class="form-control" id="inputName2">
                                                             <input type="hidden" name="email" required class="form-control" value="<?php echo $admin->email; ?>">
-
+                                                            <input type="hidden" required name="message" value="Howdy, <?php echo $admin->name; ?>😊. <br> This is your new password: <b><?php echo $defaultPass; ?></b>. MAKE SURE YOU UPDATE IT UPOUN LOGIN." class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="form-group text-right row">

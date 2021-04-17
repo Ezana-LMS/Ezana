@@ -23,6 +23,11 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
+/* Load MAiler */
+include('vendor/PHPMailer/src/SMTP.php');
+include('vendor/PHPMailer/src/PHPMailer.php');
+require('vendor/PHPMailer/src/Exception.php');
+
 check_login();
 
 /* Update Profile Picture */
@@ -68,8 +73,6 @@ if (isset($_POST['change_password'])) {
         $err = "Confirmation Password Cannot Be Empty";
     }
 
-    $mailed_password = $_POST['confirm_password'];
-
     if (!$error) {
         if ($_POST['new_password'] != $_POST['confirm_password']) {
             $err = "Passwords Do Not Match";
@@ -80,22 +83,25 @@ if (isset($_POST['change_password'])) {
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ss', $new_password, $view);
             $stmt->execute();
-            /* Email User New Password */
-            $recipientEmail = $email;
-            $emailSubject = "Password Reset Mail";
-            $emailContext = "Hey, This is Your New Password: $mailed_password";
+            /* Mail New Password */
+            $mail = new PHPMailer\PHPMailer\PHPMailer();
+            $mail->setFrom('noreply@ezana.org');
+            $mail->addAddress($email);
+            $mail->Subject = "Password Reset";
+            $mail->Body = $_POST['message'];
+            $mail->isHTML(true);
+            $mail->IsSMTP();
+            $mail->SMTPSecure = 'ssl';
+            $mail->Host = 'n3plcpnl0282.prod.ams3.secureserver.net';
+            $mail->SMTPAuth = true;
+            $mail->Port = 465;
+            $mail->Username = 'noreply@ezana.org';
+            $mail->Password = 'No_Reply@Ezana.Org';
 
-            /* Use This When You Wanna Do cc And Bcc */
-            $emailHeaders = "Cc: " . "\r\n";
-            $emailHeaders .= "Bcc: " . "\r\n";
-
-            /* Change This To Defaulty System Mail */
-            $fromAddress = "";
-            $emailStatus = mail($recipientEmail, $emailSubject, $emailContext, $emailHeaders, $fromAddress);
-            if ($emailStatus && $stmt) {
+            if ($stmt && $mail->send()) {
                 $success = "Password Changed" && header("Refresh: 0");
             } else {
-                $err = "Please Try Again Or Try Later";
+                $err = "Please Try Again Or Try Later $mail->ErrorInfo";
             }
         }
     }
@@ -521,23 +527,24 @@ require_once('public/partials/_head.php');
                                             </div>
 
                                             <div class="tab-pane" id="changePassword">
-                                                <form method='post' class="form-horizontal">
-                                                    <div class="form-group row">
-                                                        <label for="inputEmail" class="col-sm-2 col-form-label">New Password</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" value="<?php echo $defaultPass; ?>" name="new_password" required class="form-control" id="inputEmail">
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">New Password</label>
+                                                                <input type="text" value="<?php echo $defaultPass; ?>" required name="new_password" class="form-control">
+                                                                <input type="hidden" required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Confirm Password</label>
+                                                                <input type="text" required value="<?php echo $defaultPass; ?>" name="confirm_password" class="form-control">
+                                                                <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
+                                                                <input type="hidden" required name="email" value="<?php echo $lec->work_email; ?>" class="form-control">
+                                                                <input type="hidden" required name="message" value="Hello, <?php echo $lec->name; ?>😊. <br> This is your new password: <b><?php echo $defaultPass; ?></b>. MAKE SURE YOU UPDATE IT UPOUN LOGIN." class="form-control">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="inputName2" class="col-sm-2 col-form-label">Confirm New Password</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" value="<?php echo $defaultPass; ?>" name="confirm_password" required class="form-control" id="inputName2">
-                                                            <input type="hidden" name="email" required class="form-control" value="<?php echo $lec->email; ?>">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group text-right row">
-                                                        <div class="offset-sm-2 col-sm-10">
-                                                            <button type="submit" name="change_password" class="btn btn-primary">Change Password And Email Reset Instructions</button>
+                                                        <div class="text-right">
+                                                            <button type="submit" name="change_password" class="btn btn-primary">Change Password And Email New Password</button>
                                                         </div>
                                                     </div>
                                                 </form>
