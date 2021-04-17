@@ -23,6 +23,7 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
+
 /* System Settings */
 if (isset($_POST['systemSettings'])) {
     //Error Handling and prevention of posting double entries
@@ -52,6 +53,24 @@ if (isset($_POST['systemSettings'])) {
         }
     }
 }
+
+/* System Calendar */
+if (isset($_POST['Calendar_Iframe'])) {
+
+    $id = $_POST['id'];
+    $calendar_iframe = $_POST['calendar_iframe'];
+
+    $query = "UPDATE ezanaLMS_Settings SET calendar_iframe =? WHERE id = ?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('ss',  $calendar_iframe, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Settings Updated" && header("refresh:1; url=system_settings.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 
 /* Current Academic Year And Academic Semester */
 if (isset($_POST['CurrentAcademicTerm'])) {
@@ -1203,7 +1222,7 @@ require_once('public/partials/_head.php');
                                                         <div class="card-body">
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
-                                                                    <label for="">System Name</label>
+                                                                    <label for="">Google Calendar Iframe Embed Code</label>
                                                                     <textarea type="text" required name="calendar_iframe" class="form-control Summernote"><?php echo $sys->calendar_iframe; ?></textarea>
                                                                     <input type="hidden" required name="id" value="<?php echo $sys->id ?>" class="form-control">
                                                                 </div>

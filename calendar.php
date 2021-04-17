@@ -163,8 +163,16 @@ require_once('public/partials/_head.php');
                                 <div class="card-body">
                                     <div class="col-md-12">
                                         <?php
-
+                                        /* Persisit System Settings On Calendar */
+                                        $ret = "SELECT * FROM `ezanaLMS_Settings` ";
+                                        $stmt = $mysqli->prepare($ret);
+                                        $stmt->execute(); //ok
+                                        $res = $stmt->get_result();
+                                        while ($sys = $res->fetch_object()) {
                                         ?>
+
+                                        <?php
+                                        } ?>
                                     </div>
                                 </div>
                             </div>
