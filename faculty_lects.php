@@ -892,7 +892,7 @@ require_once('public/partials/_head.php');
                                                                                                 <input type="text" required value="<?php echo $defaultPass; ?>" name="confirm_password" class="form-control">
                                                                                                 <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
                                                                                                 <input type="hidden" required name="email" value="<?php echo $lec->work_email; ?>" class="form-control">
-                                                                                                <input type="hidden" required name="message" value="Hello, this is your new password: <b><?php echo $defaultPass; ?></b>. MAKE SURE YOU UPDATE IT UPOUN LOGIN." class="form-control">
+                                                                                                <input type="hidden" required name="message" value="Hello There😊. <br> This is your new password: <b><?php echo $defaultPass; ?></b>. MAKE SURE YOU UPDATE IT UPOUN LOGIN." class="form-control">
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="text-right">
