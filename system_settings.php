@@ -570,17 +570,19 @@ require_once('public/partials/_head.php');
                                                 <a class="nav-link active" data-toggle="pill" href="#customization" role="tab">Customization</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="pill" href="#academic_settings" role="tab">Academic / Localization Settings</a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="pill" href="#add_functionality" role="tab">Summarized Add Functionality</a>
+                                                <a class="nav-link" data-toggle="pill" href="#academic_settings" role="tab">Academic Settings</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="pill" href="#back_up_utillity" role="tab">Database Backup Utility</a>
+                                                <a class="nav-link" data-toggle="pill" href="#google_calendar" role="tab">Google Calendar Settings</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="pill" href="#FileManager_utility" role="tab">Files Manager Utility</a>
+                                                <a class="nav-link" data-toggle="pill" href="#add_functionality" role="tab">Add Functionality</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="pill" href="#back_up_utillity" role="tab">Database Backup </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="pill" href="#FileManager_utility" role="tab">Files Manager</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link text-danger" data-toggle="pill" href="#delete_functionalities" role="tab">Delete Functionalities</a>
@@ -1185,6 +1187,35 @@ require_once('public/partials/_head.php');
                                                 <div class="text-center">
                                                     <a href="FileManager/" target="_blank" class="btn btn-primary">Access Ezana LMS Files Explorer</a>
                                                 </div>
+                                            </div>
+
+                                            <div class="tab-pane fade show " id="google_calendar" role="tabpanel">
+                                                <br>
+                                                <?php
+                                                /* Persisit System Settings On Brand */
+                                                $ret = "SELECT * FROM `ezanaLMS_Settings` ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                while ($sys = $res->fetch_object()) {
+                                                ?>
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="">System Name</label>
+                                                                    <textarea type="text" required name="calendar_iframe" class="form-control Summernote"><?php echo $sys->calendar_iframe; ?></textarea>
+                                                                    <input type="hidden" required name="id" value="<?php echo $sys->id ?>" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-right">
+                                                            <button type="submit" name="Calendar_Iframe" class="btn btn-primary">Update Calendar</button>
+                                                        </div>
+                                                    </form>
+                                                <?php
+                                                } ?>
+
                                             </div>
 
                                             <div class="tab-pane fade show " id="add_functionality" role="tabpanel">
