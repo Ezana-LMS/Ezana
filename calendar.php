@@ -169,10 +169,12 @@ require_once('public/partials/_head.php');
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
                                         while ($sys = $res->fetch_object()) {
-                                        ?>
 
-                                        <?php
-                                        } ?>
+                                        ?>
+                                            <div>
+                                                <?php echo $sys->calendar_iframe; ?>
+                                            </div>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
@@ -184,12 +186,8 @@ require_once('public/partials/_head.php');
 
         <?php
         require_once("public/partials/_footer.php");
+        require_once("public/partials/_scripts.php");
         ?>
-        <!-- Bootstrap 4 -->
-        <script src="public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- Ezana App Js -->
-        <script src="public/dist/js/adminlte.min.js"></script>
-        <script src="public/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 </body>
 
 </html>

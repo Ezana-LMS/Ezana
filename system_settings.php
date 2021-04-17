@@ -1223,7 +1223,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="">Google Calendar Iframe Embed Code</label>
-                                                                    <textarea type="text" required name="calendar_iframe" class="form-control Summernote"><?php echo $sys->calendar_iframe; ?></textarea>
+                                                                    <textarea type="text" rows='5' required name="calendar_iframe" class="form-control"><?php echo $sys->calendar_iframe; ?></textarea>
                                                                     <input type="hidden" required name="id" value="<?php echo $sys->id ?>" class="form-control">
                                                                 </div>
                                                             </div>
