@@ -279,6 +279,13 @@ if (isset($_POST['update_lec'])) {
         $error = 1;
         $err = "Phone Number Cannot Be Empty";
     }
+
+    if (isset($_POST['faculty_id']) && !empty($_POST['faculty_id'])) {
+        $faculty_id = mysqli_real_escape_string($mysqli, trim($_POST['faculty_id']));
+    } else {
+        $error = 1;
+        $err = "Faculty Cannot Be Empty";
+    }
     if (!$error) {
         $id = $_POST['id'];
         $name = $_POST['name'];
@@ -328,10 +335,12 @@ if (isset($_POST['change_password'])) {
             $err = "Passwords Do Not Match";
         } else {
             $id = $_POST['id'];
+            $faculty_id = $_POST['faculty_id'];
             $query = "UPDATE ezanaLMS_Lecturers SET  password =? WHERE id =?";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ss', $confirm_password, $id);
             $stmt->execute();
+
             /* Mail Password To Respective Lec Email */
             $mail = new PHPMailer\PHPMailer\PHPMailer();
             $mail->setFrom('noreply@ezana.org');
@@ -346,11 +355,11 @@ if (isset($_POST['change_password'])) {
             $mail->Port = 465;
             $mail->Username = 'noreply@ezana.org';
             $mail->Password = 'No_Reply@Ezana.Org';
-            if ($stmt) {
+            if ($stmt && $mail->send()) {
                 $success = "Password Updated" && header("refresh:1; url=faculty_lects.php?view=$faculty_id");;
             } else {
                 //inject alert that profile update task failed
-                $info = "Please Try Again Or Try Later";
+                $info = "Please Try Again Or Try Later, $mail->ErrorInfo";
             }
         }
     }
@@ -811,6 +820,7 @@ require_once('public/partials/_head.php');
                                                                                                 <label for="">Name</label>
                                                                                                 <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control" id="exampleInputEmail1">
                                                                                                 <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
                                                                                             </div>
                                                                                             <div class="form-group col-md-3">
                                                                                                 <label for="">Gender</label>
@@ -875,6 +885,7 @@ require_once('public/partials/_head.php');
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">New Password</label>
                                                                                                 <input type="text" value="<?php echo $defaultPass; ?>" required name="new_password" class="form-control">
+                                                                                                <input type="hidden" required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
                                                                                             </div>
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Confirm Password</label>
