@@ -578,7 +578,7 @@ require_once('public/partials/_head.php');
                                                             <input type="text" name="confirm_password" value="<?php echo $defaultPass; ?>" required class="form-control" id="inputName2">
                                                             <input type="hidden" name="email" required class="form-control" value="<?php echo $std->email; ?>">
                                                             <input type="hidden" required name="subject" value="Password Reset" class="form-control">
-                                                            <input type="hidden" required name="message" value="Howdy, <?php echo $std->name . " " . $std->admno; ?>😊. <br> This is your new password: <b><?php echo $defaultPass; ?></b>. <br>  <b>PLEASE MAKE SURE YOU CHANGE IT UPOUN LOGIN.</b>" class="form-control">
+                                                            <input type="hidden" required name="message" value="Howdy, <?php echo $std->name . "  " . $std->admno; ?>😊. <br> This is your new password: <b><?php echo $defaultPass; ?></b>. <br>  <b>PLEASE MAKE SURE YOU CHANGE IT UPOUN LOGIN.</b>" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="form-group text-right row">
