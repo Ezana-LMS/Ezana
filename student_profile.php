@@ -476,7 +476,8 @@ require_once('public/partials/_head.php');
                                     <div class="card-header p-2">
                                         <ul class="nav nav-pills">
                                             <li class="nav-item"><a class="nav-link active" href="#enrolled_modules" data-toggle="tab">Enrolled / Attempted Modules </a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#school_details" data-toggle="tab">Edit Academic / School Details</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#modules_grades" data-toggle="tab">Attempted Modules Grades </a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#school_details" data-toggle="tab">Update Academic Info</a></li>
                                             <li class="nav-item"><a class="nav-link " href="#changePassword" data-toggle="tab">Password Reset</a></li>
                                         </ul>
                                     </div><!-- /.card-header -->
@@ -487,7 +488,6 @@ require_once('public/partials/_head.php');
                                                     <thead>
                                                         <tr>
                                                             <th>Module </th>
-                                                            <th>Grade / Marks Attained</th>
                                                             <th>Year</th>
                                                             <th>Sem Enrolled</th>
                                                             <th>Academic Yr</th>
@@ -505,10 +505,38 @@ require_once('public/partials/_head.php');
 
                                                             <tr>
                                                                 <td><?php echo $en->module_code . " " . $en->module_name; ?></td>
-                                                                <td><?php echo $en->module_code; ?></td>
                                                                 <td><?php echo $en->stage; ?></td>
                                                                 <td><?php echo $en->semester_enrolled; ?></td>
                                                                 <td><?php echo $en->academic_year_enrolled; ?></td>
+                                                            </tr>
+                                                        <?php $cnt = $cnt + 1;
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+
+                                            <div class="tab-pane" id="modules_grades">
+                                                <table id="courses" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Module </th>
+                                                            <th>Grade / Marks</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_StudentModuleGrades` WHERE regno = '$std->admno' ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        $cnt = 1;
+                                                        while ($marks = $res->fetch_object()) {
+                                                        ?>
+
+                                                            <tr>
+                                                                <td><?php echo $marks->module_code . " " . $marks->module_name; ?></td>
+                                                                <td><?php echo $marks->marks; ?></td>
                                                             </tr>
                                                         <?php $cnt = $cnt + 1;
                                                         } ?>
