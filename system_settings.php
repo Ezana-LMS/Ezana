@@ -81,7 +81,7 @@ if (isset($_POST['mailSettings'])) {
     $stmp_username = $_POST['stmp_username'];
     $stmp_password = $_POST['stmp_password'];
 
-    $query = "UPDATE ezanaLMS_Settings SET  stmp_host =?, stmp_port =?, stmp_sent_from =?, stmp_username =?,  stmp_username =?, stmp_password =? WHERE id = ?";
+    $query = "UPDATE ezanaLMS_Settings SET  stmp_host =?, stmp_port =?, stmp_sent_from =?, stmp_username =?, stmp_password =? WHERE id = ?";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('ssssss',  $stmp_host, $stmp_port, $stmp_sent_from, $stmp_username, $stmp_password, $id);
     $stmt->execute();
