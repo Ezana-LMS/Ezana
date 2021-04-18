@@ -71,6 +71,27 @@ if (isset($_POST['Calendar_Iframe'])) {
     }
 }
 
+/* System Mail Settings */
+if (isset($_POST['mailSettings'])) {
+
+    $id = $_POST['id'];
+    $stmp_host = $_POST['stmp_host'];
+    $stmp_port = $_POST['stmp_port'];
+    $stmp_sent_from = $_POST['stmp_sent_from'];
+    $stmp_username = $_POST['stmp_username'];
+    $stmp_password = $_POST['stmp_password'];
+
+    $query = "UPDATE ezanaLMS_Settings SET  stmp_host =?, stmp_port =?, stmp_sent_from =?, stmp_username =?,  stmp_username =?, stmp_password =? WHERE id = ?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('ssssss',  $stmp_host, $stmp_port, $stmp_sent_from, $stmp_username, $stmp_password, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Settings Updated" && header("refresh:1; url=system_settings.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 
 /* Current Academic Year And Academic Semester */
 if (isset($_POST['CurrentAcademicTerm'])) {
@@ -1218,24 +1239,24 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-4">
                                                                     <label for="">STMP Host</label>
-                                                                    <input type="text" required name="stmp_host" value="<?php echo $sys->sysname; ?>" class="form-control">
+                                                                    <input type="text" required name="stmp_host" value="<?php echo $sys->stmp_host; ?>" class="form-control">
                                                                     <input type="hidden" required name="id" value="<?php echo $sys->id ?>" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="">STMP Port</label>
-                                                                    <input type="text" required name="stmp_port" value="<?php echo $sys->version; ?>" class="form-control">
+                                                                    <input type="text" required name="stmp_port" value="<?php echo $sys->stmp_port; ?>" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="">Send Mails From</label>
-                                                                    <input type="text" required name="stmp_sent_from" value="<?php echo $sys->version; ?>" class="form-control">
+                                                                    <input type="text" required name="stmp_sent_from" value="<?php echo $sys->stmp_sent_from; ?>" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">STMP Username</label>
-                                                                    <input type="text" required name="stmp_username" value="<?php echo $sys->version; ?>" class="form-control">
+                                                                    <input type="text" required name="stmp_username" value="<?php echo $sys->stmp_username; ?>" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">STMP Password</label>
-                                                                    <input type="text" required name="stmp_password" value="<?php echo $sys->version; ?>" class="form-control">
+                                                                    <input type="password" required name="stmp_password" value="<?php echo $sys->stmp_password; ?>" class="form-control">
                                                                 </div>
                                                             </div>
                                                         </div>
