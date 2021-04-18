@@ -23,11 +23,6 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
-/* Load MAiler */
-include('vendor/PHPMailer/src/SMTP.php');
-include('vendor/PHPMailer/src/PHPMailer.php');
-require('vendor/PHPMailer/src/Exception.php');
-
 check_login();
 
 /* Update Profile Picture */
