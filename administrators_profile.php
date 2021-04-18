@@ -23,10 +23,6 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
-/* Load MAiler */
-include('vendor/PHPMailer/src/SMTP.php');
-include('vendor/PHPMailer/src/PHPMailer.php');
-require('vendor/PHPMailer/src/Exception.php');
 check_login();
 /* Update Profile Picture */
 
@@ -81,20 +77,7 @@ if (isset($_POST['change_password'])) {
             $rc = $stmt->bind_param('ss', $new_password, $view);
             $stmt->execute();
             /* Mail New Password */
-            $mail = new PHPMailer\PHPMailer\PHPMailer();
-            $mail->setFrom('noreply@ezana.org');
-            $mail->addAddress($email);
-            $mail->Subject = "Password Reset";
-            $mail->Body = $_POST['message'];
-            $mail->isHTML(true);
-            $mail->IsSMTP();
-            $mail->SMTPSecure = 'ssl';
-            $mail->Host = 'n3plcpnl0282.prod.ams3.secureserver.net';
-            $mail->SMTPAuth = true;
-            $mail->Port = 465;
-            $mail->Username = 'noreply@ezana.org';
-            $mail->Password = 'No_Reply@Ezana.Org';
-
+            require_once('configs/mail.php');
             if ($stmt && $mail->send()) {
                 $success = "Password Changed" && header("Refresh: 0");
             } else {
@@ -716,7 +699,8 @@ require_once('public/partials/_head.php');
                                                         <div class="col-sm-10">
                                                             <input type="text" value="<?php echo $defaultPass; ?>" name="confirm_password" required class="form-control" id="inputName2">
                                                             <input type="hidden" name="email" required class="form-control" value="<?php echo $admin->email; ?>">
-                                                            <input type="hidden" required name="message" value="Howdy, <?php echo $admin->name; ?>😊. <br> This is your new password: <b><?php echo $defaultPass; ?></b>. MAKE SURE YOU UPDATE IT UPOUN LOGIN." class="form-control">
+                                                            <input type="hidden" required name="subject" value="Password Reset" class="form-control">
+                                                            <input type="hidden" required name="message" value="Howdy, <?php echo $admin->name; ?>😊. <br> This is your new password: <b><?php echo $defaultPass; ?></b>. <br>  <b>PLEASE MAKE SURE YOU CHANGE IT UPOUN LOGIN.</b>" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="form-group text-right row">

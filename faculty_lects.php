@@ -23,10 +23,6 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
-/* Load MAiler */
-include('vendor/PHPMailer/src/SMTP.php');
-include('vendor/PHPMailer/src/PHPMailer.php');
-require('vendor/PHPMailer/src/Exception.php');
 check_login();
 
 /* Bulk Import Lecturers Via .XLS  */
@@ -342,19 +338,8 @@ if (isset($_POST['change_password'])) {
             $stmt->execute();
 
             /* Mail Password To Respective Lec Email */
-            $mail = new PHPMailer\PHPMailer\PHPMailer();
-            $mail->setFrom('noreply@ezana.org');
-            $mail->addAddress($_POST['email']);
-            $mail->Subject = "Password Reset";
-            $mail->Body = $_POST['message'];
-            $mail->isHTML(true);
-            $mail->IsSMTP();
-            $mail->SMTPSecure = 'ssl';
-            $mail->Host = 'n3plcpnl0282.prod.ams3.secureserver.net';
-            $mail->SMTPAuth = true;
-            $mail->Port = 465;
-            $mail->Username = 'noreply@ezana.org';
-            $mail->Password = 'No_Reply@Ezana.Org';
+            require_once('configs/mail.php');
+
             if ($stmt && $mail->send()) {
                 $success = "Password Updated" && header("refresh:1; url=faculty_lects.php?view=$faculty_id");;
             } else {
@@ -892,7 +877,8 @@ require_once('public/partials/_head.php');
                                                                                                 <input type="text" required value="<?php echo $defaultPass; ?>" name="confirm_password" class="form-control">
                                                                                                 <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
                                                                                                 <input type="hidden" required name="email" value="<?php echo $lec->work_email; ?>" class="form-control">
-                                                                                                <input type="hidden" required name="message" value="Hello There😊. <br> This is your new password: <b><?php echo $defaultPass; ?></b>. MAKE SURE YOU UPDATE IT UPOUN LOGIN." class="form-control">
+                                                                                                <input type="hidden" required name="subject" value="Password Reset" class="form-control">
+                                                                                                <input type="hidden" required name="message" value="Howdy, <?php echo $lec->name; ?>😊. <br> This is your new password: <b><?php echo $defaultPass; ?></b>. <br>  <b>MAKE SURE YOU UPDATE IT UPOUN LOGIN.</b>" class="form-control">
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="text-right">
