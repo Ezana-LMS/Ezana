@@ -23,10 +23,6 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
-/* Load MAiler */
-include('vendor/PHPMailer/src/SMTP.php');
-include('vendor/PHPMailer/src/PHPMailer.php');
-require('vendor/PHPMailer/src/Exception.php');
 check_login();
 /* Update Profile Picture */
 
@@ -81,19 +77,7 @@ if (isset($_POST['change_password'])) {
             $rc = $stmt->bind_param('ss', $new_password, $view);
             $stmt->execute();
             /* Mail New Password */
-            $mail = new PHPMailer\PHPMailer\PHPMailer();
-            $mail->setFrom('noreply@ezana.org');
-            $mail->addAddress($email);
-            $mail->Subject = "Password Reset";
-            $mail->Body = $_POST['message'];
-            $mail->isHTML(true);
-            $mail->IsSMTP();
-            $mail->SMTPSecure = 'ssl';
-            $mail->Host = 'n3plcpnl0282.prod.ams3.secureserver.net';
-            $mail->SMTPAuth = true;
-            $mail->Port = 465;
-            $mail->Username = 'noreply@ezana.org';
-            $mail->Password = 'No_Reply@Ezana.Org';
+            
 
             if ($stmt && $mail->send()) {
                 $success = "Password Changed" && header("Refresh: 0");
