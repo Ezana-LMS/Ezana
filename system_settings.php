@@ -598,10 +598,10 @@ require_once('public/partials/_head.php');
                                                 <a class="nav-link" data-toggle="pill" href="#add_functionality" role="tab">Add Functionality</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="pill" href="#back_up_utillity" role="tab">Database Backup </a>
+                                                <a class="nav-link" data-toggle="pill" href="#utilities" role="tab">Ezana LMS Utilities </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="pill" href="#FileManager_utility" role="tab">Files Manager</a>
+                                                <a class="nav-link" data-toggle="pill" href="#email" role="tab">Email Settings</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link text-danger" data-toggle="pill" href="#delete_functionalities" role="tab">Delete Functionalities</a>
@@ -1194,18 +1194,58 @@ require_once('public/partials/_head.php');
 
                                             </div>
 
-                                            <div class="tab-pane fade show " id="back_up_utillity" role="tabpanel">
+                                            <div class="tab-pane fade show " id="utilities" role="tabpanel">
                                                 <br>
                                                 <div class="text-center">
                                                     <a href="system_database_dump.php" target="_blank" class="btn btn-primary">Backup System Database</a>
+                                                    <a href="FileManager/" target="_blank" class="btn btn-primary">Ezana LMS Files Explorer</a>
+
                                                 </div>
                                             </div>
 
-                                            <div class="tab-pane fade show " id="FileManager_utility" role="tabpanel">
+                                            <div class="tab-pane fade show " id="email" role="tabpanel">
                                                 <br>
-                                                <div class="text-center">
-                                                    <a href="FileManager/" target="_blank" class="btn btn-primary">Access Ezana LMS Files Explorer</a>
-                                                </div>
+                                                <?php
+                                                /* Persisit System Settings On Brand */
+                                                $ret = "SELECT * FROM `ezanaLMS_Settings` ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                while ($sys = $res->fetch_object()) {
+                                                ?>
+                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">STMP Host</label>
+                                                                    <input type="text" required name="stmp_host" value="<?php echo $sys->sysname; ?>" class="form-control">
+                                                                    <input type="hidden" required name="id" value="<?php echo $sys->id ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">STMP Port</label>
+                                                                    <input type="text" required name="stmp_port" value="<?php echo $sys->version; ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Send Mails From</label>
+                                                                    <input type="text" required name="stmp_sent_from" value="<?php echo $sys->version; ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">STMP Username</label>
+                                                                    <input type="text" required name="stmp_username" value="<?php echo $sys->version; ?>" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">STMP Password</label>
+                                                                    <input type="text" required name="stmp_password" value="<?php echo $sys->version; ?>" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-right">
+                                                            <button type="submit" name="mailSettings" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </form>
+                                                <?php
+                                                } ?>
+                                                
                                             </div>
 
                                             <div class="tab-pane fade show " id="google_calendar" role="tabpanel">
