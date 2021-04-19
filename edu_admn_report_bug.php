@@ -44,7 +44,7 @@ if (isset($_POST['submitBug'])) {
     require_once('configs/mail.php');
 
     if ($stmt && $mail->send()) {
-        $success = "Bug Reported" &&  header("refresh:1; url=edu_admn_report.php");;
+        $success = "Bug Reported" &&  header("refresh:1; url=edu_admn_report_bug.php");;
     } else {
         $info = "Please Try Again Or Try Later";
     }
