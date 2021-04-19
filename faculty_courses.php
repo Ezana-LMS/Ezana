@@ -297,7 +297,7 @@ require_once('public/partials/_head.php');
                                                                     <select class='form-control basic' id="DepCode" onchange="getDepartmentDetailsOnDocuments(this.value);">
                                                                         <option selected>Select Department Code</option>
                                                                         <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Departments`  ";
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$view'  ";
                                                                         $stmt = $mysqli->prepare($ret);
                                                                         $stmt->execute(); //ok
                                                                         $res = $stmt->get_result();
