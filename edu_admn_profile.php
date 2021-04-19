@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Apr 01 2021
+ * Created on Mon Apr 19 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -19,6 +19,7 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
@@ -84,18 +85,16 @@ if (isset($_POST['update_non_teaching_staff'])) {
     }
 
     if (!$error) {
-
         $gender = $_POST['gender'];
         $employee_id = $_POST['employee_id'];
         $date_employed = $_POST['date_employed'];
         $school  = $_POST['school'];
-
         $query = "UPDATE ezanaLMS_Admins SET name =?, email =?,  rank =?, phone =?, adr =?, gender = ?, employee_id =?, date_employed =?, school =? WHERE id = ?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('ssssssssss', $name, $email, $rank, $phone, $adr, $gender, $employee_id, $date_employed, $school, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Profile Updated" && header("refresh:1; url=profile.php");
+            $success = "Profile Updated" && header("refresh:1; url=edu_admn_profile.php");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -144,7 +143,7 @@ if (isset($_POST['change_password'])) {
                 $rc = $stmt->bind_param('ss', $new_password, $id);
                 $stmt->execute();
                 if ($stmt) {
-                    $success = "Password Changed";
+                    $success = "Password Updated";
                 } else {
                     $err = "Please Try Again Or Try Later";
                 }
@@ -160,7 +159,7 @@ require_once('public/partials/_head.php');
     <div class="wrapper">
         <!-- Navbar -->
         <?php
-        require_once('public/partials/_nav.php');
+        require_once('public/partials/_edu_admn_nav.php');
         $id  = $_SESSION['id'];
         $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id ='$id' ";
         $stmt = $mysqli->prepare($ret);
@@ -179,101 +178,7 @@ require_once('public/partials/_head.php');
                 <!-- Brand Logo -->
                 <?php require_once('public/partials/_brand.php'); ?>
                 <!-- Sidebar -->
-                <div class="sidebar">
-                    <!-- Sidebar Menu -->
-                    <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <li class="nav-item">
-                                <a href="dashboard.php" class="active nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Dashboard
-                                    </p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="faculties.php" class="nav-link">
-                                    <i class="nav-icon fas fa-university"></i>
-                                    <p>
-                                        Faculties
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="departments.php" class="nav-link">
-                                    <i class="nav-icon fas fa-building"></i>
-                                    <p>
-                                        Departments
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="courses.php" class="nav-link">
-                                    <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                                    <p>
-                                        Courses
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="modules.php" class="nav-link">
-                                    <i class="nav-icon fas fa-chalkboard"></i>
-                                    <p>
-                                        Modules
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="non_teaching_staff.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-secret"></i>
-                                    <p>
-                                        Non Teaching Staff
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="lecturers.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-tie"></i>
-                                    <p>
-                                        Lecturers
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="students.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-graduate"></i>
-                                    <p>
-                                        Students
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-cogs"></i>
-                                    <p>
-                                        System Settings
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="reports.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Reports</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="system_settings.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>System Settings</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                <?php require_once('public/partials/_sidebar.php');?>
             </aside>
 
             <!-- Content Wrapper. Contains page content -->
@@ -409,18 +314,16 @@ require_once('public/partials/_head.php');
 
                                                         <div class="form-group col-md-6">
                                                             <label for="">School / Faculty</label>
-                                                            <input type="text" value="<?php echo $admin->school; ?>" required name="school" class="form-control">
+                                                            <input type="text"  readonly value="<?php echo $admin->school; ?>" required name="school" class="form-control">
                                                         </div>
 
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-3">
                                                             <label for="">Rank</label>
-                                                            <select class="form-control basic" name="rank">
+                                                            <select class="form-control basic" readonly name="rank">
                                                                 <option><?php echo $admin->rank; ?></option>
-                                                                <option>System Administrator</option>
-                                                                <option>Education Administrator</option>
                                                             </select>
                                                         </div>
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-3">
                                                             <label for="">Gender</label>
                                                             <select class="form-control basic" name="gender">
                                                                 <option><?php echo $admin->gender; ?></option>
@@ -428,13 +331,13 @@ require_once('public/partials/_head.php');
                                                                 <option>Female</option>
                                                             </select>
                                                         </div>
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-3">
                                                             <label for="">Employee ID</label>
-                                                            <input type="text" value="<?php echo $admin->employee_id; ?>" required name="employee_id" class="form-control">
+                                                            <input type="text" readonly value="<?php echo $admin->employee_id; ?>" required name="employee_id" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-3">
                                                             <label for="">Date Employed</label>
-                                                            <input type="date" placeholder="DD-MM-YYYY" value="<?php echo $admin->date_employed; ?>" required name="date_employed" class="form-control">
+                                                            <input type="date" readonly placeholder="DD-MM-YYYY" value="<?php echo $admin->date_employed; ?>" required name="date_employed" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="row">

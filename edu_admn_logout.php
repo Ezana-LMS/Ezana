@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Apr 01 2021
+ * Created on Mon Apr 19 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -19,17 +19,11 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-require_once "../configs/config.php";
 
-$json = array();
-$sqlQuery = "SELECT * FROM ezanaLMS_Events ORDER BY id";
-
-$result = mysqli_query($mysqli, $sqlQuery);
-$eventArray = array();
-while ($row = mysqli_fetch_assoc($result)) {
-    array_push($eventArray, $row);
-}
-mysqli_free_result($result);
-
-mysqli_close($mysqli);
-echo json_encode($eventArray);
+session_start();
+unset($_SESSION['id']);
+unset($_SESSION['email']);
+unset($_SESSION['name']);
+session_destroy();
+header("Location: edu_admn_index.php");
+exit;

@@ -69,14 +69,13 @@ if (isset($_POST['add_dept'])) {
             if ($stmt) {
                 $success = "$name Department Added" && header("refresh:1; url=faculty_departments.php?view=$view");;
             } else {
-                //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";
             }
         }
     }
 }
-/*  Update Department*/
 
+/*  Update Department*/
 if (isset($_POST['update_dept'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -113,21 +112,7 @@ if (isset($_POST['update_dept'])) {
         }
     }
 }
-/* Delete Department */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $view = $_GET['view']; /* Faculty ID */
-    $adn = "DELETE FROM ezanaLMS_Departments WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Department Details Deleted" && header("refresh:1; url=faculty_departments.php?view=$view");;
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
+
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -277,7 +262,7 @@ require_once('public/partials/_head.php');
                                     </form>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Department</button>
                                     <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-lg">
+                                        <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Fill All Required Values </h4>
@@ -306,7 +291,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Department Details</label>
-                                                                    <textarea name="details" id="textarea" rows="10" class="form-control"></textarea>
+                                                                    <textarea name="details" rows="10" class="form-control Summernote"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -409,7 +394,7 @@ require_once('public/partials/_head.php');
                                                                 </a>
                                                                 <!-- Update Department Modal -->
                                                                 <div class="modal fade" id="update-<?php echo $dep->id; ?>">
-                                                                    <div class="modal-dialog  modal-lg">
+                                                                    <div class="modal-dialog  modal-xl">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
                                                                                 <h4 class="modal-title">Fill All Values </h4>
@@ -439,7 +424,7 @@ require_once('public/partials/_head.php');
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="exampleInputPassword1">Department Details</label>
-                                                                                                <textarea name="details" id="<?php echo $dep->id; ?>" rows="10" class="form-control"><?php echo $dep->details; ?></textarea>
+                                                                                                <textarea name="details"  class="form-control Summernote"><?php echo $dep->details; ?></textarea>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -454,31 +439,6 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <!-- Update Department Modal -->
-                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $dep->id; ?>">
-                                                                    <i class="fas fa-trash"></i>
-                                                                    Delete
-                                                                </a>
-                                                                <!-- Delete Confirmation Modal -->
-                                                                <div class="modal fade" id="delete-<?php echo $dep->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body text-center text-danger">
-                                                                                <h4>Delete <?php echo $dep->name; ?> ?</h4>
-                                                                                <br>
-                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="faculty_departments.php?delete=<?php echo $dep->id; ?>&view=<?php echo $dep->faculty_id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- End Delete Confirmation Modal -->
                                                             </td>
                                                         </tr>
                                                     <?php

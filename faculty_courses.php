@@ -72,7 +72,7 @@ if (isset($_POST['add_course'])) {
             $rc = $stmt->bind_param('sssssss', $id, $code, $name, $details, $department_id, $faculty_id,  $department_name);
             $stmt->execute();
             if ($stmt) {
-                $success = "Course Added";
+                $success = "Course Added" && header("refresh:1; url=faculty_courses.php?view=$faculty_id");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -102,34 +102,21 @@ if (isset($_POST['update_course'])) {
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
+        /* Faculty ID */
+        $faculty_id = $_POST['faculty_id'];
 
         $query = "UPDATE ezanaLMS_Courses SET  code =?, name =?, details =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Course Updated";
+            $success = "Course Updated" && header("refresh:1; url=faculty_courses.php?view=$faculty_id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
     }
 }
 
-/* Delete Course */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $view = $_GET['view'];
-    $adn = "DELETE FROM ezanaLMS_Courses WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=faculty_courses.php?view=$view");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -278,7 +265,7 @@ require_once('public/partials/_head.php');
                                     </form>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
                                     <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-lg">
+                                        <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Fill All Required Values </h4>
@@ -295,39 +282,44 @@ require_once('public/partials/_head.php');
                                                                     <label for="">Course Name</label>
                                                                     <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Course Number / Code</label>
                                                                     <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                                                 </div>
                                                             </div>
+
                                                             <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="">Department Name</label>
-                                                                    <select class='form-control basic' id="DepartmentName" onchange="getDepartmentDetails(this.value);" name="department_name">
-                                                                        <option selected>Select Department Name</option>
+
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Department Code</label>
+                                                                    <select class='form-control basic' id="DepCode" onchange="getDepartmentDetailsOnDocuments(this.value);">
+                                                                        <option selected>Select Department Code</option>
                                                                         <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$view' ";
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$view'  ";
                                                                         $stmt = $mysqli->prepare($ret);
                                                                         $stmt->execute(); //ok
                                                                         $res = $stmt->get_result();
                                                                         while ($dep = $res->fetch_object()) {
                                                                         ?>
-                                                                            <option><?php echo $dep->name; ?></option>
-                                                                        <?php
-                                                                        } ?>
+                                                                            <option><?php echo $dep->code; ?></option>
+                                                                        <?php } ?>
                                                                     </select>
                                                                 </div>
-                                                                <div class="form-group col-md-6" style="display:none">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">Department Name</label>
-                                                                    <input type="text" id="DepartmentID" readonly required name="department_id" class="form-control">
-                                                                    <input type="text" value="<?php echo $view; ?>" readonly required name="faculty_id" class="form-control">
+                                                                    <input type="text" id="DepName" required name="department_name" class="form-control">
+                                                                    <input type="hidden" id="DepID" readonly required name="department_id" class="form-control">
+                                                                    <input type="hidden" readonly required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
+
                                                                 </div>
+
                                                             </div>
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Course Description</label>
-                                                                    <textarea required name="details" id="textarea" rows="10" class="form-control"></textarea>
+                                                                    <textarea required name="details" rows="10" class="form-control Summernote"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -421,7 +413,7 @@ require_once('public/partials/_head.php');
                                                             <td><?php echo $courses->name; ?></td>
                                                             <td><?php echo $courses->department_name; ?></td>
                                                             <td>
-                                                                <a class="badge badge-primary" href="course.php?view=<?php echo $courses->id; ?>">
+                                                                <a class="badge badge-success" href="course.php?view=<?php echo $courses->id; ?>">
                                                                     <i class="fas fa-eye"></i>
                                                                     View
                                                                 </a>
@@ -431,7 +423,7 @@ require_once('public/partials/_head.php');
                                                                 </a>
                                                                 <!-- Update Course Modal -->
                                                                 <div class="modal fade" id="edit-course-<?php echo $courses->id; ?>">
-                                                                    <div class="modal-dialog  modal-lg">
+                                                                    <div class="modal-dialog  modal-xl">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
                                                                                 <h4 class="modal-title">Fill All Required Values </h4>
@@ -457,7 +449,7 @@ require_once('public/partials/_head.php');
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="exampleInputPassword1">Course Description</label>
-                                                                                                <textarea required name="details" id="editor-<?php echo $courses->id; ?>" rows="10" class="form-control"><?php echo $courses->details; ?></textarea>
+                                                                                                <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $courses->details; ?></textarea>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -465,11 +457,6 @@ require_once('public/partials/_head.php');
                                                                                         <button type="submit" name="update_course" class="btn btn-primary">Update</button>
                                                                                     </div>
                                                                                 </form>
-                                                                                <!-- Inline CK Editor Script -->
-                                                                                <script>
-                                                                                    CKEDITOR.replace('editor-<?php echo $courses->id; ?>');
-                                                                                </script>
-                                                                                <!-- End Inline Ck Editor Script -->
                                                                                 <!-- End Update Course Form -->
                                                                             </div>
                                                                             <div class="modal-footer justify-content-between">

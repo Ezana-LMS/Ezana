@@ -307,7 +307,7 @@ require_once('public/partials/_head.php');
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Faculty Important Dates</button>
                                     </div>
                                     <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-lg">
+                                        <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Faculty Important Dates </h4>
@@ -318,7 +318,6 @@ require_once('public/partials/_head.php');
                                                 <div class="modal-body">
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
-
                                                             <?php
                                                             /* Persisit Academic Settings */
                                                             $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
@@ -353,7 +352,7 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                                 <div class="form-group col-md-12">
                                                                     <label for="">Description</label>
-                                                                    <textarea rows="3" type="text" required name="description" class="form-control"></textarea>
+                                                                    <textarea rows="3" type="text" required name="description" class="form-control Summernote"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -427,13 +426,6 @@ require_once('public/partials/_head.php');
                                             <div class="text-center">
                                                 <h1 class="display-4">Faculty Important Dates</h1>
                                             </div>
-                                            <div class="text-left">
-                                                <a href="faculty_dashboard.php?view=<?php echo $view; ?>" class="btn btn-outline-success">
-                                                    <i class="fas fa-arrow-left"></i>
-                                                    Back
-                                                </a>
-                                            </div>
-                                            <br>
                                             <div class="row">
                                                 <div class="col-12">
 
@@ -472,7 +464,7 @@ require_once('public/partials/_head.php');
                                                                         </a>
                                                                         <!-- Update Modal -->
                                                                         <div class="modal fade" id="update-calendar-<?php echo $cal->id; ?>">
-                                                                            <div class="modal-dialog  modal-lg">
+                                                                            <div class="modal-dialog  modal-xl">
                                                                                 <div class="modal-content">
                                                                                     <div class="modal-header">
                                                                                         <h4 class="modal-title">Update <?php echo $cal->academic_yr; ?> <?php echo $cal->semester_name; ?> Important Dates </h4>
@@ -507,7 +499,7 @@ require_once('public/partials/_head.php');
                                                                                                     </div>
                                                                                                     <div class="form-group col-md-12">
                                                                                                         <label for="">Description</label>
-                                                                                                        <textarea rows="3" type="text" required name="description" class="form-control"><?php echo $cal->description; ?></textarea>
+                                                                                                        <textarea rows="3" type="text" required name="description" class="form-control Summernote"><?php echo $cal->description; ?></textarea>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>

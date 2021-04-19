@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Apr 01 2021
+ * Created on Mon Apr 19 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -19,13 +19,14 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 session_start();
 include('configs/config.php');
 
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = sha1(md5($_POST['password']));
-    $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Admins WHERE email='$email'  AND password='$password' AND rank = 'System Administrator' ");
+    $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Admins WHERE email='$email'  AND password='$password'");
     $num = mysqli_fetch_array($ret);
     if ($num > 0) {
         $_SESSION['id'] = $num['id'];
@@ -34,13 +35,13 @@ if (isset($_POST['login'])) {
         $User_Rank = 'Administrator'; // User Rank
         $loginTime = date('Y-m-d');
         mysqli_query($mysqli, "INSERT INTO ezanaLMS_UserLog(user_id, name, ip, User_Rank, loginTime) values('" . $_SESSION['id'] . "','" . $_SESSION['email'] . "','$uip', '$User_Rank', '$loginTime')");
-        $extra = "dashboard.php";
+        $extra = "edu_admn_dashboard.php";
         $host = $_SERVER['HTTP_HOST'];
         $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
         header("location:http://$host$uri/$extra");
         exit();
     } else {
-        $err = "Invalid Authentication Credentials Or User Permission";
+        $err = "Invalid username or password";
     }
 }
 
