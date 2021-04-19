@@ -72,7 +72,7 @@ if (isset($_POST['add_course'])) {
             $rc = $stmt->bind_param('sssssss', $id, $code, $name, $details, $department_id, $faculty_id,  $department_name);
             $stmt->execute();
             if ($stmt) {
-                $success = "Course Added";
+                $success = "Course Added" && header("refresh:1; url=faculty_courses.php?view=$faculty_id");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -102,13 +102,15 @@ if (isset($_POST['update_course'])) {
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
+        /* Faculty ID */
+        $faculty_id = $_POST['faculty_id'];
 
         $query = "UPDATE ezanaLMS_Courses SET  code =?, name =?, details =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Course Updated";
+            $success = "Course Updated" && header("refresh:1; url=faculty_courses.php?view=$faculty_id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -278,7 +280,7 @@ require_once('public/partials/_head.php');
                                     </form>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
                                     <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-lg">
+                                        <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h4 class="modal-title">Fill All Required Values </h4>
@@ -295,6 +297,7 @@ require_once('public/partials/_head.php');
                                                                     <label for="">Course Name</label>
                                                                     <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Course Number / Code</label>
@@ -327,7 +330,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Course Description</label>
-                                                                    <textarea required name="details" id="textarea" rows="10" class="form-control"></textarea>
+                                                                    <textarea required name="details" rows="10" class="form-control Summernote"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
