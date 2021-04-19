@@ -174,6 +174,7 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </a>
                                     </div>
+
                                     <div class="col-lg-4 col-6">
                                         <a href="reports_departments.php">
                                             <div class="small-box bg-info">
@@ -256,12 +257,13 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-lg-4 col-6">
+
+                                    <div class="col-lg-3 col-6">
                                         <a href="reports_overall_school_enrollments.php">
 
                                             <div class="small-box bg-info">
                                                 <div class="inner">
-                                                    <h3>Student Enrollments</h3>
+                                                    <h3>Enrollments</h3>
                                                 </div>
                                                 <div class="icon">
                                                     <i class="fas fa-user-tag"></i>
@@ -272,7 +274,23 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-3 col-6">
+                                        <a href="reports_overall_module_grades.php">
+
+                                            <div class="small-box bg-info">
+                                                <div class="inner">
+                                                    <h3>Module Grades</h3>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="fas fa-file"></i>
+                                                </div>
+                                                <div class="small-box-footer">
+                                                    <i class="fas fa-arrow-circle-right"></i>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3 col-6">
                                         <a href="reports_lecturers.php">
                                             <div class="small-box bg-info">
                                                 <div class="inner">
@@ -289,7 +307,7 @@ require_once('public/partials/_head.php');
                                         </a>
                                     </div>
 
-                                    <div class="col-lg-4 col-6">
+                                    <div class="col-lg-3 col-6">
                                         <a href="reports_students.php">
                                             <div class="small-box bg-info">
                                                 <div class="inner">
