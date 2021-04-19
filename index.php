@@ -40,7 +40,7 @@ if (isset($_POST['login'])) {
         header("location:http://$host$uri/$extra");
         exit();
     } else {
-        $err = "Invalid username or password";
+        $err = "Invalid Authentication Credentials Or User Permission";
     }
 }
 
