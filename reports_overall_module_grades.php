@@ -159,7 +159,34 @@ require_once('public/partials/_reportshead.php');
                         <hr>
                         <div class="row">
                             <div class="col-12">
+                                <table id="export-dt" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Student Admission Number</th>
+                                            <th>Student Name</th>
+                                            <th>Module Details</th>
+                                            <th>Marks | Grade Attained</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $ret = "SELECT * FROM `ezanaLMS_StudentModuleGrades`  ";
+                                        $stmt = $mysqli->prepare($ret);
+                                        $stmt->execute(); //ok
+                                        $res = $stmt->get_result();
+                                        while ($grade = $res->fetch_object()) {
+                                        ?>
 
+                                            <tr>
+                                                <td><?php echo $grade->regno; ?></td>
+                                                <td><?php echo $grade->name; ?></td>
+                                                <td><?php echo $grade->module_code . " " . $grade->module_name; ?></td>
+                                                <td><?php echo $grade->marks; ?></td>
+                                            </tr>
+                                        <?php $cnt = $cnt + 1;
+                                        } ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
