@@ -52,7 +52,7 @@ if (isset($_POST['reset_pwd'])) {
                 $stmt = $mysqli->prepare($query);
                 $rc = $stmt->bind_param('ss', $new_password, $email);
                 $stmt->execute();
-                if ($stmt) {
+                if ($stmt && $mail->send()) {
                     $success = "Password Changed" && header("refresh:1; url=index.php");
                 } else {
                     $err = "Please Try Again Or Try Later";
@@ -76,7 +76,7 @@ while ($sys = $res->fetch_object()) {
                 <div class="wrap-login100">
                     <form method="POST" class="login100-form validate-form">
                         <div class="text-center">
-                            <img height="150" width="160" src="public/dist/img/<?php echo $sys->logo;?>" alt="wrapkit">
+                            <img height="150" width="160" src="public/dist/img/<?php echo $sys->logo; ?>" alt="wrapkit">
                         </div>
                         <h2 class="mt-3 text-center">Password Reset</h2>
                         <?php
@@ -112,7 +112,7 @@ while ($sys = $res->fetch_object()) {
                             </button>
                         </div>
                     </form>
-                    <div class="login100-more" style="background-image: url('public/dist/img/<?php echo $sys->logo;?>');">
+                    <div class="login100-more" style="background-image: url('public/dist/img/<?php echo $sys->logo; ?>');">
                     </div>
                 </div>
             </div>
@@ -121,4 +121,5 @@ while ($sys = $res->fetch_object()) {
     </body>
 <?php
 } ?>
+
 </html>
