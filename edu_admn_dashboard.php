@@ -53,6 +53,7 @@ require_once('public/partials/_head.php');
             <?php require_once('public/partials/_brand.php'); ?>
             <!-- Sidebar -->
             <?php require_once('public/partials/_sidebar.php');
+            /* Load This Page With Logged In User Session */
             $id  = $_SESSION['id'];
             $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id ='$id' ";
             $stmt = $mysqli->prepare($ret);
