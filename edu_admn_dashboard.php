@@ -52,14 +52,16 @@ require_once('public/partials/_head.php');
             <!-- Brand Logo -->
             <?php require_once('public/partials/_brand.php'); ?>
             <!-- Sidebar -->
-            <?php require_once('public/partials/_sidebar.php');
-            /* Load This Page With Logged In User Session */
+            <?php
             $id  = $_SESSION['id'];
             $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id ='$id' ";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
             while ($admin = $res->fetch_object()) {
+             require_once('public/partials/_sidebar.php');
+            /* Load This Page With Logged In User Session */
+            
             ?>
 
         </aside>
