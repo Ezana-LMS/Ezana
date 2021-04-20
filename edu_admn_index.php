@@ -24,24 +24,44 @@ session_start();
 include('configs/config.php');
 
 if (isset($_POST['login'])) {
-    $email = $_POST['email'];
-    $password = sha1(md5($_POST['password']));
-    $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Admins WHERE email='$email'  AND password='$password'");
-    $num = mysqli_fetch_array($ret);
-    if ($num > 0) {
-        $_SESSION['id'] = $num['id'];
-        $_SESSION['email'] = $email;
-        $uip = $_SERVER['REMOTE_ADDR']; // User IP Address
-        $User_Rank = 'Administrator'; // User Rank
-        $loginTime = date('Y-m-d');
-        mysqli_query($mysqli, "INSERT INTO ezanaLMS_UserLog(user_id, name, ip, User_Rank, loginTime) values('" . $_SESSION['id'] . "','" . $_SESSION['email'] . "','$uip', '$User_Rank', '$loginTime')");
-        $extra = "edu_admn_dashboard.php";
-        $host = $_SERVER['HTTP_HOST'];
-        $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-        header("location:http://$host$uri/$extra");
-        exit();
+    /* Secure Logins Using Trims */
+    $error = 0;
+    if (isset($_POST['email']) && !empty($_POST['email'])) {
+        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
     } else {
-        $err = "Invalid username or password";
+        $error = 1;
+        $err = "Email Cannot  Be Empty";
+    }
+    if (isset($_POST['password']) && !empty($_POST['password'])) {
+        $password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['password']))));
+    } else {
+        $error = 1;
+        $err = "Email Cannot  Be Empty";
+    }
+    if (!$error) {
+        $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Admins WHERE email='$email'  AND password='$password'");
+        $num = mysqli_fetch_array($ret);
+        if ($num > 0) {
+            /* Load Sessions */
+            $_SESSION['id'] = $num['id'];
+            $_SESSION['email'] = $email;
+            $_SESSION['school_id'] = $school_id;
+
+            /* Log User Login Details */
+            $uip = $_SERVER['REMOTE_ADDR']; // User IP Address
+            $User_Rank = 'Administrator'; // User Rank
+            $loginTime = date('Y-m-d');
+
+            /* Persist Logs On Logs Table */
+            mysqli_query($mysqli, "INSERT INTO ezanaLMS_UserLog(user_id, name, ip, User_Rank, loginTime) values('" . $_SESSION['id'] . "','" . $_SESSION['email'] . "','$uip', '$User_Rank', '$loginTime')");
+            $extra = "edu_admn_dashboard.php";
+            $host = $_SERVER['HTTP_HOST'];
+            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+            header("location:http://$host$uri/$extra");
+            exit();
+        } else {
+            $err = "Invalid username or password";
+        }
     }
 }
 
