@@ -52,7 +52,14 @@ require_once('public/partials/_head.php');
             <!-- Brand Logo -->
             <?php require_once('public/partials/_brand.php'); ?>
             <!-- Sidebar -->
-            <?php require_once('public/partials/_sidebar.php'); ?>
+            <?php require_once('public/partials/_sidebar.php');
+            $id  = $_SESSION['id'];
+            $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id ='$id' ";
+            $stmt = $mysqli->prepare($ret);
+            $stmt->execute(); //ok
+            $res = $stmt->get_result();
+            while ($admin = $res->fetch_object()) {
+            ?>
 
         </aside>
 
@@ -85,7 +92,7 @@ require_once('public/partials/_head.php');
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_faculties.php">
+                                                <a href="edu_admn_faculties.php?view=<?php echo $admin->school_id; ?>">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Faculties</h3>
@@ -101,7 +108,7 @@ require_once('public/partials/_head.php');
                                                 </a>
                                             </div>
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_departments.php">
+                                                <a href="edu_admn_departments.php?view=<?php echo $admin->school_id; ?>">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Departments</h3>
@@ -118,7 +125,7 @@ require_once('public/partials/_head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_courses.php">
+                                                <a href="edu_admn_courses.php?view=<?php echo $admin->school_id; ?>">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Courses</h3>
@@ -135,7 +142,7 @@ require_once('public/partials/_head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_modules.php">
+                                                <a href="edu_admn_modules.php?view=<?php echo $admin->school_id; ?>">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Modules</h3>
@@ -152,7 +159,7 @@ require_once('public/partials/_head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_overall_school_calendar.php">
+                                                <a href="edu_admn_overall_school_calendar.php?view=<?php echo $admin->school_id; ?>">
 
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
@@ -170,7 +177,7 @@ require_once('public/partials/_head.php');
 
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_lecturers.php">
+                                                <a href="edu_admn_lecturers.php?view=<?php echo $admin->school_id; ?>">
 
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
@@ -188,7 +195,7 @@ require_once('public/partials/_head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_students.php">
+                                                <a href="edu_admn_students.php?view=<?php echo $admin->school_id; ?>">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Students</h3>
@@ -256,7 +263,8 @@ require_once('public/partials/_head.php');
             </div>
         </div>
         <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php'); ?>
+    <?php require_once('public/partials/_scripts.php');
+            } ?>
 </body>
 
 </html>
