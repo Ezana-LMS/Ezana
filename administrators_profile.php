@@ -24,8 +24,8 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-/* Update Profile Picture */
 
+/* Update Profile Picture */
 if (isset($_POST['update_picture'])) {
     $view = $_GET['view'];
     $profile_pic = $_FILES['profile_pic']['name'];
@@ -38,6 +38,103 @@ if (isset($_POST['update_picture'])) {
         $success = "Profile Picture Updated" && header("Refresh: 0");
     } else {
         $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Update School Details */
+if (isset($_POST['update_school'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['id']) && !empty($_POST['id'])) {
+        $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
+    } else {
+        $error = 1;
+        $err = "ID Cannot Be Empty";
+    }
+    if (isset($_POST['school']) && !empty($_POST['school'])) {
+        $school = mysqli_real_escape_string($mysqli, trim($_POST['school']));
+    } else {
+        $error = 1;
+        $err = "Faculty Name Cannot Be Empty";
+    }
+    if (isset($_POST['school_id']) && !empty($_POST['school_id'])) {
+        $school_id = mysqli_real_escape_string($mysqli, trim($_POST['school_id']));
+    } else {
+        $error = 1;
+        $err = "School ID Cannot Be Empty";
+    }
+    if (!$error) {
+
+        $query = "UPDATE ezanaLMS_Admins SET school =?, school_id =? WHERE id = ?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sss', $school, $school_id, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "School Details  Updated" && header("Refresh: 0");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
+/* Update Profile */
+if (isset($_POST['update_non_teaching_staff'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['id']) && !empty($_POST['id'])) {
+        $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
+    } else {
+        $error = 1;
+        $err = "ID Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Name Cannot Be Empty";
+    }
+    if (isset($_POST['email']) && !empty($_POST['email'])) {
+        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
+    } else {
+        $error = 1;
+        $err = "Email Cannot Be Empty";
+    }
+
+    if (isset($_POST['rank']) && !empty($_POST['rank'])) {
+        $rank = mysqli_real_escape_string($mysqli, trim($_POST['rank']));
+    } else {
+        $error = 1;
+        $err = "Rank Cannot Be Empty";
+    }
+    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
+        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
+    } else {
+        $error = 1;
+        $err = "Phone Cannot Be Empty";
+    }
+
+    if (isset($_POST['adr']) && !empty($_POST['adr'])) {
+        $adr = mysqli_real_escape_string($mysqli, trim($_POST['adr']));
+    } else {
+        $error = 1;
+        $err = "Address Cannot Be Empty";
+    }
+
+    if (!$error) {
+
+        $gender = $_POST['gender'];
+        $employee_id = $_POST['employee_id'];
+        $date_employed = $_POST['date_employed'];
+
+        $query = "UPDATE ezanaLMS_Admins SET name =?, email =?,  rank =?, phone =?, adr =?, gender = ?, employee_id =?, date_employed =? WHERE id = ?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssssssss', $name, $email, $rank, $phone, $adr, $gender, $employee_id, $date_employed,  $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Profile Updated" && header("Refresh: 0");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
     }
 }
 
@@ -86,8 +183,6 @@ if (isset($_POST['change_password'])) {
         }
     }
 }
-
-
 
 /* Add Department Memo */
 if (isset($_POST['add_memo'])) {
@@ -353,7 +448,7 @@ require_once('public/partials/_head.php');
                                                                         <select class='form-control basic' onchange="OptimizedGetDepartmentDetails(this.value);" id="DeparmentCode">
                                                                             <option selected>Select Department Code</option>
                                                                             <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Departments` ORDER BY `name` ASC   ";
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$admin->school_id'   ";
                                                                             $stmt = $mysqli->prepare($ret);
                                                                             $stmt->execute(); //ok
                                                                             $res = $stmt->get_result();
@@ -371,7 +466,7 @@ require_once('public/partials/_head.php');
                                                                         <input type="hidden" required name="faculty_id" id="FacultyID" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-4">
-                                                                        <label for="">Upload Memo / Notice Attachment (PDF Or Docx)</label>
+                                                                        <label for="">Memo Notice Attachment (PDF Or Docx)</label>
                                                                         <div class="input-group">
                                                                             <div class="custom-file">
                                                                                 <input name="attachments" type="file" class="custom-file-input">
@@ -434,7 +529,7 @@ require_once('public/partials/_head.php');
                                                                         <select class='form-control basic' onchange="getDepartmentDetailsOnDocuments(this.value);" id="DepCode">
                                                                             <option selected>Select Department Code</option>
                                                                             <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Departments` ORDER BY `name` ASC   ";
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$admin->school_id'  ";
                                                                             $stmt = $mysqli->prepare($ret);
                                                                             $stmt->execute(); //ok
                                                                             $res = $stmt->get_result();
@@ -452,7 +547,7 @@ require_once('public/partials/_head.php');
                                                                         <input type="hidden" required name="faculty" id="DepFacID" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-6">
-                                                                        <label for="">Upload Departmental Document (PDF Or Docx)</label>
+                                                                        <label for="">Departmental Document (PDF Or Docx)</label>
                                                                         <div class="input-group">
                                                                             <div class="custom-file">
                                                                                 <input name="attachments" type="file" class="custom-file-input">
@@ -484,6 +579,129 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                         <!-- End Modal -->
+                                        <!-- Allocated School Update -->
+                                        <div class="modal fade" id="edit-school">
+                                            <div class="modal-dialog  modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Update <?php echo $admin->name; ?> Allocated School Details </h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">School Code</label>
+                                                                        <select class="form-control basic" onchange="OptimizedFacultyDetails(this.value);" id="FacultyCode">
+                                                                            <option>Select School / Faculty Code</option>
+                                                                            <?php
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
+                                                                            $stmt = $mysqli->prepare($ret);
+                                                                            $stmt->execute(); //ok
+                                                                            $res = $stmt->get_result();
+                                                                            while ($faculty = $res->fetch_object()) {
+                                                                            ?>
+                                                                                <option><?php echo $faculty->code; ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Faculty Name </label>
+                                                                        <input type="text" required name="school" id="FacultyName" class="form-control">
+                                                                        <input type="hidden" required name="school_id" id="AdminFacultyID" class="form-control">
+                                                                        <input type="hidden" required name="id" value="<?php echo $admin->id; ?>" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer text-right">
+                                                                <button type="submit" name="update_school" class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Allocated School Details Update -->
+
+                                        <!-- Update Profile -->
+                                        <div class="modal fade" id="edit-profile">
+                                            <div class="modal-dialog  modal-xl">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Update <?php echo $admin->name; ?> Details </h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="">Name</label>
+                                                                        <input type="text" required value="<?php echo $admin->name; ?>" name="name" class="form-control" id="exampleInputEmail1">
+                                                                        <input type="hidden" required name="id" value="<?php echo $admin->id; ?>" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="">Work Email</label>
+                                                                        <input type="text" value="<?php echo $admin->email; ?>" required name="email" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-4">
+                                                                        <label for="">Phone Number</label>
+                                                                        <input type="text" value="<?php echo $admin->phone; ?>" required name="phone" class="form-control">
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-3">
+                                                                        <label for="">Rank</label>
+                                                                        <select class="form-control basic" name="rank">
+                                                                            <option><?php echo $admin->rank; ?></option>
+                                                                            <option>System Administrator</option>
+                                                                            <option>Education Administrator</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group col-md-3">
+                                                                        <label for="">Gender</label>
+                                                                        <select class="form-control basic" name="gender">
+                                                                            <option><?php echo $admin->gender; ?></option>
+                                                                            <option>Male</option>
+                                                                            <option>Female</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group col-md-3">
+                                                                        <label for="">Employee ID</label>
+                                                                        <input type="text" value="<?php echo $admin->employee_id; ?>" required name="employee_id" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-3">
+                                                                        <label for="">Date Employed</label>
+                                                                        <input type="date" placeholder="DD-MM-YYYY" value="<?php echo $admin->date_employed; ?>" required name="date_employed" class="form-control">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-12">
+                                                                        <label for="exampleInputPassword1">Address</label>
+                                                                        <textarea required name="adr" rows="2" class="form-control Summernote"><?php echo $admin->adr; ?></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer text-right">
+                                                                <button type="submit" name="update_non_teaching_staff" class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- End Update Profile -->
 
                                         <h3 class="profile-username text-center"></h3>
 
@@ -510,13 +728,17 @@ require_once('public/partials/_head.php');
                                                 <b>Date Employed: </b> <a class="float-right"><?php echo $admin->date_employed; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>School / Faculty</b> <a class="float-right"><?php echo $admin->school; ?></a>
+                                                <b>Allocated School / Faculty</b> <a class="float-right"> <?php echo $admin->school; ?></a>
                                             </li>
                                             <!-- <li class="list-group-item">
                                                 <b>Previledge</b> <a class="float-right"><?php echo $admin->previledge; ?></a>
                                             </li> -->
                                             <li class="list-group-item">
                                                 <b>Rank</b> <a class="float-right"><?php echo $admin->rank; ?></a>
+                                            </li>
+                                            <li class="list-group-item text-center">
+                                                <a href="#edit-school" data-toggle="modal" class="badge badge-primary"><i class='fas fa-edit'></i> Edit Allocated School</a>
+                                                <a href="#edit-profile" data-toggle="modal" class="badge badge-success"><i class='fas fa-user-edit'></i> Edit Profile</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -556,7 +778,7 @@ require_once('public/partials/_head.php');
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE type !='Departmental Document' ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE type !='Departmental Document' AND faculty_id = '$admin->school_id' ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
@@ -633,7 +855,7 @@ require_once('public/partials/_head.php');
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE  type = 'Departmental Document'  ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE  type = 'Departmental Document' AND faculty_id = '$admin->school_id'   ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();

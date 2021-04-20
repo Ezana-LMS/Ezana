@@ -94,13 +94,14 @@ if (isset($_POST['add_non_teaching_staff'])) {
             $employee_id = $_POST['employee_id'];
             $date_employed = $_POST['date_employed'];
             $school  = $_POST['school'];
+            $school_id = $_POST['school_id'];
 
             $profile_pic = $_FILES['profile_pic']['name'];
             move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/admins/" . $_FILES["profile_pic"]["name"]);
 
-            $query = "INSERT INTO ezanaLMS_Admins (id, name, email, password, rank, phone, adr, profile_pic, gender, employee_id, date_employed, school) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Admins (id, name, email, password, rank, phone, adr, profile_pic, gender, employee_id, date_employed, school, school_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssssssss', $id, $name, $email, $password, $rank, $phone, $adr, $profile_pic, $gender, $employee_id, $date_employed, $school);
+            $rc = $stmt->bind_param('sssssssssssss', $id, $name, $email, $password, $rank, $phone, $adr, $profile_pic, $gender, $employee_id, $date_employed, $school, $school_id);
             $stmt->execute();
             if ($stmt) {
                 $success = "Non Teaching Staff Added" && header("refresh:1; url=non_teaching_staff.php");
@@ -161,11 +162,10 @@ if (isset($_POST['update_non_teaching_staff'])) {
         $gender = $_POST['gender'];
         $employee_id = $_POST['employee_id'];
         $date_employed = $_POST['date_employed'];
-        $school  = $_POST['school'];
 
-        $query = "UPDATE ezanaLMS_Admins SET name =?, email =?,  rank =?, phone =?, adr =?, gender = ?, employee_id =?, date_employed =?, school =? WHERE id = ?";
+        $query = "UPDATE ezanaLMS_Admins SET name =?, email =?,  rank =?, phone =?, adr =?, gender = ?, employee_id =?, date_employed =? WHERE id = ?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssssss', $name, $email, $rank, $phone, $adr, $gender, $employee_id, $date_employed, $school, $id);
+        $rc = $stmt->bind_param('sssssssss', $name, $email, $rank, $phone, $adr, $gender, $employee_id, $date_employed,  $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Non Teaching Staff Updated" && header("refresh:1; url=non_teaching_staff.php");
@@ -392,7 +392,7 @@ require_once('public/partials/_head.php');
                                                             <label for="">Date Employed</label>
                                                             <input type="date" placeholder="DD-MM-YYYY" required name="date_employed" class="form-control">
                                                         </div>
-                                                        
+
                                                     </div>
 
                                                     <div class="row">
@@ -404,14 +404,16 @@ require_once('public/partials/_head.php');
                                                             <label for="">Profile Picture</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
-                                                                    <input  name="profile_pic" type="file" class="custom-file-input">
+                                                                    <input name="profile_pic" type="file" class="custom-file-input">
                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group col-md-12">
-                                                            <label for="">School / Faculty</label>
-                                                            <select class="form-control basic" name="school">
+
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">School / Faculty Code</label>
+                                                            <select class="form-control basic" onchange="OptimizedFacultyDetails(this.value);" id="FacultyCode">
+                                                                <option>Select School / Faculty Code</option>
                                                                 <?php
                                                                 $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
                                                                 $stmt = $mysqli->prepare($ret);
@@ -419,10 +421,16 @@ require_once('public/partials/_head.php');
                                                                 $res = $stmt->get_result();
                                                                 while ($faculty = $res->fetch_object()) {
                                                                 ?>
-                                                                    <option><?php echo $faculty->name; ?></option>
+                                                                    <option><?php echo $faculty->code; ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                         </div>
+                                                        <div class="form-group col-md-8">
+                                                            <label for="">Faculty Name </label>
+                                                            <input type="text" required name="school" id="FacultyName" class="form-control">
+                                                            <input type="hidden" required name="school_id" id="FacultyID" class="form-control">
+                                                        </div>
+
                                                     </div>
 
                                                     <div class="row">
@@ -504,7 +512,7 @@ require_once('public/partials/_head.php');
                                                     ";
                                                 }
                                                 ?>
-                                              
+
 
                                                 <!-- Suspend Modal -->
                                                 <div class="modal fade" id="suspend-<?php echo $admin->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -526,7 +534,7 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </div>
                                                 <!-- End Suspend -->
-                                                
+
                                                 <!-- Edit Modal -->
                                                 <div class="modal fade" id="edit-<?php echo $admin->id; ?>">
                                                     <div class="modal-dialog  modal-xl">
@@ -541,23 +549,18 @@ require_once('public/partials/_head.php');
                                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                                     <div class="card-body">
                                                                         <div class="row">
-                                                                            <div class="form-group col-md-6">
+                                                                            <div class="form-group col-md-4">
                                                                                 <label for="">Name</label>
                                                                                 <input type="text" required value="<?php echo $admin->name; ?>" name="name" class="form-control" id="exampleInputEmail1">
                                                                                 <input type="hidden" required name="id" value="<?php echo $admin->id; ?>" class="form-control">
                                                                             </div>
-                                                                            <div class="form-group col-md-6">
+                                                                            <div class="form-group col-md-4">
                                                                                 <label for="">Work Email</label>
                                                                                 <input type="text" value="<?php echo $admin->email; ?>" required name="email" class="form-control">
                                                                             </div>
-                                                                            <div class="form-group col-md-6">
+                                                                            <div class="form-group col-md-4">
                                                                                 <label for="">Phone Number</label>
                                                                                 <input type="text" value="<?php echo $admin->phone; ?>" required name="phone" class="form-control">
-                                                                            </div>
-
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="">School / Faculty</label>
-                                                                                <input type="text" value="<?php echo $admin->school; ?>" required name="school" class="form-control">
                                                                             </div>
 
                                                                             <div class="form-group col-md-3">

@@ -361,6 +361,15 @@
                 $('#FacultyName').val(data);
             }
         });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'FacultyName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#AdminFacultyID').val(data);
+            }
+        });
     }
 
     /*Student Educational Details  */
