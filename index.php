@@ -35,7 +35,7 @@ if (isset($_POST['login'])) {
         $password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['password']))));
     } else {
         $error = 1;
-        $err = "Email Cannot  Be Empty";
+        $err = "Password Cannot  Be Empty";
     }
     if (!$error) {
         $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Admins WHERE email='$email'  AND password='$password' AND rank = 'System Administrator' ");
@@ -46,8 +46,8 @@ if (isset($_POST['login'])) {
             $_SESSION['email'] = $email;
 
             /* Load Login Logs */
-            $uip = $_SERVER['REMOTE_ADDR']; 
-            $User_Rank = 'Administrator'; 
+            $uip = $_SERVER['REMOTE_ADDR'];
+            $User_Rank = 'Administrator';
             $loginTime = date('Y-m-d');
 
             /* Persist Auth Logs */
