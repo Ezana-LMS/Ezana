@@ -409,9 +409,10 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group col-md-12">
-                                                            <label for="">School / Faculty</label>
-                                                            <select class="form-control basic" name="school">
+
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">School / Faculty Code</label>
+                                                            <select class="form-control basic" onchange="OptimizedFacultyDetails(this.value);" id="FacultyCode" >
                                                                 <?php
                                                                 $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
                                                                 $stmt = $mysqli->prepare($ret);
@@ -419,10 +420,16 @@ require_once('public/partials/_head.php');
                                                                 $res = $stmt->get_result();
                                                                 while ($faculty = $res->fetch_object()) {
                                                                 ?>
-                                                                    <option><?php echo $faculty->name; ?></option>
+                                                                    <option><?php echo $faculty->code; ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                         </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Faculty Name </label>
+                                                            <input type="text"  required name="school" id="FacultyName" class="form-control">
+                                                            <input type="hidden" required name="school_id" id="FacultyID" class="form-control">
+                                                        </div>
+
                                                     </div>
 
                                                     <div class="row">
