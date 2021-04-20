@@ -45,8 +45,7 @@ if (isset($_POST['login'])) {
             /* Load Sessions */
             $_SESSION['id'] = $num['id'];
             $_SESSION['email'] = $email;
-            $_SESSION['school_id'] = $school_id;
-
+            
             /* Log User Login Details */
             $uip = $_SERVER['REMOTE_ADDR']; // User IP Address
             $User_Rank = 'Administrator'; // User Rank

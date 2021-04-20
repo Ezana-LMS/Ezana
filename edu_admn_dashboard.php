@@ -24,7 +24,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
-require_once('public/partials/_analytics.php');
+require_once('public/partials/_edu_admn_analytics.php');
 /* Mark All Notications As Read */
 if (isset($_GET['notification'])) {
     $notification = $_GET['notification'];
