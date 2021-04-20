@@ -463,6 +463,19 @@ if (!empty($_POST["FacultyID"])) {
 <?php
     }
 }
+/* Faculty ID On Administrators Profilr */
+if (!empty($_POST["FacultyName"])) {
+    $id = $_POST['FacultyName'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Faculties WHERE code = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['id']); ?>
+<?php
+    }
+}
 
 /* Student Course, Department, Faculty Ajax */
 if (!empty($_POST["CourseCode"])) {

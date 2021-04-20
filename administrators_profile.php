@@ -611,8 +611,8 @@ require_once('public/partials/_head.php');
                                                                     <div class="form-group col-md-6">
                                                                         <label for="">Faculty Name </label>
                                                                         <input type="text" required name="school" id="FacultyName" class="form-control">
-                                                                        <input type="hidden" required name="school_id" id="FacultyID" class="form-control">
-                                                                        <input type="hidden" required name="id" name="<?php echo $admin->id; ?>" class="form-control">
+                                                                        <input type="hidden" required name="school_id" id="AdminFacultyID" class="form-control">
+                                                                        <input type="hidden" required name="id" value="<?php echo $admin->id; ?>" class="form-control">
                                                                     </div>
                                                                 </div>
                                                             </div>
