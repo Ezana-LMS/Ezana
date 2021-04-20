@@ -549,23 +549,18 @@ require_once('public/partials/_head.php');
                                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                                     <div class="card-body">
                                                                         <div class="row">
-                                                                            <div class="form-group col-md-6">
+                                                                            <div class="form-group col-md-4">
                                                                                 <label for="">Name</label>
                                                                                 <input type="text" required value="<?php echo $admin->name; ?>" name="name" class="form-control" id="exampleInputEmail1">
                                                                                 <input type="hidden" required name="id" value="<?php echo $admin->id; ?>" class="form-control">
                                                                             </div>
-                                                                            <div class="form-group col-md-6">
+                                                                            <div class="form-group col-md-4">
                                                                                 <label for="">Work Email</label>
                                                                                 <input type="text" value="<?php echo $admin->email; ?>" required name="email" class="form-control">
                                                                             </div>
-                                                                            <div class="form-group col-md-6">
+                                                                            <div class="form-group col-md-4">
                                                                                 <label for="">Phone Number</label>
                                                                                 <input type="text" value="<?php echo $admin->phone; ?>" required name="phone" class="form-control">
-                                                                            </div>
-
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="">School / Faculty</label>
-                                                                                <input type="text" value="<?php echo $admin->school; ?>" required name="school" class="form-control">
                                                                             </div>
 
                                                                             <div class="form-group col-md-3">

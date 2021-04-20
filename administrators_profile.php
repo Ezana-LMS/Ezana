@@ -353,7 +353,7 @@ require_once('public/partials/_head.php');
                                                                         <select class='form-control basic' onchange="OptimizedGetDepartmentDetails(this.value);" id="DeparmentCode">
                                                                             <option selected>Select Department Code</option>
                                                                             <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Departments` ORDER BY `name` ASC   ";
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$admin->school_id'   ";
                                                                             $stmt = $mysqli->prepare($ret);
                                                                             $stmt->execute(); //ok
                                                                             $res = $stmt->get_result();
@@ -371,7 +371,7 @@ require_once('public/partials/_head.php');
                                                                         <input type="hidden" required name="faculty_id" id="FacultyID" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-4">
-                                                                        <label for="">Upload Memo / Notice Attachment (PDF Or Docx)</label>
+                                                                        <label for="">Memo  Notice Attachment (PDF Or Docx)</label>
                                                                         <div class="input-group">
                                                                             <div class="custom-file">
                                                                                 <input name="attachments" type="file" class="custom-file-input">
@@ -434,7 +434,7 @@ require_once('public/partials/_head.php');
                                                                         <select class='form-control basic' onchange="getDepartmentDetailsOnDocuments(this.value);" id="DepCode">
                                                                             <option selected>Select Department Code</option>
                                                                             <?php
-                                                                            $ret = "SELECT * FROM `ezanaLMS_Departments` ORDER BY `name` ASC   ";
+                                                                            $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$admin->school_id'  ";
                                                                             $stmt = $mysqli->prepare($ret);
                                                                             $stmt->execute(); //ok
                                                                             $res = $stmt->get_result();
@@ -452,7 +452,7 @@ require_once('public/partials/_head.php');
                                                                         <input type="hidden" required name="faculty" id="DepFacID" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-6">
-                                                                        <label for="">Upload Departmental Document (PDF Or Docx)</label>
+                                                                        <label for="">Departmental Document (PDF Or Docx)</label>
                                                                         <div class="input-group">
                                                                             <div class="custom-file">
                                                                                 <input name="attachments" type="file" class="custom-file-input">
@@ -556,7 +556,7 @@ require_once('public/partials/_head.php');
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE type !='Departmental Document' ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE type !='Departmental Document' AND faculty_id = '$admin->school_id' ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
@@ -633,7 +633,7 @@ require_once('public/partials/_head.php');
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE  type = 'Departmental Document'  ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE  type = 'Departmental Document' AND faculty_id = '$admin->school_id'   ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
