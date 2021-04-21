@@ -151,7 +151,7 @@ require_once('public/partials/_head.php');
                             </li>
 
                             <li class="nav-item">
-                                <a href="faculties.php" class=" nav-link">
+                                <a href="faculties.php" class="active nav-link">
                                     <i class="nav-icon fas fa-university"></i>
                                     <p>
                                         Faculties
@@ -159,7 +159,7 @@ require_once('public/partials/_head.php');
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="departments.php" class="active nav-link">
+                                <a href="departments.php" class="nav-link">
                                     <i class="nav-icon fas fa-building"></i>
                                     <p>
                                         Departments
