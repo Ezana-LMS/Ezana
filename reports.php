@@ -242,6 +242,7 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </a>
                                     </div>
+                                    
                                     <div class="col-lg-4 col-6">
                                         <a href="reports_overall_school_timetable.php">
                                             <div class="small-box bg-info">
