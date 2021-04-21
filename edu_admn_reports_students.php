@@ -61,7 +61,7 @@ require_once('public/partials/_head.php');
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="edu_admn_reports.php">Reports</a></li>
-                                    <li class="breadcrumb-item active">Lecturers</li>
+                                    <li class="breadcrumb-item active">Students</li>
                                 </ol>
                             </div>
                         </div>
