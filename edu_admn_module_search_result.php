@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Apr 01 2021
+ * Created on Wed Apr 21 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -19,12 +19,12 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-
 require_once('public/partials/_head.php');
 ?>
 
@@ -32,7 +32,7 @@ require_once('public/partials/_head.php');
     <div class="wrapper">
         <!-- Navbar -->
         <?php
-        require_once('public/partials/_nav.php');
+        require_once('public/partials/_edu_admn_nav.php');
         ?>
         <!-- /.navbar -->
 
@@ -41,101 +41,15 @@ require_once('public/partials/_head.php');
             <!-- Brand Logo -->
             <?php require_once('public/partials/_brand.php'); ?>
             <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item">
-                            <a href="dashboard.php" class=" nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="faculties.php" class=" nav-link">
-                                <i class="nav-icon fas fa-university"></i>
-                                <p>
-                                    Faculties
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="departments.php" class="nav-link">
-                                <i class="nav-icon fas fa-building"></i>
-                                <p>
-                                    Departments
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="courses.php" class="active nav-link">
-                                <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                                <p>
-                                    Courses
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="modules.php" class="nav-link">
-                                <i class="nav-icon fas fa-chalkboard"></i>
-                                <p>
-                                    Modules
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="non_teaching_staff.php" class="nav-link">
-                                <i class="nav-icon fas fa-user-secret"></i>
-                                <p>
-                                    Non Teaching Staff
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="lecturers.php" class="nav-link">
-                                <i class="nav-icon fas fa-user-tie"></i>
-                                <p>
-                                    Lecturers
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="students.php" class="nav-link">
-                                <i class="nav-icon fas fa-user-graduate"></i>
-                                <p>
-                                    Students
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-cogs"></i>
-                                <p>
-                                    System Settings
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="reports.php" class="nav-link">
-                                        <i class="fas fa-angle-right nav-icon"></i>
-                                        <p>Reports</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="system_settings.php" class="nav-link">
-                                        <i class="fas fa-angle-right nav-icon"></i>
-                                        <p>System Settings</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            <?php require_once('public/partials/_sidebar.php');
+            /* Limit Search Querry To Logged In User Faculty Scope */
+            $id  = $_SESSION['id'];
+            $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id ='$id' ";
+            $stmt = $mysqli->prepare($ret);
+            $stmt->execute(); //ok
+            $res = $stmt->get_result();
+            while ($admin = $res->fetch_object()) {
+            ?>
         </aside>
 
         <div class="content-wrapper">
@@ -143,13 +57,13 @@ require_once('public/partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Course Search Results</h1>
+                            <h1 class="m-0 text-dark">Module Search Results</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                <li class="breadcrumb-item"><a href="courses.php">Courses</a></li>
-                                <li class="breadcrumb-item active">Search Results</li>
+                                <li class="breadcrumb-item"><a href="edu_admn_faculties.php?view=<?php echo $admin->school_id; ?>"><?php echo $admin->school; ?></a></li>
+                                <li class="breadcrumb-item active">Module Search Results</li>
                             </ol>
                         </div>
                     </div>
@@ -159,8 +73,8 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="text-left">
                             <nav class="navbar navbar-light bg-light col-md-12">
-                                <form class="form-inline" action="course_search_result.php" method="GET">
-                                    <input class="form-control mr-sm-2" type="search" name="query" placeholder="Course Name Or Code">
+                                <form class="form-inline" action="edu_admn_module_search_result.php" method="GET">
+                                    <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                 </form>
                             </nav>
@@ -174,14 +88,14 @@ require_once('public/partials/_head.php');
                                 if (strlen($query) >= $min_length) {
                                     $query = htmlspecialchars($query);
                                     $query = mysqli_real_escape_string($mysqli, $query);
-                                    $raw_results = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Courses WHERE (`name` LIKE '%" . $query . "%') OR (`code` LIKE '%" . $query . "%') ");
+                                    $raw_results = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Modules WHERE (`name` LIKE '%" . $query . "%') OR (`code` LIKE '%" . $query . "%') AND faculty_id = '$admin->school_id' ");
                                     if (mysqli_num_rows($raw_results) > 0) {
                                         while ($results = mysqli_fetch_array($raw_results)) {
                                 ?>
                                             <div class="col-md-12">
                                                 <div class="card card-primary collapsed-card">
                                                     <div class="card-header">
-                                                        <a href="course.php?view=<?php echo $results['id']; ?>">
+                                                        <a href="edu_admn_module.php?view=<?php echo $results['id']; ?>">
                                                             <h3 class="card-title"><?php echo $results['name']; ?></h3>
                                                             <div class="card-tools text-right">
                                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
@@ -192,25 +106,40 @@ require_once('public/partials/_head.php');
 
                                                     <div class="card-body">
                                                         <ul class="list-group">
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <a href="edu_admn_module_notices.php?view=<?php echo $mod->id; ?>">
+                                                                    Notices & Memos
+                                                                </a>
+                                                            </li>
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <a href="edu_admn_pastpapers.php?view=<?php echo $mod->id; ?>">
+                                                                    Past Papers
+                                                                </a>
+                                                            </li>
 
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="course_modules.php?view=<?php echo $results['id']; ?>">
-                                                                    Modules
+                                                                <a href="edu_admn_course_materials.php?view=<?php echo $mod->id; ?>">
+                                                                    Reading Materials
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="module_allocations.php?view=<?php echo $results['id']; ?>">
-                                                                    Modules Allocations
+                                                                <a href="edu_admn_class_recordings.php?view=<?php echo $mod->id; ?>">
+                                                                    Class Recordings
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="timetables.php?view=<?php echo $results['id']; ?>">
-                                                                    TimeTable
+                                                                <a href="edu_admn_module_assignments.php?view=<?php echo $mod->id; ?>">
+                                                                    Assignments
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="enrollments.php?view=<?php echo $results['id']; ?>">
-                                                                    Enrollments
+                                                                <a href="edu_admn_student_groups.php?view=<?php echo $mod->id; ?>">
+                                                                    Student Groups
+                                                                </a>
+                                                            </li>
+                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                <a href="edu_admn_module_enrollments.php?view=<?php echo $mod->id; ?>">
+                                                                    Module Enrollments
                                                                 </a>
                                                             </li>
                                                         </ul>
@@ -224,14 +153,14 @@ require_once('public/partials/_head.php');
                                     }
                                 } else {
                                     echo "<span class ='text-danger'> Minimum Search Querry  Length Is " . $min_length . " Characters </span> ";
-                                }
-                                ?>
+                                } ?>
                             </div>
                         </div>
                     </div>
                 </section>
                 <!-- Main Footer -->
-                <?php require_once('public/partials/_footer.php'); ?>
+            <?php require_once('public/partials/_footer.php');
+            } ?>
             </div>
         </div>
         <!-- ./wrapper -->

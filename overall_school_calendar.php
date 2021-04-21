@@ -77,7 +77,7 @@ if (isset($_POST['add_school_calendar'])) {
         $description = $_POST['description'];
         //$view = $_POST['view'];
 
-        $query = "INSERT INTO ezanaLMS_Calendar (id,  academic_yr, semester_start, semester_name, semester_end, description) VALUES(?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_Calendar (id,  academic_yr, semester_start, semester_name, semester_end, details) VALUES(?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('ssssss', $id,  $academic_yr, $semester_start, $semester_name, $semester_end, $description);
         $stmt->execute();
@@ -120,22 +120,25 @@ if (isset($_POST['update_school_calendar'])) {
         $err = "Semester Closing  Dates Cannot Be Empty";
     }
     if (!$error) {
-
-        $id = $_POST['id'];
-        $academic_yr = $_POST['academic_yr'];
-        $semester_start = $_POST['semester_start'];
-        $semester_name = $_POST['semester_name'];
-        $semester_end = $_POST['semester_end'];
-        $description = $_POST['description'];
-
-        $query = "UPDATE ezanaLMS_Calendar SET academic_yr =?, semester_start =?, semester_name =?, semester_end =?, description =? WHERE id =?";
-        $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssss',  $academic_yr, $semester_start, $semester_name, $semester_end, $description, $id);
-        $stmt->execute();
-        if ($stmt) {
-            $success = "Educational Dates Updated" && header("refresh:1; url=overall_school_calendar.php");
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_Calendar WHERE  (semester_name='$semester_name' AND academic_yr = '$academic_yr' AND faculty_id = '$view' AND details = '$description' )   ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if (($semester_name == $row['semester_name']) && ($academic_yr == $row['academic_yr']) && ($view == $row['faculty_id']) && ($description  == $row['details'])) {
+                $err =  "Academic Dates Already Added";
+            }
         } else {
-            $info = "Please Try Again Or Try Later";
+            $id = $_POST['id'];
+            $query = "INSERT INTO ezanaLMS_Calendar (id, faculty_id,  academic_yr, semester_start, semester_name, semester_end, details) VALUES(?,?,?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('sssssss', $id, $view,  $academic_yr, $semester_start, $semester_name, $semester_end, $description);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Educational Dates Added" && header("Refresh: 0");
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
         }
     }
 }

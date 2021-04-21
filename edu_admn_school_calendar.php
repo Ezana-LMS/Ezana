@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Apr 01 2021
+ * Created on Wed Apr 21 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -19,6 +19,7 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
@@ -26,7 +27,7 @@ require_once('configs/codeGen.php');
 check_login();
 
 /* Add Important Dates */
-if (isset($_POST['add_school_calendar'])) {
+if (isset($_POST['add_dates'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (isset($_POST['academic_yr']) && !empty($_POST['academic_yr'])) {
@@ -134,12 +135,13 @@ if (isset($_POST['update_school_calendar'])) {
         $rc = $stmt->bind_param('ssssss',  $academic_yr, $semester_start, $semester_name, $semester_end, $description, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Educational Dates Updated" && header("refresh:1; url=school_calendar.php?view=$view");
+            $success = "Educational Dates Updated" && header("Refresh: 0");
         } else {
             $info = "Please Try Again Or Try Later";
         }
     }
 }
+
 /* Delete Important Dates */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
@@ -150,7 +152,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=school_calendar.php?view=$view");
+        $success = "Deleted" && header("refresh:1; url=edu_admn_school_calendar.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -162,15 +164,13 @@ require_once('public/partials/_head.php');
     <div class="wrapper">
         <!-- Navbar -->
         <?php
-        require_once('public/partials/_nav.php');
+        require_once('public/partials/_edu_admn_nav.php');
         $view = $_GET['view'];
         $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id= '$view' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($faculty = $res->fetch_object()) {
-            /* Faculty Analytics */
-            require_once('public/partials/_facultyanalyitics.php');
         ?>
             <!-- /.navbar -->
 
@@ -179,101 +179,7 @@ require_once('public/partials/_head.php');
                 <!-- Brand Logo -->
                 <?php require_once('public/partials/_brand.php'); ?>
                 <!-- Sidebar -->
-                <div class="sidebar">
-                    <!-- Sidebar Menu -->
-                    <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <li class="nav-item">
-                                <a href="dashboard.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Dashboard
-                                    </p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="faculties.php" class="active nav-link">
-                                    <i class="nav-icon fas fa-university"></i>
-                                    <p>
-                                        Faculties
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="departments.php" class="nav-link">
-                                    <i class="nav-icon fas fa-building"></i>
-                                    <p>
-                                        Departments
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="courses.php" class="nav-link">
-                                    <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                                    <p>
-                                        Courses
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="modules.php" class="nav-link">
-                                    <i class="nav-icon fas fa-chalkboard"></i>
-                                    <p>
-                                        Modules
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="non_teaching_staff.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-secret"></i>
-                                    <p>
-                                        Non Teaching Staff
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="lecturers.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-tie"></i>
-                                    <p>
-                                        Lecturers
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="students.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-graduate"></i>
-                                    <p>
-                                        Students
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-cogs"></i>
-                                    <p>
-                                        System Settings
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="reports.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Reports</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="system_settings.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>System Settings</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                <?php require_once('public/partials/_sidebar.php'); ?>
             </aside>
 
             <div class="content-wrapper">
@@ -285,8 +191,7 @@ require_once('public/partials/_head.php');
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculties.php">Faculties</a></li>
+                                    <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item active"><?php echo $faculty->name; ?></li>
                                 </ol>
                             </div>
@@ -297,12 +202,10 @@ require_once('public/partials/_head.php');
                         <div class="container-fluid">
                             <div class="">
                                 <nav class="navbar navbar-light bg-light col-md-12">
-                                    <form class="form-inline" action="faculty_search_result.php" method="GET">
-                                        <input class="form-control mr-sm-2" type="search" name="query" placeholder="Faculty Name Or Code">
-                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                    <form class="form-inline">
+                                        <!-- Leave This Like This For Now -->
                                     </form>
                                     <div class="text-right">
-                                        <!--<a href="school_calendar.php?view=<?php echo $faculty->id; ?>" class="btn btn-primary" title="View <?php echo $faculty->name; ?> School Calendar In Calendar Formart"><i class="fas fa-calendar"></i></a>-->
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Faculty Important Dates</button>
                                     </div>
                                     <div class="modal fade" id="modal-default">
@@ -356,7 +259,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                         </div>
                                                         <div class="text-right">
-                                                            <button type="submit" name="add_school_calendar" class="btn btn-primary">Submit</button>
+                                                            <button type="submit" name="add_dates" class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -370,61 +273,15 @@ require_once('public/partials/_head.php');
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-md-3">
-                                    <div class="col-md-12">
-                                        <div class="card card-primary">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Menu</h3>
-                                                <div class="card-tools text-right">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <ul class="list-group">
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_departments.php?view=<?php echo $faculty->id; ?>">
-                                                            Departments
-                                                        </a>
-                                                    </li>
-
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_courses.php?view=<?php echo $faculty->id; ?>">
-                                                            Courses
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_modules.php?view=<?php echo $faculty->id; ?>">
-                                                            Modules
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="school_calendar.php?view=<?php echo $faculty->id; ?>">
-                                                            Important Dates
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_lects.php?view=<?php echo $faculty->id; ?>">
-                                                            Lecturers
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_students.php?view=<?php echo $faculty->id; ?>">
-                                                            Students
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                <!-- Faculty Sub Menu -->
+                                <?php require_once('public/partials/_facultysubmenu.php'); ?>
+                                <!-- End Sub Menu -->
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="text-center">
+                                            <!-- <div class="text-center">
                                                 <h1 class="display-4">Faculty Important Dates</h1>
-                                            </div>
+                                            </div> -->
                                             <div class="row">
                                                 <div class="col-12">
 
@@ -533,7 +390,7 @@ require_once('public/partials/_head.php');
                                                                                         <h4>Delete Dates?</h4>
                                                                                         <br>
                                                                                         <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                        <a href="school_calendar.php?view=<?php echo $view;?>&delete=<?php echo $cal->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                        <a href="edu_admn_school_calendar.php?view=<?php echo $view; ?>&delete=<?php echo $cal->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

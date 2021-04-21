@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Mon Apr 19 2021
+ * Created on Wed Apr 21 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -19,25 +19,13 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 require_once('public/partials/_edu_admn_analytics.php');
-/* Mark All Notications As Read */
-if (isset($_GET['notification'])) {
-    $notification = $_GET['notification'];
-    $adn = "UPDATE   ezanaLMS_Notifications SET  status = 'Read' ";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=edu_admn_dashboard.php");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 require_once('public/partials/_head.php');
 ?>
 
@@ -69,12 +57,12 @@ require_once('public/partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Dashboard</h1>
+                            <h1 class="m-0 text-dark"><?php echo $admin->school; ?> Reports</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard</li>
+                                <li class="breadcrumb-item active">Reports</li>
                             </ol>
                         </div>
                     </div>
@@ -93,23 +81,7 @@ require_once('public/partials/_head.php');
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_faculties.php?view=<?php echo $admin->school_id; ?>">
-                                                    <div class="small-box bg-info">
-                                                        <div class="inner">
-                                                            <h3>Faculties</h3>
-                                                        </div>
-                                                        <div class="icon">
-                                                            <i class="fas fa-university"></i>
-                                                        </div>
-                                                        <div class="small-box-footer">
-                                                            <i class="fas fa-arrow-circle-right"></i>
-                                                            <?php echo $faculties; ?>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_departments.php?view=<?php echo $admin->school_id; ?>">
+                                                <a href="edu_admn_reports_departments.php?view=<?php echo $admin->school_id; ?>">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Departments</h3>
@@ -126,7 +98,7 @@ require_once('public/partials/_head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_courses.php?view=<?php echo $admin->school_id; ?>">
+                                                <a href="edu_admn_reports_courses.php?view=<?php echo $admin->school_id; ?>">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Courses</h3>
@@ -143,7 +115,7 @@ require_once('public/partials/_head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_modules.php?view=<?php echo $admin->school_id; ?>">
+                                                <a href="edu_admn_reports_modules.php?view=<?php echo $admin->school_id; ?>">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Modules</h3>
@@ -160,7 +132,7 @@ require_once('public/partials/_head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_overall_school_calendar.php?view=<?php echo $admin->school_id; ?>">
+                                                <a href="edu_admn_reports_overall_school_calendar.php?view=<?php echo $admin->school_id; ?>">
 
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
@@ -178,7 +150,7 @@ require_once('public/partials/_head.php');
 
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_lecturers.php?view=<?php echo $admin->school_id; ?>">
+                                                <a href="edu_admn_reports_lecturers.php?view=<?php echo $admin->school_id; ?>">
 
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
@@ -196,7 +168,7 @@ require_once('public/partials/_head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_students.php?view=<?php echo $admin->school_id; ?>">
+                                                <a href="edu_admn_reports_students.php?view=<?php echo $admin->school_id; ?>">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Students</h3>
@@ -212,45 +184,53 @@ require_once('public/partials/_head.php');
                                                 </a>
                                             </div>
 
-                                        </div>
-                                        <hr>
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="card col-md-12">
-                                                    <div class="card-header">
-                                                        <h3 class="card-title">
-                                                            Users Requests
-                                                        </h3>
+                                            <div class="col-lg-4 col-6">
+                                                <a href="edu_admn_reports_overall_school_timetable.php?view=<?php echo $admin->school_id; ?>">
+                                                    <div class="small-box bg-info">
+                                                        <div class="inner">
+                                                            <h3>Time Table</h3>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="fas fa-table"></i>
+                                                        </div>
+                                                        <div class="small-box-footer">
+                                                            <i class="fas fa-arrow-circle-right"></i>
+                                                        </div>
                                                     </div>
-                                                    <!-- /.card-header -->
-                                                    <div class="card-body">
-                                                        <ul class="todo-list" data-widget="todo-list">
-                                                            <?php
-                                                            /* Load User Requests */
-                                                            $ret = "SELECT * FROM `ezanaLMS_UserRequests` ORDER BY `created_at` ASC   ";
-                                                            $stmt = $mysqli->prepare($ret);
-                                                            $stmt->execute(); //ok
-                                                            $res = $stmt->get_result();
-                                                            while ($req = $res->fetch_object()) {
-                                                            ?>
-                                                                <li>
-                                                                    <a href="edu_admn_user_requests.php?view=<?php echo $req->id; ?>">
-                                                                        <span class="text"><?php echo $req->request; ?></span>
-                                                                        <small class="badge badge-success"><i class="far fa-clock"></i> <?php echo date('d M Y - g:ia', strtotime($req->created_at)); ?></small>
-                                                                        <div class="progress">
-                                                                            <div class="progress-bar" style="width: <?php echo $req->progress; ?>%"></div>
-                                                                        </div>
-                                                                        <span class="progress-description">
-                                                                            Progress : <?php echo $req->progress; ?> %
-                                                                        </span>
-                                                                    </a>
-                                                                </li>
-                                                                </a>
-                                                            <?php
-                                                            } ?>
-                                                        </ul>
+                                                </a>
+                                            </div>
+
+                                            <div class="col-lg-4 col-6">
+                                                <a href="edu_admn_reports_school_enrollments.php?view=<?php echo $admin->school_id; ?>">
+
+                                                    <div class="small-box bg-info">
+                                                        <div class="inner">
+                                                            <h3>Enrollments</h3>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="fas fa-user-tag"></i>
+                                                        </div>
+                                                        <div class="small-box-footer">
+                                                            <i class="fas fa-arrow-circle-right"></i>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </a>
+                                            </div>
+                                            <div class="col-lg-4 col-6">
+                                                <a href="edu_admn_reports_overall_module_grades.php?view=<?php echo $admin->school_id; ?>">
+
+                                                    <div class="small-box bg-info">
+                                                        <div class="inner">
+                                                            <h3>Module Grades</h3>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="fas fa-file"></i>
+                                                        </div>
+                                                        <div class="small-box-footer">
+                                                            <i class="fas fa-arrow-circle-right"></i>
+                                                        </div>
+                                                    </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

@@ -168,7 +168,7 @@ require_once('public/partials/_reportshead.php');
                                             <th>Teaching Duration</th>
                                             <th>Exam Weight Percentage</th>
                                             <th>Cat Weight Percentage</th>
-                                            <th>No Of Lecturers</th>
+                                            <th>Lectures Per Week</th>
                                             <th>Course Name</th>
                                         </tr>
                                     </thead>

@@ -120,10 +120,17 @@
         bsCustomFileInput.init();
     });
 
-    /* Bulk Clear Notifications */
+    /* Admin Bulk Clear Notifications */
     function setDeleteAction() {
         if (confirm("Are you sure want to clear these notifications?")) {
             document.notificationsForm.action = "notifications_clear.php";
+            document.notificationsForm.submit();
+        }
+    }
+    /* Faculty Clear Notifications */
+    function setDeleteAction() {
+        if (confirm("Are you sure want to clear these notifications?")) {
+            document.notificationsForm.action = "edu_admn_notifications_clear.php";
             document.notificationsForm.submit();
         }
     }

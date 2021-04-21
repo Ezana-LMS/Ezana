@@ -38,7 +38,7 @@ while ($admin = $res->fetch_object()) {
                     <span class="badge badge-success navbar-badge"><?php echo $unread; ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-item dropdown-header"><?php echo $unread; ?> Notifications <a href="dashboard.php?notification='Read'" class="badge bg-danger"> Mark All Read </a></span>
+                    <span class="dropdown-item dropdown-header"><?php echo $unread; ?> Notifications <a href="edu_admn_dashboard.php?notification='Read'" class="badge bg-danger"> Mark All Read </a></span>
                     <div class="dropdown-divider"></div>
                     <?php
                     /* Load Notifications On Order Created */
@@ -48,7 +48,7 @@ while ($admin = $res->fetch_object()) {
                     $res = $stmt->get_result();
                     while ($notification = $res->fetch_object()) {
                     ?>
-                        <a href="notifications.php" class="dropdown-item">
+                        <a href="edu_admn_notifications.php" class="dropdown-item">
                             <?php echo  substr($notification->notification_detail, 0, 30) . "..."; ?>
                             <span class="float-right text-success text-sm"><?php echo date('d M Y g:ia', strtotime($notification->created_at)); ?></span>
                             <br>
