@@ -184,7 +184,7 @@ require_once('public/partials/_reportshead.php');
                                                 <td><?php echo $cal->semester_name; ?></td>
                                                 <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
                                                 <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
-                                                <td><?php echo $cal->description; ?></td>
+                                                <td><?php echo $cal->details; ?></td>
                                             </tr>
                                         <?php $cnt = $cnt + 1;
                                         } ?>
