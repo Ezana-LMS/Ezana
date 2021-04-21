@@ -50,7 +50,7 @@ require_once('public/partials/_head.php');
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                                <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item active">Notifcations</li>
                             </ol>
                         </div>
