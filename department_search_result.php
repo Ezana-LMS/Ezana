@@ -24,54 +24,6 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
-if (isset($_POST['add_dept'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['code']) && !empty($_POST['code'])) {
-        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
-    } else {
-        $error = 1;
-        $err = "Department Code Cannot Be Empty";
-    }
-    if (isset($_POST['name']) && !empty($_POST['name'])) {
-        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
-    } else {
-        $error = 1;
-        $err = "Department Name Cannot Be Empty";
-    }
-    if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Departments WHERE  code='$code' || name ='$name' ";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if ($code == $row['code']) {
-                $err =  "Department With This Code Already Exists";
-            } else {
-                $err = "Department Name Already Exists";
-            }
-        } else {
-            $id = $_POST['id'];
-            $name = $_POST['name'];
-            $code = $_POST['code'];
-            $view = $_GET['view'];
-            $details = $_POST['details'];
-            $hod = $_POST['hod'];
-            $created_at = date('d M Y');
-
-            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, details, hod, created_at) VALUES(?,?,?,?,?,?,?)";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssss', $id, $code, $name, $view, $details, $hod, $created_at);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "Faculty Department Added";
-            } else {
-                //inject alert that profile update task failed
-                $info = "Please Try Again Or Try Later";
-            }
-        }
-    }
-}
 require_once('public/partials/_head.php');
 ?>
 
@@ -102,7 +54,7 @@ require_once('public/partials/_head.php');
                         </li>
 
                         <li class="nav-item">
-                            <a href="faculties.php" class=" nav-link">
+                            <a href="faculties.php" class="active nav-link">
                                 <i class="nav-icon fas fa-university"></i>
                                 <p>
                                     Faculties
@@ -110,7 +62,7 @@ require_once('public/partials/_head.php');
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a href="departments.php" class="active nav-link">
+                            <a href="departments.php" class=" nav-link">
                                 <i class="nav-icon fas fa-building"></i>
                                 <p>
                                     Departments
