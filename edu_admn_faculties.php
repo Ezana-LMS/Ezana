@@ -60,12 +60,12 @@ if (isset($_POST['add_dept'])) {
             $created_at = date('d M Y');
             $faculty_name = $_POST['faculty_name'];
 
-            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, faculty_name details, hod, created_at) VALUES(?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, faculty_name, details, hod, created_at) VALUES(?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ssssssss', $id, $code, $name, $view, $faculty_name, $details, $hod, $created_at);
             $stmt->execute();
             if ($stmt) {
-                $success = " $name Department Added" && header("Refresh: 0");;
+                $success = " $name Department Added" && header("Refresh: 0");
             } else {
                 $info = "Please Try Again Or Try Later";
             }

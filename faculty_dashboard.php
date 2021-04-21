@@ -25,6 +25,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
+
 if (isset($_POST['add_dept'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -58,17 +59,17 @@ if (isset($_POST['add_dept'])) {
             $view = $_GET['view'];
             $details = $_POST['details'];
             $hod = $_POST['hod'];
-            $created_at = date('d M Y');
             $faculty_name = $_POST['faculty_name'];
+            $created_at = date('d M Y');
 
-            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, faculty_name details, hod, created_at) VALUES(?,?,?,?,?,?,?,?)";
+
+            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, faculty_name, details, hod, created_at) VALUES(?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ssssssss', $id, $code, $name, $view, $faculty_name, $details, $hod, $created_at);
             $stmt->execute();
             if ($stmt) {
-                $success = " $name Department Added";
+                $success = "$name Department Added" && header("refresh:1; url=faculty_dashboard.php?view=$view");;
             } else {
-                //inject alert that profile update task failed
                 $info = "Please Try Again Or Try Later";
             }
         }
@@ -288,14 +289,14 @@ require_once('public/partials/_head.php');
                                                                     <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-4">
-                                                                    <label for="">Department HOD</label>
+                                                                    <label for="">HOD</label>
                                                                     <input type="text" required name="hod" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Department Details</label>
-                                                                    <textarea name="department_details"  rows="10" class="form-control Summernote"></textarea>
+                                                                    <textarea name="details" rows="10" class="form-control Summernote"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -573,7 +574,7 @@ require_once('public/partials/_head.php');
                 });
             });
         </script>
-        
+
 </body>
 
 </html>

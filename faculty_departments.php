@@ -59,12 +59,13 @@ if (isset($_POST['add_dept'])) {
             $view = $_GET['view'];
             $details = $_POST['details'];
             $hod = $_POST['hod'];
+            $faculty_name = $_POST['faculty_name'];
             $created_at = date('d M Y');
 
 
-            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, details, hod, created_at) VALUES(?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, faculty_name, details, hod, created_at) VALUES(?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssss', $id, $code, $name, $view, $details, $hod, $created_at);
+            $rc = $stmt->bind_param('ssssssss', $id, $code, $name, $view, $faculty_name, $details, $hod, $created_at);
             $stmt->execute();
             if ($stmt) {
                 $success = "$name Department Added" && header("refresh:1; url=faculty_departments.php?view=$view");;
@@ -278,6 +279,8 @@ require_once('public/partials/_head.php');
                                                                     <label for="">Department Name</label>
                                                                     <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <input type="hidden" required name="faculty_name" value="<?php echo $faculty->name; ?>" class="form-control">
+
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="">Department Number / Code</label>
