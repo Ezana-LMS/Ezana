@@ -59,6 +59,12 @@ if (isset($_POST['add_school_calendar'])) {
         $error = 1;
         $err = "Faculty ID  Dates Cannot Be Empty";
     }
+    if (isset($_POST['description']) && !empty($_POST['description'])) {
+        $description = $_POST['description'];
+    } else {
+        $error = 1;
+        $err = "Event Description Cannot Be Empty";
+    }
     if (!$error) {
         //prevent Double entries
         $sql = "SELECT * FROM  ezanaLMS_Calendar WHERE  (semester_name='$semester_name' AND academic_yr = '$academic_yr' AND faculty_id = '$view' AND details = '$description' )   ";

@@ -152,7 +152,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("Refresh: 0");
+        $success = "Deleted" && header("refresh:1; url=edu_admn_school_calendar.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
