@@ -164,7 +164,7 @@ require_once('public/partials/_reportshead.php');
                                         <tr>
                                             <th>Adm No</th>
                                             <th>Name</th>
-                                            <th>Phone No</th>
+                                            <th>Phone</th>
                                             <th>Gender</th>
                                             <th>DOB</th>
                                             <th>Email</th>
@@ -172,7 +172,6 @@ require_once('public/partials/_reportshead.php');
                                             <th>Department</th>
                                             <th>Course</th>
                                             <th>Date Enrolled</th>
-                                            <th>No Of Modules</th>
                                             <th>Year</th>
                                         </tr>
                                     </thead>
@@ -196,7 +195,6 @@ require_once('public/partials/_reportshead.php');
                                                 <td><?php echo $std->department; ?></td>
                                                 <td><?php echo $std->course; ?></td>
                                                 <td><?php echo $std->day_enrolled; ?></td>
-                                                <td><?php echo $std->no_of_modules; ?></td>
                                                 <td><?php echo $std->current_year; ?></td>
 
                                             </tr>
