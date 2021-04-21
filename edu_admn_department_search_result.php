@@ -63,8 +63,8 @@ require_once('public/partials/_head.php');
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
-                                <li class="breadcrumb-item"><a href="edu_admn_departments.php">Departments</a></li>
-                                <li class="breadcrumb-item active">Search Results</li>
+                                <li class="breadcrumb-item"><a href="edu_admn_faculties.php?view=<?php echo $admin->school_id; ?>">Faculty</a></li>
+                                <li class="breadcrumb-item active">Department Search Results</li>
                             </ol>
                         </div>
                     </div>
@@ -105,7 +105,7 @@ require_once('public/partials/_head.php');
                                 <?php
                                         }
                                     } else {
-                                        echo "<span class ='text-danger'>No Search Results Or That Department Is Not Available In This : $admin->school Faculty</span>";
+                                        echo "<span class ='text-danger'>No Search Results Or That Department Is Not Available In  $admin->school </span>";
                                     }
                                 } else {
                                     echo "<span class ='text-danger'> Minimum Search Querry  Length Is " . $min_length . " Characters </span> ";
