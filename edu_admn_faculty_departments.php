@@ -149,6 +149,7 @@ require_once('public/partials/_head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="edu_admn_faculties.php?view=<?php echo $view; ?>"><?php echo $faculty->name; ?></a></li>
                                     <li class="breadcrumb-item active">Departments</li>
                                 </ol>
                             </div>

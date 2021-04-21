@@ -62,7 +62,7 @@ require_once('public/partials/_head.php');
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
-                                <li class="breadcrumb-item"><a href="edu_admn_courses.php?view=<?php echo $admin->school_id; ?>">Courses</a></li>
+                                <li class="breadcrumb-item"><a href="edu_admn_faculty_courses.php?view=<?php echo $admin->school_id; ?>">Courses</a></li>
                                 <li class="breadcrumb-item active">Search Results</li>
                             </ol>
                         </div>
@@ -88,14 +88,14 @@ require_once('public/partials/_head.php');
                                 if (strlen($query) >= $min_length) {
                                     $query = htmlspecialchars($query);
                                     $query = mysqli_real_escape_string($mysqli, $query);
-                                    $raw_results = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Courses WHERE (`name` LIKE '%" . $query . "%') OR (`code` LIKE '%" . $query . "%') WHERE faculty_id = '$admin->school_id' ");
+                                    $raw_results = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Courses WHERE (`name` LIKE '%" . $query . "%') OR (`code` LIKE '%" . $query . "%') AND faculty_id = '$admin->school_id' ");
                                     if (mysqli_num_rows($raw_results) > 0) {
                                         while ($results = mysqli_fetch_array($raw_results)) {
                                 ?>
                                             <div class="col-md-12">
                                                 <div class="card card-primary collapsed-card">
                                                     <div class="card-header">
-                                                        <a href="course.php?view=<?php echo $results['id']; ?>">
+                                                        <a href="edu_admn_course.php?view=<?php echo $results['id']; ?>">
                                                             <h3 class="card-title"><?php echo $results['name']; ?></h3>
                                                             <div class="card-tools text-right">
                                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
