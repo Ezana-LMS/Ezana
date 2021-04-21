@@ -156,7 +156,7 @@ if (isset($_POST["upload"])) {
                 if (!empty($insertId)) {
                     $err = "Error Occured While Importing Data";
                 } else {
-                    $success = "Data Imported" && header("refresh:1; url=edu_admn_faculty_lects.php?view=$view");
+                    $success = "Data Imported" && header("refresh:1; url=edu_admn_lecturers.php?view=$view");
                 }
             }
         }
@@ -693,7 +693,7 @@ require_once('public/partials/_head.php');
                                                                                 <h4>Give <?php echo $lec->name; ?> Leave ?</h4>
                                                                                 <br>
                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="edu_admn_faculty_lects.php?leave=<?php echo $lec->id; ?>&view=<?php echo $view; ?>" class="text-center btn btn-danger"> Yes </a>
+                                                                                <a href="edu_admn_lecturers.php?leave=<?php echo $lec->id; ?>&view=<?php echo $view; ?>" class="text-center btn btn-danger"> Yes </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -714,7 +714,7 @@ require_once('public/partials/_head.php');
                                                                             <div class="modal-body text-center text-danger">
                                                                                 <h4>Set <?php echo $lec->name; ?> To Be On Work ?</h4>
                                                                                 <br>
-                                                                                <a href="edu_admn_faculty_lects.php?onwork=<?php echo $lec->id; ?>&view=<?php echo $view; ?>" class="text-center btn btn-success"> Confirm </a>
+                                                                                <a href="edu_admn_lecturers.php?onwork=<?php echo $lec->id; ?>&view=<?php echo $view; ?>" class="text-center btn btn-success"> Confirm </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
