@@ -68,9 +68,11 @@ if (isset($_POST['add_course'])) {
             $department_id = $_POST['department_id'];
             $department_name = $_POST['department_name'];
             $faculty_id = $_POST['faculty_id'];
-            $query = "INSERT INTO ezanaLMS_Courses (id, code, name, details, department_id, faculty_id, department_name) VALUES(?,?,?,?,?,?,?)";
+            $faculty_name = $_POST['faculty_name'];
+
+            $query = "INSERT INTO ezanaLMS_Courses (id, code, name, details, department_id, faculty_id, faculty_name, department_name) VALUES(?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssss', $id, $code, $name, $details, $department_id, $faculty_id,  $department_name);
+            $rc = $stmt->bind_param('ssssssss', $id, $code, $name, $details, $department_id, $faculty_id, $faculty_name,  $department_name);
             $stmt->execute();
             if ($stmt) {
                 $success = "Course Added" && header("Refresh: 0");
@@ -215,6 +217,7 @@ require_once('public/partials/_head.php');
                                                                     <input type="text" id="DepName" required name="department_name" class="form-control">
                                                                     <input type="hidden" id="DepID" readonly required name="department_id" class="form-control">
                                                                     <input type="hidden" readonly required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
+                                                                    <input type="hidden" readonly required name="faculty_name" value="<?php echo $faculty->name; ?>" class="form-control">
 
                                                                 </div>
 
