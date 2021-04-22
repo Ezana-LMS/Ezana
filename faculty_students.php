@@ -322,7 +322,7 @@ require_once('public/partials/_head.php');
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                            <div class="form-group col-md-6">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">Name</label>
                                                                     <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
@@ -376,15 +376,20 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Current Year</label>
-                                                                    <input type="text" required name="current_year" class="form-control">
+                                                                    <select name="current_year" class='form-control basic'>
+                                                                        <option>1st Year </option>
+                                                                        <option>2nd Year </option>
+                                                                        <option>3rd Year </option>
+                                                                        <option>4th Year </option>
+                                                                    </select>
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Date Enrolled</label>
                                                                     <input type="date" placeholder="DD - MM - YYYY" required name="day_enrolled" class="form-control">
                                                                 </div>
-                                                                
+
                                                             </div>
-                                                            
+
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Email</label>
@@ -573,13 +578,19 @@ require_once('public/partials/_head.php');
                                                                                             </div>
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Current Year</label>
-                                                                                                <input type="text" required name="current_year" value="<?php echo $std->current_year; ?>" class="form-control">
+                                                                                                <select name="current_year" class='form-control basic'>
+                                                                                                    <option><?php echo $std->current_year; ?></option>
+                                                                                                    <option>1st Year </option>
+                                                                                                    <option>2nd Year </option>
+                                                                                                    <option>3rd Year </option>
+                                                                                                    <option>4th Year </option>
+                                                                                                </select>
                                                                                             </div>
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Date Enrolled</label>
                                                                                                 <input type="text" required name="day_enrolled" value="<?php echo $std->day_enrolled; ?>" class="form-control">
                                                                                             </div>
-                                                                                            
+
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Name</label>
                                                                                                 <input type="text" required name="name" class="form-control" value="<?php echo $std->name; ?>">
