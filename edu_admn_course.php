@@ -263,7 +263,7 @@ require_once('public/partials/_head.php');
                             <hr>
                             <div class="row">
                                 <!-- Course Side Menu -->
-                                <?php require_once('public/partials/_coursemenu.php'); ?>
+                                <?php require_once('public/partials/_edu_admn_coursemenu.php'); ?>
                                 <!-- End Course Side Menu -->
                                 <div class="col-md-9">
                                     <div class="row">

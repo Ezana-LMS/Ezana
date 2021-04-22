@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Apr 01 2021
+ * Created on Thu Apr 22 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -19,6 +19,7 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
@@ -78,12 +79,15 @@ if (isset($_POST['add_module'])) {
             $created_at = date('d M Y');
             $faculty_id = $_POST['faculty_id'];
 
+            /* Course ID */
+            $view = $_POST['view'];
+
             $query = "INSERT INTO ezanaLMS_Modules (id, name, code, details, course_name, course_id, course_duration, exam_weight_percentage, cat_weight_percentage, lectures_number, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ssssssssssss', $id, $name, $code, $details, $course_name, $course_id, $course_duration, $exam_weight_percentage, $cat_weight_percentage, $lectures_number, $created_at, $faculty_id);
             $stmt->execute();
             if ($stmt) {
-                $success = "$name Module Added";
+                $success = "$name Module Added" && header("refresh:1; url=edu_admn_course_modules.php?view=$view");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -124,29 +128,12 @@ if (isset($_POST['update_module'])) {
         $rc = $stmt->bind_param('sssssssss', $name, $code, $details,  $course_duration, $exam_weight_percentage, $cat_weight_percentage, $lectures_number, $updated_at, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Updated" && header("refresh:1; url=course_modules.php?view=$view");
+            $success = "Updated" && header("refresh:1; url=edu_admn_course_modules.php?view=$view");
         } else {
             $info = "Please Try Again Or Try Later";
         }
     }
 }
-
-/* Delete Module */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $view = $_GET['view'];
-    $adn = "DELETE FROM ezanaLMS_Modules WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=course_modules.php?view=$view");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
-require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
 
@@ -154,7 +141,7 @@ require_once('public/partials/_head.php');
     <div class="wrapper">
         <!-- Navbar -->
         <?php
-        require_once('public/partials/_nav.php');
+        require_once('public/partials/_edu_admn_nav.php');
         $view = $_GET['view'];
         $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE id = '$view'";
         $stmt = $mysqli->prepare($ret);
@@ -169,102 +156,7 @@ require_once('public/partials/_head.php');
                 <!-- Brand Logo -->
                 <?php require_once('public/partials/_brand.php'); ?>
                 <!-- Sidebar -->
-                <div class="sidebar">
-                    <!-- Sidebar Menu -->
-                    <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <li class="nav-item">
-                                <a href="dashboard.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Dashboard
-                                    </p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="faculties.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-university"></i>
-                                    <p>
-                                        Faculties
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="departments.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-building"></i>
-                                    <p>
-                                        Departments
-                                    </p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="courses.php" class="active nav-link">
-                                    <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                                    <p>
-                                        Courses
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="modules.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-chalkboard"></i>
-                                    <p>
-                                        Modules
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="non_teaching_staff.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-secret"></i>
-                                    <p>
-                                        Non Teaching Staff
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="lecturers.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-tie"></i>
-                                    <p>
-                                        Lecturers
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="students.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-graduate"></i>
-                                    <p>
-                                        Students
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-cogs"></i>
-                                    <p>
-                                        System Settings
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="reports.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Reports</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="system_settings.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>System Settings</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                <?php require_once('public/partials/_sidebar.php'); ?>
             </aside>
 
             <div class="content-wrapper">
@@ -276,8 +168,8 @@ require_once('public/partials/_head.php');
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="course.php?view=<?php echo $course->id;?>"><?php echo $course->name;?></a></li>
+                                    <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="edu_admn_courses.php?view=<?php echo $course->faculty_id; ?>"><?php echo $course->name; ?></a></li>
                                     <li class="breadcrumb-item active">Modules</li>
                                 </ol>
                             </div>
@@ -288,7 +180,7 @@ require_once('public/partials/_head.php');
                         <div class="container-fluid">
                             <div class="text-left">
                                 <nav class="navbar navbar-light bg-light col-md-12">
-                                    <form class="form-inline" action="module_search_result.php" method="GET">
+                                    <form class="form-inline" action="edu_admn_module_search_result.php" method="GET">
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
@@ -311,6 +203,8 @@ require_once('public/partials/_head.php');
                                                                     <label for="">Module Name</label>
                                                                     <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <input type="hidden" required name="view" value="<?php echo $course->id; ?>" class="form-control">
+
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="">Module Number / Code</label>
@@ -373,7 +267,7 @@ require_once('public/partials/_head.php');
                             <hr>
                             <div class="row">
                                 <!-- Course Side Menu -->
-                                <?php require_once('public/partials/_coursemenu.php'); ?>
+                                <?php require_once('public/partials/_edu_admn_coursemenu.php'); ?>
                                 <!-- End Course Side Menu -->
 
                                 <div class="col-md-9">
@@ -404,7 +298,7 @@ require_once('public/partials/_head.php');
                                                             <td><?php echo $mod->course_duration; ?></td>
                                                             <td><?php echo $mod->cat_weight_percentage . " &  " . $mod->exam_weight_percentage; ?></td>
                                                             <td>
-                                                                <a class="badge badge-success" href="module.php?view=<?php echo $mod->id; ?>">
+                                                                <a class="badge badge-success" href="edu_admn_module.php?view=<?php echo $mod->id; ?>">
                                                                     <i class="fas fa-eye"></i>
                                                                     View
                                                                 </a>
@@ -476,31 +370,6 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <!-- End Modal -->
-                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $mod->id; ?>">
-                                                                    <i class="fas fa-trash"></i>
-                                                                    Delete
-                                                                </a>
-                                                                <!-- Delete Confirmation Modal -->
-                                                                <div class="modal fade" id="delete-<?php echo $mod->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body text-center text-danger">
-                                                                                <h4>Delete <?php echo $mod->name; ?> ?</h4>
-                                                                                <br>
-                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="course_modules.php?delete=<?php echo $mod->id; ?>&view=<?php echo $course->id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- End Delete Confirmation Modal -->
                                                             </td>
                                                         </tr>
                                                     <?php
