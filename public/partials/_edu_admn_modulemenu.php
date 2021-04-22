@@ -12,6 +12,11 @@
             <div class="card-body">
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="edu_admn_module.php?view=<?php echo $mod->id; ?>">
+                            Module Home
+                        </a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a href="edu_admn_module_notices.php?view=<?php echo $mod->id; ?>">
                             Notices & Memos
                         </a>
