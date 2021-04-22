@@ -68,9 +68,13 @@ if (isset($_POST['add_course'])) {
             $department_id = $_POST['department_id'];
             $department_name = $_POST['department_name'];
             $faculty_id = $_POST['faculty_id'];
-            $query = "INSERT INTO ezanaLMS_Courses (id, code, name, details, department_id, faculty_id, department_name) VALUES(?,?,?,?,?,?,?)";
+            $faculty_name = $_POST['faculty_name'];
+            $hod = $_POST['hod'];
+            $email = $_POST['email'];
+
+            $query = "INSERT INTO ezanaLMS_Courses (id, code, name, details, department_id, faculty_id, faculty_name, department_name, hod, email) VALUES(?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssss', $id, $code, $name, $details, $department_id, $faculty_id,  $department_name);
+            $rc = $stmt->bind_param('ssssssssss', $id, $code, $name, $details, $department_id, $faculty_id, $faculty_name, $department_name, $hod, $email);
             $stmt->execute();
             if ($stmt) {
                 $success = "Course Added" && header("Refresh: 0");
@@ -105,10 +109,12 @@ if (isset($_POST['update_course'])) {
         $details = $_POST['details'];
         /* Faculty ID */
         $faculty_id = $_POST['faculty_id'];
+        $hod = $_POST['hod'];
+        $email = $_POST['email'];
 
-        $query = "UPDATE ezanaLMS_Courses SET  code =?, name =?, details =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Courses SET  code =?, name =?, details =?, hod=?, email=? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
+        $rc = $stmt->bind_param('ssssss', $code, $name, $details, $hod, $email, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Course Updated" && header("Refresh: 0");
@@ -192,6 +198,16 @@ require_once('public/partials/_head.php');
                                                                     <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                                                 </div>
                                                             </div>
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Course HOD Name</label>
+                                                                    <input type="text" required name="hod" class="form-control" id="exampleInputEmail1">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Course HOD Email</label>
+                                                                    <input type="text" required name="email" class="form-control">
+                                                                </div>
+                                                            </div>
 
                                                             <div class="row">
 
@@ -215,6 +231,7 @@ require_once('public/partials/_head.php');
                                                                     <input type="text" id="DepName" required name="department_name" class="form-control">
                                                                     <input type="hidden" id="DepID" readonly required name="department_id" class="form-control">
                                                                     <input type="hidden" readonly required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
+                                                                    <input type="hidden" readonly required name="faculty_name" value="<?php echo $faculty->name; ?>" class="form-control">
 
                                                                 </div>
 
@@ -303,6 +320,17 @@ require_once('public/partials/_head.php');
                                                                                                 <input type="text" required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
                                                                                             </div>
                                                                                         </div>
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Course HOD Name</label>
+                                                                                                <input type="text" required name="hod" value="<?php echo $courses->hod; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Course HOD Email</label>
+                                                                                                <input type="text" required name="email" value="<?php echo $courses->email; ?>" class="form-control">
+                                                                                            </div>
+                                                                                        </div>
+
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="exampleInputPassword1">Course Description</label>
