@@ -435,6 +435,11 @@ require_once('public/partials/_head.php');
                                                                 </li>
                                                                 <li class="nav-item">
                                                                     <span class="nav-link text-primary">
+                                                                        Exam Weight Percentage : <span class="float-right "><?php echo $mod->exam_weight_percentage; ?></span>
+                                                                    </span>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <span class="nav-link text-primary">
                                                                         Cat Weight Percentage : <span class="float-right "><?php echo $mod->cat_weight_percentage; ?></span>
                                                                     </span>
                                                                 </li>
