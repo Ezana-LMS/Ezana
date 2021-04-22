@@ -545,7 +545,7 @@ require_once('public/partials/_head.php');
                                                                                 <label for="">Upload Departmental Memo (PDF Or Docx)</label>
                                                                                 <div class="input-group">
                                                                                     <div class="custom-file">
-                                                                                        <input name="attachments" type="file" class="custom-file-input">
+                                                                                        <input name="attachments" accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                     </div>
                                                                                 </div>
@@ -606,7 +606,7 @@ require_once('public/partials/_head.php');
                                                                                 <label for="">Upload Departmental Document (PDF Or Docx)</label>
                                                                                 <div class="input-group">
                                                                                     <div class="custom-file">
-                                                                                        <input name="attachments" type="file" class="custom-file-input">
+                                                                                        <input name="attachments" accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                     </div>
                                                                                 </div>
@@ -964,7 +964,7 @@ require_once('public/partials/_head.php');
                                                                                                                                 <label for="">Upload Memo | Notice (PDF r Docx)</label>
                                                                                                                                 <div class="input-group">
                                                                                                                                     <div class="custom-file">
-                                                                                                                                        <input name="attachments" type="file" class="custom-file-input">
+                                                                                                                                        <input name="attachments" accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
                                                                                                                                         <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
                                                                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                                     </div>
@@ -1122,7 +1122,7 @@ require_once('public/partials/_head.php');
                                                                                                                                 <label for="">Upload Departmental Document (PDF Or Docx)</label>
                                                                                                                                 <div class="input-group">
                                                                                                                                     <div class="custom-file">
-                                                                                                                                        <input name="attachments" type="file" class="custom-file-input">
+                                                                                                                                        <input name="attachments" accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
                                                                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                                     </div>
                                                                                                                                 </div>

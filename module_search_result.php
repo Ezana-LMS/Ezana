@@ -178,7 +178,7 @@ require_once('public/partials/_head.php');
                                         while ($results = mysqli_fetch_array($raw_results)) {
                                 ?>
                                             <div class="col-md-12">
-                                                <div class="card card-primary collapsed-card">
+                                                <div class="card card-primary">
                                                     <div class="card-header">
                                                         <a href="module.php?view=<?php echo $results['id']; ?>">
                                                             <h3 class="card-title"><?php echo $results['name']; ?></h3>
@@ -192,38 +192,38 @@ require_once('public/partials/_head.php');
                                                     <div class="card-body">
                                                         <ul class="list-group">
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="module_notices.php?view=<?php echo $mod->id; ?>">
+                                                                <a href="module_notices.php?view=<?php echo $results['id']; ?>">
                                                                     Notices & Memos
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="pastpapers.php?view=<?php echo $mod->id; ?>">
+                                                                <a href="pastpapers.php?view=<?php echo $results['id']; ?>">
                                                                     Past Papers
                                                                 </a>
                                                             </li>
 
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="course_materials.php?view=<?php echo $mod->id; ?>">
+                                                                <a href="course_materials.php?view=<?php echo $results['id']; ?>">
                                                                     Reading Materials
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="class_recordings.php?view=<?php echo $mod->id; ?>">
+                                                                <a href="class_recordings.php?view=<?php echo $results['id']; ?>">
                                                                     Class Recordings
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="module_assignments.php?view=<?php echo $mod->id; ?>">
+                                                                <a href="module_assignments.php?view=<?php echo $results['id']; ?>">
                                                                     Assignments
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="student_groups.php?view=<?php echo $mod->id; ?>">
+                                                                <a href="student_groups.php?view=<?php echo $results['id']; ?>">
                                                                     Student Groups
                                                                 </a>
                                                             </li>
                                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                                <a href="module_enrollments.php?view=<?php echo $mod->id; ?>">
+                                                                <a href="module_enrollments.php?view=<?php echo $results['id'];?>">
                                                                     Module Enrollments
                                                                 </a>
                                                             </li>

@@ -415,7 +415,12 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label for="">Current Year</label>
-                                                                <input type="text" required name="current_year" class="form-control">
+                                                                <select name="current_year" class='form-control basic'>
+                                                                    <option>1st Year </option>
+                                                                    <option>2nd Year </option>
+                                                                    <option>3rd Year </option>
+                                                                    <option>4th Year </option>
+                                                                </select>
                                                             </div>
                                                             <div class="form-group col-md-4">
                                                                 <label for="">Date Enrolled</label>
