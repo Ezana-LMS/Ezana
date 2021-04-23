@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Apr 01 2021
+ * Created on Fri Apr 23 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -19,6 +19,7 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
@@ -41,7 +42,7 @@ if (isset($_POST['add_grade'])) {
     $rc = $stmt->bind_param('ssssss', $id, $module_code, $module_name, $regno, $name, $marks);
     $stmt->execute();
     if ($stmt) {
-        $success = "Grades Submitted" && header("refresh:1; url=grades.php?view=$module_id");
+        $success = "Grades Submitted" && header("refresh:1; url=edu_admn_grades.php?view=$module_id");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -64,7 +65,7 @@ if (isset($_POST['update_grade'])) {
     $rc = $stmt->bind_param('ssssss', $module_code, $module_name, $regno, $name, $marks, $id);
     $stmt->execute();
     if ($stmt) {
-        $success = "Grades Updated" && header("refresh:1; url=grades.php?view=$module_id");
+        $success = "Grades Updated" && header("refresh:1; url=edu_admn_grades.php?view=$module_id");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -80,7 +81,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=grades.php?view=$view");
+        $success = "Deleted" && header("refresh:1; url=edu_admn_grades.php?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -93,7 +94,7 @@ require_once('public/partials/_head.php');
     <div class="wrapper">
         <!-- Navbar -->
         <?php
-        require_once('public/partials/_nav.php');
+        require_once('public/partials/_edu_admn_nav.php');
         $view = $_GET['view'];
         $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE id ='$view'  ";
         $stmt = $mysqli->prepare($ret);
@@ -107,102 +108,7 @@ require_once('public/partials/_head.php');
                 <!-- Brand Logo -->
                 <?php require_once('public/partials/_brand.php'); ?>
                 <!-- Sidebar -->
-                <div class="sidebar ">
-                    <!-- Sidebar Menu -->
-                    <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <li class="nav-item">
-                                <a href="dashboard.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Dashboard
-                                    </p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="faculties.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-university"></i>
-                                    <p>
-                                        Faculties
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="departments.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-building"></i>
-                                    <p>
-                                        Departments
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="courses.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                                    <p>
-                                        Courses
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="modules.php" class="active nav-link">
-                                    <i class="nav-icon fas fa-chalkboard"></i>
-                                    <p>
-                                        Modules
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="non_teaching_staff.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-secret"></i>
-                                    <p>
-                                        Non Teaching Staff
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="lecturers.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-tie"></i>
-                                    <p>
-                                        Lecturers
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="students.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-graduate"></i>
-                                    <p>
-                                        Students
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-cogs"></i>
-                                    <p>
-                                        System Settings
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="reports.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Reports</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="system_settings.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>System Settings</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                    </nav>
-                </div>
+                <?php require_once('public/partials/_sidebar.php'); ?>
             </aside>
 
             <div class="content-wrapper">
@@ -214,9 +120,9 @@ require_once('public/partials/_head.php');
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="modules.php">Modules</a></li>
-                                    <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
+                                    <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="edu_admn_modules.php?view=<?php echo $mod->faculty_id; ?>">Modules</a></li>
+                                    <li class="breadcrumb-item active"><?php echo $mod->name; ?> Student Grades</li>
                                 </ol>
                             </div>
                         </div>
@@ -226,7 +132,7 @@ require_once('public/partials/_head.php');
                         <div class="container-fluid">
                             <div class="">
                                 <nav class="navbar navbar-light bg-light col-md-12">
-                                    <form class="form-inline" action="module_search_result.php" method="GET">
+                                    <form class="form-inline" action="edu_admn_module_search_result.php" method="GET">
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
@@ -334,7 +240,7 @@ require_once('public/partials/_head.php');
                             <hr>
                             <div class="row">
                                 <!-- Module Side Menu -->
-                                <?php require_once('public/partials/_modulemenu.php'); ?>
+                                <?php require_once('public/partials/_edu_admn_modulemenu.php'); ?>
                                 <!-- Module Side Menu -->
 
                                 <div class="col-md-9">
@@ -433,7 +339,7 @@ require_once('public/partials/_head.php');
                                                                                 <h4>Delete <?php echo $grade->admno . " " . $grade->name; ?> Marks Entry ?</h4>
                                                                                 <br>
                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="grades.php?delete=<?php echo $grade->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                <a href="edu_admn_grades.php?delete=<?php echo $grade->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>

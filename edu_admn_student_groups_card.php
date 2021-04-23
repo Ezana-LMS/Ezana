@@ -175,7 +175,7 @@ require_once('public/partials/_head.php');
                 <!-- Brand Logo -->
                 <?php require_once('public/partials/_brand.php'); ?>
                 <!-- Sidebar -->
-                <?php require_once('public/partials/_sidebar.php');?>
+                <?php require_once('public/partials/_sidebar.php'); ?>
             </aside>
 
             <div class="content-wrapper">
@@ -186,7 +186,7 @@ require_once('public/partials/_head.php');
                                 <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Student Groups</h1>
                             </div>
                             <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="edu_admn_modules.php?view=<?php echo $mod->faculty_id; ?>">Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?> Student Groups</li>
@@ -314,7 +314,7 @@ require_once('public/partials/_head.php');
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="exampleInputPassword1">Group Description</label>
-                                                                                                <textarea required  name="details" rows="10" class="form-control Summernote"><?php echo $g->details; ?></textarea>
+                                                                                                <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $g->details; ?></textarea>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
