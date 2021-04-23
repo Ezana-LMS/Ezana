@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Apr 01 2021
+ * Created on Fri Apr 23 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -19,6 +19,7 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
@@ -84,7 +85,7 @@ if (isset($_POST['add_class_recording'])) {
                     mysqli_query($mysqli, $query);
                     if ($stmt) {
                         //inject alert that post is shared  
-                        $success = "Uploaded" && header("refresh:1; url=class_recordings.php?view=$view");
+                        $success = "Uploaded" && header("refresh:1; url=edu_admn_class_recordings.php?view=$view");
                     }
                 }
             }
@@ -93,8 +94,6 @@ if (isset($_POST['add_class_recording'])) {
         }
     }
 }
-
-require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
 
@@ -102,7 +101,7 @@ require_once('public/partials/_head.php');
     <div class="wrapper">
         <!-- Navbar -->
         <?php
-        require_once('public/partials/_nav.php');
+        require_once('public/partials/_edu_admn_nav.php');
         $view = $_GET['view'];
         $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE id ='$view'  ";
         $stmt = $mysqli->prepare($ret);
@@ -124,102 +123,7 @@ require_once('public/partials/_head.php');
                     <!-- Brand Logo -->
                     <?php require_once('public/partials/_brand.php'); ?>
                     <!-- Sidebar -->
-                    <div class="sidebar">
-                        <!-- Sidebar Menu -->
-                        <nav class="mt-2">
-                            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                                <li class="nav-item">
-                                    <a href="dashboard.php" class=" nav-link">
-                                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                                        <p>
-                                            Dashboard
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="faculties.php" class=" nav-link">
-                                        <i class="nav-icon fas fa-university"></i>
-                                        <p>
-                                            Faculties
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="departments.php" class=" nav-link">
-                                        <i class="nav-icon fas fa-building"></i>
-                                        <p>
-                                            Departments
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="courses.php" class=" nav-link">
-                                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                                        <p>
-                                            Courses
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="modules.php" class="active nav-link">
-                                        <i class="nav-icon fas fa-chalkboard"></i>
-                                        <p>
-                                            Modules
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="non_teaching_staff.php" class="nav-link">
-                                        <i class="nav-icon fas fa-user-secret"></i>
-                                        <p>
-                                            Non Teaching Staff
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="lecturers.php" class="nav-link">
-                                        <i class="nav-icon fas fa-user-tie"></i>
-                                        <p>
-                                            Lecturers
-                                        </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="students.php" class="nav-link">
-                                        <i class="nav-icon fas fa-user-graduate"></i>
-                                        <p>
-                                            Students
-                                        </p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item has-treeview">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-cogs"></i>
-                                        <p>
-                                            System Settings
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="reports.php" class="nav-link">
-                                                <i class="fas fa-angle-right nav-icon"></i>
-                                                <p>Reports</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="system_settings.php" class="nav-link">
-                                                <i class="fas fa-angle-right nav-icon"></i>
-                                                <p>System Settings</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+                    <?php require_once('public/partials/_sidebar.php'); ?>
                 </aside>
 
                 <div class="content-wrapper">
@@ -231,9 +135,9 @@ require_once('public/partials/_head.php');
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">
-                                        <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="modules.php">Modules</a></li>
-                                        <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
+                                        <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="edu_admn_modules.php?view=<?php echo $mod->faculty_id; ?>"><?php echo $mod->name; ?></a></li>
+                                        <li class="breadcrumb-item active">Play Class Recordings</li>
                                     </ol>
                                 </div>
                             </div>
@@ -243,7 +147,7 @@ require_once('public/partials/_head.php');
                             <div class="container-fluid">
                                 <div class="text-left">
                                     <nav class="navbar navbar-light bg-light col-md-12">
-                                        <form class="form-inline" action="clips_search.php" method="GET">
+                                        <form class="form-inline" action="edu_admn_clips_search.php" method="GET">
                                             <input class="form-control mr-sm-2" type="search" name="query" placeholder="Clip Or Class Name">
                                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                         </form>
@@ -284,7 +188,7 @@ require_once('public/partials/_head.php');
                                                                         <label for="exampleInputFile">Upload Video</label>
                                                                         <div class="input-group">
                                                                             <div class="custom-file">
-                                                                                <input name="video" type="file" required accept=".mp4, .WebM" class="custom-file-input" id="exampleInputFile">
+                                                                                <input name="video" type="file"  accept=".mp4, .WebM" class="custom-file-input" id="exampleInputFile">
                                                                                 <label class="custom-file-label" for="exampleInputFile">Choose Video File</label>
                                                                             </div>
                                                                         </div>
@@ -293,7 +197,7 @@ require_once('public/partials/_head.php');
                                                                 <div class="row">
                                                                     <div class="form-group col-md-12">
                                                                         <label for="exampleInputPassword1">Description</label>
-                                                                        <textarea  type="text" rows="10" name="details" class="form-control Summernote"></textarea>
+                                                                        <textarea id="textarea" type="text" rows="10" name="details" class="form-control Summernote"></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -312,9 +216,9 @@ require_once('public/partials/_head.php');
                                 </div>
                                 <hr>
                                 <div class="row">
-                                   <!-- Module Side Menu -->
-                                <?php require_once('public/partials/_modulemenu.php'); ?>
-                                <!-- Module Side Menu -->
+                                    <!-- Module Side Menu -->
+                                    <?php require_once('public/partials/_edu_admn_modulemenu.php'); ?>
+                                    <!-- Module Side Menu -->
                                     <div class="col-md-9">
                                         <div class="row">
                                             <div class="col-md-12 col-lg-12">
@@ -391,13 +295,13 @@ require_once('public/partials/_head.php');
                             </div>
                         </section>
                         <!-- Main Footer -->
-                <?php require_once('public/partials/_footer.php');
-            }
-        } ?>
+                        <?php require_once('public/partials/_footer.php'); ?>
                     </div>
                 </div>
                 <!-- ./wrapper -->
-                <?php require_once('public/partials/_scripts.php'); ?>
+        <?php }
+        }
+        require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
