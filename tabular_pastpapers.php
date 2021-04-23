@@ -503,7 +503,7 @@ require_once('public/partials/_head.php');
                                                                                                         <label for="">Exam Paper Solution Visibility / Availability</label>
                                                                                                         <select class='form-control basic' name="solution_visibility">
                                                                                                             <option selected><?php echo $pastExas->solution_visibility; ?></option>
-                                                                                                            <option selected>Available</option>
+                                                                                                            <option>Available</option>
                                                                                                             <option>Hidden</option>
                                                                                                         </select>
                                                                                                     </div>
