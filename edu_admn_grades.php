@@ -221,7 +221,7 @@ require_once('public/partials/_head.php');
                                                                 <tr>
                                                                     <td><?php echo $grade->regno; ?></td>
                                                                     <td><?php echo $grade->name; ?></td>
-                                                                    <td><?php echo $grade->module_code . " " . $grade->module_name;?></td>
+                                                                    <td><?php echo $grade->module_code . " " . $grade->module_name; ?></td>
                                                                     <td><?php echo $grade->marks; ?></td>
                                                                 </tr>
                                                             <?php $cnt = $cnt + 1;
@@ -358,12 +358,13 @@ require_once('public/partials/_head.php');
                         </div>
                     </section>
                     <!-- Main Footer -->
-                <?php require_once('public/partials/_footer.php');
-            } ?>
+                    <?php require_once('public/partials/_footer.php');
+                    ?>
                 </div>
             </div>
             <!-- ./wrapper -->
-            <?php require_once('public/partials/_scripts.php'); ?>
+        <?php }
+        require_once('public/partials/_scripts.php'); ?>
 </body>
 
 </html>
