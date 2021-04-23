@@ -85,7 +85,7 @@ require_once('public/partials/_head.php');
                 <!-- Brand Logo -->
                 <?php require_once('public/partials/_brand.php'); ?>
                 <!-- Sidebar -->
-                <?php require_once('public/partials/_sidebar'); ?>
+                <?php require_once('public/partials/_sidebar.php'); ?>
             </aside>
 
             <div class="content-wrapper">
@@ -113,54 +113,6 @@ require_once('public/partials/_head.php');
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <div class="text-right">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Upload Assignment</button>
-                                    </div>
-                                    <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-xl">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Fill All Required Values </h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- Form -->
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                            <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                            <input type="hidden" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
-                                                            <input type="hidden" name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
-                                                            <input type="hidden" name="module_code" value="<?php echo $mod->code; ?>" class="form-control">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Submission Deadline</label>
-                                                                    <input type="date" name="submission_deadline" required class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="exampleInputFile">Upload Assignment ( PDF / Docx )</label>
-                                                                    <div class="input-group">
-                                                                        <div class="custom-file">
-                                                                            <input required name="attachments" accept=".pf, .docx, .doc" type="file" class="custom-file-input" id="exampleInputFile">
-                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer text-right">
-                                                            <button type="submit" name="add_assignment" class="btn btn-primary">Upload</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </nav>
                             </div>
                             <hr>
