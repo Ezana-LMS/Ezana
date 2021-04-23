@@ -278,7 +278,7 @@ require_once('public/partials/_head.php');
                                                                     } else {
                                                                         echo
                                                                         "
-                                                                        <a target='_blank' href= 'pdf_solution_viewer.php?id=$pastExas->id&view=$view' class='btn btn-outline-success'>
+                                                                        <a target='_blank' href= 'edu_admn_pdf_solution_viewer.php?id=$pastExas->id&view=$view' class='btn btn-outline-success'>
                                                                             View Solution
                                                                         </a>
                                                                         ";
