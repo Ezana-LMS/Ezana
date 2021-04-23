@@ -109,7 +109,7 @@ if (isset($_POST['update_personal_info'])) {
         $rc = $stmt->bind_param('ssssssssss', $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $updated_at, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Student Add " && header("refresh:1; url=student_profile.php?view=$id");
+            $success = "Student Add " && header("refresh:1; url=edu_admn_student_profile.php?view=$id");
         } else {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
