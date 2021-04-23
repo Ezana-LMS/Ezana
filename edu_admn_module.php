@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Apr 01 2021
+ * Created on Fri Apr 23 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -19,6 +19,7 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
@@ -51,12 +52,13 @@ if (isset($_POST['update_module'])) {
         $cat_weight_percentage = $_POST['cat_weight_percentage'];
         $lectures_number = $_POST['lectures_number'];
         $updated_at = date('d M Y');
+
         $query = "UPDATE ezanaLMS_Modules SET  name =?, code =?, details =?,  course_duration =?, exam_weight_percentage =?, cat_weight_percentage=?,  lectures_number =?, updated_at =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('sssssssss', $name, $code, $details,  $course_duration, $exam_weight_percentage, $cat_weight_percentage, $lectures_number, $updated_at, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Updated" && header("refresh:1; url=module.php?view=$id");
+            $success = "Updated" && header("refresh:1; url=edu_admn_module.php?view=$id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -101,15 +103,13 @@ if (isset($_POST['add_notice'])) {
         $rc = $stmt->bind_param('sssssss', $id, $module_name, $module_code, $announcements, $created_by, $attachments, $faculty_id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Updated" && header("refresh:1; url=module_notices.php?view=$module_id");
+            $success = "Updated" && header("refresh:1; url=edu_admn_module_notices.php?view=$module_id");
         } else {
             $info = "Please Try Again Or Try Later";
         }
     }
 }
 
-
-require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
 
@@ -117,7 +117,7 @@ require_once('public/partials/_head.php');
     <div class="wrapper">
         <!-- Navbar -->
         <?php
-        require_once('public/partials/_nav.php');
+        require_once('public/partials/_edu_admn_nav.php');
         $view = $_GET['view'];
         $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE id ='$view'  ";
         $stmt = $mysqli->prepare($ret);
@@ -131,101 +131,7 @@ require_once('public/partials/_head.php');
                 <!-- Brand Logo -->
                 <?php require_once('public/partials/_brand.php'); ?>
                 <!-- Sidebar -->
-                <div class="sidebar">
-                    <!-- Sidebar Menu -->
-                    <nav class="mt-2">
-                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            <li class="nav-item">
-                                <a href="dashboard.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Dashboard
-                                    </p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="faculties.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-university"></i>
-                                    <p>
-                                        Faculties
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="departments.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-building"></i>
-                                    <p>
-                                        Departments
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="courses.php" class=" nav-link">
-                                    <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                                    <p>
-                                        Courses
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="modules.php" class="active nav-link">
-                                    <i class="nav-icon fas fa-chalkboard"></i>
-                                    <p>
-                                        Modules
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="non_teaching_staff.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-secret"></i>
-                                    <p>
-                                        Non Teaching Staff
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="lecturers.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-tie"></i>
-                                    <p>
-                                        Lecturers
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="students.php" class="nav-link">
-                                    <i class="nav-icon fas fa-user-graduate"></i>
-                                    <p>
-                                        Students
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-cogs"></i>
-                                    <p>
-                                        System Settings
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="reports.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>Reports</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="system_settings.php" class="nav-link">
-                                            <i class="fas fa-angle-right nav-icon"></i>
-                                            <p>System Settings</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                <?php require_once('public/partials/_sidebar.php'); ?>
             </aside>
 
             <div class="content-wrapper">
@@ -237,8 +143,8 @@ require_once('public/partials/_head.php');
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="modules.php">Modules</a></li>
+                                    <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="edu_admn_modules.php?view=<?php echo $faculty_id; ?>">Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
                                 </ol>
                             </div>
@@ -249,7 +155,7 @@ require_once('public/partials/_head.php');
                         <div class="container-fluid">
                             <div class="text-left">
                                 <nav class="navbar navbar-light bg-light col-md-12">
-                                    <form class="form-inline" action="module_search_result.php" method="GET">
+                                    <form class="form-inline" action="edu_admn_module_search_result.php" method="GET">
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
@@ -301,7 +207,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Type Module Announcements</label>
-                                                                    <textarea required  name="announcements" rows="20" class="form-control Summernote"></textarea>
+                                                                    <textarea required name="announcements" rows="20" class="form-control Summernote"></textarea>
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
                                                                     <input type="hidden" value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
@@ -374,7 +280,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Module Details</label>
-                                                                    <textarea required  name="details" rows="10" class="form-control Summernote"><?php echo $mod->details; ?></textarea>
+                                                                    <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $mod->details; ?></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -395,7 +301,7 @@ require_once('public/partials/_head.php');
                             <hr>
                             <div class="row">
                                 <!-- Module Side Menu -->
-                                <?php require_once('public/partials/_modulemenu.php'); ?>
+                                <?php require_once('public/partials/_edu_admn_modulemenu.php'); ?>
                                 <!-- Module Side Menu -->
                                 <div class="col-md-9">
                                     <div class="row">
@@ -522,7 +428,7 @@ require_once('public/partials/_head.php');
 
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Assigned Lecturer Email : <span class="float-right "><?php echo $lecturer->email; ?></span>
+                                                                                Assigned Lecturer Email : <span class="float-right "><a href="mailto:<?php echo $lecturer->email;?>"><?php echo $lecturer->email; ?></a></span>
                                                                             </span>
                                                                         </li>
 
@@ -608,12 +514,12 @@ require_once('public/partials/_head.php');
                         </div>
                     </section>
                     <!-- Main Footer -->
-                <?php require_once('public/partials/_footer.php');
-            } ?>
+                    <?php require_once('public/partials/_footer.php'); ?>
                 </div>
             </div>
             <!-- ./wrapper -->
-            <?php require_once('public/partials/_scripts.php'); ?>
+        <?php require_once('public/partials/_scripts.php');
+        } ?>
 </body>
 
 </html>
