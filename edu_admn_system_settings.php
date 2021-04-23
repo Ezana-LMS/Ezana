@@ -387,7 +387,14 @@ require_once('public/partials/_head.php');
             <!-- Brand Logo -->
             <?php require_once('public/partials/_brand.php'); ?>
             <!-- Sidebar -->
-            <?php require_once('public/partials/_sidebar.php'); ?>
+            <?php require_once('public/partials/_sidebar.php');
+            $id  = $_SESSION['id'];
+            $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id ='$id' ";
+            $stmt = $mysqli->prepare($ret);
+            $stmt->execute(); //ok
+            $res = $stmt->get_result();
+            while ($admin = $res->fetch_object()) {
+            ?>
         </aside>
 
         <div class="content-wrapper">
@@ -495,7 +502,7 @@ require_once('public/partials/_head.php');
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` ORDER BY `name` ASC   ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$admin->school_id'   ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
@@ -564,7 +571,7 @@ require_once('public/partials/_head.php');
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Courses`";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$admin->school_id'";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
@@ -633,7 +640,7 @@ require_once('public/partials/_head.php');
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Modules`  ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE faculty_id = '$admin->school_id' ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
@@ -682,78 +689,6 @@ require_once('public/partials/_head.php');
                                                         <!-- /.card-body -->
                                                     </div>
 
-                                                    <!-- Non Teaching Staff -->
-                                                    <div class="card collapsed-card ">
-                                                        <div class="card-header">
-                                                            <h3 class="card-title">Non Teaching Staffs</h3>
-                                                            <div class="card-tools">
-                                                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                                                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                                                            </div>
-                                                            <!-- /.card-tools -->
-                                                        </div>
-                                                        <!-- /.card-header -->
-                                                        <div class="card-body">
-                                                            <table id="example1" class="table table-bordered table-striped">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Name</th>
-                                                                        <th>Email</th>
-                                                                        <th>Phone</th>
-                                                                        <th>Rank</th>
-                                                                        <th>Manage</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Admins`  ";
-                                                                    $stmt = $mysqli->prepare($ret);
-                                                                    $stmt->execute(); //ok
-                                                                    $res = $stmt->get_result();
-                                                                    $cnt = 1;
-                                                                    while ($admin = $res->fetch_object()) {
-                                                                    ?>
-                                                                        <tr>
-                                                                            <td><?php echo $admin->name; ?></td>
-                                                                            <td><?php echo $admin->email; ?></td>
-                                                                            <td><?php echo $admin->phone; ?></td>
-                                                                            <td><?php echo $admin->rank; ?></td>
-                                                                            <td>
-                                                                                <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $admin->id; ?>">
-                                                                                    <i class="fas fa-trash"></i>
-                                                                                    Delete
-                                                                                </a>
-                                                                                <!-- Delete Confirmation Modal -->
-
-                                                                                <div class="modal fade" id="delete-<?php echo $admin->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                                        <div class="modal-content">
-                                                                                            <div class="modal-header">
-                                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                                </button>
-                                                                                            </div>
-                                                                                            <div class="modal-body text-center text-danger">
-                                                                                                <h4>Delete <?php echo $admin->name; ?> Details ?</h4>
-                                                                                                <br>
-                                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                <a href="system_settings.php?delete_staff=<?php echo $admin->id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <!-- End Delete Confirmation Modal -->
-                                                                            </td>
-                                                                        </tr>
-                                                                    <?php $cnt = $cnt + 1;
-                                                                    } ?>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                        <!-- /.card-body -->
-                                                    </div>
 
                                                     <!-- Lecturers -->
                                                     <div class="card collapsed-card ">
@@ -780,7 +715,7 @@ require_once('public/partials/_head.php');
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers`  ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$admin->school_id' ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
@@ -855,7 +790,7 @@ require_once('public/partials/_head.php');
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Students` ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$admin->school_id' ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
@@ -965,7 +900,8 @@ require_once('public/partials/_head.php');
                                                                     while ($fac = $res->fetch_object()) {
                                                                     ?>
                                                                         <option><?php echo $fac->code; ?></option>
-                                                                    <?php } ?>
+                                                                    <?php
+                                                                    } ?>
                                                                 </select>
                                                             </div>
                                                             <input type="hidden" required name="faculty" id="FacultyID" class="form-control">
@@ -1018,7 +954,8 @@ require_once('public/partials/_head.php');
                                                                     while ($dep = $res->fetch_object()) {
                                                                     ?>
                                                                         <option><?php echo $dep->code; ?></option>
-                                                                    <?php } ?>
+                                                                    <?php
+                                                                    } ?>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group col-md-6">
@@ -1092,7 +1029,8 @@ require_once('public/partials/_head.php');
                                                                     while ($course = $res->fetch_object()) {
                                                                     ?>
                                                                         <option><?php echo $course->code; ?></option>
-                                                                    <?php } ?>
+                                                                    <?php
+                                                                    } ?>
                                                                 </select>
                                                             </div>
                                                             <div class="form-group col-md-6">
@@ -1145,7 +1083,9 @@ require_once('public/partials/_head.php');
                     </div>
                 </section>
                 <!-- Main Footer -->
-                <?php require_once('public/partials/_footer.php'); ?>
+            <?php
+            }
+            require_once('public/partials/_footer.php'); ?>
             </div>
         </div>
         <!-- ./wrapper -->
