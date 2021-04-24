@@ -407,7 +407,7 @@ require_once('public/partials/_head.php');
                                                                         <input type="text" value="<?php echo $academic_settings->current_academic_year; ?>" required name="academic_year" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-6">
-                                                                        <label for="">Semester Enrolled</label>
+                                                                        <label for="">Semester</label>
                                                                         <input type="text" value="<?php echo $academic_settings->current_semester; ?>" required name="semester" class="form-control">
                                                                     </div>
 
@@ -526,7 +526,7 @@ require_once('public/partials/_head.php');
                                                     while ($assigns = $res->fetch_object()) {
                                                     ?>
                                                         <tr>
-                                                            <td><?php echo $assigns->module_code . "" . $assigns->module_name; ?></td>
+                                                            <td><?php echo $assigns->module_code . " " . $assigns->module_name; ?></td>
                                                             <td><?php echo $assigns->academic_year; ?></td>
                                                             <td><?php echo $assigns->semester; ?></td>
                                                             <td>
