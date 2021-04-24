@@ -167,7 +167,7 @@ require_once('public/partials/_head.php');
                 <!-- Brand Logo -->
                 <?php require_once('public/partials/_brand.php'); ?>
                 <!-- Sidebar -->
-                <?php require_once('public/partials/_sidebar.php');?>
+                <?php require_once('public/partials/_sidebar.php'); ?>
             </aside>
 
             <!-- Content Wrapper. Contains page content -->
@@ -428,6 +428,8 @@ require_once('public/partials/_head.php');
                                                     <thead>
                                                         <tr>
                                                             <th>Module </th>
+                                                            <th>Academic Year</th>
+                                                            <th>Semester</th>
                                                             <th>Grade / Marks</th>
                                                         </tr>
                                                     </thead>
@@ -443,6 +445,8 @@ require_once('public/partials/_head.php');
 
                                                             <tr>
                                                                 <td><?php echo $marks->module_code . " " . $marks->module_name; ?></td>
+                                                                <td><?php echo $marks->academic_year; ?></td>
+                                                                <td><?php echo $marks->semester; ?></td>
                                                                 <td><?php echo $marks->marks; ?></td>
                                                             </tr>
                                                         <?php $cnt = $cnt + 1;
