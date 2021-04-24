@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Apr 01 2021
+ * Created on Sat Apr 24 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -19,13 +19,13 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
-require_once('public/partials/_analytics.php');
-require_once('public/partials/_reportshead.php');
+require_once('public/partials/_head.php');
 ?>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -118,7 +118,7 @@ require_once('public/partials/_reportshead.php');
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="reports.php" class="active nav-link">
+                                    <a href="reports.php" class="nav-link">
                                         <i class="fas fa-angle-right nav-icon"></i>
                                         <p>Reports</p>
                                     </a>
@@ -141,14 +141,14 @@ require_once('public/partials/_reportshead.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Student Enrollments</h1>
+                            <h1 class="m-0 text-dark">Courses</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="reports.php">System</a></li>
                                 <li class="breadcrumb-item"><a href="reports.php">Reports</a></li>
-                                <li class="breadcrumb-item active">Enrollments</li>
+                                <li class="breadcrumb-item active">Student Enrollments</li>
                             </ol>
                         </div>
                     </div>
@@ -158,44 +158,46 @@ require_once('public/partials/_reportshead.php');
                     <div class="container-fluid">
                         <hr>
                         <div class="row">
-                            <div class="col-12">
-                                <table id="export-dt" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Admission</th>
-                                            <th>Name</th>
-                                            <th>Course</th>
-                                            <th>Module</th>
-                                            <th>Academic Yr</th>
-                                            <th>Sem Enrolled</th>
-                                            <th>Sem Start</th>
-                                            <th>Sem End </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments`  ";
-                                        $stmt = $mysqli->prepare($ret);
-                                        $stmt->execute(); //ok
-                                        $res = $stmt->get_result();
-                                        $cnt = 1;
-                                        while ($en = $res->fetch_object()) {
-                                        ?>
-
-                                            <tr>
-                                                <td><?php echo $en->student_adm; ?></td>
-                                                <td><?php echo $en->student_name; ?></td>
-                                                <td><?php echo $en->course_name; ?></td>
-                                                <td><?php echo $en->module_name; ?></td>
-                                                <td><?php echo $en->academic_year_enrolled; ?></td>
-                                                <td><?php echo $en->semester_enrolled; ?></td>
-                                                <td><?php echo date('d M Y', strtotime($en->semester_start)); ?></td>
-                                                <td><?php echo date('d M Y', strtotime($en->semester_end)); ?></td>
-                                            </tr>
-                                        <?php $cnt = $cnt + 1;
-                                        } ?>
-                                    </tbody>
-                                </table>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Code</th>
+                                                    <th>Name</th>
+                                                    <th>Department</th>
+                                                    <th>Faculty</th>
+                                                    <th>Manage</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_Courses`";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                $cnt = 1;
+                                                while ($courses = $res->fetch_object()) {
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo $courses->code; ?></td>
+                                                        <td><?php echo $courses->name; ?></td>
+                                                        <td><?php echo $courses->department_name; ?></td>
+                                                        <td><?php echo $courses->faculty_name; ?></td>
+                                                        <td>
+                                                            <a class="badge badge-success" href="reports_module_enrollments.php?view=<?php echo $courses->id; ?>">
+                                                                <i class="fas fa-eye"></i>
+                                                                View Module Enrollments
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                <?php
+                                                } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
