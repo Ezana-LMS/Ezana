@@ -35,10 +35,12 @@ if (isset($_POST['add_grade'])) {
     $marks = $_POST['marks'];
     /* Module ID */
     $module_id = $_POST['module_id'];
+    $semester = $_POST['semester'];
+    $academic_year = $_POST['academic_year'];
 
-    $query = "INSERT INTO ezanaLMS_StudentModuleGrades (id, module_code, module_name, regno, name, marks) VALUES(?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_StudentModuleGrades (semester, academic_year, id, module_code, module_name, regno, name, marks) VALUES(?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss', $id, $module_code, $module_name, $regno, $name, $marks);
+    $rc = $stmt->bind_param('ssssssss', $semester, $academic_year, $id, $module_code, $module_name, $regno, $name, $marks);
     $stmt->execute();
     if ($stmt) {
         $success = "Grades Submitted" && header("refresh:1; url=grades.php?view=$module_id");
@@ -58,10 +60,13 @@ if (isset($_POST['update_grade'])) {
     $marks = $_POST['marks'];
     /* Module ID */
     $module_id = $_POST['module_id'];
+    $semester = $_POST['semester'];
+    $academic_year = $_POST['academic_year'];
 
-    $query = "UPDATE  ezanaLMS_StudentModuleGrades SET  module_code =?, module_name =?, regno =?, name =?, marks =? WHERE id = ?";
+
+    $query = "UPDATE  ezanaLMS_StudentModuleGrades SET academic_year = ?, semester = ?, module_code =?, module_name =?, regno =?, name =?, marks =? WHERE id = ?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss', $module_code, $module_name, $regno, $name, $marks, $id);
+    $rc = $stmt->bind_param('ssssssss', $academic_year, $semester, $module_code, $module_name, $regno, $name, $marks, $id);
     $stmt->execute();
     if ($stmt) {
         $success = "Grades Updated" && header("refresh:1; url=grades.php?view=$module_id");
@@ -275,6 +280,25 @@ require_once('public/partials/_head.php');
                                                                     <label for="">Attained Marks | Grade</label>
                                                                     <input type="text" required name="marks" class="form-control">
                                                                 </div>
+                                                                <?php
+                                                                /* Persisit Academic Settings */
+                                                                $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($academic_settings = $res->fetch_object()) {
+                                                                ?>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Academic Year </label>
+                                                                        <input type="text" value="<?php echo $academic_settings->current_academic_year; ?>" required name="academic_year" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Semester</label>
+                                                                        <input type="text" value="<?php echo $academic_settings->current_semester; ?>" required name="semester" class="form-control">
+                                                                    </div>
+
+                                                                <?php
+                                                                } ?>
                                                             </div>
                                                         </div>
                                                         <div class="card-footer text-right">
@@ -297,10 +321,11 @@ require_once('public/partials/_head.php');
                                                     <table id="export-dt" class="table table-bordered table-striped">
                                                         <thead>
                                                             <tr>
-                                                                <th>Admission Number</th>
-                                                                <th>Name</th>
+                                                                <th>Student Details</th>
                                                                 <th>Module Details</th>
-                                                                <th>Marks | Grade Attained</th>
+                                                                <th>Academic Year</th>
+                                                                <th>Semester</th>
+                                                                <th>Marks Attained</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -313,9 +338,10 @@ require_once('public/partials/_head.php');
                                                             ?>
 
                                                                 <tr>
-                                                                    <td><?php echo $grade->regno; ?></td>
-                                                                    <td><?php echo $grade->name; ?></td>
-                                                                    <td><?php echo $grade->module_code . " " . $grade->module_name;?></td>
+                                                                    <td><?php echo $grade->regno . " " . $grade->name; ?></td>
+                                                                    <td><?php echo $grade->module_code . " " . $grade->module_name; ?></td>
+                                                                    <td><?php echo $grade->academic_year; ?></td>
+                                                                    <td><?php echo $grade->semester; ?></td>
                                                                     <td><?php echo $grade->marks; ?></td>
                                                                 </tr>
                                                             <?php $cnt = $cnt + 1;
@@ -343,9 +369,10 @@ require_once('public/partials/_head.php');
                                             <table id="example1" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>Admission Number</th>
-                                                        <th>Name</th>
+                                                        <th>Student Details</th>
                                                         <th>Marks | Grade Attained</th>
+                                                        <th>Academic Year</th>
+                                                        <th>Semester</th>
                                                         <th>Manage</th>
                                                     </tr>
                                                 </thead>
@@ -359,9 +386,10 @@ require_once('public/partials/_head.php');
                                                     ?>
 
                                                         <tr>
-                                                            <td><?php echo $grade->regno; ?></td>
-                                                            <td><?php echo $grade->name; ?></td>
+                                                            <td><?php echo $grade->regno . " " . $grade->name; ?></td>
                                                             <td><?php echo $grade->marks; ?></td>
+                                                            <td><?php echo $grade->academic_year; ?></td>
+                                                            <td><?php echo $grade->semester; ?></td>
                                                             <td>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-<?php echo $grade->id; ?>">
                                                                     <i class="fas fa-edit"></i>
@@ -397,9 +425,17 @@ require_once('public/partials/_head.php');
                                                                                                 <input type="text" value="<?php echo $grade->name; ?>" required name="name" class="form-control">
                                                                                             </div>
 
-                                                                                            <div class="form-group col-md-12">
+                                                                                            <div class="form-group col-md-4">
                                                                                                 <label for="">Attained Marks | Grade</label>
                                                                                                 <input type="text" required value="<?php echo $grade->marks; ?>" name="marks" class="form-control">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-4">
+                                                                                                <label for="">Academic Year</label>
+                                                                                                <input type="text" required value="<?php echo $grade->academic_year; ?>" name="academic_year" class="form-control">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-4">
+                                                                                                <label for="">Semester</label>
+                                                                                                <input type="text" required value="<?php echo $grade->semester; ?>" name="semester" class="form-control">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -452,8 +488,9 @@ require_once('public/partials/_head.php');
                         </div>
                     </section>
                     <!-- Main Footer -->
-                <?php require_once('public/partials/_footer.php');
-            } ?>
+                <?php  }
+            require_once('public/partials/_footer.php');
+                ?>
                 </div>
             </div>
             <!-- ./wrapper -->
