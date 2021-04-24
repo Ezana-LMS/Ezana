@@ -484,6 +484,26 @@ require_once('public/partials/_head.php');
                                                                     <label for="">Module Name</label>
                                                                     <input type="text" id="moduleName" required name="module_name" class="form-control">
                                                                 </div>
+                                                                <?php
+                                                                /* Persisit Academic Settings */
+                                                                $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($academic_settings = $res->fetch_object()) {
+                                                                ?>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Academic Year </label>
+                                                                        <input type="text" value="<?php echo $academic_settings->current_academic_year; ?>" required name="academic_year" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Semester</label>
+                                                                        <input type="text" value="<?php echo $academic_settings->current_semester; ?>" required name="semester" class="form-control">
+                                                                    </div>
+
+                                                                <?php
+                                                                } ?>
+
                                                             </div>
                                                         </div>
                                                         <div class="text-right">
