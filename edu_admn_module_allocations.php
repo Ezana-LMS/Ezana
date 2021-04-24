@@ -73,15 +73,17 @@ if (isset($_POST['assign_module'])) {
             $created_at = date('d M Y');
             $view = $_GET['view'];
             $faculty = $_POST['faculty'];
+            $semester = $_POST['semester'];
+            $academic_year = $_POST['academic_year'];
 
             //On Assign, Update Module Status to Assigned
             $ass_status = 1;
 
-            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_ModuleAssigns (academic_year, semester, id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?,?,?,?)";
             $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
             $stmt = $mysqli->prepare($query);
             $modstmt = $mysqli->prepare($modUpdate);
-            $rc = $stmt->bind_param('ssssssss', $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at);
+            $rc = $stmt->bind_param('ssssssssss', $academic_year, $semester, $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at);
             $rc = $modstmt->bind_param('is', $ass_status, $module_code);
             $stmt->execute();
             $modstmt->execute();
@@ -143,14 +145,19 @@ if (isset($_POST['assign_guest_lec'])) {
         $faculty = $_POST['faculty'];
         $status = 'Guest Lecturer';
 
+        $semester = $_POST['semester'];
+        $academic_year = $_POST['academic_year'];
+
         //On Assign, Update Module Status to Assigned
         $ass_status = 1;
 
-        $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at, status) VALUES(?,?,?,?,?,?,?,?,?)";
+
+
+        $query = "INSERT INTO ezanaLMS_ModuleAssigns (academic_year, semester, id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at, status) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
         $stmt = $mysqli->prepare($query);
         $modstmt = $mysqli->prepare($modUpdate);
-        $rc = $stmt->bind_param('sssssssss', $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at, $status);
+        $rc = $stmt->bind_param('sssssssssss', $academic_year, $semester, $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at, $status);
         $rc = $modstmt->bind_param('is', $ass_status, $module_code);
         $stmt->execute();
         $modstmt->execute();
@@ -297,6 +304,26 @@ require_once('public/partials/_head.php');
                                                                     <label for="">Module Name</label>
                                                                     <input type="text" id="ModuleName" required name="module_name" class="form-control">
                                                                 </div>
+                                                                <?php
+                                                                /* Persisit Academic Settings */
+                                                                $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($academic_settings = $res->fetch_object()) {
+                                                                ?>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Academic Year </label>
+                                                                        <input type="text" value="<?php echo $academic_settings->current_academic_year; ?>" required name="academic_year" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Semester</label>
+                                                                        <input type="text" value="<?php echo $academic_settings->current_semester; ?>" required name="semester" class="form-control">
+                                                                    </div>
+
+                                                                <?php
+                                                                } ?>
+
                                                             </div>
                                                         </div>
                                                         <div class="text-right">
@@ -369,6 +396,26 @@ require_once('public/partials/_head.php');
                                                                     <label for="">Module Name</label>
                                                                     <input type="text" id="moduleName" required name="module_name" class="form-control">
                                                                 </div>
+                                                                <?php
+                                                                /* Persisit Academic Settings */
+                                                                $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($academic_settings = $res->fetch_object()) {
+                                                                ?>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Academic Year </label>
+                                                                        <input type="text" value="<?php echo $academic_settings->current_academic_year; ?>" required name="academic_year" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Semester</label>
+                                                                        <input type="text" value="<?php echo $academic_settings->current_semester; ?>" required name="semester" class="form-control">
+                                                                    </div>
+
+                                                                <?php
+                                                                } ?>
+
                                                             </div>
                                                         </div>
                                                         <div class="text-right">
@@ -395,8 +442,9 @@ require_once('public/partials/_head.php');
                                             <table id="example1" class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>Module Name</th>
-                                                        <th>Module Code</th>
+                                                        <th>Module Details</th>
+                                                        <th>Academic Year</th>
+                                                        <th>Semester</th>
                                                         <th>Lecture Allocated</th>
                                                         <th>Manage</th>
                                                     </tr>
@@ -410,8 +458,9 @@ require_once('public/partials/_head.php');
                                                     while ($assigns = $res->fetch_object()) {
                                                     ?>
                                                         <tr>
-                                                            <td><?php echo $assigns->module_name; ?></td>
-                                                            <td><?php echo $assigns->module_code; ?></td>
+                                                            <td><?php echo $assigns->module_code . " " . $assigns->module_name; ?></td>
+                                                            <td><?php echo $assigns->academic_year; ?></td>
+                                                            <td><?php echo $assigns->semester; ?></td>
                                                             <td>
                                                                 <?php
                                                                 /* Indicate This Lec Is A Guest */
@@ -419,7 +468,8 @@ require_once('public/partials/_head.php');
                                                                     echo "<span class='text-success' title='Guest Lecturer'>$assigns->lec_name</span>";
                                                                 } else {
                                                                     echo $assigns->lec_name;
-                                                                } ?>
+                                                                }
+                                                                ?>
                                                             </td>
                                                             <td>
                                                                 <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $assigns->id; ?>">
@@ -440,7 +490,7 @@ require_once('public/partials/_head.php');
                                                                                 <h4>Delete <?php echo $assigns->lec_name; ?> Module Allocation ?</h4>
                                                                                 <br>
                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="edu_admn_module_allocations.php?delete=<?php echo $assigns->id; ?>&code=<?php echo $assigns->module_code; ?>&view=<?php echo $course->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                <a href="module_allocations.php?delete=<?php echo $assigns->id; ?>&code=<?php echo $assigns->module_code; ?>&view=<?php echo $course->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>

@@ -97,9 +97,10 @@ if (isset($_POST['add_enroll'])) {
             $module_code = $_POST['module_code'];
             $module_id = $_POST['module_id'];
             $stage = $_POST['stage'];
-            $query = "INSERT INTO ezanaLMS_Enrollments (id, stage, faculty_id, code, student_adm, student_name, semester_enrolled, created_at, course_code, course_name, semester_start, semester_end, academic_year_enrolled, module_name, module_code) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $course_id = $_POST['course_id'];
+            $query = "INSERT INTO ezanaLMS_Enrollments (course_id, id, stage, faculty_id, code, student_adm, student_name, semester_enrolled, created_at, course_code, course_name, semester_start, semester_end, academic_year_enrolled, module_name, module_code) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssssssssssss', $id, $stage, $faculty, $code, $student_adm, $student_name, $semester_enrolled, $created_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code);
+            $rc = $stmt->bind_param('ssssssssssssssss', $course_id, $id, $stage, $faculty, $code, $student_adm, $student_name, $semester_enrolled, $created_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code);
             $stmt->execute();
             if ($stmt) {
                 $success = "Student Enrolled"  && header("refresh:1; url=module_enrollments.php?view=$module_id");
@@ -372,6 +373,7 @@ require_once('public/partials/_head.php');
                                                                         <input type="hidden" required name="course_id" value="<?php echo $mod->course_id; ?>" class="form-control">
                                                                         <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
                                                                         <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                        <input type="hidden" required name="course_id" value="<?php echo $mod->course_id; ?>" class="form-control">
 
                                                                     </div>
                                                                     <div class="form-group col-md-6">

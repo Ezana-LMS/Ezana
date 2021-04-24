@@ -159,7 +159,7 @@ require_once('public/partials/_reportshead.php');
                         <hr>
                         <div class="row">
                             <div class="col-12">
-                                <table id="export-dt" class="table table-bordered table-responsive table-striped">
+                                <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Adm No</th>
@@ -196,7 +196,6 @@ require_once('public/partials/_reportshead.php');
                                                 <td><?php echo $std->course; ?></td>
                                                 <td><?php echo $std->day_enrolled; ?></td>
                                                 <td><?php echo $std->current_year; ?></td>
-
                                             </tr>
                                         <?php $cnt = $cnt + 1;
                                         } ?>

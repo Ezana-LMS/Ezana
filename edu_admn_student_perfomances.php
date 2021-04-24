@@ -41,11 +41,11 @@ require_once('public/partials/_reportshead.php');
             <!-- Sidebar -->
             <?php require_once('public/partials/_sidebar.php');
             $view = $_GET['view'];
-            $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id= '$view' ";
+            $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE id= '$view' ";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
-            while ($faculty = $res->fetch_object()) {
+            while ($course = $res->fetch_object()) {
             ?>
         </aside>
 
@@ -54,13 +54,13 @@ require_once('public/partials/_reportshead.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Student Enrollments</h1>
+                            <h1 class="m-0 text-dark"><?php echo $course->name; ?> Module Perfomances</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="edu_admn_reports.php">Reports</a></li>
-                                <li class="breadcrumb-item active">Student Enrollments</li>
+                                <li class="breadcrumb-item active">Module Perfomances</li>
                             </ol>
                         </div>
                     </div>
@@ -71,37 +71,32 @@ require_once('public/partials/_reportshead.php');
                         <hr>
                         <div class="row">
                             <div class="col-12">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Code</th>
-                                            <th>Name</th>
-                                            <th>Department</th>
-                                            <th>Manage</th>
+                                            <th>Student Details</th>
+                                            <th>Module Details</th>
+                                            <th>Academic Year</th>
+                                            <th>Semester</th>
+                                            <th>Marks | Grade Attained</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$view'";
+                                        $ret = "SELECT * FROM `ezanaLMS_StudentModuleGrades` WHERE course_id = '$view' ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
-                                        $cnt = 1;
-                                        while ($courses = $res->fetch_object()) {
+                                        while ($grade = $res->fetch_object()) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $courses->code; ?></td>
-                                                <td><?php echo $courses->name; ?></td>
-                                                <td><?php echo $courses->department_name; ?></td>
-                                                <td>
-                                                    <a class="badge badge-success" href="edu_admn_reports_module_enrollments.php?view=<?php echo $courses->id; ?>">
-                                                        <i class="fas fa-eye"></i>
-                                                        View Module Enrollments
-                                                    </a>
-
-                                                </td>
+                                                <td><?php echo $grade->regno . " " . $grade->name; ?></td>
+                                                <td><?php echo $grade->module_code . " " . $grade->module_name;?> </td>
+                                                <td><?php echo $grade->academic_year; ?></td>
+                                                <td><?php echo $grade->semester; ?></td>
+                                                <td><?php echo $grade->marks; ?></td>
                                             </tr>
-                                        <?php
+                                        <?php $cnt = $cnt + 1;
                                         } ?>
                                     </tbody>
                                 </table>

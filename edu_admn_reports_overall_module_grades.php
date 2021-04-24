@@ -71,7 +71,40 @@ require_once('public/partials/_reportshead.php');
                         <hr>
                         <div class="row">
                             <div class="col-12">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Name</th>
+                                            <th>Department</th>
+                                            <th>Manage</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$view'";
+                                        $stmt = $mysqli->prepare($ret);
+                                        $stmt->execute(); //ok
+                                        $res = $stmt->get_result();
+                                        $cnt = 1;
+                                        while ($courses = $res->fetch_object()) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $courses->code; ?></td>
+                                                <td><?php echo $courses->name; ?></td>
+                                                <td><?php echo $courses->department_name; ?></td>
+                                                <td>
+                                                    <a class="badge badge-success" href="edu_admn_student_perfomances.php?view=<?php echo $courses->id; ?>">
+                                                        <i class="fas fa-eye"></i>
+                                                        View Student Perfomances
+                                                    </a>
 
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        } ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

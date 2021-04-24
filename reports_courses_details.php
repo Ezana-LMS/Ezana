@@ -148,7 +148,7 @@ require_once('public/partials/_head.php');
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="reports.php">System</a></li>
                                 <li class="breadcrumb-item"><a href="reports.php">Reports</a></li>
-                                <li class="breadcrumb-item active">Student Enrollments</li>
+                                <li class="breadcrumb-item active">Teaching Allocations</li>
                             </ol>
                         </div>
                     </div>
@@ -186,9 +186,9 @@ require_once('public/partials/_head.php');
                                                         <td><?php echo $courses->department_name; ?></td>
                                                         <td><?php echo $courses->faculty_name; ?></td>
                                                         <td>
-                                                            <a class="badge badge-success" href="reports_module_enrollments.php?view=<?php echo $courses->id; ?>">
+                                                            <a class="badge badge-success" href="reports_teaching_allocations.php?view=<?php echo $courses->id; ?>">
                                                                 <i class="fas fa-eye"></i>
-                                                                View Module Enrollments
+                                                                View Teaching Allocations
                                                             </a>
                                                         </td>
                                                     </tr>

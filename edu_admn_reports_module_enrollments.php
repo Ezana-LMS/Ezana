@@ -41,11 +41,11 @@ require_once('public/partials/_reportshead.php');
             <!-- Sidebar -->
             <?php require_once('public/partials/_sidebar.php');
             $view = $_GET['view'];
-            $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id= '$view' ";
+            $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE id= '$view' ";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
-            while ($faculty = $res->fetch_object()) {
+            while ($course = $res->fetch_object()) {
             ?>
         </aside>
 
@@ -54,7 +54,7 @@ require_once('public/partials/_reportshead.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Student Enrollments</h1>
+                            <h1 class="m-0 text-dark"><?php echo $course->name; ?> Student Enrollments</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -71,37 +71,31 @@ require_once('public/partials/_reportshead.php');
                         <hr>
                         <div class="row">
                             <div class="col-12">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Code</th>
-                                            <th>Name</th>
-                                            <th>Department</th>
-                                            <th>Manage</th>
+                                            <th>Student Details</th>
+                                            <th>Module Details</th>
+                                            <th>Year</th>
+                                            <th>Semester & Academic Year</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$view'";
+                                        $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE course_id = '$view' ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
                                         $cnt = 1;
-                                        while ($courses = $res->fetch_object()) {
+                                        while ($en = $res->fetch_object()) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $courses->code; ?></td>
-                                                <td><?php echo $courses->name; ?></td>
-                                                <td><?php echo $courses->department_name; ?></td>
-                                                <td>
-                                                    <a class="badge badge-success" href="edu_admn_reports_module_enrollments.php?view=<?php echo $courses->id; ?>">
-                                                        <i class="fas fa-eye"></i>
-                                                        View Module Enrollments
-                                                    </a>
-
-                                                </td>
+                                                <td><?php echo $en->student_adm . " " . $en->student_name; ?></td>
+                                                <td><?php echo $en->module_code . " " . $en->module_name; ?></td>
+                                                <td><?php echo $en->stage; ?></td>
+                                                <td><?php echo $en->semester_enrolled . " " . $en->academic_year; ?></td>
                                             </tr>
-                                        <?php
+                                        <?php $cnt = $cnt + 1;
                                         } ?>
                                     </tbody>
                                 </table>

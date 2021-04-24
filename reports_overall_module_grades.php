@@ -141,14 +141,14 @@ require_once('public/partials/_reportshead.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Student Enrollment Module Perfomances</h1>
+                            <h1 class="m-0 text-dark">Courses </h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="reports.php">System</a></li>
                                 <li class="breadcrumb-item"><a href="reports.php">Reports</a></li>
-                                <li class="breadcrumb-item active">Module Perfomances</li>
+                                <li class="breadcrumb-item active">Courses</li>
                             </ol>
                         </div>
                     </div>
@@ -159,31 +159,38 @@ require_once('public/partials/_reportshead.php');
                         <hr>
                         <div class="row">
                             <div class="col-12">
-                                <table id="export-dt" class="table table-bordered table-striped">
+                                <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Student Admission Number</th>
-                                            <th>Student Name</th>
-                                            <th>Module Details</th>
-                                            <th>Marks | Grade Attained</th>
+                                            <th>Code</th>
+                                            <th>Name</th>
+                                            <th>Department</th>
+                                            <th>Faculty</th>
+                                            <th>Manage</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_StudentModuleGrades`  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Courses`";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
-                                        while ($grade = $res->fetch_object()) {
+                                        $cnt = 1;
+                                        while ($courses = $res->fetch_object()) {
                                         ?>
-
                                             <tr>
-                                                <td><?php echo $grade->regno; ?></td>
-                                                <td><?php echo $grade->name; ?></td>
-                                                <td><?php echo $grade->module_code . " " . $grade->module_name; ?></td>
-                                                <td><?php echo $grade->marks; ?></td>
+                                                <td><?php echo $courses->code; ?></td>
+                                                <td><?php echo $courses->name; ?></td>
+                                                <td><?php echo $courses->department_name; ?></td>
+                                                <td><?php echo $courses->faculty_name; ?></td>
+                                                <td>
+                                                    <a class="badge badge-success" href="reports_students_perfomances.php?view=<?php echo $courses->id; ?>">
+                                                        <i class="fas fa-eye"></i>
+                                                        View Students Perfomances
+                                                    </a>
+                                                </td>
                                             </tr>
-                                        <?php $cnt = $cnt + 1;
+                                        <?php
                                         } ?>
                                     </tbody>
                                 </table>
