@@ -37,10 +37,11 @@ if (isset($_POST['add_grade'])) {
     $module_id = $_POST['module_id'];
     $semester = $_POST['semester'];
     $academic_year = $_POST['academic_year'];
+    $course_id = $_POS['course_id'];
 
-    $query = "INSERT INTO ezanaLMS_StudentModuleGrades (semester, academic_year, id, module_code, module_name, regno, name, marks) VALUES(?,?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_StudentModuleGrades (course_id, semester, academic_year, id, module_code, module_name, regno, name, marks) VALUES(?,?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssssss', $semester, $academic_year, $id, $module_code, $module_name, $regno, $name, $marks);
+    $rc = $stmt->bind_param('sssssssss', $course_id, $semester, $academic_year, $id, $module_code, $module_name, $regno, $name, $marks);
     $stmt->execute();
     if ($stmt) {
         $success = "Grades Submitted" && header("refresh:1; url=grades.php?view=$module_id");
@@ -256,6 +257,7 @@ require_once('public/partials/_head.php');
                                                             <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
                                                             <input type="hidden" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
                                                             <input type="hidden" name="module_code" value="<?php echo $mod->code; ?>" class="form-control">
+                                                            <input type="hidden" name="course_id" value="<?php echo $mod->course_id; ?>" class="form-control">
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Student Admission Number</label>
