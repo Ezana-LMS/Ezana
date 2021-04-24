@@ -173,6 +173,7 @@ require_once('public/partials/_reportshead.php');
                                     <thead>
                                         <tr>
                                             <th>Student Details</th>
+                                            <th>Module Details</th>
                                             <th>Academic Year</th>
                                             <th>Semester</th>
                                             <th>Marks | Grade Attained</th>
@@ -188,6 +189,7 @@ require_once('public/partials/_reportshead.php');
                                         ?>
                                             <tr>
                                                 <td><?php echo $grade->regno . " " . $grade->name; ?></td>
+                                                <td><?php echo $grade->module_code . " " . $grade->module_name; ?> </td>
                                                 <td><?php echo $grade->academic_year; ?></td>
                                                 <td><?php echo $grade->semester; ?></td>
                                                 <td><?php echo $grade->marks; ?></td>

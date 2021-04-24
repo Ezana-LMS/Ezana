@@ -221,7 +221,7 @@ require_once('public/partials/_head.php');
 
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
-                                                            <h3>Module Grades</h3>
+                                                            <h3>Student Perfomances</h3>
                                                         </div>
                                                         <div class="icon">
                                                             <i class="fas fa-file"></i>
