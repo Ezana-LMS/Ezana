@@ -159,7 +159,7 @@ require_once('public/partials/_reportshead.php');
                         <hr>
                         <div class="row">
                             <div class="col-12">
-                                <table id="export-dt" class="table table-bordered  table-striped">
+                                <table id="export-dt" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Adm No</th>
