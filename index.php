@@ -82,7 +82,7 @@ while ($sys = $res->fetch_object()) {
                         </div>
                         <h2 class="mt-3 text-center">Log In</h2>
                         <p class="text-center">
-                            Enter Your Email Address And Password
+                            Enter Your Email Address And Password <br>
                             Use The Following Demo Credentials <br>
 
                             <b>Email : </b> sysadmin@ezana.org <br>
