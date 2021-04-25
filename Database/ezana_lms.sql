@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 24, 2021 at 12:27 PM
+-- Generation Time: Apr 24, 2021 at 12:44 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.26
 
@@ -653,7 +653,7 @@ CREATE TABLE `ezanaLMS_ModuleRecommended` (
 
 INSERT INTO `ezanaLMS_ModuleRecommended` (`id`, `faculty_id`, `module_code`, `module_name`, `readingMaterials`, `external_link`, `visibility`, `created_at`) VALUES
 ('36a8bb39a6c2a6d060edb75a5035657a91970aad47', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'BCS 1190', 'Object Oriented Programming', 'Politico Challenge.pdf', '', 'Available', '2021-04-23 00:26:06'),
-('47c6321687a72a77507c5262ed711a510b80869a98', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'BICM 102', 'Basic Calculus', 'Official Google Cloud Certified Associate Cloud Engineer Study Guide ( PDFDrive.com ).pdf', '', 'Hidden', '2021-04-01 15:29:40');
+('47c6321687a72a77507c5262ed711a510b80869a98', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'BICM 102', 'Basic Calculus', 'Politico Challenge.pdf', '', 'Hidden', '2021-04-24 10:43:41');
 
 -- --------------------------------------------------------
 
@@ -1012,6 +1012,14 @@ CREATE TABLE `ezanaLMS_UserLog` (
   `User_Rank` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `ezanaLMS_UserLog`
+--
+
+INSERT INTO `ezanaLMS_UserLog` (`id`, `user_id`, `name`, `ip`, `loginTime`, `User_Rank`) VALUES
+(58, '3abf1651a3e361db3af99a25810703b4ce75957c', 'jamesdoe@computingsciences.org', 0x3132372e302e302e31, '2021-04-24', 'Administrator'),
+(59, 'a69681bcf334ae130217fea4505fd3c994f5683f', 'sysadmin@ezana.org', 0x3132372e302e302e31, '2021-04-24', 'Administrator');
+
 -- --------------------------------------------------------
 
 --
@@ -1288,7 +1296,7 @@ ALTER TABLE `ezanaLMS_Settings`
 -- AUTO_INCREMENT for table `ezanaLMS_UserLog`
 --
 ALTER TABLE `ezanaLMS_UserLog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

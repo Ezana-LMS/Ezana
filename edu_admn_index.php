@@ -45,7 +45,7 @@ if (isset($_POST['login'])) {
             /* Load Sessions */
             $_SESSION['id'] = $num['id'];
             $_SESSION['email'] = $email;
-            
+
             /* Log User Login Details */
             $uip = $_SERVER['REMOTE_ADDR']; // User IP Address
             $User_Rank = 'Administrator'; // User Rank
@@ -82,7 +82,14 @@ while ($sys = $res->fetch_object()) {
                             <img height="150" width="160" src="public/dist/img/<?php echo $sys->logo; ?>" alt="wrapkit">
                         </div>
                         <h2 class="mt-3 text-center">Log In</h2>
-                        <p class="text-center">Enter Your Email Address And Password</p>
+                        <p class="text-center">
+                            Enter Your Email Address And Password <br>
+                            Use The Following Demo Credentials <br>
+                            
+                            <b>Email   : </b> jamesdoe@computingsciences.org <br>
+                            <b>Password: </b> 123 <br>
+
+                        </p>
                         <div class="wrap-input100 validate-input" data-validate="Valid email is required: user@mail.com">
                             <input class="input100" type="email" name="email">
                             <span class="focus-input100"></span>

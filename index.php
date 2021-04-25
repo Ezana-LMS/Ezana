@@ -81,7 +81,13 @@ while ($sys = $res->fetch_object()) {
                             <img height="150" width="160" src="public/dist/img/<?php echo $sys->logo; ?>" alt="wrapkit">
                         </div>
                         <h2 class="mt-3 text-center">Log In</h2>
-                        <p class="text-center">Enter Your Email Address And Password</p>
+                        <p class="text-center">
+                            Enter Your Email Address And Password <br>
+                            Use The Following Demo Credentials <br>
+
+                            <b>Email : </b> sysadmin@ezana.org <br>
+                            <b>Password: </b> 123 <br>
+                        </p>
                         <div class="wrap-input100 validate-input" data-validate="Valid email is required: user@mail.com">
                             <input class="input100" type="email" name="email">
                             <span class="focus-input100"></span>
