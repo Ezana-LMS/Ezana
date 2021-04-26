@@ -122,7 +122,7 @@ require_once('public/partials/_head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="lec_dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="lec_module_allocations.php">Allocated Modules</a></li>
+                                    <li class="breadcrumb-item"><a href="lec_allocated_modules.php">Allocated Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
                                 </ol>
                             </div>
