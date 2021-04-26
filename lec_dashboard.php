@@ -82,18 +82,13 @@ require_once('public/partials/_head.php');
 
                 <section class="content">
                     <div class="container-fluid">
-                        <div class="text-left">
-
-                        </div>
-                        <hr>
                         <div class="row">
-
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_modules.php?view=<?php echo $admin->school_id; ?>">
+                                                <a href="lec_allocated_modules.php">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Assigned Modules</h3>
@@ -110,8 +105,7 @@ require_once('public/partials/_head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_overall_school_calendar.php?view=<?php echo $admin->school_id; ?>">
-
+                                                <a href="lec_important_dates.php">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Important Dates</h3>
@@ -128,8 +122,7 @@ require_once('public/partials/_head.php');
 
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="edu_admn_lecturers.php?view=<?php echo $admin->school_id; ?>">
-
+                                                <a href="lec_time_table.php">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Time Table</h3>
@@ -139,7 +132,6 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                         <div class="small-box-footer">
                                                             <i class="fas fa-arrow-circle-right"></i>
-                                                            <?php echo $lecs; ?>
                                                         </div>
                                                     </div>
                                                 </a>
