@@ -86,15 +86,15 @@ while ($sys = $res->fetch_object()) {
                         <p class="text-center">
                             Enter Your Email Address And Password <br>
                             Use The Following Demo Credentials <br>
-                            
-                            <b>Email   : </b> jamesdoe@computingsciences.org <br>
+
+                            <b>Email : </b> jamesdoe@computingsciences.org <br>
                             <b>Password: </b> 123 <br>
 
                         </p>
                         <div class="wrap-input100 validate-input" data-validate="Valid email is required: user@mail.com">
                             <input class="input100" type="email" name="email">
                             <span class="focus-input100"></span>
-                            <span class="label-input100">Email</span>
+                            <span class="label-input100">Work Email</span>
                         </div>
                         <div class="wrap-input100 validate-input" data-validate="Password is required">
                             <input class="input100" type="password" name="password">
