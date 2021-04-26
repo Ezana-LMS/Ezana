@@ -88,7 +88,7 @@ while ($sys = $res->fetch_object()) {
                             Use The Following Demo Credentials <br>
 
                             <b>Email : </b> lecturer@ezana.org <br>
-                            <b>Password: </b> 123 <br>
+                            <b>Password: </b> demo <br>
 
                         </p>
                         <div class="wrap-input100 validate-input" data-validate="Valid email is required: user@mail.com">
