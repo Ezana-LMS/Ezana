@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Apr 01 2021
+ * Created on Mon Apr 26 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -19,6 +19,7 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 session_start();
 include('configs/config.php');
 require_once('configs/codeGen.php');
@@ -38,22 +39,22 @@ if (isset($_POST['reset_pwd'])) {
     }
 
     if (!$error) {
-        $email = $_SESSION['email'];
-        $sql = "SELECT * FROM  ezanaLMS_Admins  WHERE email = '$email'";
+        $email = $_SESSION['work_email'];
+        $sql = "SELECT * FROM  ezanaLMS_Lecturers  WHERE work_email = '$email'";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
             if ($new_password != $confirm_password) {
                 $err = "Password Does Not Match";
             } else {
-                $email = $_SESSION['email'];
+                $email = $_SESSION['work_email'];
                 $new_password  = sha1(md5($_POST['new_password']));
-                $query = "UPDATE ezanaLMS_Admins SET  password =? WHERE email =?";
+                $query = "UPDATE ezanaLMS_Lecturers SET  password =? WHERE work_email =?";
                 $stmt = $mysqli->prepare($query);
                 $rc = $stmt->bind_param('ss', $new_password, $email);
                 $stmt->execute();
                 if ($stmt) {
-                    $success = "Password Changed" && header("refresh:1; url=index.php");
+                    $success = "Password Changed" && header("refresh:1; url=lec_index.php");
                 } else {
                     $err = "Please Try Again Or Try Later";
                 }
@@ -80,8 +81,8 @@ while ($sys = $res->fetch_object()) {
                         </div>
                         <h2 class="mt-3 text-center">Password Reset</h2>
                         <?php
-                        $email  = $_SESSION['email'];
-                        $ret = "SELECT * FROM  ezanaLMS_Admins  WHERE email = '$email'";
+                        $email  = $_SESSION['work_email'];
+                        $ret = "SELECT * FROM  ezanaLMS_Lecturers  WHERE work_email = '$email'";
                         $stmt = $mysqli->prepare($ret);
                         $stmt->execute(); //ok
                         $res = $stmt->get_result();

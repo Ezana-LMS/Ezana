@@ -134,6 +134,13 @@
             document.notificationsForm.submit();
         }
     }
+    /* Lec Clear Notifications */
+    function setDeleteAction() {
+        if (confirm("Are you sure want to clear these notifications?")) {
+            document.notificationsForm.action = "lec_notifications_clear.php";
+            document.notificationsForm.submit();
+        }
+    }
     /* Load Summernotes */
     $(document).ready(function() {
         $('.Summernote').summernote({

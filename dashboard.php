@@ -167,123 +167,9 @@ require_once('public/partials/_head.php');
 
                 <section class="content">
                     <div class="container-fluid">
-                        <div class="text-left">
-                            <!-- 
-                            <nav class="navbar navbar-light bg-light col-md-12">
-                                <form class="form-inline" action="faculty_search_result.php" method="GET">
-                                    <input class="form-control mr-sm-2" type="search" name="query" placeholder="Faculty Name Or Code">
-                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                                </form>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Faculty</button>
-                                <div class="modal fade" id="modal-default">
-                                    <div class="modal-dialog  modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Fill All Required Values </h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Faculty Name</label>
-                                                                <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Faculty Number / Code</label>
-                                                                <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="exampleInputPassword1">Faculty Description</label>
-                                                                <textarea id="textarea" name="details" rows="10" class="form-control"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-right">
-                                                        <button type="submit" name="add_faculty" class=" btn btn-primary">Add Faculty</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </nav> -->
-                        </div>
                         <hr>
                         <div class="row">
-                            <!-- <div class="col-md-3">
-                                <?php
-                                $ret = "SELECT * FROM `ezanaLMS_Faculties` ORDER BY `name` ASC ";
-                                $stmt = $mysqli->prepare($ret);
-                                $stmt->execute(); //ok
-                                $res = $stmt->get_result();
-                                $cnt = 1;
-                                while ($faculty = $res->fetch_object()) {
-                                ?>
-                                    <div class="col-md-12">
-                                        <div class="card  collapsed-card">
-                                            <div class="card-header">
-                                                <a href="faculty_dashboard.php?view=<?php echo $faculty->id; ?>">
-                                                    <h3 class="card-title text-primary"><?php echo $cnt; ?>. <?php echo $faculty->name; ?></h3>
-                                                    <div class="card-tools text-right">
-                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </a>
-                                            </div>
-
-                                            <div class="card-body">
-                                                <ul class="list-group">
-
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_departments.php?view=<?php echo $faculty->id; ?>">
-                                                            Departments
-                                                        </a>
-                                                    </li>
-
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_courses.php?view=<?php echo $faculty->id; ?>">
-                                                            Courses
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_modules.php?view=<?php echo $faculty->id; ?>">
-                                                            Modules
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="school_calendar.php?view=<?php echo $faculty->id; ?>">
-                                                            Important Dates
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_lects.php?view=<?php echo $faculty->id; ?>">
-                                                            Lecturers
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_students.php?view=<?php echo $faculty->id; ?>">
-                                                            Students
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php
-                                    $cnt = $cnt + 1;
-                                } ?>
-                            </div>
-                             -->
+                            
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -514,7 +400,7 @@ require_once('public/partials/_head.php');
                                                         <ul class="todo-list" data-widget="todo-list">
                                                             <?php
                                                             /* Load Crashlytics */
-                                                            $ret = "SELECT * FROM `ezanaLMS_BugReports` WHERE status  = 'Pending Fix'   ORDER BY `date_reported` ASC  ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_BugReports` WHERE status  = 'Pending Fix'   ORDER BY `date_reported` DESC  ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();

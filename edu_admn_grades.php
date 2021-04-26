@@ -251,7 +251,7 @@ require_once('public/partials/_head.php');
                                                                     <td><?php echo $grade->semester; ?></td>
                                                                     <td><?php echo $grade->marks; ?></td>
                                                                 </tr>
-                                                            <?php $cnt = $cnt + 1;
+                                                            <?php 
                                                             } ?>
                                                         </tbody>
                                                     </table>
