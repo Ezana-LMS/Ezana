@@ -306,7 +306,7 @@ require_once('public/partials/_head.php');
                                             <div class="active tab-pane" id="update_profile">
                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                     <div class="row">
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-12">
                                                             <label for="">Name</label>
                                                             <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control" id="exampleInputEmail1">
                                                             <input type="hidden" required name="id" value="<?php echo $lec->id; ?>" class="form-control">
