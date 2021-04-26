@@ -13,7 +13,7 @@
 
             <li class="nav-item">
                 <a href="lec_allocated_modules.php" class="nav-link">
-                    <i class="nav-icon fas fa-university"></i>
+                    <i class="nav-icon fas fa-chalkboard"></i>
                     <p>
                         Allocated Modules
                     </p>
@@ -21,7 +21,7 @@
             </li>
             <li class="nav-item">
                 <a href="lec_important_dates.php" class="nav-link">
-                    <i class="nav-icon fas fa-building"></i>
+                    <i class="nav-icon fas fa-calendar"></i>
                     <p>
                         Important Dates
                     </p>
@@ -29,7 +29,7 @@
             </li>
             <li class="nav-item">
                 <a href="lec_time_table.php" class="nav-link">
-                    <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                    <i class="nav-icon fas fa-table"></i>
                     <p>
                         Time Table
                     </p>

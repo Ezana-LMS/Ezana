@@ -129,7 +129,7 @@ require_once('public/partials/_head.php');
                                                             <h3>Time Table</h3>
                                                         </div>
                                                         <div class="icon">
-                                                            <i class="fas fa-user-tie"></i>
+                                                            <i class="fas fa-table"></i>
                                                         </div>
                                                         <div class="small-box-footer">
                                                             <i class="fas fa-arrow-circle-right"></i>
