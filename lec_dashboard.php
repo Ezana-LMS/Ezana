@@ -82,6 +82,7 @@ require_once('public/partials/_head.php');
 
                 <section class="content">
                     <div class="container-fluid">
+                        <hr>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
