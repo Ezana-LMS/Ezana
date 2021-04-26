@@ -147,7 +147,7 @@ require_once('public/partials/_head.php');
                                 <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Past Papers</h1>
                             </div>
                             <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="lec_dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="lec_allocated_modules.php">Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?> Past Papers</li>
@@ -160,7 +160,7 @@ require_once('public/partials/_head.php');
                         <div class="container-fluid">
                             <div class="">
                                 <nav class="navbar navbar-light bg-light col-md-12">
-                                    <form class="form-inline"  method="GET">
+                                    <form class="form-inline">
                                     </form>
                                     <div class="text-right">
                                         <a title="View <?php echo $mod->name; ?> Past Papers In Tabular Formart" href="lec_module_tabular_pastpapers.php?view=<?php echo $mod->id; ?>" class="btn btn-primary"><i class="fas fa-table"></i></a>
@@ -241,7 +241,7 @@ require_once('public/partials/_head.php');
                             <hr>
                             <div class="row">
                                 <!-- Module Side Menu -->
-                                <?php require_once('public/partials/_edu_admn_modulemenu.php'); ?>
+                                <?php require_once('public/partials/_lec_modulemenu.php'); ?>
                                 <!-- Module Side Menu -->
                                 <div class="col-md-9">
                                     <div class="row">
@@ -262,7 +262,7 @@ require_once('public/partials/_head.php');
                                                                 <br>
                                                                 <hr>
                                                                 <div class="text-center">
-                                                                    <a target="_blank" href="edu_admn_pdf_viewer.php?id=<?php echo $pastExas->id; ?>&view=<?php echo $view; ?>" class="btn btn-outline-success">
+                                                                    <a target="_blank" href="lec_pdf_viewer.php?id=<?php echo $pastExas->id; ?>&view=<?php echo $view; ?>" class="btn btn-outline-success">
                                                                         View Paper
                                                                     </a>
                                                                     <?php
@@ -277,7 +277,7 @@ require_once('public/partials/_head.php');
                                                                     } else {
                                                                         echo
                                                                         "
-                                                                        <a target='_blank' href= 'edu_admn_pdf_solution_viewer.php?id=$pastExas->id&view=$view' class='btn btn-outline-success'>
+                                                                        <a target='_blank' href= 'lec_pdf_solution_viewer.php?id=$pastExas->id&view=$view' class='btn btn-outline-success'>
                                                                             View Solution
                                                                         </a>
                                                                         ";
@@ -410,7 +410,7 @@ require_once('public/partials/_head.php');
                                                                                 <h4>Delete <?php echo $pastExas->paper_name; ?> ?</h4>
                                                                                 <br>
                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="edu_admn_pastpapers.php?delete=<?php echo $pastExas->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                <a href="lec_module_pastpapers.php?delete=<?php echo $pastExas->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
