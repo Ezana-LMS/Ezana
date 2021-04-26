@@ -39,17 +39,17 @@ if (isset($_POST['reset_pwd'])) {
     }
 
     if (!$error) {
-        $email = $_SESSION['email'];
-        $sql = "SELECT * FROM  ezanaLMS_Lecturers  WHERE email = '$email'";
+        $email = $_SESSION['work_email'];
+        $sql = "SELECT * FROM  ezanaLMS_Lecturers  WHERE work_email = '$email'";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
             if ($new_password != $confirm_password) {
                 $err = "Password Does Not Match";
             } else {
-                $email = $_SESSION['email'];
+                $email = $_SESSION['work_email'];
                 $new_password  = sha1(md5($_POST['new_password']));
-                $query = "UPDATE ezanaLMS_Lecturers SET  password =? WHERE email =?";
+                $query = "UPDATE ezanaLMS_Lecturers SET  password =? WHERE work_email =?";
                 $stmt = $mysqli->prepare($query);
                 $rc = $stmt->bind_param('ss', $new_password, $email);
                 $stmt->execute();
@@ -81,8 +81,8 @@ while ($sys = $res->fetch_object()) {
                         </div>
                         <h2 class="mt-3 text-center">Password Reset</h2>
                         <?php
-                        $email  = $_SESSION['email'];
-                        $ret = "SELECT * FROM  ezanaLMS_Lecturers  WHERE email = '$email'";
+                        $email  = $_SESSION['work_email'];
+                        $ret = "SELECT * FROM  ezanaLMS_Lecturers  WHERE work_email = '$email'";
                         $stmt = $mysqli->prepare($ret);
                         $stmt->execute(); //ok
                         $res = $stmt->get_result();

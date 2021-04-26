@@ -40,12 +40,12 @@ if (isset($_POST['login'])) {
         $err = "Email Cannot  Be Empty";
     }
     if (!$error) {
-        $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Lecturers WHERE email='$email'  AND password='$password'");
+        $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Lecturers WHERE work_email='$email'  AND password='$password'");
         $num = mysqli_fetch_array($ret);
         if ($num > 0) {
             /* Load Sessions */
             $_SESSION['id'] = $num['id'];
-            $_SESSION['email'] = $email;
+            $_SESSION['work_email'] = $email;
 
             /* Log User Login Details */
             $uip = $_SERVER['REMOTE_ADDR']; // User IP Address
@@ -53,7 +53,7 @@ if (isset($_POST['login'])) {
             $loginTime = date('Y-m-d');
 
             /* Persist Logs On Logs Table */
-            mysqli_query($mysqli, "INSERT INTO ezanaLMS_UserLog(user_id, name, ip, User_Rank, loginTime) values('" . $_SESSION['id'] . "','" . $_SESSION['email'] . "','$uip', '$User_Rank', '$loginTime')");
+            mysqli_query($mysqli, "INSERT INTO ezanaLMS_UserLog(user_id, name, ip, User_Rank, loginTime) values('" . $_SESSION['id'] . "','" . $_SESSION['work_email'] . "','$uip', '$User_Rank', '$loginTime')");
             $extra = "lec_dashboard.php";
             $host = $_SERVER['HTTP_HOST'];
             $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -87,7 +87,7 @@ while ($sys = $res->fetch_object()) {
                             Enter Your Email Address And Password <br>
                             Use The Following Demo Credentials <br>
 
-                            <b>Email : </b> lecturer@ezana.org <br>
+                            <b>Email : </b> 21899@ezana.org <br>
                             <b>Password: </b> demo <br>
 
                         </p>

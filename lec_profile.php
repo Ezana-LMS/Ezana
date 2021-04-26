@@ -148,8 +148,8 @@ require_once('public/partials/_head.php');
         <!-- Navbar -->
         <?php
         require_once('public/partials/_lec_nav.php');
-        $view  = $_GET['view'];
-        $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id ='$view' ";
+        $id  = $_SESSION['id'];
+        $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id ='$id' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();

@@ -35,13 +35,13 @@ if (isset($_POST['reset_pwd'])) {
     if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $err = 'Invalid Email';
     }
-    $checkEmail = mysqli_query($mysqli, "SELECT `email` FROM `ezanaLMS_Lecturers` WHERE `email` = '" . $_POST['email'] . "'") or exit(mysqli_error($mysqli));
+    $checkEmail = mysqli_query($mysqli, "SELECT `email` FROM `ezanaLMS_Lecturers` WHERE `work_email` = '" . $_POST['email'] . "'") or exit(mysqli_error($mysqli));
     if (mysqli_num_rows($checkEmail) > 0) {
 
         $n = date('y');
         $new_password = bin2hex(random_bytes($n));
         //Insert Captured information to a database table
-        $query = "UPDATE ezanaLMS_Lecturers SET  password=? WHERE email =?";
+        $query = "UPDATE ezanaLMS_Lecturers SET  password=? WHERE work_email =?";
         $stmt = $mysqli->prepare($query);
         //bind paramaters
         $rc = $stmt->bind_param('ss', $new_password, $email);
@@ -49,7 +49,7 @@ if (isset($_POST['reset_pwd'])) {
 
         //declare a varible which will be passed to alert function
         if ($stmt) {
-            $_SESSION['email'] = $email;
+            $_SESSION['work_email'] = $email;
             $success = "Confim Your Password" && header("refresh:1; url=lec_confirm_password.php");
         } else {
             $err = "Password reset failed";
