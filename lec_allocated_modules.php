@@ -82,6 +82,7 @@ require_once('public/partials/_head.php');
                                                     <th>Module Details</th>
                                                     <th>Academic Year</th>
                                                     <th>Semester</th>
+                                                    <th>Date Allocated</th>
                                                     <th>Manage</th>
                                                 </tr>
                                             </thead>
@@ -97,8 +98,9 @@ require_once('public/partials/_head.php');
                                                         <td><?php echo $assigns->module_code . " " . $assigns->module_name; ?></td>
                                                         <td><?php echo $assigns->academic_year; ?></td>
                                                         <td><?php echo $assigns->semester; ?></td>
+                                                        <td><?php echo $assigns->created_at; ?></td>
                                                         <td>
-                                                            <a class="badge badge-success" href="lec_view_modules.php?view=<?php echo $assigns->module_code; ?>">
+                                                            <a class="badge badge-success" href="lec_view_module.php?view=<?php echo $assigns->module_code; ?>">
                                                                 <i class="fas fa-eye"></i>
                                                                 View Module Details
                                                             </a>
