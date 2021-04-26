@@ -126,10 +126,8 @@ require_once('public/partials/_head.php');
                                                     <table id="example1" class="table table-bordered table-striped">
                                                         <thead>
                                                             <tr>
-                                                                <th data-toggle="true">Student Admission</th>
-                                                                <th data-toggle="true">Student Name</th>
-                                                                <th>Module Name</th>
-                                                                <th>Module Code</th>
+                                                                <th data-toggle="true">Student Details</th>
+                                                                <th>Module Details</th>
                                                                 <th>Attachment File</th>
                                                                 <th data-hide="all">Manage</th>
                                                             </tr>
@@ -144,10 +142,8 @@ require_once('public/partials/_head.php');
                                                             while ($attempts = $res->fetch_object()) {
                                                             ?>
                                                                 <tr>
-                                                                    <td><?php echo $attempts->std_regno; ?></td>
-                                                                    <td><?php echo $attempts->std_name; ?></td>
-                                                                    <td><?php echo $attempts->module_name; ?></td>
-                                                                    <td><?php echo $attempts->module_code; ?></td>
+                                                                    <td><?php echo $attempts->std_regno . " " . $attempts->std_name; ?></td>
+                                                                    <td><?php echo $attempts->module_code . " " . $attempts->module_name; ?></td>
                                                                     <td>
                                                                         <a target="_blank" href="public/uploads/EzanaLMSData/Module_Assignments_Attempts/<?php echo $attempts->attachments; ?>" class="badge badge-secondary">
                                                                             <i class="fas fa-download"></i>
