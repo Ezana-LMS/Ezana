@@ -31,3 +31,16 @@ function check_login()
 		header("Location: http://$host$uri/$extra");
 	}
 }
+
+/* Lecturer Check Login */
+function lec_check_login()
+{
+	if ((strlen($_SESSION['id']) == 0) || (strlen($_SESSION['email']) == 0)) {
+		$host = $_SERVER['HTTP_HOST'];
+		$uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+		$extra = "lec_index.php";
+		$_SESSION["id"] = "";
+		$_SESSION["email"] = "";
+		header("Location: http://$host$uri/$extra");
+	}
+}

@@ -37,7 +37,7 @@ if (isset($_POST['add_grade'])) {
     $module_id = $_POST['module_id'];
     $semester = $_POST['semester'];
     $academic_year = $_POST['academic_year'];
-    $course_id = $_POS['course_id'];
+    $course_id = $_POST['course_id'];
 
     $query = "INSERT INTO ezanaLMS_StudentModuleGrades (course_id, semester, academic_year, id, module_code, module_name, regno, name, marks) VALUES(?,?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
@@ -346,7 +346,7 @@ require_once('public/partials/_head.php');
                                                                     <td><?php echo $grade->semester; ?></td>
                                                                     <td><?php echo $grade->marks; ?></td>
                                                                 </tr>
-                                                            <?php $cnt = $cnt + 1;
+                                                            <?php 
                                                             } ?>
                                                         </tbody>
                                                     </table>
