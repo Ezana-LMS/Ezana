@@ -87,7 +87,7 @@ while ($sys = $res->fetch_object()) {
                             Enter Your Email Address And Password <br>
                             Use The Following Demo Credentials <br>
 
-                            <b>Email : </b> jamesdoe@computingsciences.org <br>
+                            <b>Email : </b> lecturer@ezana.org <br>
                             <b>Password: </b> 123 <br>
 
                         </p>

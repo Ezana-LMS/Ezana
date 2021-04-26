@@ -52,7 +52,7 @@ if (isset($_POST['reset_pwd'])) {
                 $stmt = $mysqli->prepare($query);
                 $rc = $stmt->bind_param('ss', $new_password, $email);
                 $stmt->execute();
-                if ($stmt && $mail->send()) {
+                if ($stmt) {
                     $success = "Password Changed" && header("refresh:1; url=index.php");
                 } else {
                     $err = "Please Try Again Or Try Later";
