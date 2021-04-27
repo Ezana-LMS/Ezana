@@ -37,7 +37,7 @@ if (isset($_GET['delete_assignment_attempt'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=edu_admn_group_details.php?view=$view&group=$group");
+        $success = "Deleted" && header("refresh:1; url=lec_module_group_details.php?view=$view&group=$group");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -49,7 +49,7 @@ require_once('public/partials/_head.php');
     <div class="wrapper">
         <!-- Navbar -->
         <?php
-        require_once('public/partials/_edu_admn_nav.php');
+        require_once('public/partials/_lec_nav.php');
         $view = $_GET['view'];
         $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE id ='$view'  ";
         $stmt = $mysqli->prepare($ret);
@@ -70,7 +70,7 @@ require_once('public/partials/_head.php');
                     <!-- Brand Logo -->
                     <?php require_once('public/partials/_brand.php'); ?>
                     <!-- Sidebar -->
-                    <?php require_once('public/partials/_sidebar.php'); ?>
+                    <?php require_once('public/partials/_lec_sidebar.php'); ?>
                 </aside>
 
                 <div class="content-wrapper">
@@ -82,7 +82,7 @@ require_once('public/partials/_head.php');
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">
-                                        <li class="breadcrumb-item"><a href="">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="lec_dashboard.php">Home</a></li>
                                         <li class="breadcrumb-item"><a href="">Modules</a></li>
                                         <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
                                     </ol>
@@ -94,16 +94,14 @@ require_once('public/partials/_head.php');
                             <div class="container-fluid">
                                 <div class="text-left">
                                     <nav class="navbar navbar-light bg-light col-md-12">
-                                        <form class="form-inline" action="edu_admn_module_search_result.php" method="GET">
-                                            <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
-                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                        <form class="form-inline" method="GET">
                                         </form>
                                     </nav>
                                 </div>
                                 <hr>
                                 <div class="row">
                                     <!-- Module Side Menu -->
-                                    <?php require_once('public/partials/_edu_admn_modulemenu.php'); ?>
+                                    <?php require_once('public/partials/_lec_modulemenu.php'); ?>
                                     <!-- Module Side Menu -->
                                     <div class="col-md-9">
                                         <div class="row">
@@ -151,7 +149,7 @@ require_once('public/partials/_head.php');
                                                                                             <h4>Delete?</h4>
                                                                                             <br>
                                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                            <a href="edu_admn_group_assignment_attempts.php?delete=<?php echo $attempts->id; ?>view=<?php echo $mod->id; ?>&code=<?php echo $g->code; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                            <a href="lec_module_group_assignment_attempts.php?delete=<?php echo $attempts->id; ?>view=<?php echo $mod->id; ?>&code=<?php echo $g->code; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
