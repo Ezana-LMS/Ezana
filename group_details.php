@@ -185,7 +185,7 @@ if (isset($_POST['add_group_project'])) {
 }
 
 /* Update Group Assignments */
-if (isset($_POST['update_group_project'])) {
+if (isset($_POST['edit_group_project'])) {
     $id = $_POST['id'];
     $details = $_POST['details'];
     $faculty = $_POST['faculty'];
@@ -734,12 +734,12 @@ require_once('public/partials/_head.php');
                                                                                                 <i class="fas fa-eye"></i>
                                                                                                 View Attempts
                                                                                             </a>
-                                                                                            <a class="badge badge-primary" data-toggle="modal" href="#<?php echo $ass->id; ?>">
+                                                                                            <a class="badge badge-primary" data-toggle="modal" href="#edit-<?php echo $ass->id; ?>">
                                                                                                 <i class="fas fa-edit"></i>
                                                                                                 Edit
                                                                                             </a>
                                                                                             <!-- Update Module Modal -->
-                                                                                            <div class="modal fade" id="<?php echo $ass->id; ?>">
+                                                                                            <div class="modal fade" id="edit-<?php echo $ass->id; ?>">
                                                                                                 <div class="modal-dialog  modal-xl">
                                                                                                     <div class="modal-content">
                                                                                                         <div class="modal-header">
