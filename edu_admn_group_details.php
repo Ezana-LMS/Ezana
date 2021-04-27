@@ -338,58 +338,58 @@ require_once('public/partials/_head.php');
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
-                                                <div class="modal fade" id="modal-assignment">
-                                                    <div class="modal-dialog  modal-xl">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Fill All Required Values </h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="modal-assignment">
+                                            <div class="modal-dialog  modal-xl">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Fill All Required Values </h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <!-- Form -->
+                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <!-- Hide This Please -->
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                    <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+                                                                    <input type="hidden" required name="group_name" value="<?php echo $g->name; ?>" class="form-control">
+                                                                    <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
+                                                                    <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="exampleInputPassword1">Submission Date </label>
+                                                                        <input type="date" required name="submitted_on" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Upload Group Assignment (PDF Or Docx)</label>
+                                                                        <div class="input-group">
+                                                                            <div class="custom-file">
+                                                                                <input name="attachments" accept=".pdf, .doc, .docx" type="file" class="custom-file-input">
+                                                                                <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-12">
+                                                                        <label for="exampleInputPassword1">Instructions</label>
+                                                                        <textarea name="details" required rows="5" class="form-control Summernote"></textarea>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <div class="modal-body">
-                                                                <!-- Form -->
-                                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <!-- Hide This Please -->
-                                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                            <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                            <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
-                                                                            <input type="hidden" required name="group_name" value="<?php echo $g->name; ?>" class="form-control">
-                                                                            <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
-                                                                            <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="exampleInputPassword1">Submission Date </label>
-                                                                                <input type="date" required name="submitted_on" class="form-control">
-                                                                            </div>
-                                                                            <div class="form-group col-md-6">
-                                                                                <label for="">Upload Group Assignment (PDF Or Docx)</label>
-                                                                                <div class="input-group">
-                                                                                    <div class="custom-file">
-                                                                                        <input name="attachments" accept=".pdf, .doc, .docx" type="file" class="custom-file-input">
-                                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file </label>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="form-group col-md-12">
-                                                                                <label for="exampleInputPassword1">Instructions</label>
-                                                                                <textarea name="details" required rows="5" class="form-control Summernote"></textarea>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="card-footer text-right">
-                                                                        <button type="submit" name="add_group_project" class="btn btn-primary">Submit</button>
-                                                                    </div>
-                                                                </form>
+                                                            <div class="card-footer text-right">
+                                                                <button type="submit" name="add_group_project" class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </form>
 
-                                                            </div>
-                                                            <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
