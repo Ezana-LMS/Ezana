@@ -669,6 +669,7 @@ require_once('public/partials/_head.php');
                                                                                 <tr>
                                                                                     <th>Group Details</th>
                                                                                     <th>Submission Deadline</th>
+                                                                                    <th>Posted On</th>
                                                                                     <th>Manage</th>
                                                                                 </tr>
                                                                             </thead>
@@ -683,6 +684,8 @@ require_once('public/partials/_head.php');
                                                                                     <tr>
                                                                                         <td><?php echo $ass->group_code . " " . $ass->group_name; ?></td>
                                                                                         <td><?php echo $ass->submitted_on; ?></td>
+                                                                                        <td><?php echo date('d M Y g:ia', strtotime($ass->created_at)); ?></td>
+
                                                                                         <td>
                                                                                             <a class="badge badge-success" href="group_assignment_attempts.php?view=<?php echo $mod->id; ?>&code=<?php echo $ass->group_code; ?>">
                                                                                                 <i class="fas fa-eye"></i>
@@ -703,7 +706,41 @@ require_once('public/partials/_head.php');
                                                                                                             </button>
                                                                                                         </div>
                                                                                                         <div class="modal-body">
-
+                                                                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                                                                <div class="card-body">
+                                                                                                                    <div class="row">
+                                                                                                                        <!-- Hide This Please -->
+                                                                                                                        <input type="hidden" required name="id" value="<?php echo $ass->id; ?>" class="form-control">
+                                                                                                                        <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                                                        <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+                                                                                                                        <input type="hidden" required name="group_name" value="<?php echo $g->name; ?>" class="form-control">
+                                                                                                                        <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
+                                                                                                                        <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
+                                                                                                                        <div class="form-group col-md-6">
+                                                                                                                            <label for="exampleInputPassword1">Submission Date </label>
+                                                                                                                            <input type="date" required name="submitted_on" value="<?php echo $ass->submitted_on;?>" class="form-control">
+                                                                                                                        </div>
+                                                                                                                        <div class="form-group col-md-6">
+                                                                                                                            <label for="">Upload Group Assignment (PDF Or Docx)</label>
+                                                                                                                            <div class="input-group">
+                                                                                                                                <div class="custom-file">
+                                                                                                                                    <input name="attachments" accept=".pdf, .doc, .docx" type="file" class="custom-file-input">
+                                                                                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="row">
+                                                                                                                        <div class="form-group col-md-12">
+                                                                                                                            <label for="exampleInputPassword1">Instructions</label>
+                                                                                                                            <textarea name="details" required rows="5" class="form-control Summernote"><?php echo $ass->details;?></textarea>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="card-footer text-right">
+                                                                                                                    <button type="submit" name="edit_group_project" class="btn btn-primary">Submit</button>
+                                                                                                                </div>
+                                                                                                            </form>
 
                                                                                                         </div>
                                                                                                         <div class="modal-footer justify-content-between">
@@ -712,12 +749,12 @@ require_once('public/partials/_head.php');
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $assignments->id; ?>">
+                                                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $ass->id; ?>">
                                                                                                 <i class="fas fa-trash"></i>
                                                                                                 Delete
                                                                                             </a>
                                                                                             <!-- Delete Confirmation Modal -->
-                                                                                            <div class="modal fade" id="delete-<?php echo $assignments->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                            <div class="modal fade" id="delete-<?php echo $ass->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                                                                     <div class="modal-content">
                                                                                                         <div class="modal-header">
@@ -730,7 +767,7 @@ require_once('public/partials/_head.php');
                                                                                                             <h4>Delete?</h4>
                                                                                                             <br>
                                                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                            <a href="lec_module_assignments.php?delete=<?php echo $assignments->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                            <a href="group_details.php?delete=<?php echo $ass->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
