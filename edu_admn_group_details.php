@@ -184,6 +184,48 @@ if (isset($_POST['add_group_project'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+/* Update Group Assignments */
+if (isset($_POST['edit_group_project'])) {
+    $id = $_POST['id'];
+    $details = $_POST['details'];
+    $faculty = $_POST['faculty'];
+    $attachments = $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["attachments"]["name"]);
+    $submitted_on = $_POST['submitted_on'];
+    $group_code = $_POST['group_code'];
+    $group_name  = $_POST['group_name'];
+    /* Module ID */
+    $view = $_POST['view'];
+    /* Group ID */
+    $group_id = $_POST['group'];
+
+    $query = "UPDATE ezanaLMS_GroupsAssignments SET faculty_id =?, module_id =?, group_code =?, group_name =?,  attachments =?, details =?, submitted_on =? WHERE id = ?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('ssssssss',  $faculty, $view, $group_code, $group_name,  $attachments, $details, $submitted_on, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Group Assignment Updated" && header("refresh:1; url=edu_admn_group_details.php?view=$view&group=$group_id");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete Assignment  */
+if (isset($_GET['delete_assignment'])) {
+    $view = $_GET['view'];
+    $group = $_GET['group'];
+    $delete_assignment = $_GET['delete_assignment'];
+    $adn = "DELETE FROM ezanaLMS_GroupsAssignments WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete_assignment);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=edu_admn_group_details.php?view=$view&group=$group");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('public/partials/_head.php');
 ?>
 
@@ -212,7 +254,7 @@ require_once('public/partials/_head.php');
                     <!-- Brand Logo -->
                     <?php require_once('public/partials/_brand.php'); ?>
                     <!-- Sidebar -->
-                    <?php require_once('public/partials/_sidebar.php');?>
+                    <?php require_once('public/partials/_sidebar.php'); ?>
                 </aside>
 
                 <div class="content-wrapper">
@@ -223,11 +265,11 @@ require_once('public/partials/_head.php');
                                     <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Student Groups</h1>
                                 </div>
                                 <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="edu_admn_modules.php?view=<?php echo $mod->faculty_id; ?>">Modules</a></li>
-                                    <li class="breadcrumb-item active"><?php echo $mod->name; ?> Student Groups</li>
-                                </ol>
+                                    <ol class="breadcrumb float-sm-right">
+                                        <li class="breadcrumb-item"><a href="edu_admn_dashboard.php">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="edu_admn_modules.php?view=<?php echo $mod->faculty_id; ?>">Modules</a></li>
+                                        <li class="breadcrumb-item active"><?php echo $mod->name; ?> Student Groups</li>
+                                    </ol>
                                 </div>
                             </div>
                         </div>
@@ -240,7 +282,10 @@ require_once('public/partials/_head.php');
                                             <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                         </form>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Group Announcement</button>
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Group Announcement</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-assignment">Group Assignment</button>
+                                        </div>
                                         <div class="modal fade" id="modal-default">
                                             <div class="modal-dialog  modal-xl">
                                                 <div class="modal-content">
@@ -295,6 +340,60 @@ require_once('public/partials/_head.php');
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="modal fade" id="modal-assignment">
+                                            <div class="modal-dialog  modal-xl">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Fill All Required Values </h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <!-- Form -->
+                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <!-- Hide This Please -->
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                    <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+                                                                    <input type="hidden" required name="group_name" value="<?php echo $g->name; ?>" class="form-control">
+                                                                    <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
+                                                                    <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="exampleInputPassword1">Submission Date </label>
+                                                                        <input type="date" required name="submitted_on" class="form-control">
+                                                                    </div>
+                                                                    <div class="form-group col-md-6">
+                                                                        <label for="">Upload Group Assignment (PDF Or Docx)</label>
+                                                                        <div class="input-group">
+                                                                            <div class="custom-file">
+                                                                                <input name="attachments" accept=".pdf, .doc, .docx" type="file" class="custom-file-input">
+                                                                                <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group col-md-12">
+                                                                        <label for="exampleInputPassword1">Instructions</label>
+                                                                        <textarea name="details" required rows="5" class="form-control Summernote"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-footer text-right">
+                                                                <button type="submit" name="add_group_project" class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </nav>
                                 </div>
                                 <hr>
@@ -316,10 +415,7 @@ require_once('public/partials/_head.php');
                                                             <div class="card-body">
                                                                 <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
                                                                     <li class="nav-item">
-                                                                        <a class="nav-link active" id="custom-content-below-home-tab" data-toggle="pill" href="#custom-content-below-home" role="tab" aria-controls="custom-content-below-home" aria-selected="true">Group Details</a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-add_member" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Add Members</a>
+                                                                        <a class="nav-link active" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-add_member" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Add Members</a>
                                                                     </li>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-members" role="tab" aria-controls="custom-content-below-members" aria-selected="false">Group Members</a>
@@ -330,14 +426,13 @@ require_once('public/partials/_head.php');
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices-assignments" role="tab" aria-controls="custom-content-below-notices-assignments" aria-selected="false">Group Assignments</a>
                                                                     </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices-details" role="tab" aria-controls="custom-content-below-notices-assignments" aria-selected="false">Group Details</a>
+                                                                    </li>
                                                                 </ul>
                                                                 <div class="tab-content" id="custom-content-below-tabContent">
-                                                                    <div class="tab-pane fade show active" id="custom-content-below-home" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
-                                                                        <br>
-                                                                        <?php echo $g->details; ?>
-                                                                    </div>
 
-                                                                    <div class="tab-pane fade" id="custom-content-below-members" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                                    <div class="tab-pane fade " id="custom-content-below-members" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                                         <br>
                                                                         <table id="example1" class="table table-bordered table-striped">
                                                                             <thead>
@@ -374,7 +469,7 @@ require_once('public/partials/_head.php');
                                                                         </table>
                                                                     </div>
 
-                                                                    <div class="tab-pane fade" id="custom-content-below-add_member" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                                    <div class="tab-pane fade show active" id="custom-content-below-add_member" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                                         <br>
                                                                         <form method="post" enctype="multipart/form-data" role="form">
                                                                             <div class="card-body">
@@ -501,7 +596,7 @@ require_once('public/partials/_head.php');
                                                                                                         <h4>Delete Announcement ?</h4>
                                                                                                         <br>
                                                                                                         <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                        <a href="edu_admn_group_details.php?delete_Announcement=<?php echo $ga->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                        <a href="group_details.php?delete_Announcement=<?php echo $ga->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -516,44 +611,130 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                     <div class="tab-pane fade show " id="custom-content-below-notices-assignments" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                                         <br>
-                                                                        <form method="post" enctype="multipart/form-data" role="form">
-                                                                            <div class="card-body">
-                                                                                <div class="row">
-                                                                                    <!-- Hide This Please -->
-                                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                                    <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                                    <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
-                                                                                    <input type="hidden" required name="group_name" value="<?php echo $g->name; ?>" class="form-control">
-                                                                                    <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
-                                                                                    <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
-                                                                                    <div class="form-group col-md-6">
-                                                                                        <label for="exampleInputPassword1">Submission Date </label>
-                                                                                        <input type="date" required name="submitted_on" class="form-control">
-                                                                                    </div>
-                                                                                    <div class="form-group col-md-6">
-                                                                                        <label for="">Upload Group Assignment (PDF Or Docx)</label>
-                                                                                        <div class="input-group">
-                                                                                            <div class="custom-file">
-                                                                                                <input name="attachments" accept=".pdf, .doc, .docx" type="file" class="custom-file-input">
-                                                                                                <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                        <table id="faculties" class="table table-bordered table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Group Details</th>
+                                                                                    <th>Submission Deadline</th>
+                                                                                    <th>Posted On</th>
+                                                                                    <th>Manage</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <?php
+                                                                                $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE group_code = '$g->code' ";
+                                                                                $stmt = $mysqli->prepare($ret);
+                                                                                $stmt->execute(); //ok
+                                                                                $res = $stmt->get_result();
+                                                                                while ($ass = $res->fetch_object()) {
+                                                                                ?>
+                                                                                    <tr>
+                                                                                        <td><?php echo $ass->group_code . " " . $ass->group_name; ?></td>
+                                                                                        <td><?php echo $ass->submitted_on; ?></td>
+                                                                                        <td><?php echo date('d M Y g:ia', strtotime($ass->created_at)); ?></td>
+
+                                                                                        <td>
+                                                                                            <a class="badge badge-success" href="edu_admn_group_assignment_attempts.php?view=<?php echo $mod->id; ?>&code=<?php echo $ass->group_code; ?>">
+                                                                                                <i class="fas fa-eye"></i>
+                                                                                                View Attempts
+                                                                                            </a>
+                                                                                            <a class="badge badge-primary" data-toggle="modal" href="#edit-<?php echo $ass->id; ?>">
+                                                                                                <i class="fas fa-edit"></i>
+                                                                                                Edit
+                                                                                            </a>
+                                                                                            <!-- Update Module Modal -->
+                                                                                            <div class="modal fade" id="edit-<?php echo $ass->id; ?>">
+                                                                                                <div class="modal-dialog  modal-xl">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+                                                                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                                                                <div class="card-body">
+                                                                                                                    <div class="row">
+                                                                                                                        <!-- Hide This Please -->
+                                                                                                                        <input type="hidden" required name="id" value="<?php echo $ass->id; ?>" class="form-control">
+                                                                                                                        <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                                                        <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+                                                                                                                        <input type="hidden" required name="group_name" value="<?php echo $g->name; ?>" class="form-control">
+                                                                                                                        <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
+                                                                                                                        <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
+                                                                                                                        <div class="form-group col-md-6">
+                                                                                                                            <label for="exampleInputPassword1">Submission Date </label>
+                                                                                                                            <input type="date" required name="submitted_on" value="<?php echo $ass->submitted_on; ?>" class="form-control">
+                                                                                                                        </div>
+                                                                                                                        <div class="form-group col-md-6">
+                                                                                                                            <label for="">Upload Group Assignment (PDF Or Docx)</label>
+                                                                                                                            <div class="input-group">
+                                                                                                                                <div class="custom-file">
+                                                                                                                                    <input name="attachments" accept=".pdf, .doc, .docx" type="file" class="custom-file-input">
+                                                                                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="row">
+                                                                                                                        <div class="form-group col-md-12">
+                                                                                                                            <label for="exampleInputPassword1">Instructions</label>
+                                                                                                                            <textarea name="details" required rows="5" class="form-control Summernote"><?php echo $ass->details; ?></textarea>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="card-footer text-right">
+                                                                                                                    <button type="submit" name="edit_group_project" class="btn btn-primary">Submit</button>
+                                                                                                                </div>
+                                                                                                            </form>
+
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer justify-content-between">
+                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
                                                                                             </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="row">
-                                                                                    <div class="form-group col-md-12">
-                                                                                        <label for="exampleInputPassword1">Instructions</label>
-                                                                                        <textarea name="details" required rows="5" class="form-control Summernote"></textarea>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="card-footer text-right">
-                                                                                <button type="submit" name="add_group_project" class="btn btn-primary">Submit</button>
-                                                                            </div>
-                                                                        </form>
+                                                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $ass->id; ?>">
+                                                                                                <i class="fas fa-trash"></i>
+                                                                                                Delete
+                                                                                            </a>
+                                                                                            <!-- Delete Confirmation Modal -->
+                                                                                            <div class="modal fade" id="delete-<?php echo $ass->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body text-center text-danger">
+                                                                                                            <h4>Delete?</h4>
+                                                                                                            <br>
+                                                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                                            <a href="edu_admn_group_details.php?delete_assignment=<?php echo $ass->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                <?php
+                                                                                } ?>
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                    <div class="tab-pane fade show " id="custom-content-below-notices-details" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
+                                                                        <br>
+                                                                        <?php echo  $g->details; ?>
+
                                                                     </div>
                                                                 </div>
-                                                            <?php } ?>
+                                                            <?php
+                                                        } ?>
                                                             </div>
                                                         </div>
                                                     </div>
