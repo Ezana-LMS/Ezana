@@ -664,6 +664,83 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                     <div class="tab-pane fade show " id="custom-content-below-notices-assignments" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                                         <br>
+                                                                        <table id="faculties" class="table table-bordered table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Group Details</th>
+                                                                                    <th>Submission Deadline</th>
+                                                                                    <th>Manage</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <?php
+                                                                                $ret = "SELECT * FROM `ezanaLMS_GroupsAssignments` WHERE group_code = '$g->code' ";
+                                                                                $stmt = $mysqli->prepare($ret);
+                                                                                $stmt->execute(); //ok
+                                                                                $res = $stmt->get_result();
+                                                                                while ($ass = $res->fetch_object()) {
+                                                                                ?>
+                                                                                    <tr>
+                                                                                        <td><?php echo $ass->group_code . " " . $ass->group_name; ?></td>
+                                                                                        <td><?php echo $ass->submitted_on; ?></td>
+                                                                                        <td>
+                                                                                            <a class="badge badge-success" href="group_assignment_attempts.php?view=<?php echo $mod->id; ?>&code=<?php echo $ass->group_code; ?>">
+                                                                                                <i class="fas fa-eye"></i>
+                                                                                                View Attempts
+                                                                                            </a>
+                                                                                            <a class="badge badge-primary" data-toggle="modal" href="#<?php echo $ass->id; ?>">
+                                                                                                <i class="fas fa-edit"></i>
+                                                                                                Edit
+                                                                                            </a>
+                                                                                            <!-- Update Module Modal -->
+                                                                                            <div class="modal fade" id="<?php echo $ass->id; ?>">
+                                                                                                <div class="modal-dialog  modal-xl">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+
+
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer justify-content-between">
+                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $assignments->id; ?>">
+                                                                                                <i class="fas fa-trash"></i>
+                                                                                                Delete
+                                                                                            </a>
+                                                                                            <!-- Delete Confirmation Modal -->
+                                                                                            <div class="modal fade" id="delete-<?php echo $assignments->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body text-center text-danger">
+                                                                                                            <h4>Delete?</h4>
+                                                                                                            <br>
+                                                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                                            <a href="lec_module_assignments.php?delete=<?php echo $assignments->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                <?php
+                                                                                } ?>
+                                                                            </tbody>
+                                                                        </table>
 
                                                                     </div>
                                                                     <div class="tab-pane fade show " id="custom-content-below-notices-details" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
