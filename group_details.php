@@ -183,6 +183,49 @@ if (isset($_POST['add_group_project'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+
+/* Update Group Assignments */
+if (isset($_POST['update_group_project'])) {
+    $id = $_POST['id'];
+    $details = $_POST['details'];
+    $faculty = $_POST['faculty'];
+    $attachments = $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["attachments"]["name"]);
+    $submitted_on = $_POST['submitted_on'];
+    $group_code = $_POST['group_code'];
+    $group_name  = $_POST['group_name'];
+    /* Module ID */
+    $view = $_POST['view'];
+    /* Group ID */
+    $group_id = $_POST['group'];
+
+    $query = "UPDATE ezanaLMS_GroupsAssignments SET faculty_id =?, module_id =?, group_code =?, group_name =?,  attachments =?, details =?, submitted_on =? WHERE id = ?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('ssssssss',  $faculty, $view, $group_code, $group_name,  $attachments, $details, $submitted_on, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Group Assignment Updated" && header("refresh:1; url=group_details.php?view=$view&group=$group_id");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete Assignment  */
+if (isset($_GET['delete_assignment'])) {
+    $view = $_GET['view'];
+    $group = $_GET['group'];
+    $delete_assignment = $_GET['delete_assignment'];
+    $adn = "DELETE FROM ezanaLMS_GroupsAssignments WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete_assignment);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=group_details.php?view=$view&group=$group");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -718,7 +761,7 @@ require_once('public/partials/_head.php');
                                                                                                                         <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
                                                                                                                         <div class="form-group col-md-6">
                                                                                                                             <label for="exampleInputPassword1">Submission Date </label>
-                                                                                                                            <input type="date" required name="submitted_on" value="<?php echo $ass->submitted_on;?>" class="form-control">
+                                                                                                                            <input type="date" required name="submitted_on" value="<?php echo $ass->submitted_on; ?>" class="form-control">
                                                                                                                         </div>
                                                                                                                         <div class="form-group col-md-6">
                                                                                                                             <label for="">Upload Group Assignment (PDF Or Docx)</label>
@@ -733,7 +776,7 @@ require_once('public/partials/_head.php');
                                                                                                                     <div class="row">
                                                                                                                         <div class="form-group col-md-12">
                                                                                                                             <label for="exampleInputPassword1">Instructions</label>
-                                                                                                                            <textarea name="details" required rows="5" class="form-control Summernote"><?php echo $ass->details;?></textarea>
+                                                                                                                            <textarea name="details" required rows="5" class="form-control Summernote"><?php echo $ass->details; ?></textarea>
                                                                                                                         </div>
                                                                                                                     </div>
                                                                                                                 </div>
@@ -767,7 +810,7 @@ require_once('public/partials/_head.php');
                                                                                                             <h4>Delete?</h4>
                                                                                                             <br>
                                                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                            <a href="group_details.php?delete=<?php echo $ass->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                            <a href="group_details.php?delete_assignment=<?php echo $ass->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
