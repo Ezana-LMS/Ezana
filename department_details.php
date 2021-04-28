@@ -831,7 +831,7 @@ require_once('public/partials/_head.php');
                                                                                     <div class="card-body">
                                                                                         <?php
                                                                                         $departmentId = $department->id;
-                                                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$departmentId' AND type = 'Announcement' ORDER BY `ezanaLMS_DepartmentalMemos`.`created_at` ASC LIMIT 10  ";
+                                                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE department_id = '$departmentId' AND type = 'Announcement' ORDER BY `ezanaLMS_DepartmentalMemos`.`created_at` DESC LIMIT 10  ";
                                                                                         $stmt = $mysqli->prepare($ret);
                                                                                         $stmt->execute(); //ok
                                                                                         $res = $stmt->get_result();
