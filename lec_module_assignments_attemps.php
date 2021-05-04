@@ -52,13 +52,15 @@ if (isset($_POST['add_assignment'])) {
 /* Delete Student Attempt */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
+    $view = $_GET['view'];
+    $assignment  = $_GET['assignment'];
     $adn = "DELETE FROM ezanaLMS_AssignmentsAttempts WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("Refresh:0");
+        $success = "Deleted" && header("refresh:1; url=lec_module_assignments_attemps.php?view=$view&assignment=$assignment"); ;
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -128,7 +130,6 @@ require_once('public/partials/_head.php');
                                                             <tr>
                                                                 <th data-toggle="true">Student Details</th>
                                                                 <th>Module Details</th>
-                                                                <th>Attachment File</th>
                                                                 <th data-hide="all">Manage</th>
                                                             </tr>
                                                         </thead>
@@ -168,7 +169,7 @@ require_once('public/partials/_head.php');
                                                                                         <h4>Delete?</h4>
                                                                                         <br>
                                                                                         <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                        <a href="lec_module_assignments_attemps.php?delete=<?php echo $attempts->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                        <a href="lec_module_assignments_attemps.php?delete=<?php echo $attempts->id; ?>&view=<?php echo $mod->id;?>&assignment=<?php echo $assignment_id;?>" class="text-center btn btn-danger"> Delete </a>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
