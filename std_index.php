@@ -32,6 +32,7 @@ if (isset($_POST['login'])) {
         $error = 1;
         $err = "Email Cannot  Be Empty";
     }
+
     if (isset($_POST['password']) && !empty($_POST['password'])) {
         $password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['password']))));
     } else {
@@ -39,7 +40,7 @@ if (isset($_POST['login'])) {
         $err = "Email Cannot  Be Empty";
     }
     if (!$error) {
-        $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Students WHERE (email='$email' || admno = $email)  AND password='$password' ");
+        $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Students WHERE email='$email'  AND password='$password' ");
         $num = mysqli_fetch_array($ret);
         if ($num > 0) {
             /* Load Sessions */
@@ -87,14 +88,14 @@ while ($sys = $res->fetch_object()) {
                             Enter Your Email Address Or Student Admission Number And Password <br>
                             Use The Following Demo Credentials <br>
 
-                            <b>Email : </b> 21899@ezana.org <br>
+                            <b>Email : </b> student@ezana.002 <br>
                             <b>Password: </b> demo <br>
 
                         </p>
                         <div class="wrap-input100 validate-input" data-validate="Valid email is required: user@mail.com">
-                            <input class="input100" type="text" name="email">
+                            <input class="input100" type="email" name="email">
                             <span class="focus-input100"></span>
-                            <span class="label-input100">Admission No Or Email</span>
+                            <span class="label-input100">Student  Email</span>
                         </div>
                         <div class="wrap-input100 validate-input" data-validate="Password is required">
                             <input class="input100" type="password" name="password">
