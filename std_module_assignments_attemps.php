@@ -29,20 +29,20 @@ require_once('configs/codeGen.php');
 /* Add Student Grades */
 if (isset($_POST['add_attempt'])) {
     $id = $_POST['id'];
-    $assignment_id = $_POST['assignment_id'];
+    $assignment = $_GET['assignment'];
     $module_name = $_POST['module_name'];
     $module_code = $_POST['module_code'];
     $std_name = $_POST['std_name'];
     $std_regno = $_POST['std_regno'];
     $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Reading_Materials/" . $_FILES["readingMaterials"]["name"]);
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments_Attempts/" . $_FILES["readingMaterials"]["name"]);
 
     /* Module ID */
     $module_id = $_POST['module_id'];
 
     $query = "INSERT INTO ezanaLMS_AssignmentsAttempts (id, assignment_id, module_name, module_code, std_name, std_regno, attachments) VALUES(?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssss', $id, $assignment_id, $module_name, $module_code, $std_name, $std_regno, $attachments);
+    $rc = $stmt->bind_param('sssssss', $id, $assignment, $module_name, $module_code, $std_name, $std_regno, $attachments);
     $stmt->execute();
     if ($stmt) {
         $success = "Assignment Submitted" &&  header("Refresh:0");
@@ -73,14 +73,18 @@ if (isset($_POST['update_attempt'])) {
 
 /* Delete Student Attempt */
 if (isset($_GET['delete'])) {
+
     $delete = $_GET['delete'];
+    $view = $_GET['view'];
+    $assignment  = $_GET['assignment'];
+
     $adn = "DELETE FROM ezanaLMS_AssignmentsAttempts WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("Refresh:0");
+        $success = "Deleted" && header("refresh:1; url=std_module_assignments_attemps.php?view=$view&assignment=$assignment"); ;
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -172,6 +176,7 @@ require_once('public/partials/_head.php');
                                                                                                 <input type="hidden" required name="std_name" value="<?php echo $std->name; ?>" class="form-control">
                                                                                                 <input type="hidden" required name="std_regno" value="<?php echo $std->admno; ?>" class="form-control">
                                                                                                 <input type="text" readonly value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
+                                                                                                <input type="text" readonly value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
 
                                                                                                 <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                                             </div>
@@ -198,7 +203,6 @@ require_once('public/partials/_head.php');
                                                                 <tr>
                                                                     <th data-toggle="true">Student Details</th>
                                                                     <th>Module Details</th>
-                                                                    <th>Attachment File</th>
                                                                     <th data-hide="all">Manage</th>
                                                                 </tr>
                                                             </thead>
@@ -223,7 +227,7 @@ require_once('public/partials/_head.php');
                                                                                 <i class="fas fa-edit"></i>
                                                                                 Update Attempt
                                                                             </a>
-                                                                            <div class="modal fade" id="modal-default">
+                                                                            <div class="modal fade" id="edit-<?php echo $attempts->id; ?>">
                                                                                 <div class="modal-dialog  modal-xl">
                                                                                     <div class="modal-content">
                                                                                         <div class="modal-header">
@@ -237,7 +241,7 @@ require_once('public/partials/_head.php');
                                                                                             <form method="post" enctype="multipart/form-data" role="form">
                                                                                                 <div class="card-body">
                                                                                                     <div class="row">
-                                                                                                        <div class="form-group col-md-6">
+                                                                                                        <div class="form-group col-md-12">
                                                                                                             <label for="exampleInputFile">Attempted Assignment</label>
                                                                                                             <div class="input-group">
                                                                                                                 <div class="custom-file">
@@ -280,7 +284,7 @@ require_once('public/partials/_head.php');
                                                                                             <h4>Delete?</h4>
                                                                                             <br>
                                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                            <a href="std_module_assignments_attemps.php?delete=<?php echo $attempts->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                            <a href="std_module_assignments_attemps.php?delete=<?php echo $attempts->id; ?>&view=<?php echo $mod->id;?>&assignment=<?php echo $assignment_id;?>" class="text-center btn btn-danger"> Delete </a>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
