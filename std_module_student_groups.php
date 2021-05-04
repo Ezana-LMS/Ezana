@@ -86,8 +86,7 @@ require_once('public/partials/_head.php');
                                                 <table id="example1" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th>Group Code</th>
-                                                            <th>Group Name</th>
+                                                            <th>Group Code & Name</th>
                                                             <th>Added On</th>
                                                             <th>Action</th>
                                                         </tr>
@@ -103,8 +102,7 @@ require_once('public/partials/_head.php');
                                                         ?>
 
                                                             <tr>
-                                                                <td><?php echo $g->code; ?></td>
-                                                                <td><?php echo $g->name; ?></td>
+                                                                <td><?php echo $g->code . " " . $g->name; ?></td>
                                                                 <td><?php echo date('d M Y, g:ia', strtotime($g->created_at)); ?></td>
                                                                 <td>
                                                                     <a class="badge badge-success" href="std_module_group_details.php?group=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">

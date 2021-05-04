@@ -93,8 +93,8 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="card-body">
                                                                 <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link active" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-members" role="tab" aria-controls="custom-content-below-members" aria-selected="false">Group Members</a>
+                                                                    <li class="nav-item active">
+                                                                        <a class="nav-link active " id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-members" role="tab" aria-controls="custom-content-below-members" aria-selected="false">Group Members</a>
                                                                     </li>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices" role="tab" aria-controls="custom-content-below-notices" aria-selected="false">Group Notices</a>
@@ -104,8 +104,7 @@ require_once('public/partials/_head.php');
                                                                     </li>
                                                                 </ul>
                                                                 <div class="tab-content" id="custom-content-below-tabContent">
-
-                                                                    <div class="tab-pane fade active " id="custom-content-below-members" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
+                                                                    <div class="tab-pane fade show active" id="custom-content-below-members" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                                         <br>
                                                                         <table id="example1" class="table table-bordered table-striped">
                                                                             <thead>
