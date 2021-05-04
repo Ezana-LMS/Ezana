@@ -41,7 +41,7 @@ require_once('public/partials/_head.php');
         while ($mod = $res->fetch_object()) {
             /* Group Details Based On Given Group ID */
             $GroupID = $_GET['group'];
-            $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE id = '$GroupID'  ";
+            $ret = "SELECT * FROM `ezanaLMS_StudentsGroups` WHERE id = '$GroupID'  ";
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
@@ -101,9 +101,6 @@ require_once('public/partials/_head.php');
                                                                     </li>
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices-assignments" role="tab" aria-controls="custom-content-below-notices-assignments" aria-selected="false">Group Assignments</a>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices-details" role="tab" aria-controls="custom-content-below-notices-assignments" aria-selected="false">Group Details</a>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="tab-content" id="custom-content-below-tabContent">
@@ -197,12 +194,6 @@ require_once('public/partials/_head.php');
                                                                                 } ?>
                                                                             </tbody>
                                                                         </table>
-
-                                                                    </div>
-                                                                    <div class="tab-pane fade show " id="custom-content-below-notices-details" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
-                                                                        <br>
-                                                                        <?php echo  $g->details; ?>
-
                                                                     </div>
                                                                 </div>
                                                             <?php
