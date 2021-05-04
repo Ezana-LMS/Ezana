@@ -20,6 +20,14 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="std_enrolled_modules_grades.php" class="nav-link">
+                    <i class="nav-icon fas fa-file-alt"></i>
+                    <p>
+                        Module Grades
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="std_important_dates.php" class="nav-link">
                     <i class="nav-icon fas fa-calendar"></i>
                     <p>
