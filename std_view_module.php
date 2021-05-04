@@ -160,11 +160,6 @@ require_once('public/partials/_head.php');
                                                                                 Course Name : <span class="float-right "><?php echo $course->name; ?></span>
                                                                             </span>
                                                                         </li>
-                                                                        <li class="nav-item">
-                                                                            <span class="nav-link text-primary">
-                                                                                Enrolled Students : <span class="float-right "><?php echo $enrolled_students ?></span>
-                                                                            </span>
-                                                                        </li>
                                                                 <?php
 
                                                                     }
@@ -201,15 +196,9 @@ require_once('public/partials/_head.php');
                                                                                 Assigned Lecturer Email : <span class="float-right "><a href="mailto:<?php echo $lecturer->email; ?>"><?php echo $lecturer->email; ?></a></span>
                                                                             </span>
                                                                         </li>
-
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Assigned Lecturer ID / Passport No : <span class="float-right "><?php echo $lecturer->idno; ?></span>
-                                                                            </span>
-                                                                        </li>
-                                                                        <li class="nav-item">
-                                                                            <span class="nav-link text-primary">
-                                                                                Assigned Lecturer Address : <span class="float-right "><?php echo $lecturer->adr; ?></span>
+                                                                                Assigned Lecturer Phone Number : <span class="float-right "><a href="tel:<?php echo $lecturer->phone; ?>"><?php echo $lecturer->phone; ?></a></span>
                                                                             </span>
                                                                         </li>
                                                                     <?php }
@@ -227,32 +216,20 @@ require_once('public/partials/_head.php');
                                                                     while ($Glecturer = $res->fetch_object()) {
                                                                     ?>
                                                                         <li class="nav-item">
-                                                                            <span class="nav-link text-primary">
+                                                                            <span class="nav-link text-success">
                                                                                 Guest Lecturer Name : <span class="float-right "><?php echo $Glecturer->name; ?></span>
                                                                             </span>
                                                                         </li>
 
                                                                         <li class="nav-item">
-                                                                            <span class="nav-link text-primary">
+                                                                            <span class="nav-link text-success">
                                                                                 Guest Lecturer Email : <span class="float-right "><?php echo $Glecturer->email; ?></span>
                                                                             </span>
                                                                         </li>
 
                                                                         <li class="nav-item">
-                                                                            <span class="nav-link text-primary">
-                                                                                Guest Lecturer ID / Passport No : <span class="float-right "><?php echo $Glecturer->idno; ?></span>
-                                                                            </span>
-                                                                        </li>
-
-                                                                        <li class="nav-item">
-                                                                            <span class="nav-link text-primary">
+                                                                            <span class="nav-link text-success">
                                                                                 Guest Lecturer Phone : <span class="float-right "><?php echo $Glecturer->phone; ?></span>
-                                                                            </span>
-                                                                        </li>
-
-                                                                        <li class="nav-item">
-                                                                            <span class="nav-link text-primary">
-                                                                                Guest Lecturer Address : <span class="float-right "><?php echo $Glecturer->adr; ?></span>
                                                                             </span>
                                                                         </li>
                                                                 <?php
