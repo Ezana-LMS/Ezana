@@ -26,28 +26,24 @@ require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 std_check_login();
 
-/* Report Bug */
-if (isset($_POST['submitBug'])) {
+/* Add User Requests */
+if (isset($_POST['request'])) {
 
     $id = $_POST['id'];
     $name = $_POST['name'];
     $email = $_POST['email'];
     $number  = $_POST['number'];
-    $bug_title = $_POST['bug_title'];
-    $bug_details = $_POST['bug_details'];
-    $severity = $_POST['severity'];
+    $request = $_POST['request'];
+    $progress = $_POST['progress'];
     $status = $_POST['status'];
-    $query = "INSERT INTO ezanaLMS_BugReports (id, name, email, number, bug_title, bug_details, severity, status) VALUES(?,?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_UserRequests (id, name, email, number, request, progress, status) VALUES(?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssssss', $id, $name, $email, $number, $bug_title, $bug_details, $severity, $status);
+    $rc = $stmt->bind_param('sssssss', $id, $name, $email, $number, $request, $progress, $status);
     $stmt->execute();
-    /* Mail User  */
-    require_once('configs/mail.php');
-
-    if ($stmt && $mail->send()) {
-        $success = "Bug Reported" &&  header("refresh:1; url=std_report_bug.php");;
+    if ($stmt) {
+        $success = "Request Submitted" &&  header("refresh:1; url=std_requests.php");;
     } else {
-        $info = "Please Try Again Or Try Later Or Incorrect User Email";
+        $info = "Please Try Again Or Try Later";
     }
 }
 
@@ -83,13 +79,12 @@ require_once('public/partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Bug Report</h1>
-                            <small>Help Our Development Team Upgrade This Platform</small>
+                            <h1>Student Requisitions</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="std_dashboard.php">Home</a></li>
-                                <li class="breadcrumb-item active">Bug Report</li>
+                                <li class="breadcrumb-item active">Requisitions</li>
                             </ol>
                         </div>
                     </div>
@@ -110,27 +105,19 @@ require_once('public/partials/_head.php');
                                                 <input type="hidden" required name="name" value="<?php echo $student->name; ?>" class="form-control">
                                                 <input type="hidden" required name="email" value="<?php echo $student->email; ?>" class="form-control">
                                                 <input type="hidden" required name="number" value="<?php echo $student->admno; ?>" class="form-control">
-                                                <input type="hidden" required name="severity" value="High" class="form-control">
-                                                <input type="hidden" required name="status" value="Pending Fix" class="form-control">
-                                                <!-- Mail Details -->
-                                                <input type="hidden" name="email" required class="form-control" value="<?php echo $student->email; ?>">
-                                                <input type="hidden" required name="subject" value="Bug Report" class="form-control">
-                                                <input type="hidden" required name="message" value="Howdy, <?php echo $student->name; ?>😊. <br> Thanks for submitting a bug report to us. Our team will fix it as soon as possible." class="form-control">
-                                            </div>
-                                            <div class="form-group col-md-12">
-                                                <label for="">Bug Title</label>
-                                                <input type="text" required name="bug_title" class="form-control">
+                                                <input type="hidden" required name="progress" value="0" class="form-control">
+                                                <input type="hidden" required name="status" value="Pending" class="form-control">
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                <label for="exampleInputPassword1">Bug Details / Description</label>
-                                                <textarea required name="bug_details" class="form-control Summernote"></textarea>
+                                                <label for="exampleInputPassword1">Request Details</label>
+                                                <textarea required name="request" class="form-control Summernote"></textarea>
                                             </div>
                                         </div>
                                         <div class="text-right">
-                                            <button type="submit" name="submitBug" class="btn btn-primary">Submit Bug Report</button>
+                                            <button type="submit" name="request" class="btn btn-primary">Submit Bug Report</button>
                                         </div>
                                     </form>
                                 </div>
