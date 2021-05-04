@@ -19,8 +19,6 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
@@ -105,14 +103,14 @@ require_once('public/partials/_head.php');
                                                 <a href="lec_important_dates.php">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
-                                                            <h3>Current Enrolled Semester & Academic Year</h3>
+                                                            <h3>Current Enrolled Academic Yr & Semester</h3>
                                                         </div>
                                                         <div class="icon">
                                                             <i class="fas fa-calendar"></i>
                                                         </div>
                                                         <div class="small-box-footer">
                                                             <i class="fas fa-arrow-circle-right"></i>
-                                                            <?php echo $sys->current_academic_yr . " " . $sys->current_semester; ?>
+                                                            <?php echo $sys->current_academic_year . " " . $sys->current_semester; ?>
                                                         </div>
                                                     </div>
                                                 </a>

@@ -29,7 +29,7 @@ $res = $stmt->get_result();
 while ($student = $res->fetch_object()) {
 
     /* Enrolled Modules */
-    $query = "SELECT COUNT(*)  FROM `ezanaLMS_Enrollments` WHERE std_adm = '$student->admno' ";
+    $query = "SELECT COUNT(*)  FROM `ezanaLMS_Enrollments` WHERE student_adm = '$student->admno' ";
     $stmt = $mysqli->prepare($query);
     $stmt->execute();
     $stmt->bind_result($enrolled_modules);
