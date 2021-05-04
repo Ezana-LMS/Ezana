@@ -23,7 +23,7 @@
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
-lec_check_login();
+std_check_login();
 require_once('configs/codeGen.php');
 require_once('public/partials/_head.php');
 ?>
@@ -39,86 +39,94 @@ require_once('public/partials/_head.php');
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($mod = $res->fetch_object()) {
+            /* Student Details */
+            /* Load Student Details */
+            $id = $_SESSION['id'];
+            $ret = "SELECT * FROM `ezanaLMS_Students` WHERE id ='$id' ";
+            $stmt = $mysqli->prepare($ret);
+            $stmt->execute(); //ok
+            $res = $stmt->get_result();
+            while ($std = $res->fetch_object()) {
         ?>
-            <!-- /.navbar -->
-            <!-- Main Sidebar Container -->
-            <aside class="main-sidebar sidebar-dark-primary elevation-4">
-                <!-- Brand Logo -->
-                <?php require_once('public/partials/_brand.php'); ?>
-                <!-- Sidebar -->
-                <?php require_once('public/partials/_std_sidebar.php'); ?>
-            </aside>
+                <!-- /.navbar -->
+                <!-- Main Sidebar Container -->
+                <aside class="main-sidebar sidebar-dark-primary elevation-4">
+                    <!-- Brand Logo -->
+                    <?php require_once('public/partials/_brand.php'); ?>
+                    <!-- Sidebar -->
+                    <?php require_once('public/partials/_std_sidebar.php'); ?>
+                </aside>
 
-            <div class="content-wrapper">
-                <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2">
-                            <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Student Grades</h1>
-                            </div>
-                            <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="std_dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="std_enrolled_modules.php">Enrolled Modules</a></li>
-                                    <li class="breadcrumb-item active"><?php echo $mod->name; ?> Grades</li>
-                                </ol>
+                <div class="content-wrapper">
+                    <div class="content-header">
+                        <div class="container-fluid">
+                            <div class="row mb-2">
+                                <div class="col-sm-6">
+                                    <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Student Grades</h1>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ol class="breadcrumb float-sm-right">
+                                        <li class="breadcrumb-item"><a href="std_dashboard.php">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="std_enrolled_modules.php">Enrolled Modules</a></li>
+                                        <li class="breadcrumb-item active"><?php echo $mod->name; ?> Grades</li>
+                                    </ol>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <section class="content">
-                        <div class="container-fluid">
-                            <hr>
-                            <div class="row">
-                                <!-- Module Side Menu -->
-                                <?php require_once('public/partials/_std_modulemenu.php'); ?>
-                                <!-- Module Side Menu -->
+                        <section class="content">
+                            <div class="container-fluid">
+                                <hr>
+                                <div class="row">
+                                    <!-- Module Side Menu -->
+                                    <?php require_once('public/partials/_std_modulemenu.php'); ?>
+                                    <!-- Module Side Menu -->
 
-                                <div class="col-md-9">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <table id="export-dt" class="table table-bordered table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Student Details</th>
-                                                        <th>Marks | Grade Attained</th>
-                                                        <th>Academic Year</th>
-                                                        <th>Semester</th>
-                                                        <th>Manage</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_StudentModuleGrades` WHERE module_code = '$mod->code' AND regno = '$std->regno' ";
-                                                    $stmt = $mysqli->prepare($ret);
-                                                    $stmt->execute(); //ok
-                                                    $res = $stmt->get_result();
-                                                    while ($grade = $res->fetch_object()) {
-                                                    ?>
-
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table id="export-dt" class="table table-bordered table-striped">
+                                                    <thead>
                                                         <tr>
-                                                            <td><?php echo $grade->regno . " " . $grade->name; ?></td>
-                                                            <td><?php echo $grade->marks; ?></td>
-                                                            <td><?php echo $grade->academic_year; ?></td>
-                                                            <td><?php echo $grade->semester; ?></td>
+                                                            <th>Student Details</th>
+                                                            <th>Marks | Grade Attained</th>
+                                                            <th>Academic Year</th>
+                                                            <th>Semester</th>
                                                         </tr>
-                                                    <?php
-                                                    } ?>
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_StudentModuleGrades` WHERE module_code = '$mod->code' AND regno = '$std->admno' ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        while ($grade = $res->fetch_object()) {
+                                                        ?>
+
+                                                            <tr>
+                                                                <td><?php echo $grade->regno . " " . $grade->name; ?></td>
+                                                                <td><?php echo $grade->marks; ?></td>
+                                                                <td><?php echo $grade->academic_year; ?></td>
+                                                                <td><?php echo $grade->semester; ?></td>
+                                                            </tr>
+                                                        <?php
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                    <!-- Main Footer -->
-                    <?php require_once('public/partials/_footer.php');
-                    ?>
+                        </section>
+                        <!-- Main Footer -->
+                        <?php require_once('public/partials/_footer.php'); ?>
+                    </div>
                 </div>
-            </div>
-            <!-- ./wrapper -->
-        <?php }
+                <!-- ./wrapper -->
+        <?php
+            }
+        }
         require_once('public/partials/_scripts.php'); ?>
 </body>
 
