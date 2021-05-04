@@ -107,7 +107,7 @@ require_once('public/partials/_head.php');
                                                                     </a>
                                                                     <?php
                                                                     /* If It Lacks upload_solutionSolution Give Option to upload else Download solution */
-                                                                    if ($pastExas->solution == '') {
+                                                                    if ($pastExas->solution == '' || $pastExas->solution_visibility != 'Available') {
                                                                         echo
                                                                         "
                                                                         <button class='btn btn-danger'>Solution Unavailable</button>
