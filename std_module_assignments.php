@@ -25,69 +25,6 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 std_check_login();
 require_once('configs/codeGen.php');
-
-/* Add Assignment */
-if (isset($_POST['add_assignment'])) {
-
-    $faculty = $_POST['faculty'];
-    $module_name = $_POST['module_name'];
-    $id = $_POST['id'];
-    $module_code = $_POST['module_code'];
-    $submission_deadline = $_POST['submission_deadline'];
-    $attachments = $_FILES['attachments']['name'];
-    /* Module ID */
-    $module_id = $_POST['module_id'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments/" . $_FILES["attachments"]["name"]);
-
-    $query = "INSERT INTO ezanaLMS_ModuleAssignments (id, faculty, module_code, module_name, submission_deadline, attachments) VALUES(?,?,?,?,?,?)";
-    $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss', $id, $faculty, $module_code, $module_name, $submission_deadline, $attachments);
-    $stmt->execute();
-    if ($stmt) {
-        $success = "Assignment Uploaded" && header("refresh:1; url=lec_module_assignments.php?view=$module_id");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
-
-
-
-/* Update Assignment */
-if (isset($_POST['update_assignment'])) {
-
-    $id = $_POST['id'];
-    $submission_deadline = $_POST['submission_deadline'];
-    $attachments = $_FILES['attachments']['name'];
-    /* Module ID */
-    $module_id = $_POST['module_id'];
-
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments/" . $_FILES["attachments"]["name"]);
-    $query = "UPDATE ezanaLMS_ModuleAssignments SET submission_deadline = ?, attachments =? WHERE id = ?";
-    $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sss', $submission_deadline, $attachments, $id);
-    $stmt->execute();
-    if ($stmt) {
-        $success = "Assignment Updated" && header("refresh:1; url=lec_module_assignments.php?view=$module_id");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
-
-/* Delete Assignment */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $view = $_GET['view'];
-    $adn = "DELETE FROM ezanaLMS_ModuleAssignments WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=lec_module_assignments.php?view=$view");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 require_once('public/partials/_head.php');
 ?>
 
@@ -165,7 +102,7 @@ require_once('public/partials/_head.php');
                                                                             <i class="fas fa-download"></i>
                                                                             Download
                                                                         </a>
-                                                                        <a href="lec_module_assignments_attemps.php?view=<?php echo $mod->id; ?>&assignment=<?php echo $assignments->id; ?>" class="badge badge-primary">
+                                                                        <a href="std_module_assignments_attemps.php?view=<?php echo $mod->id; ?>&assignment=<?php echo $assignments->id; ?>" class="badge badge-primary">
                                                                             <i class="fas fa-check"></i>
                                                                             My Attempts
                                                                         </a>
