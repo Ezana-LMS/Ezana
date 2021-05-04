@@ -45,6 +45,7 @@ if (isset($_POST['login'])) {
             /* Load Sessions */
             $_SESSION['id'] = $num['id'];
             $_SESSION['email'] = $email;
+            //$_SESSION['admno'] = $email;
 
             /* Log User Login Details */
             $uip = $_SERVER['REMOTE_ADDR']; // User IP Address
