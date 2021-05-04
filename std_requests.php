@@ -27,7 +27,7 @@ require_once('configs/codeGen.php');
 std_check_login();
 
 /* Add User Requests */
-if (isset($_POST['request'])) {
+if (isset($_POST['AddRequest'])) {
 
     $id = $_POST['id'];
     $name = $_POST['name'];
@@ -117,7 +117,7 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                         <div class="text-right">
-                                            <button type="submit" name="request" class="btn btn-primary">Submit Bug Report</button>
+                                            <button type="submit" name="AddRequest" class="btn btn-primary">Submit </button>
                                         </div>
                                     </form>
                                 </div>
