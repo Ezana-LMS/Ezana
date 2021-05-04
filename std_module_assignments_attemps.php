@@ -35,7 +35,7 @@ if (isset($_POST['add_attempt'])) {
     $std_name = $_POST['std_name'];
     $std_regno = $_POST['std_regno'];
     $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments_Attempts/" . $_FILES["readingMaterials"]["name"]);
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments_Attempts/" . $_FILES["attachments"]["name"]);
 
     /* Module ID */
     $module_id = $_POST['module_id'];
@@ -54,12 +54,10 @@ if (isset($_POST['add_attempt'])) {
 if (isset($_POST['update_attempt'])) {
     $id = $_POST['id'];
     $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Reading_Materials/" . $_FILES["attachments"]["name"]);
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments_Attempts/" . $_FILES["attachments"]["name"]);
 
-    /* Module ID */
-    $module_id = $_POST['module_id'];
 
-    $query = "UPDATE ezanaLMS_AssignmentsAttempts SET  attachments WHERE id =?";
+    $query = "UPDATE ezanaLMS_AssignmentsAttempts SET  attachments=?  WHERE id =?";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('ss', $attachments, $id);
     $stmt->execute();
@@ -73,18 +71,16 @@ if (isset($_POST['update_attempt'])) {
 
 /* Delete Student Attempt */
 if (isset($_GET['delete'])) {
-
     $delete = $_GET['delete'];
     $view = $_GET['view'];
     $assignment  = $_GET['assignment'];
-
     $adn = "DELETE FROM ezanaLMS_AssignmentsAttempts WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=std_module_assignments_attemps.php?view=$view&assignment=$assignment"); ;
+        $success = "Deleted" && header("refresh:1; url=std_module_assignments_attemps.php?view=$view&assignment=$assignment");;
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -245,8 +241,8 @@ require_once('public/partials/_head.php');
                                                                                                             <label for="exampleInputFile">Attempted Assignment</label>
                                                                                                             <div class="input-group">
                                                                                                                 <div class="custom-file">
-                                                                                                                    <input required name="attachment" accept=".pdf, .docx, .doc" type="file" class="custom-file-input" id="exampleInputFile">
                                                                                                                     <input type="hidden" required name="id" value="<?php echo $attempts->id; ?>" class="form-control">
+                                                                                                                    <input required name="attachments" accept=".pdf, .docx, .doc" type="file" class="custom-file-input" id="exampleInputFile">
                                                                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                                                                 </div>
                                                                                                             </div>
@@ -284,7 +280,7 @@ require_once('public/partials/_head.php');
                                                                                             <h4>Delete?</h4>
                                                                                             <br>
                                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                            <a href="std_module_assignments_attemps.php?delete=<?php echo $attempts->id; ?>&view=<?php echo $mod->id;?>&assignment=<?php echo $assignment_id;?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                            <a href="std_module_assignments_attemps.php?delete=<?php echo $attempts->id; ?>&view=<?php echo $mod->id; ?>&assignment=<?php echo $assignment_id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
