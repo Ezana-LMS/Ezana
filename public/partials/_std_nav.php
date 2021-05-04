@@ -90,12 +90,16 @@ while ($student = $res->fetch_object()) {
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <a href="std_profile.php" class="dropdown-item">
-                        <i class="fas fa-user mr-2"></i>
+                        <i class="fas fa-user-tag mr-2"></i>
                         Profile
                     </a>
                     <a href="std_calendar.php" class="dropdown-item">
                         <i class="fas fa-calendar mr-2"></i>
                         Calendar
+                    </a>
+                    <a href="std_requests.php" class="dropdown-item">
+                        <i class="fas fa-user-clock mr-2"></i>
+                        User Requests
                     </a>
                     <a href="std_report_bug.php" class="dropdown-item">
                         <i class="fas fa-bug mr-2"></i>
