@@ -83,24 +83,22 @@ require_once('public/partials/_head.php');
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-lg-4 col-6">
-                                                <a href="lec_allocated_modules.php">
-                                                    <div class="small-box bg-info">
-                                                        <div class="inner">
-                                                            <h3>Enrolled Course</h3>
-                                                        </div>
-                                                        <div class="icon">
-                                                            <i class="fas fa-chalkboard"></i>
-                                                        </div>
-                                                        <div class="small-box-footer">
-                                                            <i class="fas fa-arrow-circle-right"></i>
-                                                            <?php echo $std->course; ?>
-                                                        </div>
+                                                <div class="small-box bg-info">
+                                                    <div class="inner">
+                                                        <h3>Enrolled Course</h3>
                                                     </div>
-                                                </a>
+                                                    <div class="icon">
+                                                        <i class="fas fa-chalkboard"></i>
+                                                    </div>
+                                                    <div class="small-box-footer">
+                                                        <i class="fas fa-arrow-circle-right"></i>
+                                                        <?php echo $std->course; ?>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="lec_important_dates.php">
+                                                <a href="std_important_dates.php">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Academic Yr & Semester</h3>
@@ -118,7 +116,7 @@ require_once('public/partials/_head.php');
 
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="lec_time_table.php">
+                                                <a href="std_enrolled_modules.php">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Enrolled Modules</h3>
