@@ -58,7 +58,7 @@ require_once('public/partials/_head.php');
                                 <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Past Papers</h1>
                             </div>
                             <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="std_dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="std_enrolled_modules.php">Enrolled Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?> Past Papers</li>
@@ -69,6 +69,15 @@ require_once('public/partials/_head.php');
 
                     <section class="content">
                         <div class="container-fluid">
+                            <div class="">
+                                <nav class="navbar navbar-light bg-light col-md-12">
+                                    <form class="form-inline">
+                                    </form>
+                                    <div class="text-right">
+                                        <a title="View <?php echo $mod->name; ?> Past Papers In Tabular Formart" href="std_module_tabular_pastpapers.php?view=<?php echo $mod->id; ?>" class="btn btn-primary"><i class="fas fa-table"></i></a>
+                                    </div>
+                                </nav>
+                            </div>
                             <hr>
                             <div class="row">
                                 <!-- Module Side Menu -->
