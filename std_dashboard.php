@@ -26,6 +26,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 std_check_login();
 require_once('configs/codeGen.php');
+
 require_once('public/partials/_std_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -49,6 +50,12 @@ require_once('public/partials/_head.php');
             $stmt->execute(); //ok
             $res = $stmt->get_result();
             while ($std = $res->fetch_object()) {
+                /* Load System Academic Settings */
+                $ret = "SELECT * FROM `ezanaLMS_AcademicSettings`  ";
+                $stmt = $mysqli->prepare($ret);
+                $stmt->execute(); //ok
+                $res = $stmt->get_result();
+                while ($sys = $res->fetch_object()) {
             ?>
 
         </aside>
@@ -140,8 +147,12 @@ require_once('public/partials/_head.php');
             </div>
         </div>
         <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php');
-            } ?>
+<?php
+                }
+            }
+            require_once('public/partials/_scripts.php');
+
+?>
 </body>
 
 </html>
