@@ -45,24 +45,6 @@ if (isset($_POST['update_status'])) {
     }
 }
 
-
-/* Delete */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $view = $_GET['view'];
-    $adn = "DELETE FROM ezanaLMS_UserRequests WHERE id = ?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=user_requests.php?view=$view");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
-
-
 require_once('public/partials/_head.php');
 ?>
 

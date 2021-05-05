@@ -38,6 +38,36 @@ if (isset($_GET['notification'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+
+/* Delete Bug Reports */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $adn = "DELETE FROM ezanaLMS_BugReports WHERE id = ?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Resolved" && header("refresh:1; url=dashboard.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete User Requests */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $adn = "DELETE FROM ezanaLMS_UserRequests WHERE id = ?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=dashboard.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('public/partials/_head.php');
 ?>
 
@@ -169,7 +199,7 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <hr>
                         <div class="row">
-                            
+
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-12">
