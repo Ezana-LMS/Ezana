@@ -31,7 +31,7 @@ if (isset($_POST['submit_project'])) {
     $project_id = $_POST['project_id'];
     $faculty_id = $_POST['faculty_id'];
     $Submitted_Files = $_FILES['Submitted_Files']['name'];
-    move_uploaded_file($_FILES["Submitted_Files"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["Submitted_Files"]["name"]);
+    move_uploaded_file($_FILES["Submitted_Files"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects_Attemps/" . $_FILES["Submitted_Files"]["name"]);
     $group_code = $_POST['group_code'];
     $group_name  = $_POST['group_name'];
     /* Module ID */
@@ -41,7 +41,7 @@ if (isset($_POST['submit_project'])) {
 
     $query = "INSERT INTO ezanaLMS_GroupsAssignmentsGrades (id, faculty_id, group_name, group_code, project_id, Submitted_Files) VALUES(?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss', $id, $faculty_id, $group_name, $group_code, $Submitted_Files);
+    $rc = $stmt->bind_param('ssssss', $id, $faculty_id, $group_name, $group_code, $project_id, $Submitted_Files);
     $stmt->execute();
     if ($stmt) {
         $success = "Group Assignment Uploaded" && header("refresh:1; url=std_module_group_details.php?view=$view&group=$group");
@@ -241,6 +241,7 @@ require_once('public/partials/_head.php');
                                                                                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                                                                                     <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                                                                    <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
                                                                                                                                     <input type="hidden" required name="faculty_id" value="<?php echo $mod->faculty_id; ?>" class="form-control">
                                                                                                                                     <input type="hidden" required name="group_name" value="<?php echo $g->name; ?>" class="form-control">
                                                                                                                                     <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
