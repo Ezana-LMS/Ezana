@@ -314,7 +314,7 @@ require_once('public/partials/_head.php');
                                                                 <h4>Delete?</h4>
                                                                 <br>
                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                <a href="user_requests.php?view=<?php echo $view; ?>&delete=<?php echo $requests->id; ?>" class="text-center btn btn-danger"> Yes </a>
+                                                                <a href="dashboard.php?delete_request=<?php echo $requests->id; ?>" class="text-center btn btn-danger"> Yes </a>
                                                             </div>
                                                         </div>
                                                     </div>

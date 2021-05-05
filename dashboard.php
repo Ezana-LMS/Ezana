@@ -55,8 +55,8 @@ if (isset($_GET['delete'])) {
 }
 
 /* Delete User Requests */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
+if (isset($_GET['delete_request'])) {
+    $delete = $_GET['delete_request'];
     $adn = "DELETE FROM ezanaLMS_UserRequests WHERE id = ?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
