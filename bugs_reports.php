@@ -42,21 +42,7 @@ if (isset($_GET['fix'])) {
     }
 }
 
-/* Delete */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
-    $view = $_GET['view'];
-    $adn = "DELETE FROM ezanaLMS_BugReports WHERE id = ?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Resolved" && header("refresh:1; url=bugs_reports.php?view=$view");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
+
 
 
 require_once('public/partials/_head.php');
@@ -314,7 +300,7 @@ require_once('public/partials/_head.php');
                                                                 <h4>Delete?</h4>
                                                                 <br>
                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                <a href="bugs_reports.php?view=<?php echo $view; ?>&delete=<?php echo $bug_status->id; ?>" class="text-center btn btn-danger"> Yes </a>
+                                                                <a href="dashboard.php?delete=<?php echo $bug_status->id; ?>" class="text-center btn btn-danger"> Yes </a>
                                                             </div>
                                                         </div>
                                                     </div>
