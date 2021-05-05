@@ -25,6 +25,30 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 std_check_login();
 require_once('configs/codeGen.php');
+/* Upload Group Assignment */
+if (isset($_POST['submit_project'])) {
+    $id = $_POST['id'];
+    $project_id = $_POST['project_id'];
+    $faculty_id = $_POST['faculty_id'];
+    $Submitted_Files = $_FILES['Submitted_Files']['name'];
+    move_uploaded_file($_FILES["Submitted_Files"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["Submitted_Files"]["name"]);
+    $group_code = $_POST['group_code'];
+    $group_name  = $_POST['group_name'];
+    /* Module ID */
+    $view = $_POST['view'];
+    /* Group ID */
+    $group = $_POST['group'];
+
+    $query = "INSERT INTO ezanaLMS_GroupsAssignmentsGrades (id, faculty_id, group_name, group_code, project_id, Submitted_Files) VALUES(?,?,?,?,?,?)";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('ssssss', $id, $faculty_id, $group_name, $group_code, $Submitted_Files);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Group Assignment Uploaded" && header("refresh:1; url=std_module_group_details.php?view=$view&group=$group");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('public/partials/_head.php');
 ?>
 
@@ -184,10 +208,61 @@ require_once('public/partials/_head.php');
                                                                                         <td><?php echo $ass->submitted_on; ?></td>
                                                                                         <td><?php echo date('d M Y g:ia', strtotime($ass->created_at)); ?></td>
                                                                                         <td>
-                                                                                            <a class="badge badge-success" href="public/uploads/EzanaLMSData/Group_Projects/<?php echo $ass->attachments;?>">
+                                                                                            <a class="badge badge-success" href="public/uploads/EzanaLMSData/Group_Projects/<?php echo $ass->attachments; ?>">
                                                                                                 <i class="fas fa-file-signature"></i>
                                                                                                 Open Assignment
                                                                                             </a>
+
+                                                                                            <a class="badge badge-primary" data-toggle="modal" href="#add_update_<?php echo $ass->id; ?>">
+                                                                                                <i class="fas fa-file-upload"></i>
+                                                                                                Submit Attempt
+                                                                                            </a>
+                                                                                            <!-- Submit Attempt -->
+                                                                                            <div class="modal fade" id="add_update_<?php echo $ass->id; ?>">
+                                                                                                <div class="modal-dialog  modal-xl">
+                                                                                                    <div class="modal-content">
+                                                                                                        <div class="modal-header">
+                                                                                                            <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                        <div class="modal-body">
+                                                                                                            <!-- Form -->
+                                                                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                                                                <div class="card-body">
+                                                                                                                    <div class="row">
+                                                                                                                        <!-- Hide This Please -->
+                                                                                                                        <div class="form-group col-md-12">
+                                                                                                                            <label for="">Upload Group Assignment Attempts</label>
+                                                                                                                            <div class="input-group">
+                                                                                                                                <div class="custom-file">
+                                                                                                                                    <input name="Submitted_Files" accept=".pdf, .doc, .docx" type="file" class="custom-file-input">
+                                                                                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file </label>
+                                                                                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                                                                                    <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                                                                    <input type="hidden" required name="faculty_id" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+                                                                                                                                    <input type="hidden" required name="group_name" value="<?php echo $g->name; ?>" class="form-control">
+                                                                                                                                    <input type="hidden" required name="group_code" value="<?php echo $g->code; ?>" class="form-control">
+                                                                                                                                    <input type="hidden" required name="project_id" value="<?php echo $ass->id; ?>" class="form-control">
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="card-footer text-right">
+                                                                                                                    <button type="submit" name="submit_project" class="btn btn-primary">Submit</button>
+                                                                                                                </div>
+                                                                                                            </form>
+
+                                                                                                        </div>
+                                                                                                        <div class="modal-footer justify-content-between">
+                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <!-- ./ Submit Attempt -->
                                                                                         </td>
                                                                                     </tr>
                                                                                 <?php
