@@ -102,6 +102,7 @@ require_once('public/partials/_head.php');
                                                                     <li class="nav-item">
                                                                         <a class="nav-link" id="custom-content-below-enrollment-tab" data-toggle="pill" href="#custom-content-below-notices-assignments" role="tab" aria-controls="custom-content-below-notices-assignments" aria-selected="false">Group Assignments</a>
                                                                     </li>
+
                                                                 </ul>
                                                                 <div class="tab-content" id="custom-content-below-tabContent">
                                                                     <div class="tab-pane fade show active" id="custom-content-below-members" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
@@ -183,9 +184,9 @@ require_once('public/partials/_head.php');
                                                                                         <td><?php echo $ass->submitted_on; ?></td>
                                                                                         <td><?php echo date('d M Y g:ia', strtotime($ass->created_at)); ?></td>
                                                                                         <td>
-                                                                                            <a class="badge badge-success" href="lec_module_group_assignment_attempts.php?view=<?php echo $mod->id; ?>&code=<?php echo $ass->group_code; ?>">
-                                                                                                <i class="fas fa-eye"></i>
-                                                                                                View Attempts
+                                                                                            <a class="badge badge-success" href="public/uploads/EzanaLMSData/Group_Projects/<?php echo $ass->attachments;?>">
+                                                                                                <i class="fas fa-file-signature"></i>
+                                                                                                Open Assignment
                                                                                             </a>
                                                                                         </td>
                                                                                     </tr>
