@@ -242,7 +242,7 @@ require_once('public/partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Students</h1>
+                            <h1 class="m-0 text-dark">Students - Advanced Searching</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -252,82 +252,92 @@ require_once('public/partials/_head.php');
                         </div>
                     </div>
                 </div>
-
+                <hr>
                 <section class="content">
                     <div class="container-fluid">
-                        <div class="">
-                            <form method="POST">
-                                <div class="d-flex justify-content-center">
-                                    <select name="School" class='col-md-6 form-control basic mr-sm-2'>
-                                        <option selected>Select Faculty</option>
-                                        <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Faculties` ";
-                                        $stmt = $mysqli->prepare($ret);
-                                        $stmt->execute(); //ok
-                                        $res = $stmt->get_result();
-                                        while ($faculty = $res->fetch_object()) {
-                                        ?>
-                                            <option><?php echo $faculty->name; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                    <div class="text-right">
-                                        <button name="SearchStudents" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search By School</button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form method="POST">
+                                    <div class="d-flex justify-content-left">
+                                        <select name="School" class='form-control basic mr-sm-2'>
+                                            <option selected>Select Faculty</option>
+                                            <?php
+                                            $ret = "SELECT * FROM `ezanaLMS_Faculties` ";
+                                            $stmt = $mysqli->prepare($ret);
+                                            $stmt->execute(); //ok
+                                            $res = $stmt->get_result();
+                                            while ($faculty = $res->fetch_object()) {
+                                            ?>
+                                                <option><?php echo $faculty->name; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="text-right">
+                                            <button name="SearchStudents" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search By School</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
 
-                            <form method="POST">
-                                <div class="d-flex justify-content-center">
-                                    <select name="Department" class='col-md-6 form-control basic mr-sm-2'>
-                                        <option selected>Select Department</option>
-                                        <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Departments` ";
-                                        $stmt = $mysqli->prepare($ret);
-                                        $stmt->execute(); //ok
-                                        $res = $stmt->get_result();
-                                        while ($dep = $res->fetch_object()) {
-                                        ?>
-                                            <option><?php echo $dep->name; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                    <div class="text-right">
-                                        <button name="SearchStudents" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search By Department</button>
+                            <div class="col-md-6">
+                                <form method="POST">
+                                    <div class="d-flex justify-content-left">
+                                        <select name="Department" class='form-control basic mr-sm-2'>
+                                            <option selected>Select Department</option>
+                                            <?php
+                                            $ret = "SELECT * FROM `ezanaLMS_Departments` ";
+                                            $stmt = $mysqli->prepare($ret);
+                                            $stmt->execute(); //ok
+                                            $res = $stmt->get_result();
+                                            while ($dep = $res->fetch_object()) {
+                                            ?>
+                                                <option><?php echo $dep->name; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="text-right">
+                                            <button name="SearchStudents" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search By Department</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
-                            <form method="POST">
-                                <div class="d-flex justify-content-center">
-                                    <select name="Course" class='col-md-6 form-control basic mr-sm-2'>
-                                        <option selected>Select Courses</option>
-                                        <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Courses` ";
-                                        $stmt = $mysqli->prepare($ret);
-                                        $stmt->execute(); //ok
-                                        $res = $stmt->get_result();
-                                        while ($courses = $res->fetch_object()) {
-                                        ?>
-                                            <option><?php echo $courses->name; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                    <div class="text-right">
-                                        <button name="SearchStudents" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search By Course</button>
+                                </form>
+                            </div>
+
+                            <div class="col-md-6">
+                                <form method="POST">
+                                    <div class="d-flex justify-content-left">
+                                        <select name="Course" class='form-control basic mr-sm-2'>
+                                            <option selected>Select Courses</option>
+                                            <?php
+                                            $ret = "SELECT * FROM `ezanaLMS_Courses` ";
+                                            $stmt = $mysqli->prepare($ret);
+                                            $stmt->execute(); //ok
+                                            $res = $stmt->get_result();
+                                            while ($courses = $res->fetch_object()) {
+                                            ?>
+                                                <option><?php echo $courses->name; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <div class="text-right">
+                                            <button name="SearchStudents" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search By Course</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
-                            <form method="POST">
-                                <div class="d-flex justify-content-center">
-                                    <select name="CurrentYear" class='col-md-6 form-control basic mr-sm-2'>
-                                        <option selected>Select Year</option>
-                                        <option>1st Year </option>
-                                        <option>2nd Year </option>
-                                        <option>3rd Year </option>
-                                        <option>4th Year </option>
-                                    </select>
-                                    <div class="text-right">
-                                        <button name="SearchStudents" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search By Year</button>
+                                </form>
+                            </div>
+
+                            <div class="col-md-6">
+                                <form method="POST">
+                                    <div class="d-flex justify-content-left">
+                                        <select name="CurrentYear" class='form-control basic mr-sm-2'>
+                                            <option selected>Select Year</option>
+                                            <option>1st Year </option>
+                                            <option>2nd Year </option>
+                                            <option>3rd Year </option>
+                                            <option>4th Year </option>
+                                        </select>
+                                        <div class="text-right">
+                                            <button name="SearchStudents" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search By Year</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                         <hr>
                         <div class="row">
