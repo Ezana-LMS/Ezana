@@ -156,6 +156,27 @@ require_once('public/partials/_reportshead.php');
 
                 <section class="content">
                     <div class="container-fluid">
+                        <div class="container-fluid">
+                            <form method="POST">
+                                <div class="d-flex justify-content-center">
+                                    <select name="School" class='col-md-6 form-control basic mr-sm-2'>
+                                        <option selected>Select Faculty / School Name</option>
+                                        <?php
+                                        $ret = "SELECT * FROM `ezanaLMS_Faculties` ";
+                                        $stmt = $mysqli->prepare($ret);
+                                        $stmt->execute(); //ok
+                                        $res = $stmt->get_result();
+                                        while ($faculty = $res->fetch_object()) {
+                                        ?>
+                                            <option><?php echo $faculty->name; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                    <div class="text-right">
+                                        <button name="SearchLecturers" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search By School / Faculty</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                         <hr>
                         <div class="row">
                             <div class="col-12">
@@ -174,23 +195,26 @@ require_once('public/partials/_reportshead.php');
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Lecturers`  ";
-                                        $stmt = $mysqli->prepare($ret);
-                                        $stmt->execute(); //ok
-                                        $res = $stmt->get_result();
-                                        while ($lec = $res->fetch_object()) {
+                                        if (isset($_POST['SearchLecturers'])) {
+                                            $School = $_POST['School'];
+                                            $ret = "SELECT * FROM `ezanaLMS_Lecturers`  WHERE faculty_name = '$School' ";
+                                            $stmt = $mysqli->prepare($ret);
+                                            $stmt->execute(); //ok
+                                            $res = $stmt->get_result();
+                                            while ($lec = $res->fetch_object()) {
                                         ?>
-                                            <tr>
-                                                <td><?php echo $lec->number; ?></td>
-                                                <td><?php echo $lec->name; ?></td>
-                                                <td><?php echo $lec->gender; ?></td>
-                                                <td><?php echo $lec->work_email; ?></td>
-                                                <td><?php echo $lec->phone; ?></td>
-                                                <td><?php echo $lec->idno; ?></td>
-                                                <td><?php echo $lec->employee_id; ?></td>
-                                                <td><?php echo $lec->faculty_name; ?></td>
-                                            </tr>
-                                        <?php $cnt = $cnt + 1;
+                                                <tr>
+                                                    <td><?php echo $lec->number; ?></td>
+                                                    <td><?php echo $lec->name; ?></td>
+                                                    <td><?php echo $lec->gender; ?></td>
+                                                    <td><?php echo $lec->work_email; ?></td>
+                                                    <td><?php echo $lec->phone; ?></td>
+                                                    <td><?php echo $lec->idno; ?></td>
+                                                    <td><?php echo $lec->employee_id; ?></td>
+                                                    <td><?php echo $lec->faculty_name; ?></td>
+                                                </tr>
+                                        <?php
+                                            }
                                         } ?>
                                     </tbody>
                                 </table>

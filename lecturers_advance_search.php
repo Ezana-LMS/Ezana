@@ -222,6 +222,7 @@ require_once('public/partials/_head.php');
             </div>
         </aside>
 
+
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
