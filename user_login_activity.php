@@ -154,7 +154,7 @@ require_once('public/partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Filter User Login Logs</h1>
+                            <h1 class="m-0 text-dark">User Login Logs</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -209,10 +209,33 @@ require_once('public/partials/_head.php');
                                             while ($logs = $logsquerry->fetch_array()) {
                                         ?>
                                                 <tr>
-                                                    <td><?php echo $logsquerry['name'] ?></td>
-                                                    <td><?php echo $logsquerry['loginTime'] ?></td>
-                                                    <td><?php echo $logsquerry['User_Rank '] ?></td>
-                                                    <td><?php echo $logsquerry['User_Rank '] ?></td>
+                                                    <td><?php echo $logs['name'] ?></td>
+                                                    <td><?php echo date('d M Y', strtotime($logs['loginTime']));?></td>
+                                                    <td><?php echo $logs['User_Rank'] ?></td>
+                                                    <td>
+                                                        <a class="badge badge-success" href="user_login_activity_details.php?view=<?php echo $logs['id']; ?>">View Details</a>
+                                                        <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $logs['id']; ?>">Delete User Log</a>
+                                                        <!-- Delete User Log -->
+                                                        <div class="modal fade" id="delete-<?php echo $logs['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body text-center text-danger">
+                                                                        <h4>Delete This Log ?</h4>
+                                                                        <br>
+                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                        <a href="user_login_activity.php?delete=<?php echo $logs['id']; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Delete User Log -->
+                                                    </td>
                                                 </tr>
                                         <?php
                                             }
