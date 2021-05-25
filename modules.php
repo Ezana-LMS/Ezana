@@ -268,7 +268,10 @@ require_once('public/partials/_head.php');
                                     <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                 </form>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module</button>
+                                <div class="text-right">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module</button>
+                                    <a href="modules_advanced_search.php" class="btn btn-primary">Advanced Search</a>
+                                </div>
                                 <div class="modal fade" id="modal-default">
                                     <div class="modal-dialog  modal-xl">
                                         <div class="modal-content">
@@ -339,7 +342,7 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Module Details</label>
-                                                                <textarea required  name="details" rows="10" class="form-control Summernote"></textarea>
+                                                                <textarea required name="details" rows="10" class="form-control Summernote"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -424,7 +427,6 @@ require_once('public/partials/_head.php');
                             <div class="col-md-9">
                                 <div class="row">
                                     <div class="col-12">
-
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
@@ -443,7 +445,6 @@ require_once('public/partials/_head.php');
                                                 $cnt = 1;
                                                 while ($mod = $res->fetch_object()) {
                                                 ?>
-
                                                     <tr>
                                                         <td><?php echo $mod->name; ?></td>
                                                         <td><?php echo $mod->code; ?></td>
@@ -505,7 +506,7 @@ require_once('public/partials/_head.php');
                                                                                     <div class="row">
                                                                                         <div class="form-group col-md-12">
                                                                                             <label for="exampleInputPassword1">Module Details</label>
-                                                                                            <textarea required  name="<?php echo $mod->id; ?>" rows="10" class="form-control Summernote"><?php echo $mod->details; ?></textarea>
+                                                                                            <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $mod->details; ?></textarea>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -513,7 +514,7 @@ require_once('public/partials/_head.php');
                                                                                     <button type="submit" name="update_module" class="btn btn-primary">Update Module</button>
                                                                                 </div>
                                                                             </form>
-                                                                           
+
                                                                             <!-- End Module Form -->
                                                                         </div>
                                                                         <div class="modal-footer justify-content-between">

@@ -181,7 +181,10 @@ require_once('public/partials/_head.php');
                                         <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
                                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module</button>
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module</button>
+                                        <a href="edu_admn_modules_advanced_search.php?view=<?php echo $faculty->id;?>" class="btn btn-primary">Advanced Search</a>
+                                    </div>
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">

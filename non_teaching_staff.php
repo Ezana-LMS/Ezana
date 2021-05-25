@@ -176,7 +176,6 @@ if (isset($_POST['update_non_teaching_staff'])) {
 }
 
 
-
 /* Suspend Account */
 if (isset($_GET['suspend'])) {
     $suspend = $_GET['suspend'];
@@ -342,6 +341,7 @@ require_once('public/partials/_head.php');
                             </form>
                             <div class="text-left">
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">Add Non Teaching Staff</button>
+                                <a href="non_teaching_staff_advanced_search.php" class="btn btn-primary">Advanced Search</a>
                             </div>
                             <!-- Add Lec Modal -->
                             <div class="modal fade" id="modal-default">

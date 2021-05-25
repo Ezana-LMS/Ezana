@@ -55,7 +55,7 @@ require_once('public/partials/_head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Students</h1>
+                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Students Reports</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -69,7 +69,68 @@ require_once('public/partials/_head.php');
 
                     <section class="content">
                         <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form method="POST">
+                                        <div class="d-flex justify-content-left">
+                                            <select name="Department" class='form-control basic mr-sm-2'>
+                                                <option selected>Select Department</option>
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$view' ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                while ($dep = $res->fetch_object()) {
+                                                ?>
+                                                    <option><?php echo $dep->name; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <div class="text-right">
+                                                <button name="SearchStudents" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search By Department</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
 
+                                <div class="col-md-6">
+                                    <form method="POST">
+                                        <div class="d-flex justify-content-left">
+                                            <select name="Course" class='form-control basic mr-sm-2'>
+                                                <option selected>Select Courses</option>
+                                                <?php
+                                                $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$view' ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                while ($courses = $res->fetch_object()) {
+                                                ?>
+                                                    <option><?php echo $courses->name; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <div class="text-right">
+                                                <button name="SearchStudents" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search By Course</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <form method="POST">
+                                        <div class="d-flex justify-content-left">
+                                            <select name="CurrentYear" class='form-control basic mr-sm-2'>
+                                                <option selected>Select Year</option>
+                                                <option>1st Year </option>
+                                                <option>2nd Year </option>
+                                                <option>3rd Year </option>
+                                                <option>4th Year </option>
+                                            </select>
+                                            <div class="text-right">
+                                                <button name="SearchStudents" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search By Year</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                             <hr>
                             <div class="row">
                                 <div class="col-md-12">
@@ -92,27 +153,33 @@ require_once('public/partials/_head.php');
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$view' ";
-                                                    $stmt = $mysqli->prepare($ret);
-                                                    $stmt->execute(); //ok
-                                                    $res = $stmt->get_result();
-                                                    $cnt = 1;
-                                                    while ($std = $res->fetch_object()) {
-                                                    ?>
-                                                        <tr>
-                                                            <td><?php echo $std->admno; ?></td>
-                                                            <td><?php echo $std->name; ?></td>
-                                                            <td><?php echo $std->phone; ?></td>
-                                                            <td><?php echo $std->gender; ?></td>
-                                                            <td><?php echo $std->dob; ?></td>
-                                                            <td><?php echo $std->email; ?></td>
-                                                            <td><?php echo $std->department; ?></td>
-                                                            <td><?php echo $std->course; ?></td>
-                                                            <td><?php echo $std->day_enrolled; ?></td>
-                                                            <td><?php echo $std->current_year; ?></td>
+                                                    if (isset($_POST['SearchStudents'])) {
+                                                        $School = $_POST['School'];
+                                                        $Department = $_POST['Department'];
+                                                        $Course = $_POST['Course'];
+                                                        $CurrentYear = $_POST['CurrentYear'];
 
-                                                        </tr>
-                                                    <?php $cnt = $cnt + 1;
+                                                        $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$view' AND(department = '$Department' || course = '$Course' || current_year = '$CurrentYear') ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        while ($std = $res->fetch_object()) {
+                                                    ?>
+                                                            <tr>
+                                                                <td><?php echo $std->admno; ?></td>
+                                                                <td><?php echo $std->name; ?></td>
+                                                                <td><?php echo $std->phone; ?></td>
+                                                                <td><?php echo $std->gender; ?></td>
+                                                                <td><?php echo $std->dob; ?></td>
+                                                                <td><?php echo $std->email; ?></td>
+                                                                <td><?php echo $std->department; ?></td>
+                                                                <td><?php echo $std->course; ?></td>
+                                                                <td><?php echo $std->day_enrolled; ?></td>
+                                                                <td><?php echo $std->current_year; ?></td>
+
+                                                            </tr>
+                                                    <?php
+                                                        }
                                                     } ?>
                                                 </tbody>
                                             </table>
