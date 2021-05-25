@@ -258,7 +258,7 @@ require_once('public/partials/_head.php');
                                             <div class="modal-body">
                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                     <div class="card-body">
-                                                        <div class="row">
+                                                        <div class="row border-primary">
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Faculty Code</label>
                                                                 <select class='form-control basic' id="FacultyCode" onchange="OptimizedFacultyDetails(this.value);">
