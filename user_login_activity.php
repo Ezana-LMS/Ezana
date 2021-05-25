@@ -172,57 +172,7 @@ require_once('public/partials/_head.php');
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-12">
-                                        <table id="courses" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>User Email</th>
-                                                    <th>Login Date</th>
-                                                    <th>User Rank</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                /* Load All Notifications Based On Time They Were Generated */
-                                                $result = mysqli_query($mysqli, "SELECT * FROM `ezanaLMS_UserLog`   ORDER BY `loginTime` DESC ");
-                                                $i = 0;
-                                                while ($log = mysqli_fetch_array($result)) {
-                                                ?>
-                                                    <tr>
 
-                                                        <td><?php echo $log["name"]; ?></td>
-                                                        <td><?php echo $log["loginTime"]; ?></td>
-                                                        <td><?php echo $log["User_Rank"]; ?></td>
-                                                        <td>
-                                                            <a class="badge badge-success" href="user_login_activity_details.php?view=<?php echo $log['id']; ?>">View Details</a>
-                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $log['id']; ?>">Delete User Log</a>
-                                                            <!-- Delete User Log -->
-                                                            <div class="modal fade" id="delete-<?php echo $log['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="modal-body text-center text-danger">
-                                                                            <h4>Delete This Log ?</h4>
-                                                                            <br>
-                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                            <a href="user_login_activity.php?delete=<?php echo $log['id']; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- End Delete User Log -->
-                                                        </td>
-                                                    </tr>
-                                                <?php
-                                                    $i++;
-                                                } ?>
-                                            </tbody>
-                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -235,6 +185,7 @@ require_once('public/partials/_head.php');
         </div>
         <!-- ./wrapper -->
         <?php require_once('public/partials/_scripts.php'); ?>
+
 </body>
 
 </html>
