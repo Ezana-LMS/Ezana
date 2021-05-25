@@ -257,7 +257,7 @@ require_once('public/partials/_head.php');
                                 </form>
                                 <div class="text-right">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
-                                    <a href="courses_advanced_search.php" class="btn btn-primary">Add New Course</a>
+                                    <a href="courses_advanced_search.php" class="btn btn-primary">Advanced Search</a>
                                 </div>
                                 <div class="modal fade" id="modal-default">
                                     <div class="modal-dialog  modal-xl">
