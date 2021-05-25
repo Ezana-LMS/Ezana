@@ -237,7 +237,7 @@ require_once('public/partials/_head.php');
                         </div>
                     </div>
                 </div>
-
+                <hr>
                 <section class="content">
                     <div class="container-fluid">
                         <form method="POST">
