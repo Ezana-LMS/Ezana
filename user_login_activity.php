@@ -154,7 +154,7 @@ require_once('public/partials/_head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">User Login Logs</h1>
+                            <h1 class="m-0 text-dark">Filter User Login Logs</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -172,10 +172,56 @@ require_once('public/partials/_head.php');
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-12">
-
+                                        <form method="post" enctype="multipart/form-data" role="form">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="">From Date</label>
+                                                    <input type="date" required name="from" class="form-control">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="">To Date</label>
+                                                    <input type="date" required name="to" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="text-center">
+                                                <button type="submit" name="getLogs" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
+
+                                <hr>
+                                <table id="courses" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>User Email</th>
+                                            <th>Login Date</th>
+                                            <th>User Rank</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        if (isset($_POST['getLogs'])) {
+                                            $from = date('Y-m-d', strtotime($_POST['from']));
+                                            $to = date('Y-m-d', strtotime($_POST['to']));
+                                            $logsquerry = $mysqli->query("SELECT  * FROM `ezanaLMS_UserLog` WHERE loginTime BETWEEN '$from' AND '$to'");
+                                            while ($logs = $logsquerry->fetch_array()) {
+                                        ?>
+                                                <tr>
+                                                    <td><?php echo $logsquerry['name'] ?></td>
+                                                    <td><?php echo $logsquerry['loginTime'] ?></td>
+                                                    <td><?php echo $logsquerry['User_Rank '] ?></td>
+                                                    <td><?php echo $logsquerry['User_Rank '] ?></td>
+                                                </tr>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
                             </div>
+
                         </div>
                     </div>
                 </section>
