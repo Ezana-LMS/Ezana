@@ -255,7 +255,10 @@ require_once('public/partials/_head.php');
                                     <input class="form-control mr-sm-2" type="search" name="query" placeholder="Course Name Or Code">
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                 </form>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
+                                <div class="text-right">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
+                                    <a href="courses_advanced_search.php" class="btn btn-primary">Add New Course</a>
+                                </div>
                                 <div class="modal fade" id="modal-default">
                                     <div class="modal-dialog  modal-xl">
                                         <div class="modal-content">
@@ -320,7 +323,7 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Course Description</label>
-                                                                <textarea required name="details"  rows="10" class="form-control Summernote"></textarea>
+                                                                <textarea required name="details" rows="10" class="form-control Summernote"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -451,8 +454,8 @@ require_once('public/partials/_head.php');
                                                                                     <div class="row">
                                                                                         <div class="form-group col-md-6">
                                                                                             <label for="">Course Name</label>
-                                                                                            <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control" >
-                                                                                            <input type="hidden" required name="id" value="<?php echo $courses->id; ?>" class="form-control" >
+                                                                                            <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control">
+                                                                                            <input type="hidden" required name="id" value="<?php echo $courses->id; ?>" class="form-control">
 
                                                                                         </div>
                                                                                         <div class="form-group col-md-6">
@@ -463,7 +466,7 @@ require_once('public/partials/_head.php');
                                                                                     <div class="row">
                                                                                         <div class="form-group col-md-6">
                                                                                             <label for="">Course HOD Name</label>
-                                                                                            <input type="text" required value="<?php echo $courses->hod; ?>" name="hod" class="form-control" >
+                                                                                            <input type="text" required value="<?php echo $courses->hod; ?>" name="hod" class="form-control">
                                                                                         </div>
                                                                                         <div class="form-group col-md-6">
                                                                                             <label for="">Course HOD Email</label>
@@ -473,7 +476,7 @@ require_once('public/partials/_head.php');
                                                                                     <div class="row">
                                                                                         <div class="form-group col-md-12">
                                                                                             <label for="exampleInputPassword1">Course Description</label>
-                                                                                            <textarea required name="details"  rows="10" class="form-control Summernote"><?php echo $courses->details; ?></textarea>
+                                                                                            <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $courses->details; ?></textarea>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
