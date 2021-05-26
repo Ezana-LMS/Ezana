@@ -255,7 +255,7 @@ if (isset($_POST['add_departmental_doc'])) {
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
     $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/". $_FILES["attachments"]["name"]);
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
