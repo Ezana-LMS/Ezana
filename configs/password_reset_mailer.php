@@ -22,7 +22,7 @@
 
 
 
-/* Non Teaching Staff Emails Configuration */
+/* Password Reset Mails */
 require_once('vendor/PHPMailer/src/SMTP.php');
 require_once('vendor/PHPMailer/src/PHPMailer.php');
 require_once('vendor/PHPMailer/src/Exception.php');
