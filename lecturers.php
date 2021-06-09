@@ -89,7 +89,10 @@ if (isset($_POST['add_lec'])) {
             $idno  = $_POST['idno'];
             $adr = $_POST['adr'];
             $created_at = date('d M Y');
-            $password = sha1(md5($_POST['password']));
+            /* Mail clean password */
+            $mailed_password = (($_POST['password']));
+            /* Persiste Encrypted Password */
+            $password = sha1(md5($mailed_password));
             $profile_pic = $_FILES['profile_pic']['name'];
             move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $_FILES["profile_pic"]["name"]);
 
@@ -97,6 +100,8 @@ if (isset($_POST['add_lec'])) {
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ssssssssssssssss', $id, $faculty_id, $gender, $faculty_name, $work_email, $employee_id, $date_employed, $name, $email, $phone, $idno, $adr, $profile_pic, $created_at, $password, $number);
             $stmt->execute();
+            /* Load Lec Mailer */
+            require_once('configs/lec_mailer.php');
             if ($stmt) {
                 $success = "Lecturer Added" && header("refresh:1; url=lecturers.php");
             } else {
@@ -344,28 +349,29 @@ require_once('public/partials/_head.php');
                                                 <div class="card-body">
                                                     <div class="row">
 
-                                                        <div class="form-group col-md-3">
+                                                        <div class="form-group col-md-4">
                                                             <label for="">Name</label>
                                                             <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                            <input type="hidden" required name="password" value="<?php echo $defaultPass; ?>" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-3">
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Number</label>
+                                                            <input type="text" required name="number" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">ID / Passport Number</label>
+                                                            <input type="text" required name="idno" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4">
                                                             <label for="">Gender</label>
                                                             <select class='form-control basic' name="gender">
                                                                 <option selected>Male</option>
                                                                 <option>Female</option>
                                                             </select>
                                                         </div>
-                                                        <div class="form-group col-md-3">
-                                                            <label for="">Number</label>
-                                                            <input type="text" required name="number" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-3">
-                                                            <label for="">ID / Passport Number</label>
-                                                            <input type="text" required name="idno" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
                                                         <div class="form-group col-md-4">
                                                             <label for="">Personal Email</label>
                                                             <input type="email" required name="email" class="form-control">
@@ -374,17 +380,12 @@ require_once('public/partials/_head.php');
                                                             <label for="">Work Email</label>
                                                             <input type="email" required name="work_email" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Phone Number</label>
-                                                            <input type="text" required name="phone" class="form-control">
-                                                        </div>
                                                     </div>
 
                                                     <div class="row">
-
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Default Password</label>
-                                                            <input type="text" value="Lecturer" required name="password" class="form-control">
+                                                            <label for="">Phone Number</label>
+                                                            <input type="text" required name="phone" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Employee ID</label>
@@ -398,7 +399,7 @@ require_once('public/partials/_head.php');
                                                             <label for="">Profile Picture</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
-                                                                    <input  name="profile_pic" type="file" class="custom-file-input">
+                                                                    <input name="profile_pic" type="file" class="custom-file-input">
                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                 </div>
                                                             </div>
@@ -580,7 +581,7 @@ require_once('public/partials/_head.php');
                                                                     <div class="card-footer text-right">
                                                                         <button type="submit" name="update_lec" class="btn btn-primary">Submit</button>
                                                                     </div>
-                                                                </form>                                                               
+                                                                </form>
                                                             </div>
                                                             <div class="modal-footer justify-content-between">
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
