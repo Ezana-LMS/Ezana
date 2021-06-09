@@ -41,7 +41,8 @@ if (isset($_POST['add_student'])) {
         $gender = $_POST['gender'];
         $acc_status = 'Active';
         $created_at = date('d M Y');
-        $password = sha1(md5($_POST['password']));
+        $mailed_password = $_POST['password'];
+        $hashed_password = sha1(md5($mailed_password));
         $faculty_id = $_POST['faculty_id'];
         $day_enrolled = $_POST['day_enrolled'];
         $school = $_POST['school'];
@@ -73,13 +74,15 @@ if (isset($_POST['add_student'])) {
 
             $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year,  name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssssssssssssssss', $id, $faculty_id, $day_enrolled, $school, $course, $department, $current_year, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $acc_status, $created_at, $password, $profile_pic);
+            $rc = $stmt->bind_param('sssssssssssssssssss', $id, $faculty_id, $day_enrolled, $school, $course, $department, $current_year, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $acc_status, $created_at, $hashed_password, $profile_pic);
             $stmt->execute();
-            if ($stmt) {
+            /* Load Mailer */
+            require_once('configs/student_mailer.php');
+            if ($stmt && $mail->send()) {
                 $success = "Student Added " && header("refresh:1; url=edu_admn_students.php?view=$view");
             } else {
                 //inject alert that profile update task failed
-                $info = "Please Try Again Or Try Later";
+                $info = "Please Try Again Or Try Later $mail->ErrorInfo";
             }
         }
     }
@@ -229,6 +232,7 @@ require_once('public/partials/_head.php');
                                                                     <label for="">Name</label>
                                                                     <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <input type="hidden" required name="password" value="<?php echo $defaultPass; ?>" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Admission Number</label>
@@ -248,6 +252,23 @@ require_once('public/partials/_head.php');
                                                                         <option>Male</option>
                                                                         <option>Female</option>
                                                                     </select>
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Email</label>
+                                                                    <input type="email" required name="email" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Phone Number</label>
+                                                                    <input type="text" required name="phone" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <label for="">Profile Picture</label>
+                                                                    <div class="input-group">
+                                                                        <div class="custom-file">
+                                                                            <input required name="profile_pic" type="file" class="custom-file-input">
+                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Course Enrolled</label>
@@ -293,32 +314,6 @@ require_once('public/partials/_head.php');
 
                                                             </div>
 
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Email</label>
-                                                                    <input type="email" required name="email" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Phone Number</label>
-                                                                    <input type="text" required name="phone" class="form-control">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Password</label>
-                                                                    <input type="text" value="Student" required name="password" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Profile Picture</label>
-                                                                    <div class="input-group">
-                                                                        <div class="custom-file">
-                                                                            <input required name="profile_pic" type="file" class="custom-file-input">
-                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Current Address</label>
