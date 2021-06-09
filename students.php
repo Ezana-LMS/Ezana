@@ -41,7 +41,8 @@ if (isset($_POST['add_student'])) {
         $gender = $_POST['gender'];
         $acc_status = 'Active';
         $created_at = date('d M Y');
-        $password = sha1(md5($_POST['password']));
+        $mailed_password = (($_POST['password']));
+        $hashed_password = sha1(md5($mailed_password));
         $faculty_id = $_POST['faculty_id'];
         $day_enrolled = $_POST['day_enrolled'];
         $school = $_POST['school'];
@@ -70,13 +71,17 @@ if (isset($_POST['add_student'])) {
 
             $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssssssssssssssss', $id, $faculty_id, $day_enrolled, $school, $course, $department, $current_year, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $acc_status, $created_at, $password, $profile_pic);
+            $rc = $stmt->bind_param('sssssssssssssssssss', $id, $faculty_id, $day_enrolled, $school, $course, $department, $current_year, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $acc_status, $created_at, $hashed_password, $profile_pic);
             $stmt->execute();
-            if ($stmt) {
-                $success = "Student Add " && header("refresh:1; url=students.php");
+            /* Load Mailer */
+            require_once('configs/student_mailer.php');
+
+            if ($stmt && $mail->send()) {
+
+                $success = "Student Add  " && header("refresh:1; url=students.php");
             } else {
                 //inject alert that profile update task failed
-                $info = "Please Try Again Or Try Later";
+                $info = "Please Try Again Or Try Later $mail->ErrorInfo ";
             }
         }
     }
@@ -107,7 +112,7 @@ if (isset($_POST['update_student'])) {
         $rc = $stmt->bind_param('sssssssssssssss', $day_enrolled, $school, $course, $department, $current_year, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $updated_at, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Student Add " && header("refresh:1; url=students.php");
+            $success = "Student Added " && header("refresh:1; url=students.php");
         } else {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
@@ -115,41 +120,6 @@ if (isset($_POST['update_student'])) {
     }
 }
 
-
-/* Update Student Passwords */
-if (isset($_POST['change_password'])) {
-    $error = 0;
-    if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
-        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
-    } else {
-        $error = 1;
-        $err = "New Password Cannot Be Empty";
-    }
-    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
-        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
-    } else {
-        $error = 1;
-        $err = "Confirmation Password Cannot Be Empty";
-    }
-
-    if (!$error) {
-        if ($new_password != $confirm_password) {
-            $err = "Password Does Not Match";
-        } else {
-            $student = $_POST['student'];
-            $new_password  = sha1(md5($_POST['new_password']));
-            $query = "UPDATE ezanaLMS_Students SET  password =? WHERE id =?";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ss', $new_password, $student);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "Password Changed" && header("refresh:1; url=students.php");
-            } else {
-                $err = "Please Try Again Or Try Later";
-            }
-        }
-    }
-}
 
 /* Suspend Account */
 if (isset($_GET['suspend'])) {
@@ -339,6 +309,7 @@ require_once('public/partials/_head.php');
                                                                 <label for="">Name</label>
                                                                 <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                <input type="hidden" required name="password" value="<?php echo $defaultPass; ?>" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Admission Number</label>
@@ -363,22 +334,15 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="form-group col-md-6">
+                                                            <div class="form-group col-md-4">
                                                                 <label for="">Email</label>
                                                                 <input type="email" required name="email" class="form-control">
                                                             </div>
-                                                            <div class="form-group col-md-6">
+                                                            <div class="form-group col-md-4">
                                                                 <label for="">Phone Number</label>
                                                                 <input type="text" required name="phone" class="form-control">
                                                             </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Password</label>
-                                                                <input type="text" value="Student" required name="password" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
+                                                            <div class="form-group col-md-4">
                                                                 <label for="">Profile Picture</label>
                                                                 <div class="input-group">
                                                                     <div class="custom-file">
@@ -387,6 +351,9 @@ require_once('public/partials/_head.php');
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+
+                                                        <div class="row">
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Course Enrolled</label>
                                                                 <select class='form-control basic' id="CourseCode" onchange="getStudentCourseDetails(this.value);">
@@ -488,7 +455,7 @@ require_once('public/partials/_head.php');
                                                         <i class="fas fa-user-graduate"></i>
                                                         View
                                                     </a>
-                                                    
+
 
                                                     <a class="badge badge-primary" data-toggle="modal" href="#update-student-<?php echo $std->id; ?>">
                                                         <i class="fas fa-edit"></i>
@@ -528,7 +495,7 @@ require_once('public/partials/_head.php');
                                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                                         <div class="card-body">
                                                                             <div class="row">
-                                                                                                                                                                
+
                                                                                 <div class="form-group col-md-6">
                                                                                     <label for="">Name</label>
                                                                                     <input type="text" required name="name" class="form-control" value="<?php echo $std->name; ?>">
