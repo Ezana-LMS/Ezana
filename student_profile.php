@@ -48,13 +48,13 @@ if (isset($_POST['change_password'])) {
     $error = 0;
 
     if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
-        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
+        $new_password = mysqli_real_escape_string($mysqli, trim((($_POST['new_password']))));
     } else {
         $error = 1;
         $err = "New Password Cannot Be Empty";
     }
     if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
-        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
+        $confirm_password = mysqli_real_escape_string($mysqli, trim((($_POST['confirm_password']))));
     } else {
         $error = 1;
         $err = "Confirmation Password Cannot Be Empty";
@@ -72,13 +72,14 @@ if (isset($_POST['change_password'])) {
             $err = "Passwords Do Not Match";
         } else {
             $view = $_GET['view'];
-            $new_password  = sha1(md5($_POST['new_password']));
+            $mailed_password  = (($_POST['new_password']));
+            $hashed_password = sha1(md5($mailed_password));
             $query = "UPDATE ezanaLMS_Students SET  password =? WHERE id =?";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ss', $new_password, $view);
             $stmt->execute();
             /* Mail New Password */
-            require_once('configs/mail.php');
+            require_once('configs/password_reset_mailer.php');
             if ($stmt && $mail->send()) {
                 $success = "Password Changed" && header("Refresh: 0");
             } else {
@@ -538,8 +539,8 @@ require_once('public/partials/_head.php');
 
                                                             <tr>
                                                                 <td><?php echo $marks->module_code . " " . $marks->module_name; ?></td>
-                                                                <td><?php echo $marks->academic_year;?></td>
-                                                                <td><?php echo $marks->semester;?></td>
+                                                                <td><?php echo $marks->academic_year; ?></td>
+                                                                <td><?php echo $marks->semester; ?></td>
                                                                 <td><?php echo $marks->marks; ?></td>
                                                             </tr>
                                                         <?php $cnt = $cnt + 1;
