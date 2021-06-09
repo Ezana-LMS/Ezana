@@ -326,8 +326,8 @@ require_once('public/partials/_head.php');
                             </form>
                             <div class="text-left">
                                 <a class="btn btn-primary" href="lecturers_bulk_import.php">Bulk Import Lecturers</a>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">Add Lecturer</button>
-                                <a class="btn btn-secondary" href="lecturers_advance_search.php">Advance Search</a>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Lecturer</button>
+                                <a class="btn btn-primary" href="lecturers_advance_search.php">Advance Search</a>
                             </div>
                             <!-- Add Lec Modal -->
                             <div class="modal fade" id="modal-default">
