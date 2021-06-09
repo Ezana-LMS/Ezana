@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 24, 2021 at 12:44 PM
+-- Generation Time: Jun 09, 2021 at 12:56 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.26
 
@@ -74,9 +74,7 @@ CREATE TABLE `ezanaLMS_Admins` (
 --
 
 INSERT INTO `ezanaLMS_Admins` (`id`, `name`, `email`, `password`, `rank`, `created_at`, `phone`, `gender`, `employee_id`, `date_employed`, `school`, `school_id`, `adr`, `previledge`, `profile_pic`, `status`) VALUES
-('3abf1651a3e361db3af99a25810703b4ce75957c', 'Mr James Doe', 'jamesdoe@computingsciences.org', 'adcd7048512e64b48da55b027577886ee5a36350', 'Education Administrator', '2021-04-24 10:26:19.250550', '+25472789053', 'Male', '90-126', '2021-04-15', 'School Of Computer Science', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '127001 Localhost', 'View', '', ''),
-('a69681bcf334ae130217fea4505fd3c994f5683f', 'Ezana LMS Sys Admin', 'sysadmin@ezana.org', 'adcd7048512e64b48da55b027577886ee5a36350', 'System Administrator', '2021-04-20 08:10:46.748526', '+90127690-90', 'Male', '90-126', '2021-04-07', 'School Of Computer Science', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '129 - 90 127 Localhost', 'Edit And Delete', 'logo.png', ''),
-('fe86ffaf3f6c17e091ec2e4fed6b4bfd69a3ca218b', 'Moses', 'moses@ezana.org', '4a23a4847bad61ab1f37aba9b1ccb728ae1aa4a7', 'Education Administrator', '2021-04-20 15:34:35.704807', '+25412390856', 'Male', '90-099232', '2021-04-20', 'School Of Business And Management Studies', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', '<p>127, Localhost<br></p>', '', '', '');
+('a69681bcf334ae130217fea4505fd3c994f5683f', 'Ezana LMS Sys Admin', 'sysadmin@ezana.org', 'adcd7048512e64b48da55b027577886ee5a36350', 'System Administrator', '2021-04-20 08:10:46.748526', '+90127690-90', 'Male', '90-126', '2021-04-07', 'School Of Computer Science', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '129 - 90 127 Localhost', 'Edit And Delete', 'logo.png', '');
 
 -- --------------------------------------------------------
 
@@ -112,15 +110,6 @@ CREATE TABLE `ezanaLMS_BugReports` (
   `date_reported` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `status` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ezanaLMS_BugReports`
---
-
-INSERT INTO `ezanaLMS_BugReports` (`id`, `name`, `email`, `number`, `bug_title`, `bug_details`, `severity`, `date_reported`, `status`) VALUES
-('1ad794890d776b52efe6bad36982885c81dedb356rfb', 'Educational Administrator', 'ea@ezana.org', '90-91235', 'File Upload Bug', 0x3c703e4c6f72656d20697073756d20646f6c6f722073697420616d65742c20636f6e7365637465747565722061646970697363696e6720656c69742e2041656e65616e20636f6d6d6f646f206c6967756c61206567657420646f6c6f722e2041656e65616e206d617373612e2043756d20736f63696973206e61746f7175652070656e617469627573206574206d61676e6973206469732070617274757269656e74206d6f6e7465732c206e61736365747572207269646963756c7573206d75732e20446f6e6563207175616d2066656c69732c20756c74726963696573206e65632c2070656c6c656e7465737175652065752c207072657469756d20717569732c2073656d2e204e756c6c6120636f6e736571756174206d61737361207175697320656e696d2e20446f6e65632070656465206a7573746f2c206672696e67696c6c612076656c2c20616c6971756574206e65632c2076756c70757461746520656765742c20617263752e20496e20656e696d206a7573746f2c2072686f6e6375732075742c20696d7065726469657420612c2076656e656e617469732076697461652c206a7573746f2e204e756c6c616d2064696374756d2066656c69732065752070656465206d6f6c6c6973207072657469756d2e20496e74656765722074696e636964756e742e204372617320646170696275732e20566976616d757320656c656d656e74756d2073656d706572206e6973692e2041656e65616e2076756c70757461746520656c656966656e642074656c6c75732e2041656e65616e206c656f206c6967756c612c20706f72747469746f722065752c20636f6e7365717561742076697461652c20656c656966656e642061632c20656e696d2e20416c697175616d206c6f72656d20616e74652c206461706962757320696e2c207669766572726120717569732c206665756769617420612c2074656c6c75732e2050686173656c6c75732076697665727261206e756c6c61207574206d6574757320766172697573206c616f726565742e20517569737175652072757472756d2e2041656e65616e20696d706572646965742e20457469616d20756c74726963696573206e6973692076656c2061756775652e2043757261626974757220756c6c616d636f7270657220756c74726963696573206e6973692e204e616d2065676574206475692e20457469616d2072686f6e6375732e204d616563656e61732074656d7075732c2074656c6c7573206567657420636f6e64696d656e74756d2072686f6e6375732c2073656d207175616d2073656d706572206c696265726f2c2073697420616d65742061646970697363696e672073656d206e657175652073656420697073756d2e204e616d207175616d206e756e632c20626c616e6469742076656c2c206c75637475732070756c76696e61722c2068656e6472657269742069642c206c6f72656d2e204d616563656e6173206e6563206f64696f20657420616e74652074696e636964756e742074656d7075732e20446f6e65632076697461652073617069656e207574206c696265726f2076656e656e617469732066617563696275732e204e756c6c616d207175697320616e74652e20457469616d2073697420616d6574206f72636920656765742065726f732066617563696275732074696e636964756e742e2044756973206c656f2e20536564206672696e67696c6c61206d61757269732073697420616d6574206e6962682e20446f6e656320736f64616c6573207361676974746973206d61676e612e2053656420636f6e7365717561742c206c656f206567657420626962656e64756d20736f64616c65732c2061756775652076656c697420637572737573206e756e632c3c2f703e, 'High', '2021-04-18 03:40:13', 'Fixed'),
-('aeafd2f6f1109ab982aa3423345771202fe8ff56d3', 'Educational Administrator', 'martinezmbithi@gmail.com', '90-126', 'File upload issue', 0x3c703e48656c6c6f2c2069276d20656e636f756e746572696e6720612066696c652075706c6f6164206572726f72202d20224572726f722043616e6e6f7420436f6e6e6563742053657276657222207768656e20696d2075706c6f6164696e672061207a69707065642066696c652e3c62723e3c2f703e, 'High', '2021-04-19 02:08:53', 'Pending Fix'),
-('d79512fbd3a8512028e7bfb8addbb897d48ace1442', 'Educational Administrator', 'martinezmbithi@gmail.com', '90-126', 'Faculty Time Out Issue', 0x3c703e48656c6c6f2c20696d20686176696e6720612074696d656f7574206973737565207768656e2069276d20747279696e6720746f20616363657373206d7920666163756c74792064617368626f6172642e3c62723e3c2f703e, 'High', '2021-04-19 02:09:50', 'Fixed');
 
 -- --------------------------------------------------------
 
@@ -197,16 +186,6 @@ CREATE TABLE `ezanaLMS_CourseMemo` (
   `faculty_id` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `ezanaLMS_CourseMemo`
---
-
-INSERT INTO `ezanaLMS_CourseMemo` (`id`, `course_id`, `course_name`, `course_memo`, `attachments`, `created_by`, `created_on`, `faculty_id`) VALUES
-('0e4af701b4cc2903ef03dfc57b87b5abf1cf8d85d7', '78a65ef45e7ad2a9b201b96f227b353e3bd0ecf6b1', 'Bachelors In Computational Mathematics', 0x3c703e4169722d6d6f6465206769766520616e20696e7465726661636520776974686f75742074686520546f6f6c6261722e20546f2072657665616c20706f706f766572200d0a546f6f6c6261722c2073656c6563742061207465787420776865726520796f752077616e7420746f206d6f646966792e2053696d706c79207475726e206f6e203c636f646520636c6173733d226c616e67756167652d706c61696e7465787420686967686c6967687465722d726f756765223e6169724d6f64653c2f636f64653e20616e64206a75737420666f637573206f6e20746578742e3c2f703e, 'iSaccoMIS.pdf', 'Educational Administrator', '2021-04-22 01:52:31', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('7fb86663ac29617c4e584cb1a9c62724bf3cbd8bc6', '9bd615c255bc533378e946171d9b8fa61980605a70', 'Diploma In Computer Science', 0x5468697320697320612074657374206e6f746963652e, '', 'System Admin', '2021-04-05 08:20:58', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('aa850d690feb861a1a68798c65acfe824a6de73107', '83dccbf9942bbada9ce4696f6a075e51e98b4de662', 'Diploma In Computational Mathematics', 0x54686973206973206120636f75727365206d656d6f20666f72206120676976656e20636f757273652e, '', 'System Admin', '2021-04-13 10:55:10', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('d4c2e4cca993997970db9d21e16fdf420dd2407bfa', '78a65ef45e7ad2a9b201b96f227b353e3bd0ecf6b1', 'Bachelors In Computational Mathematics', 0x3c703e4169722d6d6f6465206769766520616e20696e7465726661636520776974686f75742074686520546f6f6c6261722e20546f2072657665616c20706f706f766572200d0a546f6f6c6261722c2073656c6563742061207465787420776865726520796f752077616e7420746f206d6f646966792e2053696d706c79207475726e206f6e203c636f646520636c6173733d226c616e67756167652d706c61696e7465787420686967686c6967687465722d726f756765223e6169724d6f64653c2f636f64653e20616e64206a75737420666f637573206f6e20746578742e3c2f703e0d0a0d0a3c66696775726520636c6173733d22686967686c69676874223e3c7072653e3c636f646520636c6173733d226c616e67756167652d6a6176617363726970742220646174612d6c616e673d226a617661736372697074223e3c7370616e20636c6173733d226e78223e243c2f7370616e3e3c7370616e20636c6173733d2270223e283c2f7370616e3e3c7370616e20636c6173733d22646c223e273c2f7370616e3e3c7370616e20636c6173733d227331223e2e73756d6d65726e6f74653c2f7370616e3e3c7370616e20636c6173733d22646c223e273c2f7370616e3e3c7370616e20636c6173733d2270223e292e3c2f7370616e3e3c7370616e20636c6173733d226e78223e73756d6d65726e6f74653c2f7370616e3e3c7370616e20636c6173733d2270223e287b3c2f7370616e3e0d0a20203c7370616e20636c6173733d226e61223e6169724d6f64653c2f7370616e3e3c7370616e20636c6173733d2270223e3a3c2f7370616e3e203c7370616e20636c6173733d226b63223e747275653c2f7370616e3e0d0a3c7370616e20636c6173733d2270223e7d293b3c2f7370616e3e3c2f636f64653e3c2f7072653e3c2f6669677572653e3c62723e, '', 'Ezana LMS Sys Admin', '2021-04-16 11:11:44', 'ba52fc866349d5af05addecba35600d0fd970ef7ba');
-
 -- --------------------------------------------------------
 
 --
@@ -255,22 +234,6 @@ CREATE TABLE `ezanaLMS_DepartmentalMemos` (
   `type` varchar(200) NOT NULL,
   `faculty_id` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ezanaLMS_DepartmentalMemos`
---
-
-INSERT INTO `ezanaLMS_DepartmentalMemos` (`id`, `department_id`, `department_name`, `departmental_memo`, `attachments`, `created_at`, `created_by`, `updated_at`, `type`, `faculty_id`) VALUES
-('27ab156f1c0d5bf17ac3fa048e4f8cb016dc316407', '0c375c729c2f1c57e4d118ba50b0c3063fcda4c704', 'Computational Intelligence ', 0x486579206c616473206b696e646c792066696e6420746865206174746163686564206d656d6f2e, 'iSaccoMIS.pdf', '2021-04-13 10:46:12', 'System Admin', '', 'Memo', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('2e0be83704527ccb71891c47b360272423726f9375', '801b96f782310aa15ae942e6e6dd6fea0ec8fc0f57', 'Computational Science And Mathematics', '', 'iSaccoMIS.pdf', '2021-04-22 01:01:58', 'Educational Administrator', '', 'Memo', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('4702940a7c24ddc699ac68edf7952a6bb5ade72a06', '0c375c729c2f1c57e4d118ba50b0c3063fcda4c704', 'Computational Intelligence ', 0x486579205468657265207468697320697320612074657374206d656d6f, '', '2021-04-13 10:46:27', 'System Admin', '', 'Memo', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('50d028dd5c397847e334fe4dd020a7def15b60a44d', '801b96f782310aa15ae942e6e6dd6fea0ec8fc0f57', 'Computational Science And Mathematics', 0x3c703e48656c6c6f2c20746869732069732061207465737420616e6e6f756e63656d656e742e3c62723e3c2f703e, '', '2021-04-22 00:56:00', '', '', 'Announcement', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('59a9c09e929bf9ad1486a2b76241841bbba6d3bb52', '0c375c729c2f1c57e4d118ba50b0c3063fcda4c704', 'Computational Intelligence ', '', 'favicon.ico', '2021-04-13 10:41:03', 'System Admin', '', 'Departmental Document', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('ad035c3211f04e9d70a46b4e3e876f2795835d708f', '0c375c729c2f1c57e4d118ba50b0c3063fcda4c704', 'Computational Intelligence ', 0x546869732069732061206465706172746d656e74616c206d656d6f, '', '2021-04-13 10:46:24', 'System Admin', '', 'Memo', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('b26cfb11f44e46cda839d13bf1897c82e57d7f0023', '801b96f782310aa15ae942e6e6dd6fea0ec8fc0f57', 'Computational Science And Mathematics', '', 'iSaccoMIS.pdf', '2021-04-22 01:06:16', 'Educational Administrator', '', 'Departmental Document', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('b4b6a71f750864501fac2d529b69b534dae120176f', '0c375c729c2f1c57e4d118ba50b0c3063fcda4c704', 'Computational Intelligence ', '', 'bitnami.css', '2021-04-13 10:40:50', 'System Admin', '', 'Departmental Document', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('b9fe35da4566f3b551430a52178e87f99fbcebac1e', 'e8ba39cec3ef9f1842be2b46f65aa7fca0737e674e', 'Computer Science', 0x48657920666f726b732c206b696e646c792066696e6420746865206174746163686564206d656d6f, 'iSaccoMIS.pdf', '2021-04-13 10:46:19', 'System Admin', '', 'Memo', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('f784632530f7fd4773e622f4ef53b1d375d54ede52', '0c375c729c2f1c57e4d118ba50b0c3063fcda4c704', 'Computational Intelligence ', 0x4b696e646c792066696e6420746865206174746163686564206d656d6f, 'iSaccoMIS.pdf', '2021-04-13 10:46:16', 'System Admin', '', 'Memo', 'ba52fc866349d5af05addecba35600d0fd970ef7ba');
 
 -- --------------------------------------------------------
 
@@ -384,14 +347,6 @@ CREATE TABLE `ezanaLMS_Groups` (
   `updated_at` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `ezanaLMS_Groups`
---
-
-INSERT INTO `ezanaLMS_Groups` (`id`, `module_id`, `faculty_id`, `code`, `name`, `details`, `created_at`, `updated_at`) VALUES
-('18473e43ab4ba3fe038863253aa7e6d18899f59815', 'b64d04da5331ebd753398d7c73ad69958048d5d9fe', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'JMKHF96831', 'Group 001', 0x546869732069732067726f7570206f6e65, '2021-04-01 15:22:37', ''),
-('60271d7b03f86d377d6099b861d81a7af9162ee212', '3699d9d9a098a82802aa8f2e674de7808d07cdcd52', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'DJECT10395', 'Alpha Group', 0x3c703e416c7068612047726f7570204465736372697074696f6e3c62723e3c2f703e, '2021-04-23 01:13:51', '');
-
 -- --------------------------------------------------------
 
 --
@@ -408,13 +363,6 @@ CREATE TABLE `ezanaLMS_GroupsAnnouncements` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ezanaLMS_GroupsAnnouncements`
---
-
-INSERT INTO `ezanaLMS_GroupsAnnouncements` (`id`, `faculty_id`, `group_code`, `group_name`, `announcement`, `created_by`, `created_at`, `updated_at`) VALUES
-('496c9c77de9b94e207e854a4ab4e89584c618a5e39', '', 'JMKHF96831', 'Group 001', 0x3c703e5468697320697320612067726f7570206e6f746963653c62723e3c2f703e, 'Ezana LMS Sys Admin', '2021-04-16 11:25:11', '16 Apr 2021');
 
 -- --------------------------------------------------------
 
@@ -435,14 +383,6 @@ CREATE TABLE `ezanaLMS_GroupsAssignments` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ezanaLMS_GroupsAssignments`
---
-
-INSERT INTO `ezanaLMS_GroupsAssignments` (`id`, `faculty_id`, `module_id`, `group_code`, `group_name`, `type`, `details`, `attachments`, `submitted_on`, `created_at`, `updated_at`) VALUES
-('7eb5f6f565261b873ee5552ad12cd46db656241ce4', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '3699d9d9a098a82802aa8f2e674de7808d07cdcd52', 'DJECT10395', 'Alpha Group', '', 0x3c703e48657920746865726520666f726b732c206b696e646c792066696e642061747461636865642061737369676e6d656e742e20417474656d707420616c6c207175657374696f6e7320616e64207375626d6974206974206265666f72652074686520646561646c696e652e3c62723e3c2f703e, 'StackOverflow Lite.pdf', '2021-04-23', '2021-04-23 01:16:09', ''),
-('deb4f0802bb9b8afbd077edc5cf95157633b805e5d', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '3699d9d9a098a82802aa8f2e674de7808d07cdcd52', 'DJECT10395', 'Alpha Group', '', 0x3c703e484f57445920466f726b732c2066696e642061747461636865642067726f75702061737369676e6d656e74732e20417474656d707420616c6c207175657374696f6e7320616e64207375626d697420666565646261636b266e6273703b2076696120656d61696c3c62723e3c2f703e, 'StackOverflow Lite.pdf', '2021-04-23', '2021-04-23 01:19:14', '');
 
 -- --------------------------------------------------------
 
@@ -487,77 +427,6 @@ CREATE TABLE `ezanaLMS_Lecturers` (
   `status` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `ezanaLMS_Lecturers`
---
-
-INSERT INTO `ezanaLMS_Lecturers` (`id`, `number`, `name`, `idno`, `phone`, `email`, `adr`, `password`, `profile_pic`, `created_at`, `faculty_id`, `faculty_name`, `work_email`, `gender`, `employee_id`, `date_employed`, `status`) VALUES
-('1258ce18b72f8a2f0e8b4f88813ca77d93988050', 'Ezana-SCSS-001', 'Lecturer 0001', '127000', '7023089509', 'martinezmbithi@gmail.com', '127- Localhost', '13c87d6db6de4cc1a5e4103d84282e1251f70eab', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'martinezmbithi@gmail.com', 'Male', '21899', '2021-04-15', 'On Leave'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988051', 'Ezana-SCSS-002', 'Lecturer 0002', '127001', '7023089510', 'Lecturer0001@ezana.002', '128- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.002', 'Male', '21900', '12-02-1951', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988052', 'Ezana-SCSS-003', 'Lecturer 0003', '127002', '7023089511', 'Lecturer0001@ezana.003', '129- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.003', 'Male', '21901', '12-02-1952', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988053', 'Ezana-SCSS-004', 'Lecturer 0004', '127003', '7023089512', 'Lecturer0001@ezana.004', '130- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.004', 'Male', '21902', '12-02-1953', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988054', 'Ezana-SCSS-005', 'Lecturer 0005', '127004', '7023089513', 'Lecturer0001@ezana.005', '131- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.005', 'Male', '21903', '12-02-1954', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988055', 'Ezana-SCSS-006', 'Lecturer 0006', '127005', '7023089514', 'Lecturer0001@ezana.006', '132- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.006', 'Male', '21904', '12-02-1955', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988056', 'Ezana-SCSS-007', 'Lecturer 0007', '127006', '7023089515', 'Lecturer0001@ezana.007', '133- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.007', 'Male', '21905', '12-02-1956', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988057', 'Ezana-SCSS-008', 'Lecturer 0008', '127007', '7023089516', 'Lecturer0001@ezana.008', '134- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.008', 'Male', '21906', '12-02-1957', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988058', 'Ezana-SCSS-009', 'Lecturer 0009', '127008', '7023089517', 'Lecturer0001@ezana.009', '135- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.009', 'Male', '21907', '12-02-1958', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988059', 'Ezana-SCSS-010', 'Lecturer 0010', '127009', '7023089518', 'Lecturer0001@ezana.010', '136- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.010', 'Male', '21908', '12-02-1959', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988060', 'Ezana-SCSS-011', 'Lecturer 0011', '127010', '7023089519', 'Lecturer0001@ezana.011', '137- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.011', 'Male', '21909', '12-02-1960', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988061', 'Ezana-SCSS-012', 'Lecturer 0012', '127011', '7023089520', 'Lecturer0001@ezana.012', '138- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.012', 'Male', '21910', '12-02-1961', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988062', 'Ezana-SCSS-013', 'Lecturer 0013', '127012', '7023089521', 'Lecturer0001@ezana.013', '139- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.013', 'Male', '21911', '12-02-1962', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988063', 'Ezana-SCSS-014', 'Lecturer 0014', '127013', '7023089522', 'Lecturer0001@ezana.014', '140- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.014', 'Male', '21912', '12-02-1963', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988064', 'Ezana-SCSS-015', 'Lecturer 0015', '127014', '7023089523', 'Lecturer0001@ezana.015', '141- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.015', 'Male', '21913', '12-02-1964', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988065', 'Ezana-SCSS-016', 'Lecturer 0016', '127015', '7023089524', 'Lecturer0001@ezana.016', '142- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.016', 'Male', '21914', '12-02-1965', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988066', 'Ezana-SCSS-017', 'Lecturer 0017', '127016', '7023089525', 'Lecturer0001@ezana.017', '143- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.017', 'Male', '21915', '12-02-1966', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988067', 'Ezana-SCSS-018', 'Lecturer 0018', '127017', '7023089526', 'Lecturer0001@ezana.018', '144- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.018', 'Male', '21916', '12-02-1967', 'On Leave'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988068', 'Ezana-SCSS-019', 'Lecturer 0019', '127018', '7023089527', 'Lecturer0001@ezana.019', '145- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.019', 'Male', '21917', '12-02-1968', 'On Leave'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988069', 'Ezana-SCSS-020', 'Lecturer 0020', '127019', '7023089528', 'Lecturer0001@ezana.020', '146- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.020', 'Male', '21918', '12-02-1969', 'On Leave'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988070', 'Ezana-SCSS-021', 'Lecturer 0021', '127020', '7023089529', 'Lecturer0001@ezana.021', '147- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.021', 'Male', '21919', '12-02-1970', 'On Leave'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988071', 'Ezana-SCSS-022', 'Lecturer 0022', '127021', '7023089530', 'Lecturer0001@ezana.022', '148- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.022', 'Male', '21920', '12-02-1971', 'On Leave'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988072', 'Ezana-SCSS-023', 'Lecturer 0023', '127022', '7023089531', 'Lecturer0001@ezana.023', '149- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.023', 'Male', '21921', '12-02-1972', 'On Leave'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988073', 'Ezana-SCSS-024', 'Lecturer 0024', '127023', '7023089532', 'Lecturer0001@ezana.024', '150- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.024', 'Male', '21922', '12-02-1973', 'On Leave'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988074', 'Ezana-SCSS-025', 'Lecturer 0025', '127024', '7023089533', 'Lecturer0001@ezana.025', '151- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.025', 'Female', '21923', '12-02-1974', 'On Leave'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988075', 'Ezana-SCSS-026', 'Lecturer 0026', '127025', '7023089534', 'Lecturer0001@ezana.026', '152- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.026', 'Female', '21924', '12-02-1975', 'On Leave'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988076', 'Ezana-SCSS-027', 'Lecturer 0027', '127026', '7023089535', 'Lecturer0001@ezana.027', '153- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.027', 'Female', '21925', '12-02-1976', 'On Leave'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988077', 'Ezana-SCSS-028', 'Lecturer 0028', '127027', '7023089536', 'Lecturer0001@ezana.028', '154- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.028', 'Female', '21926', '12-02-1977', 'On Leave'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988078', 'Ezana-SCSS-029', 'Lecturer 0029', '127028', '7023089537', 'Lecturer0001@ezana.029', '155- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.029', 'Female', '21927', '12-02-1978', 'On Leave'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988079', 'Ezana-SCSS-030', 'Lecturer 0030', '127029', '7023089538', 'Lecturer0001@ezana.030', '156- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'ezana-SCSS-001@ezana.030', 'Female', '21928', '2021-04-21', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988080', 'Ezana-BMS-031', 'Lecturer 0031', '355748', '7023089539', 'Lecturer@ezana.031', '156- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.031', 'Female', '21929', '12-02-1979', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988081', 'Ezana-BMS-032', 'Lecturer 0032', '355749', '7023089540', 'Lecturer@ezana.032', '157- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.032', 'Female', '21930', '12-02-1980', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988082', 'Ezana-BMS-033', 'Lecturer 0033', '355750', '7023089541', 'Lecturer@ezana.033', '158- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.033', 'Female', '21931', '12-02-1981', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988083', 'Ezana-BMS-034', 'Lecturer 0034', '355751', '7023089542', 'Lecturer@ezana.034', '159- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.034', 'Female', '21932', '12-02-1982', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988084', 'Ezana-BMS-035', 'Lecturer 0035', '355752', '7023089543', 'Lecturer@ezana.035', '160- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.035', 'Female', '21933', '12-02-1983', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988085', 'Ezana-BMS-036', 'Lecturer 0036', '355753', '7023089544', 'Lecturer@ezana.036', '161- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.036', 'Female', '21934', '12-02-1984', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988086', 'Ezana-BMS-037', 'Lecturer 0037', '355754', '7023089545', 'Lecturer@ezana.037', '162- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.037', 'Female', '21935', '12-02-1985', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988087', 'Ezana-BMS-038', 'Lecturer 0038', '355755', '7023089546', 'Lecturer@ezana.038', '163- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.038', 'Female', '21936', '12-02-1986', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988088', 'Ezana-BMS-039', 'Lecturer 0039', '355756', '7023089547', 'Lecturer@ezana.039', '164- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.039', 'Female', '21937', '12-02-1987', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988089', 'Ezana-BMS-040', 'Lecturer 0040', '355757', '7023089548', 'Lecturer@ezana.040', '165- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.040', 'Female', '21938', '12-02-1988', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988090', 'Ezana-BMS-041', 'Lecturer 0041', '355758', '7023089549', 'Lecturer@ezana.041', '166- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.041', 'Female', '21939', '12-02-1989', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988091', 'Ezana-BMS-042', 'Lecturer 0042', '355759', '7023089550', 'Lecturer@ezana.042', '167- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.042', 'Female', '21940', '12-02-1990', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988092', 'Ezana-BMS-043', 'Lecturer 0043', '355760', '7023089551', 'Lecturer@ezana.043', '168- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.043', 'Female', '21941', '12-02-1991', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988093', 'Ezana-BMS-044', 'Lecturer 0044', '355761', '7023089552', 'Lecturer@ezana.044', '169- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.044', 'Female', '21942', '12-02-1992', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988094', 'Ezana-BMS-045', 'Lecturer 0045', '355762', '7023089553', 'Lecturer@ezana.045', '170- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.045', 'Female', '21943', '12-02-1993', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988095', 'Ezana-BMS-046', 'Lecturer 0046', '355763', '7023089554', 'Lecturer@ezana.046', '171- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.046', 'Female', '21944', '12-02-1994', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988096', 'Ezana-BMS-047', 'Lecturer 0047', '355764', '7023089555', 'Lecturer@ezana.047', '172- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.047', 'Female', '21945', '12-02-1995', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988097', 'Ezana-BMS-048', 'Lecturer 0048', '355765', '7023089556', 'Lecturer@ezana.048', '173- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.048', 'Female', '21946', '2021-04-27', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988098', 'Ezana-BMS-049', 'Lecturer 0049', '355766', '7023089557', 'Lecturer@ezana.049', '174- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.049', 'Female', '21947', '12-02-1997', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988099', 'Ezana-BMS-050', 'Lecturer 0050', '355767', '7023089558', 'Lecturer@ezana.050', '175- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.050', 'Female', '21948', '12-02-1998', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988100', 'Ezana-BMS-051', 'Lecturer 0051', '355768', '7023089559', 'Lecturer@ezana.051', '176- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.051', 'Female', '21949', '12-02-1999', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988101', 'Ezana-BMS-052', 'Lecturer 0052', '355769', '7023089560', 'Lecturer@ezana.052', '177- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.052', 'Female', '21950', '12-02-2000', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988102', 'Ezana-BMS-053', 'Lecturer 0053', '355770', '7023089561', 'Lecturer@ezana.053', '178- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.053', 'Female', '21951', '12-02-2001', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988103', 'Ezana-BMS-054', 'Lecturer 0054', '355771', '7023089562', 'Lecturer@ezana.054', '179- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.054', 'Male', '21952', '12-02-2002', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988104', 'Ezana-BMS-055', 'Lecturer 0055', '355772', '7023089563', 'Lecturer@ezana.055', '180- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.055', 'Male', '21953', '12-02-2003', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988105', 'Ezana-BMS-056', 'Lecturer 0056', '355773', '7023089564', 'Lecturer@ezana.056', '181- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.056', 'Male', '21954', '12-02-2004', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988106', 'Ezana-BMS-057', 'Lecturer 0057', '355774', '7023089565', 'Lecturer@ezana.057', '182- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.057', 'Male', '21955', '12-02-2005', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988107', 'Ezana-BMS-058', 'Lecturer 0058', '355775', '7023089566', 'Lecturer@ezana.058', '183- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.058', 'Male', '21956', '12-02-2006', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988108', 'Ezana-BMS-059', 'Lecturer 0059', '355776', '7023089567', 'Lecturer@ezana.059', '184- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.059', 'Male', '21957', '12-02-2007', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988109', 'Ezana-BMS-060', 'Lecturer 0060', '355777', '7023089568', 'Lecturer@ezana.060', '185- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.060', 'Male', '21958', '12-02-2008', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988110', 'Ezana-BMS-061', 'Lecturer 0061', '355778', '7023089569', 'Lecturer@ezana.061', '186- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.061', 'Male', '21959', '12-02-2009', 'On Work'),
-('1258ce18b72f8a2f0e8b4f88813ca77d93988111', 'Ezana-BMS-062', 'Lecturer 0062', '355779', '7023089570', 'Lecturer@ezana.062', '187- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'ezana-BMS@ezana.062', 'Male', '21960', '12-02-2010', 'On Work'),
-('177c12314045714313d928b8a49d42638e3a13f418', 'BZAMN38092', 'James Doe', '12790125', '90125076342', 'martdevelopers254@gmail.com', '90126 Localhost', '948cf96a914264eefe49a3c8f89eed3435908657', 'devlan.jpg', '30 Mar 2021', '4613516b3bafbae4aceb88dc7b0f34bf30841c8cbc', 'School Of Business And Management Studies', 'martdevelopers254@gmail.com', 'Male', '12709123', '2021-04-28', 'On Work'),
-('4eb097a122866c17c6e7eaea8fd368210122684069', 'TMGDP94031', 'Test LEC', '127000185', '+89909876543', 'test@testmail.com12', '127 Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', '', '21 Apr 2021', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'School Of Computing Sciences', 'test@testmail.com12', 'Male', '1233445336', '2021-04-21', 'On Leave'),
-('ff8ce18b72f8a2f0e8b4f88813ca77d9398805fd8e', 'DPUSI40283', 'Mart Mbithi', '127000', '+254790-089509', 'martdevelopers254@gmail.com', '127- Localhost', '4ffc966076ce2c03caf305019b9648a36ea79992', 'devlan.jpg', '27 Mar 2021', '53c904468e7edec9a7f2501d8a8c8d5140c434cb', 'School Of Computer Science', 'martmbithi@ezana.org', 'Male', '21899', '12-02-2020', 'On Work');
-
 -- --------------------------------------------------------
 
 --
@@ -573,14 +442,6 @@ CREATE TABLE `ezanaLMS_ModuleAssignments` (
   `attachments` longtext NOT NULL,
   `faculty` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ezanaLMS_ModuleAssignments`
---
-
-INSERT INTO `ezanaLMS_ModuleAssignments` (`id`, `module_code`, `module_name`, `created_at`, `submission_deadline`, `attachments`, `faculty`) VALUES
-('17fb8fb7c6906c6bb31113cef62c850ba02861e27a', 'BICM 102', 'Basic Calculus', '2021-04-01 15:30:10', '2021-04-27', 'Official Google Cloud Certified Associate Cloud Engineer Study Guide ( PDFDrive.com ).pdf', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('e169c13d027b05d67dccf744bc0af8853ac0b396d5', 'BCS 1190', 'Object Oriented Programming', '2021-04-23 01:02:13', '2021-04-23', 'StackOverflow Lite.pdf', 'ba52fc866349d5af05addecba35600d0fd970ef7ba');
 
 -- --------------------------------------------------------
 
@@ -602,16 +463,6 @@ CREATE TABLE `ezanaLMS_ModuleAssigns` (
   `academic_year` varchar(200) NOT NULL,
   `semester` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ezanaLMS_ModuleAssigns`
---
-
-INSERT INTO `ezanaLMS_ModuleAssigns` (`id`, `faculty_id`, `course_id`, `module_code`, `module_name`, `lec_id`, `lec_name`, `created_at`, `updated_at`, `status`, `academic_year`, `semester`) VALUES
-('21dda5f00454780369b5b143580f52a1aabc3c3b83', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '78a65ef45e7ad2a9b201b96f227b353e3bd0ecf6b1', 'BICM 1051', 'Advanced Probability And Statistics', '1258ce18b72f8a2f0e8b4f88813ca77d93988050', 'Lecturer 0001', '24 Apr 2021', '', 'Guest Lecturer', 'Sep 2020 - Sep 2021 ', 'Jan - Apr '),
-('a78433d41fbaa452f8778d742fedb7af2d0e373756', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '78a65ef45e7ad2a9b201b96f227b353e3bd0ecf6b1', 'BICM 103', 'Numerical Computation', '1258ce18b72f8a2f0e8b4f88813ca77d93988059', 'Lecturer 0010', '24 Apr 2021', '', '', 'Sep 2020 - Sep 2021 ', 'Jan - Apr '),
-('c3d49b2944eec24ce9c849cf48c4621764d02a78cd', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '78a65ef45e7ad2a9b201b96f227b353e3bd0ecf6b1', 'BICM 1050', 'Probability And Statistics', '1258ce18b72f8a2f0e8b4f88813ca77d93988050', 'Lecturer 0001', '24 Apr 2021', '', '', 'Sep 2020 - Sep 2021 ', 'Jan - Apr '),
-('d905bd87efd820112e4506788eb96d627ed34705ad', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '78a65ef45e7ad2a9b201b96f227b353e3bd0ecf6b1', 'BICM 103', 'Numerical Computation', '1258ce18b72f8a2f0e8b4f88813ca77d93988050', 'Lecturer 0001', '24 Apr 2021', '', '', 'Sep 2020 - Sep 2021 ', 'Jan - Apr ');
 
 -- --------------------------------------------------------
 
@@ -647,14 +498,6 @@ CREATE TABLE `ezanaLMS_ModuleRecommended` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `ezanaLMS_ModuleRecommended`
---
-
-INSERT INTO `ezanaLMS_ModuleRecommended` (`id`, `faculty_id`, `module_code`, `module_name`, `readingMaterials`, `external_link`, `visibility`, `created_at`) VALUES
-('36a8bb39a6c2a6d060edb75a5035657a91970aad47', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'BCS 1190', 'Object Oriented Programming', 'Politico Challenge.pdf', '', 'Available', '2021-04-23 00:26:06'),
-('47c6321687a72a77507c5262ed711a510b80869a98', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'BICM 102', 'Basic Calculus', 'Politico Challenge.pdf', '', 'Hidden', '2021-04-24 10:43:41');
-
 -- --------------------------------------------------------
 
 --
@@ -684,7 +527,7 @@ CREATE TABLE `ezanaLMS_Modules` (
 
 INSERT INTO `ezanaLMS_Modules` (`id`, `code`, `course_name`, `course_id`, `faculty_id`, `course_duration`, `name`, `exam_weight_percentage`, `cat_weight_percentage`, `lectures_number`, `details`, `ass_status`, `created_at`, `updated_at`) VALUES
 ('00a3fb07813faa9c365e264a1a565934d09601d39b', 'BICM 1051', 'Bachelors In Computational Mathematics', '78a65ef45e7ad2a9b201b96f227b353e3bd0ecf6b1', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '4 Months', 'Advanced Probability And Statistics', '70 %', '30 %', '5', 0x3c703e416476616e6365642050726f626162696c69747920416e64205374617469737469637320697320616e20616476616e63656420636f7572736520696e20636f6d7075746174696f6e616c206d617468656d617469637320636f757273652e3c62723e3c2f703e, 1, '22 Apr 2021', '22 Apr 2021'),
-('052b62a629819a6e165078fab7071dec9f541f5321', 'BICM 103', 'Bachelors In Computational Mathematics', '78a65ef45e7ad2a9b201b96f227b353e3bd0ecf6b1', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '4 Months', 'Numerical Computation', '70 %', '30 %', '3', 0x3c703e4e756d65726963616c20616e616c7973697320697320746865207374756479206f6620616c676f726974686d73207468617420757365206e756d65726963616c20617070726f78696d6174696f6e20286173206f70706f73656420746f2073796d626f6c6963206d616e6970756c6174696f6e732920666f72207468652070726f626c656d73206f66206d617468656d61746963616c20616e616c79736973202861732064697374696e677569736865642066726f6d206469736372657465206d617468656d6174696373292e204e756d65726963616c20616e616c79736973206e61747572616c6c792066696e6473206170706c69636174696f6e20696e20616c6c206669656c6473206f6620656e67696e656572696e6720616e642074686520706879736963616c20736369656e6365732c2062757420696e2074686520323173742063656e7475727920616c736f20746865206c69666520736369656e6365732c20736f6369616c20736369656e6365732c206d65646963696e652c20627573696e65737320616e64206576656e20746865206172747320686176652061646f7074656420656c656d656e7473206f6620736369656e746966696320636f6d7075746174696f6e732e205468652067726f77746820696e20636f6d707574696e6720706f77657220686173207265766f6c7574696f6e697a65642074686520757365206f66207265616c6973746963206d617468656d61746963616c206d6f64656c7320696e20736369656e636520616e6420656e67696e656572696e672c20616e6420737562746c65206e756d65726963616c20616e616c7973697320697320726571756972656420746f20696d706c656d656e742074686573652064657461696c6564206d6f64656c73206f662074686520776f726c642e20466f72206578616d706c652c206f7264696e61727920646966666572656e7469616c206571756174696f6e732061707065617220696e2063656c65737469616c206d656368616e696373202870726564696374696e6720746865206d6f74696f6e73206f6620706c616e6574732c20737461727320616e642067616c6178696573293b206e756d65726963616c206c696e65617220616c676562726120697320696d706f7274616e7420666f72206461746120616e616c797369733b5b325d5b335d5b345d3c2f703e3c703e2073746f6368617374696320646966666572656e7469616c206571756174696f6e7320616e64204d61726b6f7620636861696e732061726520657373656e7469616c20696e2073696d756c6174696e67206c6976696e672063656c6c7320666f72206d65646963696e6520616e642062696f6c6f67792e0d0a0d0a4265666f72652074686520616476656e74206f66206d6f6465726e20636f6d7075746572732c206e756d65726963616c206d6574686f6473206f6674656e20646570656e646564206f6e2068616e6420696e746572706f6c6174696f6e20666f726d756c6173206170706c69656420746f20646174612066726f6d206c61726765207072696e746564207461626c65732e2053696e636520746865206d696420323074682063656e747572792c20636f6d7075746572732063616c63756c617465207468652072657175697265642066756e6374696f6e7320696e73746561642c20627574206d616e79206f66207468652073616d6520666f726d756c6173206e657665727468656c65737320636f6e74696e756520746f20626520757365642061732070617274206f662074686520736f66747761726520616c676f726974686d732e5b355d0d0a0d0a546865206e756d65726963616c20706f696e74206f66207669657720676f6573206261636b20746f20746865206561726c69657374206d617468656d61746963616c2077726974696e67732e2041207461626c65742066726f6d207468652059616c6520426162796c6f6e69616e20436f6c6c656374696f6e20285942432037323839292c20676976657320612073657861676573696d616c206e756d65726963616c20617070726f78696d6174696f6e206f66207468652073717561726520726f6f74206f6620322c20746865206c656e677468206f662074686520646961676f6e616c20696e206120756e6974207371756172652e0d0a0d0a4e756d65726963616c20616e616c7973697320636f6e74696e7565732074686973206c6f6e6720747261646974696f6e3a20726174686572207468616e2065786163742073796d626f6c696320616e73776572732c2077686963682063616e206f6e6c79206265206170706c69656420746f207265616c2d776f726c64206d6561737572656d656e7473206279207472616e736c6174696f6e20696e746f206469676974732c20697420676976657320617070726f78696d61746520736f6c7574696f6e732077697468696e20737065636966696564206572726f7220626f756e64732e203c2f703e, 1, '29 Mar 2021', '18 Apr 2021'),
+('052b62a629819a6e165078fab7071dec9f541f5321', 'BICM 103', 'Bachelors In Computational Mathematics', '78a65ef45e7ad2a9b201b96f227b353e3bd0ecf6b1', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '4 Months', 'Numerical Computation', '70 %', '30 %', '4', 0x3c703e4e756d65726963616c20616e616c7973697320697320746865207374756479206f6620616c676f726974686d73207468617420757365206e756d65726963616c20617070726f78696d6174696f6e20286173206f70706f73656420746f2073796d626f6c6963206d616e6970756c6174696f6e732920666f72207468652070726f626c656d73206f66206d617468656d61746963616c20616e616c79736973202861732064697374696e677569736865642066726f6d206469736372657465206d617468656d6174696373292e204e756d65726963616c20616e616c79736973206e61747572616c6c792066696e6473206170706c69636174696f6e20696e20616c6c206669656c6473206f6620656e67696e656572696e6720616e642074686520706879736963616c20736369656e6365732c2062757420696e2074686520323173742063656e7475727920616c736f20746865206c69666520736369656e6365732c20736f6369616c20736369656e6365732c206d65646963696e652c20627573696e65737320616e64206576656e20746865206172747320686176652061646f7074656420656c656d656e7473206f6620736369656e746966696320636f6d7075746174696f6e732e205468652067726f77746820696e20636f6d707574696e6720706f77657220686173207265766f6c7574696f6e697a65642074686520757365206f66207265616c6973746963206d617468656d61746963616c206d6f64656c7320696e20736369656e636520616e6420656e67696e656572696e672c20616e6420737562746c65206e756d65726963616c20616e616c7973697320697320726571756972656420746f20696d706c656d656e742074686573652064657461696c6564206d6f64656c73206f662074686520776f726c642e20466f72206578616d706c652c206f7264696e61727920646966666572656e7469616c206571756174696f6e732061707065617220696e2063656c65737469616c206d656368616e696373202870726564696374696e6720746865206d6f74696f6e73206f6620706c616e6574732c20737461727320616e642067616c6178696573293b206e756d65726963616c206c696e65617220616c676562726120697320696d706f7274616e7420666f72206461746120616e616c797369733b5b325d5b335d5b345d3c2f703e3c703e2073746f6368617374696320646966666572656e7469616c206571756174696f6e7320616e64204d61726b6f7620636861696e732061726520657373656e7469616c20696e2073696d756c6174696e67206c6976696e672063656c6c7320666f72206d65646963696e6520616e642062696f6c6f67792e0d0a0d0a4265666f72652074686520616476656e74206f66206d6f6465726e20636f6d7075746572732c206e756d65726963616c206d6574686f6473206f6674656e20646570656e646564206f6e2068616e6420696e746572706f6c6174696f6e20666f726d756c6173206170706c69656420746f20646174612066726f6d206c61726765207072696e746564207461626c65732e2053696e636520746865206d696420323074682063656e747572792c20636f6d7075746572732063616c63756c617465207468652072657175697265642066756e6374696f6e7320696e73746561642c20627574206d616e79206f66207468652073616d6520666f726d756c6173206e657665727468656c65737320636f6e74696e756520746f20626520757365642061732070617274206f662074686520736f66747761726520616c676f726974686d732e5b355d0d0a0d0a546865206e756d65726963616c20706f696e74206f66207669657720676f6573206261636b20746f20746865206561726c69657374206d617468656d61746963616c2077726974696e67732e2041207461626c65742066726f6d207468652059616c6520426162796c6f6e69616e20436f6c6c656374696f6e20285942432037323839292c20676976657320612073657861676573696d616c206e756d65726963616c20617070726f78696d6174696f6e206f66207468652073717561726520726f6f74206f6620322c20746865206c656e677468206f662074686520646961676f6e616c20696e206120756e6974207371756172652e0d0a0d0a4e756d65726963616c20616e616c7973697320636f6e74696e7565732074686973206c6f6e6720747261646974696f6e3a20726174686572207468616e2065786163742073796d626f6c696320616e73776572732c2077686963682063616e206f6e6c79206265206170706c69656420746f207265616c2d776f726c64206d6561737572656d656e7473206279207472616e736c6174696f6e20696e746f206469676974732c20697420676976657320617070726f78696d61746520736f6c7574696f6e732077697468696e20737065636966696564206572726f7220626f756e64732e203c2f703e, 1, '29 Mar 2021', '26 Apr 2021'),
 ('3699d9d9a098a82802aa8f2e674de7808d07cdcd52', 'BCS 1190', 'Bachelors In Computer Science', '49943644fdc0a65810f0c2f58de2ec69d0c8a9d307', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '4 Months', 'Object Oriented Programming', '70 %', '30 %', '2', 0x3c703e4f626a6563742d6f7269656e7465642070726f6772616d6d696e6720284f4f502920697320612070726f6772616d6d696e6720706172616469676d206261736564206f6e2074686520636f6e63657074206f6620226f626a65637473222c2077686963682063616e20636f6e7461696e206461746120616e6420636f64653a206461746120696e2074686520666f726d206f66206669656c647320286f6674656e206b6e6f776e2061732061747472696275746573206f722070726f70657274696573292c20616e6420636f64652c20696e2074686520666f726d206f662070726f6365647572657320286f6674656e206b6e6f776e206173206d6574686f6473292e0d0a0d0a412066656174757265206f66206f626a65637473206973207468617420616e206f626a6563742773206f776e2070726f636564757265732063616e2061636365737320616e64206f6674656e206d6f64696679207468652064617461206669656c6473206f6620697473656c6620286f626a6563747320686176652061206e6f74696f6e206f662074686973206f722073656c66292e20496e204f4f502c20636f6d70757465722070726f6772616d73206172652064657369676e6564206279206d616b696e67207468656d206f7574206f66206f626a65637473207468617420696e7465726163742077697468206f6e6520616e6f746865722e5b315d5b325d3c2f703e3c703e204f4f50206c616e6775616765732061726520646976657273652c2062757420746865206d6f737420706f70756c6172206f6e65732061726520636c6173732d62617365642c206d65616e696e672074686174206f626a656374732061726520696e7374616e636573206f6620636c61737365732c20776869636820616c736f2064657465726d696e652074686569722074797065732e0d0a0d0a4d616e79206f6620746865206d6f737420776964656c7920757365642070726f6772616d6d696e67206c616e67756167657320287375636820617320432b2b2c204a6176612c20507974686f6e2c206574632e2920617265206d756c74692d706172616469676d20616e64207468657920737570706f7274206f626a6563742d6f7269656e7465642070726f6772616d6d696e6720746f20612067726561746572206f72206c6573736572206465677265652c207479706963616c6c7920696e20636f6d62696e6174696f6e207769746820696d70657261746976652c2070726f6365647572616c2070726f6772616d6d696e672e205369676e69666963616e74206f626a6563742d6f7269656e746564206c616e67756167657320696e636c7564653a20286c697374206f72646572206261736564206f6e2054494f424520696e64657829204a6176612c20432b2b2c2043232c20507974686f6e2c20522c205048502c2056697375616c2042617369632e4e45542c204a6176615363726970742c20527562792c205065726c2c204f626a6563742050617363616c2c204f626a6563746976652d432c20446172742c2053776966742c205363616c612c204b6f746c696e2c20436f6d6d6f6e204c6973702c204d41544c41422c20616e6420536d616c6c74616c6b2e203c2f703e, 1, '31 Mar 2021', '23 Apr 2021'),
 ('5d06eacbf35dc90d6602e85393bb27a51f433fddf4', 'UDPQA13486', 'Diploma In Computer Science', '9bd615c255bc533378e946171d9b8fa61980605a70', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '4 Months', 'Information Systems', '70 %', '30 %', '4', 0x3c703e496e666f726d6174696f6e2073797374656d73206973206120636f7265c2a0206469706c6f6d61206d6f64756c652e3c62723e3c2f703e, 0, '19 Apr 2021', '19 Apr 2021'),
 ('69488c64666d64defa40625c14e92323c27d7fa0ed', 'JOIVB34569', 'Certificate In Quantum Computing', '02abafc898bc2b993cc646fff7fd94078442f33c1c', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '4 Months', 'Quantum Computing 101', '70 %', '30 %', '4', 0x3c703e5175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e67203130315175616e74756d20436f6d707574696e672031303c62723e3c2f703e, 0, '21 Apr 2021', '21 Apr 2021'),
@@ -711,15 +554,6 @@ CREATE TABLE `ezanaLMS_ModulesAnnouncements` (
   `faculty_id` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `ezanaLMS_ModulesAnnouncements`
---
-
-INSERT INTO `ezanaLMS_ModulesAnnouncements` (`id`, `module_name`, `module_code`, `announcements`, `attachments`, `created_by`, `created_at`, `faculty_id`) VALUES
-('c44526c280a9b04cf279764aebf68ab26506795640', 'Object Oriented Programming', 'BCS 1190', 0x3c703e546869732069732061207365636f6e64206d6f64756c65206e6f746963652c20627920456475636174696f6e616c2041646d6e6973747261746f722e3c2f703e, '', 'Educational Administrator', '2021-04-22 23:32:11', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('dd70e1ae460315e8eb13b451efaf5c19cb0de3ea1c', 'Object Oriented Programming', 'BCS 1190', 0x3c703e546869732069732061206d6f64756c65206e6f746963652c20627920456475636174696f6e616c2041646d6e6973747261746f722e3c62723e3c2f703e, '', 'Educational Administrator', '2021-04-22 23:31:41', 'ba52fc866349d5af05addecba35600d0fd970ef7ba'),
-('e3d635163e5d8aed8006ad26498e63ea54514a568f', 'Basic Calculus', 'BICM 102', 0x546869732069732061206d6f64756c65206e6f74696365, '', 'Ezana LMS Sys Admin', '2021-04-05 08:59:04', 'ba52fc866349d5af05addecba35600d0fd970ef7ba');
-
 -- --------------------------------------------------------
 
 --
@@ -733,15 +567,6 @@ CREATE TABLE `ezanaLMS_Notifications` (
   `notification_detail` longblob NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ezanaLMS_Notifications`
---
-
-INSERT INTO `ezanaLMS_Notifications` (`id`, `type`, `status`, `notification_detail`, `created_at`) VALUES
-(1, 'Posted Notice', 'Unread', 0x416e6e6f756e63656d656e7420466f7220436f6d7075746174696f6e616c20536369656e636520416e64204d617468656d6174696373, '2021-04-22 00:56:00'),
-(2, 'Department Memo', 'Unread', 0x4d656d6f20466f7220436f6d7075746174696f6e616c20536369656e636520416e64204d617468656d6174696373, '2021-04-22 01:01:58'),
-(3, 'Course Memo', 'Unread', 0x4d656d6f20466f722042616368656c6f727320496e20436f6d7075746174696f6e616c204d617468656d6174696373, '2021-04-22 01:52:31');
 
 -- --------------------------------------------------------
 
@@ -777,14 +602,6 @@ CREATE TABLE `ezanaLMS_PastPapers` (
   `solution_visibility` varchar(200) NOT NULL,
   `paper_visibility` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ezanaLMS_PastPapers`
---
-
-INSERT INTO `ezanaLMS_PastPapers` (`id`, `faculty_id`, `module_name`, `course_name`, `paper_name`, `pastpaper`, `created_at`, `solution`, `solution_visibility`, `paper_visibility`) VALUES
-('0f73e020b36872a7c208f44037970b154592b291b3', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'Object Oriented Programming', 'Bachelors In Computer Science', 'Object Oriented Programming', 'StackOverflow Lite.pdf', '2021-04-23 00:12:28', 'StackOverflow Lite.pdf', 'Available', 'Available'),
-('5654abeb9d5cfeb52db75a5618d2d3bef3d5f3cd6b', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'Basic Calculus', 'Bachelors In Computational Mathematics', 'Basic Calculus', 'StackOverflow Lite.pdf', '2021-04-01 15:20:55', 'Politico Challenge.pdf', 'Available', 'Available');
 
 -- --------------------------------------------------------
 
@@ -896,51 +713,6 @@ CREATE TABLE `ezanaLMS_Students` (
   `no_of_modules` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `ezanaLMS_Students`
---
-
-INSERT INTO `ezanaLMS_Students` (`id`, `admno`, `name`, `email`, `password`, `phone`, `adr`, `dob`, `idno`, `gender`, `acc_status`, `created_at`, `updated_at`, `profile_pic`, `faculty_id`, `day_enrolled`, `school`, `course`, `department`, `current_year`, `no_of_modules`) VALUES
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865900', 'XBNYV13090', 'Student 001', 'martdevelopers254@gmail.com', '4d3772e5fb4d73009889a10775c26a1b24a24602', '737229775', '127 Machakos', '2021-04-22', '1270003', 'Male', 'Active', '31 Mar 2021', '23 Apr 2021', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865901', 'XBNYV13093', 'Student 002', 'student.ezana.002', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229776', '128 Machakos', '14 Jul 1998', '1270004', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865902', 'XBNYV13094', 'Student 003', 'student.ezana.003', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229777', '129 Machakos', '15 Jul 1998', '1270005', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865903', 'XBNYV13095', 'Student 004', 'student.ezana.004', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229778', '130 Machakos', '16 Jul 1998', '1270006', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865904', 'XBNYV13096', 'Student 005', 'student.ezana.005', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229779', '131 Machakos', '17 Jul 1998', '1270007', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865905', 'XBNYV13097', 'Student 006', 'student.ezana.006', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229780', '132 Machakos', '18 Jul 1998', '1270008', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865906', 'XBNYV13098', 'Student 007', 'student.ezana.007', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229781', '133 Machakos', '19 Jul 1998', '1270009', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865907', 'XBNYV13099', 'Student 008', 'student.ezana.008', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229782', '134 Machakos', '20 Jul 1998', '1270010', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865908', 'XBNYV13100', 'Student 009', 'student.ezana.009', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229783', '135 Machakos', '21 Jul 1998', '1270011', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865909', 'XBNYV13101', 'Student 010', 'student.ezana.010', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229784', '136 Machakos', '22 Jul 1998', '1270012', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865910', 'XBNYV13102', 'Student 011', 'student.ezana.011', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229785', '137 Machakos', '23 Jul 1998', '1270013', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865911', 'XBNYV13103', 'Student 012', 'student.ezana.012', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229786', '138 Machakos', '24 Jul 1998', '1270014', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865912', 'XBNYV13104', 'Student 013', 'student.ezana.013', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229787', '139 Machakos', '25 Jul 1998', '1270015', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865913', 'XBNYV13105', 'Student 014', 'student.ezana.014', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229788', '140 Machakos', '26 Jul 1998', '1270016', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865914', 'XBNYV13106', 'Student 015', 'student.ezana.015', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229789', '141 Machakos', '27 Jul 1998', '1270017', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865915', 'XBNYV13107', 'Student 016', 'student.ezana.016', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229790', '142 Machakos', '28 Jul 1998', '1270018', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865916', 'XBNYV13108', 'Student 017', 'student.ezana.017', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229791', '143 Machakos', '13 Jul 1998', '1270019', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865917', 'XBNYV13109', 'Student 018', 'student.ezana.018', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229792', '144 Machakos', '14 Jul 1998', '1270020', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865918', 'XBNYV13110', 'Student 019', 'student.ezana.019', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229793', '145 Machakos', '15 Jul 1998', '1270021', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865919', 'XBNYV13111', 'Student 020', 'student.ezana.020', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229794', '146 Machakos', '16 Jul 1998', '1270022', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865920', 'XBNYV13112', 'Student 021', 'student.ezana.021', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229795', '147 Machakos', '17 Jul 1998', '1270023', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865921', 'XBNYV13113', 'Student 022', 'student.ezana.022', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229796', '148 Machakos', '18 Jul 1998', '1270024', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865922', 'XBNYV13114', 'Student 023', 'student.ezana.023', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229797', '149 Machakos', '19 Jul 1998', '1270025', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865923', 'XBNYV13115', 'Student 024', 'student.ezana.024', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229798', '150 Machakos', '20 Jul 1998', '1270026', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865924', 'XBNYV13116', 'Student 025', 'student.ezana.025', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229799', '151 Machakos', '21 Jul 1998', '1270027', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865925', 'XBNYV13117', 'Student 026', 'student.ezana.026', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229800', '152 Machakos', '22 Jul 1998', '1270028', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865926', 'XBNYV13118', 'Student 027', 'student.ezana.027', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229801', '153 Machakos', '23 Jul 1998', '1270029', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865927', 'XBNYV13119', 'Student 028', 'student.ezana.028', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229802', '154 Machakos', '24 Jul 1998', '1270030', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865928', 'XBNYV13120', 'Student 029', 'student.ezana.029', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229803', '155 Machakos', '25 Jul 1998', '1270031', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865929', 'XBNYV13121', 'Student 030', 'student.ezana.030', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229804', '156 Machakos', '26 Jul 1998', '1270032', 'Male', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865930', 'XBNYV13122', 'Student 031', 'student@ezana.031', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229805', '157 Machakos', '2020-10-27', '1270033', 'Male', 'Active', '31 Mar 2021', '21 Apr 2021', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '4'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865931', 'XBNYV13123', 'Student 032', 'student.ezana.032', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229806', '158 Machakos', '28 Jul 1998', '1270034', 'Female', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865932', 'XBNYV13124', 'Student 033', 'student.ezana.033', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229807', '159 Machakos', '13 Jul 1998', '1270035', 'Female', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865933', 'XBNYV13125', 'Student 034', 'student.ezana.034', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229808', '160 Machakos', '14 Jul 1998', '1270036', 'Female', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865934', 'XBNYV13126', 'Student 035', 'student.ezana.035', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229809', '161 Machakos', '15 Jul 1998', '1270037', 'Female', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865935', 'XBNYV13127', 'Student 036', 'student.ezana.036', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229810', '162 Machakos', '16 Jul 1998', '1270038', 'Female', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865936', 'XBNYV13128', 'Student 037', 'student.ezana.037', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229811', '163 Machakos', '17 Jul 1998', '1270039', 'Female', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865937', 'XBNYV13129', 'Student 038', 'student.ezana.038', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229812', '164 Machakos', '18 Jul 1998', '1270040', 'Female', 'Active', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5'),
-('6d39379f9ccb763e9b4b8cb4bdf5753e5ca0865938', 'XBNYV13130', 'Student 039', 'student.ezana.039', '6bac0eccd8e0600ca0fa68712ff9a6e45588cefd', '737229813', '165 Machakos', '19 Jul 1998', '1270041', 'Female', 'Suspended', '31 Mar 2021', '', '', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', '13 Jul 2020', 'School Of Computing Sciences', 'Bachelors In Computer Science', 'Computer Science', '1st Year', '5');
-
 -- --------------------------------------------------------
 
 --
@@ -956,17 +728,6 @@ CREATE TABLE `ezanaLMS_StudentsGroups` (
   `student_name` varchar(200) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ezanaLMS_StudentsGroups`
---
-
-INSERT INTO `ezanaLMS_StudentsGroups` (`id`, `faculty_id`, `name`, `code`, `student_admn`, `student_name`, `created_at`) VALUES
-('5d69b1798bc488134f4ea476340800eabfc94e43b0', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'Alpha Group', 'DJECT10395', 'XBNYV13090', 'Student 001', '2021-04-23 01:14:22'),
-('939bbdffe61ac37fedc1d2dd1d73dbd36369b0f41a', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'Group 001', 'JMKHF96831', 'XBNYV13093', 'Student 002', '2021-04-01 15:28:13'),
-('9586d57ca19f16f31c4078ea60f7df8b18ce2fd389', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'Alpha Group', 'DJECT10395', 'XBNYV13095', 'Student 004', '2021-04-23 01:14:06'),
-('aa99129ea9b559c11be91dc7a6556607246224f2e3', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'Group 001', 'JMKHF96831', 'XBNYV13096', 'Student 005', '2021-04-01 15:28:20'),
-('cd6eb874c41507d6164ecdb0a8837df3e8c79fcaa5', 'ba52fc866349d5af05addecba35600d0fd970ef7ba', 'Group 001', 'JMKHF96831', 'XBNYV13094', 'Student 003', '2021-04-01 15:28:02');
 
 -- --------------------------------------------------------
 
@@ -1017,8 +778,14 @@ CREATE TABLE `ezanaLMS_UserLog` (
 --
 
 INSERT INTO `ezanaLMS_UserLog` (`id`, `user_id`, `name`, `ip`, `loginTime`, `User_Rank`) VALUES
-(58, '3abf1651a3e361db3af99a25810703b4ce75957c', 'jamesdoe@computingsciences.org', 0x3132372e302e302e31, '2021-04-24', 'Administrator'),
-(59, 'a69681bcf334ae130217fea4505fd3c994f5683f', 'sysadmin@ezana.org', 0x3132372e302e302e31, '2021-04-24', 'Administrator');
+(1, 'a69681bcf334ae130217fea4505fd3c994f5683f', 'sysadmin@ezana.org', 0x3132372e302e302e31, '2021-06-09', 'Administrator'),
+(2, '9297d8fd206b8142231d701f65686f2c4f88b5ac5b', 'martdevelopers254@gmail.com', 0x3132372e302e302e31, '2021-06-09', 'Administrator'),
+(3, '9297d8fd206b8142231d701f65686f2c4f88b5ac5b', 'martdevelopers254@gmail.com', 0x3132372e302e302e31, '2021-06-09', 'Administrator'),
+(4, 'a69681bcf334ae130217fea4505fd3c994f5683f', 'sysadmin@ezana.org', 0x3132372e302e302e31, '2021-06-09', 'Administrator'),
+(5, '55299935703a02a86d0e6c2f3d104a204afd9f10ff', 'martdevelopers254@gmail.com', 0x3132372e302e302e31, '2021-06-09', 'Lecturer'),
+(6, '9297d8fd206b8142231d701f65686f2c4f88b5ac5b', 'martdevelopers254@gmail.com', 0x3132372e302e302e31, '2021-06-09', 'Administrator'),
+(7, '55299935703a02a86d0e6c2f3d104a204afd9f10ff', 'martdevelopers254@gmail.com', 0x3132372e302e302e31, '2021-06-09', 'Lecturer'),
+(8, 'ee54a1f3eed8f918acbe238ef4c4b8cf8603b4726e', 'martinezmbithi@gmail.com', 0x3132372e302e302e31, '2021-06-09', 'Student');
 
 -- --------------------------------------------------------
 
@@ -1036,13 +803,6 @@ CREATE TABLE `ezanaLMS_UserRequests` (
   `status` longtext NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ezanaLMS_UserRequests`
---
-
-INSERT INTO `ezanaLMS_UserRequests` (`id`, `name`, `email`, `number`, `request`, `progress`, `status`, `created_at`) VALUES
-('129000912013iwdkccasd', 'Educational Administrator', 'edadmin@ezana.org', '901267', 'Account Approval', '100', 'Approved', '2021-04-11 06:41:14');
 
 --
 -- Indexes for dumped tables
@@ -1284,7 +1044,7 @@ ALTER TABLE `ezanaLMS_AcademicSettings`
 -- AUTO_INCREMENT for table `ezanaLMS_Notifications`
 --
 ALTER TABLE `ezanaLMS_Notifications`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ezanaLMS_Settings`
@@ -1296,7 +1056,7 @@ ALTER TABLE `ezanaLMS_Settings`
 -- AUTO_INCREMENT for table `ezanaLMS_UserLog`
 --
 ALTER TABLE `ezanaLMS_UserLog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
