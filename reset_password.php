@@ -81,7 +81,7 @@ while ($sys = $res->fetch_object()) {
                         </div>
                         <div class="flex-sb-m w-full p-t-3 p-b-32">
                             <div>
-                                <a href="index.php" class="txt1">
+                                <a href="admin_index.php" class="txt1">
                                     Remembered Password?
                                 </a>
                             </div>
