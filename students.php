@@ -100,19 +100,14 @@ if (isset($_POST['update_student'])) {
     $dob = $_POST['dob'];
     $gender = $_POST['gender'];
     $updated_at = date('d M Y');
-    $day_enrolled = $_POST['day_enrolled'];
-    $school = $_POST['school'];
-    $course = $_POST['course'];
-    $department = $_POST['department'];
-    $current_year = $_POST['current_year'];
 
     if (!$error) {
-        $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?, name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Students SET name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssssssssssss', $day_enrolled, $school, $course, $department, $current_year, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $updated_at, $id);
+        $rc = $stmt->bind_param('ssssssssss',  $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $updated_at, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Student Added " && header("refresh:1; url=students.php");
+            $success = "Student Updated " && header("refresh:1; url=students.php");
         } else {
             //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
@@ -532,26 +527,6 @@ require_once('public/partials/_head.php');
                                                                                 <div class="form-group col-md-6">
                                                                                     <label for="">Phone Number</label>
                                                                                     <input type="text" required name="phone" value="<?php echo $std->phone; ?>" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-6">
-                                                                                    <label for="">Course Name</label>
-                                                                                    <input type="text" value="<?php echo $std->course; ?>" required name="course" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-6">
-                                                                                    <label for="">Department Name</label>
-                                                                                    <input type="text" required name="department" class="form-control" value="<?php echo $std->department; ?>">
-                                                                                </div>
-                                                                                <div class="form-group col-md-12">
-                                                                                    <label for="">Faculty / School Name</label>
-                                                                                    <input type="text" required name="school" class="form-control" value="<?php echo $std->school; ?>">
-                                                                                </div>
-                                                                                <div class="form-group col-md-6">
-                                                                                    <label for="">Current Year</label>
-                                                                                    <input type="text" required name="current_year" value="<?php echo $std->current_year; ?>" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-6">
-                                                                                    <label for="">Date Enrolled</label>
-                                                                                    <input type="date" required name="day_enrolled" value="<?php echo $std->day_enrolled; ?>" class="form-control">
                                                                                 </div>
                                                                             </div>
 
