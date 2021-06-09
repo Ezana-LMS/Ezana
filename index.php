@@ -66,13 +66,17 @@
 
     <div class="intro py-5 py-lg-9 position-relative text-white">
         <div class="bg-overlay-primary">
-            <img src="" class="img-fluid img-cover" alt="Ezana LMS" />
+            <img src="public/dist/img/logo.png" class="img-fluid img-cover" alt="Ezana LMS" />
         </div>
         <div class="intro-content py-6 text-center">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto text-center">
-                        <h1 class="my-3 display-4 d-none d-lg-inline-block">Ezana LMS</h1>
+                        <h1 class="my-3 display-4 d-none d-lg-inline-block ">Ezana LMS</h1>
+                        <span class="h1 my-3 d-inline-block d-lg-none">Robust UI Kit</span>
+                        <p class="lead mb-3">Ezana  is a  premium,  revolutionary e learning management system.</p>
+                        <br>
+                        <a class="btn btn-success btn-lg mr-lg-2 my-1" href="https://ezana.org" role="button">Get started</a>
                     </div>
                 </div>
             </div>
