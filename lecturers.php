@@ -102,11 +102,11 @@ if (isset($_POST['add_lec'])) {
             $stmt->execute();
             /* Load Lec Mailer */
             require_once('configs/lec_mailer.php');
-            if ($stmt) {
+            if ($stmt && $mail->send()) {
                 $success = "Lecturer Added" && header("refresh:1; url=lecturers.php");
             } else {
                 //inject alert that profile update task failed
-                $info = "Please Try Again Or Try Later";
+                $info = "Please Try Again Or Try Later $mail->ErrorInfo";
             }
         }
     }
