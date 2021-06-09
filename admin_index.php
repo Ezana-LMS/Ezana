@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Tue May 04 2021
+ * Created on Thu Apr 01 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -19,12 +19,11 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 session_start();
 include('configs/config.php');
 
 if (isset($_POST['login'])) {
-    /* Secure Logins Using Trims */
+    /* Secure Login */
     $error = 0;
     if (isset($_POST['email']) && !empty($_POST['email'])) {
         $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
@@ -32,36 +31,34 @@ if (isset($_POST['login'])) {
         $error = 1;
         $err = "Email Cannot  Be Empty";
     }
-
     if (isset($_POST['password']) && !empty($_POST['password'])) {
         $password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['password']))));
     } else {
         $error = 1;
-        $err = "Email Cannot  Be Empty";
+        $err = "Password Cannot  Be Empty";
     }
     if (!$error) {
-        $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Students WHERE email='$email'  AND password='$password' ");
+        $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Admins WHERE email='$email'  AND password='$password' AND rank = 'System Administrator' ");
         $num = mysqli_fetch_array($ret);
         if ($num > 0) {
             /* Load Sessions */
             $_SESSION['id'] = $num['id'];
             $_SESSION['email'] = $email;
-            //$_SESSION['admno'] = $email;
 
-            /* Log User Login Details */
-            $uip = $_SERVER['REMOTE_ADDR']; // User IP Address
-            $User_Rank = 'Student'; // User Rank
+            /* Load Login Logs */
+            $uip = $_SERVER['REMOTE_ADDR'];
+            $User_Rank = 'Administrator';
             $loginTime = date('Y-m-d');
 
-            /* Persist Logs On Logs Table */
+            /* Persist Auth Logs */
             mysqli_query($mysqli, "INSERT INTO ezanaLMS_UserLog(user_id, name, ip, User_Rank, loginTime) values('" . $_SESSION['id'] . "','" . $_SESSION['email'] . "','$uip', '$User_Rank', '$loginTime')");
-            $extra = "std_dashboard.php";
+            $extra = "dashboard.php";
             $host = $_SERVER['HTTP_HOST'];
             $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
             header("location:http://$host$uri/$extra");
             exit();
         } else {
-            $err = "Invalid username or password";
+            $err = "Invalid Authentication Credentials Or User Permission";
         }
     }
 }
@@ -85,12 +82,16 @@ while ($sys = $res->fetch_object()) {
                         </div>
                         <h2 class="mt-3 text-center">Log In</h2>
                         <p class="text-center">
-                            Enter Your Email Address Or Student Admission Number And Password <br>
+                            Enter Your Email Address And Password <br>
+                            Use The Following Demo Credentials <br>
+
+                            <b>Email : </b> sysadmin@ezana.org <br>
+                            <b>Password: </b> 123 <br>
                         </p>
                         <div class="wrap-input100 validate-input" data-validate="Valid email is required: user@mail.com">
                             <input class="input100" type="email" name="email">
                             <span class="focus-input100"></span>
-                            <span class="label-input100">Student  Email</span>
+                            <span class="label-input100">Email</span>
                         </div>
                         <div class="wrap-input100 validate-input" data-validate="Password is required">
                             <input class="input100" type="password" name="password">
@@ -105,7 +106,7 @@ while ($sys = $res->fetch_object()) {
                                 </label>
                             </div> -->
                             <div>
-                                <a href="std_reset_password.php" target="_blank" class="txt1">
+                                <a href="reset_password.php" class="txt1">
                                     Forgot Password?
                                 </a>
                             </div>

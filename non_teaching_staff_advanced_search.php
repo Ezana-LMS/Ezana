@@ -273,7 +273,7 @@ require_once('public/partials/_head.php');
                                     </div>
                                 </div>
                             </form>
-                            <form method="POST">
+                            <!-- <form method="POST">
                                 <div class="d-flex justify-content-center">
                                     <select name="Rank" class='col-md-4 form-control basic mr-sm-2'>
                                         <option selected>Select Previledge </option>
@@ -284,7 +284,7 @@ require_once('public/partials/_head.php');
                                         <button name="SearchAdmins" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search By Previledge</button>
                                     </div>
                                 </div>
-                            </form>
+                            </form> -->
                         </div>
                     </div>
                     <hr>
@@ -304,9 +304,9 @@ require_once('public/partials/_head.php');
                                     <?php
                                     if (isset($_POST['SearchAdmins'])) {
                                         $School = $_POST['School'];
-                                        $Rank = $_POST['Rank'];
+                                        //$Rank = $_POST['Rank'];
 
-                                        $ret = "SELECT * FROM `ezanaLMS_Admins`  WHERE school = '$School' || rank = '$Rank'  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Admins`  WHERE school = '$School'  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();

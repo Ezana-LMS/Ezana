@@ -22,43 +22,39 @@
 session_start();
 include('configs/config.php');
 require_once('configs/codeGen.php');
-if (isset($_POST['reset_pwd'])) {
-    //prevent posting blank value for first name
-    $error = 0;
+
+if (isset($_POST['reset'])) {
+    //prevent posting blank value for email
     if (isset($_POST['email']) && !empty($_POST['email'])) {
         $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
     } else {
         $error = 1;
-        $err = "Enter Your Email";
+        $err = "Enter  E-mail";
     }
-    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-        $err = 'Invalid Email';
-    }
-    $checkEmail = mysqli_query($mysqli, "SELECT `email` FROM `ezanaLMS_Admins` WHERE `email` = '" . $_POST['email'] . "'") or exit(mysqli_error($mysqli));
-    if (mysqli_num_rows($checkEmail) > 0) {
+    $query = mysqli_query($mysqli, "SELECT * from `ezanaLMS_Admins` WHERE email='" . $email . "'");
+    $num_rows = mysqli_num_rows($query);
 
-        $n = date('y');
-        $new_password = bin2hex(random_bytes($n));
-        //Insert Captured information to a database table
-        $query = "UPDATE ezanaLMS_Admins SET  password=? WHERE email =?";
+    if ($num_rows > 0) {
+        /* Mail User Plain Password */
+        $mailed_password = $defaultPass;
+        /* Hash Password  */
+        $hashed_password = sha1(md5($mailed_password));
+        $query = "UPDATE ezanaLMS_Admins SET  password =? WHERE  email =?";
         $stmt = $mysqli->prepare($query);
-        //bind paramaters
-        $rc = $stmt->bind_param('ss', $new_password, $email);
+        $rc = $stmt->bind_param('ss', $hashed_password, $email);
         $stmt->execute();
-
-        //declare a varible which will be passed to alert function
-        if ($stmt) {
-            $_SESSION['email'] = $email;
-            $success = "Confim Your Password" && header("refresh:1; url=confirm_password.php");
+        /* Load Mailer */
+        require_once('configs/password_reset_mailer.php');
+        if ($stmt && $mail->send()) {
+            $success = "Password Reset Instructions Sent To Your Mail";
         } else {
-            $err = "Password reset failed";
+            $err = "Password Reset Failed!, Try again $mail->ErrorInfo";
         }
-    } else  // user does not exist
-    {
-        $err = "Email Does Not Exist";
+    }
+    /* User Does Not Exist */ else {
+        $err = "Sorry, User Account With That Email Does Not Exist";
     }
 }
-
 include __DIR__ . "/public/partials/_authhead.php";
 /* Persisit System Settings On Auth */
 $ret = "SELECT * FROM `ezanaLMS_Settings` ";
@@ -85,13 +81,13 @@ while ($sys = $res->fetch_object()) {
                         </div>
                         <div class="flex-sb-m w-full p-t-3 p-b-32">
                             <div>
-                                <a href="index.php" class="txt1">
+                                <a href="admin_index.php" class="txt1">
                                     Remembered Password?
                                 </a>
                             </div>
                         </div>
                         <div class="container-login100-form-btn">
-                            <button type="submit" name="reset_pwd" class="login100-form-btn">
+                            <button type="submit" name="reset" class="login100-form-btn">
                                 Reset Password
                             </button>
                         </div>

@@ -230,18 +230,21 @@ if (isset($_POST['add_lec'])) {
             $idno  = $_POST['idno'];
             $adr = $_POST['adr'];
             $created_at = date('d M Y');
-            $password = sha1(md5($_POST['password']));
+            $mailed_password = ($_POST['password']);
+            $hashed_password = sha1(md5($mailed_password));
             $profile_pic = $_FILES['profile_pic']['name'];
             move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $_FILES["profile_pic"]["name"]);
 
             $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, gender, faculty_name, work_email, employee_id, date_employed, name, email, phone, idno, adr, profile_pic, created_at, password, number) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssssssssssss', $id, $faculty_id, $gender, $faculty_name, $work_email, $employee_id, $date_employed, $name, $email, $phone, $idno, $adr, $profile_pic, $created_at, $password, $number);
+            $rc = $stmt->bind_param('ssssssssssssssss', $id, $faculty_id, $gender, $faculty_name, $work_email, $employee_id, $date_employed, $name, $email, $phone, $idno, $adr, $profile_pic, $created_at, $hashed_password, $number);
             $stmt->execute();
-            if ($stmt) {
+            /* Load Mailer */
+            require_once('configs/lec_mailer.php');
+            if ($stmt && $mail->send()) {
                 $success = "Lecturer Added" && header("refresh:1; url=edu_admn_lecturers.php?view=$faculty_id");;
             } else {
-                $info = "Please Try Again Or Try Later";
+                $info = "Please Try Again Or Try Later $mail->ErrorInfo";
             }
         }
     }
@@ -410,6 +413,7 @@ require_once('public/partials/_head.php');
                                                                     <label for="">Faculty Name</label>
                                                                     <input type="text" required name="faculty_name" class="form-control" value="<?php echo $faculty->name; ?>">
                                                                     <input type="hidden" required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
+                                                                    <input type="hidden" required name="password" value="<?php echo $defaultPass; ?>" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Name</label>
@@ -433,35 +437,19 @@ require_once('public/partials/_head.php');
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-                                                                <div class="form-group col-md-4">
+                                                                <div class="form-group col-md-3">
                                                                     <label for="">Personal Email</label>
                                                                     <input type="email" required name="email" class="form-control">
                                                                 </div>
-                                                                <div class="form-group col-md-4">
+                                                                <div class="form-group col-md-3">
                                                                     <label for="">Work Email</label>
                                                                     <input type="email" required name="work_email" class="form-control">
                                                                 </div>
-                                                                <div class="form-group col-md-4">
+                                                                <div class="form-group col-md-3">
                                                                     <label for="">Phone Number</label>
                                                                     <input type="text" required name="phone" class="form-control">
                                                                 </div>
-                                                            </div>
-
-                                                            <div class="row">
-
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Default Password</label>
-                                                                    <input type="text" value="Lecturer" required name="password" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Employee ID</label>
-                                                                    <input type="text" required name="employee_id" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Date Employed</label>
-                                                                    <input type="date" required name="date_employed" placeholder="DD - MM - YYYY" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
+                                                                <div class="form-group col-md-3">
                                                                     <label for="">Profile Picture</label>
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
@@ -470,6 +458,18 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Employee ID</label>
+                                                                    <input type="text" required name="employee_id" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Date Employed</label>
+                                                                    <input type="date" required name="date_employed" placeholder="DD - MM - YYYY" class="form-control">
+                                                                </div>
+
                                                             </div>
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
@@ -536,7 +536,7 @@ require_once('public/partials/_head.php');
                             </div>
                             <hr>
                             <div class="row">
-                                
+
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-12">
