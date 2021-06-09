@@ -36,14 +36,13 @@ $res = $stmt->get_result();
 while ($sys = $res->fetch_object()) {
     $mail->setFrom($sys->stmp_sent_from);
     $mail->addAddress($email);
-    $mail->Subject = 'Account Authentication Details';
+    $mail->Subject = 'Password Reset';
     $mail->Body = '
-    <h2 style="color:Blue;">Welcome To ' . $sys->sysname . ' ' . $name . ' </h2>
-    <p>Hello ' . $name . ' This are your ' . $sys->sysname . ' Login Credentials:<br>
+    <p>Hello, this is your new password:<br>
     <hr>
-    <h3>Email: ' . $email . '</h3>
     <h3>Password : ' . $mailed_password . '</h3>
     <hr>
+    <p>Kindly change it after login.</p>
     <br><br>
     <b>Regards, Team ' . $sys->sysname . '</b>
     <br>
