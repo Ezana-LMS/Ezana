@@ -32,7 +32,7 @@ if (isset($_POST['reset'])) {
         $error = 1;
         $err = "Enter  E-mail";
     }
-    $query = mysqli_query($mysqli, "SELECT * from `ezanaLMS_Lecturers` WHERE work_email='" . $email . "'");
+    $query = mysqli_query($mysqli, "SELECT * FROM `ezanaLMS_Lecturers` WHERE work_email ='" . $email . "'");
     $num_rows = mysqli_num_rows($query);
 
     if ($num_rows > 0) {
@@ -40,7 +40,7 @@ if (isset($_POST['reset'])) {
         $mailed_password = $defaultPass;
         /* Hash Password  */
         $hashed_password = sha1(md5($mailed_password));
-        $query = "UPDATE ezanaLMS_Admins SET  password =? WHERE  work_email =?";
+        $query = "UPDATE ezanaLMS_Lecturers SET  password =? WHERE  work_email =?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('ss', $hashed_password, $email);
         $stmt->execute();
