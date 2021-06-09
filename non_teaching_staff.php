@@ -103,10 +103,12 @@ if (isset($_POST['add_non_teaching_staff'])) {
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('sssssssssssss', $id, $name, $email, $password, $rank, $phone, $adr, $profile_pic, $gender, $employee_id, $date_employed, $school, $school_id);
             $stmt->execute();
-            if ($stmt) {
+            /* Load Mailer */
+            require_once('config/mail.php');
+            if ($stmt && $mail->send()) {
                 $success = "Non Teaching Staff Added" && header("refresh:1; url=non_teaching_staff.php");
             } else {
-                $info = "Please Try Again Or Try Later";
+                $info = "Please Try Again Or Try Later, $mail->ErrorInfo";
             }
         }
     }
@@ -340,7 +342,7 @@ require_once('public/partials/_head.php');
                             <form class="form-inline">
                             </form>
                             <div class="text-left">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">Add Non Teaching Staff</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Non Teaching Staff</button>
                                 <a href="non_teaching_staff_advanced_search.php" class="btn btn-primary">Advanced Search</a>
                             </div>
                             <!-- Add Lec Modal -->
@@ -361,6 +363,8 @@ require_once('public/partials/_head.php');
                                                             <label for="">Name</label>
                                                             <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                            <input type="hidden" hidden value="<?php echo $defaultPass; ?>" required name="password" class="form-control">
+
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Work Email</label>
@@ -374,33 +378,25 @@ require_once('public/partials/_head.php');
                                                             <label for="">Employee ID</label>
                                                             <input type="text" required name="employee_id" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-4">
+                                                        <div class="form-group col-md-3">
                                                             <label for="">Rank</label>
                                                             <select class="form-control basic" name="rank">
                                                                 <option>System Administrator</option>
                                                                 <option>Education Administrator</option>
                                                             </select>
                                                         </div>
-                                                        <div class="form-group col-md-4">
+                                                        <div class="form-group col-md-3">
                                                             <label for="">Gender</label>
                                                             <select class="form-control basic" name="gender">
                                                                 <option>Male</option>
                                                                 <option>Female</option>
                                                             </select>
                                                         </div>
-                                                        <div class="form-group col-md-4">
+                                                        <div class="form-group col-md-3">
                                                             <label for="">Date Employed</label>
                                                             <input type="date" placeholder="DD-MM-YYYY" required name="date_employed" class="form-control">
                                                         </div>
-
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Password</label>
-                                                            <input type="text" value="<?php echo $defaultPass; ?>" required name="password" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-3">
                                                             <label for="">Profile Picture</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
@@ -410,6 +406,9 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                         </div>
 
+                                                    </div>
+
+                                                    <div class="row">
                                                         <div class="form-group col-md-4">
                                                             <label for="">School / Faculty Code</label>
                                                             <select class="form-control basic" onchange="OptimizedFacultyDetails(this.value);" id="FacultyCode">
