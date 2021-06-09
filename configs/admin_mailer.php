@@ -38,15 +38,15 @@ while ($sys = $res->fetch_object()) {
     $mail->addAddress($email);
     $mail->Subject = 'Account Authentication Details';
     $mail->Body = '
-    <h2 style="color:Blue;">Welcome To ' . $sys->sys_name . '</h2>
-    <p>Hello ' . $name . ' This are your ' . $sys->sys_name . ' Login Credentials.<br>
+    <h2 style="color:Blue;">Welcome To ' . $sys->sysname . '</h2>
+    <p>Hello ' . $name . ' This are your ' . $sys->sysname . ' Login Credentials.<br>
     <hr>
 
-    <h3>Email: ' . $work_email . '</h3>
-    <h3>Password : ' . $password . '</h3>
+    <h3>Email: ' . $email . '</h3>
+    <h3>Password : ' . $mailed_password . '</h3>
 
     <br><br>
-    <b>Regards, Team ' . $sys->sys_name . '</b>
+    <b>Regards, Team ' . $sys->sysname . '</b>
     <br>
     ';
     $mail->isHTML(true);

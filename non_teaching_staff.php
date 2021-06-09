@@ -48,11 +48,14 @@ if (isset($_POST['add_non_teaching_staff'])) {
         $err = "Email Cannot Be Empty";
     }
     if (isset($_POST['password']) && !empty($_POST['password'])) {
-        $password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['password']))));
+        $mailed_password = mysqli_real_escape_string($mysqli, trim((($_POST['password']))));
     } else {
         $error = 1;
         $err = "Password Cannot Be Empty";
     }
+    /* Hashed Password */
+    $hashed_password = sha1(md5($mailed_password));
+
     if (isset($_POST['rank']) && !empty($_POST['rank'])) {
         $rank = mysqli_real_escape_string($mysqli, trim($_POST['rank']));
     } else {
@@ -101,10 +104,10 @@ if (isset($_POST['add_non_teaching_staff'])) {
 
             $query = "INSERT INTO ezanaLMS_Admins (id, name, email, password, rank, phone, adr, profile_pic, gender, employee_id, date_employed, school, school_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssssssssss', $id, $name, $email, $password, $rank, $phone, $adr, $profile_pic, $gender, $employee_id, $date_employed, $school, $school_id);
+            $rc = $stmt->bind_param('sssssssssssss', $id, $name, $email, $hashed_password, $rank, $phone, $adr, $profile_pic, $gender, $employee_id, $date_employed, $school, $school_id);
             $stmt->execute();
             /* Load Mailer */
-            require_once('config/mail.php');
+            require_once('configs/admin_mailer.php');
             if ($stmt && $mail->send()) {
                 $success = "Non Teaching Staff Added" && header("refresh:1; url=non_teaching_staff.php");
             } else {
