@@ -89,7 +89,7 @@ while ($sys = $res->fetch_object()) {
                             </div>
                         </div>
                         <div class="container-login100-form-btn">
-                            <button type="submit" name="reset_pwd" class="login100-form-btn">
+                            <button type="submit" name="reset" class="login100-form-btn">
                                 Reset Password
                             </button>
                         </div>
