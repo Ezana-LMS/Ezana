@@ -99,7 +99,7 @@ while ($sys = $res->fetch_object()) {
                                             <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                                This is your lecturer account authentication credentials: <br>
                                                <b>Email: ' . $email . '</b><br>
-                                               <b>Password:' . $mailed_password . '</b><br>
+                                               <b>Password: ' . $mailed_password . '</b><br>
                                                <br>
                                                Kindly change them after login.
                                                <br>
