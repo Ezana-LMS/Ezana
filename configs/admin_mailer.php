@@ -75,7 +75,7 @@ while ($sys = $res->fetch_object()) {
                         <tr>
                             <td style="text-align:center;">
                               <a href="https://ezana.org" title="logo" target="_blank">
-                                <img width="60" src="https://ezana.org/logo.png" title="logo" alt=" Ezana LMS">
+                                <img width="80" src="https://ezana.org/logo.png" title="logo" alt=" Ezana LMS">
                               </a>
                             </td>
                         </tr>
@@ -101,7 +101,7 @@ while ($sys = $res->fetch_object()) {
                                             <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                                This is your account authentication credentials <br>
                                                <b>Email: '.$email.'</b><br>
-                                               <b>Password:'.$mailed_password.'</b><br>
+                                               <b>Password: '.$mailed_password.'</b><br>
                                                <br>
                                                Kindly change them after login.
                                                <br>

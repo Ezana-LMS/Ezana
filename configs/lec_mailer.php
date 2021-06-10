@@ -73,7 +73,7 @@ while ($sys = $res->fetch_object()) {
                         <tr>
                             <td style="text-align:center;">
                               <a href="https://ezana.org" title="logo" target="_blank">
-                                <img width="60" src="https://ezana.org/logo.png" title="logo" alt=" Ezana LMS">
+                                <img width="80" src="https://ezana.org/logo.png" title="logo" alt=" Ezana LMS">
                               </a>
                             </td>
                         </tr>
