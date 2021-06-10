@@ -35,6 +35,7 @@ $stmt->execute(); //ok
 $res = $stmt->get_result();
 while ($sys = $res->fetch_object()) {
     $mail->setFrom($sys->stmp_sent_from);
+    $mail->FromName = $sys->sysname;
     $mail->addAddress($email);
     $mail->Subject = 'Account Authentication Details';
     $mail->Body = '
