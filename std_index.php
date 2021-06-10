@@ -105,7 +105,7 @@ while ($sys = $res->fetch_object()) {
                                 </label>
                             </div> -->
                             <div>
-                                <a href="std_reset_password.php" target="_blank" class="txt1">
+                                <a href="std_reset_password.php" class="txt1">
                                     Forgot Password?
                                 </a>
                             </div>
