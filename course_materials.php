@@ -43,12 +43,13 @@ if (isset($_POST['add_reading_materials'])) {
         $err = "Module Name Cannot Be Empty";
     }
     if (!$error) {
+        $time = date("d-M-Y") . "-" . time();
         $id = $_POST['id'];
         $visibility = $_POST['visibility'];
         $module_name  = $_POST['module_name'];
         $module_code = $_POST['module_code'];
-        $readingMaterials = $_FILES['readingMaterials']['name'];
-        move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "public/uploads/EzanaLMSData/Reading_Materials/" . $_FILES["readingMaterials"]["name"]);
+        $readingMaterials = $time.$_FILES['readingMaterials']['name'];
+        move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "public/uploads/EzanaLMSData/Reading_Materials/" .$time.$_FILES["readingMaterials"]["name"]);
         $external_link = $_POST['external_link'];
         $faculty = $_POST['faculty'];
         /* Module ID  */
@@ -389,7 +390,6 @@ require_once('public/partials/_head.php');
                                                                                             <div class="form-group col-md-4">
                                                                                                 <label for="">Reading Materials Visibility</label>
                                                                                                 <select class='form-control basic' name="visibility">
-                                                                                                    <option selected><?php echo $rm->visibility; ?></option>
                                                                                                     <option>Available</option>
                                                                                                     <option>Hidden</option>
                                                                                                 </select>
