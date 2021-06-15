@@ -57,10 +57,11 @@ if (isset($_POST['add_class_recording'])) {
         $details  = $_POST['details'];
         $created_at  = date('d M Y');
         $faculty = $_POST['faculty'];
+        $time = date("d-M-Y") . "-" . time();
         /* Clip Handling Logic */
-        $video = $_FILES['video']['name'];
+        $video = $time.$_FILES['video']['name'];
         $target_dir = "public/uploads/EzanaLMSData/ClassVideos/";
-        $target_file = $target_dir . $_FILES["video"]["name"];
+        $target_file = $target_dir .$time. $_FILES["video"]["name"];
 
         // Select file type
         $videoFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -119,6 +120,7 @@ if (isset($_POST['update_class_recording'])) {
         $err = "Video Transcription Cannot Be Empty";
     }
     if (!$error) {
+        $time = date("d-M-Y") . "-" . time();
         $id = $_POST['id'];
         $view = $_POST['view'];
         $class_name = $_POST['class_name'];
@@ -129,7 +131,7 @@ if (isset($_POST['update_class_recording'])) {
         /* Clip Handling Logic */
         $video = $_FILES['video']['name'];
         $target_dir = "public/uploads/EzanaLMSData/ClassVideos/";
-        $target_file = $target_dir . $_FILES["video"]["name"];
+        $target_file = $target_dir .$time. $_FILES["video"]["name"];
 
         // Select file type
         $videoFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
