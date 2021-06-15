@@ -93,14 +93,15 @@ if (isset($_POST['add_non_teaching_staff'])) {
 
             }
         } else {
+            $time = date("d-M-Y") . "-" . time();
             $gender = $_POST['gender'];
             $employee_id = $_POST['employee_id'];
             $date_employed = $_POST['date_employed'];
             $school  = $_POST['school'];
             $school_id = $_POST['school_id'];
 
-            $profile_pic = $_FILES['profile_pic']['name'];
-            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/admins/" . $_FILES["profile_pic"]["name"]);
+            $profile_pic = $time.$_FILES['profile_pic']['name'];
+            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/admins/" .$time. $_FILES["profile_pic"]["name"]);
 
             $query = "INSERT INTO ezanaLMS_Admins (id, name, email, password, rank, phone, adr, profile_pic, gender, employee_id, date_employed, school, school_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
