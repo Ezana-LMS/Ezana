@@ -198,7 +198,7 @@ if (isset($_POST['add_memo'])) {
     $time = date("d-M-Y") . "-" . time();
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
-    $attachments = $_FILES['attachments']['name'];
+    $attachments = $time.$_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time.$_FILES["attachments"]["name"]);
     $departmental_memo = $_POST['departmental_memo'];
     $type = $_POST['type'];
@@ -231,7 +231,7 @@ if (isset($_POST['update'])) {
     $id = $_POST['id'];
     $time = date("d-M-Y") . "-" . time();
     $departmental_memo = $_POST['departmental_memo'];
-    $attachments = $_FILES['attachments']['name'];
+    $attachments = $time.$_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time.$_FILES["attachments"]["name"]);
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
@@ -257,7 +257,7 @@ if (isset($_POST['add_departmental_doc'])) {
     $time = date("d-M-Y") . "-" . time();
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
-    $attachments = $_FILES['attachments']['name'];
+    $attachments = $time.$_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/". $time.$_FILES["attachments"]["name"]);
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
@@ -279,7 +279,7 @@ if (isset($_POST['add_departmental_doc'])) {
 if (isset($_POST['update_departmental_doc'])) {
 
     $id = $_POST['id'];
-    $attachments = $_FILES['attachments']['name'];
+    $attachments = $time.$_FILES['attachments']['name'];
     move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" .$time. $_FILES["attachments"]["name"]);
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
@@ -958,7 +958,6 @@ require_once('public/partials/_head.php');
                                                                                                                             <div class="form-group col-md-6">
                                                                                                                                 <label for="">Type</label>
                                                                                                                                 <select class='form-control basic' name="type">
-                                                                                                                                    <option selected><?php echo $memo->type; ?></option>
                                                                                                                                     <option>Notice</option>
                                                                                                                                     <option>Memo</option>
                                                                                                                                 </select>

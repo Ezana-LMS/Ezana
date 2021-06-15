@@ -94,10 +94,11 @@ if (isset($_POST['add_module'])) {
 /* Add Course Notice / Memo */
 if (isset($_POST['add_memo'])) {
     $id = $_POST['id'];
+    $time = date("d-M-Y") . "-" . time();
     $course_id = $_POST['course_id'];
     $course_name = $_POST['course_name'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    $attachments = $time.$_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" .$time. $_FILES["attachments"]["name"]);
     $course_memo = $_POST['course_memo'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
@@ -130,10 +131,11 @@ if (isset($_POST['add_memo'])) {
 /* Update Course Notices And Memo */
 if (isset($_POST['update_memo'])) {
     $id = $_POST['id'];
+    $time = date("d-M-Y") . "-" . time();
     $course_id = $_POST['course_id'];
     $course_name = $_POST['course_name'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    $attachments = $time.$_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" .$time. $_FILES["attachments"]["name"]);
     $course_memo = $_POST['course_memo'];
     $created_at = date('d M Y g:i');
     $faculty = $_POST['faculty'];
@@ -495,8 +497,8 @@ require_once('public/partials/_head.php');
                                                                     <div class="modal fade" id="view-<?php echo $memo->id; ?>">
                                                                         <div class="modal-dialog  modal-lg">
                                                                             <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <h4 class="modal-title"><?php echo $course->name; ?> Memo Created On <span class='text-success'><?php echo date('d M Y g:ia', strtotime($memo->created_on)); ?></span></h4>
+                                                                                <div class="modal-header text-justified">
+                                                                                    <h4 class="modal-title"><?php echo $course->name; ?> Memo Created On <br> <span class='text-success'><?php echo date('d M Y g:ia', strtotime($memo->created_on)); ?></span></h4>
                                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                         <span aria-hidden="true">&times;</span>
                                                                                     </button>
