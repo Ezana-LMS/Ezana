@@ -27,8 +27,10 @@ check_login();
 /* Update Profile Picture */
 if (isset($_POST['update_picture'])) {
     $id= $_SESSION['id'];
+    /* Timestamp File Uploads */
+    $time = date("d-M-Y") . "-" . time();
     $profile_pic = $_FILES['profile_pic']['name'];
-    move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/admins/" . $_FILES["profile_pic"]["name"]);
+    move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/admins/" . $time.$_FILES["profile_pic"]["name"]);
     $query = "UPDATE ezanaLMS_Admins  SET  profile_pic =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('ss', $profile_pic, $id);
@@ -321,12 +323,11 @@ require_once('public/partials/_head.php');
                                                     <div class="modal-body">
                                                         <form method='post' enctype="multipart/form-data" class="form-horizontal">
                                                             <div class="form-group row">
-                                                                <label for="inputSkills" class="col-sm-2 col-form-label">Profile Picture</label>
-                                                                <div class="col-sm-10">
+                                                                <div class="col-sm-12">
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
                                                                             <input type="file" name="profile_pic" class="custom-file-input" id="exampleInputFile">
-                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                            <label class="custom-file-label " for="exampleInputFile">Choose file</label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -415,7 +416,6 @@ require_once('public/partials/_head.php');
                                                         <div class="form-group col-md-6">
                                                             <label for="">Rank</label>
                                                             <select class="form-control basic" name="rank">
-                                                                <option><?php echo $admin->rank; ?></option>
                                                                 <option>System Administrator</option>
                                                                 <option>Education Administrator</option>
                                                             </select>
@@ -423,7 +423,6 @@ require_once('public/partials/_head.php');
                                                         <div class="form-group col-md-6">
                                                             <label for="">Gender</label>
                                                             <select class="form-control basic" name="gender">
-                                                                <option><?php echo $admin->gender; ?></option>
                                                                 <option>Male</option>
                                                                 <option>Female</option>
                                                             </select>
