@@ -130,7 +130,6 @@ if (isset($_POST['update_module'])) {
     }
 }
 
-
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
