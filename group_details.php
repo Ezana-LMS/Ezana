@@ -161,10 +161,11 @@ if (isset($_GET['delete_Announcement'])) {
 /* Add Group Assignments */
 if (isset($_POST['add_group_project'])) {
     $id = $_POST['id'];
+    $time = date("d-M-Y") . "-" . time();
     $details = $_POST['details'];
     $faculty = $_POST['faculty'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["attachments"]["name"]);
+    $attachments = $time.$_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $time. $_FILES["attachments"]["name"]);
     $submitted_on = $_POST['submitted_on'];
     $group_code = $_POST['group_code'];
     $group_name  = $_POST['group_name'];
@@ -187,10 +188,11 @@ if (isset($_POST['add_group_project'])) {
 /* Update Group Assignments */
 if (isset($_POST['edit_group_project'])) {
     $id = $_POST['id'];
+    $time = date("d-M-Y") . "-" . time();
     $details = $_POST['details'];
     $faculty = $_POST['faculty'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["attachments"]["name"]);
+    $attachments = $time.$_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $time. $_FILES["attachments"]["name"]);
     $submitted_on = $_POST['submitted_on'];
     $group_code = $_POST['group_code'];
     $group_name  = $_POST['group_name'];

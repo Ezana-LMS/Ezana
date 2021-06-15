@@ -47,8 +47,8 @@ if (isset($_POST["upload"])) {
     /* Where Magic Happens */
 
     if (in_array($_FILES["file"]["type"], $allowedFileType)) {
-
-        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $_FILES['file']['name'];
+        $time = date("d-M-Y") . "-" . time();
+        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' .$time.$_FILES['file']['name'];
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -62,7 +62,8 @@ if (isset($_POST["upload"])) {
 
             $id = "";
             if (isset($spreadSheetAry[$i][0])) {
-                $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
+                /* Load Mumble Jumble Here */
+                $id = sha1(md5(mysqli_real_escape_string($conn, $spreadSheetAry[$i][0])));
             }
 
             $number = "";

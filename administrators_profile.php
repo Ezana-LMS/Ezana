@@ -28,8 +28,9 @@ check_login();
 /* Update Profile Picture */
 if (isset($_POST['update_picture'])) {
     $view = $_GET['view'];
-    $profile_pic = $_FILES['profile_pic']['name'];
-    move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/admins/" . $_FILES["profile_pic"]["name"]);
+    $time = date("d-M-Y") . "-" . time();
+    $profile_pic = $time.$_FILES['profile_pic']['name'];
+    move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/admins/" . $time. $_FILES["profile_pic"]["name"]);
     $query = "UPDATE ezanaLMS_Admins  SET  profile_pic =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('ss', $profile_pic, $view);
@@ -187,11 +188,12 @@ if (isset($_POST['change_password'])) {
 
 /* Add Department Memo */
 if (isset($_POST['add_memo'])) {
+    $time = date("d-M-Y") . "-" . time();
     $id = $_POST['id'];
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    $attachments = $time.$_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time.$_FILES["attachments"]["name"]);
     $departmental_memo = $_POST['departmental_memo'];
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
@@ -211,11 +213,12 @@ if (isset($_POST['add_memo'])) {
 
 /* Add Departmental Documents */
 if (isset($_POST['add_departmental_doc'])) {
+    $time = date("d-M-Y") . "-" . time();
     $id = $_POST['id'];
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    $attachments = $time.$_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time.$_FILES["attachments"]["name"]);
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
@@ -402,8 +405,7 @@ require_once('public/partials/_head.php');
                                                     <div class="modal-body">
                                                         <form method='post' enctype="multipart/form-data" class="form-horizontal">
                                                             <div class="form-group row">
-                                                                <label for="inputSkills" class="col-sm-2 col-form-label">Profile Picture</label>
-                                                                <div class="col-sm-10">
+                                                                <div class="col-sm-12">
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
                                                                             <input type="file" name="profile_pic" class="custom-file-input" id="exampleInputFile">
@@ -464,7 +466,7 @@ require_once('public/partials/_head.php');
                                                                         <label for="">Department Name</label>
                                                                         <input type="text" required name="department_name" id="DepartmentName" class="form-control">
                                                                         <input type="hidden" required name="department_id" id="DepartmentID" class="form-control">
-                                                                        <input type="hidden" required name="faculty_id" id="FacultyID" class="form-control">
+                                                                        <input type="hidden" required name="faculty" value="<?php echo $admin->school_id;?>" class="form-control">
                                                                     </div>
                                                                     <div class="form-group col-md-4">
                                                                         <label for="">Memo Notice Attachment (PDF Or Docx)</label>
@@ -661,7 +663,6 @@ require_once('public/partials/_head.php');
                                                                     <div class="form-group col-md-3">
                                                                         <label for="">Rank</label>
                                                                         <select class="form-control basic" name="rank">
-                                                                            <option><?php echo $admin->rank; ?></option>
                                                                             <option>System Administrator</option>
                                                                             <option>Education Administrator</option>
                                                                         </select>
@@ -669,7 +670,6 @@ require_once('public/partials/_head.php');
                                                                     <div class="form-group col-md-3">
                                                                         <label for="">Gender</label>
                                                                         <select class="form-control basic" name="gender">
-                                                                            <option><?php echo $admin->gender; ?></option>
                                                                             <option>Male</option>
                                                                             <option>Female</option>
                                                                         </select>
@@ -779,7 +779,7 @@ require_once('public/partials/_head.php');
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE type !='Departmental Document' AND faculty_id = '$admin->school_id' ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_DepartmentalMemos` WHERE faculty_id = '$admin->school_id' AND  type = 'Memo' || type = 'Notice'  ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();

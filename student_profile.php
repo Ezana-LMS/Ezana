@@ -29,8 +29,9 @@ check_login();
 
 if (isset($_POST['update_picture'])) {
     $view = $_GET['view'];
-    $profile_pic = $_FILES['profile_pic']['name'];
-    move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
+    $time = date("d-M-Y") . "-" . time();
+    $profile_pic = $time.$_FILES['profile_pic']['name'];
+    move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $time. $_FILES["profile_pic"]["name"]);
 
     $query = "UPDATE ezanaLMS_Students  SET  profile_pic =? WHERE id =?";
     $stmt = $mysqli->prepare($query);

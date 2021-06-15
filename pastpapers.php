@@ -36,16 +36,17 @@ if (isset($_POST['add_paper'])) {
         $err = "Course Name Cannot Be Empty";
     }
     if (!$error) {
+        $time = date("d-M-Y") . "-" . time();
         $faculty = $_POST['faculty'];
         $module_name = $_POST['module_name'];
         $id = $_POST['id'];
         $course_name = $_POST['course_name'];
         $paper_name = $_POST['paper_name'];
         $paper_visibility = $_POST['paper_visibility'];
-        $pastpaper = $_FILES['pastpaper']['name'];
+        $pastpaper = $time . $_FILES['pastpaper']['name'];
         /* Module ID */
         $module_id = $_POST['module_id'];
-        move_uploaded_file($_FILES["pastpaper"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $_FILES["pastpaper"]["name"]);
+        move_uploaded_file($_FILES["pastpaper"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $time . $_FILES["pastpaper"]["name"]);
 
         $query = "INSERT INTO ezanaLMS_PastPapers (id, paper_name, paper_visibility, faculty_id, course_name, module_name,  pastpaper) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
@@ -62,12 +63,13 @@ if (isset($_POST['add_paper'])) {
 
 /* Upload Solution */
 if (isset($_POST['upload_solution'])) {
+    $time = date("d-M-Y") . "-" . time();
     $id = $_POST['id'];
     $solution_visibility = $_POST['solution_visibility'];
-    $solution = $_FILES['solution']['name'];
+    $solution = $time . $_FILES['solution']['name'];
     /* Module ID */
     $module_id = $_POST['module_id'];
-    move_uploaded_file($_FILES["solution"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $_FILES["solution"]["name"]);
+    move_uploaded_file($_FILES["solution"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $time . $_FILES["solution"]["name"]);
     $query = "UPDATE ezanaLMS_PastPapers SET solution_visibility = ?, solution =? WHERE id = ?  ";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('sss', $solution_visibility, $solution, $id);
@@ -449,12 +451,8 @@ require_once('public/partials/_head.php');
                                                                                 <!-- Form -->
                                                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                                                     <div class="card-body">
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <input type="hidden" required name="id" value="<?php echo $pastExas->id; ?>" class="form-control">
-                                                                                                <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                                            </div>
-                                                                                        </div>
+                                                                                        <input type="hidden" required name="id" value="<?php echo $pastExas->id; ?>" class="form-control">
+                                                                                        <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="">Exam Paper Name</label>
@@ -463,7 +461,6 @@ require_once('public/partials/_head.php');
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Exam Paper Visibility / Availability</label>
                                                                                                 <select class='form-control basic' name="paper_visibility">
-                                                                                                    <option selected><?php echo $pastExas->paper_visibility; ?></option>
                                                                                                     <option>Available</option>
                                                                                                     <option>Hidden</option>
                                                                                                 </select>
@@ -471,7 +468,6 @@ require_once('public/partials/_head.php');
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Exam Paper Solution Visibility / Availability</label>
                                                                                                 <select class='form-control basic' name="solution_visibility">
-                                                                                                    <option selected><?php echo $pastExas->solution_visibility; ?></option>
                                                                                                     <option>Available</option>
                                                                                                     <option>Hidden</option>
                                                                                                 </select>

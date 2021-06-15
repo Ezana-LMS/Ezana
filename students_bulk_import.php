@@ -30,6 +30,7 @@ if (isset($_POST['add_student'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (!$error) {
+        $time = date("d-M-Y") . "-" . time();
         $id = $_POST['id'];
         $name = $_POST['name'];
         $email = $_POST['email'];
@@ -50,8 +51,8 @@ if (isset($_POST['add_student'])) {
         $current_year = $_POST['current_year'];
         $no_of_modules = $_POST['no_of_modules'];
 
-        $profile_pic = $_FILES['profile_pic']['name'];
-        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
+        $profile_pic = $time.$_FILES['profile_pic']['name'];
+        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $time.$_FILES["profile_pic"]["name"]);
 
         $sql = "SELECT * FROM ezanaLMS_Students WHERE email='$email' || phone ='$phone' || idno = '$idno' || admno ='$admno' ";
 
@@ -105,8 +106,8 @@ if (isset($_POST["upload"])) {
     /* Where Magic Happens */
 
     if (in_array($_FILES["file"]["type"], $allowedFileType)) {
-
-        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $_FILES['file']['name'];
+        $time = date("d-M-Y") . "-" . time();
+        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' .$time.$_FILES['file']['name'];
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -120,7 +121,7 @@ if (isset($_POST["upload"])) {
 
             $id = "";
             if (isset($spreadSheetAry[$i][0])) {
-                $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
+                $id = sha1(md5(mysqli_real_escape_string($conn, $spreadSheetAry[$i][0])));
             }
 
             $admno = "";
@@ -180,10 +181,7 @@ if (isset($_POST["upload"])) {
                 $current_year = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
             }
 
-            $no_of_modules = "";
-            if (isset($spreadSheetAry[$i][12])) {
-                $no_of_modules = mysqli_real_escape_string($conn, $spreadSheetAry[$i][12]);
-            }
+            
 
             /* Constant Values */
             $faculty_id = $_POST['faculty_id'];
@@ -197,8 +195,8 @@ if (isset($_POST["upload"])) {
 
 
             if (!empty($name) || !empty($admno) || !empty($idno) || !empty($email) || !empty($gender)) {
-                $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, no_of_modules, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                $paramType = "sssssssssssssssssss";
+                $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $paramType = "ssssssssssssssssss";
                 $paramArray = array(
                     $id,
                     $faculty_id,
@@ -207,7 +205,6 @@ if (isset($_POST["upload"])) {
                     $course,
                     $department,
                     $current_year,
-                    $no_of_modules,
                     $name,
                     $email,
                     $phone,

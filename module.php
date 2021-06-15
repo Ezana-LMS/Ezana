@@ -87,6 +87,7 @@ if (isset($_POST['add_notice'])) {
     }
     if (!$error) {
         $id = $_POST['id'];
+        $time = date("d-M-Y") . "-" . time();
         $module_name  = $_POST['module_name'];
         $module_code = $_POST['module_code'];
         $announcements = $_POST['announcements'];
@@ -94,8 +95,8 @@ if (isset($_POST['add_notice'])) {
         $faculty_id = $_POST['faculty_id'];
         $module_id = $_POST['module_id'];
 
-        $attachments = $_FILES['attachments']['name'];
-        move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+        $attachments = $time.$_FILES['attachments']['name'];
+        move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" .$time.$_FILES["attachments"]["name"]);
         $query = "INSERT INTO ezanaLMS_ModulesAnnouncements (id, module_name, module_code, announcements, created_by,attachments, faculty_id) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('sssssss', $id, $module_name, $module_code, $announcements, $created_by, $attachments, $faculty_id);
@@ -301,7 +302,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Type Module Announcements</label>
-                                                                    <textarea required  name="announcements" rows="20" class="form-control Summernote"></textarea>
+                                                                    <textarea   name="announcements" placeholder="Type Module Announcement" rows="20" class="form-control Summernote"></textarea>
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
                                                                     <input type="hidden" value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">

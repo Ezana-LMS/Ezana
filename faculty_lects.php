@@ -47,8 +47,8 @@ if (isset($_POST["upload"])) {
     /* Where Magic Happens */
 
     if (in_array($_FILES["file"]["type"], $allowedFileType)) {
-
-        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $_FILES['file']['name'];
+        $time = date("d-M-Y") . "-" . time();
+        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $time.$_FILES['file']['name'];
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -62,7 +62,7 @@ if (isset($_POST["upload"])) {
 
             $id = "";
             if (isset($spreadSheetAry[$i][0])) {
-                $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
+                $id = sha1(md5(mysqli_real_escape_string($conn, $spreadSheetAry[$i][0])));
             }
 
             $number = "";
@@ -215,6 +215,7 @@ if (isset($_POST['add_lec'])) {
                 $err = "Lecturer Number Already Exists";
             }
         } else {
+            $time = date("d-M-Y") . "-" . time();
             $faculty_id = $_POST['faculty_id'];
             $faculty_name = $_POST['faculty_name'];
             $gender = $_POST['gender'];
@@ -230,8 +231,8 @@ if (isset($_POST['add_lec'])) {
             $adr = $_POST['adr'];
             $created_at = date('d M Y');
             $password = sha1(md5($_POST['password']));
-            $profile_pic = $_FILES['profile_pic']['name'];
-            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $_FILES["profile_pic"]["name"]);
+            $profile_pic = $time. $_FILES['profile_pic']['name'];
+            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $time . $_FILES["profile_pic"]["name"]);
 
             $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, gender, faculty_name, work_email, employee_id, date_employed, name, email, phone, idno, adr, profile_pic, created_at, password, number) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
