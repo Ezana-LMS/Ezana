@@ -371,7 +371,7 @@ require_once('public/partials/_head.php');
                                 <div class="row">
                                     <div class="col-md-12">
                                         <!-- Perform Crud On Faculties -->
-                                        <table id="example1" class="table table-responsive table-bordered table-striped">
+                                        <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>Code Number</th>

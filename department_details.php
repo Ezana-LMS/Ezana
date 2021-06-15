@@ -195,10 +195,11 @@ if (isset($_POST['add_announcement'])) {
 /* Add Memo / Notice */
 if (isset($_POST['add_memo'])) {
     $id = $_POST['id'];
+    $time = date("d-M-Y") . "-" . time();
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
     $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time.$_FILES["attachments"]["name"]);
     $departmental_memo = $_POST['departmental_memo'];
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
@@ -228,9 +229,10 @@ if (isset($_POST['add_memo'])) {
 if (isset($_POST['update'])) {
 
     $id = $_POST['id'];
+    $time = date("d-M-Y") . "-" . time();
     $departmental_memo = $_POST['departmental_memo'];
     $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time.$_FILES["attachments"]["name"]);
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
@@ -252,10 +254,11 @@ if (isset($_POST['update'])) {
 /* Add Departmental Documents */
 if (isset($_POST['add_departmental_doc'])) {
     $id = $_POST['id'];
+    $time = date("d-M-Y") . "-" . time();
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
     $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/". $_FILES["attachments"]["name"]);
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/". $time.$_FILES["attachments"]["name"]);
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
@@ -277,7 +280,7 @@ if (isset($_POST['update_departmental_doc'])) {
 
     $id = $_POST['id'];
     $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" .$time. $_FILES["attachments"]["name"]);
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
