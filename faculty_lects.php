@@ -62,7 +62,8 @@ if (isset($_POST["upload"])) {
 
             $id = "";
             if (isset($spreadSheetAry[$i][0])) {
-                $id = sha1(md5(mysqli_real_escape_string($conn, $spreadSheetAry[$i][0])));
+                /* Some Realy Messsed Up Shit Here */
+                $id = sha1(md5(rand(mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]), date('Y'))));
             }
 
             $number = "";
@@ -491,8 +492,8 @@ require_once('public/partials/_head.php');
                                     </form>
                                     <div class="text-left">
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-import-lecs">Import Lecturers</button>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Lecturer</button>
-                                    </div>
+<!--                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Lecturer</button>
+ -->                                    </div>
                                     <!-- Add Lecturer Modal -->
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-xl">
