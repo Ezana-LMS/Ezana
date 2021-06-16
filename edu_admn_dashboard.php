@@ -38,6 +38,20 @@ if (isset($_GET['notification'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+/* Delete User Requests */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $adn = "DELETE FROM ezanaLMS_UserRequests WHERE id = ?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=edu_admn_dashboard.php");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('public/partials/_head.php');
 ?>
 
