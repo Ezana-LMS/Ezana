@@ -25,6 +25,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 lec_check_login();
 require_once('configs/codeGen.php');
+$time = date("d-M-Y") . "-" . time();
 
 /*  Update Module*/
 if (isset($_POST['update_module'])) {
@@ -96,8 +97,8 @@ if (isset($_POST['add_notice'])) {
         $faculty_id = $_POST['faculty_id'];
         $module_id = $_POST['module_id'];
 
-        $attachments = $_FILES['attachments']['name'];
-        move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+        $attachments = $time.$_FILES['attachments']['name'];
+        move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time. $_FILES["attachments"]["name"]);
         $query = "INSERT INTO ezanaLMS_ModulesAnnouncements (id, module_name, module_code, announcements, created_by,attachments, faculty_id) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('sssssss', $id, $module_name, $module_code, $announcements, $created_by, $attachments, $faculty_id);
@@ -196,7 +197,7 @@ require_once('public/partials/_head.php');
                                                                     <label for="">Upload Module Memo (PDF Or Docx)</label>
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
-                                                                            <input name="attachments" accept=".pdf, .docx, .doc" type="file" class="custom-file-input">
+                                                                            <input name="attachments"  accept=".pdf, .docx, .doc" type="file" class="custom-file-input">
                                                                             <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                         </div>
                                                                     </div>
