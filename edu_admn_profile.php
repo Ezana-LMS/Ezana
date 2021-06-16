@@ -24,12 +24,14 @@ session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
+/* Timestamp Errythang */
+$time = date("d-M-Y") . "-" . time();
 
 /* Update Profile Picture */
 if (isset($_POST['update_picture'])) {
     $id = $_SESSION['id'];
-    $profile_pic = $_FILES['profile_pic']['name'];
-    move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/admins/" . $_FILES["profile_pic"]["name"]);
+    $profile_pic = $time.$_FILES['profile_pic']['name'];
+    move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/admins/" . $time. $_FILES["profile_pic"]["name"]);
     $query = "UPDATE ezanaLMS_Admins  SET  profile_pic =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('ss', $profile_pic, $id);
@@ -228,8 +230,7 @@ require_once('public/partials/_head.php');
                                                 <div class="modal-body">
                                                     <form method='post' enctype="multipart/form-data" class="form-horizontal">
                                                         <div class="form-group row">
-                                                            <label for="inputSkills" class="col-sm-2 col-form-label">Profile Picture</label>
-                                                            <div class="col-sm-10">
+                                                            <div class="col-sm-12">
                                                                 <div class="input-group">
                                                                     <div class="custom-file">
                                                                         <input type="file" name="profile_pic" class="custom-file-input" id="exampleInputFile">

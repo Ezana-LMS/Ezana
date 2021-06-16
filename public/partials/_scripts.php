@@ -122,14 +122,14 @@
         }
     }
     /* Faculty Clear Notifications */
-    function setDeleteAction() {
+    function setEduDeleteAction() {
         if (confirm("Are you sure want to clear these notifications?")) {
             document.notificationsForm.action = "edu_admn_notifications_clear.php";
             document.notificationsForm.submit();
         }
     }
     /* Lec Clear Notifications */
-    function setDeleteAction() {
+    function setLecDeleteAction() {
         if (confirm("Are you sure want to clear these notifications?")) {
             document.notificationsForm.action = "lec_notifications_clear.php";
             document.notificationsForm.submit();
