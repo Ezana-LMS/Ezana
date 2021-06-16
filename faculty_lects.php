@@ -521,6 +521,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <input type="hidden" required name="faculty_name" class="form-control" value="<?php echo $faculty->name; ?>">
                                                                 <input type="hidden" required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
+                                                                <input type="hidden" required name="password" value="<?php echo $defaultPass; ?>" class="form-control">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="">Name</label>
                                                                     <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
