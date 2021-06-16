@@ -24,6 +24,7 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+require_once('configs/DataSource.php');
 
 /* Bulk Import On Students */
 
@@ -36,7 +37,6 @@ require_once('vendor/PHPMailer/src/SMTP.php');
 require_once('vendor/PHPMailer/src/PHPMailer.php');
 require_once('vendor/PHPMailer/src/Exception.php');
 
-require_once('configs/DataSource.php');
 $db = new DataSource();
 $conn = $db->getConnection();
 require_once('vendor/autoload.php');
@@ -58,8 +58,6 @@ if (isset($_POST["upload"])) {
 
         /* Initaite XLS Class */
         $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-        /* Initiate Mailer */
-        $mail = new PHPMailer\PHPMailer\PHPMailer();
 
         $spreadSheet = $Reader->load($targetPath);
         $excelSheet = $spreadSheet->getActiveSheet();
@@ -68,7 +66,6 @@ if (isset($_POST["upload"])) {
 
         /* Decode XLS File */
         for ($i = 1; $i <= $sheetCount; $i++) {
-
             $id = "";
             if (isset($spreadSheetAry[$i][0])) {
                 $id = sha1(md5(rand(mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]), date('Y'))));
@@ -142,6 +139,8 @@ if (isset($_POST["upload"])) {
             $mailed_password = substr(str_shuffle("QWERTYUIOPwertyuioplkjLKJHGFDSAZXCVBNM1234567890qhgfdsazxcvbnm"), 1, 8);
             $password = sha1(md5($mailed_password));
 
+            /* Initiate Mailer */
+            $mail = new PHPMailer\PHPMailer\PHPMailer();
             /* Load System Settings And Mailer */
             $ret = "SELECT * FROM `ezanaLMS_Settings` ";
             $stmt = $mysqli->prepare($ret);
@@ -164,7 +163,7 @@ if (isset($_POST["upload"])) {
                 $mail->Port = 465;
                 $mail->Username = $sys->stmp_username;
                 $mail->Password = $sys->stmp_password;
-                $mail->body = '
+                $mail->Body = '
                     <body marginheight="0" topmargin="0" marginwidth="0" style="margin: 0px; background-color: #f2f3f8;" leftmargin="0">
                         <!--100% body table-->
                         <table cellspacing="0" border="0" cellpadding="0" width="100%" bgcolor="#f2f3f8"
@@ -200,7 +199,7 @@ if (isset($_POST["upload"])) {
                                                                 style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                                             <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                                                 Hi ' . $name . ', <br>
-                                                                We’re thrilled to have you as a student  at ' . $sys->sysname . '.
+                                                                We are thrilled to have you as a student  at ' . $sys->sysname . '.
                                                             </p>
                                                             <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                                             This is your default student account authentication credentials: <br>
@@ -238,47 +237,48 @@ if (isset($_POST["upload"])) {
                     </body>
                 ';
             }
-        }
 
-        if (!empty($name) || !empty($admno) || !empty($idno) || !empty($email) || !empty($gender)) {
-            $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            $paramType = "ssssssssssssssssss";
-            $paramArray = array(
-                $id,
-                $faculty_id,
-                $day_enrolled,
-                $school,
-                $course,
-                $department,
-                $current_year,
-                $name,
-                $email,
-                $phone,
-                $admno,
-                $idno,
-                $adr,
-                $dob,
-                $gender,
-                $acc_status,
-                $created_at,
-                $password
 
-            );
-            $insertId = $db->insert($query, $paramType, $paramArray);
 
-            if (!empty($insertId)) {
-                $err = "Error Occured While Importing Data";
-            } else if ($mail->send()) {
-                $success = "Data Imported" && header("refresh:1; url=students_bulk_import.php");
-            } else {
-                $err = "$mail->ErrorInfo";
+            if (!empty($name) || !empty($admno) || !empty($idno) || !empty($email) || !empty($gender)) {
+                $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $paramType = "ssssssssssssssssss";
+                $paramArray = array(
+                    $id,
+                    $faculty_id,
+                    $day_enrolled,
+                    $school,
+                    $course,
+                    $department,
+                    $current_year,
+                    $name,
+                    $email,
+                    $phone,
+                    $admno,
+                    $idno,
+                    $adr,
+                    $dob,
+                    $gender,
+                    $acc_status,
+                    $created_at,
+                    $password
+
+                );
+                $insertId = $db->insert($query, $paramType, $paramArray);
+
+                if (!empty($insertId)) {
+                    $err = "Error Occured While Importing Data";
+                } elseif ($mail->send()) {
+                    $success = "Data Imported" && header("refresh:1; url=students_bulk_import.php");
+                } else {
+                    $err = "$mail->ErrorInfo";
+                }
             }
         }
+    } else {
+        $info = "Invalid File Type. Upload Excel File.";
     }
-} else {
-    $info = "Invalid File Type. Upload Excel File.";
 }
-
 
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
