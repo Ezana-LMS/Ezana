@@ -133,7 +133,7 @@ if (isset($_POST["upload"])) {
             $mailed_password = substr(str_shuffle("QWERTYUIOPwertyuioplkjLKJHGFDSAZXCVBNM1234567890qhgfdsazxcvbnm"), 1, 8);
             $password = sha1(md5($mailed_password));
             /* Load Bulk Students Mailer */
-            require_once('configs/bulk_student_mailer.php');
+            include('configs/bulk_student_mailer.php');
             if (!empty($name) || !empty($admno) || !empty($idno) || !empty($email) || !empty($gender)) {
                 $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 $paramType = "ssssssssssssssssss";
