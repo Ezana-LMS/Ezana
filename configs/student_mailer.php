@@ -97,7 +97,7 @@ while ($sys = $res->fetch_object()) {
                                                  We’re thrilled to have you as a student  at ' . $sys->sysname . '.
                                             </p>
                                             <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                               This is your student account authentication credentials: <br>
+                                               This is your default student account authentication credentials: <br>
                                                <b>Email: ' . $email . '</b><br>
                                                <b>Password: ' . $mailed_password . '</b><br>
                                                <br>

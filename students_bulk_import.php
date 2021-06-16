@@ -25,67 +25,7 @@ require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
 
-/* Add STD */
-if (isset($_POST['add_student'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (!$error) {
-        $time = date("d-M-Y") . "-" . time();
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-        $admno = $_POST['admno'];
-        $idno = $_POST['idno'];
-        $adr = $_POST['adr'];
-        $dob = $_POST['dob'];
-        $gender = $_POST['gender'];
-        $acc_status = 'Active';
-        $created_at = date('d M Y');
-        $password = sha1(md5($_POST['password']));
-        $faculty_id = $_POST['faculty_id'];
-        $day_enrolled = $_POST['day_enrolled'];
-        $school = $_POST['school'];
-        $course = $_POST['course'];
-        $department = $_POST['department'];
-        $current_year = $_POST['current_year'];
-        $no_of_modules = $_POST['no_of_modules'];
-
-        $profile_pic = $time.$_FILES['profile_pic']['name'];
-        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $time.$_FILES["profile_pic"]["name"]);
-
-        $sql = "SELECT * FROM ezanaLMS_Students WHERE email='$email' || phone ='$phone' || idno = '$idno' || admno ='$admno' ";
-
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if ($email == $row['email']) {
-                $err = "Account With This Email Already Exists";
-            } elseif ($admno == $row['admno']) {
-                $err = "Student Admission Number Already Exists";
-            } elseif ($idno == $row['idno']) {
-                $err = "National ID Number / Passport Number Already Exists";
-            } else {
-                $err = "Account With That Phone Number Exists";
-            }
-        } else {
-
-            $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, no_of_modules, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssssssssssssssss', $id, $faculty_id, $day_enrolled, $school, $course, $department, $current_year, $no_of_modules, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $acc_status, $created_at, $password, $profile_pic);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "Student Add " && header("refresh:1; url=students.php");
-            } else {
-                //inject alert that profile update task failed
-                $info = "Please Try Again Or Try Later";
-            }
-        }
-    }
-}
-
 /* Bulk Import On Students */
-
 use EzanaLmsAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -121,7 +61,7 @@ if (isset($_POST["upload"])) {
 
             $id = "";
             if (isset($spreadSheetAry[$i][0])) {
-                $id = sha1(md5(mysqli_real_escape_string($conn, $spreadSheetAry[$i][0])));
+                $id = sha1(md5(rand(mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]), date('Y'))));
             }
 
             $admno = "";
@@ -182,8 +122,7 @@ if (isset($_POST["upload"])) {
             }
 
             
-
-            /* Constant Values */
+            /* Constant Values K */
             $faculty_id = $_POST['faculty_id'];
             $school = $_POST['school'];
             $course = $_POST['course'];
@@ -191,7 +130,8 @@ if (isset($_POST["upload"])) {
             $created_at = date("d M Y");
 
             /* Default Student Account Password */
-            $password = sha1(md5("Student"));
+            $mailed_password = substr(str_shuffle("QWERTYUIOPwertyuioplkjLKJHGFDSAZXCVBNM1234567890qhgfdsazxcvbnm"), 1, 8);
+            $password = sha1(md5($mailed_password));
 
 
             if (!empty($name) || !empty($admno) || !empty($idno) || !empty($email) || !empty($gender)) {
@@ -219,10 +159,15 @@ if (isset($_POST["upload"])) {
 
                 );
                 $insertId = $db->insert($query, $paramType, $paramArray);
+                /* Load Mailer */
+                require_once('configs/student_mailer.php');
                 if (!empty($insertId)) {
                     $err = "Error Occured While Importing Data";
-                } else {
+                } else if($mail->send()) {
                     $success = "Data Imported" && header("refresh:1; url=students_bulk_import.php");
+                }
+                else{
+                    $err = "$mail->ErrorInfo";
                 }
             }
         }
