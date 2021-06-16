@@ -226,7 +226,6 @@ require_once('public/partials/_head.php');
                                                                 <th data-toggle="true">Student Name</th>
                                                                 <th>Module Name</th>
                                                                 <th>Module Code</th>
-                                                                <th>Attachment File</th>
                                                                 <th data-hide="all">Manage</th>
                                                             </tr>
                                                         </thead>

@@ -20,6 +20,7 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+
 session_start();
 require_once('configs/config.php');
 require_once('configs/checklogin.php');
@@ -30,6 +31,7 @@ if (isset($_POST['add_student'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (!$error) {
+        $time = date("d-M-Y") . "-" . time();
         $id = $_POST['id'];
         $name = $_POST['name'];
         $email = $_POST['email'];
@@ -52,8 +54,8 @@ if (isset($_POST['add_student'])) {
         /* Faculty ID  */
         $view = $_GET['view'];
 
-        $profile_pic = $_FILES['profile_pic']['name'];
-        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
+        $profile_pic = $time. $_FILES['profile_pic']['name'];
+        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" .$time. $_FILES["profile_pic"]["name"]);
 
         $sql = "SELECT * FROM ezanaLMS_Students WHERE email='$email' || phone ='$phone' || idno = '$idno' || admno ='$admno' ";
 

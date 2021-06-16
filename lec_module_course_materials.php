@@ -25,6 +25,8 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 lec_check_login();
 require_once('configs/codeGen.php');
+$time = date("d-M-Y") . "-" . time();
+
 
 /* Add Course Materials */
 if (isset($_POST['add_reading_materials'])) {
@@ -47,8 +49,8 @@ if (isset($_POST['add_reading_materials'])) {
         $visibility = $_POST['visibility'];
         $module_name  = $_POST['module_name'];
         $module_code = $_POST['module_code'];
-        $readingMaterials = $_FILES['readingMaterials']['name'];
-        move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "public/uploads/EzanaLMSData/Reading_Materials/" . $_FILES["readingMaterials"]["name"]);
+        $readingMaterials = $time.$_FILES['readingMaterials']['name'];
+        move_uploaded_file($_FILES["readingMaterials"]["tmp_name"], "public/uploads/EzanaLMSData/Reading_Materials/" . $time. $_FILES["readingMaterials"]["name"]);
         $external_link = $_POST['external_link'];
         $faculty = $_POST['faculty'];
         /* Module ID  */

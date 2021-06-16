@@ -25,6 +25,8 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
+/* Timestamp Everything */
+$time = date("d-M-Y") . "-" . time();
 
 /* Add Module */
 if (isset($_POST['add_module'])) {
@@ -97,8 +99,8 @@ if (isset($_POST['add_memo'])) {
     $id = $_POST['id'];
     $course_id = $_POST['course_id'];
     $course_name = $_POST['course_name'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    $attachments = $time.$_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time. $_FILES["attachments"]["name"]);
     $course_memo = $_POST['course_memo'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
@@ -133,8 +135,8 @@ if (isset($_POST['update_memo'])) {
     $id = $_POST['id'];
     $course_id = $_POST['course_id'];
     $course_name = $_POST['course_name'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    $attachments = $time.$_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time. $_FILES["attachments"]["name"]);
     $course_memo = $_POST['course_memo'];
     $created_at = date('d M Y g:i');
     $faculty = $_POST['faculty'];

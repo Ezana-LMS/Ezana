@@ -25,6 +25,9 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
+/* Timestamp Errythang */
+$time = date("d-M-Y") . "-" . time();
+
 
 /* Bulk Import Lecturers Via .XLS  */
 
@@ -49,7 +52,7 @@ if (isset($_POST["upload"])) {
 
     if (in_array($_FILES["file"]["type"], $allowedFileType)) {
 
-        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $_FILES['file']['name'];
+        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $time. $_FILES['file']['name'];
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -127,8 +130,12 @@ if (isset($_POST["upload"])) {
             $faculty_name = $_POST['faculty_name'];
             $created_at = date("d M Y");
 
-            /* Default Lecturer Account Password */
-            $password = sha1(md5("Lecturer"));
+            /* Default Student Account Password */
+            $mailed_password = substr(str_shuffle("QWERTYUIOPwertyuioplkjLKJHGFDSAZXCVBNM1234567890qhgfdsazxcvbnm"), 1, 8);
+            $password = sha1(md5($mailed_password));
+
+            /* Load Lec Mailer */
+            include('configs/bulk_lec_mailer.php');
 
 
             if (!empty($name) || !empty($employee_id) || !empty($idno) || !empty($email) || !empty($number)) {
@@ -155,8 +162,10 @@ if (isset($_POST["upload"])) {
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
                     $err = "Error Occured While Importing Data";
+                } else if ($mail->send()) {
+                    $success = "Data Imported" && header("refresh:1; url=lecturers_bulk_import.php");
                 } else {
-                    $success = "Data Imported" && header("refresh:1; url=edu_admn_lecturers.php?view=$view");
+                    $err = "$mail->ErrorInfo";
                 }
             }
         }
@@ -232,8 +241,8 @@ if (isset($_POST['add_lec'])) {
             $created_at = date('d M Y');
             $mailed_password = ($_POST['password']);
             $hashed_password = sha1(md5($mailed_password));
-            $profile_pic = $_FILES['profile_pic']['name'];
-            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $_FILES["profile_pic"]["name"]);
+            $profile_pic = $time.$_FILES['profile_pic']['name'];
+            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" .$time. $_FILES["profile_pic"]["name"]);
 
             $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, gender, faculty_name, work_email, employee_id, date_employed, name, email, phone, idno, adr, profile_pic, created_at, password, number) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);

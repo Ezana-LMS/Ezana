@@ -25,6 +25,9 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+/* Timestamp Errythang */
+$time = date("d-M-Y") . "-" . time();
+
 
 /* Add Assignment */
 if (isset($_POST['add_assignment'])) {
@@ -34,10 +37,10 @@ if (isset($_POST['add_assignment'])) {
     $id = $_POST['id'];
     $module_code = $_POST['module_code'];
     $submission_deadline = $_POST['submission_deadline'];
-    $attachments = $_FILES['attachments']['name'];
+    $attachments = $time.$_FILES['attachments']['name'];
     /* Module ID */
     $module_id = $_POST['module_id'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments/" . $_FILES["attachments"]["name"]);
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments/" . $time. $_FILES["attachments"]["name"]);
 
     $query = "INSERT INTO ezanaLMS_ModuleAssignments (id, faculty, module_code, module_name, submission_deadline, attachments) VALUES(?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
@@ -57,11 +60,11 @@ if (isset($_POST['update_assignment'])) {
 
     $id = $_POST['id'];
     $submission_deadline = $_POST['submission_deadline'];
-    $attachments = $_FILES['attachments']['name'];
+    $attachments = $time.$_FILES['attachments']['name'];
     /* Module ID */
     $module_id = $_POST['module_id'];
 
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments/" . $_FILES["attachments"]["name"]);
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments/" .$time. $_FILES["attachments"]["name"]);
     $query = "UPDATE ezanaLMS_ModuleAssignments SET submission_deadline = ?, attachments =? WHERE id = ?";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('sss', $submission_deadline, $attachments, $id);

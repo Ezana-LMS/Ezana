@@ -25,6 +25,8 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 lec_check_login();
 require_once('configs/codeGen.php');
+$time = date("d-M-Y") . "-" . time();
+
 
 /* Add Group Announcements */
 if (isset($_POST['add_notice'])) {
@@ -164,8 +166,8 @@ if (isset($_POST['add_group_project'])) {
     $id = $_POST['id'];
     $details = $_POST['details'];
     $faculty = $_POST['faculty'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["attachments"]["name"]);
+    $attachments = $time.$_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $time. $_FILES["attachments"]["name"]);
     $submitted_on = $_POST['submitted_on'];
     $group_code = $_POST['group_code'];
     $group_name  = $_POST['group_name'];
@@ -190,8 +192,8 @@ if (isset($_POST['edit_group_project'])) {
     $id = $_POST['id'];
     $details = $_POST['details'];
     $faculty = $_POST['faculty'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $_FILES["attachments"]["name"]);
+    $attachments = $time. $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects/" . $time. $_FILES["attachments"]["name"]);
     $submitted_on = $_POST['submitted_on'];
     $group_code = $_POST['group_code'];
     $group_name  = $_POST['group_name'];
@@ -337,7 +339,9 @@ require_once('public/partials/_head.php');
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
-                                                <div class="modal fade" id="modal-assignment">
+                                            </div>
+                                        </div>
+                                        <div class="modal fade" id="modal-assignment">
                                                     <div class="modal-dialog  modal-xl">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -391,8 +395,6 @@ require_once('public/partials/_head.php');
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
                                     </nav>
                                 </div>
                                 <hr>

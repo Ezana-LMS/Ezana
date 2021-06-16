@@ -25,6 +25,9 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+/* Timestamp Errythang */
+$time = date("d-M-Y") . "-" . time();
+
 
 /*  Update Module*/
 if (isset($_POST['update_module'])) {
@@ -96,8 +99,8 @@ if (isset($_POST['add_notice'])) {
         $faculty_id = $_POST['faculty_id'];
         $module_id = $_POST['module_id'];
 
-        $attachments = $_FILES['attachments']['name'];
-        move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+        $attachments = $time. $_FILES['attachments']['name'];
+        move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time. $_FILES["attachments"]["name"]);
         $query = "INSERT INTO ezanaLMS_ModulesAnnouncements (id, module_name, module_code, announcements, created_by,attachments, faculty_id) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('sssssss', $id, $module_name, $module_code, $announcements, $created_by, $attachments, $faculty_id);

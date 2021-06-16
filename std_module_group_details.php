@@ -25,13 +25,15 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 std_check_login();
 require_once('configs/codeGen.php');
+$time = date("d-M-Y") . "-" . time();
+
 /* Upload Group Assignment */
 if (isset($_POST['submit_project'])) {
     $id = $_POST['id'];
     $project_id = $_POST['project_id'];
     $faculty_id = $_POST['faculty_id'];
-    $Submitted_Files = $_FILES['Submitted_Files']['name'];
-    move_uploaded_file($_FILES["Submitted_Files"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects_Attemps/" . $_FILES["Submitted_Files"]["name"]);
+    $Submitted_Files = $time.$_FILES['Submitted_Files']['name'];
+    move_uploaded_file($_FILES["Submitted_Files"]["tmp_name"], "public/uploads/EzanaLMSData/Group_Projects_Attemps/" . $time. $_FILES["Submitted_Files"]["name"]);
     $group_code = $_POST['group_code'];
     $group_name  = $_POST['group_name'];
     /* Module ID */

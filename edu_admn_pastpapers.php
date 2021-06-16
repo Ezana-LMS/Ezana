@@ -25,6 +25,9 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+/* Timestamp Errythang */
+$time = date("d-M-Y") . "-" . time();
+
 
 /* Add Past papers */
 if (isset($_POST['add_paper'])) {
@@ -43,10 +46,10 @@ if (isset($_POST['add_paper'])) {
         $course_name = $_POST['course_name'];
         $paper_name = $_POST['paper_name'];
         $paper_visibility = $_POST['paper_visibility'];
-        $pastpaper = $_FILES['pastpaper']['name'];
+        $pastpaper = $time. $_FILES['pastpaper']['name'];
         /* Module ID */
         $module_id = $_POST['module_id'];
-        move_uploaded_file($_FILES["pastpaper"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $_FILES["pastpaper"]["name"]);
+        move_uploaded_file($_FILES["pastpaper"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $time. $_FILES["pastpaper"]["name"]);
 
         $query = "INSERT INTO ezanaLMS_PastPapers (id, paper_name, paper_visibility, faculty_id, course_name, module_name,  pastpaper) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
@@ -65,10 +68,10 @@ if (isset($_POST['add_paper'])) {
 if (isset($_POST['upload_solution'])) {
     $id = $_POST['id'];
     $solution_visibility = $_POST['solution_visibility'];
-    $solution = $_FILES['solution']['name'];
+    $solution = $time.$_FILES['solution']['name'];
     /* Module ID */
     $module_id = $_POST['module_id'];
-    move_uploaded_file($_FILES["solution"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $_FILES["solution"]["name"]);
+    move_uploaded_file($_FILES["solution"]["tmp_name"], "public/uploads/EzanaLMSData/PastPapers/" . $time.$_FILES["solution"]["name"]);
     $query = "UPDATE ezanaLMS_PastPapers SET solution_visibility = ?, solution =? WHERE id = ?  ";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('sss', $solution_visibility, $solution, $id);

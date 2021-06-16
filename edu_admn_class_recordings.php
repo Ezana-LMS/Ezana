@@ -25,6 +25,9 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
+/* Timestamp Errythang */
+$time = date("d-M-Y") . "-" . time();
+
 
 /* Add Class Recordings  */
 if (isset($_POST['add_class_recording'])) {
@@ -59,9 +62,9 @@ if (isset($_POST['add_class_recording'])) {
         $created_at  = date('d M Y');
         $faculty = $_POST['faculty'];
         /* Clip Handling Logic */
-        $video = $_FILES['video']['name'];
+        $video = $time.$_FILES['video']['name'];
         $target_dir = "public/uploads/EzanaLMSData/ClassVideos/";
-        $target_file = $target_dir . $_FILES["video"]["name"];
+        $target_file = $target_dir . $time .  $_FILES["video"]["name"];
 
         // Select file type
         $videoFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -128,9 +131,9 @@ if (isset($_POST['update_class_recording'])) {
         $details  = $_POST['details'];
         $created_at  = date('d M Y');
         /* Clip Handling Logic */
-        $video = $_FILES['video']['name'];
+        $video = $time.$_FILES['video']['name'];
         $target_dir = "public/uploads/EzanaLMSData/ClassVideos/";
-        $target_file = $target_dir . $_FILES["video"]["name"];
+        $target_file = $target_dir . $time  . $_FILES["video"]["name"];
 
         // Select file type
         $videoFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));

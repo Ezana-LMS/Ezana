@@ -25,6 +25,8 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
+/* Timestamp Errythang */
+$time = date("d-M-Y") . "-" . time();
 
 if (isset($_POST['add_student'])) {
     //Error Handling and prevention of posting double entries
@@ -53,8 +55,8 @@ if (isset($_POST['add_student'])) {
         /* Faculty ID  */
         $view = $_GET['view'];
 
-        $profile_pic = $_FILES['profile_pic']['name'];
-        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $_FILES["profile_pic"]["name"]);
+        $profile_pic = $time.$_FILES['profile_pic']['name'];
+        move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/students/" . $time. $_FILES["profile_pic"]["name"]);
 
         $sql = "SELECT * FROM ezanaLMS_Students WHERE email='$email' || phone ='$phone' || idno = '$idno' || admno ='$admno' ";
 

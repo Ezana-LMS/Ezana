@@ -46,10 +46,10 @@ if (isset($_POST["upload"])) {
     ];
 
     /* Where Magic Happens */
-
+    $time = date("d-M-Y") . "-" . time();
     if (in_array($_FILES["file"]["type"], $allowedFileType)) {
 
-        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $_FILES['file']['name'];
+        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $time.$_FILES['file']['name'];
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -63,7 +63,8 @@ if (isset($_POST["upload"])) {
 
             $id = "";
             if (isset($spreadSheetAry[$i][0])) {
-                $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
+               /* Some Realy Messsed Up Shit Here */
+               $id = sha1(md5(rand(mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]), date('Y'))));
             }
 
             $number = "";
@@ -127,8 +128,12 @@ if (isset($_POST["upload"])) {
             $faculty_name = $_POST['faculty_name'];
             $created_at = date("d M Y");
 
-            /* Default Lecturer Account Password */
-            $password = sha1(md5("Lecturer"));
+            /* Default Student Account Password */
+            $mailed_password = substr(str_shuffle("QWERTYUIOPwertyuioplkjLKJHGFDSAZXCVBNM1234567890qhgfdsazxcvbnm"), 1, 8);
+            $password = sha1(md5($mailed_password));
+
+            /* Load Lec Mailer */
+            include('configs/bulk_lec_mailer.php');
 
 
             if (!empty($name) || !empty($employee_id) || !empty($idno) || !empty($email) || !empty($number)) {
@@ -155,8 +160,10 @@ if (isset($_POST["upload"])) {
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
                     $err = "Error Occured While Importing Data";
+                } else if ($mail->send()) {
+                    $success = "Data Imported" && header("refresh:1; url=faculty_lects.php?view=$view");
                 } else {
-                    $success = "Data Imported" && header("refresh:1; url=edu_admn_faculty_lects.php?view=$view");
+                    $err = "$mail->ErrorInfo";
                 }
             }
         }
@@ -216,6 +223,7 @@ if (isset($_POST['add_lec'])) {
                 $err = "Lecturer Number Already Exists";
             }
         } else {
+            $time = date("d-M-Y") . "-" . time();
             $faculty_id = $_POST['faculty_id'];
             $faculty_name = $_POST['faculty_name'];
             $gender = $_POST['gender'];
@@ -230,22 +238,29 @@ if (isset($_POST['add_lec'])) {
             $idno  = $_POST['idno'];
             $adr = $_POST['adr'];
             $created_at = date('d M Y');
-            $password = sha1(md5($_POST['password']));
-            $profile_pic = $_FILES['profile_pic']['name'];
-            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $_FILES["profile_pic"]["name"]);
+            /* Mail clean password */
+            $mailed_password = (($_POST['password']));
+            /* Persiste Encrypted Password */
+            $password = sha1(md5($mailed_password));
+            $profile_pic = $time . $_FILES['profile_pic']['name'];
+            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $time . $_FILES["profile_pic"]["name"]);
 
             $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, gender, faculty_name, work_email, employee_id, date_employed, name, email, phone, idno, adr, profile_pic, created_at, password, number) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ssssssssssssssss', $id, $faculty_id, $gender, $faculty_name, $work_email, $employee_id, $date_employed, $name, $email, $phone, $idno, $adr, $profile_pic, $created_at, $password, $number);
             $stmt->execute();
-            if ($stmt) {
+            /* Load Lec Mailer */
+            require_once('configs/lec_mailer.php');
+            if ($stmt && $mail->send()) {
                 $success = "Lecturer Added" && header("refresh:1; url=edu_admn_faculty_lects.php?view=$faculty_id");;
             } else {
-                $info = "Please Try Again Or Try Later";
+                //inject alert that profile update task failed
+                $info = "Please Try Again Or Try Later $mail->ErrorInfo";
             }
         }
     }
 }
+
 
 /* Update Lec */
 if (isset($_POST['update_lec'])) {
@@ -406,12 +421,10 @@ require_once('public/partials/_head.php');
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Faculty Name</label>
-                                                                    <input type="text" required name="faculty_name" class="form-control" value="<?php echo $faculty->name; ?>">
-                                                                    <input type="hidden" required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
+                                                                <input type="hidden" required name="faculty_name" class="form-control" value="<?php echo $faculty->name; ?>">
+                                                                <input type="hidden" required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
+                                                                <input type="hidden" required name="password" value="<?php echo $defaultPass; ?>" class="form-control">
+                                                                <div class="form-group col-md-12">
                                                                     <label for="">Name</label>
                                                                     <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
@@ -448,20 +461,15 @@ require_once('public/partials/_head.php');
                                                             </div>
 
                                                             <div class="row">
-
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Default Password</label>
-                                                                    <input type="text" value="Lecturer" required name="password" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
+                                                                <div class="form-group col-md-4">
                                                                     <label for="">Employee ID</label>
                                                                     <input type="text" required name="employee_id" class="form-control">
                                                                 </div>
-                                                                <div class="form-group col-md-6">
+                                                                <div class="form-group col-md-4">
                                                                     <label for="">Date Employed</label>
                                                                     <input type="date" required name="date_employed" placeholder="DD - MM - YYYY" class="form-control">
                                                                 </div>
-                                                                <div class="form-group col-md-6">
+                                                                <div class="form-group col-md-4">
                                                                     <label for="">Profile Picture</label>
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
