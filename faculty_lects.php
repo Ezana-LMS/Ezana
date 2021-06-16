@@ -493,6 +493,7 @@ require_once('public/partials/_head.php');
                         </div>
                     </div>
 
+
                     <section class="content">
                         <div class="container-fluid">
                             <div class="">
