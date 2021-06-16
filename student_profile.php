@@ -77,7 +77,7 @@ if (isset($_POST['change_password'])) {
             $hashed_password = sha1(md5($mailed_password));
             $query = "UPDATE ezanaLMS_Students SET  password =? WHERE id =?";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ss', $new_password, $view);
+            $rc = $stmt->bind_param('ss', $hashed_password, $view);
             $stmt->execute();
             /* Mail New Password */
             require_once('configs/password_reset_mailer.php');
