@@ -26,8 +26,15 @@ check_login();
 require_once('configs/codeGen.php');
 
 /* Bulk Import On Students */
+
 use EzanaLmsAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
+/* Load Mailer */
+
+require_once('vendor/PHPMailer/src/SMTP.php');
+require_once('vendor/PHPMailer/src/PHPMailer.php');
+require_once('vendor/PHPMailer/src/Exception.php');
 
 require_once('configs/DataSource.php');
 $db = new DataSource();
@@ -44,10 +51,9 @@ if (isset($_POST["upload"])) {
     ];
 
     /* Where Magic Happens */
-
     if (in_array($_FILES["file"]["type"], $allowedFileType)) {
         $time = date("d-M-Y") . "-" . time();
-        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' .$time.$_FILES['file']['name'];
+        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $time . $_FILES['file']['name'];
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -90,7 +96,6 @@ if (isset($_POST["upload"])) {
             }
 
 
-
             $dob = "";
             if (isset($spreadSheetAry[$i][6])) {
                 $dob = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
@@ -121,7 +126,7 @@ if (isset($_POST["upload"])) {
                 $current_year = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
             }
 
-            
+
             /* Constant Values K */
             $faculty_id = $_POST['faculty_id'];
             $school = $_POST['school'];
@@ -132,6 +137,118 @@ if (isset($_POST["upload"])) {
             /* Default Student Account Password */
             $mailed_password = substr(str_shuffle("QWERTYUIOPwertyuioplkjLKJHGFDSAZXCVBNM1234567890qhgfdsazxcvbnm"), 1, 8);
             $password = sha1(md5($mailed_password));
+
+            /* Load Mailer */
+            function sendEmail($email, $name)
+            {
+                require_once('configs/config.php');
+                /* Load System Settings */
+                $ret = "SELECT * FROM `ezanaLMS_Settings` ";
+                $stmt = $mysqli->prepare($ret);
+                $stmt->execute(); //ok
+                $res = $stmt->get_result();
+                while ($sys = $res->fetch_object()) {
+                    $mail = new PHPMailer\PHPMailer\PHPMailer();
+                    $mail->IsSMTP();
+                    $mail->Host = $sys->stmp_host;
+                    $mail->Port = 465;
+                    $mail->SMTPAuth = true;
+                    $mail->SMTPSecure = 'ssl';
+                    $mail->Username = $sys->stmp_username;
+                    $mail->Password = $sys->stmp_password;
+                    $mail->From = $username;
+                    $mail->FromName = $sys->sysname;
+                    $mail->clearAddresses();
+                    $mail->Subject = 'Welcome';
+                    $mail->IsHTML(true);
+                    $mail->addAddress($email, $name);     // Add a recipient
+                    $mail->Body = '
+                    <body marginheight="0" topmargin="0" marginwidth="0" style="margin: 0px; background-color: #f2f3f8;" leftmargin="0">
+                        <!--100% body table-->
+                        <table cellspacing="0" border="0" cellpadding="0" width="100%" bgcolor="#f2f3f8"
+                            style="@import url(https://fonts.googleapis.com/css?family=Rubik:300,400,500,700|Open+Sans:300,400,600,700); font-family: "Open Sans", sans-serif;">
+                            <tr>
+                                <td>
+                                    <table style="background-color: #f2f3f8; max-width:670px;  margin:0 auto;" width="100%" border="0"
+                                        align="center" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="height:80px;">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;">
+                                            <a href="https://ezana.org" title="logo" target="_blank">
+                                                <img width="80" src="https://ezana.org/logo.png" title="logo" alt=" Ezana LMS">
+                                            </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height:20px;">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0"
+                                                    style="max-width:670px;background:#fff; border-radius:3px; text-align:center;-webkit-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);-moz-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);box-shadow:0 6px 18px 0 rgba(0,0,0,.06);">
+                                                    <tr>
+                                                        <td style="height:40px;">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding:0 35px;">
+                                                            <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:"Rubik",sans-serif;">Welcome To  ' . $sys->sysname . '</h1>
+                                                            <span
+                                                                style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
+                                                            <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
+                                                                Hi ' . $name . ', <br>
+                                                                We’re thrilled to have you as a student  at ' . $sys->sysname . '.
+                                                            </p>
+                                                            <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
+                                                            This is your default student account authentication credentials: <br>
+                                                            <b>Email: ' . $email . '</b><br>
+                                                            <b>Password: ' . $mailed_password . '</b><br>
+                                                            <br>
+                                                            Kindly change them after login.
+                                                            <br>
+                                                            <br>
+                                                            Kind Regards<br>
+                                                            Ezana LMS Team
+                                                            </p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="height:40px;">&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        <tr>
+                                            <td style="height:20px;">&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;">
+                                                <p style="font-size:14px; color:rgba(69, 80, 86, 0.7411764705882353); line-height:18px; margin:0 0 0;">&copy; <strong>www.ezana.org</strong></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="height:80px;">&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </body>
+                    ';
+
+                    if (!$mail->send()) {
+                        error_log($mail->ErrorInfo);
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            }
+
+            foreach ($contacts as $contact) {
+                //create message here
+                sendEmail($contact->email, $contact->name);
+            }
 
 
             if (!empty($name) || !empty($admno) || !empty($idno) || !empty($email) || !empty($gender)) {
@@ -159,14 +276,12 @@ if (isset($_POST["upload"])) {
 
                 );
                 $insertId = $db->insert($query, $paramType, $paramArray);
-                /* Load Mailer */
-                require_once('configs/student_mailer.php');
+
                 if (!empty($insertId)) {
                     $err = "Error Occured While Importing Data";
-                } else if($mail->send()) {
+                } else if ($mail->send()) {
                     $success = "Data Imported" && header("refresh:1; url=students_bulk_import.php");
-                }
-                else{
+                } else {
                     $err = "$mail->ErrorInfo";
                 }
             }
@@ -306,146 +421,6 @@ require_once('public/partials/_head.php');
 
                 <section class="content">
                     <div class="container-fluid">
-                        <div class="">
-                            <nav class="navbar navbar-light bg-light col-md-12">
-                                <form class="form-inline">
-                                </form>
-                                <div class="text-right">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Student</button>
-                                </div>
-                                <!-- Add Student Modal -->
-                                <div class="modal fade" id="modal-default">
-                                    <div class="modal-dialog  modal-xl">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Fill All Values </h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Course Enrolled</label>
-                                                                <select class='form-control basic' id="CourseCode" onchange="getStudentCourseDetails(this.value);">
-                                                                    <option selected>Select Course Code </option>
-                                                                    <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` ";
-                                                                    $stmt = $mysqli->prepare($ret);
-                                                                    $stmt->execute(); //ok
-                                                                    $res = $stmt->get_result();
-                                                                    while ($courses = $res->fetch_object()) {
-                                                                    ?>
-                                                                        <option><?php echo $courses->code; ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Course Name</label>
-                                                                <input type="text" required name="course" class="form-control" id="CourseName">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Department Name</label>
-                                                                <input type="text" required name="department" class="form-control" id="DepartmentName">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Faculty / School Name</label>
-                                                                <input type="text" required name="school" class="form-control" id="FacultyName">
-                                                                <input type="hidden" required name="faculty_id" class="form-control" id="FacultyID">
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Current Year</label>
-                                                                <select name="current_year" class='form-control basic'>
-                                                                    <option>1st Year </option>
-                                                                    <option>2nd Year </option>
-                                                                    <option>3rd Year </option>
-                                                                    <option>4th Year </option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Date Enrolled</label>
-                                                                <input type="text" placeholder="DD - MM - YYYY" required name="day_enrolled" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">No Of Modules</label>
-                                                                <input type="text" required name="no_of_modules" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Name</label>
-                                                                <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Admission Number</label>
-                                                                <input type="text" required name="admno" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">ID / Passport Number</label>
-                                                                <input type="text" required name="idno" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Date Of Birth</label>
-                                                                <input type="text" placeholder="DD - MM - YYYY" required name="dob" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-4">
-                                                                <label for="">Gender</label>
-                                                                <select type="text" required name="gender" class="form-control basic">
-                                                                    <option>Male</option>
-                                                                    <option>Female</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Email</label>
-                                                                <input type="email" required name="email" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Phone Number</label>
-                                                                <input type="text" required name="phone" class="form-control">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row">
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Password</label>
-                                                                <input type="text" value="<?php echo $defaultPass; ?>" required name="password" class="form-control">
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="">Profile Picture</label>
-                                                                <div class="input-group">
-                                                                    <div class="custom-file">
-                                                                        <input required name="profile_pic" type="file" class="custom-file-input">
-                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="exampleInputPassword1">Current Address</label>
-                                                                <textarea required name="adr" rows="3" class="form-control"></textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-footer text-right">
-                                                        <button type="submit" name="add_student" class="btn btn-primary">Submit</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Student Modal -->
-                            </nav>
-                        </div>
                         <hr>
                         <div class="row">
                             <div class="col-12">
