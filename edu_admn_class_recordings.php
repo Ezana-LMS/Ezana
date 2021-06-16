@@ -131,7 +131,7 @@ if (isset($_POST['update_class_recording'])) {
         $details  = $_POST['details'];
         $created_at  = date('d M Y');
         /* Clip Handling Logic */
-        $video = $time().$_FILES['video']['name'];
+        $video = $time.$_FILES['video']['name'];
         $target_dir = "public/uploads/EzanaLMSData/ClassVideos/";
         $target_file = $target_dir . $time  . $_FILES["video"]["name"];
 
