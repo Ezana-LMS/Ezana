@@ -24,7 +24,8 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 check_login();
 require_once('configs/codeGen.php');
-
+/* Timestamp Errythang */
+$time = date("d-M-Y") . "-" . time();
 /* Bulk Import On Students */
 
 use EzanaLmsAPI\DataSource;
@@ -48,7 +49,7 @@ if (isset($_POST["upload"])) {
 
     if (in_array($_FILES["file"]["type"], $allowedFileType)) {
 
-        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $_FILES['file']['name'];
+        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $time . $_FILES['file']['name'];
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -62,7 +63,7 @@ if (isset($_POST["upload"])) {
 
             $id = "";
             if (isset($spreadSheetAry[$i][0])) {
-                $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
+                $id = sha1(md5(rand(mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]), date('Y'))));
             }
 
             $admno = "";
@@ -89,7 +90,6 @@ if (isset($_POST["upload"])) {
             if (isset($spreadSheetAry[$i][5])) {
                 $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][5]);
             }
-
 
 
             $dob = "";
@@ -135,7 +135,10 @@ if (isset($_POST["upload"])) {
             $created_at = date("d M Y");
 
             /* Default Student Account Password */
-            $password = sha1(md5("Student"));
+            $mailed_password = substr(str_shuffle("QWERTYUIOPwertyuioplkjLKJHGFDSAZXCVBNM1234567890qhgfdsazxcvbnm"), 1, 8);
+            $password = sha1(md5($mailed_password));
+            /* Load Bulk Students Mailer */
+            include('configs/bulk_student_mailer.php');
 
 
             if (!empty($name) || !empty($admno) || !empty($idno) || !empty($email) || !empty($gender)) {
@@ -163,11 +166,12 @@ if (isset($_POST["upload"])) {
                     $password
 
                 );
-                $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
                     $err = "Error Occured While Importing Data";
+                } elseif ($mail->send()) {
+                    $success = "Data Imported" && header("refresh:1; url=students_bulk_import.php");
                 } else {
-                    $success = "Data Imported" && header("refresh:1; url=edu_admn_students_bulk_import.php?view=$faculty_id");
+                    $err = "$mail->ErrorInfo";
                 }
             }
         }
