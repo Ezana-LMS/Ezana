@@ -25,6 +25,8 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 require_once('configs/codeGen.php');
 check_login();
+/* Timestamp Every Upload */
+$time = date("d-M-Y") . "-" . time();
 
 /* Add Course */
 if (isset($_POST['add_course'])) {
@@ -198,8 +200,8 @@ if (isset($_POST['add_memo'])) {
     $id = $_POST['id'];
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    $attachments = $time.$_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time. $_FILES["attachments"]["name"]);
     $departmental_memo = $_POST['departmental_memo'];
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
@@ -230,8 +232,8 @@ if (isset($_POST['update'])) {
 
     $id = $_POST['id'];
     $departmental_memo = $_POST['departmental_memo'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    $attachments = $time.$_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" .$time. $_FILES["attachments"]["name"]);
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
@@ -255,8 +257,8 @@ if (isset($_POST['add_departmental_doc'])) {
     $id = $_POST['id'];
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    $attachments = $time. $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time. $_FILES["attachments"]["name"]);
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
@@ -277,8 +279,8 @@ if (isset($_POST['add_departmental_doc'])) {
 if (isset($_POST['update_departmental_doc'])) {
 
     $id = $_POST['id'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $_FILES["attachments"]["name"]);
+    $attachments = $time.$_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time. $_FILES["attachments"]["name"]);
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];

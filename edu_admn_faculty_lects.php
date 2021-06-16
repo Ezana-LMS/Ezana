@@ -46,10 +46,10 @@ if (isset($_POST["upload"])) {
     ];
 
     /* Where Magic Happens */
-
+    $time = date("d-M-Y") . "-" . time();
     if (in_array($_FILES["file"]["type"], $allowedFileType)) {
 
-        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $_FILES['file']['name'];
+        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $time.$_FILES['file']['name'];
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -172,7 +172,6 @@ if (isset($_POST["upload"])) {
     }
 }
 
-/* Add Lects */
 /* Add Lects */
 if (isset($_POST['add_lec'])) {
     //Error Handling and prevention of posting double entries
