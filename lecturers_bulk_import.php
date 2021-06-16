@@ -48,7 +48,7 @@ if (isset($_POST["upload"])) {
 
     if (in_array($_FILES["file"]["type"], $allowedFileType)) {
         $time = date("d-M-Y") . "-" . time();
-        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' .$time.$_FILES['file']['name'];
+        $targetPath = 'public/uploads/EzanaLMSData/XLSFiles/' . $time . $_FILES['file']['name'];
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -96,7 +96,6 @@ if (isset($_POST["upload"])) {
                 $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][6]);
             }
 
-
             $work_email = "";
             if (isset($spreadSheetAry[$i][7])) {
                 $work_email = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
@@ -127,9 +126,12 @@ if (isset($_POST["upload"])) {
             $faculty_name = $_POST['faculty_name'];
             $created_at = date("d M Y");
 
-            /* Default Lecturer Account Password */
-            $password = sha1(md5("Lecturer"));
+            /* Default Student Account Password */
+            $mailed_password = substr(str_shuffle("QWERTYUIOPwertyuioplkjLKJHGFDSAZXCVBNM1234567890qhgfdsazxcvbnm"), 1, 8);
+            $password = sha1(md5($mailed_password));
 
+            /* Load Lec Mailer */
+            include('configs/bulk_lec_mailer.php');
 
             if (!empty($name) || !empty($employee_id) || !empty($idno) || !empty($email) || !empty($number)) {
                 $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, gender, faculty_name, work_email, employee_id, date_employed, name, email, phone, idno, adr, created_at, password, number, status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -155,8 +157,10 @@ if (isset($_POST["upload"])) {
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
                     $err = "Error Occured While Importing Data";
-                } else {
+                } else if ($mail->send()) {
                     $success = "Data Imported" && header("refresh:1; url=lecturers_bulk_import.php");
+                } else {
+                    $err = "$mail->ErrorInfo";
                 }
             }
         }
@@ -164,90 +168,6 @@ if (isset($_POST["upload"])) {
         $info = "Invalid File Type. Upload Excel File.";
     }
 }
-
-/* Add Lects */
-if (isset($_POST['add_lec'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['number']) && !empty($_POST['number'])) {
-        $number = mysqli_real_escape_string($mysqli, trim($_POST['number']));
-    } else {
-        $error = 1;
-        $err = "Lecturer Number Cannot Be Empty";
-    }
-    if (isset($_POST['idno']) && !empty($_POST['idno'])) {
-        $idno = mysqli_real_escape_string($mysqli, trim($_POST['idno']));
-    } else {
-        $error = 1;
-        $err = "National ID / Passport Number Cannot Be Empty";
-    }
-    if (isset($_POST['email']) && !empty($_POST['email'])) {
-        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
-    } else {
-        $error = 1;
-        $err = "Email Cannot Be Empty";
-    }
-    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
-        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
-    } else {
-        $error = 1;
-        $err = "Phone Number Cannot Be Empty";
-    }
-    if (isset($_POST['faculty_id']) && !empty($_POST['faculty_id'])) {
-        $faculty_id = mysqli_real_escape_string($mysqli, trim($_POST['faculty_id']));
-    } else {
-        $error = 1;
-        $err = "Faculty Cannot Be Empty";
-    }
-
-    if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Lecturers WHERE  email='$email' || phone ='$phone' || idno = '$idno' || number ='$number' ";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if ($email == $row['email']) {
-                $err =  "Account With This Email Already Exists";
-            } elseif ($phone == $row['phone']) {
-                $err = "Account With That Phone Number Exists";
-            } elseif ($idno == $row['idno']) {
-                $err = "National ID Number  / Passport Number Already Exists";
-            } else {
-                $err = "Lecturer Number Already Exists";
-            }
-        } else {
-            $faculty_id = $_POST['faculty_id'];
-            $faculty_name = $_POST['faculty_name'];
-            $gender = $_POST['gender'];
-            $work_email = $_POST['work_email'];
-            $employee_id = $_POST['employee_id'];
-            $date_employed = $_POST['date_employed'];
-            $id = $_POST['id'];
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $phone = $_POST['phone'];
-            $number = $_POST['number'];
-            $idno  = $_POST['idno'];
-            $adr = $_POST['adr'];
-            $created_at = date('d M Y');
-            $password = sha1(md5($_POST['password']));
-            $profile_pic = $_FILES['profile_pic']['name'];
-            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "public/uploads/UserImages/lecturers/" . $_FILES["profile_pic"]["name"]);
-
-            $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, gender, faculty_name, work_email, employee_id, date_employed, name, email, phone, idno, adr, profile_pic, created_at, password, number) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssssssssssss', $id, $faculty_id, $gender, $faculty_name, $work_email, $employee_id, $date_employed, $name, $email, $phone, $idno, $adr, $profile_pic, $created_at, $password, $number);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "Lecturer Added" && header("refresh:1; url=lecturers_bulk_import.php");
-            } else {
-                //inject alert that profile update task failed
-                $info = "Please Try Again Or Try Later";
-            }
-        }
-    }
-}
-require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
 
@@ -376,12 +296,6 @@ require_once('public/partials/_head.php');
                 </div>
 
                 <section class="content">
-                    <div class="container-fluid">
-                        <nav class="navbar navbar-light bg-light col-md-12">
-                            <form class="form-inline">
-                            </form>
-                        </nav>
-                    </div>
                     <hr>
                     <div class="row">
                         <div class="col-12">
