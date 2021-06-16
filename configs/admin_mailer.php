@@ -96,10 +96,10 @@ while ($sys = $res->fetch_object()) {
                                                 style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                             <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                                 Hi '.$name.', <br>
-                                                Welcome to the administrators team! We’re thrilled to have you as an administrator at '.$sys->sysname.'.
+                                                Welcome to the administrators team! We are thrilled to have you as an administrator at '.$sys->sysname.'.
                                             </p>
                                             <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                               This is your account authentication credentials <br>
+                                               This is your default account authentication credentials <br>
                                                <b>Email: '.$email.'</b><br>
                                                <b>Password: '.$mailed_password.'</b><br>
                                                <br>
