@@ -25,6 +25,8 @@ require_once('configs/config.php');
 require_once('configs/checklogin.php');
 std_check_login();
 require_once('configs/codeGen.php');
+$time = date("d-M-Y") . "-" . time();
+
 
 /* Add Student Grades */
 if (isset($_POST['add_attempt'])) {
@@ -34,8 +36,8 @@ if (isset($_POST['add_attempt'])) {
     $module_code = $_POST['module_code'];
     $std_name = $_POST['std_name'];
     $std_regno = $_POST['std_regno'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments_Attempts/" . $_FILES["attachments"]["name"]);
+    $attachments = $time.$_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments_Attempts/" .$time. $_FILES["attachments"]["name"]);
 
     /* Module ID */
     $module_id = $_POST['module_id'];
@@ -53,8 +55,8 @@ if (isset($_POST['add_attempt'])) {
 
 if (isset($_POST['update_attempt'])) {
     $id = $_POST['id'];
-    $attachments = $_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments_Attempts/" . $_FILES["attachments"]["name"]);
+    $attachments = $time . $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/Module_Assignments_Attempts/" . $time. $_FILES["attachments"]["name"]);
 
 
     $query = "UPDATE ezanaLMS_AssignmentsAttempts SET  attachments=?  WHERE id =?";
