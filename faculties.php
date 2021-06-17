@@ -274,11 +274,22 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Faculty Head</label>
-                                                                <input type="text" required name="head" class="form-control" id="exampleInputEmail1">
+                                                                <select class='form-control basic' id="FacultyHead" name="head" onchange="getFacultyHeadDetails(this.value);">
+                                                                    <option selected>Select Faculty Head</option>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Admins` ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    while ($admins = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <option><?php echo $admins->name; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Faculty Head Email</label>
-                                                                <input type="email" required name="email" class="form-control">
+                                                                <input type="email" required name="email" id="FacultyHeadEmail" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
