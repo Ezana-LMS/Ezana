@@ -78,40 +78,27 @@ if (isset($_POST['add_dept'])) {
 
 /* Update Faculty */
 if (isset($_POST['update_faculty'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['code']) && !empty($_POST['code'])) {
-        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
-    } else {
-        $error = 1;
-        $err = "Faculty Code Cannot Be Empty";
-    }
-    if (isset($_POST['name']) && !empty($_POST['name'])) {
-        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
-    } else {
-        $error = 1;
-        $err = "Faculty Name Cannot Be Empty";
-    }
-    if (!$error) {
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $code = $_POST['code'];
-        $details = $_POST['details'];
-        /* $head = $_POST['head'];
+
+
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $code = $_POST['code'];
+    $details = $_POST['details'];
+    /* $head = $_POST['head'];
         $email = $_POST['email']; */
 
-        $query = "UPDATE ezanaLMS_Faculties SET code =?, name =?, details =? WHERE id =?";
-        $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssss', $code, $name, $details, $id);
-        $stmt->execute();
-        if ($stmt) {
-            $success = "Added" && header("refresh:1; url=faculty_dashboard.php?view=$id");
-        } else {
-            //inject alert that profile update task failed
-            $info = "Please Try Again Or Try Later";
-        }
+    $query = "UPDATE ezanaLMS_Faculties SET code =?, name =?, details =? WHERE id =?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Added" && header("refresh:1; url=faculty_dashboard.php?view=$id");
+    } else {
+        //inject alert that profile update task failed
+        $info = "Please Try Again Or Try Later";
     }
 }
+
 
 /* Assign Faculty Head Or Update Faculty Head */
 if (isset($_POST['update_faculty_head'])) {
@@ -130,7 +117,7 @@ if (isset($_POST['update_faculty_head'])) {
             /* Allow User TO Update Faculty Head */
             $query = "UPDATE ezanaLMS_Faculties SET email =?, name =? WHERE id =?";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sss', $email, $name, $faculty_id);
+            $rc = $stmt->bind_param('sss', $email, $faculty_id);
             $stmt->execute();
             if ($stmt) {
                 $success = "Faculty Head Updated" && header("refresh:1; url=faculty_dashboard.php?view=$faculty_id");
@@ -138,10 +125,8 @@ if (isset($_POST['update_faculty_head'])) {
                 $info = "Please Try Again Or Try Later";
             }
         }
-
     } else {
         $err = "Incorrect Password, Please Try Again";
-
     }
 }
 
@@ -410,29 +395,29 @@ require_once('public/partials/_head.php');
                                                                     <!-- Hidden Values -->
                                                                     <input type="hidden" required name="id" value="<?php echo  $_SESSION['id']; ?>" class="form-control">
                                                                     <input type="hidden" required name="user_email" value="<?php echo $_SESSION['email']; ?>" class="form-control">
-                                                                    <input type="password" required name="password"  class="form-control">
-                                                                    <input type="hidden" required name="faculty_id" value="<?php echo $view;?>" class="form-control">
+                                                                    <input type="password" required name="password" class="form-control">
+                                                                    <input type="hidden" required name="faculty_id" value="<?php echo $view; ?>" class="form-control">
 
                                                                 </div>
                                                                 <div class="form-group col-md-12">
-                                                                <label for="">Faculty Head</label>
-                                                                <select class='form-control basic' id="FacultyHead" name="head" onchange="getFacultyHeadDetails(this.value);">
-                                                                    <option selected>Select Faculty Head</option>
-                                                                    <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Admins` ";
-                                                                    $stmt = $mysqli->prepare($ret);
-                                                                    $stmt->execute(); //ok
-                                                                    $res = $stmt->get_result();
-                                                                    while ($admins = $res->fetch_object()) {
-                                                                    ?>
-                                                                        <option><?php echo $admins->name; ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Faculty Head Email</label>
-                                                                <input type="email" required name="email" id="FacultyHeadEmail" class="form-control">
-                                                            </div>
+                                                                    <label for="">Faculty Head</label>
+                                                                    <select class='form-control basic' id="FacultyHead" name="head" onchange="getFacultyHeadDetails(this.value);">
+                                                                        <option selected>Select Faculty Head</option>
+                                                                        <?php
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Admins` ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        while ($admins = $res->fetch_object()) {
+                                                                        ?>
+                                                                            <option><?php echo $admins->name; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="">Faculty Head Email</label>
+                                                                    <input type="email" required name="email" id="FacultyHeadEmail" class="form-control">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="card-footer text-right">
