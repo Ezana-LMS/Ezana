@@ -295,7 +295,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Department Details</label>
+                                                                    <label for="exampleInputPassword1">Department Description</label>
                                                                     <textarea name="details" rows="10" class="form-control Summernote"></textarea>
                                                                 </div>
                                                             </div>
@@ -489,12 +489,14 @@ require_once('public/partials/_head.php');
                                         <div class="col-md-12">
                                             <div class="card card-widget widget-user-2">
                                                 <div class="widget-user-header text-center bg-primary">
-                                                    <h3 class="widget-user-username">Lecturers / Students Numbers</h3>
+                                                    <h3 class="widget-user-username">Lecturers / Students %</h3>
                                                 </div>
                                                 <div class="card-footer p-0">
                                                     <div class="row">
                                                         <div class="col-md-12">
-                                                            <canvas id="facultyPersonnels" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                                            <div class="d-flex justify-content-center">
+                                                                <div id="facultyPersonnels" style="height: 300px; width: 100%;"></div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -533,30 +535,31 @@ require_once('public/partials/_head.php');
 
         <script>
             /* Faculty Students Aganist Lecturers Donught Chart */
-            $(function() {
-                var donutChartCanvas = $('#facultyPersonnels').get(0).getContext('2d')
-                var donutData = {
-                    labels: [
-                        'Lecturers',
-                        'Students',
-                    ],
-                    datasets: [{
-                        data: [<?php echo $faculty_lecs; ?>, <?php echo $faculty_students; ?>],
-                        backgroundColor: ['#f56954', '#00a65a'],
-                    }]
-                }
-                var donutOptions = {
-                    maintainAspectRatio: false,
-                    responsive: true,
-                }
-                /* You Can Switch From Donught To Pie Chart */
+            var chart = new CanvasJS.Chart("facultyPersonnels", {
+                theme: "light2", // "light1", "light2", "dark1", "dark2"
+                exportEnabled: true,
+                animationEnabled: true,
+                data: [{
+                    type: "pie",
+                    startAngle: 25,
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}%",
+                    dataPoints: [{
+                            y: <?php echo $faculty_lecs; ?>,
+                            label: "Lecturers"
+                        },
+                        {
+                            y: <?php echo $faculty_students; ?>,
+                            label: "Students"
+                        },
+                    ]
+                }]
+            });
+            chart.render();
 
-                var donutChart = new Chart(donutChartCanvas, {
-                    type: 'pie',
-                    data: donutData,
-                    options: donutOptions
-                })
-            })
             /* Edit Faculty */
             $(document).ready(function() {
                 $('#edit_Faculty').summernote({
