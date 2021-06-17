@@ -442,5 +442,18 @@
             }
         });
     }
+    /* Get Faculty Head Details */
+    
 
+    function getFacultyHeadDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'FacultyHead=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#FacultyHeadEmail').val(data);
+            }
+        });
+    }
 </script>
