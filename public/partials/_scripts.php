@@ -139,9 +139,19 @@
     $(document).ready(function() {
         $('.Summernote').summernote({
             height: 300,
-            minHeight: null,
-            maxHeight: null,
-            focus: true
+            focus: true,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['height', ['height']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+
+            ]
         });
     });
 </script>
