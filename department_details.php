@@ -142,11 +142,10 @@ if (isset($_POST['update_dept'])) {
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
-        $hod = $_POST['hod'];
 
-        $query = "UPDATE ezanaLMS_Departments SET code =?, name =?,  details =?, hod =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Departments SET code =?, name =?,  details =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssss', $code, $name, $details, $hod, $view);
+        $rc = $stmt->bind_param('ssss', $code, $name, $details, $view);
         $stmt->execute();
         if ($stmt) {
             $success = "Updated" && header("refresh:1; url=department_details.php?view=$view");
@@ -157,6 +156,23 @@ if (isset($_POST['update_dept'])) {
     }
 }
 
+/* Update Department HOD */
+if (isset($_POST['update_dept_hod'])) {
+
+    $view = $_GET['view'];
+    $hod = $_POST['hod'];
+    $email = $_POST['email'];
+
+    $query = "UPDATE ezanaLMS_Departments SET email =?, hod =? WHERE id =?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sss', $email, $hod, $view);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Updated" && header("refresh:1; url=department_details.php?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 /* Add Announcement */
 if (isset($_POST['add_announcement'])) {
 
@@ -198,7 +214,7 @@ if (isset($_POST['update_announcement'])) {
     $id = $_POST['id'];
     $department_id = $_POST['department_id'];
     $departmental_memo = $_POST['departmental_memo'];
-   
+
     $query = "UPDATE ezanaLMS_DepartmentalMemos SET departmental_memo =? WHERE id = ?";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('ss', $departmental_memo, $id);
@@ -487,7 +503,9 @@ require_once('public/partials/_head.php');
                                         </div>
                                         <div class="text-right">
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-hod">Edit Department HOD</button>
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-<?php echo $department->id; ?>">Edit Department</button>
+
                                         </div>
                                     </nav>
                                 </div>
@@ -537,6 +555,50 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="modal-footer justify-content-between">
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--End Update Department Modal -->
+
+                                                <!-- Update Department HOD Modal -->
+                                                <div class="modal fade" id="update-department-hod">
+                                                    <div class="modal-dialog  modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Update Department HOD</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">HOD</label>
+                                                                            <select class='form-control basic' id="DepartmentHead" name="hod" onchange="getDepartmentHeadDetails(this.value);">
+                                                                                <option selected>Select HOD</option>
+                                                                                <?php
+                                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                                $stmt = $mysqli->prepare($ret);
+                                                                                $stmt->execute(); //ok
+                                                                                $res = $stmt->get_result();
+                                                                                while ($hods = $res->fetch_object()) {
+                                                                                ?>
+                                                                                    <option><?php echo $hods->name; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Email</label>
+                                                                            <input type="email" required name="email" id="DepartmentHeadEmail" class="form-control">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class=" text-right">
+                                                                        <button type="submit" name="update_dept_hod" class="btn btn-primary">Update HOD</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -752,6 +814,11 @@ require_once('public/partials/_head.php');
                                                                                     <li class="nav-item">
                                                                                         <span class="nav-link text-primary">
                                                                                             Department HOD : <span class="float-right "><?php echo $department->hod; ?></span>
+                                                                                        </span>
+                                                                                    </li>
+                                                                                    <li class="nav-item">
+                                                                                        <span class="nav-link text-primary">
+                                                                                            Department HOD Email  : <a href="mailto:<?php echo $department->email; ?>"><span class="float-right "><?php echo $department->email; ?></span></a>
                                                                                         </span>
                                                                                     </li>
                                                                                     <?php
