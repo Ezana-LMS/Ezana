@@ -122,7 +122,7 @@ if (isset($_POST['update_faculty_head'])) {
     $password = sha1(md5($_POST['password']));
     $user_email = $_POST['user_email'];
 
-    $sql = "SELECT * FROM  ezanaLMS_Admin  WHERE  password = '$password ' AND email= '$user_email' ";
+    $sql = "SELECT * FROM  ezanaLMS_Admins  WHERE  password = '$password' AND email= '$user_email' ";
     $res = mysqli_query($mysqli, $sql);
     if (mysqli_num_rows($res) > 0) {
         $row = mysqli_fetch_assoc($res);
@@ -130,7 +130,7 @@ if (isset($_POST['update_faculty_head'])) {
             /* Allow User TO Update Faculty Head */
             $query = "UPDATE ezanaLMS_Faculties SET email =?, name =? WHERE id =?";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ss', $email, $name, $id);
+            $rc = $stmt->bind_param('sss', $email, $name, $faculty_id);
             $stmt->execute();
             if ($stmt) {
                 $success = "Faculty Head Updated" && header("refresh:1; url=faculty_dashboard.php?view=$faculty_id");
@@ -138,6 +138,7 @@ if (isset($_POST['update_faculty_head'])) {
                 $info = "Please Try Again Or Try Later";
             }
         }
+
     } else {
         $err = "Incorrect Password, Please Try Again";
 
@@ -409,7 +410,7 @@ require_once('public/partials/_head.php');
                                                                     <!-- Hidden Values -->
                                                                     <input type="hidden" required name="id" value="<?php echo  $_SESSION['id']; ?>" class="form-control">
                                                                     <input type="hidden" required name="user_email" value="<?php echo $_SESSION['email']; ?>" class="form-control">
-                                                                    <input type="text" required name="password" value="" class="form-control">
+                                                                    <input type="password" required name="password"  class="form-control">
                                                                     <input type="hidden" required name="faculty_id" value="<?php echo $view;?>" class="form-control">
 
                                                                 </div>
@@ -435,7 +436,7 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                         </div>
                                                         <div class="card-footer text-right">
-                                                            <button type="submit" name="confirm_password" class="btn btn-primary">Confirm Password</button>
+                                                            <button type="submit" name="update_faculty_head" class="btn btn-primary">Confirm Password</button>
                                                         </div>
                                                     </form>
                                                 </div>
