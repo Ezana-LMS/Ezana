@@ -95,17 +95,16 @@ if (isset($_POST['update_faculty'])) {
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
-        $head = $_POST['head'];
-        $email = $_POST['email'];
+        /* $head = $_POST['head'];
+        $email = $_POST['email']; */
 
-        $query = "UPDATE ezanaLMS_Faculties SET code =?, name =?, details =?, head = ?, email =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Faculties SET code =?, name =?, details =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssss', $code, $name, $details, $head, $email, $id);
+        $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Added" && header("refresh:1; url=faculties.php");
         } else {
-            //inject alert that profile update task failed
             $info = "Please Try Again Or Try Later";
         }
     }
@@ -440,7 +439,7 @@ require_once('public/partials/_head.php');
                                                                                             <input type="text" required name="code" value="<?php echo $faculty->code; ?>" class="form-control">
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="row">
+                                                                                    <!-- <div class="row">
                                                                                         <div class="form-group col-md-6">
                                                                                             <label for="">Faculty Head</label>
                                                                                             <input type="text" required name="head" value="<?php echo $faculty->head; ?>" class="form-control" id="exampleInputEmail1">
@@ -449,7 +448,7 @@ require_once('public/partials/_head.php');
                                                                                             <label for="">Faculty Email</label>
                                                                                             <input type="text" required name="email" value="<?php echo $faculty->email; ?>" class="form-control">
                                                                                         </div>
-                                                                                    </div>
+                                                                                    </div> -->
                                                                                     <div class="row">
                                                                                         <div class="form-group col-md-12">
                                                                                             <label for="exampleInputPassword1">Faculty Description</label>
