@@ -61,11 +61,12 @@ if (isset($_POST['add_dept'])) {
             $hod = $_POST['hod'];
             $faculty_name = $_POST['faculty_name'];
             $created_at = date('d M Y');
+            $email = $_POST['email'];
 
 
-            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, faculty_name, details, hod, created_at) VALUES(?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, faculty_name, details, hod, email,  created_at) VALUES(?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssss', $id, $code, $name, $view, $faculty_name, $details, $hod, $created_at);
+            $rc = $stmt->bind_param('sssssssss', $id, $code, $name, $view, $faculty_name, $details, $hod, $email, $created_at);
             $stmt->execute();
             if ($stmt) {
                 $success = "$name Department Added" && header("refresh:1; url=faculty_departments.php?view=$view");
@@ -98,12 +99,13 @@ if (isset($_POST['update_dept'])) {
         $code = $_POST['code'];
         $details = $_POST['details'];
         $hod = $_POST['hod'];
+        $email = $_POST['email'];
         $view = $_GET['view'];/* Faculty ID */
 
 
-        $query = "UPDATE ezanaLMS_Departments SET code =?, name =?,  details =?, hod =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Departments SET code =?, name =?, hod=?, email=?,  details =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssss', $code, $name, $details, $hod, $id);
+        $rc = $stmt->bind_param('ssssss', $code, $name, $hod, $email, $details, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "$name Department Updated" && header("refresh:1; url=faculty_departments.php?view=$view");
@@ -257,8 +259,6 @@ require_once('public/partials/_head.php');
                             <div class="text-left">
                                 <nav class="navbar navbar-light bg-light col-md-12">
                                     <form class="form-inline" action="department_search_result.php" method="GET">
-                                        <input class="form-control mr-sm-2" type="search" name="query" placeholder="Department Name Or Code">
-                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Department</button>
                                     <div class="modal fade" id="modal-default">
@@ -274,25 +274,40 @@ require_once('public/partials/_head.php');
                                                     <form method="post" enctype="multipart/form-data" role="form">
                                                         <div class="card-body">
                                                             <div class="row">
-                                                                <div class="form-group col-md-4">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">Department Name</label>
                                                                     <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                     <input type="hidden" required name="faculty_name" value="<?php echo $faculty->name; ?>" class="form-control">
 
                                                                 </div>
-                                                                <div class="form-group col-md-4">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">Department Number / Code</label>
                                                                     <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                                                 </div>
-                                                                <div class="form-group col-md-4">
+                                                                <div class="form-group col-md-6">
                                                                     <label for="">HOD</label>
-                                                                    <input type="text" required name="hod" class="form-control">
+                                                                    <select class='form-control basic' id="DepartmentHead" name="hod" onchange="getDepartmentHeadDetails(this.value);">
+                                                                    <option selected>Select HOD</option>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    while ($hods = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <option><?php echo $hods->name; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Email</label>
+                                                                    <input type="email" required name="email" id="DepartmentHeadEmail" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Department Details</label>
+                                                                    <label for="exampleInputPassword1">Department Description</label>
                                                                     <textarea name="details" rows="10" class="form-control Summernote"></textarea>
                                                                 </div>
                                                             </div>
@@ -408,19 +423,23 @@ require_once('public/partials/_head.php');
                                                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                                                     <div class="card-body">
                                                                                         <div class="row">
-                                                                                            <div class="form-group col-md-4">
+                                                                                            <div class="form-group col-md-6">
                                                                                                 <label for="">Department Name</label>
                                                                                                 <input type="text" required name="name" value="<?php echo $dep->name; ?>" class="form-control" id="exampleInputEmail1">
                                                                                             </div>
-                                                                                            <div class="form-group col-md-4">
+                                                                                            <div class="form-group col-md-6">
                                                                                                 <label for="">Department Number / Code</label>
                                                                                                 <input type="text" required name="code" value="<?php echo $dep->code; ?>" class="form-control">
                                                                                                 <input type="hidden" required name="id" value="<?php echo $dep->id; ?>" class="form-control">
                                                                                                 <input type="hidden" required name="view" value="<?php echo $dep->faculty_id; ?>" class="form-control">
                                                                                             </div>
-                                                                                            <div class="form-group col-md-4">
+                                                                                            <div class="form-group col-md-6">
                                                                                                 <label for="">Department HOD</label>
                                                                                                 <input type="text" required value="<?php echo $dep->hod; ?>" name="hod" class="form-control">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Department HOD Email</label>
+                                                                                                <input type="text" required value="<?php echo $dep->email; ?>" name="email" class="form-control">
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="row">

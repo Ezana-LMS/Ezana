@@ -142,11 +142,10 @@ if (isset($_POST['update_dept'])) {
         $name = $_POST['name'];
         $code = $_POST['code'];
         $details = $_POST['details'];
-        $hod = $_POST['hod'];
 
-        $query = "UPDATE ezanaLMS_Departments SET code =?, name =?,  details =?, hod =? WHERE id =?";
+        $query = "UPDATE ezanaLMS_Departments SET code =?, name =?,  details =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssss', $code, $name, $details, $hod, $view);
+        $rc = $stmt->bind_param('ssss', $code, $name, $details, $view);
         $stmt->execute();
         if ($stmt) {
             $success = "Updated" && header("refresh:1; url=department_details.php?view=$view");
@@ -157,6 +156,23 @@ if (isset($_POST['update_dept'])) {
     }
 }
 
+/* Update Department HOD */
+if (isset($_POST['update_dept_hod'])) {
+
+    $view = $_GET['view'];
+    $hod = $_POST['hod'];
+    $email = $_POST['email'];
+
+    $query = "UPDATE ezanaLMS_Departments SET email =?, hod =? WHERE id =?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sss', $email, $hod, $view);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Updated" && header("refresh:1; url=department_details.php?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 /* Add Announcement */
 if (isset($_POST['add_announcement'])) {
 
@@ -192,14 +208,34 @@ if (isset($_POST['add_announcement'])) {
     }
 }
 
+/* Update Announcement  */
+if (isset($_POST['update_announcement'])) {
+
+    $id = $_POST['id'];
+    $department_id = $_POST['department_id'];
+    $departmental_memo = $_POST['departmental_memo'];
+
+    $query = "UPDATE ezanaLMS_DepartmentalMemos SET departmental_memo =? WHERE id = ?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('ss', $departmental_memo, $id);
+    $stmt->execute();
+
+    if ($stmt) {
+        $success = "Updated" && header("refresh:1; url=department_details.php?view=$department_id");
+    } else {
+        //inject alert that profile update task failed
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 /* Add Memo / Notice */
 if (isset($_POST['add_memo'])) {
     $id = $_POST['id'];
     $time = date("d-M-Y") . "-" . time();
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
-    $attachments = $time.$_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time.$_FILES["attachments"]["name"]);
+    $attachments = $time . $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time . $_FILES["attachments"]["name"]);
     $departmental_memo = $_POST['departmental_memo'];
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
@@ -231,8 +267,8 @@ if (isset($_POST['update'])) {
     $id = $_POST['id'];
     $time = date("d-M-Y") . "-" . time();
     $departmental_memo = $_POST['departmental_memo'];
-    $attachments = $time.$_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time.$_FILES["attachments"]["name"]);
+    $attachments = $time . $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time . $_FILES["attachments"]["name"]);
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
@@ -257,8 +293,8 @@ if (isset($_POST['add_departmental_doc'])) {
     $time = date("d-M-Y") . "-" . time();
     $department_id = $_POST['department_id'];
     $department_name = $_POST['department_name'];
-    $attachments = $time.$_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/". $time.$_FILES["attachments"]["name"]);
+    $attachments = $time . $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time . $_FILES["attachments"]["name"]);
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
@@ -279,8 +315,8 @@ if (isset($_POST['add_departmental_doc'])) {
 if (isset($_POST['update_departmental_doc'])) {
 
     $id = $_POST['id'];
-    $attachments = $time.$_FILES['attachments']['name'];
-    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" .$time. $_FILES["attachments"]["name"]);
+    $attachments = $time . $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "public/uploads/EzanaLMSData/memos/" . $time . $_FILES["attachments"]["name"]);
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
@@ -462,12 +498,12 @@ require_once('public/partials/_head.php');
                             <div class="container-fluid">
                                 <div class="text-left">
                                     <nav class="navbar navbar-light bg-light col-md-12">
-                                        <form class="form-inline" action="department_search_result.php" method="GET">
-                                            <input class="form-control mr-sm-2" type="search" name="query" placeholder="Dep Name Or Code">
-                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                                        </form>
+                                        <div class="form-inline">
+                                            <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="departments.php" class="text-white"> Back</a></span>
+                                        </div>
                                         <div class="text-right">
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-hod">Edit Department HOD</button>
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-<?php echo $department->id; ?>">Edit Department</button>
                                         </div>
                                     </nav>
@@ -507,7 +543,7 @@ require_once('public/partials/_head.php');
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="exampleInputPassword1">Department Details</label>
-                                                                                <textarea name="details"  rows="10" class="form-control Summernote"><?php echo $department->details; ?></textarea>
+                                                                                <textarea name="details" rows="10" class="form-control Summernote"><?php echo $department->details; ?></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -518,6 +554,50 @@ require_once('public/partials/_head.php');
                                                             </div>
                                                             <div class="modal-footer justify-content-between">
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--End Update Department Modal -->
+
+                                                <!-- Update Department HOD Modal -->
+                                                <div class="modal fade" id="update-department-hod">
+                                                    <div class="modal-dialog  modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Update Department HOD</h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">HOD</label>
+                                                                            <select class='form-control basic' id="DepartmentHead" name="hod" onchange="getDepartmentHeadDetails(this.value);">
+                                                                                <option selected>Select HOD</option>
+                                                                                <?php
+                                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                                $stmt = $mysqli->prepare($ret);
+                                                                                $stmt->execute(); //ok
+                                                                                $res = $stmt->get_result();
+                                                                                while ($hods = $res->fetch_object()) {
+                                                                                ?>
+                                                                                    <option><?php echo $hods->name; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Email</label>
+                                                                            <input type="email" required name="email" id="DepartmentHeadEmail" class="form-control">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class=" text-right">
+                                                                        <button type="submit" name="update_dept_hod" class="btn btn-primary">Update HOD</button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -555,7 +635,7 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Created By</label>
-                                                                                <input type="text" value="<?php echo $admin->name;?>" required name="created_by" class="form-control">
+                                                                                <input type="text" value="<?php echo $admin->name; ?>" required name="created_by" class="form-control">
                                                                             </div>
                                                                             <div style="display:none" class="form-group col-md-6">
                                                                                 <label for="">Type</label>
@@ -568,7 +648,7 @@ require_once('public/partials/_head.php');
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="exampleInputPassword1">Type Departmental Memo</label>
-                                                                                <textarea name="departmental_memo"  rows="10" class="form-control Summernote"></textarea>
+                                                                                <textarea name="departmental_memo" rows="10" class="form-control Summernote"></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -616,7 +696,7 @@ require_once('public/partials/_head.php');
                                                                             </div>
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Created By</label>
-                                                                                <input type="text" required value="<?php echo $admin->name;?>" name="created_by" class="form-control">
+                                                                                <input type="text" required value="<?php echo $admin->name; ?>" name="created_by" class="form-control">
                                                                             </div>
                                                                             <div style="display:none" class="form-group col-md-6">
                                                                                 <label for="">Type</label>
@@ -683,11 +763,11 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="form-group col-md-6">
-                                                                                <label for="">Course HOD Name</label>
+                                                                                <label for="">Course Head</label>
                                                                                 <input type="text" required name="hod" class="form-control" id="exampleInputEmail1">
                                                                             </div>
                                                                             <div class="form-group col-md-6">
-                                                                                <label for="">Course HOD Email</label>
+                                                                                <label for="">Course Head Email</label>
                                                                                 <input type="text" required name="email" class="form-control">
                                                                             </div>
                                                                         </div>
@@ -732,6 +812,11 @@ require_once('public/partials/_head.php');
                                                                                     <li class="nav-item">
                                                                                         <span class="nav-link text-primary">
                                                                                             Department HOD : <span class="float-right "><?php echo $department->hod; ?></span>
+                                                                                        </span>
+                                                                                    </li>
+                                                                                    <li class="nav-item">
+                                                                                        <span class="nav-link text-primary">
+                                                                                            Department HOD Email  : <a href="mailto:<?php echo $department->email; ?>"><span class="float-right "><?php echo $department->email; ?></span></a>
                                                                                         </span>
                                                                                     </li>
                                                                                     <?php
@@ -802,27 +887,25 @@ require_once('public/partials/_head.php');
                                                                     <div class="active tab-pane" id="dept_anouncements">
                                                                         <div class="row">
                                                                             <div class="col-md-12">
-                                                                                <div class="card">
-                                                                                    <div class="card-header">
-                                                                                        Post Announcement
-                                                                                    </div>
-                                                                                    <div class="card-body">
-                                                                                        <form method="post" enctype="multipart/form-data" role="form">
-                                                                                            <div class="row">
-                                                                                                <div class="form-group col-md-12">
-                                                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                                                    <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
-                                                                                                    <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
-                                                                                                    <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
-                                                                                                    <input type="hidden" required name="type" value="Announcement" class="form-control">
-                                                                                                    <textarea name="departmental_memo" id="dep_memo" rows="3" class="form-control Summernote"></textarea>
-                                                                                                </div>
+                                                                                <div class="card-header">
+                                                                                    Post Announcement
+                                                                                </div>
+                                                                                <div class="card-body">
+                                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-12">
+                                                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="department_name" value="<?php echo $department->name; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
+                                                                                                <input type="hidden" required name="type" value="Announcement" class="form-control">
+                                                                                                <textarea name="departmental_memo" id="dep_memo" rows="3" class="form-control Summernote"></textarea>
                                                                                             </div>
-                                                                                            <div class="text-right">
-                                                                                                <button type="submit" name="add_announcement" class="btn btn-primary">Post</button>
-                                                                                            </div>
-                                                                                        </form>
-                                                                                    </div>
+                                                                                        </div>
+                                                                                        <div class="text-right">
+                                                                                            <button type="submit" name="add_announcement" class="btn btn-primary">Post</button>
+                                                                                        </div>
+                                                                                    </form>
                                                                                 </div>
                                                                             </div>
 
@@ -844,19 +927,50 @@ require_once('public/partials/_head.php');
                                                                                             <div class="list-group">
                                                                                                 <div class="d-flex w-100 justify-content-between">
                                                                                                     <h5 class="mb-1"></h5>
-                                                                                                    <small><?php echo $announcement->created_at; ?></small>
+                                                                                                    <small><?php echo date('d-M-Y', strtotime($announcement->created_at)); ?><br><?php echo date('g : ia', strtotime($announcement->created_at)); ?></small>
                                                                                                 </div>
                                                                                                 <p>
                                                                                                     <?php
-                                                                                                    /* Trancate This */
-                                                                                                    $text = $announcement->departmental_memo;
-                                                                                                    echo substr($text, 0, 200); ?>
+                                                                                                    echo  $announcement->departmental_memo;
+                                                                                                    ?>
                                                                                                 </p>
                                                                                                 <div class="row">
-                                                                                                    <a class="badge badge-danger" href="department_details.php?delete=<?php echo $announcement->id; ?>&view=<?php echo $department->id; ?>">
-                                                                                                        <i class="fas fa-trash"></i>
-                                                                                                        Clear Announcement
+                                                                                                    <a class="badge badge-primary" data-toggle="modal" href="#announcement-<?php echo $announcement->id; ?>">
+                                                                                                        <i class="fas fa-edit"></i>
+                                                                                                        Update Announcement
                                                                                                     </a>
+                                                                                                    <a class="badge badge-danger" href="department_details.php?delete=<?php echo $announcement->id; ?>&view=<?php echo $view; ?>">
+                                                                                                        <i class="fas fa-trash"></i>
+                                                                                                        Delete Announcement
+                                                                                                    </a>
+                                                                                                    <!-- Update Announcement Modal -->
+                                                                                                    <div class="modal fade" id="announcement-<?php echo $announcement->id; ?>">
+                                                                                                        <div class="modal-dialog  modal-xl">
+                                                                                                            <div class="modal-content">
+                                                                                                                <div class="modal-header">
+                                                                                                                    <h4 class="modal-title">Update Announcement</h4>
+                                                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                                                    </button>
+                                                                                                                </div>
+                                                                                                                <div class="modal-body">
+                                                                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                                                                        <div class="row">
+                                                                                                                            <div class="form-group col-md-12">
+                                                                                                                                <input type="hidden" required name="id" value="<?php echo $announcement->id; ?>" class="form-control">
+                                                                                                                                <input type="hidden" required name="department_id" value="<?php echo $department->id; ?>" class="form-control">
+                                                                                                                                <textarea name="departmental_memo" id="dep_memo" rows="3" class="form-control Summernote"><?php echo $announcement->departmental_memo; ?></textarea>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="text-right">
+                                                                                                                            <button type="submit" name="update_announcement" class="btn btn-primary">Update Announcement</button>
+                                                                                                                        </div>
+                                                                                                                    </form>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <!-- End Modal -->
                                                                                                 </div>
                                                                                             </div>
                                                                                             <hr>
@@ -1249,11 +1363,11 @@ require_once('public/partials/_head.php');
                                                                                                                         </div>
                                                                                                                         <div class="row">
                                                                                                                             <div class="form-group col-md-6">
-                                                                                                                                <label for="">Course HOD Name</label>
+                                                                                                                                <label for="">Course Head</label>
                                                                                                                                 <input type="text" required value="<?php echo $courses->hod; ?>" name="hod" class="form-control" id="exampleInputEmail1">
                                                                                                                             </div>
                                                                                                                             <div class="form-group col-md-6">
-                                                                                                                                <label for="">Course HOD Email</label>
+                                                                                                                                <label for="">Course Head</label>
                                                                                                                                 <input type="text" required value="<?php echo $courses->email; ?>" name="email" class="form-control">
                                                                                                                             </div>
                                                                                                                         </div>

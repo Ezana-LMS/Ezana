@@ -264,8 +264,6 @@ require_once('public/partials/_head.php');
                         <div class="text-left">
                             <nav class="navbar navbar-light bg-light col-md-12">
                                 <form class="form-inline" action="module_search_result.php" method="GET">
-                                    <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
-                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                 </form>
                                 <div class="text-right">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module</button>

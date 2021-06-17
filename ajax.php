@@ -583,3 +583,17 @@ if (!empty($_POST["FacultyHead"])) {
 <?php
     }
 }
+
+/* Department Head Details */
+if (!empty($_POST["DepartmentHead"])) {
+    $id = $_POST['DepartmentHead'];
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Lecturers WHERE name = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['email']); ?>
+<?php
+    }
+}

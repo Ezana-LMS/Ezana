@@ -442,9 +442,8 @@
             }
         });
     }
-    /* Get Faculty Head Details */
-    
 
+    /* Get Faculty Head Details */
     function getFacultyHeadDetails(val) {
         $.ajax({
             type: "POST",
@@ -453,6 +452,18 @@
             success: function(data) {
                 //alert(data);
                 $('#FacultyHeadEmail').val(data);
+            }
+        });
+    }
+    /* Get Department Head Email */
+    function getDepartmentHeadDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'DepartmentHead=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#DepartmentHeadEmail').val(data);
             }
         });
     }

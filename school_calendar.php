@@ -298,8 +298,6 @@ require_once('public/partials/_head.php');
                             <div class="">
                                 <nav class="navbar navbar-light bg-light col-md-12">
                                     <form class="form-inline" action="faculty_search_result.php" method="GET">
-                                        <input class="form-control mr-sm-2" type="search" name="query" placeholder="Faculty Name Or Code">
-                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                     </form>
                                     <div class="text-right">
                                         <!--<a href="school_calendar.php?view=<?php echo $faculty->id; ?>" class="btn btn-primary" title="View <?php echo $faculty->name; ?> School Calendar In Calendar Formart"><i class="fas fa-calendar"></i></a>-->
@@ -422,9 +420,6 @@ require_once('public/partials/_head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="text-center">
-                                                <h1 class="display-4">Faculty Important Dates</h1>
-                                            </div>
                                             <div class="row">
                                                 <div class="col-12">
 
