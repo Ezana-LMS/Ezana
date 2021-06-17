@@ -764,11 +764,11 @@ require_once('public/partials/_head.php');
                                                                         </div>
                                                                         <div class="row">
                                                                             <div class="form-group col-md-6">
-                                                                                <label for="">Course HOD Name</label>
+                                                                                <label for="">Course Head</label>
                                                                                 <input type="text" required name="hod" class="form-control" id="exampleInputEmail1">
                                                                             </div>
                                                                             <div class="form-group col-md-6">
-                                                                                <label for="">Course HOD Email</label>
+                                                                                <label for="">Course Head Email</label>
                                                                                 <input type="text" required name="email" class="form-control">
                                                                             </div>
                                                                         </div>
@@ -1365,11 +1365,11 @@ require_once('public/partials/_head.php');
                                                                                                                         </div>
                                                                                                                         <div class="row">
                                                                                                                             <div class="form-group col-md-6">
-                                                                                                                                <label for="">Course HOD Name</label>
+                                                                                                                                <label for="">Course Head</label>
                                                                                                                                 <input type="text" required value="<?php echo $courses->hod; ?>" name="hod" class="form-control" id="exampleInputEmail1">
                                                                                                                             </div>
                                                                                                                             <div class="form-group col-md-6">
-                                                                                                                                <label for="">Course HOD Email</label>
+                                                                                                                                <label for="">Course Head</label>
                                                                                                                                 <input type="text" required value="<?php echo $courses->email; ?>" name="email" class="form-control">
                                                                                                                             </div>
                                                                                                                         </div>
