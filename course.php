@@ -337,7 +337,7 @@ require_once('public/partials/_head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
                                                                     <label for="exampleInputPassword1">Module Details</label>
-                                                                    <textarea required  name="details" rows="10" class="form-control Summernote"></textarea>
+                                                                    <textarea required name="details" rows="10" class="form-control Summernote"></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -399,7 +399,7 @@ require_once('public/partials/_head.php');
                                                                     <div class="row">
                                                                         <div class="form-group col-md-12">
                                                                             <label for="exampleInputPassword1">Course Description</label>
-                                                                            <textarea required name="details"  rows="10" class="form-control Summernote"><?php echo $course->details; ?></textarea>
+                                                                            <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $course->details; ?></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -418,8 +418,11 @@ require_once('public/partials/_head.php');
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="card card-widget widget-user-2">
-                                                        <div class="widget-user-header text-center bg-primary">
-                                                            <h3 class=""><?php echo $course->name; ?></h3>
+                                                        <div class="widget-user-header bg-primary">
+                                                            <span>
+                                                                <i class="fas fa-arrow-left"></i><a href="courses.php" class="text-white"> Back</a>
+                                                                <h3 class="text-center"><?php echo $course->name; ?></h3>
+                                                            </span>
                                                         </div>
                                                         <div class="card-footer p-0">
                                                             <div class="row">

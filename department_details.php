@@ -505,7 +505,6 @@ require_once('public/partials/_head.php');
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-hod">Edit Department HOD</button>
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-<?php echo $department->id; ?>">Edit Department</button>
-
                                         </div>
                                     </nav>
                                 </div>
@@ -791,7 +790,6 @@ require_once('public/partials/_head.php');
                                                     </div>
                                                 </div>
                                                 <!-- End Course Modal -->
-
 
                                                 <br>
                                                 <div class="row">
