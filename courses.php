@@ -312,7 +312,6 @@ require_once('public/partials/_head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Course Head </label>
-                                                                <input type="text" required name="hod" class="form-control" id="exampleInputEmail1">
                                                                 <select class='form-control basic' id="CourseHead" name="head" onchange="getCourseHeadDetails(this.value);">
                                                                     <option selected>Select Course Head</option>
                                                                     <?php
