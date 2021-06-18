@@ -435,8 +435,9 @@ require_once('public/partials/_head.php');
                                                 </div>
                                             </div>
                                             <!--End Update Course Modal -->
+
                                             <!-- Update Course HOD -->
-                                            <div class="modal fade" id="modal-default">
+                                            <div class="modal fade" id="update-course-head">
                                                 <div class="modal-dialog  modal-xl">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -451,7 +452,7 @@ require_once('public/partials/_head.php');
                                                                     <div class="row">
                                                                         <div class="form-group col-md-6">
                                                                             <label for="">Course Head </label>
-                                                                            <select class='form-control basic' id="CourseHead" name="head" onchange="getCourseHeadDetails(this.value);">
+                                                                            <select class='form-control basic' id="CourseHead" name="hod" onchange="getCourseHeadDetails(this.value);">
                                                                                 <option selected>Select Course Head</option>
                                                                                 <?php
                                                                                 $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
