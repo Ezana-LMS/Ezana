@@ -173,6 +173,7 @@ if (isset($_POST['update_dept_hod'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
+
 /* Add Announcement */
 if (isset($_POST['add_announcement'])) {
 
@@ -240,17 +241,19 @@ if (isset($_POST['add_memo'])) {
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
+    $memo_title = $_POST['memo_title'];
+    $target_audience = $_POST['target_audience'];
 
     /* Notify Me After Posting Memo / Notice */
     $notif_type = 'Department Memo';
     $status = 'Unread';
     $notification_detail = "$type For $department_name";
 
-    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, department_id, department_name, type, departmental_memo, attachments, faculty_id) VALUES(?,?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_DepartmentalMemos (id, created_by, department_id, department_name, type, memo_title, target_audience, departmental_memo, attachments, faculty_id) VALUES(?,?,?,?,?,?,?,?,?,?)";
     $notif_querry = "INSERT INTO ezanaLMS_Notifications(type, status, notification_detail) VALUES(?,?,?)";
     $stmt = $mysqli->prepare($query);
     $notif_stmt = $mysqli->prepare($notif_querry);
-    $rc = $stmt->bind_param('ssssssss', $id, $created_by, $department_id, $department_name, $type, $departmental_memo, $attachments, $faculty);
+    $rc = $stmt->bind_param('ssssssssss', $id, $created_by, $department_id, $department_name, $type, $memo_title, $target_audience, $departmental_memo, $attachments, $faculty);
     $rc = $notif_stmt->bind_param('sss', $notif_type, $status, $notification_detail);
     $stmt->execute();
     $notif_stmt->execute();
@@ -263,7 +266,6 @@ if (isset($_POST['add_memo'])) {
 
 /* Update Memo / Notice */
 if (isset($_POST['update'])) {
-
     $id = $_POST['id'];
     $time = date("d-M-Y") . "-" . time();
     $departmental_memo = $_POST['departmental_memo'];
@@ -272,13 +274,16 @@ if (isset($_POST['update'])) {
     $type = $_POST['type'];
     $faculty = $_POST['faculty'];
     $created_by = $_POST['created_by'];
+    $memo_title = $_POST['memo_title'];
+    $target_audience = $_POST['target_audience'];
+    $update_status = 'Recently Updated';
 
     /* Department_ID */
     $department_id = $_POST['department_id'];
 
-    $query = "UPDATE ezanaLMS_DepartmentalMemos SET  created_by=?, departmental_memo =?, attachments =?, type =?, faculty_id =? WHERE id =?";
+    $query = "UPDATE ezanaLMS_DepartmentalMemos SET  created_by=?, update_status=?, departmental_memo =?, attachments =?, type =?, memo_title =?, target_audience =?, faculty_id =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssss',  $created_by, $departmental_memo, $attachments, $type, $faculty, $id);
+    $rc = $stmt->bind_param('sssssssss',  $created_by, $update_status, $departmental_memo, $attachments, $type, $memo_title, $target_audience, $faculty, $id);
     $stmt->execute();
     if ($stmt) {
         $success = "Updated" && header("refresh:1; url=department_details.php?view=$department_id");
@@ -643,8 +648,19 @@ require_once('public/partials/_head.php');
                                                                                     <option selected>Memo</option>
                                                                                 </select>
                                                                             </div>
+                                                                            <div class="form-group col-md-6">
+                                                                                <label for="">Target Audience</label>
+                                                                                <select class='form-control basic' name="target_audience">
+                                                                                    <option selected>Staffs</option>
+                                                                                    <option selected>Lecturers</option>
+                                                                                    <option selected>Students</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="form-group col-md-6">
+                                                                                <label for="">Memo Title</label>
+                                                                                <input type="text" required name="memo_title" class="form-control">
+                                                                            </div>
                                                                         </div>
-                                                                        <h2 class="text-center">Or </h2>
                                                                         <div class="row">
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="exampleInputPassword1">Type Departmental Memo</label>
@@ -816,7 +832,7 @@ require_once('public/partials/_head.php');
                                                                                     </li>
                                                                                     <li class="nav-item">
                                                                                         <span class="nav-link text-primary">
-                                                                                            Department HOD Email  : <a href="mailto:<?php echo $department->email; ?>"><span class="float-right "><?php echo $department->email; ?></span></a>
+                                                                                            Department HOD Email : <a href="mailto:<?php echo $department->email; ?>"><span class="float-right "><?php echo $department->email; ?></span></a>
                                                                                         </span>
                                                                                     </li>
                                                                                     <?php
@@ -1013,7 +1029,16 @@ require_once('public/partials/_head.php');
 
                                                                                         <tr>
                                                                                             <td><?php echo $memo->created_by; ?></td>
-                                                                                            <td><?php echo date('d M Y', strtotime($memo->created_at)); ?></td>
+                                                                                            <td>
+                                                                                                <?php echo date('d M Y', strtotime($memo->created_at));
+                                                                                                if($memo->update_status == ''){
+                                                                                                    /* Nothing */
+                                                                                                }else{
+                                                                                                    echo "<span class='badge badge-primary'> $memo->update_status </span>";
+                                                                                                }
+                                                                                                ?>
+                                                                                                                                                                                             
+                                                                                            </td>
                                                                                             <td><?php echo $memo->type; ?></td>
                                                                                             <td>
                                                                                                 <a class="badge badge-success" data-toggle="modal" href="#view-<?php echo $memo->id; ?>">
@@ -1091,13 +1116,23 @@ require_once('public/partials/_head.php');
                                                                                                                                 <input type="text" name="created_by" class="form-control" value="<?php echo $memo->created_by; ?>">
                                                                                                                                 <input type="hidden" required name="id" value="<?php echo $memo->id; ?>" class="form-control">
                                                                                                                                 <input type="hidden" required name="department_id" value="<?php echo $view; ?>" class="form-control">
-
+                                                                                                                            </div>
+                                                                                                                            <div class="form-group col-md-6">
+                                                                                                                                <label for="">Target Audience</label>
+                                                                                                                                <select class='form-control basic' name="target_audience">
+                                                                                                                                    <option selected>Staffs</option>
+                                                                                                                                    <option selected>Lecturers</option>
+                                                                                                                                    <option selected>Students</option>
+                                                                                                                                </select>
+                                                                                                                            </div>
+                                                                                                                            <div class="form-group col-md-6">
+                                                                                                                                <label for="">Memo Title</label>
+                                                                                                                                <input type="text" required value="<?php echo $memo->memo_title;?>" name="memo_title" class="form-control">
                                                                                                                             </div>
                                                                                                                         </div>
-                                                                                                                        <h2 class="text-center">Or </h2>
                                                                                                                         <div class="row">
                                                                                                                             <div class="form-group col-md-12">
-                                                                                                                                <label for="exampleInputPassword1">Type Departmental Memo | Notice</label>
+                                                                                                                                <label for="exampleInputPassword1">Departmental Memo | Notice</label>
                                                                                                                                 <textarea name="departmental_memo" rows="10" class="form-control Summernote"><?php echo $memo->departmental_memo; ?></textarea>
                                                                                                                             </div>
                                                                                                                         </div>
@@ -1107,9 +1142,7 @@ require_once('public/partials/_head.php');
                                                                                                                     </div>
                                                                                                                 </form>
                                                                                                             </div>
-                                                                                                            <div class="modal-footer justify-content-between">
-                                                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                                            </div>
+
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
