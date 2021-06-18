@@ -1031,13 +1031,13 @@ require_once('public/partials/_head.php');
                                                                                             <td><?php echo $memo->created_by; ?></td>
                                                                                             <td>
                                                                                                 <?php echo date('d M Y', strtotime($memo->created_at));
-                                                                                                if($memo->update_status == ''){
+                                                                                                if ($memo->update_status == '') {
                                                                                                     /* Nothing */
-                                                                                                }else{
+                                                                                                } else {
                                                                                                     echo "<span class='badge badge-primary'> $memo->update_status </span>";
                                                                                                 }
                                                                                                 ?>
-                                                                                                                                                                                             
+
                                                                                             </td>
                                                                                             <td><?php echo $memo->type; ?></td>
                                                                                             <td>
@@ -1047,32 +1047,35 @@ require_once('public/partials/_head.php');
                                                                                                 </a>
                                                                                                 <!-- View Deptmental Memo Modal -->
                                                                                                 <div class="modal fade" id="view-<?php echo $memo->id; ?>">
-                                                                                                    <div class="modal-dialog  modal-lg">
+                                                                                                    <div class="modal-dialog  modal-xl">
                                                                                                         <div class="modal-content">
                                                                                                             <div class="modal-header">
-                                                                                                                <h4 class="modal-title"><?php echo $department->name; ?> <?php echo $memo->type; ?> Created On <span class='text-success'><?php echo date('d M Y', strtotime($memo->created_at)); ?></span></h4>
+                                                                                                                <h4 class="modal-title"><?php echo $memo->memo_title; ?> </h4>
                                                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                                                     <span aria-hidden="true">&times;</span>
                                                                                                                 </button>
                                                                                                             </div>
                                                                                                             <div class="modal-body">
+                                                                                                                <div class="text-right">
+                                                                                                                    <span class='text-success'>Date: <?php echo date('d M Y', strtotime($memo->created_at)); ?>
+                                                                                                                    </span>
+                                                                                                                </div>
                                                                                                                 <?php echo $memo->departmental_memo; ?>
-                                                                                                                <hr>
-                                                                                                                <?php
 
-                                                                                                                if ($memo->attachments != '') {
-                                                                                                                    echo
-                                                                                                                    "<a href='public/uploads/EzanaLMSData/memos/$memo->attachments' target='_blank' class='btn btn-outline-success'><i class='fas fa-download'></i> Download $memo->type </a>";
-                                                                                                                } else {
-                                                                                                                    echo
-                                                                                                                    "<a  class='btn btn-outline-danger'><i class='fas fa-times'></i> $memo->type Attachment Not Available </a>";
-                                                                                                                } ?>
-                                                                                                            </div>
-                                                                                                            <div class="modal-footer justify-content-between">
-                                                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                                                <hr>
+                                                                                                                <div class="text-center">
+                                                                                                                    <?php
+
+                                                                                                                    if ($memo->attachments != '') {
+                                                                                                                        echo
+                                                                                                                        "<a href='public/uploads/EzanaLMSData/memos/$memo->attachments' target='_blank' class='btn btn-outline-success'><i class='fas fa-download'></i> Download $memo->type </a>";
+                                                                                                                    } else {
+                                                                                                                        echo
+                                                                                                                        "<a  class='btn btn-outline-danger'><i class='fas fa-times'></i> $memo->type Attachment Not Available </a>";
+                                                                                                                    } ?>
+                                                                                                                </div>
                                                                                                             </div>
                                                                                                         </div>
-
                                                                                                     </div>
                                                                                                 </div>
 
@@ -1127,7 +1130,7 @@ require_once('public/partials/_head.php');
                                                                                                                             </div>
                                                                                                                             <div class="form-group col-md-6">
                                                                                                                                 <label for="">Memo Title</label>
-                                                                                                                                <input type="text" required value="<?php echo $memo->memo_title;?>" name="memo_title" class="form-control">
+                                                                                                                                <input type="text" required value="<?php echo $memo->memo_title; ?>" name="memo_title" class="form-control">
                                                                                                                             </div>
                                                                                                                         </div>
                                                                                                                         <div class="row">
