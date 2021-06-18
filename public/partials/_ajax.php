@@ -467,4 +467,16 @@
             }
         });
     }
+    /* Get Course Head Email */
+    function getCourseHeadDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'CourseHead=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#CourseHeadEmail').val(data);
+            }
+        });
+    }
 </script>
