@@ -128,6 +128,24 @@ if (isset($_POST['update_course'])) {
     }
 }
 
+/* Update Course HOD */
+if (isset($_POST['update_course_head'])) {
+
+    $id = $_POST['id'];
+    $email = $_POST['email'];
+    $hod  = $_POST['hod'];
+
+    $query = "UPDATE ezanaLMS_Courses SET  email =?, hod = ? WHERE id =?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sss', $email, $hod, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Course Head Updated" && header("refresh:1; url=course.php?view=$id");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 require_once('public/partials/_analytics.php');
 require_once('public/partials/_head.php');
 ?>
@@ -275,9 +293,10 @@ require_once('public/partials/_head.php');
                                     </form>
                                     <div class="text-right">
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-<?php echo $course->id; ?>">Edit Course</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-head">Edit Course Head</button>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module</button>
-
                                     </div>
+                                    <!-- Add Module -->
                                     <div class="modal fade" id="modal-default">
                                         <div class="modal-dialog  modal-xl">
                                             <div class="modal-content">
@@ -352,6 +371,7 @@ require_once('public/partials/_head.php');
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- End Add Module -->
                                 </nav>
                             </div>
                             <hr>
@@ -386,7 +406,7 @@ require_once('public/partials/_head.php');
                                                                             <input type="hidden" required name="id" value="<?php echo $course->id; ?>"" class=" form-control">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="row">
+                                                                    <!-- <div class="row">
                                                                         <div class="form-group col-md-6">
                                                                             <label for="">Course Head</label>
                                                                             <input type="text" required name="hod" value="<?php echo $course->hod; ?>" class="form-control" id="exampleInputEmail1">
@@ -395,7 +415,7 @@ require_once('public/partials/_head.php');
                                                                             <label for="">Course Head Email</label>
                                                                             <input type="text" required name="email" value="<?php echo $course->email; ?>" class=" form-control">
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
                                                                     <div class="row">
                                                                         <div class="form-group col-md-12">
                                                                             <label for="exampleInputPassword1">Course Description</label>
@@ -415,6 +435,51 @@ require_once('public/partials/_head.php');
                                                 </div>
                                             </div>
                                             <!--End Update Course Modal -->
+                                            <!-- Update Course HOD -->
+                                            <div class="modal fade" id="modal-default">
+                                                <div class="modal-dialog  modal-xl">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Fill All Required Values </h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Course Head </label>
+                                                                            <select class='form-control basic' id="CourseHead" name="head" onchange="getCourseHeadDetails(this.value);">
+                                                                                <option selected>Select Course Head</option>
+                                                                                <?php
+                                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                                $stmt = $mysqli->prepare($ret);
+                                                                                $stmt->execute(); //ok
+                                                                                $res = $stmt->get_result();
+                                                                                while ($course_hod = $res->fetch_object()) {
+                                                                                ?>
+                                                                                    <option><?php echo $course_hod->name; ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">Course HOD Email</label>
+                                                                            <input type="text" required name="email" id="CourseHeadEmail" class="form-control">
+                                                                            <input type="hidden" required name="id" value="<?php echo $course->id; ?>" class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-footer text-right">
+                                                                    <button type="submit" name="update_course_head" class="btn btn-primary">Update Course Head</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Update Course HOD -->
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="card card-widget widget-user-2">
