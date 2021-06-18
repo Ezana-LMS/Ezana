@@ -308,16 +308,29 @@ require_once('public/partials/_head.php');
                                                                 <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                                             </div>
                                                         </div>
+
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
-                                                                <label for="">Course HOD Name</label>
-                                                                <input type="text" required name="hod" class="form-control" id="exampleInputEmail1">
+                                                                <label for="">Course Head </label>
+                                                                <select class='form-control basic' id="CourseHead" name="hod" onchange="getCourseHeadDetails(this.value);">
+                                                                    <option selected>Select Course Head</option>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    while ($course_hod = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <option><?php echo $course_hod->name; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Course HOD Email</label>
-                                                                <input type="text" required name="email" class="form-control">
+                                                                <input type="text" required name="email" id="CourseHeadEmail" class="form-control">
                                                             </div>
                                                         </div>
+
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Course Description</label>
@@ -329,9 +342,6 @@ require_once('public/partials/_head.php');
                                                         <button type="submit" name="add_course" class="btn btn-primary">Add Course</button>
                                                     </div>
                                                 </form>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
                                     </div>
