@@ -46,7 +46,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="courses" class="nav-link">
-                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                        <i class="nav-icon fas fa-chalkboard"></i>
                         <p>
                             Courses
                         </p>
@@ -54,7 +54,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="modules" class="nav-link">
-                        <i class="nav-icon fas fa-chalkboard"></i>
+                        <i class="nav-icon fas fa-cubes"></i>
                         <p>
                             Modules
                         </p>
@@ -62,7 +62,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="non_teaching_staff" class="nav-link">
-                        <i class="nav-icon fas fa-user-secret"></i>
+                        <i class="nav-icon fas fa-user-tie"></i>
                         <p>
                             Non Teaching Staff
                         </p>
@@ -70,7 +70,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="lecturers" class="nav-link">
-                        <i class="nav-icon fas fa-user-tie"></i>
+                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
                         <p>
                             Lecturers
                         </p>
