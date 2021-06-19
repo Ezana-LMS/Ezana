@@ -45,121 +45,21 @@ require_once('partials/head.php');
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
         <!-- Navbar -->
-        <?php require_once('public/partials/_nav.php'); ?>
+        <?php require_once('partials/header.php'); ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <?php require_once('public/partials/_brand.php'); ?>
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item">
-                            <a href="dashboard.php" class="active nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="faculties.php" class=" nav-link">
-                                <i class="nav-icon fas fa-university"></i>
-                                <p>
-                                    Faculties
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="departments.php" class=" nav-link">
-                                <i class="nav-icon fas fa-building"></i>
-                                <p>
-                                    Departments
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="courses.php" class="nav-link">
-                                <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                                <p>
-                                    Courses
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="modules.php" class="nav-link">
-                                <i class="nav-icon fas fa-chalkboard"></i>
-                                <p>
-                                    Modules
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="non_teaching_staff.php" class="nav-link">
-                                <i class="nav-icon fas fa-user-secret"></i>
-                                <p>
-                                    Non Teaching Staff
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="lecturers.php" class="nav-link">
-                                <i class="nav-icon fas fa-user-tie"></i>
-                                <p>
-                                    Lecturers
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="students.php" class="nav-link">
-                                <i class="nav-icon fas fa-user-graduate"></i>
-                                <p>
-                                    Students
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-cogs"></i>
-                                <p>
-                                    System Settings
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="reports.php" class="nav-link">
-                                        <i class="fas fa-angle-right nav-icon"></i>
-                                        <p>Reports</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="system_settings.php" class="nav-link">
-                                        <i class="fas fa-angle-right nav-icon"></i>
-                                        <p>System Settings</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
-
+        <?php require_once('partials/aside.php'); ?>
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">User Login Logs</h1>
+                            <h1 class="m-0 text-dark">User Authentication Logs</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                                <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                 <li class="breadcrumb-item active">Logs</li>
                             </ol>
                         </div>
@@ -196,7 +96,7 @@ require_once('partials/head.php');
                                     <thead>
                                         <tr>
                                             <th>User Email</th>
-                                            <th>Login Date</th>
+                                            <th>Login Date And Time</th>
                                             <th>User Rank</th>
                                             <th>Action</th>
                                         </tr>
@@ -211,10 +111,10 @@ require_once('partials/head.php');
                                         ?>
                                                 <tr>
                                                     <td><?php echo $logs['name'] ?></td>
-                                                    <td><?php echo date('d M Y', strtotime($logs['loginTime']));?></td>
+                                                    <td><?php echo date('d-M-Y g:ia', strtotime($logs['exact_login_time'])); ?></td>
                                                     <td><?php echo $logs['User_Rank'] ?></td>
                                                     <td>
-                                                        <a class="badge badge-success" href="user_login_activity_details.php?view=<?php echo $logs['id']; ?>">View Details</a>
+                                                        <a class="badge badge-success" href="log?view=<?php echo $logs['id']; ?>">View Details</a>
                                                         <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $logs['id']; ?>">Delete User Log</a>
                                                         <!-- Delete User Log -->
                                                         <div class="modal fade" id="delete-<?php echo $logs['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -230,7 +130,7 @@ require_once('partials/head.php');
                                                                         <h4>Delete This Log ?</h4>
                                                                         <br>
                                                                         <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                        <a href="user_login_activity.php?delete=<?php echo $logs['id']; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                        <a href="logs?delete=<?php echo $logs['id']; ?>" class="text-center btn btn-danger">Yes Delete </a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -250,11 +150,11 @@ require_once('partials/head.php');
                     </div>
                 </section>
                 <!-- Main Footer -->
-                <?php require_once('public/partials/_footer.php'); ?>
+                <?php require_once('partials/footer.php'); ?>
             </div>
         </div>
         <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php'); ?>
+        <?php require_once('partials/scripts.php'); ?>
 
 </body>
 
