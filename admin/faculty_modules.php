@@ -206,7 +206,7 @@ require_once('partials/head.php');
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Teaching Duration</label>
-                                                                    <input type="time" required name="course_duration" class="form-control" id="exampleInputEmail1">
+                                                                    <input type="text" required name="course_duration" class="form-control" id="exampleInputEmail1">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Number Of Lectures Per Week</label>
