@@ -85,7 +85,7 @@ if (isset($_POST['update_faculty'])) {
     $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
     $stmt->execute();
     if ($stmt) {
-        $success = "$name Updated"; 
+        $success = "$name Updated";
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -102,14 +102,14 @@ require_once('partials/head.php');
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php require_once('partials/aside.php');?>
+        <?php require_once('partials/aside.php'); ?>
 
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Faculties</h1>
+                            <h1 class="m-0 text-dark">Faculties / Schools</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -191,7 +191,6 @@ require_once('partials/head.php');
                         <hr>
                         <div class="row">
                             <div class="col-md-3">
-
                                 <?php
                                 $ret = "SELECT * FROM `ezanaLMS_Faculties` ORDER BY `name` ASC ";
                                 $stmt = $mysqli->prepare($ret);
@@ -203,7 +202,7 @@ require_once('partials/head.php');
                                     <div class="col-md-12">
                                         <div class="card  collapsed-card">
                                             <div class="card-header">
-                                                <a href="faculty_dashboard.php?view=<?php echo $faculty->id; ?>">
+                                                <a href="faculty?view=<?php echo $faculty->id; ?>">
                                                     <h3 class="text-primary card-title"><?php echo $cnt; ?>. <?php echo $faculty->name; ?></h3>
                                                     <div class="card-tools text-right">
                                                         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
@@ -216,33 +215,33 @@ require_once('partials/head.php');
                                                 <ul class="list-group">
 
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_departments.php?view=<?php echo $faculty->id; ?>">
+                                                        <a href="faculty_departments?view=<?php echo $faculty->id; ?>">
                                                             Departments
                                                         </a>
                                                     </li>
 
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_courses.php?view=<?php echo $faculty->id; ?>">
+                                                        <a href="faculty_courses?view=<?php echo $faculty->id; ?>">
                                                             Courses
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_modules.php?view=<?php echo $faculty->id; ?>">
+                                                        <a href="faculty_modules?view=<?php echo $faculty->id; ?>">
                                                             Modules
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="school_calendar.php?view=<?php echo $faculty->id; ?>">
+                                                        <a href="faculty_important_dates?view=<?php echo $faculty->id; ?>">
                                                             Important Dates
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_lects.php?view=<?php echo $faculty->id; ?>">
+                                                        <a href="faculty_lecturers?view=<?php echo $faculty->id; ?>">
                                                             Lecturers
                                                         </a>
                                                     </li>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_students.php?view=<?php echo $faculty->id; ?>">
+                                                        <a href="faculty_students?view=<?php echo $faculty->id; ?>">
                                                             Students
                                                         </a>
                                                     </li>
@@ -257,11 +256,10 @@ require_once('partials/head.php');
                             <div class="col-md-9">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <!-- Perform Crud On Faculties -->
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Code Number</th>
+                                                    <th>Code</th>
                                                     <th>Name</th>
                                                     <th>Head</th>
                                                     <th>Email</th>
@@ -274,7 +272,6 @@ require_once('partials/head.php');
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
-                                                $cnt = 1;
                                                 while ($faculty = $res->fetch_object()) {
                                                 ?>
                                                     <tr>
@@ -283,7 +280,7 @@ require_once('partials/head.php');
                                                         <td><?php echo $faculty->head; ?></td>
                                                         <td><?php echo $faculty->email; ?></td>
                                                         <td>
-                                                            <a class="badge badge-success" href="faculty_dashboard.php?view=<?php echo $faculty->id; ?>">
+                                                            <a class="badge badge-success" href="faculty?view=<?php echo $faculty->id; ?>">
                                                                 <i class="fas fa-eye"></i>
                                                                 View
                                                             </a>
@@ -339,19 +336,15 @@ require_once('partials/head.php');
                                                                             </form>
                                                                             <!-- End Update Faculty Modal -->
                                                                         </div>
-                                                                        <div class="modal-footer justify-content-between">
-                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                     </tr>
-                                                <?php $cnt = $cnt + 1;
+                                                <?php
                                                 } ?>
                                             </tbody>
                                         </table>
-
                                     </div>
                                 </div>
                             </div>
@@ -364,7 +357,6 @@ require_once('partials/head.php');
         </div>
         <!-- ./wrapper -->
         <?php require_once('partials/scripts.php'); ?>
-
 </body>
 
 </html>
