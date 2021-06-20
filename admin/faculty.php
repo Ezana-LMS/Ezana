@@ -318,54 +318,8 @@ require_once('partials/head.php');
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-md-3">
-                                    <div class="col-md-12">
-                                        <div class="card card-primary">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Menu</h3>
-                                                <div class="card-tools text-right">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <ul class="list-group">
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_departments.php?view=<?php echo $faculty->id; ?>">
-                                                            Departments
-                                                        </a>
-                                                    </li>
-
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_courses.php?view=<?php echo $faculty->id; ?>">
-                                                            Courses
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_modules.php?view=<?php echo $faculty->id; ?>">
-                                                            Modules
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="school_calendar.php?view=<?php echo $faculty->id; ?>">
-                                                            Important Dates
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_lects.php?view=<?php echo $faculty->id; ?>">
-                                                            Lecturers
-                                                        </a>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <a href="faculty_students.php?view=<?php echo $faculty->id; ?>">
-                                                            Students
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <!-- Faculty Side Navigation Bar -->
+                                <?php require_once('partials/faculty_menu.php');?>
 
                                 <div class="col-md-9">
                                     <div class="row">
@@ -375,7 +329,6 @@ require_once('partials/head.php');
                                                     <span><i class="fas fa-arrow-left"></i><a href="faculties" class="text-white"> Back</a>
                                                         <h3 class="text-center widget-user-username"><?php echo $faculty->name; ?></h3>
                                                     </span>
-
                                                 </div>
                                                 <div class="card-footer p-0">
                                                     <div class="row">
@@ -392,13 +345,13 @@ require_once('partials/head.php');
                                                                     </span>
                                                                 </li>
                                                                 <li class="nav-item">
-                                                                    <a href="faculty_departments.php?view=<?php echo $view; ?>" class="nav-link">
+                                                                    <a href="faculty_departments?view=<?php echo $view; ?>" class="nav-link">
                                                                         Departments: <span class="float-right badge bg-success"><?php echo $faculty_departments; ?></span>
                                                                     </a>
                                                                 </li>
 
                                                                 <li class="nav-item">
-                                                                    <a href="faculty_lects.php?view=<?php echo $view; ?>" class="nav-link">
+                                                                    <a href="faculty_lecturers?view=<?php echo $view; ?>" class="nav-link">
                                                                         Lecturers <span class="float-right badge bg-danger"><?php echo $faculty_lecs; ?></span>
                                                                     </a>
                                                                 </li>
@@ -412,12 +365,12 @@ require_once('partials/head.php');
                                                                     </span>
                                                                 </li>
                                                                 <li class="nav-item">
-                                                                    <a href="faculty_courses.php?view=<?php echo $view; ?>" class="nav-link">
+                                                                    <a href="faculty_courses?view=<?php echo $view; ?>" class="nav-link">
                                                                         Courses Offered: <span class="float-right badge bg-primary"><?php echo $faculty_courses; ?></span>
                                                                     </a>
                                                                 </li>
                                                                 <li class="nav-item">
-                                                                    <a href="faculty_modules.php?view=<?php echo $view; ?>" class="nav-link">
+                                                                    <a href="faculty_modules?view=<?php echo $view; ?>" class="nav-link">
                                                                         Modules: <span class="float-right badge bg-info"><?php echo $faculty_modules; ?></span>
                                                                     </a>
                                                                 </li>
