@@ -131,7 +131,7 @@ require_once('partials/head.php');
                                     <div class="modal-dialog  modal-xl">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Fill All Required Values</h4>
+                                                <h4 class="modal-title">Fill All Values</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>

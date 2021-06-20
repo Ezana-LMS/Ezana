@@ -202,10 +202,10 @@
         tags: true,
     });
 </script>
+
 <!-- Load Ajax Scripts -->
-<?php
-//require_once('_ajax.php');
-?>
+<?php require_once('ajax_scripts.php'); ?>
+
 <script>
     /* User Login Activity Chart */
     window.onload = function() {
