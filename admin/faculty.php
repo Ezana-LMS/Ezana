@@ -106,9 +106,9 @@ if (isset($_POST['update_faculty_head'])) {
         $row = mysqli_fetch_assoc($res);
         if ($password == $row['password'] && $user_email == $row['email']) {
             /* Allow User TO Update Faculty Head */
-            $query = "UPDATE ezanaLMS_Faculties SET email =?, name =? WHERE id =?";
+            $query = "UPDATE ezanaLMS_Faculties SET email =?, head =? WHERE id =?";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sss', $email, $faculty_id);
+            $rc = $stmt->bind_param('sss', $email, $head, $faculty_id);
             $stmt->execute();
             if ($stmt) {
                 $success = "Faculty Head Updated";
@@ -210,13 +210,10 @@ require_once('partials/head.php');
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="card-footer text-right">
+                                                        <div class="text-right">
                                                             <button type="submit" name="add_dept" class="btn btn-primary">Add Department</button>
                                                         </div>
                                                     </form>
-                                                </div>
-                                                <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -259,9 +256,6 @@ require_once('partials/head.php');
                                                         </div>
                                                     </form>
                                                 </div>
-                                                <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -272,7 +266,7 @@ require_once('partials/head.php');
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM USER PASSWORD </h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Update Faculty Head </h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -311,8 +305,8 @@ require_once('partials/head.php');
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="card-footer text-right">
-                                                            <button type="submit" name="update_faculty_head" class="btn btn-primary">Confirm Password</button>
+                                                        <div class="text-right">
+                                                            <button type="submit" name="update_faculty_head" class="btn btn-primary">Submit</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -378,7 +372,7 @@ require_once('partials/head.php');
                                         <div class="col-md-12">
                                             <div class="card card-widget widget-user-2">
                                                 <div class="widget-user-header  bg-primary">
-                                                    <span><i class="fas fa-arrow-left"></i><a href="faculties.php" class="text-white"> Back</a>
+                                                    <span><i class="fas fa-arrow-left"></i><a href="faculties" class="text-white"> Back</a>
                                                         <h3 class="text-center widget-user-username"><?php echo $faculty->name; ?></h3>
                                                     </span>
 
