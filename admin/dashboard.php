@@ -314,10 +314,10 @@ require_once('partials/head.php');
                                                     <div class="card-body">
                                                         <?php
                                                         $server_info = mysqli_get_server_info($mysqli);
-                                                        echo "System / Database Server: " . $server_info . "<br>";
+                                                        echo "<i class='text-success fas fa-check-circle'></i> Database Server: " . $server_info . "<br>";
                                                         $array = explode("  ", mysqli_stat($mysqli));
                                                         foreach ($array as $value) {
-                                                            echo "Server " . $value . "<br />";
+                                                            echo "<i class='text-success fas fa-check-circle'></i> Server " . $value . "<br />";
                                                         }
                                                         ?>
                                                     </div>
