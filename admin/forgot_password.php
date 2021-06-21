@@ -21,50 +21,42 @@
  */
 
 session_start();
-require_once('../config/config.php');
+include('../config/config.php');
+require_once('../config/codeGen.php');
 
-if (isset($_POST['login'])) {
-    /* Secure Login */
-    $error = 0;
+if (isset($_POST['reset'])) {
     if (isset($_POST['email']) && !empty($_POST['email'])) {
         $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
     } else {
         $error = 1;
-        $err = "Email Cannot  Be Empty";
+        $err = "Enter  E-mail";
     }
-    if (isset($_POST['password']) && !empty($_POST['password'])) {
-        $password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['password']))));
-    } else {
-        $error = 1;
-        $err = "Password Cannot  Be Empty";
-    }
-    if (!$error) {
-        $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Admins WHERE email='$email'  AND password='$password' AND rank = 'System Administrator' ");
-        $num = mysqli_fetch_array($ret);
-        if ($num > 0) {
-            /* Load Sessions */
-            $_SESSION['id'] = $num['id'];
-            $_SESSION['email'] = $email;
+    $query = mysqli_query($mysqli, "SELECT * from `ezanaLMS_Admins` WHERE email='" . $email . "'");
+    $num_rows = mysqli_num_rows($query);
 
-            /* Load Login Logs */
-            $uip = $_SERVER['REMOTE_ADDR'];
-            $User_Rank = 'Administrator';
-            $loginTime = date('Y-m-d');
-
-            /* Persist Auth Logs */
-            mysqli_query($mysqli, "INSERT INTO ezanaLMS_UserLog(user_id, name, ip, User_Rank, loginTime) values('" . $_SESSION['id'] . "','" . $_SESSION['email'] . "','$uip', '$User_Rank', '$loginTime')");
-            $extra = "dashboard";
-            $host = $_SERVER['HTTP_HOST'];
-            $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-            header("location:http://$host$uri/$extra");
-            exit();
+    if ($num_rows > 0) {
+        /* Mail User Plain Password */
+        $mailed_password = $defaultPass;
+        /* Hash Password  */
+        $hashed_password = sha1(md5($mailed_password));
+        $query = "UPDATE ezanaLMS_Admins SET  password =? WHERE  email =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ss', $hashed_password, $email);
+        $stmt->execute();
+        /* Load Mailer */
+        require_once('../config/password_reset_mailer.php');
+        if ($stmt && $mail->send()) {
+            $success = "Password Reset Instructions Sent To Your Mail";
         } else {
-            $err = "Invalid Authentication Credentials Or User Permission";
+            $err = "Password Reset Failed!, Try again $mail->ErrorInfo";
         }
+    } else {
+        /* User Does Not Exist */
+        $err = "Sorry, User Account With That Email Does Not Exist";
     }
 }
 
-/* Load Head*/
+/* Load Head */
 require_once('partials/auth_head.php');
 
 /* Persisit System Settings On Auth */
@@ -83,34 +75,23 @@ while ($sys = $res->fetch_object()) {
                         <div class="text-center">
                             <img height="150" width="160" src="../Data/SystemLogo/<?php echo $sys->logo; ?>" alt="wrapkit">
                         </div>
-                        <h2 class="mt-3 text-center">Log In</h2>
-                        <p class="text-center text-success">
-                            Enter Your Email Address And Password <br>
-                            Use The Following Demo Credentials <br>
-                            
-                            <b>Email : </b> sysadmin@ezana.org <br>
-                            <b>Password: </b> 123 <br>
-                        </p>
+                        <h2 class="mt-3 text-center">Reset Password</h2>
+                        <p class="text-center">Enter Your Address To Reset Password</p>
                         <div class="wrap-input100 validate-input" data-validate="Valid email is required: user@mail.com">
                             <input class="input100" type="email" name="email">
                             <span class="focus-input100"></span>
                             <span class="label-input100">Email</span>
                         </div>
-                        <div class="wrap-input100 validate-input" data-validate="Password is required">
-                            <input class="input100" type="password" name="password">
-                            <span class="focus-input100"></span>
-                            <span class="label-input100">Password</span>
-                        </div>
                         <div class="flex-sb-m w-full p-t-3 p-b-32">
                             <div>
-                                <a href="forgot_password" class="txt1">
-                                    Forgot Password?
+                                <a href="index" class="txt1">
+                                    Remembered Password?
                                 </a>
                             </div>
                         </div>
                         <div class="container-login100-form-btn">
-                            <button type="submit" name="login" class="login100-form-btn">
-                                Login
+                            <button type="submit" name="reset" class="login100-form-btn">
+                                Reset Password
                             </button>
                         </div>
                     </form>
@@ -119,7 +100,7 @@ while ($sys = $res->fetch_object()) {
                 </div>
             </div>
         </div>
-        <?php require_once("partials/auth_scripts.php"); ?>
+        <?php require_once("partials/_authscripts.php"); ?>
     </body>
 <?php
 } ?>
