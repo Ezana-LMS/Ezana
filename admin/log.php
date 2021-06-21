@@ -25,7 +25,7 @@ session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
 admin_checklogin();
-require_once('partials/_head.php');
+require_once('partials/head.php');
 ?>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -67,7 +67,7 @@ require_once('partials/_head.php');
                                         <div class="col-md-6">
                                             <div class="card card-widget widget-user-2">
                                                 <div class="widget-user-header text-left bg-primary">
-                                                    <h3 class="widget-user-username">User Details</h3>
+                                                    <h3 class="widget-user-username"><i class="fas fa-user-tag"></i> User Details</h3>
                                                 </div>
                                                 <div class="card-footer p-0">
                                                     <div class="row">
@@ -92,7 +92,7 @@ require_once('partials/_head.php');
                                         <div class="col-md-6">
                                             <div class="card card-widget widget-user-2">
                                                 <div class="widget-user-header text-left bg-primary">
-                                                    <h3 class="widget-user-username">System Details</h3>
+                                                    <h3 class="widget-user-username"><i class="fas fa-paper-plane"></i> System Details</h3>
                                                 </div>
                                                 <div class="card-footer p-0">
                                                     <div class="row">
