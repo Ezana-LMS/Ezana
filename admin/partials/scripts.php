@@ -150,7 +150,7 @@
 </script>
 <!-- Load Ajax Scripts -->
 <?php
-require_once('_ajax.php');
+//require_once('_ajax.php');
 ?>
 <script>
     /* User Login Activity Chart */

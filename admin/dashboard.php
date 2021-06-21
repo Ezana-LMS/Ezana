@@ -29,7 +29,7 @@ admin_checklogin();
 /* Code Generator */
 require_once('../config/codeGen.php');
 /* Analytics */
-require_once('../partials/analytics.php');
+require_once('partials/analytics.php');
 
 /* Mark All Notications As Read */
 if (isset($_GET['notification'])) {
@@ -81,110 +81,11 @@ require_once('partials/head.php');
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
         <!-- Navbar -->
-        <?php require_once('public/partials/_nav.php'); ?>
+        <?php require_once('partials/header.php'); ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <?php require_once('public/partials/_brand.php'); ?>
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item">
-                            <a href="dashboard.php" class="active nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="faculties.php" class=" nav-link">
-                                <i class="nav-icon fas fa-university"></i>
-                                <p>
-                                    Faculties
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="departments.php" class="nav-link">
-                                <i class="nav-icon fas fa-building"></i>
-                                <p>
-                                    Departments
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="courses.php" class="nav-link">
-                                <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                                <p>
-                                    Courses
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="modules.php" class="nav-link">
-                                <i class="nav-icon fas fa-chalkboard"></i>
-                                <p>
-                                    Modules
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="non_teaching_staff.php" class="nav-link">
-                                <i class="nav-icon fas fa-user-secret"></i>
-                                <p>
-                                    Non Teaching Staff
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="lecturers.php" class="nav-link">
-                                <i class="nav-icon fas fa-user-tie"></i>
-                                <p>
-                                    Lecturers
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="students.php" class="nav-link">
-                                <i class="nav-icon fas fa-user-graduate"></i>
-                                <p>
-                                    Students
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-cogs"></i>
-                                <p>
-                                    System Settings
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="reports.php" class="nav-link">
-                                        <i class="fas fa-angle-right nav-icon"></i>
-                                        <p>Reports</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="system_settings.php" class="nav-link">
-                                        <i class="fas fa-angle-right nav-icon"></i>
-                                        <p>System Settings</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
+        <?php require_once('partials/aside.php'); ?>
 
         <div class="content-wrapper">
             <div class="content-header">
@@ -195,7 +96,7 @@ require_once('partials/head.php');
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                                <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                 <li class="breadcrumb-item active">Dashboard</li>
                             </ol>
                         </div>
@@ -212,7 +113,7 @@ require_once('partials/head.php');
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-lg-4 col-6">
-                                                <a href="faculties.php">
+                                                <a href="faculties">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Faculties</h3>
@@ -228,7 +129,7 @@ require_once('partials/head.php');
                                                 </a>
                                             </div>
                                             <div class="col-lg-4 col-6">
-                                                <a href="departments.php">
+                                                <a href="departments">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Departments</h3>
@@ -245,7 +146,7 @@ require_once('partials/head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="courses.php">
+                                                <a href="courses">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Courses</h3>
@@ -262,7 +163,7 @@ require_once('partials/head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="modules.php">
+                                                <a href="modules">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Modules</h3>
@@ -279,7 +180,7 @@ require_once('partials/head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="overall_school_calendar.php">
+                                                <a href="important_dates">
 
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
@@ -296,7 +197,7 @@ require_once('partials/head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="non_teaching_staff.php">
+                                                <a href="non_teaching_staff">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Non Teaching Staff</h3>
@@ -313,8 +214,7 @@ require_once('partials/head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="lecturers.php">
-
+                                                <a href="lecturers">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Lecturers</h3>
@@ -331,7 +231,7 @@ require_once('partials/head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="students.php">
+                                                <a href="students">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Students</h3>
@@ -355,7 +255,7 @@ require_once('partials/head.php');
                                                 <div class="card col-md-12">
                                                     <div class="card-head text-center">
                                                         <br>
-                                                        <h4>User Login Activity <a href="user_login_activity.php" class="pull-right badge badge-success">View Logs</a></h4>
+                                                        <h4>User Login Activity <a href="logs" class="pull-right badge badge-success">View Logs</a></h4>
                                                     </div>
                                                     <div class="card-body">
                                                         <div id="chartContainer" style="height: 370px; max-width: auto; margin: 0px auto;"></div>
@@ -386,7 +286,7 @@ require_once('partials/head.php');
                                                             while ($req = $res->fetch_object()) {
                                                             ?>
                                                                 <li>
-                                                                    <a href="user_requests.php?view=<?php echo $req->id; ?>">
+                                                                    <a href="requests?view=<?php echo $req->id; ?>">
                                                                         <span class="text"><?php echo $req->request; ?></span>
                                                                         <small class="badge badge-success"><i class="far fa-clock"></i> <?php echo date('d M Y - g:ia', strtotime($req->created_at)); ?></small>
                                                                         <div class="progress">
@@ -430,7 +330,7 @@ require_once('partials/head.php');
                                                 <div class="card col-md-12">
                                                     <div class="card-header">
                                                         <h3 class="card-title">
-                                                            Recent Bugs /System Errors Reports
+                                                            Recent Bugs / System Errors Reports
                                                         </h3>
                                                     </div>
                                                     <div class="card-body">
@@ -444,7 +344,7 @@ require_once('partials/head.php');
                                                             while ($bugs = $res->fetch_object()) {
                                                             ?>
                                                                 <li>
-                                                                    <a href="bugs_reports.php?view=<?php echo $bugs->id; ?>">
+                                                                    <a href="bugs_reports?view=<?php echo $bugs->id; ?>">
                                                                         <span class="text"> <?php echo $bugs->bug_title; ?> - Bug Status: <?php echo $bugs->status; ?> </span>
                                                                         <div class="pull-right">
                                                                             <small class="badge badge-success"><i class="far fa-clock"></i> Reported On: <?php echo date('d M Y - g:ia', strtotime($bugs->date_reported)); ?></small>
@@ -458,7 +358,6 @@ require_once('partials/head.php');
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
