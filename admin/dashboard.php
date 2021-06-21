@@ -274,7 +274,7 @@ require_once('partials/head.php');
                                                             ?>
                                                                 <li>
                                                                     <a href="requests?view=<?php echo $req->id; ?>">
-                                                                        <span class="text"><?php echo $req->request; ?></span>
+                                                                        <span class="text"><?php echo substr($req->request, 0, 50); ?>...</span>
                                                                         <small class="badge badge-success"><i class="far fa-clock"></i> <?php echo date('d M Y - g:ia', strtotime($req->created_at)); ?></small>
                                                                         <div class="progress">
                                                                             <div class="progress-bar" style="width: <?php echo $req->progress; ?>%"></div>
@@ -284,7 +284,7 @@ require_once('partials/head.php');
                                                                         </span>
                                                                     </a>
                                                                 </li>
-                                                                </a>
+                                                                <br>
                                                             <?php
                                                             } ?>
                                                         </ul>
@@ -331,13 +331,15 @@ require_once('partials/head.php');
                                                             while ($bugs = $res->fetch_object()) {
                                                             ?>
                                                                 <li>
-                                                                    <a href="bugs_reports?view=<?php echo $bugs->id; ?>">
+                                                                    <i class="fas fa-bug"></i>
+                                                                    <a href="bugs?view=<?php echo $bugs->id; ?>">
                                                                         <span class="text"> <?php echo $bugs->bug_title; ?> - Bug Status: <?php echo $bugs->status; ?> </span>
                                                                         <div class="pull-right">
                                                                             <small class="badge badge-success"><i class="far fa-clock"></i> Reported On: <?php echo date('d M Y - g:ia', strtotime($bugs->date_reported)); ?></small>
                                                                         </div>
                                                                     </a>
                                                                 </li>
+                                                                <br>
                                                             <?php
                                                             } ?>
                                                         </ul>
