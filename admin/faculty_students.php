@@ -40,16 +40,14 @@ if (isset($_POST['add_student'])) {
     $gender = $_POST['gender'];
     $acc_status = 'Active';
     $created_at = date('d M Y');
-    $password = sha1(md5($_POST['password']));
+    $mailed_password = (($_POST['password']));
+    $hashed_password = sha1(md5($mailed_password));
     $faculty_id = $_POST['faculty_id'];
     $day_enrolled = $_POST['day_enrolled'];
     $school = $_POST['school'];
     $course = $_POST['course'];
     $department = $_POST['department'];
     $current_year = $_POST['current_year'];
-
-    /* Faculty ID  */
-    $view = $_GET['view'];
 
     $profile_pic = $time . $_FILES['profile_pic']['name'];
     move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "../Data/User_Profiles/students/" . $time . $_FILES["profile_pic"]["name"]);
@@ -70,17 +68,22 @@ if (isset($_POST['add_student'])) {
         }
     } else {
 
-        $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year,  name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_Students (id, faculty_id, day_enrolled, school, course, department, current_year, name, email, phone, admno, idno, adr, dob, gender, acc_status, created_at, password, profile_pic) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssssssssssssssss', $id, $faculty_id, $day_enrolled, $school, $course, $department, $current_year, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $acc_status, $created_at, $password, $profile_pic);
+        $rc = $stmt->bind_param('sssssssssssssssssss', $id, $faculty_id, $day_enrolled, $school, $course, $department, $current_year, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $acc_status, $created_at, $hashed_password, $profile_pic);
         $stmt->execute();
-        if ($stmt) {
+        /* Load Mailer */
+        require_once('../config/student_mailer.php');
+
+        if ($stmt && $mail->send()) {
+
             $success = "Student Added";
         } else {
-            $info = "Please Try Again Or Try Later";
+            $info = "Please Try Again Or Try Later $mail->ErrorInfo ";
         }
     }
 }
+
 
 
 /* Update Student */
@@ -95,19 +98,10 @@ if (isset($_POST['update_student'])) {
     $dob = $_POST['dob'];
     $gender = $_POST['gender'];
     $updated_at = date('d M Y');
-    $day_enrolled = $_POST['day_enrolled'];
-    $school = $_POST['school'];
-    $course = $_POST['course'];
-    $department = $_POST['department'];
-    $current_year = $_POST['current_year'];
 
-    /* FacultyID */
-    $view = $_POST['view'];
-
-
-    $query = "UPDATE ezanaLMS_Students SET day_enrolled =?, school =?, course =?, department =?, current_year =?,  name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =? WHERE id =?";
+    $query = "UPDATE ezanaLMS_Students SET name =?, email =?, phone =?, admno =?, idno =?, adr =?, dob =?, gender =?, updated_at =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sssssssssssssss', $day_enrolled, $school, $course, $department, $current_year, $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $updated_at, $id);
+    $rc = $stmt->bind_param('ssssssssss',  $name, $email, $phone, $admno, $idno, $adr, $dob, $gender, $updated_at, $id);
     $stmt->execute();
     if ($stmt) {
         $success = "$name Account Updated";
@@ -121,7 +115,6 @@ if (isset($_GET['suspend'])) {
     $suspend = $_GET['suspend'];
     /* FacultyID */
     $view = $_GET['view'];
-
     $adn = "UPDATE  ezanaLMS_Students SET acc_status = 'Suspended' WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $suspend);
@@ -228,7 +221,7 @@ require_once('partials/head.php');
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="">Date Of Birth</label>
-                                                                    <input type="text" placeholder="DD - MM - YYYY" required name="dob" class="form-control">
+                                                                    <input type="date" placeholder="DD - MM - YYYY" required name="dob" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <label for="">Gender</label>
