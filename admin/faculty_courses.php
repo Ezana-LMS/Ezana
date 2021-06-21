@@ -203,7 +203,7 @@ require_once('partials/head.php');
                                                                     <input type="text" id="DepName" required name="department_name" class="form-control">
                                                                     <input type="hidden" id="DepID" readonly required name="department_id" class="form-control">
                                                                     <input type="hidden" readonly required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
-                                                                    <input type="hidden" readonly required name="faculty_name" value="<?php echo $faculty->faculty_name; ?>" class="form-control">
+                                                                    <input type="hidden" readonly required name="faculty_name" value="<?php echo $faculty->name; ?>" class="form-control">
                                                                 </div>
 
                                                             </div>
