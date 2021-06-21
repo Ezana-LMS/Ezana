@@ -22,22 +22,19 @@
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website">
         <meta property="og:url" content="https://ezana.org">
-        <meta property="og:title" content="Ezana LMS">
-        <meta property="og:description" content="Ezana Learning Management System">
-        <meta property="og:image" content="../assets/img/logo.png">
+        <meta property="og:title" content="<?php echo $sys->sysname; ?>">
+        <meta property="og:description" content="Powered By Ezana Learning Management System">
+        <meta property="og:image" content="../Data/SystemLogo/<?php echo $sys->logo; ?>">
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:url" content="https://ezana.org">
-        <meta property="twitter:title" content="Ezana LMS">
-        <meta property="twitter:description" content="Ezana Learning Management System">
-        <meta property="twitter:image" content="../assets/img/logo.png">
+        <meta property="twitter:title" content="<?php echo $sys->sysname; ?>">
+        <meta property="twitter:description" content="Powered By Ezana Learning Management System">
+        <meta property="twitter:image" content="../Data/SystemLogo/<?php echo $sys->logo; ?>">
 
         <!-- Favicons -->
-        <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicons/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicons/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="../assets/img/img/favicons/favicon-16x16.png">
-        <link rel="manifest" href="../assets/img/favicons/site.webmanifest">
+        <link rel="icon" type="image/png" sizes="16x16" href="../Data/SystemLogo/<?php echo $sys->logo; ?>">
 
         <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="../assets/plugins/bootstrap/css/bootstrap.min.css">
