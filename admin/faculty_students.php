@@ -188,7 +188,6 @@ require_once('partials/head.php');
                                     <form class="form-inline" action="faculty_search_result.php" method="GET">
                                     </form>
                                     <div class="text-left">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-import-lecs">Bulk Import Lecturers</button>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Student</button>
                                     </div>
                                     <!-- Add Student Modal -->
