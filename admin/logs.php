@@ -114,8 +114,8 @@ require_once('partials/head.php');
                                                     <td><?php echo date('d-M-Y g:ia', strtotime($logs['exact_login_time'])); ?></td>
                                                     <td><?php echo $logs['User_Rank'] ?></td>
                                                     <td>
-                                                        <a class="badge badge-success" href="log?view=<?php echo $logs['id']; ?>">View Details</a>
-                                                        <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $logs['id']; ?>">Delete User Log</a>
+                                                        <a class="badge badge-success" href="log?view=<?php echo $logs['id']; ?>">View Log Details</a>
+                                                        <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $logs['id']; ?>">Delete Log</a>
                                                         <!-- Delete User Log -->
                                                         <div class="modal fade" id="delete-<?php echo $logs['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog modal-dialog-centered" role="document">
