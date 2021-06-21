@@ -67,7 +67,6 @@ while ($sys = $res->fetch_object()) {
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
         <!-- IziAlerts -->
         <link rel="stylesheet" type="text/css" href="../assets/plugins/iziToast/iziToast.min.css">
-
         <style>
             thead input {
                 width: 100%;

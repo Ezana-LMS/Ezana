@@ -21,15 +21,15 @@
  */
 
 session_start();
-require_once('configs/config.php');
-require_once('configs/checklogin.php');
+require_once('../config/config.php');
+require_once('../config/checklogin.php');
 admin_checklogin();
 
 /* Update Profile Picture */
 if (isset($_POST['update_picture'])) {
     $id = $_SESSION['id'];
     $time = time();
-    $profile_pic = $_FILES['profile_pic']['name'];
+    $profile_pic = $time.$_FILES['profile_pic']['name'];
     move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "../Data/User_Profiles/admins/" . $time . $_FILES["profile_pic"]["name"]);
     $query = "UPDATE ezanaLMS_Admins  SET  profile_pic =? WHERE id =?";
     $stmt = $mysqli->prepare($query);
@@ -96,7 +96,7 @@ if (isset($_POST['update_non_teaching_staff'])) {
         $rc = $stmt->bind_param('ssssssssss', $name, $email, $rank, $phone, $adr, $gender, $employee_id, $date_employed, $school, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "Profile Updated" && header("refresh:1; url=profile.php");
+            $success = "Profile Updated";
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -153,7 +153,7 @@ if (isset($_POST['change_password'])) {
     }
 }
 
-require_once('public/partials/_head.php');
+require_once('partials/head.php');
 ?>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -170,9 +170,9 @@ require_once('public/partials/_head.php');
         while ($admin = $res->fetch_object()) {
             //Get Default Profile Picture
             if ($admin->profile_pic == '') {
-                $dpic = "<img class='profile-user-img img-fluid img-circle' src='assets/img/no-profile.png' alt='User profile picture'>";
+                $dpic = "<img height='150' width = '150' class='img-fluid' src='../assets/img/no-profile.png' alt='User profile picture'>";
             } else {
-                $dpic = "<img class='profile-user-img img-fluid img-circle' src='../Data/User_Profiles/admins/$admin->profile_pic' alt='User profile picture'>";
+                $dpic = "<img class='img-fluid img-square' height='150' width = '150' src='../Data/User_Profiles/admins/$admin->profile_pic' alt='User profile picture'>";
             } ?>
             <!-- /.navbar -->
             <!-- Main Sidebar Container -->
@@ -268,18 +268,16 @@ require_once('public/partials/_head.php');
                                                 <b>Date Employed: </b> <a class="float-right"><?php echo $admin->date_employed; ?></a>
                                             </li>
                                             <li class="list-group-item">
-                                                <b>School / Faculty</b> <a class="float-right"><?php echo $admin->school; ?></a>
+                                                <b>School / Faculty: </b> <a class="float-right"><?php echo $admin->school; ?></a>
                                             </li>
 
                                             <li class="list-group-item">
-                                                <b>Rank</b> <a class="float-right"><?php echo $admin->rank; ?></a>
+                                                <b>Rank: </b> <a class="float-right"><?php echo $admin->rank; ?></a>
                                             </li>
                                         </ul>
                                     </div>
-                                    <!-- /.card-body -->
                                 </div>
                             </div>
-                            <!-- /.col -->
                             <div class="col-md-8">
                                 <div class="card">
                                     <div class="card-header p-2">
@@ -287,7 +285,7 @@ require_once('public/partials/_head.php');
                                             <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Profile Settings</a></li>
                                             <li class="nav-item"><a class="nav-link " href="#changePassword" data-toggle="tab">Change Password</a></li>
                                         </ul>
-                                    </div><!-- /.card-header -->
+                                    </div>
                                     <div class="card-body">
                                         <div class="tab-content">
                                             <div class="active tab-pane" id="settings">
@@ -314,14 +312,14 @@ require_once('public/partials/_head.php');
 
                                                         <div class="form-group col-md-6">
                                                             <label for="">Rank</label>
-                                                            <select class="form-control basic" name="rank">
+                                                            <select class="form-control basic" style="width: 100%;" name="rank">
                                                                 <option>System Administrator</option>
                                                                 <option>Education Administrator</option>
                                                             </select>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Gender</label>
-                                                            <select class="form-control basic" name="gender">
+                                                            <select class="form-control basic" style="width: 100%;" name="gender">
                                                                 <option>Male</option>
                                                                 <option>Female</option>
                                                             </select>
@@ -341,7 +339,7 @@ require_once('public/partials/_head.php');
                                                             <textarea required name="adr" rows="2" class="form-control"><?php echo $admin->adr; ?></textarea>
                                                         </div>
                                                     </div>
-                                                    <div class="card-footer text-right">
+                                                    <div class="text-right">
                                                         <button type="submit" name="update_non_teaching_staff" class="btn btn-primary">Submit</button>
                                                     </div>
                                                 </form>
@@ -367,26 +365,20 @@ require_once('public/partials/_head.php');
                                                             <input type="password" name="confirm_password" required class="form-control" id="inputName2">
                                                         </div>
                                                     </div>
-                                                    <div class="form-group row">
+                                                    <div class="form-group text-right row">
                                                         <div class="offset-sm-2 col-sm-10">
                                                             <button type="submit" name="change_password" class="btn btn-primary">Change Password</button>
                                                         </div>
                                                     </div>
                                                 </form>
                                             </div>
-                                            <!-- /.tab-pane -->
                                         </div>
-                                        <!-- /.tab-content -->
-                                    </div><!-- /.card-body -->
+                                    </div>
                                 </div>
-                                <!-- /.nav-tabs-custom -->
                             </div>
-                            <!-- /.col -->
                         </div>
-                        <!-- /.row -->
-                    </div><!-- /.container-fluid -->
+                    </div>
                 </section>
-                <!-- /.content -->
             </div>
 
         <?php
