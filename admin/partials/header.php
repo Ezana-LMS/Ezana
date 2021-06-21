@@ -39,7 +39,7 @@ while ($admin = $res->fetch_object()) {
                     <span class="badge badge-success navbar-badge"><?php echo $unread; ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-item dropdown-header"><?php echo $unread; ?> Notifications <a href="dashboard?notification='Read'" class="badge bg-danger"> Mark All Read </a></span>
+                    <span class="dropdown-item dropdown-header"><?php echo $unread; ?> Notifications <a href="notifications?notification='Read'" class="badge bg-danger"> Mark All Read </a></span>
                     <div class="dropdown-divider"></div>
                     <?php
                     /* Load Notifications On Order Created */

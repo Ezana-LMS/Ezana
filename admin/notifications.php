@@ -24,6 +24,20 @@ session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
 admin_checklogin();
+
+/* Mark All Notications As Read */
+if (isset($_GET['notification'])) {
+    $notification = $_GET['notification'];
+    $adn = "UPDATE   ezanaLMS_Notifications SET  status = 'Read' ";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "All Notifications Marked As Read" ;
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 require_once('partials/head.php');
 ?>
 

@@ -31,19 +31,6 @@ require_once('../config/codeGen.php');
 /* Analytics */
 require_once('partials/analytics.php');
 
-/* Mark All Notications As Read */
-if (isset($_GET['notification'])) {
-    $notification = $_GET['notification'];
-    $adn = "UPDATE   ezanaLMS_Notifications SET  status = 'Read' ";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=dashboard");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 
 /* Delete Bug Reports */
 if (isset($_GET['delete'])) {
