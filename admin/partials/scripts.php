@@ -169,7 +169,7 @@
     /* Admin Bulk Clear Notifications */
     function setDeleteAction() {
         if (confirm("Are you sure want to clear these notifications?")) {
-            document.notificationsForm.action = "notifications_clear.php";
+            document.notificationsForm.action = "clear_notifications";
             document.notificationsForm.submit();
         }
     }
