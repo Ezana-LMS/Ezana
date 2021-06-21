@@ -21,11 +21,10 @@
  */
 
 
-
 /* Non Teaching Staff Emails Configuration */
-require_once('.../vendor/PHPMailer/src/SMTP.php');
-require_once('../vendor/PHPMailer/src/PHPMailer.php');
-require_once('../vendor/PHPMailer/src/Exception.php');
+require '../vendor/autoload.php';
+
+/* Initiate Mailer */
 $mail = new PHPMailer\PHPMailer\PHPMailer();
 
 /* Consume Mailer And Load system settings */
