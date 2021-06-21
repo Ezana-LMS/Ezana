@@ -10,7 +10,7 @@
     <script>
         iziToast.success({
             title: 'Success',
-            position: 'center',
+            position: 'topRight',
             transitionIn: 'flipInX',
             transitionOut: 'flipOutX',
             transitionInMobile: 'fadeInUp',

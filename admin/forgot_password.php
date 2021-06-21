@@ -100,7 +100,7 @@ while ($sys = $res->fetch_object()) {
                 </div>
             </div>
         </div>
-        <?php require_once("partials/_authscripts.php"); ?>
+        <?php require_once("partials/auth_scripts.php"); ?>
     </body>
 <?php
 } ?>
