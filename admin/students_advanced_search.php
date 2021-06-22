@@ -251,37 +251,12 @@ require_once('partials/head.php');
                                                                                         <label for="">Phone Number</label>
                                                                                         <input type="text" required name="phone" value="<?php echo $std->phone; ?>" class="form-control">
                                                                                     </div>
-                                                                                    <div class="form-group col-md-6">
-                                                                                        <label for="">Course Name</label>
-                                                                                        <input type="text" value="<?php echo $std->course; ?>" required name="course" class="form-control">
-                                                                                    </div>
-                                                                                    <div class="form-group col-md-6">
-                                                                                        <label for="">Department Name</label>
-                                                                                        <input type="text" required name="department" class="form-control" value="<?php echo $std->department; ?>">
-                                                                                    </div>
-                                                                                    <div class="form-group col-md-12">
-                                                                                        <label for="">Faculty / School Name</label>
-                                                                                        <input type="text" required name="school" class="form-control" value="<?php echo $std->school; ?>">
-                                                                                    </div>
-                                                                                    <div class="form-group col-md-6">
-                                                                                        <label for="">Current Year</label>
-                                                                                        <select name="current_year" class='form-control basic'>
-                                                                                            <option>1st Year </option>
-                                                                                            <option>2nd Year </option>
-                                                                                            <option>3rd Year </option>
-                                                                                            <option>4th Year </option>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                    <div class="form-group col-md-6">
-                                                                                        <label for="">Date Enrolled</label>
-                                                                                        <input type="date" required name="day_enrolled" value="<?php echo $std->day_enrolled; ?>" class="form-control">
-                                                                                    </div>
                                                                                 </div>
 
                                                                                 <div class="row">
                                                                                     <div class="form-group col-md-12">
                                                                                         <label for="exampleInputPassword1">Current Address</label>
-                                                                                        <textarea name="adr" rows="3" class="form-control"><?php echo $std->adr; ?></textarea>
+                                                                                        <textarea required name="adr" rows="3" class="form-control"><?php echo $std->adr; ?></textarea>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
