@@ -354,13 +354,10 @@ require_once('partials/head.php');
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer text-right">
+                                                <div class="text-right">
                                                     <button type="submit" name="add_non_teaching_staff" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </form>
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
