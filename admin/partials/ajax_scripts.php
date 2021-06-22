@@ -205,6 +205,24 @@
                 $('#ModuleName').val(data);
             }
         });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'ModuleName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#ModuleID').val(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'ModuleID=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#ModuleCourseId').val(data);
+            }
+        });
     }
 
 

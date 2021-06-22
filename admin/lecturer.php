@@ -179,19 +179,20 @@ if (isset($_POST['assign_module'])) {
         } else {
             $id = $_POST['id'];
             $created_at = date('d M Y');
-            $view = $_GET['view'];
+            $course_id = $_GET['course_id'];
             $faculty = $_POST['faculty'];
             $academic_year = $_POST['academic_year'];
             $semester = $_POST['semester'];
+            $module_id = $_POST['module_id'];
 
             /*Show That Module Has Been Given A Lec  */
             $ass_status = 1;
 
-            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, course_id, academic_year, semester, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, course_id, module_id, academic_year, semester, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
             $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
             $stmt = $mysqli->prepare($query);
             $modstmt = $mysqli->prepare($modUpdate);
-            $rc = $stmt->bind_param('ssssssssss', $id, $faculty, $view, $academic_year, $semester, $module_code, $module_name, $lec_id, $lec_name, $created_at);
+            $rc = $stmt->bind_param('sssssssssss', $id, $faculty, $course_id, $module_id, $academic_year, $semester, $module_code, $module_name, $lec_id, $lec_name, $created_at);
             $rc = $modstmt->bind_param('is', $ass_status, $module_code);
             $stmt->execute();
             $modstmt->execute();
@@ -440,9 +441,10 @@ require_once('partials/head.php');
                                             <li class="nav-item"><a class="nav-link" href="#allocated_modules" data-toggle="tab">Assigned Modules</a></li>
                                             <li class="nav-item"><a class="nav-link " href="#changePassword" data-toggle="tab">Password Reset</a></li>
                                         </ul>
-                                    </div><!-- /.card-header -->
+                                    </div>
                                     <div class="card-body">
                                         <div class="tab-content">
+                                            <!-- Allocate Module Details -->
                                             <div class="tab-pane active" id="assign_modules">
                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                     <div class="card-body">
@@ -467,10 +469,13 @@ require_once('partials/head.php');
                                                                 <label for="">Module Name</label>
                                                                 <input type="text" readonly id="ModuleName" required name="module_name" class="form-control">
                                                                 <!-- Hidden Values -->
-                                                                <input type="hidden" readonly required name="lec_name" value="<?php echo $lec->name;?>" class="form-control">
-                                                                <input type="hidden"  readonly required name="lec_id" value="<?php echo $lec->id;?>"  class="form-control">
+                                                                <input type="hidden" readonly required name="lec_name" value="<?php echo $lec->name; ?>" class="form-control">
+                                                                <input type="hidden" readonly required name="lec_id" value="<?php echo $lec->id; ?>" class="form-control">
                                                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                                 <input type="hidden" required name="faculty" value="<?php echo $lec->faculty_id; ?>" class="form-control">
+                                                                <input type="hidden" required name="course_id" id="ModuleCourseId" class="form-control">
+                                                                <input type="hidden" required name="module_id" id="ModuleID" class="form-control">
+
                                                             </div>
                                                             <?php
                                                             /* Persisit Academic Settings */
@@ -499,6 +504,8 @@ require_once('partials/head.php');
                                                     </div>
                                                 </form>
                                             </div>
+
+                                            <!-- Manage Allocated Modules -->
                                             <div class="tab-pane " id="allocated_modules">
                                                 <table id="example1" class="table table-bordered table-striped">
                                                     <thead>
@@ -532,6 +539,78 @@ require_once('partials/head.php');
                                                                     ?>
                                                                 </td>
                                                                 <td><?php echo date('d M Y', strtotime($assigns->created_at)); ?></td>
+                                                                <td>
+                                                                    <a class="badge badge-success" href="module?view=<?php echo $assigns->module_id; ?>">
+                                                                        <i class="fas fa-eye"></i>
+                                                                        View
+                                                                    </a>
+                                                                    <a class="badge badge-primary" data-toggle="modal" href="#edit-modal-<?php echo $mod->id; ?>">
+                                                                        <i class="fas fa-edit"></i>
+                                                                        Update
+                                                                    </a>
+                                                                    <!-- Update Module Modal -->
+                                                                    <div class="modal fade" id="edit-modal-<?php echo $mod->id; ?>">
+                                                                        <div class="modal-dialog  modal-xl">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <!-- Update Module Form -->
+                                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                                        <div class="card-body">
+                                                                                            <div class="row">
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">Module Name</label>
+                                                                                                    <input type="text" value="<?php echo $mod->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                                                    <input type="hidden" required name="id" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">Module Number / Code</label>
+                                                                                                    <input type="text" required name="code" value="<?php echo $mod->code; ?>" class="form-control">
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="row">
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">Teaching Duration</label>
+                                                                                                    <input type="text" value="<?php echo $mod->course_duration; ?>" required name="course_duration" class="form-control" id="exampleInputEmail1">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">Number Of Lectures Per Week</label>
+                                                                                                    <input type="text" value="<?php echo $mod->lectures_number; ?>" required name="lectures_number" class="form-control">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">CAT Exam Weight Percentage</label>
+                                                                                                    <input type="text" value="<?php echo $mod->cat_weight_percentage; ?>" required name="cat_weight_percentage" class="form-control">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">End Exam Weight Percentage</label>
+                                                                                                    <input type="text" value="<?php echo $mod->exam_weight_percentage; ?>" required name="exam_weight_percentage" class="form-control">
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div class="row">
+                                                                                                <div class="form-group col-md-12">
+                                                                                                    <label for="exampleInputPassword1">Module Details</label>
+                                                                                                    <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $mod->details; ?></textarea>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="text-right">
+                                                                                            <button type="submit" name="update_module" class="btn btn-primary">Update Module</button>
+                                                                                        </div>
+                                                                                    </form>
+
+                                                                                    <!-- End Module Form -->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
                                                             </tr>
                                                         <?php
                                                         } ?>
@@ -540,6 +619,7 @@ require_once('partials/head.php');
 
                                             </div>
 
+                                            <!-- Password Resets -->
                                             <div class="tab-pane" id="changePassword">
                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                     <div class="card-body">
