@@ -23,22 +23,37 @@
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <a href="module_notices?view=<?php echo $module->id; ?>">
-                                Notices 
+                                Module Home
                             </a>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="module_pastpapers?view=<?php echo $module->id; ?>">
-                                Past Papers
+                            <a href="module_notices?view=<?php echo $module->id; ?>">
+                                Notices & Memo
                             </a>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a href="module_reading_materials?view=<?php echo $module->id; ?>">
-                                Reading Materials
+                            <a href="module_lecture_materials?view=<?php echo $module->id; ?>">
+                                Lecture Materials
                             </a>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <a href="module_class_recordings?view=<?php echo $module->id; ?>">
                                 Class Recordings
+                            </a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="module_assignments?view=<?php echo $module->id; ?>">
+                                Assignments
+                            </a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="module_grades?view=<?php echo $module->id; ?>">
+                                Grades
+                            </a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="module_pastpapers?view=<?php echo $module->id; ?>">
+                                Past Papers
                             </a>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -48,7 +63,7 @@
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <a href="module_enrollments?view=<?php echo $module->id; ?>">
-                                Module Enrollments
+                                Module Enrolments
                             </a>
                         </li>
                     </ul>
