@@ -246,9 +246,12 @@ require_once('partials/head.php');
                             <form class="form-inline">
                             </form>
                             <div class="text-left">
+                                <a href="bulk_import_admins" class="btn btn-primary">Bulk Import</a>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Non Teaching Staff</button>
                                 <a href="advanced_search_non_teaching_staff" class="btn btn-primary">Advanced Search</a>
                             </div>
+
+                            <!-- End Bulk Import -->
                             <!-- Add Non Teaching Staff Modal -->
                             <div class="modal fade" id="modal-default">
                                 <div class="modal-dialog  modal-xl">
