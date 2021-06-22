@@ -252,7 +252,7 @@ require_once('partials/head.php');
                                                                     <div class="card-body">
                                                                         <div class="row">
                                                                             <div class="form-group text-center col-md-12">
-                                                                                <label for="exampleInputFile">Allowed File Types: XLS, XLSX. Please, <a href="public/templates/ezanaLMS_Non_Teaching_Staffs_XLS_Template.xlsx">Download</a> A Template File. </label>
+                                                                                <label for="exampleInputFile">Allowed File Types: XLS, XLSX. Please, <a href="../Data/XLS_Templates/ezanaLMS_Non_Teaching_Staffs_XLS_Template.xlsx">Download</a> A Template File. </label>
                                                                             </div>
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="exampleInputFile">Select File</label>
