@@ -277,14 +277,14 @@ require_once('partials/head.php');
                                                                                                 <input type="hidden" required name="id" value="<?php echo $dep->id; ?>" class="form-control">
                                                                                                 <input type="hidden" required name="view" value="<?php echo $dep->faculty_id; ?>" class="form-control">
                                                                                             </div>
-                                                                                            <div class="form-group col-md-6">
+                                                                                            <!-- <div class="form-group col-md-6">
                                                                                                 <label for="">Department HOD</label>
                                                                                                 <input type="text" required value="<?php echo $dep->hod; ?>" name="hod" class="form-control">
                                                                                             </div>
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Department HOD Email</label>
                                                                                                 <input type="text" required value="<?php echo $dep->email; ?>" name="email" class="form-control">
-                                                                                            </div>
+                                                                                            </div> -->
                                                                                         </div>
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-12">
