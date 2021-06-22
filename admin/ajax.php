@@ -152,7 +152,7 @@ if (!empty($_POST["ModuleCode"])) {
 
 if (!empty($_POST["ModuleName"])) {
     $id = $_POST['ModuleName'];
-    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Modules WHERE name = :id");
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Modules WHERE code = :id");
     $stmt->execute(array(':id' => $id));
 ?>
 <?php
@@ -167,7 +167,7 @@ if (!empty($_POST["ModuleName"])) {
 
 if (!empty($_POST["ModuleID"])) {
     $id = $_POST['ModuleID'];
-    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Modules WHERE id = :id");
+    $stmt = $DB_con->prepare("SELECT * FROM ezanaLMS_Modules WHERE code = :id");
     $stmt->execute(array(':id' => $id));
 ?>
 <?php

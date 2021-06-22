@@ -179,7 +179,7 @@ if (isset($_POST['assign_module'])) {
         } else {
             $id = $_POST['id'];
             $created_at = date('d M Y');
-            $course_id = $_GET['course_id'];
+            $course_id = $_POST['course_id'];
             $faculty = $_POST['faculty'];
             $academic_year = $_POST['academic_year'];
             $semester = $_POST['semester'];
