@@ -583,7 +583,7 @@ require_once('partials/head.php');
                                                                                     <h4>Delete <?php echo $assigns->lec_name; ?> Module Allocation ?</h4>
                                                                                     <br>
                                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                    <a href="lecturer?delete=<?php echo $assigns->id; ?>&code=<?php echo $assigns->module_code; ?>&view=<?php echo $course->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                    <a href="lecturer?delete=<?php echo $assigns->id; ?>&code=<?php echo $assigns->module_code; ?>&view=<?php echo $view ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
