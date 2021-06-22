@@ -103,35 +103,26 @@ if (isset($_POST["upload"])) {
             if (isset($spreadSheetAry[$i][7])) {
                 $employee_id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][7]);
             }
-
-            $gender = "";
-            if (isset($spreadSheetAry[$i][8])) {
-                $gender = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
-            }
-
-            $employee_id = "";
-            if (isset($spreadSheetAry[$i][9])) {
-                $employee_id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
-            }
+            
 
             $national_id = "";
-            if (isset($spreadSheetAry[$i][10])) {
-                $national_id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][10]);
+            if (isset($spreadSheetAry[$i][8])) {
+                $national_id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][8]);
             }
 
             $date_employed = "";
-            if (isset($spreadSheetAry[$i][11])) {
-                $date_employed = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
+            if (isset($spreadSheetAry[$i][9])) {
+                $date_employed = mysqli_real_escape_string($conn, $spreadSheetAry[$i][9]);
             }
 
             $adr = "";
-            if (isset($spreadSheetAry[$i][12])) {
-                $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][12]);
+            if (isset($spreadSheetAry[$i][10])) {
+                $adr = mysqli_real_escape_string($conn, $spreadSheetAry[$i][10]);
             }
 
             $status = "";
-            if (isset($spreadSheetAry[$i][13])) {
-                $status = mysqli_real_escape_string($conn, $spreadSheetAry[$i][13]);
+            if (isset($spreadSheetAry[$i][11])) {
+                $status = mysqli_real_escape_string($conn, $spreadSheetAry[$i][11]);
             }
 
             /* Constant Values */
@@ -201,7 +192,7 @@ require_once('partials/head.php');
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                <li class="breadcrumb-item"><a href="non_teaching_staffs">Non Teaching Staffs</a></li>
+                                <li class="breadcrumb-item"><a href="non_teaching_staff">Non Teaching Staffs</a></li>
                                 <li class="breadcrumb-item active">Bulk Import</li>
                             </ol>
                         </div>

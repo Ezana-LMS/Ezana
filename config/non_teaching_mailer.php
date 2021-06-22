@@ -33,9 +33,9 @@ $res = $stmt->get_result();
 while ($sys = $res->fetch_object()) {
     $mail->setFrom($sys->stmp_sent_from);
     $mail->FromName = $sys->sysname;
-    $lecturer_emails = explode(',', $work_email);
-    foreach ($lecturer_emails as $lecturer_email) {
-        $mail->AddAddress(trim($lecturer_email));
+    $non_teaching_staffs_emails = explode(',', $email);
+    foreach ($non_teaching_staffs_emails as $non_teaching_staffs_email) {
+        $mail->AddAddress(trim($non_teaching_staffs_email));
     }
     //$mail->addAddress($email);
     $mail->Subject = 'Welcome';
@@ -83,10 +83,10 @@ while ($sys = $res->fetch_object()) {
                                                         style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                                         Hi ' . $name . ', <br>
-                                                        We are thrilled to have you as a non teaching staff  at ' . $sys->sysname . '.
+                                                        We are thrilled to have you as  <b>'.$rank.'</b> at ' . $sys->sysname . '.
                                                     </p>
                                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                                    This is your default lecturer account authentication credentials: <br>
+                                                    This is your default <b>'.$rank.'</b> account authentication credentials: <br>
                                                     <b>Email: ' . $email . '</b><br>
                                                     <b>Password: ' . $mailed_password . '</b><br>
                                                     <br>
