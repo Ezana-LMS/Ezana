@@ -132,7 +132,7 @@ require_once('partials/head.php');
                 <section class="content">
                     <div class="container-fluid">
                         <div class="text-left">
-                            <nav class="navbar navbar-light bg-light col-md-12">
+                            <nav class="navbar  col-md-12">
                                 <form class="form-inline" action="" method="GET">
                                 </form>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Department</button>

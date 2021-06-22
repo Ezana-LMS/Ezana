@@ -64,10 +64,12 @@ if (isset($_POST['add_course'])) {
             $department_name = $_POST['department_name'];
             $faculty_id = $_POST['faculty_id'];
             $faculty_name = $_POST['faculty_name'];
+            $hod = $_POST['hod'];
+            $email = $_POST['email'];
 
-            $query = "INSERT INTO ezanaLMS_Courses (id, code, name, details, department_id, faculty_id, faculty_name,  department_name) VALUES(?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_Courses (id, code, name, details, department_id, faculty_id, faculty_name,  department_name, hod, email) VALUES(?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssss', $id, $code, $name, $details, $department_id, $faculty_id, $faculty_name,  $department_name);
+            $rc = $stmt->bind_param('ssssssssss', $id, $code, $name, $details, $department_id, $faculty_id, $faculty_name,  $department_name, $hod, $email);
             $stmt->execute();
             if ($stmt) {
                 $success = "$name Course Added";
@@ -177,7 +179,7 @@ require_once('partials/head.php');
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Course Number / Code</label>
-                                                                    <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                                    <input type="text" required readonly name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                                                 </div>
                                                             </div>
 
@@ -200,12 +202,30 @@ require_once('partials/head.php');
                                                                 </div>
                                                                 <div class="form-group col-md-6">
                                                                     <label for="">Department Name</label>
-                                                                    <input type="text" id="DepName" required name="department_name" class="form-control">
+                                                                    <input type="text" id="DepName" readonly required name="department_name" class="form-control">
                                                                     <input type="hidden" id="DepID" readonly required name="department_id" class="form-control">
                                                                     <input type="hidden" readonly required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
                                                                     <input type="hidden" readonly required name="faculty_name" value="<?php echo $faculty->name; ?>" class="form-control">
                                                                 </div>
-
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Course Head </label>
+                                                                    <select class='form-control basic' id="CourseHead" name="hod" onchange="getCourseHeadDetails(this.value);">
+                                                                        <option selected>Select Course Head</option>
+                                                                        <?php
+                                                                        $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                        $stmt = $mysqli->prepare($ret);
+                                                                        $stmt->execute(); //ok
+                                                                        $res = $stmt->get_result();
+                                                                        while ($course_hod = $res->fetch_object()) {
+                                                                        ?>
+                                                                            <option><?php echo $course_hod->name; ?></option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Course Head Email</label>
+                                                                    <input type="text" required name="email" readonly id="CourseHeadEmail" class="form-control">
+                                                                </div>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="form-group col-md-12">
