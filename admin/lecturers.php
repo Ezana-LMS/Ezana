@@ -217,7 +217,7 @@ require_once('partials/head.php');
 
                 <section class="content">
                     <div class="container-fluid">
-                        <nav class="navbar navbar-light bg-light col-md-12">
+                        <nav class="navbar col-md-12">
                             <form class="form-inline">
                             </form>
                             <div class="text-left">
@@ -324,7 +324,7 @@ require_once('partials/head.php');
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer text-right">
+                                                <div class="text-right">
                                                     <button type="submit" name="add_lec" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </form>
@@ -515,7 +515,6 @@ require_once('partials/head.php');
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </td>
                                         </tr>
                                     <?php
