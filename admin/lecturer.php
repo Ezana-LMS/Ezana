@@ -139,6 +139,71 @@ if (isset($_POST['update_lec'])) {
     }
 }
 
+/* Module Allocation */
+if (isset($_POST['assign_module'])) {
+    $error = 0;
+    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
+        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
+    } else {
+        $error = 1;
+        $err = "Module Code Cannot Be Empty";
+    }
+    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
+        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (isset($_POST['lec_id']) && !empty($_POST['lec_id'])) {
+        $lec_id = mysqli_real_escape_string($mysqli, trim($_POST['lec_id']));
+    } else {
+        $error = 1;
+        $err = "Lec ID Cannot Be Empty";
+    }
+    if (isset($_POST['lec_name']) && !empty($_POST['lec_name'])) {
+        $lec_name = mysqli_real_escape_string($mysqli, trim($_POST['lec_name']));
+    } else {
+        $error = 1;
+        $err = "Lec Name Cannot Be Empty";
+    }
+    if (!$error) {
+
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_ModuleAssigns WHERE  (lec_id='$lec_id' AND module_code ='$module_code') ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if (($lec_id == $row['lec_id']) && ($module_code == $row['module_code'])) {
+                $err =  "Module Already Assigned Lecturer";
+            }
+        } else {
+            $id = $_POST['id'];
+            $created_at = date('d M Y');
+            $view = $_GET['view'];
+            $faculty = $_POST['faculty'];
+            $academic_year = $_POST['academic_year'];
+            $semester = $_POST['semester'];
+
+            /*Show That Module Has Been Given A Lec  */
+            $ass_status = 1;
+
+            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, course_id, academic_year, semester, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?,?,?,?)";
+            $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
+            $stmt = $mysqli->prepare($query);
+            $modstmt = $mysqli->prepare($modUpdate);
+            $rc = $stmt->bind_param('ssssssssss', $id, $faculty, $view, $academic_year, $semester, $module_code, $module_name, $lec_id, $lec_name, $created_at);
+            $rc = $modstmt->bind_param('is', $ass_status, $module_code);
+            $stmt->execute();
+            $modstmt->execute();
+            if ($stmt && $modstmt) {
+                $success = "$lec_name Assigned To  $module_code -  $module_name";
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+
 require_once('partials/head.php');
 ?>
 
@@ -371,25 +436,78 @@ require_once('partials/head.php');
                                 <div class="card card-primary card-outline">
                                     <div class="card-header p-2">
                                         <ul class="nav nav-pills">
-                                            <li class="nav-item"><a class="nav-link active" href="#allocated_modules" data-toggle="tab">Allocated Modules</a></li>
-                                            <li class="nav-item"><a class="nav-link " href="#update_profile" data-toggle="tab">Update Profile</a></li>
+                                            <li class="nav-item"><a class="nav-link active" href="#assign_modules" data-toggle="tab">Assign Module</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#allocated_modules" data-toggle="tab">Assigned Modules</a></li>
                                             <li class="nav-item"><a class="nav-link " href="#changePassword" data-toggle="tab">Password Reset</a></li>
                                         </ul>
                                     </div><!-- /.card-header -->
                                     <div class="card-body">
                                         <div class="tab-content">
-                                            <div class=" tab-pane" id="update_profile">
+                                            <div class="tab-pane active" id="assign_modules">
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Module Name</label>
+                                                                <select class='form-control basic' id="ModuleCode" onchange="OptimizedModuleDetails(this.value);" name="module_code">
+                                                                    <option selected>Select Module Code </option>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE ass_status = '0' AND faculty_id = '$lec->faculty_id'  ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    while ($mod = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <option><?php echo $mod->code; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
 
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Module Name</label>
+                                                                <input type="text" readonly id="ModuleName" required name="module_name" class="form-control">
+                                                                <!-- Hidden Values -->
+                                                                <input type="hidden" readonly required name="lec_name" value="<?php echo $lec->name;?>" class="form-control">
+                                                                <input type="hidden"  readonly required name="lec_id" value="<?php echo $lec->id;?>"  class="form-control">
+                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                <input type="hidden" required name="faculty" value="<?php echo $lec->faculty_id; ?>" class="form-control">
+                                                            </div>
+                                                            <?php
+                                                            /* Persisit Academic Settings */
+                                                            $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($academic_settings = $res->fetch_object()) {
+                                                            ?>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Academic Year </label>
+                                                                    <input type="text" readonly value="<?php echo $academic_settings->current_academic_year; ?>" required name="academic_year" class="form-control">
+                                                                </div>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="">Semester</label>
+                                                                    <input type="text" readonly value="<?php echo $academic_settings->current_semester; ?>" required name="semester" class="form-control">
+                                                                </div>
+
+                                                            <?php
+                                                            } ?>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <button type="submit" name="assign_module" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
                                             </div>
-
-                                            <div class="tab-pane active" id="allocated_modules">
+                                            <div class="tab-pane " id="allocated_modules">
                                                 <table id="example1" class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th>Module Name</th>
                                                             <th>Module Code</th>
                                                             <th>Lecturer Name</th>
-                                                            <th>Date Allocated</th>
+                                                            <th>Date Assigned</th>
+                                                            <th>Manage Module</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
