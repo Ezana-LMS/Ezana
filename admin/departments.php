@@ -92,7 +92,7 @@ if (isset($_POST['update_dept'])) {
         $details = $_POST['details'];
         $query = "UPDATE ezanaLMS_Departments SET code =?, name =?,  details =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssss', $code, $name, $details, $id);
+        $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "$name Updated";
@@ -171,12 +171,12 @@ require_once('partials/head.php');
                                                                 <input type="text" required name="faculty_name" readonly class="form-control" id="FacultyName">
                                                             </div>
 
-                                                            <div class="form-group col-md-4">
+                                                            <div class="form-group col-md-6">
                                                                 <label for="">Department Name</label>
                                                                 <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                             </div>
-                                                            <div class="form-group col-md-4">
+                                                            <div class="form-group col-md-6">
                                                                 <label for="">Department Number / Code</label>
                                                                 <input type="text" required name="code" readonly value="<?php echo $a . $b; ?>" class="form-control">
                                                             </div>
@@ -202,7 +202,7 @@ require_once('partials/head.php');
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group col-md-12">
-                                                                <label for="exampleInputPassword1">Department Details</label>
+                                                                <label for="exampleInputPassword1">Department Description</label>
                                                                 <textarea name="details" rows="10" class="form-control Summernote"></textarea>
                                                             </div>
                                                         </div>
