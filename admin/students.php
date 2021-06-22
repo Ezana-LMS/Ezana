@@ -177,8 +177,8 @@ require_once('partials/head.php');
                                 </form>
                                 <div class="text-right">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Student</button>
-                                    <a href="students_bulk_import" class="btn btn-primary">Bulk Import Students</a>
-                                    <a href="students_advanced_search" class="btn btn-primary">Advance Search</a>
+                                    <a href="bulk_import_students" class="btn btn-primary">Bulk Import Students</a>
+                                    <a href="advanced_search_students" class="btn btn-primary">Advance Search</a>
 
                                 </div>
                                 <!-- Add Student Modal -->

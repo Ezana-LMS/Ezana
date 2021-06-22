@@ -59,7 +59,7 @@ if (isset($_GET['suspend'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Suspended" && header("refresh:1; url=students_advanced_search");
+        $success = "Suspended" && header("refresh:1; url=advanced_search_students");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -74,7 +74,7 @@ if (isset($_GET['unsuspend'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Un Suspended" && header("refresh:1; url=students_advanced_search");
+        $success = "Un Suspended" && header("refresh:1; url=advanced_search_students");
     } else {
         $info = "Please Try Again Or Try Later";
     }
