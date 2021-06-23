@@ -439,7 +439,7 @@ while ($admin = $res->fetch_object()) {
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="">Enroll Code</label>
-                                    <input type="text" readonly required name="code" value="<?php echo $a.$b; ?>" class="form-control">
+                                    <input type="text" readonly required name="code" value="<?php echo $a . $b; ?>" class="form-control">
                                 </div>
                             </div>
                             <div class="row">
@@ -474,7 +474,7 @@ while ($admin = $res->fetch_object()) {
                                 <hr>
                                 <div class="form-group col-md-6">
                                     <label for="">Module Code</label>
-                                    <select class='form-control basic' id="ModuleCode" onchange="OptimizedModuleDetails(this.value);" name="module_code">
+                                    <select class='form-control basic' id="EnrollmentModuleCode" onchange="EnrollmentModuleDetails(this.value);" name="module_code">
                                         <option selected>Select Module Code </option>
                                         <?php
                                         $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE course_id = '$course->id'   ";
@@ -489,7 +489,7 @@ while ($admin = $res->fetch_object()) {
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="">Module Name</label>
-                                    <input type="text"  readonly id="ModuleName" required name="module_name" class="form-control">
+                                    <input type="text" readonly id="EnrollmentModuleName" required name="module_name" class="form-control">
                                 </div>
                                 <?php
                                 /* Persisit Academic Settings */
@@ -526,6 +526,7 @@ while ($admin = $res->fetch_object()) {
                 </div>
             </div>
         </div>
-        <!-- End Enrollments Modal -->
-    <?php
+    </div>
+    <!-- End Enrollments Modal -->
+<?php
 } ?>
