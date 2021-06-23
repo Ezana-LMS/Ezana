@@ -160,7 +160,7 @@ if (isset($_POST['update_dept_hod'])) {
     $rc = $stmt->bind_param('sss', $email, $hod, $view);
     $stmt->execute();
     if ($stmt) {
-        $success = "Updated" && header("refresh:1; url=department_details.php?view=$view");
+        $success = "Departmental HOD Updated";
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -343,14 +343,14 @@ if (isset($_GET['delete'])) {
 /* Delete Memos */
 if (isset($_POST['delete_memos'])) {
 
-    $delete = $_POST['delete'];
+    $id = $_POST['id'];
     $view = $_POST['view'];
     $confirmation = $_POST['confirmation'];
     /* Confirm If User Has Typed Delete */
     if ($confirmation == 'Delete' || $confirmation == 'DELETE' || $confirmation == 'delete') {
         $query = "DELETE FROM ezanaLMS_DepartmentalMemos WHERE id=?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('s',  $delete);
+        $rc = $stmt->bind_param('s',  $id);
         $stmt->execute();
         if ($stmt) {
             $success = "Deleted" && header("refresh:1; url=department?view=$view");
@@ -570,14 +570,12 @@ require_once('partials/head.php');
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="card-footer text-right">
+                                                                    <div class="text-right">
                                                                         <button type="submit" name="add_memo" class="btn btn-primary">Add Departmental Memo</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
-                                                            <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -624,14 +622,12 @@ require_once('partials/head.php');
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="card-footer text-right">
+                                                                    <div class="text-right">
                                                                         <button type="submit" name="add_departmental_doc" class="btn btn-primary">Add Departmental Document</button>
                                                                     </div>
                                                                 </form>
                                                             </div>
-                                                            <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -707,13 +703,10 @@ require_once('partials/head.php');
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="card-footer text-right">
+                                                                    <div class="text-right">
                                                                         <button type="submit" name="add_course" class="btn btn-primary">Add Course</button>
                                                                     </div>
                                                                 </form>
-                                                            </div>
-                                                            <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -854,7 +847,7 @@ require_once('partials/head.php');
                                                                                             <div class="list-group">
                                                                                                 <div class="d-flex w-100 justify-content-between">
                                                                                                     <h5 class="mb-1"></h5>
-                                                                                                    <small><?php echo date('d-M-Y', strtotime($announcement->created_at)); ?><br><?php echo date('g : ia', strtotime($announcement->created_at)); ?></small>
+                                                                                                    <small class='text-success'><?php echo date('d-M-Y', strtotime($announcement->created_at)); ?><br><?php echo date('g : ia', strtotime($announcement->created_at)); ?></small>
                                                                                                 </div>
                                                                                                 <p>
                                                                                                     <?php
@@ -966,7 +959,9 @@ require_once('partials/head.php');
                                                                                                             </div>
                                                                                                             <div class="modal-body">
                                                                                                                 <div class="text-right">
-                                                                                                                    <span class='text-success'>Date: <?php echo date('d M Y', strtotime($memo->created_at)); ?>
+                                                                                                                    <span class='text-success'>
+                                                                                                                        Date: <?php echo date('d M Y', strtotime($memo->created_at)); ?><br>
+                                                                                                                        <?php echo $memo->type; ?>
                                                                                                                     </span>
                                                                                                                 </div>
                                                                                                                 <?php echo $memo->departmental_memo; ?>
@@ -1137,10 +1132,16 @@ require_once('partials/head.php');
                                                                                                     <div class="modal-dialog  modal-lg">
                                                                                                         <div class="modal-content">
                                                                                                             <div class="modal-header text-center">
-                                                                                                                <h4 class="modal-title"><?php echo $department->name . "  " . $dep_doc->type; ?> Created On <br> <span class='text-success'><?php echo date('d M Y g:ia', strtotime($dep_doc->created_at)); ?></span></h4>
+                                                                                                                <h4 class="modal-title"><?php echo $department->name . "  " . $dep_doc->type; ?></h4>
                                                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                                                     <span aria-hidden="true">&times;</span>
                                                                                                                 </button>
+                                                                                                            </div>
+                                                                                                            <div class="text-right">
+                                                                                                                <span class='text-success'>
+                                                                                                                    <?php echo date('d-M-Y', strtotime($dep_doc->created_at)); ?><br>
+                                                                                                                    <?php echo date('g:ia', strtotime($dep_doc->created_at)); ?>
+                                                                                                                </span>
                                                                                                             </div>
                                                                                                             <div class="modal-body text-center">
                                                                                                                 <?php
@@ -1200,13 +1201,10 @@ require_once('partials/head.php');
                                                                                                                             </div>
                                                                                                                         </div>
                                                                                                                     </div>
-                                                                                                                    <div class="card-footer text-right">
+                                                                                                                    <div class="text-right">
                                                                                                                         <button type="submit" name="update_departmental_doc" class="btn btn-primary">Update Departmental Document</button>
                                                                                                                     </div>
                                                                                                                 </form>
-                                                                                                            </div>
-                                                                                                            <div class="modal-footer justify-content-between">
-                                                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
@@ -1230,7 +1228,7 @@ require_once('partials/head.php');
                                                                                                                 <h4>Delete This <?php echo $dep_doc->type; ?> ?</h4>
                                                                                                                 <br>
                                                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                                <a href="department_details.php?delete=<?php echo $dep_doc->id; ?>&view=<?php echo $dep_doc->department_id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                                <a href="department?delete=<?php echo $dep_doc->id; ?>&view=<?php echo $dep_doc->department_id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
