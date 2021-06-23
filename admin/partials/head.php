@@ -41,7 +41,6 @@ while ($sys = $res->fetch_object()) {
         <link rel="stylesheet" href="../assets/css/icons.css">
         <!-- Data Tables -->
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css"/>
-        <link rel="stylesheet" type="text/css" href="../assets/plugins/datatable/custom_dt_html5.css">
         <!-- Scroll Bars -->
         <link rel="stylesheet" href="../assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
         <!-- Summernote -->

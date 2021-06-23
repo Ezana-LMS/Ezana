@@ -440,8 +440,6 @@ if (isset($_POST['add_class'])) {
         $course_name = $_POST['course_name'];
         $room = $_POST['room'];
         $link = $_POST['link'];
-        /* Course Id  */
-        $course_id = $_POST['course_id'];
         $query = "INSERT INTO ezanaLMS_TimeTable (id, faculty_id, course_code, course_name, module_code, module_name, lecturer, day, time, room, link) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('sssssssssss', $id, $faculty, $course_code, $course_name, $module_code, $module_name, $lecturer, $day, $time, $room, $link);
@@ -477,8 +475,6 @@ if (isset($_POST['update_class'])) {
         $time = $_POST['time'];
         $room = $_POST['room'];
         $link = $_POST['link'];
-        /* Course Id  */
-        $course_id = $_POST['course_id'];
         $query = "UPDATE  ezanaLMS_TimeTable SET  day =?, time =?,  room =?, link =? WHERE id =?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('sssss',  $day, $time, $room, $link, $id);
@@ -537,7 +533,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                             </div>
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                     <li class="breadcrumb-item"><a href="courses">Courses</a></li>
                                     <li class="breadcrumb-item active"><?php echo $course->name; ?></li>
@@ -1129,7 +1125,131 @@ require_once('partials/head.php');
                                                         </a>
                                                     </div>
                                                     <br>
+                                                    <table class="table table-bordered table-striped responsive">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Module</th>
+                                                                <th>Lecturer</th>
+                                                                <th>Day</th>
+                                                                <th>Time</th>
+                                                                <th>Room</th>
+                                                                <th>Link</th>
+                                                                <th>Manage</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_TimeTable`  WHERE course_code = '$course->code'  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($tt = $res->fetch_object()) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td><?php echo $tt->module_code . "-" . $tt->module_name; ?></td>
+                                                                    <td><?php echo $tt->lecturer; ?></td>
+                                                                    <td><?php echo $tt->day; ?></td>
+                                                                    <td><?php echo $tt->time; ?></td>
+                                                                    <td><?php echo $tt->room; ?></td>
 
+                                                                    <td>
+                                                                        <?php if ($tt->link != '') {
+                                                                            echo "<a href='$tt->link' target='_blank'>Open Link</a>";
+                                                                        } ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $tt->id; ?>">
+                                                                            <i class="fas fa-edit"></i>
+                                                                            Update
+                                                                        </a>
+                                                                        <!-- Update Departmental Memo Modal -->
+                                                                        <div class="modal fade" id="update-<?php echo $tt->id; ?>">
+                                                                            <div class="modal-dialog  modal-xl">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h4 class="modal-title">Update <?php echo $tt->module_name; ?> Time Table;</h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                                                            <div class="card-body">
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-3">
+                                                                                                        <!-- Hidden values -->
+                                                                                                        <input type="hidden" required name="id" value="<?php echo $tt->id;?>" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-4">
+                                                                                                        <label for="">Class Day</label>
+                                                                                                        <select class='form-control basic' name="day">
+                                                                                                            <option selected><?php echo $tt->day; ?></option>
+                                                                                                            <option>Sunday</option>
+                                                                                                            <option>Monday</option>
+                                                                                                            <option>Tuesday</option>
+                                                                                                            <option>Wednesday</option>
+                                                                                                            <option>Thursday</option>
+                                                                                                            <option>Friday</option>
+                                                                                                            <option>Saturday</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-4">
+                                                                                                        <label for="">Time</label>
+                                                                                                        <input type="text" value="<?php echo $tt->time; ?>" required name="time" class="form-control">
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-4">
+                                                                                                        <label for="">Room</label>
+                                                                                                        <input type="text" value="<?php echo $tt->room; ?>" required name="room" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-12">
+                                                                                                        <label for="exampleInputPassword1">Class Link <small class="text-danger">If Its Virtual Class </small></label>
+                                                                                                        <input type="text" value="<?php echo $tt->link; ?>" name="link" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="text-right">
+                                                                                                <button type="submit" name="update_class" class="btn btn-primary">Create Class</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <a class="badge badge-danger" href="#delete-<?php echo $tt->id; ?>" data-toggle="modal">
+                                                                            <i class="fas fa-trash"></i>
+                                                                            Delete
+                                                                        </a>
+                                                                        <!-- Delete Confirmation Modal -->
+                                                                        <div class="modal fade" id="delete-<?php echo $tt->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body text-center text-danger">
+                                                                                        <h4>Delete <?php echo $tt->module_name; ?> ?</h4>
+                                                                                        <br>
+                                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                        <a href="course?delete_class=<?php echo $tt->id; ?>&view=<?php echo $course->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End Delete Confirmation Modal -->
+                                                                    </td>
+                                                                </tr>
+                                                            <?php
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
