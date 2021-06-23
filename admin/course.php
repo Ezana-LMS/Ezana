@@ -309,7 +309,7 @@ if (isset($_POST['assign_module'])) {
             $stmt->execute();
             $modstmt->execute();
             if ($stmt && $modstmt) {
-                $success = "$lec_name Has Been Assigned To $module_code-$module_code";
+                $success = "$lec_name Has Been Assigned To $module_code-$module_name";
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -346,7 +346,7 @@ if (isset($_POST['assign_guest_lec'])) {
         $err = "Lec Name Cannot Be Empty";
     }
     if (!$error) {
-        
+
         $id = $_POST['id'];
         $created_at = date('d M Y');
         $view = $_GET['view'];
@@ -369,7 +369,7 @@ if (isset($_POST['assign_guest_lec'])) {
         $stmt->execute();
         $modstmt->execute();
         if ($stmt && $modstmt) {
-            $success = "$lec_name Has Been Assigned As Guest Lecturer To $module_code - $module_code";
+            $success = "$lec_name Has Been Assigned As Guest Lecturer To $module_code - $module_name";
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -377,8 +377,8 @@ if (isset($_POST['assign_guest_lec'])) {
 }
 
 /* Delete Module Allocation */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
+if (isset($_GET['delete_allocation'])) {
+    $delete = $_GET['delete_allocation'];
     $code = $_GET['code'];
     $view = $_GET['view'];
     $status = 0;
@@ -946,8 +946,70 @@ require_once('partials/head.php');
                                                         </a>
                                                     </div>
                                                     <br>
-                                                                                                   
-                                                    
+                                                    <table id="example1" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Module Details</th>
+                                                                <th>Academic Year</th>
+                                                                <th>Semester</th>
+                                                                <th>Lecture Allocated</th>
+                                                                <th>Manage</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns`  WHERE course_id = '$course->id'   ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($assigns = $res->fetch_object()) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td><?php echo $assigns->module_code . " " . $assigns->module_name; ?></td>
+                                                                    <td><?php echo $assigns->academic_year; ?></td>
+                                                                    <td><?php echo $assigns->semester; ?></td>
+                                                                    <td>
+                                                                        <?php
+                                                                        /* Indicate This Lec Is A Guest */
+                                                                        if ($assigns->status != '') {
+                                                                            echo "<span class='text-success' title='Guest Lecturer'>$assigns->lec_name</span>";
+                                                                        } else {
+                                                                            echo $assigns->lec_name;
+                                                                        }
+                                                                        ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $assigns->id; ?>">
+                                                                            <i class="fas fa-trash"></i>
+                                                                            Delete
+                                                                        </a>
+                                                                        <!-- Delete Confirmation Modal -->
+                                                                        <div class="modal fade" id="delete-<?php echo $assigns->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body text-center text-danger">
+                                                                                        <h4>Delete <?php echo $assigns->lec_name; ?> Module Allocation ?</h4>
+                                                                                        <br>
+                                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                        <a href="course?delete_allocation=<?php echo $assigns->id; ?>&code=<?php echo $assigns->module_code; ?>&view=<?php echo $course->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End Delete Confirmation Modal -->
+                                                                    </td>
+                                                                </tr>
+                                                            <?php
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
+
                                                 </div>
                                             </div>
                                         </div>
