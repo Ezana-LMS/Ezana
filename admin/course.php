@@ -503,7 +503,164 @@ if (isset($_GET['delete_class'])) {
     }
 }
 
+/* Add Enrollment */
+if (isset($_POST['add_enroll'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['student_name']) && !empty($_POST['student_name'])) {
+        $student_name = mysqli_real_escape_string($mysqli, trim($_POST['student_name']));
+    } else {
+        $error = 1;
+        $err = "Student Name Cannot Be Empty";
+    }
+    if (isset($_POST['semester_enrolled']) && !empty($_POST['semester_enrolled'])) {
+        $semester_enrolled = mysqli_real_escape_string($mysqli, trim($_POST['semester_enrolled']));
+    } else {
+        $error = 1;
+        $err = "Semester Enrolled Number Cannot Be Empty";
+    }
+    if (isset($_POST['student_adm']) && !empty($_POST['student_adm'])) {
+        $student_adm = mysqli_real_escape_string($mysqli, trim($_POST['student_adm']));
+    } else {
+        $error = 1;
+        $err = "Student Admission Number Cannot Be Empty";
+    }
+    if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
+        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['course_name']));
+    } else {
+        $error = 1;
+        $err = "Course Name Cannot Be Empty";
+    }
+    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
+        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (isset($_POST['semester_start']) && !empty($_POST['semester_start'])) {
+        $semester_start = mysqli_real_escape_string($mysqli, trim($_POST['semester_start']));
+    } else {
+        $error = 1;
+        $err = "Semester Start / End Dates Cannot Be Empty";
+    }
+    if (isset($_POST['course_code']) && !empty($_POST['course_code'])) {
+        $course_code = mysqli_real_escape_string($mysqli, trim($_POST['course_code']));
+    } else {
+        $error = 1;
+        $err = "Course Code Cannot Be Empty";
+    }
+    if (!$error) {
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_Enrollments WHERE  student_adm ='$student_adm ' AND module_name ='$module_name' ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if (($student_adm && $module_name) == ($row['student_adm'] && $row['module_name'])) {
+                $err =  "Student $student_name Already Enrolled On $module_name ";
+            }
+        } else {
+            $faculty = $_POST['faculty'];
+            $id = $_POST['id'];
+            $code = $_POST['code'];
+            $created_at = date('d M Y');
+            $semester_end = $_POST['semester_end'];
+            $academic_year_enrolled = $_POST['academic_year_enrolled'];
+            $module_code = $_POST['module_code'];
+            /* Course ID */
+            $course_id = $_POST['course_id'];
+            $query = "INSERT INTO ezanaLMS_Enrollments (id, faculty_id, code, student_adm, student_name, semester_enrolled, created_at, course_code, course_name, semester_start, semester_end, academic_year_enrolled, module_name, module_code) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ssssssssssssss', $id, $faculty, $code, $student_adm, $student_name, $semester_enrolled, $created_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "$student_name Enrolled To $module_name";
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
 
+/*  Update Enrollments*/
+if (isset($_POST['update_enroll'])) {
+    $error = 0;
+    if (isset($_POST['student_name']) && !empty($_POST['student_name'])) {
+        $student_name = mysqli_real_escape_string($mysqli, trim($_POST['student_name']));
+    } else {
+        $error = 1;
+        $err = "Student Name Cannot Be Empty";
+    }
+    if (isset($_POST['semester_enrolled']) && !empty($_POST['semester_enrolled'])) {
+        $semester_enrolled = mysqli_real_escape_string($mysqli, trim($_POST['semester_enrolled']));
+    } else {
+        $error = 1;
+        $err = "Semester Enrolled Number Cannot Be Empty";
+    }
+    if (isset($_POST['student_adm']) && !empty($_POST['student_adm'])) {
+        $student_adm = mysqli_real_escape_string($mysqli, trim($_POST['student_adm']));
+    } else {
+        $error = 1;
+        $err = "Student Admission Number Cannot Be Empty";
+    }
+    if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
+        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['course_name']));
+    } else {
+        $error = 1;
+        $err = "Course Name Cannot Be Empty";
+    }
+    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
+        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (isset($_POST['semester_start']) && !empty($_POST['semester_start'])) {
+        $semester_start = mysqli_real_escape_string($mysqli, trim($_POST['semester_start']));
+    } else {
+        $error = 1;
+        $err = "Semester Start / End Dates Cannot Be Empty";
+    }
+    if (isset($_POST['course_code']) && !empty($_POST['course_code'])) {
+        $course_code = mysqli_real_escape_string($mysqli, trim($_POST['course_code']));
+    } else {
+        $error = 1;
+        $err = "Course Code Cannot Be Empty";
+    }
+    if (!$error) {
+        $id = $_POST['id'];
+        $code = $_POST['code'];
+        $created_at = date('d M Y');
+        $semester_end = $_POST['semester_end'];
+        $academic_year_enrolled = $_POST['academic_year_enrolled'];
+        $module_name = $_POST['module_name'];
+        $module_code = $_POST['module_code'];
+        $query = "UPDATE ezanaLMS_Enrollments SET code =?, student_adm =?, student_name =?, semester_enrolled =?, updated_at =?, course_code =?, course_name =?, semester_start =?, semester_end =?, academic_year_enrolled =?, module_name =?, module_code =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssssssssssss',  $code, $student_adm, $student_name, $semester_enrolled, $updated_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Student Enrollment Updated";
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
+/* Delete Enrollment */
+if (isset($_GET['delete_enrollment'])) {
+    $delete = $_GET['delete_enrollment'];
+    $view = $_GET['view'];
+    $adn = "DELETE FROM ezanaLMS_Enrollments WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=course?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 
 require_once('partials/head.php');
 ?>
@@ -1178,7 +1335,7 @@ require_once('partials/head.php');
                                                                                                 <div class="row">
                                                                                                     <div class="form-group col-md-3">
                                                                                                         <!-- Hidden values -->
-                                                                                                        <input type="hidden" required name="id" value="<?php echo $tt->id;?>" class="form-control">
+                                                                                                        <input type="hidden" required name="id" value="<?php echo $tt->id; ?>" class="form-control">
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <div class="row">
@@ -1251,6 +1408,17 @@ require_once('partials/head.php');
                                                         </tbody>
                                                     </table>
                                                 </div>
+
+                                                <div class="tab-pane" id="timetable">
+                                                    <div class="text-right">
+                                                        <a href="#add_class" data-toggle="modal" class="btn btn-outline-primary">
+                                                            Add Class
+                                                        </a>
+                                                    </div>
+                                                    <br>
+
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>

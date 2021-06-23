@@ -189,6 +189,7 @@ require_once('partials/head.php');
                                                                 <input type="hidden" id="DepFacID" readonly required name="faculty_id" class="form-control">
                                                             </div>
                                                         </div>
+                                                        
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Course Name</label>

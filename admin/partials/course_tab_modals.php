@@ -416,5 +416,9 @@ while ($admin = $res->fetch_object()) {
         </div>
     </div>
     <!-- End Add Class To Time Table -->
+
+    <!-- Add Enrollments  Modal -->
+    
+    <!-- End Enrollments Modal -->
 <?php
 } ?>
