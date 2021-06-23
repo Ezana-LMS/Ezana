@@ -324,7 +324,7 @@ if (isset($_POST['update_departmental_doc'])) {
     }
 }
 
-/* Delete Departmental Memo/ Notice/ Announcemet / Departmental Documents */
+/* Delete Departmental  Notice/ Announcemet / Departmental Documents */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
     $view = $_GET['view'];
@@ -333,6 +333,23 @@ if (isset($_GET['delete'])) {
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=department?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete Memos */
+if (isset($_POST['delete_memos'])) {
+
+    $delete = $_POST['delete'];
+    $view = $_POST['view'];
+
+    $query = "DELETE FROM ezanaLMS_DepartmentalMemos WHERE id=?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('s',  $delete);
+    $stmt->execute();
     if ($stmt) {
         $success = "Deleted" && header("refresh:1; url=department?view=$view");
     } else {
@@ -1058,7 +1075,7 @@ require_once('partials/head.php');
                                                                                                                     <input type="text" required placeholder="Type DELETE To Confirm" class="form-control">
                                                                                                                     <br>
                                                                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                                    <input type="submit" class="text-center btn btn-danger" value="Yes Delete">
+                                                                                                                    <input type="submit" name="delete_memos" class="text-center btn btn-danger" value="Yes Delete">
                                                                                                                 </form>
 
                                                                                                             </div>
