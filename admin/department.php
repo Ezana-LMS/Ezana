@@ -779,7 +779,7 @@ require_once('partials/head.php');
                                                     </div>
                                                     <!-- Departmental Menu -->
                                                     <div class="col-md-8">
-                                                        <div class="card">
+                                                        <div class="card card-primary card-outline">
                                                             <div class="card-header p-2">
                                                                 <ul class="nav nav-pills">
                                                                     <li class="nav-item"><a class="nav-link active" href="#dept_anouncements" data-toggle="tab">Anouncements</a></li>
@@ -1244,7 +1244,7 @@ require_once('partials/head.php');
                                                                                             <td><?php echo $courses->hod; ?></td>
                                                                                             <td><?php echo $courses->email; ?></td>
                                                                                             <td>
-                                                                                                <a class="badge badge-success" href="course.php?view=<?php echo $courses->id; ?>">
+                                                                                                <a class="badge badge-success" href="course?view=<?php echo $courses->id; ?>">
                                                                                                     <i class="fas fa-eye"></i>
                                                                                                     View
                                                                                                 </a>
@@ -1295,14 +1295,10 @@ require_once('partials/head.php');
                                                                                                                             </div>
                                                                                                                         </div>
                                                                                                                     </div>
-                                                                                                                    <div class="card-footer text-right">
+                                                                                                                    <div class="text-right">
                                                                                                                         <button type="submit" name="update_course" class="btn btn-primary">Update</button>
                                                                                                                     </div>
                                                                                                                 </form>
-
-                                                                                                            </div>
-                                                                                                            <div class="modal-footer justify-content-between">
-                                                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>

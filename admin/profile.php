@@ -279,7 +279,7 @@ require_once('partials/head.php');
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <div class="card">
+                                <div class="card card-primary card-outline">
                                     <div class="card-header p-2">
                                         <ul class="nav nav-pills">
                                             <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Profile Settings</a></li>
