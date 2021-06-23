@@ -345,16 +345,23 @@ if (isset($_POST['delete_memos'])) {
 
     $delete = $_POST['delete'];
     $view = $_POST['view'];
-
-    $query = "DELETE FROM ezanaLMS_DepartmentalMemos WHERE id=?";
-    $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('s',  $delete);
-    $stmt->execute();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=department?view=$view");
-    } else {
-        $info = "Please Try Again Or Try Later";
+    $confirmation = $_POST['confirmation'];
+    /* Confirm If User Has Typed Delete */
+    if($confirmation == 'Delete' || $confirmation == 'DELETE' || $confirmation == 'delete'){
+        $query = "DELETE FROM ezanaLMS_DepartmentalMemos WHERE id=?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('s',  $delete);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Deleted" && header("refresh:1; url=department?view=$view");
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
     }
+    else{
+        $err = "Please Confirm By Typing Delete";
+    }
+    
 }
 
 require_once('partials/head.php');
@@ -1071,13 +1078,12 @@ require_once('partials/head.php');
                                                                                                             <div class="modal-body text-center text-danger">
                                                                                                                 <h4>Delete This <?php echo $memo->type; ?> ?</h4>
                                                                                                                 <br>
-                                                                                                                <form action="department?delete=<?php echo $memo->id; ?>&view=<?php echo $memo->department_id; ?>">
-                                                                                                                    <input type="text" required placeholder="Type DELETE To Confirm" class="form-control">
+                                                                                                                <form method="POST">
+                                                                                                                    <input type="text" name="confirmation" required placeholder="Type DELETE To Confirm" class="form-control">
                                                                                                                     <br>
                                                                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
                                                                                                                     <input type="submit" name="delete_memos" class="text-center btn btn-danger" value="Yes Delete">
                                                                                                                 </form>
-
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
