@@ -347,7 +347,7 @@ if (isset($_POST['delete_memos'])) {
     $view = $_POST['view'];
     $confirmation = $_POST['confirmation'];
     /* Confirm If User Has Typed Delete */
-    if($confirmation == 'Delete' || $confirmation == 'DELETE' || $confirmation == 'delete'){
+    if ($confirmation == 'Delete' || $confirmation == 'DELETE' || $confirmation == 'delete') {
         $query = "DELETE FROM ezanaLMS_DepartmentalMemos WHERE id=?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('s',  $delete);
@@ -357,11 +357,9 @@ if (isset($_POST['delete_memos'])) {
         } else {
             $info = "Please Try Again Or Try Later";
         }
-    }
-    else{
+    } else {
         $err = "Please Confirm By Typing Delete";
     }
-    
 }
 
 require_once('partials/head.php');
@@ -1080,6 +1078,8 @@ require_once('partials/head.php');
                                                                                                                 <br>
                                                                                                                 <form method="POST">
                                                                                                                     <input type="text" name="confirmation" required placeholder="Type DELETE To Confirm" class="form-control">
+                                                                                                                    <input type="hidden" name="view" value="<?php echo $view ?>" class="form-control">
+                                                                                                                    <input type="hidden" name="id" value="<?php echo $memo->id; ?>" class="form-control">
                                                                                                                     <br>
                                                                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
                                                                                                                     <input type="submit" name="delete_memos" class="text-center btn btn-danger" value="Yes Delete">
