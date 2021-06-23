@@ -941,11 +941,14 @@ require_once('partials/head.php');
                                                         <a href="#add_module_allocation" data-toggle="modal" class="btn btn-outline-primary">
                                                             Add Module Allocation
                                                         </a>
+                                                        <a href="#add_guest_lec_module_allocation" data-toggle="modal" class="btn btn-outline-primary">
+                                                            Add Guest Lecturer Allocation
+                                                        </a>
                                                     </div>
                                                     <br>
+                                                                                                   
                                                     
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
