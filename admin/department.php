@@ -364,7 +364,7 @@ require_once('partials/head.php');
         ?>
 
                 <!-- Main Sidebar Container -->
-                <?php require_once('partials/aside.php');?>
+                <?php require_once('partials/aside.php'); ?>
                 <div class="content-wrapper">
                     <div class="content-header">
                         <div class="container-fluid">
@@ -1054,8 +1054,13 @@ require_once('partials/head.php');
                                                                                                             <div class="modal-body text-center text-danger">
                                                                                                                 <h4>Delete This <?php echo $memo->type; ?> ?</h4>
                                                                                                                 <br>
-                                                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                                <a href="department?delete=<?php echo $memo->id; ?>&view=<?php echo $memo->department_id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                                <form action="department?delete=<?php echo $memo->id; ?>&view=<?php echo $memo->department_id; ?>">
+                                                                                                                    <input type="text" required placeholder="Type DELETE To Confirm" class="form-control">
+                                                                                                                    <br>
+                                                                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                                                    <input type="submit" class="text-center btn btn-danger" value="Yes Delete">
+                                                                                                                </form>
+
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
