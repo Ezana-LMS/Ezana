@@ -507,6 +507,8 @@ if (isset($_GET['delete_class'])) {
     }
 }
 
+
+
 require_once('partials/head.php');
 ?>
 

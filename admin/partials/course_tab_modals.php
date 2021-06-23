@@ -330,9 +330,91 @@ while ($admin = $res->fetch_object()) {
         </div>
     </div>
     <!-- End Guest Lecturer Module Allocation -->
-    
+
     <!-- Add Class To Time Table -->
-                                
+    <div class="modal fade" id="add_class">
+        <div class="modal-dialog  modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Fill All Required Values </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Add Time Table Form -->
+                    <form method="post" enctype="multipart/form-data" role="form">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <!-- Hidden values -->
+                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                    <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
+                                    <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
+                                    <input type="hidden" required name="course_code" value="<?php echo $course->code; ?>" class="form-control">
+                                    <input type="hidden" required name="course_name" value="<?php echo $course->name; ?>" class="form-control">
+                                    <!-- Ajax This Shit Real Quick-->
+                                    <label for="">Module Code</label>
+                                    <select class='form-control basic' id="AllocatedModuleCode" onchange="getAllocatedModuleDetails(this.value);" name="module_code">
+                                        <option selected>Select Module Code</option>
+                                        <?php
+                                        $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE course_id = '$course->id'  ";
+                                        $stmt = $mysqli->prepare($ret);
+                                        $stmt->execute(); //ok
+                                        $res = $stmt->get_result();
+                                        while ($module_allocations = $res->fetch_object()) {
+                                        ?>
+                                            <option><?php echo $module_allocations->module_code; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">Module Name</label>
+                                    <input type="text" readonly id="AllocatedModuleName" required name="module_name" class="form-control">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">Lecturer Name</label>
+                                    <input type="text" readonly id="AllocatedLecturerName" required name="lecturer" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="">Class Day</label>
+                                    <select class='form-control basic' name="day">
+                                        <option selected>Select Day</option>
+                                        <option>Sunday</option>
+                                        <option>Monday</option>
+                                        <option>Tuesday</option>
+                                        <option>Wednesday</option>
+                                        <option>Thursday</option>
+                                        <option>Friday</option>
+                                        <option>Saturday</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">Time</label>
+                                    <input type="text" required name="time" class="form-control">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="">Room</label>
+                                    <input type="text" required name="room" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label for="exampleInputPassword1">Class Link <small class="text-danger">If Its Virtual Class </small></label>
+                                    <input type="text" name="link" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" name="add_class" class="btn btn-primary">Create Class</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- End Add Class To Time Table -->
 <?php
 } ?>
