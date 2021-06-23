@@ -394,7 +394,7 @@ require_once('partials/head.php');
                                 <div class="col-sm-6">
                                 </div>
                                 <div class="col-sm-6">
-                                    <ol class="breadcrumb float-sm-right">
+                                    <ol class="breadcrumb float-sm-right small">
                                         <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                         <li class="breadcrumb-item"><a href="departments">Departmentents</a></li>
                                         <li class="breadcrumb-item active"><?php echo $department->name; ?></li>
@@ -409,20 +409,13 @@ require_once('partials/head.php');
                                     <div class="text-center">
                                         <h1 class="m-0 text-dark"><?php echo $department->name; ?> Dashboard</h1>
                                         <br>
+                                        <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="departments" class="text-white"> Back</a></span>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-hod">Edit Department HOD</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-<?php echo $department->id; ?>">Edit Department</button>
                                     </div>
                                 </div>
-                                <div class="text-left">
-                                    <nav class="navbar col-md-12">
-                                        <div class="form-inline">
-                                            <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="departments" class="text-white"> Back</a></span>
-                                        </div>
-                                        <div class="text-right">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-hod">Edit Department HOD</button>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-<?php echo $department->id; ?>">Edit Department</button>
-                                        </div>
-                                    </nav>
-                                </div>
+
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
