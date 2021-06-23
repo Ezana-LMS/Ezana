@@ -405,6 +405,12 @@ require_once('partials/head.php');
 
                         <section class="content">
                             <div class="container-fluid">
+                                <div class="col-md-12">
+                                    <div class="text-center">
+                                        <h1 class="m-0 text-dark"><?php echo $department->name; ?> Dashboard</h1>
+                                        <br>
+                                    </div>
+                                </div>
                                 <div class="text-left">
                                     <nav class="navbar col-md-12">
                                         <div class="form-inline">
@@ -712,13 +718,6 @@ require_once('partials/head.php');
                                                 </div>
                                                 <!-- End Course Modal -->
                                                 <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="text-center">
-                                                            <h1 class="m-0 text-dark"><?php echo $department->name; ?> Dashboard</h1>
-                                                            <br>
-                                                        </div>
-                                                    </div>
-
                                                     <div class="col-md-4">
                                                         <div class="row">
                                                             <div class="col-md-12">

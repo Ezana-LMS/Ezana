@@ -163,7 +163,6 @@ require_once('partials/head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $course->name; ?> Dashboard</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -179,6 +178,10 @@ require_once('partials/head.php');
                         <div class="container-fluid">
                             <div class="text-left">
                                 <nav class="navbar col-md-12">
+                                <div class="col-md-12 text-center">
+                                    <h1 class="m-0 text-dark"><?php echo $course->name; ?> Dashboard</h1>
+                                    <br>
+                                </div>
                                     <div class="form-inline">
                                         <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="courses" class="text-white"> Back</a></span>
                                     </div>
@@ -263,215 +266,211 @@ require_once('partials/head.php');
                                 </nav>
                             </div>
                             <hr>
+                            <!-- Update Course Modal -->
+                            <div class="modal fade" id="update-course-<?php echo $course->id; ?>">
+                                <div class="modal-dialog  modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Fill All Values</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Course Name</label>
+                                                            <input type="text" required name="name" value="<?php echo $course->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Course Number / Code</label>
+                                                            <input type="text" required name="code" value="<?php echo $course->code; ?>"" class=" form-control">
+                                                            <input type="hidden" required name="id" value="<?php echo $course->id; ?>"" class=" form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="exampleInputPassword1">Course Description</label>
+                                                            <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $course->details; ?></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-right">
+                                                    <button type="submit" name="update_course" class="btn btn-primary">Update Course</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End Update Course Modal -->
+
+                            <!-- Update Course HOD -->
+                            <div class="modal fade" id="update-course-head">
+                                <div class="modal-dialog  modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Fill All Required Values </h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Course Head </label>
+                                                            <select class='form-control basic' id="CourseHead" name="hod" onchange="getCourseHeadDetails(this.value);">
+                                                                <option selected>Select Course Head</option>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($course_hod = $res->fetch_object()) {
+                                                                ?>
+                                                                    <option><?php echo $course_hod->name; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Course HOD Email</label>
+                                                            <input type="text" required name="email" id="CourseHeadEmail" class="form-control">
+                                                            <input type="hidden" required name="id" value="<?php echo $course->id; ?>" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer text-right">
+                                                    <button type="submit" name="update_course_head" class="btn btn-primary">Update Course Head</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Update Course HOD -->
+
                             <div class="row">
-                                <div class="col-md-9">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <!-- Update Course Modal -->
-                                            <div class="modal fade" id="update-course-<?php echo $course->id; ?>">
-                                                <div class="modal-dialog  modal-xl">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Fill All Values</h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form method="post" enctype="multipart/form-data" role="form">
-                                                                <div class="card-body">
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">Course Name</label>
-                                                                            <input type="text" required name="name" value="<?php echo $course->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">Course Number / Code</label>
-                                                                            <input type="text" required name="code" value="<?php echo $course->code; ?>"" class=" form-control">
-                                                                            <input type="hidden" required name="id" value="<?php echo $course->id; ?>"" class=" form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-12">
-                                                                            <label for="exampleInputPassword1">Course Description</label>
-                                                                            <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $course->details; ?></textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="text-right">
-                                                                    <button type="submit" name="update_course" class="btn btn-primary">Update Course</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--End Update Course Modal -->
+                                <div class="col-md-4">
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-footer p-0">
+                                            <ul class="nav flex-column">
+                                                <li class="nav-item">
+                                                    <span class="nav-link text-primary">
+                                                        Code : <span class="float-right "><?php echo $course->code; ?></span>
+                                                    </span>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <span class="nav-link text-primary">
+                                                        Head : <span class="float-right "><?php echo $course->hod; ?></span>
+                                                    </span>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <span class="nav-link text-primary">
+                                                        Head Email : <a href="mailto:<?php echo $course->email; ?>"><span class="float-right "><?php echo $course->email; ?></a></span>
+                                                    </span>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <span class="nav-link text-primary">
+                                                        Enrolled Students :
+                                                        <span class="float-right ">
+                                                            <?php
+                                                            /* Get Enrolled Students To This Course */
+                                                            $course_code = $course->code;
+                                                            $query = "SELECT COUNT(*)  FROM `ezanaLMS_Enrollments` WHERE course_code = '$course_code' ";
+                                                            $stmt = $mysqli->prepare($query);
+                                                            $stmt->execute();
+                                                            $stmt->bind_result($studentenrollments);
+                                                            $stmt->fetch();
+                                                            $stmt->close();
 
-                                            <!-- Update Course HOD -->
-                                            <div class="modal fade" id="update-course-head">
-                                                <div class="modal-dialog  modal-xl">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Fill All Required Values </h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form method="post" enctype="multipart/form-data" role="form">
-                                                                <div class="card-body">
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">Course Head </label>
-                                                                            <select class='form-control basic' id="CourseHead" name="hod" onchange="getCourseHeadDetails(this.value);">
-                                                                                <option selected>Select Course Head</option>
-                                                                                <?php
-                                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
-                                                                                $stmt = $mysqli->prepare($ret);
-                                                                                $stmt->execute(); //ok
-                                                                                $res = $stmt->get_result();
-                                                                                while ($course_hod = $res->fetch_object()) {
-                                                                                ?>
-                                                                                    <option><?php echo $course_hod->name; ?></option>
-                                                                                <?php } ?>
-                                                                            </select>
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">Course HOD Email</label>
-                                                                            <input type="text" required name="email" id="CourseHeadEmail" class="form-control">
-                                                                            <input type="hidden" required name="id" value="<?php echo $course->id; ?>" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-footer text-right">
-                                                                    <button type="submit" name="update_course_head" class="btn btn-primary">Update Course Head</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- End Update Course HOD -->
+                                                            echo $studentenrollments;
+                                                            ?>
+                                                        </span>
+                                                    </span>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <span class="nav-link text-primary">
+                                                        Modules :
+                                                        <span class="float-right ">
+                                                            <?php
+                                                            /* Get All Modules Under Respective Course */
+                                                            $query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE course_id = '$view' ";
+                                                            $stmt = $mysqli->prepare($query);
+                                                            $stmt->execute();
+                                                            $stmt->bind_result($modulescount);
+                                                            $stmt->fetch();
+                                                            $stmt->close();
 
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="card card-primary card-outline">
-                                                        <div class="card-footer p-0">
-                                                            <ul class="nav flex-column">
-                                                                <li class="nav-item">
-                                                                    <span class="nav-link text-primary">
-                                                                        Code : <span class="float-right "><?php echo $course->code; ?></span>
-                                                                    </span>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <span class="nav-link text-primary">
-                                                                        Head : <span class="float-right "><?php echo $course->hod; ?></span>
-                                                                    </span>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <span class="nav-link text-primary">
-                                                                        Head Email : <a href="mailto:<?php echo $course->email; ?>"><span class="float-right "><?php echo $course->email; ?></a></span>
-                                                                    </span>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <span class="nav-link text-primary">
-                                                                        Enrolled Students :
-                                                                        <span class="float-right ">
-                                                                            <?php
-                                                                            /* Get Enrolled Students To This Course */
-                                                                            $course_code = $course->code;
-                                                                            $query = "SELECT COUNT(*)  FROM `ezanaLMS_Enrollments` WHERE course_code = '$course_code' ";
-                                                                            $stmt = $mysqli->prepare($query);
-                                                                            $stmt->execute();
-                                                                            $stmt->bind_result($studentenrollments);
-                                                                            $stmt->fetch();
-                                                                            $stmt->close();
+                                                            echo $modulescount;
+                                                            ?>
+                                                        </span>
+                                                    </span>
+                                                </li>
+                                                <?php
+                                                /* Load Departmental Details Of This Course */
+                                                $department_id = $course->department_id;
+                                                $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE id= '$department_id' ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                while ($department = $res->fetch_object()) {
+                                                ?>
+                                                    <li class="nav-item">
+                                                        <span class="nav-link text-primary">
+                                                            Department Code : <span class="float-right "><?php echo $department->code; ?></span>
+                                                        </span>
+                                                    </li>
 
-                                                                            echo $studentenrollments;
-                                                                            ?>
-                                                                        </span>
-                                                                    </span>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <span class="nav-link text-primary">
-                                                                        Modules :
-                                                                        <span class="float-right ">
-                                                                            <?php
-                                                                            /* Get All Modules Under Respective Course */
-                                                                            $query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE course_id = '$view' ";
-                                                                            $stmt = $mysqli->prepare($query);
-                                                                            $stmt->execute();
-                                                                            $stmt->bind_result($modulescount);
-                                                                            $stmt->fetch();
-                                                                            $stmt->close();
+                                                    <li class="nav-item">
+                                                        <span class="nav-link text-primary">
+                                                            Department Name : <span class="float-right "><?php echo $department->name; ?></span>
+                                                        </span>
+                                                    </li>
+                                                <?php }
+                                                $faculty_id = $course->faculty_id;
+                                                $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id= '$faculty_id' ";
+                                                $stmt = $mysqli->prepare($ret);
+                                                $stmt->execute(); //ok
+                                                $res = $stmt->get_result();
+                                                while ($faculty = $res->fetch_object()) {
+                                                ?>
+                                                    <li class="nav-item">
+                                                        <span class="nav-link text-primary">
+                                                            Faculty / School Code : <span class="float-right "><?php echo $faculty->code; ?></span>
+                                                        </span>
+                                                    </li>
 
-                                                                            echo $modulescount;
-                                                                            ?>
-                                                                        </span>
-                                                                    </span>
-                                                                </li>
-                                                                <?php
-                                                                /* Load Departmental Details Of This Course */
-                                                                $department_id = $course->department_id;
-                                                                $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE id= '$department_id' ";
-                                                                $stmt = $mysqli->prepare($ret);
-                                                                $stmt->execute(); //ok
-                                                                $res = $stmt->get_result();
-                                                                while ($department = $res->fetch_object()) {
-                                                                ?>
-                                                                    <li class="nav-item">
-                                                                        <span class="nav-link text-primary">
-                                                                            Department Code : <span class="float-right "><?php echo $department->code; ?></span>
-                                                                        </span>
-                                                                    </li>
+                                                    <li class="nav-item">
+                                                        <span class="nav-link text-primary">
+                                                            Faculty / School Name : <span class="float-right "><?php echo $faculty->name; ?></span>
+                                                        </span>
+                                                    </li>
+                                                <?php
+                                                } ?>
 
-                                                                    <li class="nav-item">
-                                                                        <span class="nav-link text-primary">
-                                                                            Department Name : <span class="float-right "><?php echo $department->name; ?></span>
-                                                                        </span>
-                                                                    </li>
-                                                                <?php }
-                                                                $faculty_id = $course->faculty_id;
-                                                                $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id= '$faculty_id' ";
-                                                                $stmt = $mysqli->prepare($ret);
-                                                                $stmt->execute(); //ok
-                                                                $res = $stmt->get_result();
-                                                                while ($faculty = $res->fetch_object()) {
-                                                                ?>
-                                                                    <li class="nav-item">
-                                                                        <span class="nav-link text-primary">
-                                                                            Faculty / School Code : <span class="float-right "><?php echo $faculty->code; ?></span>
-                                                                        </span>
-                                                                    </li>
-
-                                                                    <li class="nav-item">
-                                                                        <span class="nav-link text-primary">
-                                                                            Faculty / School Name : <span class="float-right "><?php echo $faculty->name; ?></span>
-                                                                        </span>
-                                                                    </li>
-                                                                <?php
-                                                                } ?>
-
-                                                            </ul>
-                                                            <hr>
-                                                            <div class="col-md-12">
-                                                                <ul class="nav flex-column">
-                                                                    <li class="nav-item">
-                                                                        <span class="nav-link text-center text-primary">
-                                                                            Course Details
-                                                                        </span>
-                                                                    </li>
-                                                                    <li class="nav-item">
-                                                                        <?php echo $course->details; ?>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            </ul>
+                                            <hr>
+                                            <div class="col-md-12">
+                                                <ul class="nav flex-column">
+                                                    <li class="nav-item">
+                                                        <span class="nav-link text-center text-primary">
+                                                            Course Details
+                                                        </span>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <?php echo $course->details; ?>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card card-primary card-outline">
                                     </div>
                                 </div>
                             </div>
