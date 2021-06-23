@@ -25,6 +25,132 @@ require_once('../config/config.php');
 require_once('../config/checklogin.php');
 admin_checklogin();
 require_once('../config/codeGen.php');
+$time = time();
+
+/*  Update Course*/
+if (isset($_POST['update_course'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Couse  Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Course Name Cannot Be Empty";
+    }
+    if (!$error) {
+
+        $id = $_POST['id'];
+        $details = $_POST['details'];
+
+        $query = "UPDATE ezanaLMS_Courses SET   code =?, name =?, details =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "$name Updated";
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
+/* Update Course HOD */
+if (isset($_POST['update_course_head'])) {
+
+    $id = $_POST['id'];
+    $email = $_POST['email'];
+    $hod  = $_POST['hod'];
+
+    $query = "UPDATE ezanaLMS_Courses SET  email =?, hod = ? WHERE id =?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sss', $email, $hod, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Course Head Updated";
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Add Course Notice / Memo */
+if (isset($_POST['add_memo'])) {
+    $id = $_POST['id'];
+    $course_id = $_POST['course_id'];
+    $course_name = $_POST['course_name'];
+    $attachments = $time . $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "../Data/Memos/" . $time . $_FILES["attachments"]["name"]);
+    $course_memo = $_POST['course_memo'];
+    $faculty = $_POST['faculty'];
+    $created_by = $_POST['created_by'];
+
+    /* Notify Me After Posting Memo / Notice */
+    $notif_type = 'Course Memo';
+    $status = 'Unread';
+    $notification_detail = "Memo For $course_name";
+
+    $query = "INSERT INTO ezanaLMS_CourseMemo (id, created_by, course_id, course_name, course_memo, attachments, faculty_id) VALUES(?,?,?,?,?,?,?)";
+    $notif_querry = "INSERT INTO ezanaLMS_Notifications(type, status, notification_detail) VALUES(?,?,?)";
+
+    $stmt = $mysqli->prepare($query);
+    $notif_stmt = $mysqli->prepare($notif_querry);
+
+    $rc = $stmt->bind_param('sssssss', $id, $created_by, $course_id, $course_name, $course_memo, $attachments, $faculty);
+    $rc = $notif_stmt->bind_param('sss', $notif_type, $status, $notification_detail);
+
+    $stmt->execute();
+    $notif_stmt->execute();
+
+    if ($stmt && $notif_stmt) {
+        $success = "Course Memo Added";
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Update Course Notices And Memo */
+if (isset($_POST['update_memo'])) {
+    $id = $_POST['id'];
+    $course_id = $_POST['course_id'];
+    $course_name = $_POST['course_name'];
+    $attachments = $time . $_FILES['attachments']['name'];
+    move_uploaded_file($_FILES["attachments"]["tmp_name"], "../Data/Memos/" . $time . $_FILES["attachments"]["name"]);
+    $course_memo = $_POST['course_memo'];
+    $created_at = date('d M Y g:i');
+    $faculty = $_POST['faculty'];
+    $created_by = $_POST['created_by'];
+
+    $query = "UPDATE ezanaLMS_CourseMemo SET created_by =?, course_id =?, course_name =?, course_memo =?, attachments =?, faculty_id =? WHERE id = ?";
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param('sssssss', $created_by, $course_id, $course_name, $course_memo, $attachments, $faculty, $id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = "Course Memo Updated";
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete Course Memo */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $view = $_GET['view'];
+    $adn = "DELETE FROM ezanaLMS_CourseMemo WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=course?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 
 /* Add Module */
 if (isset($_POST['add_module'])) {
@@ -87,56 +213,6 @@ if (isset($_POST['add_module'])) {
     }
 }
 
-/*  Update Course*/
-if (isset($_POST['update_course'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['code']) && !empty($_POST['code'])) {
-        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
-    } else {
-        $error = 1;
-        $err = "Couse  Code Cannot Be Empty";
-    }
-    if (isset($_POST['name']) && !empty($_POST['name'])) {
-        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
-    } else {
-        $error = 1;
-        $err = "Course Name Cannot Be Empty";
-    }
-    if (!$error) {
-
-        $id = $_POST['id'];
-        $details = $_POST['details'];
-
-        $query = "UPDATE ezanaLMS_Courses SET   code =?, name =?, details =? WHERE id =?";
-        $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssss', $code, $name, $details, $id);
-        $stmt->execute();
-        if ($stmt) {
-            $success = "$name Updated";
-        } else {
-            $info = "Please Try Again Or Try Later";
-        }
-    }
-}
-
-/* Update Course HOD */
-if (isset($_POST['update_course_head'])) {
-
-    $id = $_POST['id'];
-    $email = $_POST['email'];
-    $hod  = $_POST['hod'];
-
-    $query = "UPDATE ezanaLMS_Courses SET  email =?, hod = ? WHERE id =?";
-    $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('sss', $email, $hod, $id);
-    $stmt->execute();
-    if ($stmt) {
-        $success = "Course Head Updated";
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 
 require_once('partials/head.php');
 ?>
@@ -152,6 +228,7 @@ require_once('partials/head.php');
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($course = $res->fetch_object()) {
+           
         ?>
             <!-- /.navbar -->
 
@@ -177,93 +254,14 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="text-left">
-                                <nav class="navbar col-md-12">
                                 <div class="col-md-12 text-center">
                                     <h1 class="m-0 text-dark"><?php echo $course->name; ?> Dashboard</h1>
                                     <br>
+                                    <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="courses" class="text-white"> Back</a></span>
+
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-<?php echo $course->id; ?>">Edit Course</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-head">Edit Course Head</button>
                                 </div>
-                                    <div class="form-inline">
-                                        <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="courses" class="text-white"> Back</a></span>
-                                    </div>
-                                    <div class="text-right">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-<?php echo $course->id; ?>">Edit Course</button>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-head">Edit Course Head</button>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Module</button>
-                                    </div>
-                                    <!-- Add Module -->
-                                    <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-xl">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Fill All Required Values </h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <!-- Add Module Form -->
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Module Name</label>
-                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Module Number / Code</label>
-                                                                    <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Course Name</label>
-                                                                    <input type="text" value="<?php echo $course->name; ?>" required name="course_name" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-
-                                                                <div class="form-group col-md-4" style="display:none">
-                                                                    <label for="">Course ID</label>
-                                                                    <input type="text" readonly value="<?php echo $course->id; ?>" required name="course_id" class="form-control">
-                                                                    <input type="text" readonly value="<?php echo $course->faculty_id; ?>" required name="faculty_id" class="form-control">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Teaching Duration (Hours & Minutes)</label>
-                                                                    <input type="text" required name="course_duration" class="form-control" id="exampleInputEmail1">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Number Of Lectures Per Week</label>
-                                                                    <input type="text" required name="lectures_number" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Module CAT Weight Percentage</label>
-                                                                    <input type="text" required name="cat_weight_percentage" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Module End Exam Weight Percentage</label>
-                                                                    <input type="text" required name="exam_weight_percentage" class="form-control">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Module Details</label>
-                                                                    <textarea required name="details" rows="10" class="form-control Summernote"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="text-right">
-                                                            <button type="submit" name="add_module" class="btn btn-primary">Add Module</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Add Module -->
-                                </nav>
                             </div>
                             <hr>
                             <!-- Update Course Modal -->
@@ -286,7 +284,7 @@ require_once('partials/head.php');
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Course Number / Code</label>
-                                                            <input type="text" required name="code" value="<?php echo $course->code; ?>"" class=" form-control">
+                                                            <input type="text" readonly required name="code" value="<?php echo $course->code; ?>"" class=" form-control">
                                                             <input type="hidden" required name="id" value="<?php echo $course->id; ?>"" class=" form-control">
                                                         </div>
                                                     </div>
@@ -338,7 +336,7 @@ require_once('partials/head.php');
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Course HOD Email</label>
-                                                            <input type="text" required name="email" id="CourseHeadEmail" class="form-control">
+                                                            <input type="text" readonly required name="email" id="CourseHeadEmail" class="form-control">
                                                             <input type="hidden" required name="id" value="<?php echo $course->id; ?>" class="form-control">
                                                         </div>
                                                     </div>
@@ -353,6 +351,9 @@ require_once('partials/head.php');
                             </div>
                             <!-- End Update Course HOD -->
 
+                            <!-- Course Tab Modals -->
+                            <?php require_once('partials/course_tab_modals.php'); ?>
+                            <!-- End Course Tab Modals -->
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="card card-primary card-outline">
@@ -469,8 +470,34 @@ require_once('partials/head.php');
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-8">
                                     <div class="card card-primary card-outline">
+                                        <div class="card-header p-2">
+                                            <ul class="nav nav-pills">
+                                                <li class="nav-item"><a class="nav-link active" href="#memos" data-toggle="tab">Memos & Notices</a></li>
+                                                <li class="nav-item"><a class="nav-link" href="#modules" data-toggle="tab">Modules</a></li>
+                                                <li class="nav-item"><a class="nav-link" href="#module_allocations" data-toggle="tab">Modules Allocations</a></li>
+                                                <li class="nav-item"><a class="nav-link" href="#timetable" data-toggle="tab">Time Table</a></li>
+                                                <li class="nav-item"><a class="nav-link" href="#student_enrollments" data-toggle="tab">Student Enrollments</a></li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="tab-content">
+                                                <div class="active tab-pane" id="memos">
+                                                    <div class="col-md-12">
+                                                        <div class="text-right">
+                                                            <a href="#add_memo" data-toggle="modal" class="btn btn-outline-primary">
+                                                                Add Memo / Notice
+                                                            </a>
+                                                        </div>
+                                                        <br>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
