@@ -682,8 +682,8 @@ require_once('partials/head.php');
 
                                                 <div class="tab-pane" id="course_modules">
                                                     <div class="text-right">
-                                                        <a href="#add_memo" data-toggle="modal" class="btn btn-outline-primary">
-                                                            Add Memo / Notice
+                                                        <a href="#add_module" data-toggle="modal" class="btn btn-outline-primary">
+                                                            Add Module
                                                         </a>
                                                     </div>
                                                     <br>
@@ -749,7 +749,7 @@ require_once('partials/head.php');
 
                                                                                                 <div class="row">
                                                                                                     <div class="form-group col-md-6">
-                                                                                                        <label for="">Teaching Duration</label>
+                                                                                                        <label for="">Teaching Duration(Hours And Minutes)</label>
                                                                                                         <input type="text" value="<?php echo $mod->course_duration; ?>" required name="course_duration" class="form-control" id="exampleInputEmail1">
                                                                                                     </div>
                                                                                                     <div class="form-group col-md-6">
@@ -778,9 +778,6 @@ require_once('partials/head.php');
                                                                                             </div>
                                                                                         </form>
                                                                                     </div>
-                                                                                    <div class="modal-footer justify-content-between">
-                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -792,7 +789,6 @@ require_once('partials/head.php');
                                                         </tbody>
                                                     </table>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>

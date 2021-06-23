@@ -21,7 +21,7 @@
  */
 
 
- /* Load Logged In User Session */
+/* Load Logged In User Session */
 $id = $_SESSION['id'];
 $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id = '$id' ";
 $stmt = $mysqli->prepare($ret);
@@ -85,7 +85,7 @@ while ($admin = $res->fetch_object()) {
     <!-- End Add Memo -->
 
     <!-- Add Module -->
-    <div class="modal fade" id="modal-default">
+    <div class="modal fade" id="add_module">
         <div class="modal-dialog  modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -103,22 +103,16 @@ while ($admin = $res->fetch_object()) {
                                     <label for="">Module Name</label>
                                     <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
                                     <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                    <input type="hidden" readonly value="<?php echo $course->id; ?>" required name="course_id" class="form-control">
+                                    <input type="hidden" readonly value="<?php echo $course->faculty_id; ?>" required name="faculty_id" class="form-control">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="">Module Number / Code</label>
-                                    <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                    <input type="text" readonly required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="">Course Name</label>
-                                    <input type="text" value="<?php echo $course->name; ?>" required name="course_name" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row">
-
-                                <div class="form-group col-md-4" style="display:none">
-                                    <label for="">Course ID</label>
-                                    <input type="text" readonly value="<?php echo $course->id; ?>" required name="course_id" class="form-control">
-                                    <input type="text" readonly value="<?php echo $course->faculty_id; ?>" required name="faculty_id" class="form-control">
+                                    <input type="text" readonly value="<?php echo $course->name; ?>" required name="course_name" class="form-control">
                                 </div>
                             </div>
 
