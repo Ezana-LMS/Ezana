@@ -213,7 +213,6 @@ if (isset($_POST['add_module'])) {
     }
 }
 
-
 /*  Update Module*/
 if (isset($_POST['update_module'])) {
     //Error Handling and prevention of posting double entries
@@ -252,6 +251,153 @@ if (isset($_POST['update_module'])) {
     }
 }
 
+/* Assign Module Lec */
+if (isset($_POST['assign_module'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
+        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
+    } else {
+        $error = 1;
+        $err = "Module Code Cannot Be Empty";
+    }
+    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
+        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (isset($_POST['lec_id']) && !empty($_POST['lec_id'])) {
+        $lec_id = mysqli_real_escape_string($mysqli, trim($_POST['lec_id']));
+    } else {
+        $error = 1;
+        $err = "Lec ID Cannot Be Empty";
+    }
+    if (isset($_POST['lec_name']) && !empty($_POST['lec_name'])) {
+        $lec_name = mysqli_real_escape_string($mysqli, trim($_POST['lec_name']));
+    } else {
+        $error = 1;
+        $err = "Lec Name Cannot Be Empty";
+    }
+    if (!$error) {
+
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_ModuleAssigns WHERE  (lec_id='$lec_id' AND module_code ='$module_code') ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if (($lec_id == $row['lec_id']) && ($module_code == $row['module_code'])) {
+                $err =  "Module Already Assigned Lecturer";
+            }
+        } else {
+            $id = $_POST['id'];
+            $created_at = date('d M Y');
+            $view = $_GET['view'];
+            $faculty = $_POST['faculty'];
+            $academic_year = $_POST['academic_year'];
+            $semester = $_POST['semester'];
+
+            //On Assign, Update Module Status to Assigned
+            $ass_status = 1;
+
+            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, course_id, academic_year, semester, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?,?,?,?)";
+            $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
+            $stmt = $mysqli->prepare($query);
+            $modstmt = $mysqli->prepare($modUpdate);
+            $rc = $stmt->bind_param('ssssssssss', $id, $faculty, $view, $academic_year, $semester, $module_code, $module_name, $lec_id, $lec_name, $created_at);
+            $rc = $modstmt->bind_param('is', $ass_status, $module_code);
+            $stmt->execute();
+            $modstmt->execute();
+            if ($stmt && $modstmt) {
+                $success = "$lec_name Has Been Assigned To $module_code-$module_code";
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+
+/* Guest Lec Allocation */
+if (isset($_POST['assign_guest_lec'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
+        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
+    } else {
+        $error = 1;
+        $err = "Module Code Cannot Be Empty";
+    }
+    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
+        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (isset($_POST['lec_id']) && !empty($_POST['lec_id'])) {
+        $lec_id = mysqli_real_escape_string($mysqli, trim($_POST['lec_id']));
+    } else {
+        $error = 1;
+        $err = "Lec ID Cannot Be Empty";
+    }
+    if (isset($_POST['lec_name']) && !empty($_POST['lec_name'])) {
+        $lec_name = mysqli_real_escape_string($mysqli, trim($_POST['lec_name']));
+    } else {
+        $error = 1;
+        $err = "Lec Name Cannot Be Empty";
+    }
+    if (!$error) {
+        
+        $id = $_POST['id'];
+        $created_at = date('d M Y');
+        $view = $_GET['view'];
+        $faculty = $_POST['faculty'];
+        $status = 'Guest Lecturer';
+
+        //On Assign, Update Module Status to Assigned
+        $ass_status = 1;
+
+        $academic_year = $_POST['academic_year'];
+        $semester = $_POST['semester'];
+
+
+        $query = "INSERT INTO ezanaLMS_ModuleAssigns (academic_year, semester, id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at, status) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
+        $stmt = $mysqli->prepare($query);
+        $modstmt = $mysqli->prepare($modUpdate);
+        $rc = $stmt->bind_param('sssssssssss', $academic_year, $semester, $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at, $status);
+        $rc = $modstmt->bind_param('is', $ass_status, $module_code);
+        $stmt->execute();
+        $modstmt->execute();
+        if ($stmt && $modstmt) {
+            $success = "$lec_name Has Been Assigned As Guest Lecturer To $module_code - $module_code";
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
+/* Delete Module Allocation */
+if (isset($_GET['delete'])) {
+    $delete = $_GET['delete'];
+    $code = $_GET['code'];
+    $view = $_GET['view'];
+    $status = 0;
+    $adn = "DELETE FROM ezanaLMS_ModuleAssigns WHERE id=?";
+    $up = "UPDATE ezanaLMS_Modules SET ass_status =? WHERE code =? ";
+    $stmt = $mysqli->prepare($adn);
+    $upst = $mysqli->prepare($up);
+    $stmt->bind_param('s', $delete);
+    $upst->bind_param('is', $status, $code);
+    $stmt->execute();
+    $upst->execute();
+    $upst->close();
+    $stmt->close();
+    if ($stmt && $upst) {
+        $success = "Deleted" && header("refresh:1; url=course?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 
 require_once('partials/head.php');
 ?>
@@ -789,6 +935,17 @@ require_once('partials/head.php');
                                                         </tbody>
                                                     </table>
                                                 </div>
+
+                                                <div class="tab-pane" id="module_allocations">
+                                                    <div class="text-right">
+                                                        <a href="#add_module_allocation" data-toggle="modal" class="btn btn-outline-primary">
+                                                            Add Module Allocation
+                                                        </a>
+                                                    </div>
+                                                    <br>
+                                                    
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
