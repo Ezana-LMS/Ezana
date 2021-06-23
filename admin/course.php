@@ -214,6 +214,45 @@ if (isset($_POST['add_module'])) {
 }
 
 
+/*  Update Module*/
+if (isset($_POST['update_module'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Module Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (!$error) {
+        $id = $_POST['id'];
+        $details = $_POST['details'];
+        $course_duration = $_POST['course_duration'];
+        $exam_weight_percentage = $_POST['exam_weight_percentage'];
+        $cat_weight_percentage = $_POST['cat_weight_percentage'];
+        $lectures_number = $_POST['lectures_number'];
+        $updated_at = date('d M Y');
+        /* Course ID */
+        $view = $_POST['view'];
+        $query = "UPDATE ezanaLMS_Modules SET  name =?, code =?, details =?,  course_duration =?, exam_weight_percentage =?, cat_weight_percentage=?,  lectures_number =?, updated_at =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssssssss', $name, $code, $details,  $course_duration, $exam_weight_percentage, $cat_weight_percentage, $lectures_number, $updated_at, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "$name Updated";
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
+
 require_once('partials/head.php');
 ?>
 
@@ -476,11 +515,10 @@ require_once('partials/head.php');
                                         <div class="card-header p-2">
                                             <ul class="nav nav-pills">
                                                 <li class="nav-item"><a class="nav-link active" href="#memos" data-toggle="tab">Memos & Notices</a></li>
-                                                <li class="nav-item"><a class="nav-link" href="#modules" data-toggle="tab">Modules</a></li>
+                                                <li class="nav-item"><a class="nav-link" href="#course_modules" data-toggle="tab">Modules</a></li>
                                                 <li class="nav-item"><a class="nav-link" href="#module_allocations" data-toggle="tab">Modules Allocations</a></li>
                                                 <li class="nav-item"><a class="nav-link" href="#timetable" data-toggle="tab">Time Table</a></li>
                                                 <li class="nav-item"><a class="nav-link" href="#student_enrollments" data-toggle="tab">Student Enrollments</a></li>
-
                                             </ul>
                                         </div>
                                         <div class="card-body">
@@ -640,6 +678,119 @@ require_once('partials/head.php');
                                                             </tbody>
                                                         </table>
                                                     </div>
+                                                </div>
+
+                                                <div class="tab-pane" id="course_modules">
+                                                    <div class="text-right">
+                                                        <a href="#add_memo" data-toggle="modal" class="btn btn-outline-primary">
+                                                            Add Memo / Notice
+                                                        </a>
+                                                    </div>
+                                                    <br>
+                                                    <table class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Module Name</th>
+                                                                <th>Module Code</th>
+                                                                <th>Course Duration</th>
+                                                                <th>CAT & Exam Weight Percentage</th>
+                                                                <th>Manage</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE course_id = '$course->id'  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($mod = $res->fetch_object()) {
+                                                            ?>
+
+                                                                <tr>
+                                                                    <td><?php echo $mod->name; ?></td>
+                                                                    <td><?php echo $mod->code; ?></td>
+                                                                    <td><?php echo $mod->course_duration; ?></td>
+                                                                    <td><?php echo $mod->cat_weight_percentage . " &  " . $mod->exam_weight_percentage; ?></td>
+                                                                    <td>
+                                                                        <a class="badge badge-success" href="module?view=<?php echo $mod->id; ?>">
+                                                                            <i class="fas fa-eye"></i>
+                                                                            View
+                                                                        </a>
+                                                                        <a class="badge badge-primary" data-toggle="modal" href="#edit-modal-<?php echo $mod->id; ?>">
+                                                                            <i class="fas fa-edit"></i>
+                                                                            Update
+                                                                        </a>
+                                                                        <!-- Update Module Modal -->
+                                                                        <div class="modal fade" id="edit-modal-<?php echo $mod->id; ?>">
+                                                                            <div class="modal-dialog  modal-xl">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <!-- Update Module Form -->
+                                                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                                                            <div class="card-body">
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Module Name</label>
+                                                                                                        <input type="text" value="<?php echo $mod->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                                                        <input type="hidden" required name="id" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                                        <input type="hidden" required name="view" value="<?php echo $course->id; ?>" class="form-control">
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Module Number / Code</label>
+                                                                                                        <input type="text" required name="code" value="<?php echo $mod->code; ?>" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Teaching Duration</label>
+                                                                                                        <input type="text" value="<?php echo $mod->course_duration; ?>" required name="course_duration" class="form-control" id="exampleInputEmail1">
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Number Of Lectures Per Week</label>
+                                                                                                        <input type="text" value="<?php echo $mod->lectures_number; ?>" required name="lectures_number" class="form-control">
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">CAT Exam Weight Percentage</label>
+                                                                                                        <input type="text" value="<?php echo $mod->cat_weight_percentage; ?>" required name="cat_weight_percentage" class="form-control">
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">End Exam Weight Percentage</label>
+                                                                                                        <input type="text" value="<?php echo $mod->exam_weight_percentage; ?>" required name="exam_weight_percentage" class="form-control">
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-12">
+                                                                                                        <label for="exampleInputPassword1">Module Details</label>
+                                                                                                        <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $mod->details; ?></textarea>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="text-right">
+                                                                                                <button type="submit" name="update_module" class="btn btn-primary">Update Module</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                    <div class="modal-footer justify-content-between">
+                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End Modal -->
+                                                                    </td>
+                                                                </tr>
+                                                            <?php
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
 
                                             </div>
