@@ -1411,11 +1411,72 @@ require_once('partials/head.php');
 
                                                 <div class="tab-pane" id="timetable">
                                                     <div class="text-right">
-                                                        <a href="#add_class" data-toggle="modal" class="btn btn-outline-primary">
-                                                            Add Class
+                                                        <a href="#add_enrollment" data-toggle="modal" class="btn btn-outline-primary">
+                                                            Add Student Enrollment
                                                         </a>
                                                     </div>
                                                     <br>
+                                                    <table id="example1" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Admn</th>
+                                                                <th>Name</th>
+                                                                <th>Module</th>
+                                                                <th>Academic Yr</th>
+                                                                <th>Sem Enrl</th>
+                                                                <th>Sem Start</th>
+                                                                <th>Sem End </th>
+                                                                <th>Manage</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_Enrollments` WHERE course_code = '$course->code' ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($en = $res->fetch_object()) {
+                                                            ?>
+
+                                                                <tr>
+                                                                    <td><?php echo $en->student_adm; ?></td>
+                                                                    <td><?php echo $en->student_name; ?></td>
+                                                                    <td><?php echo $en->module_name; ?></td>
+                                                                    <td><?php echo $en->academic_year_enrolled; ?></td>
+                                                                    <td><?php echo $en->semester_enrolled; ?></td>
+                                                                    <td><?php echo date('d M Y', strtotime($en->semester_start)); ?></td>
+                                                                    <td><?php echo date('d M Y', strtotime($en->semester_end)); ?></td>
+                                                                    <td>
+                                                                        <a class="badge badge-danger" href="#delete-<?php echo $en->id; ?>" data-toggle='modal'>
+                                                                            <i class="fas fa-trash"></i>
+                                                                            Delete
+                                                                        </a>
+                                                                        <!-- Delete Confirmation Modal -->
+                                                                        <div class="modal fade" id="delete-<?php echo $en->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body text-center text-danger">
+                                                                                        <h4>Delete <?php echo $en->student_name; ?> Enrollment ?</h4>
+                                                                                        <br>
+                                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                        <a href="course?delete_enrollment=<?php echo $en->id; ?>&view=<?php echo $course->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End Delete Confirmation Modal -->
+                                                                    </td>
+                                                                </tr>
+                                                            <?php
+                                                            } ?>
+                                                        </tbody>
+                                                    </table>
 
                                                 </div>
 

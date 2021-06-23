@@ -418,7 +418,114 @@ while ($admin = $res->fetch_object()) {
     <!-- End Add Class To Time Table -->
 
     <!-- Add Enrollments  Modal -->
-    
-    <!-- End Enrollments Modal -->
-<?php
+    <div class="modal fade" id="add_enrollment">
+        <div class="modal-dialog  modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Fill All Required Values </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data" role="form">
+                        <div class="card-body">
+                            <div class="row" style="display:none">
+                                <div class="form-group col-md-6">
+                                    <label for=""> Name</label>
+                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                    <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
+                                    <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Enroll Code</label>
+                                    <input type="text" readonly required name="code" value="<?php echo $a.$b; ?>" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="">Student Admission Number</label>
+                                    <select class='form-control basic' id="StudentAdmn" onchange="getStudentDetails(this.value);" name="student_adm">
+                                        <option selected>Select Student Admission Number</option>
+                                        <?php
+                                        $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$course->faculty_id'  ";
+                                        $stmt = $mysqli->prepare($ret);
+                                        $stmt->execute(); //ok
+                                        $res = $stmt->get_result();
+                                        while ($std = $res->fetch_object()) {
+                                        ?>
+                                            <option><?php echo $std->admno; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Student Name</label>
+                                    <input type="text" readonly id="StudentName" readonly required name="student_name" class="form-control">
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="">Course Code</label>
+                                    <input type="text" readonly required name="course_code" value="<?php echo $course->code; ?>" class="form-control">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Course Name</label>
+                                    <input type="text" readonly required value="<?php echo $course->name; ?>" name="course_name" class="form-control">
+                                </div>
+                                <hr>
+                                <div class="form-group col-md-6">
+                                    <label for="">Module Code</label>
+                                    <select class='form-control basic' id="ModuleCode" onchange="OptimizedModuleDetails(this.value);" name="module_code">
+                                        <option selected>Select Module Code </option>
+                                        <?php
+                                        $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE course_id = '$course->id'   ";
+                                        $stmt = $mysqli->prepare($ret);
+                                        $stmt->execute(); //ok
+                                        $res = $stmt->get_result();
+                                        while ($mod = $res->fetch_object()) {
+                                        ?>
+                                            <option><?php echo $mod->code; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="">Module Name</label>
+                                    <input type="text"  readonly id="ModuleName" required name="module_name" class="form-control">
+                                </div>
+                                <?php
+                                /* Persisit Academic Settings */
+                                $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                                $stmt = $mysqli->prepare($ret);
+                                $stmt->execute(); //ok
+                                $res = $stmt->get_result();
+                                while ($academic_settings = $res->fetch_object()) {
+                                ?>
+                                    <div class="form-group col-md-6">
+                                        <label for="">Academic Year Enrolled</label>
+                                        <input type="text" readonly value="<?php echo $academic_settings->current_academic_year; ?>" required name="academic_year_enrolled" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="">Semester Enrolled</label>
+                                        <input type="text" readonly value="<?php echo $academic_settings->current_semester; ?>" required name="semester_enrolled" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="">Semester Start Date</label>
+                                        <input type="text" readonly value="<?php echo $academic_settings->start_date; ?>" required name="semester_start" class="form-control">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="">Semester End Date</label>
+                                        <input type="text" readonly value="<?php echo $academic_settings->end_date; ?>" required name="semester_end" class="form-control">
+                                    </div>
+                                <?php
+                                } ?>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" name="add_enroll" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End Enrollments Modal -->
+    <?php
 } ?>
