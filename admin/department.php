@@ -392,7 +392,6 @@ require_once('partials/head.php');
                         <div class="container-fluid">
                             <div class="row mb-2">
                                 <div class="col-sm-6">
-                                    <h1 class="m-0 text-dark"><?php echo $department->name; ?> Dashboard</h1>
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right">
@@ -712,15 +711,18 @@ require_once('partials/head.php');
                                                     </div>
                                                 </div>
                                                 <!-- End Course Modal -->
-                                                <br>
                                                 <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="text-center">
+                                                            <h1 class="m-0 text-dark"><?php echo $department->name; ?> Dashboard</h1>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+
                                                     <div class="col-md-4">
                                                         <div class="row">
                                                             <div class="col-md-12">
-                                                                <div class="card card-widget widget-user-2">
-                                                                    <div class="widget-user-header text-center bg-primary">
-                                                                        <h3 class=""><?php echo $department->name; ?></h3>
-                                                                    </div>
+                                                                <div class="card card-primary card-outline">
                                                                     <div class="card-footer p-0">
                                                                         <div class="row">
                                                                             <div class="col-md-12">
