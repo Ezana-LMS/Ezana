@@ -134,10 +134,9 @@ require_once('partials/head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Departments</h1>
                             </div>
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties">Faculties</a></li>
                                     <li class="breadcrumb-item active">Departments</li>
@@ -148,73 +147,76 @@ require_once('partials/head.php');
 
                     <section class="content">
                         <div class="container-fluid">
-                            <div class="text-left">
-                                <nav class="navbar col-md-12">
-                                    <form class="form-inline" method="GET">
-                                    </form>
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Departments</h1>
+                                    <br>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Department</button>
-                                    <!-- Add Department Modal -->
-                                    <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-xl">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Fill All Values </h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Department Name</label>
-                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <input type="hidden" required name="faculty_name" value="<?php echo $faculty->name; ?>" class="form-control">
 
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Department Number / Code</label>
-                                                                    <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">HOD</label>
-                                                                    <select class='form-control basic' id="DepartmentHead" name="hod" onchange="getDepartmentHeadDetails(this.value);">
-                                                                        <option selected>Select HOD</option>
-                                                                        <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
-                                                                        $stmt = $mysqli->prepare($ret);
-                                                                        $stmt->execute(); //ok
-                                                                        $res = $stmt->get_result();
-                                                                        while ($hods = $res->fetch_object()) {
-                                                                        ?>
-                                                                            <option><?php echo $hods->name; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Email</label>
-                                                                    <input type="email" required name="email" id="DepartmentHeadEmail" class="form-control">
-                                                                </div>
+                                </div>
+                            </div>
+                            <div class="text-left">
+                                <!-- Add Department Modal -->
+                                <div class="modal fade" id="modal-default">
+                                    <div class="modal-dialog  modal-xl">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Fill All Values </h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Department Name</label>
+                                                                <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                <input type="hidden" required name="faculty_name" value="<?php echo $faculty->name; ?>" class="form-control">
+
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Department Description</label>
-                                                                    <textarea name="details" rows="10" class="form-control Summernote"></textarea>
-                                                                </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Department Number / Code</label>
+                                                                <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">HOD</label>
+                                                                <select class='form-control basic' id="DepartmentHead" name="hod" onchange="getDepartmentHeadDetails(this.value);">
+                                                                    <option selected>Select HOD</option>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    while ($hods = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <option><?php echo $hods->name; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Email</label>
+                                                                <input type="email" required name="email" id="DepartmentHeadEmail" class="form-control">
                                                             </div>
                                                         </div>
-                                                        <div class="text-right">
-                                                            <button type="submit" name="add_dept" class="btn btn-primary">Add Department</button>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="exampleInputPassword1">Department Description</label>
+                                                                <textarea name="details" rows="10" class="form-control Summernote"></textarea>
+                                                            </div>
                                                         </div>
-                                                    </form>
-                                                </div>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <button type="submit" name="add_dept" class="btn btn-primary">Add Department</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End Modal -->
-                                </nav>
+                                </div>
+                                <!-- End Modal -->
                             </div>
                             <hr>
                             <div class="row">

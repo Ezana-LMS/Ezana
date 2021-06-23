@@ -103,10 +103,9 @@ require_once('partials/head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?></h1>
                             </div>
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties">Faculties</a></li>
                                     <li class="breadcrumb-item active"><?php echo $faculty->name; ?> Dashboard</li>
@@ -117,110 +116,109 @@ require_once('partials/head.php');
 
                     <section class="content">
                         <div class="container-fluid">
-                            <div class="text-left">
-                                <nav class="navbar navbar-light bg-light col-md-12">
-                                    <form class="form-inline" action="" method="GET">
-                                    </form>
-                                    <div class="text-right">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit_faculty_head">Edit Faculty Head</button>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit_faculty">Edit Faculty</button>
-                                    </div>
-                                    <!-- Edit Faculty Modal -->
-                                    <div class="modal fade" id="edit_faculty">
-                                        <div class="modal-dialog  modal-xl">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Fill All Values </h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Faculty Name</label>
-                                                                    <input type="text" required name="name" value="<?php echo $faculty->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $faculty->id; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Faculty Number / Code</label>
-                                                                    <input type="text" required name="code" value="<?php echo $faculty->code; ?>" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Faculty Description</label>
-                                                                    <textarea id="edit_Faculty" name="details" rows="5" class="form-control Summernote"><?php echo $faculty->details; ?></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="text-right">
-                                                            <button type="submit" name="update_faculty" class=" btn btn-primary ">Update Faculty</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Edit Faculty Modal -->
-
-                                    <!-- Update Faculty Head Modal -->
-                                    <div class="modal fade" id="edit_faculty_head" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Update Faculty Head </h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body text-danger">
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="">Your Administrator Password</label>
-                                                                    <!-- Hidden Values -->
-                                                                    <input type="hidden" required name="id" value="<?php echo  $_SESSION['id']; ?>" class="form-control">
-                                                                    <input type="hidden" required name="user_email" value="<?php echo $_SESSION['email']; ?>" class="form-control">
-                                                                    <input type="password" required name="password" class="form-control">
-                                                                    <input type="hidden" required name="faculty_id" value="<?php echo $view; ?>" class="form-control">
-
-                                                                </div>
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="">Faculty Head</label>
-                                                                    <select class='form-control basic' id="FacultyHead" name="head" onchange="getFacultyHeadDetails(this.value);">
-                                                                        <option selected>Select Faculty Head</option>
-                                                                        <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Admins` ";
-                                                                        $stmt = $mysqli->prepare($ret);
-                                                                        $stmt->execute(); //ok
-                                                                        $res = $stmt->get_result();
-                                                                        while ($admins = $res->fetch_object()) {
-                                                                        ?>
-                                                                            <option><?php echo $admins->name; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="">Faculty Head Email</label>
-                                                                    <input type="email" required name="email" id="FacultyHeadEmail" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="text-right">
-                                                            <button type="submit" name="update_faculty_head" class="btn btn-primary">Submit</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--  End Update Faculty Modal Head  -->
-                                </nav>
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Dashboard</h1>
+                                    <br>
+                                    <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="faculties" class="text-white"> Back</a></span>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit_faculty_head">Edit Faculty Head</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit_faculty">Edit Faculty</button>
+                                </div>
                             </div>
+                            <!-- Edit Faculty Modal -->
+                            <div class="modal fade" id="edit_faculty">
+                                <div class="modal-dialog  modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Fill All Values </h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Faculty Name</label>
+                                                            <input type="text" required name="name" value="<?php echo $faculty->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                            <input type="hidden" required name="id" value="<?php echo $faculty->id; ?>" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Faculty Number / Code</label>
+                                                            <input type="text" required name="code" value="<?php echo $faculty->code; ?>" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="exampleInputPassword1">Faculty Description</label>
+                                                            <textarea id="edit_Faculty" name="details" rows="5" class="form-control Summernote"><?php echo $faculty->details; ?></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-right">
+                                                    <button type="submit" name="update_faculty" class=" btn btn-primary ">Update Faculty</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Edit Faculty Modal -->
+
+                            <!-- Update Faculty Head Modal -->
+                            <div class="modal fade" id="edit_faculty_head" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Update Faculty Head </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-danger">
+                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="">Your Administrator Password</label>
+                                                            <!-- Hidden Values -->
+                                                            <input type="hidden" required name="id" value="<?php echo  $_SESSION['id']; ?>" class="form-control">
+                                                            <input type="hidden" required name="user_email" value="<?php echo $_SESSION['email']; ?>" class="form-control">
+                                                            <input type="password" required name="password" class="form-control">
+                                                            <input type="hidden" required name="faculty_id" value="<?php echo $view; ?>" class="form-control">
+
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label for="">Faculty Head</label>
+                                                            <select class='form-control basic' id="FacultyHead" name="head" onchange="getFacultyHeadDetails(this.value);">
+                                                                <option selected>Select Faculty Head</option>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_Admins` ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($admins = $res->fetch_object()) {
+                                                                ?>
+                                                                    <option><?php echo $admins->name; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label for="">Faculty Head Email</label>
+                                                            <input type="email" required name="email" id="FacultyHeadEmail" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-right">
+                                                    <button type="submit" name="update_faculty_head" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  End Update Faculty Modal Head  -->
                             <hr>
                             <div class="row">
                                 <!-- Faculty Side Navigation Bar -->
@@ -229,12 +227,7 @@ require_once('partials/head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="card card-widget widget-user-2">
-                                                <div class="widget-user-header  bg-primary">
-                                                    <span><i class="fas fa-arrow-left"></i><a href="faculties" class="text-white"> Back</a>
-                                                        <h3 class="text-center widget-user-username"><?php echo $faculty->name; ?></h3>
-                                                    </span>
-                                                </div>
+                                            <div class="card card-primary card-outline">
                                                 <div class="card-footer p-0">
                                                     <div class="row">
                                                         <div class="col-md-6">

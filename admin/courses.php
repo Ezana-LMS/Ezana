@@ -189,6 +189,7 @@ require_once('partials/head.php');
                                                                 <input type="hidden" id="DepFacID" readonly required name="faculty_id" class="form-control">
                                                             </div>
                                                         </div>
+                                                        
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Course Name</label>
@@ -243,94 +244,88 @@ require_once('partials/head.php');
                         </div>
                         <hr>
                         <div class="row">
-                            <!-- Courses Side Navigation Menu -->
-                            <?php require_once('partials/courses_sidemenu.php'); ?>
-                            <div class="col-md-9">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <table id="example1" class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Code</th>
-                                                    <th>Name</th>
-                                                    <th>Department</th>
-                                                    <th>Faculty</th>
-                                                    <th>Manage</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_Courses`";
-                                                $stmt = $mysqli->prepare($ret);
-                                                $stmt->execute(); //ok
-                                                $res = $stmt->get_result();
-                                                while ($courses = $res->fetch_object()) {
-                                                ?>
-                                                    <tr>
-                                                        <td><?php echo $courses->code; ?></td>
-                                                        <td><?php echo $courses->name; ?></td>
-                                                        <td><?php echo $courses->department_name; ?></td>
-                                                        <td><?php echo $courses->faculty_name; ?></td>
-                                                        <td>
-                                                            <a class="badge badge-success" href="course?view=<?php echo $courses->id; ?>">
-                                                                <i class="fas fa-eye"></i>
-                                                                View
-                                                            </a>
-                                                            <a class="badge badge-primary" data-toggle="modal" href="#edit-course-<?php echo $courses->id; ?>">
-                                                                <i class="fas fa-edit"></i>
-                                                                Update
-                                                            </a>
-                                                            <!-- Update Course Modal -->
-                                                            <div class="modal fade" id="edit-course-<?php echo $courses->id; ?>">
-                                                                <div class="modal-dialog  modal-xl">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h4 class="modal-title">Fill All Required Values </h4>
-                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <span aria-hidden="true">&times;</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <!-- Update Course Form -->
-                                                                            <form method="post" enctype="multipart/form-data" role="form">
-                                                                                <div class="card-body">
-                                                                                    <div class="row">
-                                                                                        <div class="form-group col-md-6">
-                                                                                            <label for="">Course Name</label>
-                                                                                            <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control">
-                                                                                            <input type="hidden" required name="id" value="<?php echo $courses->id; ?>" class="form-control">
+                            <div class="col-12">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Name</th>
+                                            <th>Department</th>
+                                            <th>Faculty</th>
+                                            <th>Manage</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $ret = "SELECT * FROM `ezanaLMS_Courses`";
+                                        $stmt = $mysqli->prepare($ret);
+                                        $stmt->execute(); //ok
+                                        $res = $stmt->get_result();
+                                        while ($courses = $res->fetch_object()) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $courses->code; ?></td>
+                                                <td><?php echo $courses->name; ?></td>
+                                                <td><?php echo $courses->department_name; ?></td>
+                                                <td><?php echo $courses->faculty_name; ?></td>
+                                                <td>
+                                                    <a class="badge badge-success" href="course?view=<?php echo $courses->id; ?>">
+                                                        <i class="fas fa-eye"></i>
+                                                        View
+                                                    </a>
+                                                    <a class="badge badge-primary" data-toggle="modal" href="#edit-course-<?php echo $courses->id; ?>">
+                                                        <i class="fas fa-edit"></i>
+                                                        Update
+                                                    </a>
+                                                    <!-- Update Course Modal -->
+                                                    <div class="modal fade" id="edit-course-<?php echo $courses->id; ?>">
+                                                        <div class="modal-dialog  modal-xl">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title">Fill All Required Values </h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <!-- Update Course Form -->
+                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Course Name</label>
+                                                                                    <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control">
+                                                                                    <input type="hidden" required name="id" value="<?php echo $courses->id; ?>" class="form-control">
 
-                                                                                        </div>
-                                                                                        <div class="form-group col-md-6">
-                                                                                            <label for="">Course Number / Code</label>
-                                                                                            <input type="text" required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <div class="form-group col-md-12">
-                                                                                            <label for="exampleInputPassword1">Course Description</label>
-                                                                                            <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $courses->details; ?></textarea>
-                                                                                        </div>
-                                                                                    </div>
                                                                                 </div>
-                                                                                <div class="text-right">
-                                                                                    <button type="submit" name="update_course" class="btn btn-primary">Update</button>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Course Number / Code</label>
+                                                                                    <input type="text" required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
                                                                                 </div>
-                                                                            </form>
-                                                                            <!-- End Update Course Form -->
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label for="exampleInputPassword1">Course Description</label>
+                                                                                    <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $courses->details; ?></textarea>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
+                                                                        <div class="text-right">
+                                                                            <button type="submit" name="update_course" class="btn btn-primary">Update</button>
+                                                                        </div>
+                                                                    </form>
+                                                                    <!-- End Update Course Form -->
                                                                 </div>
                                                             </div>
-                                                            <!-- End Update Modal -->
-                                                        </td>
-                                                    </tr>
-                                                <?php
-                                                } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Update Modal -->
+                                                </td>
+                                            </tr>
+                                        <?php
+                                        } ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

@@ -163,10 +163,9 @@ require_once('partials/head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Important Dates</h1>
                             </div>
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties">Faculties</a></li>
                                     <li class="breadcrumb-item active">Important Dates</li>
@@ -177,78 +176,74 @@ require_once('partials/head.php');
 
                     <section class="content">
                         <div class="container-fluid">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Important Dates</h1>
+                                    <br>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Faculty Important Dates</button>
+                                </div>
+                            </div>
                             <div class="">
-                                <nav class="navbar col-md-12">
-                                    <form class="form-inline" action="" method="GET">
-                                    </form>
-                                    <div class="text-right">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Faculty Important Dates</button>
-
-                                    </div>
-                                    <!-- Add Faculty Important Dates -->
-                                    <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-xl">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Faculty Important Dates </h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <?php
-                                                            /* Persisit Academic Settings */
-                                                            $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
-                                                            $stmt = $mysqli->prepare($ret);
-                                                            $stmt->execute(); //ok
-                                                            $res = $stmt->get_result();
-                                                            while ($academic_settings = $res->fetch_object()) {
-                                                            ?>
-                                                                <div class="row">
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="">Academic Year </label>
-                                                                        <input type="text" readonly required value="<?php echo $academic_settings->current_academic_year; ?>" name="academic_yr" class="form-control">
-                                                                    </div>
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="">Semester </label>
-                                                                        <input type="text" readonly required value="<?php echo $academic_settings->current_semester; ?>" name="semester_name" class="form-control" id="exampleInputEmail1">
-                                                                        <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                        <input type="hidden" required name="view" value="<?php echo $faculty->id; ?>" class="form-control">
-
-                                                                    </div>
-                                                                </div>
-                                                            <?php
-                                                            } ?>
+                                <!-- Add Faculty Important Dates -->
+                                <div class="modal fade" id="modal-default">
+                                    <div class="modal-dialog  modal-xl">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Faculty Important Dates </h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <?php
+                                                        /* Persisit Academic Settings */
+                                                        $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        while ($academic_settings = $res->fetch_object()) {
+                                                        ?>
                                                             <div class="row">
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="">Start Date</label>
-                                                                    <input type="date" required name="semester_start" class="form-control" id="exampleInputEmail1">
+                                                                    <label for="">Academic Year </label>
+                                                                    <input type="text" readonly required value="<?php echo $academic_settings->current_academic_year; ?>" name="academic_yr" class="form-control">
                                                                 </div>
                                                                 <div class="form-group col-md-6">
-                                                                    <label for="">End Date</label>
-                                                                    <input type="date" required name="semester_end" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="">Description</label>
-                                                                    <textarea rows="3" type="text" required name="description" class="form-control Summernote"></textarea>
+                                                                    <label for="">Semester </label>
+                                                                    <input type="text" readonly required value="<?php echo $academic_settings->current_semester; ?>" name="semester_name" class="form-control" id="exampleInputEmail1">
+                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                    <input type="hidden" required name="view" value="<?php echo $faculty->id; ?>" class="form-control">
+
                                                                 </div>
                                                             </div>
+                                                        <?php
+                                                        } ?>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Start Date</label>
+                                                                <input type="date" required name="semester_start" class="form-control" id="exampleInputEmail1">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">End Date</label>
+                                                                <input type="date" required name="semester_end" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-12">
+                                                                <label for="">Description</label>
+                                                                <textarea rows="3" type="text" required name="description" class="form-control Summernote"></textarea>
+                                                            </div>
                                                         </div>
-                                                        <div class="text-right">
-                                                            <button type="submit" name="add_school_calendar" class="btn btn-primary">Submit</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                </div>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <button type="submit" name="add_school_calendar" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End Add Faculty Important Dates Modal -->
-                                </nav>
+                                </div>
+                                <!-- End Add Faculty Important Dates Modal -->
                             </div>
                             <hr>
                             <div class="row">

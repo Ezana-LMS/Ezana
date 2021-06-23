@@ -40,13 +40,7 @@ while ($sys = $res->fetch_object()) {
         <!-- Icons CSS -->
         <link rel="stylesheet" href="../assets/css/icons.css">
         <!-- Data Tables -->
-        <link rel="stylesheet" href="../assets/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-        <link rel="stylesheet" href="../assets/css/data-table.css">
-        <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/datatables.css"> -->
-        <link rel="stylesheet" type="text/css" href="../assets/plugins/datatable/custom_dt_html5.css">
-        <!-- <link rel="stylesheet" type="text/css" href="plugins/datatable/dt-global_style.css">  -->
-        <!-- CK Editor CDN -->
-        <!-- <script src="https://cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script> -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css"/>
         <!-- Scroll Bars -->
         <link rel="stylesheet" href="../assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
         <!-- Summernote -->

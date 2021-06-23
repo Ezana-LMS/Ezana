@@ -225,6 +225,20 @@
         });
     }
 
+    /* Enrollment Module Details */
+    function EnrollmentModuleDetails(val) {
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'EnrollmentModuleCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#EnrollmentModuleName').val(data);
+            }
+        });
+        
+    }
+
 
     /* Optimized Guest Module Details */
     function guestLecModule(val) {

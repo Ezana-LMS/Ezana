@@ -169,10 +169,9 @@ require_once('partials/head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Students</h1>
                             </div>
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                     <li class="breadcrumb-item"><a href="faculties">Faculties</a></li>
                                     <li class="breadcrumb-item active">Students</li>
@@ -183,133 +182,134 @@ require_once('partials/head.php');
 
                     <section class="content">
                         <div class="container-fluid">
-                            <div class="">
-                                <nav class="navbar navbar-light bg-light col-md-12">
-                                    <form class="form-inline" action="faculty_search_result.php" method="GET">
-                                    </form>
-                                    <div class="text-left">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Student</button>
-                                    </div>
-                                    <!-- Add Student Modal -->
-                                    <div class="modal fade" id="modal-default">
-                                        <div class="modal-dialog  modal-xl">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Fill All Values </h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="post" enctype="multipart/form-data" role="form">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Name</label>
-                                                                    <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                    <input type="hidden" required name="password" value="<?php echo $defaultPass ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Admission Number</label>
-                                                                    <input type="text" required name="admno" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">ID / Passport Number</label>
-                                                                    <input type="text" required name="idno" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Date Of Birth</label>
-                                                                    <input type="date" placeholder="DD - MM - YYYY" required name="dob" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Gender</label>
-                                                                    <select type="text" required name="gender" class="form-control basic">
-                                                                        <option>Male</option>
-                                                                        <option>Female</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Course Enrolled</label>
-                                                                    <select class='form-control basic' id="CourseCode" onchange="getStudentCourseDetails(this.value);">
-                                                                        <option selected>Select Course Code </option>
-                                                                        <?php
-                                                                        $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$view' ";
-                                                                        $stmt = $mysqli->prepare($ret);
-                                                                        $stmt->execute(); //ok
-                                                                        $res = $stmt->get_result();
-                                                                        while ($courses = $res->fetch_object()) {
-                                                                        ?>
-                                                                            <option><?php echo $courses->code; ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Course Name</label>
-                                                                    <input type="text" required readonly name="course" class="form-control" id="CourseName">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Department Name</label>
-                                                                    <input type="text" required readonly name="department" class="form-control" id="DepartmentName">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Faculty / School Name</label>
-                                                                    <input type="text" required readonly name="school" class="form-control" id="FacultyName">
-                                                                    <input type="hidden" required name="faculty_id" class="form-control" id="FacultyID">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Current Year</label>
-                                                                    <select name="current_year" class='form-control basic'>
-                                                                        <option>1st Year </option>
-                                                                        <option>2nd Year </option>
-                                                                        <option>3rd Year </option>
-                                                                        <option>4th Year </option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Date Enrolled</label>
-                                                                    <input type="date" placeholder="DD - MM - YYYY" required name="day_enrolled" class="form-control">
-                                                                </div>
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Students</h1>
+                                    <br>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Student</button>
 
+                                </div>
+                            </div>
+                            <div class="">
+                                <!-- Add Student Modal -->
+                                <div class="modal fade" id="modal-default">
+                                    <div class="modal-dialog  modal-xl">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Fill All Values </h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="post" enctype="multipart/form-data" role="form">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Name</label>
+                                                                <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                <input type="hidden" required name="password" value="<?php echo $defaultPass ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Admission Number</label>
+                                                                <input type="text" required name="admno" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">ID / Passport Number</label>
+                                                                <input type="text" required name="idno" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Date Of Birth</label>
+                                                                <input type="date" placeholder="DD - MM - YYYY" required name="dob" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Gender</label>
+                                                                <select type="text" required name="gender" class="form-control basic">
+                                                                    <option>Male</option>
+                                                                    <option>Female</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Course Enrolled</label>
+                                                                <select class='form-control basic' id="CourseCode" onchange="getStudentCourseDetails(this.value);">
+                                                                    <option selected>Select Course Code </option>
+                                                                    <?php
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$view' ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    while ($courses = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <option><?php echo $courses->code; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Course Name</label>
+                                                                <input type="text" required readonly name="course" class="form-control" id="CourseName">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Department Name</label>
+                                                                <input type="text" required readonly name="department" class="form-control" id="DepartmentName">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Faculty / School Name</label>
+                                                                <input type="text" required readonly name="school" class="form-control" id="FacultyName">
+                                                                <input type="hidden" required name="faculty_id" class="form-control" id="FacultyID">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Current Year</label>
+                                                                <select name="current_year" class='form-control basic'>
+                                                                    <option>1st Year </option>
+                                                                    <option>2nd Year </option>
+                                                                    <option>3rd Year </option>
+                                                                    <option>4th Year </option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Date Enrolled</label>
+                                                                <input type="date" placeholder="DD - MM - YYYY" required name="day_enrolled" class="form-control">
                                                             </div>
 
-                                                            <div class="row">
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Email</label>
-                                                                    <input type="email" required name="email" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Phone Number</label>
-                                                                    <input type="text" required name="phone" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="">Profile Picture</label>
-                                                                    <div class="input-group">
-                                                                        <div class="custom-file">
-                                                                            <input required name="profile_pic" type="file" class="custom-file-input">
-                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                        </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Email</label>
+                                                                <input type="email" required name="email" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Phone Number</label>
+                                                                <input type="text" required name="phone" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-4">
+                                                                <label for="">Profile Picture</label>
+                                                                <div class="input-group">
+                                                                    <div class="custom-file">
+                                                                        <input required name="profile_pic" type="file" class="custom-file-input">
+                                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
 
-                                                            <div class="row">
-                                                                <div class="form-group col-md-12">
-                                                                    <label for="exampleInputPassword1">Current Address</label>
-                                                                    <textarea required name="adr" rows="3" class="form-control"></textarea>
-                                                                </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="exampleInputPassword1">Current Address</label>
+                                                                <textarea required name="adr" rows="3" class="form-control"></textarea>
                                                             </div>
                                                         </div>
-                                                        <div class="text-right">
-                                                            <button type="submit" name="add_student" class="btn btn-primary">Submit</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <button type="submit" name="add_student" class="btn btn-primary">Submit</button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- End Add Student Modal -->
-                                </nav>
+                                </div>
+                                <!-- End Add Student Modal -->
                             </div>
                             <hr>
                             <div class="row">
