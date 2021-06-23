@@ -330,5 +330,9 @@ while ($admin = $res->fetch_object()) {
         </div>
     </div>
     <!-- End Guest Lecturer Module Allocation -->
+    
+    <!-- Add Class To Time Table -->
+                                
+    <!-- End Add Class To Time Table -->
 <?php
 } ?>

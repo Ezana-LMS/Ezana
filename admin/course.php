@@ -399,6 +399,114 @@ if (isset($_GET['delete_allocation'])) {
     }
 }
 
+/* Add  Class To Time Table */
+if (isset($_POST['add_class'])) {
+    $error = 0;
+    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
+        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
+    } else {
+        $error = 1;
+        $err = "Module Code Cannot Be Blank";
+    }
+    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
+        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Blank";
+    }
+    if (isset($_POST['lecturer']) && !empty($_POST['lecturer'])) {
+        $lecturer = mysqli_real_escape_string($mysqli, trim($_POST['lecturer']));
+    } else {
+        $error = 1;
+        $err = "Lecturer Assigned Cannot Be Blank";
+    }
+    if (isset($_POST['day']) && !empty($_POST['day'])) {
+        $day = mysqli_real_escape_string($mysqli, trim($_POST['day']));
+    } else {
+        $error = 1;
+        $err = "Day Cannot Name Be Blank";
+    }
+    if (isset($_POST['time']) && !empty($_POST['time'])) {
+        $time = mysqli_real_escape_string($mysqli, trim($_POST['time']));
+    } else {
+        $error = 1;
+        $err = "Time Cannot Name Be Blank";
+    }
+
+    if (!$error) {
+        $id = $_POST['id'];
+        $faculty = $_POST['faculty'];
+        $course_code = $_POST['course_code'];
+        $course_name = $_POST['course_name'];
+        $room = $_POST['room'];
+        $link = $_POST['link'];
+        /* Course Id  */
+        $course_id = $_POST['course_id'];
+        $query = "INSERT INTO ezanaLMS_TimeTable (id, faculty_id, course_code, course_name, module_code, module_name, lecturer, day, time, room, link) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssssssssss', $id, $faculty, $course_code, $course_name, $module_code, $module_name, $lecturer, $day, $time, $room, $link);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Class Added To Time Table";
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
+/*  Update Time Table*/
+if (isset($_POST['update_class'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['day']) && !empty($_POST['day'])) {
+        $day = mysqli_real_escape_string($mysqli, trim($_POST['day']));
+    } else {
+        $error = 1;
+        $err = "Day Cannot Name Be Blank";
+    }
+    if (isset($_POST['time']) && !empty($_POST['time'])) {
+        $time = mysqli_real_escape_string($mysqli, trim($_POST['time']));
+    } else {
+        $error = 1;
+        $err = "Time Cannot Name Be Blank";
+    }
+
+    if (!$error) {
+        $id = $_POST['id'];
+        $day = $_POST['day'];
+        $time = $_POST['time'];
+        $room = $_POST['room'];
+        $link = $_POST['link'];
+        /* Course Id  */
+        $course_id = $_POST['course_id'];
+        $query = "UPDATE  ezanaLMS_TimeTable SET  day =?, time =?,  room =?, link =? WHERE id =?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssss',  $day, $time, $room, $link, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Class Updated In Time Table";
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
+/* Delete Class From Time Table */
+if (isset($_GET['delete_class'])) {
+    $delete = $_GET['delete_class'];
+    $view = $_GET['view'];
+    $adn = "DELETE FROM ezanaLMS_TimeTable WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=course?view=$view");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 require_once('partials/head.php');
 ?>
 
@@ -1009,6 +1117,16 @@ require_once('partials/head.php');
                                                             } ?>
                                                         </tbody>
                                                     </table>
+
+                                                </div>
+
+                                                <div class="tab-pane" id="timetable">
+                                                    <div class="text-right">
+                                                        <a href="#add_class" data-toggle="modal" class="btn btn-outline-primary">
+                                                            Add Class
+                                                        </a>
+                                                    </div>
+                                                    <br>
 
                                                 </div>
                                             </div>
