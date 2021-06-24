@@ -196,7 +196,7 @@ require_once('partials/head.php');
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Exam Paper Visibility / Availability </label>
-                                                            <input type="text" name="paper_visibility" class="form-control">
+                                                            <input type="text" name="paper_visibility" class="form-control" id="add_paper_visibility">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -289,7 +289,8 @@ require_once('partials/head.php');
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="">Exam Paper Solution Visibility / Availability</label>
-                                                                                                <input type="text" required name="solution_visibility" class="form-control">
+                                                                                                <input type="text" name="solution_visibility" class="form-control" id="add_solution_visibility">
+
                                                                                             </div>
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="exampleInputFile">Upload Past Exam Paper Solution ( PDF / Docx )</label>
@@ -340,12 +341,13 @@ require_once('partials/head.php');
                                                                                             </div>
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Exam Paper Visibility / Availability</label>
-                                                                                                <input type="text" required name="paper_visibility" class="form-control">
+                                                                                                <input type="text" name="paper_visibility" class="form-control" value="<?php echo $pastExas->paper_visibility; ?>" id="update_paper_visibility">
                                                                                             </div>
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Exam Paper Solution Visibility / Availability</label>
-                                                                                                <input type="text" required name="solution_visibility" class="form-control">
-                                                                                            </div>
+                                                                                        </div>
+
+                                                                                        <div class="form-group col-md-6">
+                                                                                            <label for="">Exam Paper Solution Visibility / Availability</label>
+                                                                                            <input type="text" name="solution_visibility" class="form-control" value="<?php echo $pastExas->solution_visibility; ?>" id="update_solution_visibility">
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class=" text-right">

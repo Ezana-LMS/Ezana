@@ -9,6 +9,10 @@
 <script src="../assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- OPTIONAL SCRIPTS -->
 <script src="../assets/js/demo.js"></script>
+<!-- Popper Min Js -->
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+<!-- Moment Min jS -->
+<script src="../assets/plugins/datepicker/js/moment.js"></script>
 <!-- Dropify Plug in -->
 <script src="../assets/plugins/dropify/dropify.min.js"></script>
 <!-- Summernote -->
@@ -16,8 +20,8 @@
 <!-- Canvas Chart Js -->
 <script src="../assets/plugins/canvas/canvasjs.min.js"></script>
 <!-- Date Time Picker -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
+<script src="../assets/plugins/datepicker/js/bootstrap-datetimepicker.min.js"></script>
+
 <!-- iZi Toast Js -->
 <script src="../assets/plugins/iziToast/iziToast.min.js" type="text/javascript"></script>
 <?php if (isset($success)) { ?>
@@ -78,8 +82,12 @@
         $('table').DataTable();
     });
     /* Initialize Date Picker */
-    
+    $(function() {
+        $('#update_solution_visibility').datetimepicker();
+        $('#update_paper_visibility').datetimepicker();
+        $('#add_paper_visibility').datetimepicker();
 
+    });
     /* Advanced Filter */
     $(document).ready(function() {
         $('#advanced-filter').DataTable({
