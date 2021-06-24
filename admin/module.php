@@ -109,7 +109,7 @@ require_once('partials/head.php');
     <div class="wrapper">
         <!-- Navbar -->
         <?php
-        require_once('public/partials/header.php');
+        require_once('partials/header.php');
         $view = $_GET['view'];
         $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE id ='$view'  ";
         $stmt = $mysqli->prepare($ret);
@@ -248,20 +248,20 @@ require_once('partials/head.php');
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Teaching Duration</label>
+                                                            <label for="">Teaching Duration(Hours And Minutes)</label>
                                                             <input type="text" value="<?php echo $mod->course_duration; ?>" required name="course_duration" class="form-control" id="exampleInputEmail1">
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Number Of Lectures Per Week</label>
-                                                            <input type="text" value="<?php echo $mod->lectures_number; ?>" required name="lectures_number" class="form-control">
+                                                            <input type="number" value="<?php echo $mod->lectures_number; ?>" required name="lectures_number" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="">CAT Exam Weight Percentage</label>
-                                                            <input type="text" value="<?php echo $mod->cat_weight_percentage; ?>" required name="cat_weight_percentage" class="form-control">
+                                                            <label for="">CAT Exam Weight Percentage (%)</label>
+                                                            <input type="number" min="1" max="100" value="<?php echo $mod->cat_weight_percentage; ?>" required name="cat_weight_percentage" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="">End Exam Weight Percentage</label>
-                                                            <input type="text" value="<?php echo $mod->exam_weight_percentage; ?>" required name="exam_weight_percentage" class="form-control">
+                                                            <label for="">End Exam Weight Percentage(%)</label>
+                                                            <input type="number" min="1" max="100" value="<?php echo $mod->exam_weight_percentage; ?>" required name="exam_weight_percentage" class="form-control">
                                                         </div>
                                                     </div>
 
@@ -277,17 +277,15 @@ require_once('partials/head.php');
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <!--End Update Module Modal -->
+
                             <hr>
                             <div class="row">
                                 <!-- Module Side Menu -->
-                                <?php require_once('public/partials/_modulemenu.php'); ?>
+                                <?php require_once('partials/module_menu.php'); ?>
                                 <!-- Module Side Menu -->
                                 <div class="col-md-9">
                                     <div class="row">
