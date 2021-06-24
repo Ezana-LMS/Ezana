@@ -129,7 +129,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                             </div>
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="modules.php">Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
@@ -230,12 +230,12 @@ require_once('partials/head.php');
                                                                 ?>
                                                                     <div class="d-flex w-100 justify-content-between">
                                                                         <h5 class="mb-1"></h5>
-                                                                        <small class="text-bold"><?php echo date('d M Y g:ia', strtotime($not->created_at)); ?></small>
+                                                                        <small class="text-bold text-success">Date: <?php echo date('d-M-Y', strtotime($not->created_at)); ?><br>Time: <?php echo date('g:ia', strtotime($not->created_at)); ?></small>
                                                                     </div>
                                                                     <?php
                                                                     echo
                                                                     $not->announcements . "  ~ By " .
-                                                                        "<b> " . $not->created_by . " </b> ";
+                                                                        "<b> " . $not->created_by . " </b>";
                                                                     /* Show A Button To Download Attachment */
                                                                     if ($not->attachments != '') {
                                                                         echo
@@ -251,7 +251,7 @@ require_once('partials/head.php');
                                                                     }
                                                                     ?>
                                                                     <br>
-                                                                    <div class="row ">
+                                                                    <div class="row d-flex w-100 justify-content-right">
                                                                         <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $mod->id; ?>">
                                                                             <i class="fas fa-edit"></i>
                                                                             Update
