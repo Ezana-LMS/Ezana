@@ -113,7 +113,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                             </div>
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                     <li class="breadcrumb-item"><a href="modules">Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>

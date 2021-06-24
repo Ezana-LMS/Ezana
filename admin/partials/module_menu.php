@@ -28,7 +28,7 @@
                         </a>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="pastpapers.php?view=<?php echo $mod->id; ?>">
+                        <a href="module_pastpapers?view=<?php echo $mod->id; ?>">
                             Past Papers
                         </a>
                     </li>
