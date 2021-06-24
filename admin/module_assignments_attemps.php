@@ -104,7 +104,7 @@ require_once('partials/head.php');
                             <div class="col-md-12 text-center">
                                 <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Assignments Attempts</h1>
                                 <br>
-                                <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="module_assignments" class="text-white">Back</a></span>
+                                <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="module_assignments?view=<?php echo $mod->id; ?>" class="text-white">Back</a></span>
 
                             </div>
 
