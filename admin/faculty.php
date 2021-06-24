@@ -146,7 +146,7 @@ require_once('partials/head.php');
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Faculty Number / Code</label>
-                                                            <input type="text" required name="code" value="<?php echo $faculty->code; ?>" class="form-control">
+                                                            <input type="text" readonly required name="code" value="<?php echo $faculty->code; ?>" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -206,7 +206,7 @@ require_once('partials/head.php');
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <label for="">Faculty Head Email</label>
-                                                            <input type="email" required name="email" id="FacultyHeadEmail" class="form-control">
+                                                            <input type="email" readonly required name="email" id="FacultyHeadEmail" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -234,12 +234,12 @@ require_once('partials/head.php');
                                                             <ul class="nav flex-column">
                                                                 <li class="nav-item">
                                                                     <span class="nav-link text-primary">
-                                                                        Faculty Code: <span class="float-right "><?php echo $faculty->code; ?></span>
+                                                                        Faculty Code: <span class="float-right text-dark"><?php echo $faculty->code; ?></span>
                                                                     </span>
                                                                 </li>
                                                                 <li class="nav-item">
                                                                     <span class="nav-link text-primary">
-                                                                        Faculty Head: <span class="float-right "><?php echo $faculty->head; ?></span>
+                                                                        Faculty Head: <span class="float-right text-dark"><?php echo $faculty->head; ?></span>
                                                                     </span>
                                                                 </li>
                                                                 <li class="nav-item">
@@ -259,7 +259,7 @@ require_once('partials/head.php');
                                                             <ul class="nav flex-column">
                                                                 <li class="nav-item">
                                                                     <span class="nav-link text-primary">
-                                                                        Faculty Email: <a href="mailto:<?php echo $faculty->email; ?>"><span class="float-right "><?php echo $faculty->email; ?></a></span>
+                                                                        Faculty Email: <a href="mailto:<?php echo $faculty->email; ?>"><span class="float-right text-dark"><?php echo $faculty->email; ?></a></span>
                                                                     </span>
                                                                 </li>
                                                                 <li class="nav-item">

@@ -290,47 +290,44 @@ require_once('partials/head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="card card-widget widget-user-2">
-                                                <div class="widget-user-header text-center bg-primary">
-                                                    <h3 class=""><?php echo $mod->name; ?></h3>
-                                                </div>
+                                            <div class="card card-primary card-outline">
                                                 <div class="card-footer p-0">
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <ul class="nav flex-column">
                                                                 <li class="nav-item">
                                                                     <span class="nav-link text-primary">
-                                                                        Module Name : <span class="float-right "><?php echo $mod->name; ?></span>
+                                                                        Module Name : <span class="float-right text-dark "><?php echo $mod->name; ?></span>
                                                                     </span>
                                                                 </li>
                                                                 <li class="nav-item">
                                                                     <span class="nav-link text-primary">
-                                                                        Module Code : <span class="float-right "><?php echo $mod->code; ?></span>
+                                                                        Module Code : <span class="float-right text-dark"><?php echo $mod->code; ?></span>
                                                                     </span>
                                                                 </li>
                                                                 <li class="nav-item">
                                                                     <span class="nav-link text-primary">
-                                                                        Course Name : <span class="float-right "><?php echo $mod->course_name; ?></span>
+                                                                        Course Name : <span class="float-right text-dark"><?php echo $mod->course_name; ?></span>
                                                                     </span>
                                                                 </li>
                                                                 <li class="nav-item">
                                                                     <span class="nav-link text-primary">
-                                                                        Teaching Duration : <span class="float-right "><?php echo $mod->course_duration; ?></span>
+                                                                        Teaching Duration : <span class="float-right text-dark"><?php echo $mod->course_duration; ?></span>
                                                                     </span>
                                                                 </li>
                                                                 <li class="nav-item">
                                                                     <span class="nav-link text-primary">
-                                                                        No Of Lecturers Per Week : <span class="float-right "><?php echo $mod->lectures_number; ?></span>
+                                                                        No Of Lecturers Per Week : <span class="float-right text-dark"><?php echo $mod->lectures_number; ?></span>
                                                                     </span>
                                                                 </li>
                                                                 <li class="nav-item">
                                                                     <span class="nav-link text-primary">
-                                                                        Exam Weight Percentage : <span class="float-right "><?php echo $mod->exam_weight_percentage; ?></span>
+                                                                        Exam Weight Percentage : <span class="float-right text-dark"><?php echo $mod->exam_weight_percentage; ?></span>
                                                                     </span>
                                                                 </li>
                                                                 <li class="nav-item">
                                                                     <span class="nav-link text-primary">
-                                                                        Cat Weight Percentage : <span class="float-right "><?php echo $mod->cat_weight_percentage; ?></span>
+                                                                        Cat Weight Percentage : <span class="float-right text-dark"><?php echo $mod->cat_weight_percentage; ?></span>
                                                                     </span>
                                                                 </li>
                                                                 <!-- Course And Department  Module Registered To -->
@@ -356,27 +353,27 @@ require_once('partials/head.php');
                                                                 ?>
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Department Code : <span class="float-right "><?php echo $department->code; ?></span>
+                                                                                Department Code : <span class="float-right text-dark"><?php echo $department->code; ?></span>
                                                                             </span>
                                                                         </li>
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Department Name : <span class="float-right "><?php echo $department->name; ?></span>
+                                                                                Department Name : <span class="float-right text-dark"><?php echo $department->name; ?></span>
                                                                             </span>
                                                                         </li>
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Course Code : <span class="float-right "><?php echo $course->code; ?></span>
+                                                                                Course Code : <span class="float-right text-dark"><?php echo $course->code; ?></span>
                                                                             </span>
                                                                         </li>
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Course Name : <span class="float-right "><?php echo $course->name; ?></span>
+                                                                                Course Name : <span class="float-right text-dark"><?php echo $course->name; ?></span>
                                                                             </span>
                                                                         </li>
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Enrolled Students : <span class="float-right "><?php echo $enrolled_students ?></span>
+                                                                                Enrolled Students : <span class="float-right text-dark"><?php echo $enrolled_students ?></span>
                                                                             </span>
                                                                         </li>
                                                                 <?php
@@ -406,24 +403,24 @@ require_once('partials/head.php');
                                                                 ?>
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Assigned Lecturer Name : <span class="float-right "><?php echo $lecturer->name; ?></span>
+                                                                                Assigned Lecturer Name : <span class="float-right text-dark"><?php echo $lecturer->name; ?></span>
                                                                             </span>
                                                                         </li>
 
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Assigned Lecturer Email : <span class="float-right "><?php echo $lecturer->email; ?></span>
+                                                                                Assigned Lecturer Email : <span class="float-right text-dark"><?php echo $lecturer->email; ?></span>
                                                                             </span>
                                                                         </li>
 
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Assigned Lecturer ID / Passport No : <span class="float-right "><?php echo $lecturer->idno; ?></span>
+                                                                                Assigned Lecturer ID / Passport No : <span class="float-right text-dark"><?php echo $lecturer->idno; ?></span>
                                                                             </span>
                                                                         </li>
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Assigned Lecturer Address : <span class="float-right "><?php echo $lecturer->adr; ?></span>
+                                                                                Assigned Lecturer Address : <span class="float-right text-dark"><?php echo $lecturer->adr; ?></span>
                                                                             </span>
                                                                         </li>
                                                                     <?php }
@@ -442,31 +439,31 @@ require_once('partials/head.php');
                                                                     ?>
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Guest Lecturer Name : <span class="float-right "><?php echo $Glecturer->name; ?></span>
+                                                                                Guest Lecturer Name : <span class="float-right text-dark"><?php echo $Glecturer->name; ?></span>
                                                                             </span>
                                                                         </li>
 
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Guest Lecturer Email : <span class="float-right "><?php echo $Glecturer->email; ?></span>
+                                                                                Guest Lecturer Email : <span class="float-right text-dark"><?php echo $Glecturer->email; ?></span>
                                                                             </span>
                                                                         </li>
 
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Guest Lecturer ID / Passport No : <span class="float-right "><?php echo $Glecturer->idno; ?></span>
+                                                                                Guest Lecturer ID / Passport No : <span class="float-right text-dark"><?php echo $Glecturer->idno; ?></span>
                                                                             </span>
                                                                         </li>
 
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Guest Lecturer Phone : <span class="float-right "><?php echo $Glecturer->phone; ?></span>
+                                                                                Guest Lecturer Phone : <span class="float-right text-dark"><?php echo $Glecturer->phone; ?></span>
                                                                             </span>
                                                                         </li>
 
                                                                         <li class="nav-item">
                                                                             <span class="nav-link text-primary">
-                                                                                Guest Lecturer Address : <span class="float-right "><?php echo $Glecturer->adr; ?></span>
+                                                                                Guest Lecturer Address : <span class="float-right text-dark"><?php echo $Glecturer->adr; ?></span>
                                                                             </span>
                                                                         </li>
                                                                 <?php
