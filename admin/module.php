@@ -105,6 +105,8 @@ require_once('partials/head.php');
                                 <br>
                                 <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="modules" class="text-white">Back</a></span>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-module-<?php echo $mod->id; ?>">Edit Module</button>
+                                <!-- Allocate Module Lecturer Or Guest Lec -->
+                                <?php require_once('partials/module_assign_lec.php');?>
                             </div>
 
                             <!-- <div class="text-left">
