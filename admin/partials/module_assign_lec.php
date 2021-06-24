@@ -1,23 +1,5 @@
-<?php
-/* Check If This Module Is Allocated A Lecturer If Yes Give A Guest Lecturer */
-if ($mod->ass_status == '0') {
-    /* Allocate Lecturer Or Guest Lecturer */
-    echo
-    "
-        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_lect'>Assign Lecturer</button>
-        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_guest_lect'>Assign Guest Lecturer</button>
-    ";
-} else {
-    /* Only Allocate Lecturer */
-    echo
-    "
-    <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_guest_lect'>Assign Guest Lecturer</button>
-
-    ";
-}
-?>
 <!-- Lecturer Modal Allocation -->
-<div class="modal fade" id="add_module_allocation">
+<div class="modal fade" id="assign_lect">
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -88,7 +70,7 @@ if ($mod->ass_status == '0') {
 <!-- End Lecturer Modal Allocation -->
 
 <!-- Add Guest Lecturer Module Allocation -->
-<div class="modal fade" id="add_guest_lec_module_allocation">
+<div class="modal fade" id="assign_guest_lect">
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
