@@ -212,7 +212,7 @@ require_once('partials/head.php');
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Number Of Lectures Per Week</label>
-                                                            <input type="text" required name="lectures_number" class="form-control">
+                                                            <input type="number" required name="lectures_number" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Module CAT Weight Percentage (%) </label>
@@ -329,7 +329,7 @@ require_once('partials/head.php');
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-6">
                                                                                                     <label for="">Number Of Lectures Per Week</label>
-                                                                                                    <input type="text" value="<?php echo $modules['lectures_number']; ?>" required name="lectures_number" class="form-control">
+                                                                                                    <input type="number" value="<?php echo $modules['lectures_number']; ?>" required name="lectures_number" class="form-control">
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-6">
                                                                                                     <label for="">CAT Exam Weight Percentage (%)</label>

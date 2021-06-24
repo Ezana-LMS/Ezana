@@ -1099,15 +1099,15 @@ require_once('partials/head.php');
                                                                                                     </div>
                                                                                                     <div class="form-group col-md-6">
                                                                                                         <label for="">Number Of Lectures Per Week</label>
-                                                                                                        <input type="text" value="<?php echo $mod->lectures_number; ?>" required name="lectures_number" class="form-control">
+                                                                                                        <input type="number" value="<?php echo $mod->lectures_number; ?>" required name="lectures_number" class="form-control">
                                                                                                     </div>
                                                                                                     <div class="form-group col-md-6">
-                                                                                                        <label for="">CAT Exam Weight Percentage</label>
-                                                                                                        <input type="text" value="<?php echo $mod->cat_weight_percentage; ?>" required name="cat_weight_percentage" class="form-control">
+                                                                                                        <label for="">CAT Exam Weight Percentage (%)</label>
+                                                                                                        <input type="number" min="1" max="100" value="<?php echo $mod->cat_weight_percentage; ?>" required name="cat_weight_percentage" class="form-control">
                                                                                                     </div>
                                                                                                     <div class="form-group col-md-6">
-                                                                                                        <label for="">End Exam Weight Percentage</label>
-                                                                                                        <input type="text" value="<?php echo $mod->exam_weight_percentage; ?>" required name="exam_weight_percentage" class="form-control">
+                                                                                                        <label for="">End Exam Weight Percentage (%)</label>
+                                                                                                        <input type="number" min="1" max="100" value="<?php echo $mod->exam_weight_percentage; ?>" required name="exam_weight_percentage" class="form-control">
                                                                                                     </div>
                                                                                                 </div>
 
