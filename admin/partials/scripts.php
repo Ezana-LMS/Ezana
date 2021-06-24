@@ -83,11 +83,23 @@
     });
     /* Initialize Date Picker */
     $(function() {
-        $('#update_solution_visibility').datetimepicker();
-        $('#update_paper_visibility').datetimepicker();
-        $('#add_paper_visibility').datetimepicker();
-
+        $('.availability').datetimepicker();
     });
+    /* Overidde Default Font Awesome 4 Icons */
+    $.extend(true, $.fn.datetimepicker.defaults, {
+        icons: {
+            time: 'far fa-clock',
+            date: 'far fa-calendar',
+            up: 'fas fa-arrow-up',
+            down: 'fas fa-arrow-down',
+            previous: 'fas fa-chevron-left',
+            next: 'fas fa-chevron-right',
+            today: 'fas fa-calendar-check',
+            clear: 'far fa-trash-alt',
+            close: 'far fa-times-circle'
+        }
+    });
+
     /* Advanced Filter */
     $(document).ready(function() {
         $('#advanced-filter').DataTable({

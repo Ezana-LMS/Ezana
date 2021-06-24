@@ -196,7 +196,7 @@ require_once('partials/head.php');
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Exam Paper Visibility / Availability </label>
-                                                            <input type="text" name="paper_visibility" class="form-control" id="add_paper_visibility">
+                                                            <input type="text" name="paper_visibility" class="form-control availability">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -259,7 +259,7 @@ require_once('partials/head.php');
                                                                     } else {
                                                                         echo
                                                                         "
-                                                                        <a target='_blank' href= '../Data/PastPapers/<?php echo $pastExas->solution;?>' class='btn btn-outline-success'>
+                                                                        <a target='_blank' href= '../Data/PastPapers/$pastExas->solution' class='btn btn-outline-success'>
                                                                             View Solution
                                                                         </a>
                                                                         ";
@@ -280,17 +280,13 @@ require_once('partials/head.php');
                                                                                 <!-- Form -->
                                                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                                                     <div class="card-body">
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <input type="hidden" required name="id" value="<?php echo $pastExas->id; ?>" class="form-control">
-                                                                                                <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                                            </div>
-                                                                                        </div>
+                                                                                        <!-- Hidden -->
+                                                                                        <input type="hidden" required name="id" value="<?php echo $pastExas->id; ?>" class="form-control">
+                                                                                        <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="">Exam Paper Solution Visibility / Availability</label>
-                                                                                                <input type="text" name="solution_visibility" class="form-control" id="add_solution_visibility">
-
+                                                                                                <input type="text" name="solution_visibility" class="form-control availability">
                                                                                             </div>
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="exampleInputFile">Upload Past Exam Paper Solution ( PDF / Docx )</label>
@@ -341,14 +337,14 @@ require_once('partials/head.php');
                                                                                             </div>
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Exam Paper Visibility / Availability</label>
-                                                                                                <input type="text" name="paper_visibility" class="form-control" value="<?php echo $pastExas->paper_visibility; ?>" id="update_paper_visibility">
+                                                                                                <input type="text" name="paper_visibility" class="form-control availability" value="<?php echo $pastExas->paper_visibility; ?>" >
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-6">
+                                                                                                <label for="">Exam Paper Solution Visibility / Availability</label>
+                                                                                                <input type="text" name="solution_visibility" class="form-control availability" value="<?php echo $pastExas->solution_visibility; ?>">
                                                                                             </div>
                                                                                         </div>
 
-                                                                                        <div class="form-group col-md-6">
-                                                                                            <label for="">Exam Paper Solution Visibility / Availability</label>
-                                                                                            <input type="text" name="solution_visibility" class="form-control" value="<?php echo $pastExas->solution_visibility; ?>" id="update_solution_visibility">
-                                                                                        </div>
                                                                                     </div>
                                                                                     <div class=" text-right">
                                                                                         <button type="submit" name="update_pastpaper" class="btn btn-primary">Update Exam Paper</button>
