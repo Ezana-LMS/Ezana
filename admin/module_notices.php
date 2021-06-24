@@ -141,7 +141,7 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="col-md-12 text-center">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Notices & Memos</h1>
+                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Notices, Announcements & Memos</h1>
                                 <br>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Module Notice</button>
                             </div>
@@ -170,7 +170,7 @@ require_once('partials/head.php');
                                                             $res = $stmt->get_result();
                                                             while ($user = $res->fetch_object()) {
                                                             ?>
-                                                                <input type="text" required name="created_by" value="<?php echo $user->name; ?>" class="form-control" id="exampleInputEmail1">
+                                                                <input type="text" readonly required name="created_by" value="<?php echo $user->name; ?>" class="form-control" id="exampleInputEmail1">
                                                             <?php
                                                             } ?>
                                                         </div>
@@ -179,13 +179,12 @@ require_once('partials/head.php');
                                                             <label for="">Upload Module Memo (PDF Or Docx)</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
-                                                                    <input name="attachments" type="file" accept=".pdf, .docx, .doc" class="custom-file-input">
+                                                                    <input name="attachments" required type="file" accept=".pdf, .docx, .doc" class="custom-file-input">
                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <h2 class="text-center">Or</h2>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label for="exampleInputPassword1">Type Module Announcements</label>
@@ -199,14 +198,11 @@ require_once('partials/head.php');
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer text-right">
+                                                <div class="text-right">
                                                     <button type="submit" name="add_notice" class="btn btn-primary">Post</button>
                                                 </div>
                                             </form>
                                             <!-- End Module Notice Form -->
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
@@ -223,14 +219,7 @@ require_once('partials/head.php');
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="card ">
-                                                            <div class="card-header">
-                                                                <h3 class="card-title">Module Notices, Announcements And Memos</h3>
-                                                                <div class="card-tools">
-                                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
+                                                        <div class="card card-primary card-outline">
                                                             <div class="card-body">
                                                                 <?php
                                                                 $ret = "SELECT * FROM `ezanaLMS_ModulesAnnouncements` WHERE module_code  = '$mod->code'  ORDER BY `ezanaLMS_ModulesAnnouncements`.`created_at` DESC  ";
@@ -252,106 +241,103 @@ require_once('partials/head.php');
                                                                         echo
                                                                         "   <hr>
                                                                                 <div class='text-center'>
-                                                                                    <a href='../Data/Memos/$not->attachments' target='_blank' class='btn btn-outline-success'>Download Memo Attachment</a>
+                                                                                    <a href='../Data/Memos/$not->attachments' target='_blank' class='btn btn-outline-primary'>View Attachment</a>
+                                                                                    <a href='../Data/Memos/$not->attachments' target='_blank' class='btn btn-outline-primary'>Download Attachment</a>
                                                                                 </div>
+                                                                                
                                                                             ";
                                                                     } else {
                                                                         /* Nothing Just Be Dumb */
                                                                     }
                                                                     ?>
                                                                     <br>
-                                                                    <div class="card-footer">
-                                                                        <div class="row ">
-                                                                            <a class="badge badge-primary text-right" data-toggle="modal" href="#update-<?php echo $mod->id; ?>">
-                                                                                <i class="fas fa-edit"></i>
-                                                                                Update
-                                                                            </a>
-                                                                            <!-- Udpate Notice Modal -->
-                                                                            <div class="modal fade" id="update-<?php echo $mod->id; ?>">
-                                                                                <div class="modal-dialog  modal-xl">
-                                                                                    <div class="modal-content">
-                                                                                        <div class="modal-header">
-                                                                                            <h4 class="modal-title">Fill All Required Values </h4>
-                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                                <span aria-hidden="true">&times;</span>
-                                                                                            </button>
-                                                                                        </div>
-                                                                                        <div class="modal-body">
-                                                                                            <!-- Add Module Notices Form -->
-                                                                                            <form method="post" enctype="multipart/form-data" role="form">
-                                                                                                <div class="card-body">
-                                                                                                    <div class="row">
-                                                                                                        <div class="form-group col-md-6">
-                                                                                                            <label for="">Module Name</label>
-                                                                                                            <input readonly type="text" value="<?php echo $not->module_name; ?>" id="ModuleCode" required name="module_code" class="form-control">
-                                                                                                        </div>
-                                                                                                        <div class="form-group col-md-6">
-                                                                                                            <label for="">Module Code</label>
-                                                                                                            <input readonly type="text" id="ModuleCode" value="<?php echo $not->module_code; ?>" required name="module_code" class="form-control">
-                                                                                                        </div>
-                                                                                                        <div class="form-group col-md-6">
-                                                                                                            <label for="">Announcement Posted By</label>
-                                                                                                            <input type="text" required name="created_by" value="<?php echo $not->created_by; ?>" class="form-control" id="exampleInputEmail1">
-                                                                                                        </div>
-                                                                                                        <div class="form-group col-md-6">
-                                                                                                            <label for="">Upload Module Memo (PDF Or Docx)</label>
-                                                                                                            <div class="input-group">
-                                                                                                                <div class="custom-file">
-                                                                                                                    <input name="attachments" accept=".pdf, .docx, .doc" type="file" class="custom-file-input">
-                                                                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file </label>
-                                                                                                                </div>
+                                                                    <div class="row ">
+                                                                        <a class="badge badge-primary" data-toggle="modal" href="#update-<?php echo $mod->id; ?>">
+                                                                            <i class="fas fa-edit"></i>
+                                                                            Update
+                                                                        </a>
+                                                                        <!-- Udpate Notice Modal -->
+                                                                        <div class="modal fade" id="update-<?php echo $mod->id; ?>">
+                                                                            <div class="modal-dialog  modal-xl">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <!-- Add Module Notices Form -->
+                                                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                                                            <div class="card-body">
+                                                                                                <div class="row">
+                                                                                                    <!-- <div class="form-group col-md-6">
+                                                                                                        <label for="">Module Name</label>
+                                                                                                        <input readonly type="text" value="<?php echo $not->module_name; ?>" id="ModuleCode" required name="module_code" class="form-control">
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Module Code</label>
+                                                                                                        <input readonly type="text" id="ModuleCode" value="<?php echo $not->module_code; ?>" required name="module_code" class="form-control">
+                                                                                                    </div> -->
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Announcement Posted By</label>
+                                                                                                        <input type="text" required name="created_by" value="<?php echo $not->created_by; ?>" class="form-control" id="exampleInputEmail1">
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-md-6">
+                                                                                                        <label for="">Upload Module Memo (PDF Or Docx)</label>
+                                                                                                        <div class="input-group">
+                                                                                                            <div class="custom-file">
+                                                                                                                <input name="attachments" required accept=".pdf, .docx, .doc" type="file" class="custom-file-input">
+                                                                                                                <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                    <div class="row">
-                                                                                                        <div class="form-group col-md-12">
-                                                                                                            <label for="exampleInputPassword1">Module Announcements</label>
-                                                                                                            <textarea required name="announcements" rows="20" class="form-control Summernote"><?php echo $not->announcements; ?></textarea>
-                                                                                                            <input type="hidden" required name="id" value="<?php echo $not->id; ?>" class="form-control">
-                                                                                                            <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                                                        </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                    <div class="form-group col-md-12">
+                                                                                                        <label for="exampleInputPassword1">Module Announcements</label>
+                                                                                                        <textarea required name="announcements" rows="20" class="form-control Summernote"><?php echo $not->announcements; ?></textarea>
+                                                                                                        <input type="hidden" required name="id" value="<?php echo $not->id; ?>" class="form-control">
+                                                                                                        <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
                                                                                                     </div>
                                                                                                 </div>
+                                                                                            </div>
 
 
-                                                                                                <div class="card-footer text-right">
-                                                                                                    <button type="submit" name="update_notice" class="btn btn-primary">Update</button>
-                                                                                                </div>
-                                                                                            </form>
-                                                                                            <!-- End Module Notice Form -->
-                                                                                        </div>
-                                                                                        <div class="modal-footer justify-content-between">
-                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                        </div>
+                                                                                            <div class="text-right">
+                                                                                                <button type="submit" name="update_notice" class="btn btn-primary">Update</button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                        <!-- End Module Notice Form -->
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
-                                                                            <a class="badge badge-danger" href="#delete-<?php echo $not->id; ?>" data-toggle="modal">
-                                                                                <i class="fas fa-trash"></i>
-                                                                                Delete
-                                                                            </a>
-                                                                            <!-- Delete Confirmation Modal -->
-                                                                            <div class="modal fade" id="delete-<?php echo $not->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                                    <div class="modal-content">
-                                                                                        <div class="modal-header">
-                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                                <span aria-hidden="true">&times;</span>
-                                                                                            </button>
-                                                                                        </div>
-                                                                                        <div class="modal-body text-center text-danger">
-                                                                                            <h4>Delete?</h4>
-                                                                                            <br>
-                                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                            <a href="module_notices?delete=<?php echo $not->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <!-- End Delete Confirmation Modal -->
                                                                         </div>
+
+                                                                        <a class="badge badge-danger" href="#delete-<?php echo $not->id; ?>" data-toggle="modal">
+                                                                            <i class="fas fa-trash"></i>
+                                                                            Delete
+                                                                        </a>
+                                                                        <!-- Delete Confirmation Modal -->
+                                                                        <div class="modal fade" id="delete-<?php echo $not->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body text-center text-danger">
+                                                                                        <h4>Delete?</h4>
+                                                                                        <br>
+                                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                        <a href="module_notices?delete=<?php echo $not->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- End Delete Confirmation Modal -->
                                                                     </div>
                                                                     <hr>
                                                                 <?php
