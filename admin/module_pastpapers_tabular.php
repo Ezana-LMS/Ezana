@@ -229,7 +229,171 @@ require_once('partials/head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12 col-lg-12">
+                                            <div class="card-box">
+                                                <table id="demo-foo-filtering" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th data-toggle="true">Paper</th>
+                                                            <th data-toggle="true">Date Uploaded</th>
+                                                            <th data-hide="all">Manage</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name'   ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        while ($pastExas = $res->fetch_object()) {
+                                                        ?>
+                                                            <tr>
+                                                                <td><?php echo $pastExas->paper_name; ?> </td>
+                                                                <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
+                                                                <td>
+                                                                    <?php
+                                                                    /* If It Lacks upload_solutionSolution Give Option to upload else Download solution */
+                                                                    if ($pastExas->solution == '') {
+                                                                        echo
+                                                                        "
+                                                                        <a  data-toggle='modal' href= '#solution-$pastExas->id' class='badge badge-primary'>
+                                                                            <i class='fas fa-upload'></i>
+                                                                            Upload Solution
+                                                                        </a>
+                                                                        ";
+                                                                    } else {
+                                                                        echo
+                                                                        "
+                                                                        <a target='_blank' href= '../Data/PastPapers/$pastExas->solution' class='badge badge-success'>
+                                                                        <i class='fas fa-eye'></i>
+                                                                            View Solution
+                                                                        </a>
+                                                                        ";
+                                                                    } ?>
+                                                                    <!-- Upload Solution Modal -->
+                                                                    <div class="modal fade" id="solution-<?php echo $pastExas->id; ?>">
+                                                                        <div class="modal-dialog  modal-lg">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <!-- Form -->
+                                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                                        <div class="card-body">
+                                                                                            <input type="hidden" required name="id" value="<?php echo $pastExas->id; ?>" class="form-control">
+                                                                                            <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                            <div class="row">
+                                                                                                <div class="form-group col-md-12">
+                                                                                                    <label for="">Exam Paper Solution Visibility / Availability</label>
+                                                                                                    <input type="text" name="solution_visibility" class="form-control availability">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-12">
+                                                                                                    <label for="exampleInputFile">Upload Past Exam Paper Solution ( PDF / Docx )</label>
+                                                                                                    <div class="input-group">
+                                                                                                        <div class="custom-file">
+                                                                                                            <input required name="solution" accept=".pdf, .docx, .doc" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="text-right">
+                                                                                                <button type="submit" name="upload_solution" class="btn btn-primary">Upload</button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                                <div class="modal-footer justify-content-between">
+                                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- End SOlution Modal -->
+                                                                    <a target="_blank" href="../Data/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="badge badge-secondary">
+                                                                        <i class="fas fa-eye"></i>
+                                                                        View Paper
+                                                                    </a>
+                                                                    <a class="badge badge-warning" data-toggle="modal" href="#edit-visibility-<?php echo $pastExas->id; ?>">
+                                                                        <i class="fas fa-edit"></i>
+                                                                        Edit Visibility
+                                                                    </a>
 
+                                                                    <!-- Edit Visibility Solution Modal -->
+                                                                    <div class="modal fade" id="edit-visibility-<?php echo $pastExas->id; ?>">
+                                                                        <div class="modal-dialog  modal-lg">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <!-- Form -->
+                                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                                        <div class="card-body">
+                                                                                            <input type="hidden" required name="id" value="<?php echo $pastExas->id; ?>" class="form-control">
+                                                                                            <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                            <div class="row">
+                                                                                                <div class="form-group col-md-12">
+                                                                                                    <label for="">Exam Paper Name</label>
+                                                                                                    <input type="text" value="<?php echo $pastExas->paper_name; ?>" name="paper_name" class="form-control">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">Exam Paper Visibility / Availability</label>
+                                                                                                    <input type="text" name="paper_visibility" class="form-control availability" value="<?php echo $pastExas->paper_visibility; ?>">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">Exam Paper Solution Visibility / Availability</label>
+                                                                                                    <input type="text" name="solution_visibility" class="form-control availability" value="<?php echo $pastExas->solution_visibility; ?>">
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                        <div class=" text-right">
+                                                                                            <button type="submit" name="update_pastpaper" class="btn btn-primary">Update Exam Paper</button>
+                                                                                        </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- End Edit Visibilty Modal -->
+                                                                    <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $pastExas->id; ?>">
+                                                                        <i class="fas fa-trash"></i>
+                                                                        Delete Paper
+                                                                    </a>
+                                                                    <!-- Delete Confirmation Modal -->
+                                                                    <div class="modal fade" id="delete-<?php echo $pastExas->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body text-center text-danger">
+                                                                                    <h4>Delete <?php echo $pastExas->paper_name; ?> ?</h4>
+                                                                                    <br>
+                                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                    <a href="module_pastpapers_tabular?delete=<?php echo $pastExas->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- End Delete Confirmation Modal -->
+                                                                </td>
+                                                            </tr>
+                                                        <?php
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
