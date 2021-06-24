@@ -211,41 +211,49 @@ require_once('partials/head.php');
                                                 while ($rm = $res->fetch_object()) {
                                                 ?>
                                                     <div class="col-md-4">
-                                                        <div class="card">
-                                                            <a href="../Data/Reading_Materials/<?php echo $rm->readingMaterials; ?>" target="_blank">
-                                                                <div class="card-body">
-                                                                    <p class="card-title">
-                                                                        <?php
-                                                                        /* Trim Topic */
-                                                                        if (strlen($rm->topic) > 30) {
-                                                                            $trimstring = substr($rm->topic, 0, 30) . '...';
-                                                                        } else {
-                                                                            $trimstring = $rm->topic;;
-                                                                        }
-                                                                        echo $trimstring
-                                                                        ?>
-                                                                    </p>
-                                                                    <br>
-                                                                    <hr>
-                                                                    <div class="text-center">
-                                                                        <?php
-                                                                        /* Show External Link */
-                                                                        if ($rm->external_link == '') {
-                                                                            /* Yall Know Silence Is Best Answer */
-                                                                        } else {
-                                                                            echo
-                                                                            "
+                                                        <div class="card card-primary card-outline">
+                                                            <div class="card-body">
+                                                                <p class="card-title">
+                                                                    <?php
+                                                                    /* Trim Topic */
+                                                                    if (strlen($rm->topic) > 30) {
+                                                                        $trimstring = substr($rm->topic, 0, 30) . '...';
+                                                                    } else {
+                                                                        $trimstring = $rm->topic;;
+                                                                    }
+                                                                    echo $trimstring
+                                                                    ?>
+                                                                </p>
+                                                                <br>
+                                                                <hr>
+                                                                <div class="text-center">
+                                                                    <a target='_blank' href='../Data/Reading_Materials/<?php echo $rm->readingMaterials; ?>' class='btn btn-outline-success'>
+                                                                        View
+                                                                    </a>
+                                                                    <?php
+                                                                    /* Show External Link */
+                                                                    if ($rm->external_link == '') {
+                                                                        /* Yall Know Silence Is Best Answer */
+                                                                    } else {
+                                                                        echo
+                                                                        "
                                                                         <a target='_blank' href= '$rm->external_link' class='btn btn-outline-success'>
                                                                             Open Link
                                                                         </a>
                                                                         ";
-                                                                        }
-                                                                        ?>
-                                                                    </div>
+                                                                    }
+                                                                    ?>
                                                                 </div>
-                                                            </a>
+                                                            </div>
                                                             <div class="card-footer">
-                                                                <small class="text-muted ">Uploaded: <?php echo date('d-M-Y g:ia', strtotime($rm->created_at)); ?></small>
+                                                                <small class="text-muted">
+                                                                    Uploaded On : <?php echo date('d-M-Y g:ia', strtotime($rm->created_at));
+                                                                                    if ($rm->visibility == 'Hidden') {
+                                                                                        echo "<span class='text-right badge badge-primary'>$rm->visibility</span>";
+                                                                                    } else {
+                                                                                        /* Nothing */
+                                                                                    }; ?>
+                                                                </small>
                                                                 <br>
                                                                 <a class="badge badge-success" target="_blank" href="../Data/Reading_Materials/<?php echo $rm->readingMaterials; ?>">Download</a>
                                                                 <a class="badge badge-warning" data-toggle="modal" href="#edit-visibility-<?php echo $rm->id; ?>">Edit Visiblity</a>
@@ -260,7 +268,6 @@ require_once('partials/head.php');
                                                                                 </button>
                                                                             </div>
                                                                             <div class="modal-body">
-                                                                                <!-- Form -->
                                                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                                                     <div class="card-body">
                                                                                         <div class="row">
@@ -268,7 +275,7 @@ require_once('partials/head.php');
                                                                                             <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
                                                                                             <div class="form-group col-md-12">
                                                                                                 <label for="exampleInputPassword1">Lecture Topic</label>
-                                                                                                <input type="text" required name="topic" class="form-control">
+                                                                                                <input type="text" required name="topic" value="<?php echo $rm->topic; ?>" class="form-control">
                                                                                             </div>
                                                                                             <div class="form-group col-md-4">
                                                                                                 <label for="">Reading Materials Visibility</label>
@@ -281,17 +288,12 @@ require_once('partials/head.php');
                                                                                                 <label for="exampleInputPassword1">Hyperlink | Extenal Link</label>
                                                                                                 <input type="text" name="external_link" value="<?php echo $rm->external_link; ?>" class="form-control">
                                                                                             </div>
-
                                                                                         </div>
-
                                                                                     </div>
-                                                                                    <div class="card-footer text-right">
+                                                                                    <div class="text-right">
                                                                                         <button type="submit" name="update_reading_materials" class="btn btn-primary">Update Reading Materials</button>
                                                                                     </div>
                                                                                 </form>
-                                                                            </div>
-                                                                            <div class="modal-footer justify-content-between">
-                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -309,10 +311,10 @@ require_once('partials/head.php');
                                                                                 </button>
                                                                             </div>
                                                                             <div class="modal-body text-center text-danger">
-                                                                                <h4>Delete <?php echo $rm->readingMaterials; ?> ?</h4>
+                                                                                <h5>Delete <b><?php echo $rm->topic; ?></b> Lecture Materials ?</h5>
                                                                                 <br>
                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="course_materials.php?delete=<?php echo $rm->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                <a href="module_lecture_materials?delete=<?php echo $rm->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
