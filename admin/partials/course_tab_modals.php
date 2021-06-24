@@ -122,16 +122,16 @@ while ($admin = $res->fetch_object()) {
                                     <input type="text" required name="course_duration" class="form-control" id="exampleInputEmail1">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="">Number Of Lectures Per Week</label>
-                                    <input type="text" required name="lectures_number" class="form-control">
+                                    <label for="">Number Of Lectures Per Week </label>
+                                    <input type="number" required name="lectures_number" class="form-control">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="">Module CAT Weight Percentage</label>
-                                    <input type="text" required name="cat_weight_percentage" class="form-control">
+                                    <label for="">Module CAT Weight Percentage (%)</label>
+                                    <input type="number" min="1" max="100" required name="cat_weight_percentage" class="form-control">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="">Module End Exam Weight Percentage</label>
-                                    <input type="text" required name="exam_weight_percentage" class="form-control">
+                                    <label for="">Module End Exam Weight Percentage (%)</label>
+                                    <input type="number" min="1" max="100" required name="exam_weight_percentage" class="form-control">
                                 </div>
                             </div>
 

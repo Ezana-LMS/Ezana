@@ -57,6 +57,8 @@ while ($sys = $res->fetch_object()) {
         <link rel="stylesheet" href="../assets/css/adminlte.min.css">
         <!-- Bootstrap Toggle CDN -->
         <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <!-- Date Picker -->
+        <link rel="stylesheet" href="../assets/plugins/datepicker/css/bootstrap-datetimepicker.min.css" />
         <!-- Google Font: Source Sans Pro -->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
         <!-- IziAlerts -->

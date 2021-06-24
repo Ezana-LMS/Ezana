@@ -9,12 +9,19 @@
 <script src="../assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- OPTIONAL SCRIPTS -->
 <script src="../assets/js/demo.js"></script>
+<!-- Popper Min Js -->
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+<!-- Moment Min jS -->
+<script src="../assets/plugins/datepicker/js/moment.js"></script>
 <!-- Dropify Plug in -->
 <script src="../assets/plugins/dropify/dropify.min.js"></script>
 <!-- Summernote -->
 <script src="../assets/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- Canvas Chart Js -->
 <script src="../assets/plugins/canvas/canvasjs.min.js"></script>
+<!-- Date Time Picker -->
+<script src="../assets/plugins/datepicker/js/bootstrap-datetimepicker.min.js"></script>
+
 <!-- iZi Toast Js -->
 <script src="../assets/plugins/iziToast/iziToast.min.js" type="text/javascript"></script>
 <?php if (isset($success)) { ?>
@@ -73,6 +80,24 @@
 <script>
     $(document).ready(function() {
         $('table').DataTable();
+    });
+    /* Initialize Date Picker */
+    $(function() {
+        $('.availability').datetimepicker();
+    });
+    /* Overidde Default Font Awesome 4 Icons */
+    $.extend(true, $.fn.datetimepicker.defaults, {
+        icons: {
+            time: 'far fa-clock',
+            date: 'far fa-calendar',
+            up: 'fas fa-arrow-up',
+            down: 'fas fa-arrow-down',
+            previous: 'fas fa-chevron-left',
+            next: 'fas fa-chevron-right',
+            today: 'fas fa-calendar-check',
+            clear: 'far fa-trash-alt',
+            close: 'far fa-times-circle'
+        }
     });
 
     /* Advanced Filter */
