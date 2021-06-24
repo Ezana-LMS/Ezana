@@ -185,11 +185,11 @@ require_once('partials/head.php');
                                                                                     <input type="number" value="<?php echo $modules['lectures_number']; ?>" required name="lectures_number" class="form-control">
                                                                                 </div>
                                                                                 <div class="form-group col-md-6">
-                                                                                    <label for="">CAT Exam Weight Percentage</label>
+                                                                                    <label for="">CAT Exam Weight Percentage (%)</label>
                                                                                     <input type="number" min="1" max="100" value="<?php echo $modules['cat_weight_percentage']; ?>" required name="cat_weight_percentage" class="form-control">
                                                                                 </div>
                                                                                 <div class="form-group col-md-6">
-                                                                                    <label for="">End Exam Weight Percentage</label>
+                                                                                    <label for="">End Exam Weight Percentage (%)</label>
                                                                                     <input type="number" min="1" max="100" value="<?php echo $modules['exam_weight_percentage']; ?>" required name="exam_weight_percentage" class="form-control">
                                                                                 </div>
                                                                             </div>
