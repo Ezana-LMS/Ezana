@@ -96,7 +96,7 @@ if (isset($_POST['add_enroll'])) {
             $rc = $stmt->bind_param('ssssssssssssssss', $course_id, $id, $stage, $faculty, $code, $student_adm, $student_name, $semester_enrolled, $created_at, $course_code, $course_name, $semester_start, $semester_end, $academic_year_enrolled, $module_name, $module_code);
             $stmt->execute();
             if ($stmt) {
-                $success = "$student_name Enrolled To $module_code";
+                $success = "$student_name Enrolled To $module_code - $module_name";
             } else {
                 $info = "Please Try Again Or Try Later";
             }
