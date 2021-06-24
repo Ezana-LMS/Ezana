@@ -130,7 +130,6 @@ require_once('partials/head.php');
                             <div class="col-md-12 text-center">
                                 <h1 class="m-0 text-dark"><?php echo $mod->name; ?></h1>
                                 <br>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Upload Assignment</button>
                             </div>
                             <!-- Add Asssignment Modal -->
                             <div class="modal fade" id="modal-default">
