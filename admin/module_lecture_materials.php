@@ -204,7 +204,7 @@ require_once('partials/head.php');
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_ModuleRecommended` WHERE module_code ='$mod->code' ";
+                                                $ret = "SELECT * FROM `ezanaLMS_ModuleRecommended` WHERE module_code ='$mod->code'  ORDER BY `created_at` ASC  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
