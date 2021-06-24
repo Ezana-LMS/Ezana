@@ -52,7 +52,6 @@ if (isset($_POST['add_assignment'])) {
 }
 
 
-
 /* Update Assignment */
 if (isset($_POST['update_assignment'])) {
 
@@ -97,7 +96,7 @@ require_once('partials/head.php');
     <div class="wrapper">
         <!-- Navbar -->
         <?php
-        require_once('public/partials/header.php');
+        require_once('partials/header.php');
         $view = $_GET['view'];
         $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE id ='$view'  ";
         $stmt = $mysqli->prepare($ret);
@@ -153,13 +152,13 @@ require_once('partials/head.php');
                                                     <input type="hidden" name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
                                                     <input type="hidden" name="module_code" value="<?php echo $mod->code; ?>" class="form-control">
                                                     <div class="row">
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-12">
                                                             <label for="">Assignment Title</label>
                                                             <input type="text" name="title" required class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Submission Deadline</label>
-                                                            <input type="date" name="submission_deadline availability" required class="form-control">
+                                                            <input type="text" name="submission_deadline" required class="availability form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="exampleInputFile">Upload Assignment ( PDF / Docx )</label>
@@ -193,121 +192,119 @@ require_once('partials/head.php');
                                     <div class="row">
                                         <div class="col-md-12 col-lg-12">
                                             <div class="card-box">
-                                                <div class="table-responsive">
-                                                    <table id="example1" class="table table-bordered table-striped">
-                                                        <thead>
+                                                <table id="example1" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th data-toggle="true">Title</th>
+                                                            <th data-toggle="true">Date Uploaded</th>
+                                                            <th data-toggle="true">Submission Deadline</th>
+                                                            <th data-hide="all">Manage</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_ModuleAssignments` WHERE module_code = '$mod->code'   ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        while ($assignments = $res->fetch_object()) {
+                                                        ?>
                                                             <tr>
-                                                                <th data-toggle="true">Title</th>
-                                                                <th data-toggle="true">Date Uploaded</th>
-                                                                <th data-toggle="true">Submission Deadline</th>
-                                                                <th data-hide="all">Manage</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_ModuleAssignments` WHERE module_code = '$mod->code'   ";
-                                                            $stmt = $mysqli->prepare($ret);
-                                                            $stmt->execute(); //ok
-                                                            $res = $stmt->get_result();
-                                                            while ($assignments = $res->fetch_object()) {
-                                                            ?>
-                                                                <tr>
-                                                                    <td><?php echo $assignments->title; ?></td>
-                                                                    <td><?php echo date('d M Y - g:ia', strtotime($assignments->created_at)); ?></td>
-                                                                    <td><?php echo date('d M Y', strtotime($assignments->submission_deadline)); ?></td>
-                                                                    <td>
-                                                                        <a target="_blank" href="../Data/Module_Assignments/<?php echo $assignments->attachments; ?>" class="badge badge-secondary">
-                                                                            <i class="fas fa-eye"></i>
-                                                                            View
-                                                                        </a>
-                                                                        <a href="module_assignments_attemps?view=<?php echo $mod->id; ?>&assignment=<?php echo $assignments->id; ?>" class="badge badge-primary">
-                                                                            <i class="fas fa-check"></i>
-                                                                            Student Attemps
-                                                                        </a>
-                                                                        <a class="badge badge-warning" data-toggle="modal" href="#edit-<?php echo $assignments->id; ?>">
-                                                                            <i class="fas fa-edit"></i>
-                                                                            Update
-                                                                        </a>
-                                                                        <!-- Update Modal -->
-                                                                        <div class="modal fade" id="edit-<?php echo $assignments->id; ?>">
-                                                                            <div class="modal-dialog  modal-xl">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h4 class="modal-title">Fill All Required Values </h4>
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                            <span aria-hidden="true">&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        <!-- Form -->
-                                                                                        <form method="post" enctype="multipart/form-data" role="form">
-                                                                                            <div class="card-body">
-                                                                                                <input type="hidden" required name="id" value="<?php echo $assignments->id; ?>" class="form-control">
-                                                                                                <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                                                <input type="hidden" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
-                                                                                                <input type="hidden" name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
-                                                                                                <input type="hidden" name="module_code" value="<?php echo $mod->code; ?>" class="form-control">
-                                                                                                <div class="row">
-                                                                                                    <div class="form-group col-md-12">
-                                                                                                        <label for="">Assignment Title</label>
-                                                                                                        <input type="date" name="title" value="<?php echo $assignments->title; ?>" required class="form-control">
-                                                                                                    </div>
-                                                                                                    <div class="form-group col-md-6">
-                                                                                                        <label for="">Submission Deadline</label>
-                                                                                                        <input type="date" name="submission_deadline availability" value="<?php echo $assignments->submission_deadline; ?>" required class="form-control">
-                                                                                                    </div>
-                                                                                                    <div class="form-group col-md-6">
-                                                                                                        <label for="exampleInputFile">Upload Assignment ( PDF / Docx )</label>
-                                                                                                        <div class="input-group">
-                                                                                                            <div class="custom-file">
-                                                                                                                <input required name="attachments" type="file" class="custom-file-input" id="exampleInputFile">
-                                                                                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                                                                                            </div>
+                                                                <td><?php echo $assignments->title; ?></td>
+                                                                <td><?php echo date('d M Y - g:ia', strtotime($assignments->created_at)); ?></td>
+                                                                <td><?php echo date('d M Y', strtotime($assignments->submission_deadline)); ?></td>
+                                                                <td>
+                                                                    <a target="_blank" href="../Data/Module_Assignments/<?php echo $assignments->attachments; ?>" class="badge badge-secondary">
+                                                                        <i class="fas fa-eye"></i>
+                                                                        View
+                                                                    </a>
+                                                                    <a href="module_assignments_attemps?view=<?php echo $mod->id; ?>&assignment=<?php echo $assignments->id; ?>" class="badge badge-primary">
+                                                                        <i class="fas fa-check"></i>
+                                                                        Student Attemps
+                                                                    </a>
+                                                                    <a class="badge badge-warning" data-toggle="modal" href="#edit-<?php echo $assignments->id; ?>">
+                                                                        <i class="fas fa-edit"></i>
+                                                                        Update
+                                                                    </a>
+                                                                    <!-- Update Modal -->
+                                                                    <div class="modal fade" id="edit-<?php echo $assignments->id; ?>">
+                                                                        <div class="modal-dialog  modal-xl">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">Fill All Required Values </h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <!-- Form -->
+                                                                                    <form method="post" enctype="multipart/form-data" role="form">
+                                                                                        <div class="card-body">
+                                                                                            <input type="hidden" required name="id" value="<?php echo $assignments->id; ?>" class="form-control">
+                                                                                            <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
+                                                                                            <input type="hidden" name="module_name" value="<?php echo $mod->name; ?>" class="form-control">
+                                                                                            <input type="hidden" name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+                                                                                            <input type="hidden" name="module_code" value="<?php echo $mod->code; ?>" class="form-control">
+                                                                                            <div class="row">
+                                                                                                <div class="form-group col-md-12">
+                                                                                                    <label for="">Assignment Title</label>
+                                                                                                    <input type="text" name="title" value="<?php echo $assignments->title; ?>" required class="form-control">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="">Submission Deadline</label>
+                                                                                                    <input type="text" name="submission_deadline" value="<?php echo $assignments->submission_deadline; ?>" required class="availability form-control">
+                                                                                                </div>
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for="exampleInputFile">Upload Assignment ( PDF / Docx )</label>
+                                                                                                    <div class="input-group">
+                                                                                                        <div class="custom-file">
+                                                                                                            <input required name="attachments" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div class="card-footer text-right">
-                                                                                                <button type="submit" name="update_assignment" class="btn btn-primary">Upload</button>
-                                                                                            </div>
-                                                                                        </form>
-                                                                                    </div>
+                                                                                        </div>
+                                                                                        <div class="text-right">
+                                                                                            <button type="submit" name="update_assignment" class="btn btn-primary">Upload</button>
+                                                                                        </div>
+                                                                                    </form>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <!-- End Update Modal -->
-                                                                        <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $assignments->id; ?>">
-                                                                            <i class="fas fa-trash"></i>
-                                                                            Delete
-                                                                        </a>
-                                                                        <!-- Delete Confirmation Modal -->
-                                                                        <div class="modal fade" id="delete-<?php echo $assignments->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                            <span aria-hidden="true">&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body text-center text-danger">
-                                                                                        <h4>Delete?</h4>
-                                                                                        <br>
-                                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                        <a href="module_assignments?delete=<?php echo $assignments->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                                    </div>
+                                                                    </div>
+                                                                    <!-- End Update Modal -->
+                                                                    <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $assignments->id; ?>">
+                                                                        <i class="fas fa-trash"></i>
+                                                                        Delete
+                                                                    </a>
+                                                                    <!-- Delete Confirmation Modal -->
+                                                                    <div class="modal fade" id="delete-<?php echo $assignments->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body text-center text-danger">
+                                                                                    <h4>Delete?</h4>
+                                                                                    <br>
+                                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                    <a href="module_assignments?delete=<?php echo $assignments->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <!-- End Delete Confirmation Modal -->
-                                                                    </td>
+                                                                    </div>
+                                                                    <!-- End Delete Confirmation Modal -->
+                                                                </td>
 
-                                                                </tr>
-                                                            <?php
-                                                            } ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                            </tr>
+                                                        <?php
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
