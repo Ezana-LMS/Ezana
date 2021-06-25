@@ -41,7 +41,7 @@ if (isset($_POST['add_grade'])) {
     $academic_year = $_POST['academic_year'];
     $course_id = $_POST['course_id'];
 
-    $query = "INSERT INTO ezanaLMS_StudentModuleGrades (course_id, assignment_name, semester, academic_year, id, module_code, module_name, regno, name, marks) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+    $query = "INSERT INTO ezanaLMS_StudentModuleGrades (course_id, assignment_name, semester, academic_year, id, module_code, module_name, regno, name, marks) VALUES(?,?,?,?,?,?,?,?,?,?)";
     $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('ssssssssss', $course_id, $assignment_name, $semester, $academic_year, $id, $module_code, $module_name, $regno, $name, $marks);
     $stmt->execute();
@@ -180,7 +180,7 @@ require_once('partials/head.php');
                                                         <div class="form-group col-md-6">
                                                             <label for="">Assignment Name</label>
                                                             <select class='form-control basic' name="assignment_name">
-                                                                <option selected>Select Student Admission Number</option>
+                                                                <option selected>Student Attempted Assignment</option>
                                                                 <?php
                                                                 $ret = "SELECT * FROM `ezanaLMS_ModuleAssignments` WHERE module_code  = '$mod->code'  ";
                                                                 $stmt = $mysqli->prepare($ret);
@@ -284,9 +284,9 @@ require_once('partials/head.php');
                                                 <thead>
                                                     <tr>
                                                         <th>Student Details</th>
-                                                        <th>Assignment</th>
-                                                        <th>Marks | Grade Attained</th>
-                                                        <th>Academic Year</th>
+                                                        <th>Assignment Name</th>
+                                                        <th>Marks / Grade </th>
+                                                        <th>Academic Yr</th>
                                                         <th>Semester</th>
                                                         <th>Manage</th>
                                                     </tr>
