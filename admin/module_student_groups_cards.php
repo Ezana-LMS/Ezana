@@ -119,7 +119,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=module_student_groups?view=$view");
+        $success = "Deleted" && header("refresh:1; url=module_student_groups_cards?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -165,7 +165,7 @@ require_once('partials/head.php');
                                 <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Student Groups</h1>
                                 <br>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Create Group</button>
-                                <a href="module_student_groups_cards?view=<?php echo $mod->id; ?>" title="View <?php echo $mod->name; ?> Student Groups In List Formart" class="btn btn-primary"><i class="fas fa-list-alt"></i></a>
+                                <a href="module_student_groups?view=<?php echo $mod->id; ?>" title="View <?php echo $mod->name; ?> Student Groups In Tabular Formart" class="btn btn-primary"><i class="fas fa-table"></i></a>
                             </div>
                             <!-- Add Student Group Details -->
                             <div class="modal fade" id="modal-default">
@@ -218,110 +218,94 @@ require_once('partials/head.php');
                                 <!-- Module Side Menu -->
                                 <div class="col-md-9">
                                     <div class="row">
-                                        <div class="col-md-12 col-lg-12">
-                                            <table class="table table-bordered table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Group Code Number</th>
-                                                        <th>Group Name</th>
-                                                        <th>Created At</th>
-                                                        <th>Manage Groups</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE module_id = '$mod->id'  ";
-                                                    $stmt = $mysqli->prepare($ret);
-                                                    $stmt->execute(); //ok
-                                                    $res = $stmt->get_result();
-                                                    while ($g = $res->fetch_object()) {
-                                                    ?>
-
-                                                        <tr>
-                                                            <td><?php echo $g->code; ?></td>
-                                                            <td><?php echo $g->name; ?></td>
-                                                            <td><?php echo date('d M Y, g:ia', strtotime($g->created_at)); ?></td>
-                                                            <td>
-                                                                <a class="badge badge-success" href="module_std_group_details?group=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">
-                                                                    <i class="fas fa-eye"></i>
-                                                                    View
-                                                                </a>
-                                                                <a class="badge badge-warning" data-toggle="modal" href="#edit-group-<?php echo $g->id; ?>">
-                                                                    <i class="fas fa-edit"></i>
-                                                                    Edit
-                                                                </a>
-                                                                <div class="modal fade" id="edit-group-<?php echo $g->id; ?>">
-                                                                    <div class="modal-dialog  modal-xl">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title">Fill All Required Values </h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <!-- Form -->
-                                                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                                                    <div class="card-body">
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Group Name</label>
-                                                                                                <input type="text" value="<?php echo $g->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
-                                                                                                <input type="hidden" required name="id" value="<?php echo $g->id; ?>" class="form-control">
-                                                                                                <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
-
-                                                                                            </div>
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Group Number / Code</label>
-                                                                                                <input type="text"  readonly required name="code" value="<?php echo $g->code; ?>" class="form-control">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-12">
-                                                                                                <label for="exampleInputPassword1">Group Description</label>
-                                                                                                <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $g->details; ?></textarea>
-                                                                                            </div>
-                                                                                        </div>
+                                        <?php
+                                        $ret = "SELECT * FROM `ezanaLMS_Groups` WHERE module_id = '$mod->id'  ";
+                                        $stmt = $mysqli->prepare($ret);
+                                        $stmt->execute(); //ok
+                                        $res = $stmt->get_result();
+                                        while ($g = $res->fetch_object()) {
+                                        ?>
+                                            <div class="col-md-6">
+                                                <div class="card card-primary card-outline">
+                                                    <!-- Make Card Clickable -->
+                                                    <a href="module_std_group_details?group=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title"><?php echo $g->name; ?> - <?php echo $g->code; ?></h5>
+                                                            <br>
+                                                            <hr>
+                                                        </div>
+                                                    </a>
+                                                    <div class="card-footer">
+                                                        <small class="text-muted">Created At: <?php echo date('d-M-Y g:ia', strtotime($g->created_at)); ?></small>
+                                                        <br>
+                                                        <a class="badge badge-warning" data-toggle="modal" href="#edit-<?php echo $g->id; ?>">Edit</a>
+                                                        <!-- Edit Visibility Solution Modal -->
+                                                        <div class="modal fade" id="edit-<?php echo $g->id; ?>">
+                                                            <div class="modal-dialog  modal-xl">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Fill All Required Values </h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <!-- Form -->
+                                                                        <form method="post" enctype="multipart/form-data" role="form">
+                                                                            <div class="card-body">
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-6">
+                                                                                        <label for="">Group Name</label>
+                                                                                        <input type="text" value="<?php echo $g->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
+                                                                                        <input type="hidden" required name="id" value="<?php echo $g->id; ?>" class="form-control">
+                                                                                        <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
                                                                                     </div>
-                                                                                    <div class=" text-right">
-                                                                                        <button type="submit" name="update_group" class="btn btn-primary">Update Group</button>
+                                                                                    <div class="form-group col-md-6">
+                                                                                        <label for="">Group Number / Code</label>
+                                                                                        <input type="text" readonly required name="code" value="<?php echo $g->code; ?>" class="form-control">
                                                                                     </div>
-                                                                                </form>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-12">
+                                                                                        <label for="exampleInputPassword1">Group Description</label>
+                                                                                        <textarea required name="details" rows="10" class="form-control Summernote"><?php echo $g->details; ?></textarea>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
+                                                                            <div class="text-right">
+                                                                                <button type="submit" name="update_group" class="btn btn-primary">Update Group</button>
+                                                                            </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
-                                                                <a class="badge badge-danger" href="#delete-<?php echo $g->id; ?>" data-toggle="modal">
-                                                                    <i class="fas fa-trash"></i>
-                                                                    Delete
-                                                                </a>
-                                                                <!-- Delete Confirmation Modal -->
-                                                                <div class="modal fade" id="delete-<?php echo $g->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body text-center text-danger">
-                                                                                <h4>Delete <?php echo $g->name; ?> ?</h4>
-                                                                                <br>
-                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="module_student_groups?delete=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                            </div>
-                                                                        </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End  Modal -->
+                                                        <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $g->id; ?>">Delete</a>
+                                                        <!-- Delete Confirmation Modal -->
+                                                        <div class="modal fade" id="delete-<?php echo $g->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body text-center text-danger">
+                                                                        <h4>Delete <?php echo $g->name; ?> ?</h4>
+                                                                        <br>
+                                                                        <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                        <a href="module_student_groups_cards?delete=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                     </div>
                                                                 </div>
-                                                                <!-- End Delete Confirmation Modal -->
-                                                            </td>
-                                                        </tr>
-                                                    <?php
-                                                    } ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Delete Confirmation Modal -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
