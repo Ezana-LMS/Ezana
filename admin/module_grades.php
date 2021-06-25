@@ -30,13 +30,14 @@ require_once('../vendor/autoload.php');
 $time = time();
 
 /* Bulk Import Marks */
+
 use EzanaLmsAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 $db = new DataSource();
 $conn = $db->getConnection();
 
-if (isset($_POST["upload"])) {
+if (isset($_POST["bulk_import_marks"])) {
 
     $allowedFileType = [
         'application/vnd.ms-excel',
@@ -84,7 +85,7 @@ if (isset($_POST["upload"])) {
             if (isset($spreadSheetAry[$i][4])) {
                 $marks = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
             }
-            
+
 
             /* Constant Values */
             $module_code = $_POST['module_code'];
@@ -92,7 +93,7 @@ if (isset($_POST["upload"])) {
             $semester  = $_POST['semester'];
             $academic_year = $_POST['academic_year'];
             $course_id = $_POST['course_id'];
-         
+
 
             if (!empty($name) || !empty($regno) || !empty($marks) || !empty($assignment_name)) {
                 $query = "INSERT INTO ezanaLMS_StudentModuleGrades (id, regno, name, module_code, module_name, assignment_name, marks, semester, academic_year, course_id) VALUES(?,?,?,?,?,?,?,?,?,?)";
@@ -116,9 +117,9 @@ if (isset($_POST["upload"])) {
                 $err = "Student Marks / Grade Imported";
             }
         }
+    } else {
+        $info = "Invalid File Type. Upload Excel File.";
     }
-} else {
-    $info = "Invalid File Type. Upload Excel File.";
 }
 
 
@@ -395,6 +396,61 @@ require_once('partials/head.php');
                                 </div>
                             </div>
                             <!-- End Export Grades -->
+
+                            <!-- Import Module Grades Bulkly -->
+                            <div class="modal fade" id="modal-bulk-import">
+                                <div class="modal-dialog  modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Bulk Import Student Grades To <?php echo $mod->code . "-" . $mod->name; ?></h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group text-center col-md-12">
+                                                            <label for="exampleInputFile">Allowed File Types: XLS, XLSX. Please, <a href="../Data/XLS_Templates/ezanaLMS_Marks_XLS_Template.xlsx">Download</a> A Template File. </label>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label for="exampleInputFile">Select File</label>
+                                                            <div class="input-group">
+                                                                <div class="custom-file">
+                                                                    <input required name="file" accept=".xls,.xlsx" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                    <!-- Hidden Values -->
+                                                                    <input type="hidden" required name="module_code" class="form-control" value="<?php echo $mod->code; ?>">
+                                                                    <input type="hidden" required name="module_name" class="form-control" value="<?php echo $mod->name; ?>">
+                                                                    <?php
+                                                                    /* Persisit Academic Settings */
+                                                                    $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                                                                    $stmt = $mysqli->prepare($ret);
+                                                                    $stmt->execute(); //ok
+                                                                    $res = $stmt->get_result();
+                                                                    while ($academic_settings = $res->fetch_object()) {
+                                                                    ?>
+                                                                        <input type="hidden" required name="semester" class="form-control" value="<?php echo $academic_settings->current_semester; ?>">
+                                                                        <input type="hidden" required name="academic_year" class="form-control" value="<?php echo $academic_settings->current_academic_year; ?>">
+                                                                    <?php
+                                                                    } ?>
+                                                                    <input type="hidden" required name="course_id" class="form-control" value="<?php echo $mod->course_id; ?>">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-right">
+                                                    <button type="submit" name="bulk_import_marks" class="btn btn-primary">Upload File</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Import Module Grades Bulkly -->
+
                             <hr>
                             <div class="row">
                                 <!-- Module Side Menu -->
