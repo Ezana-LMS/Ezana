@@ -416,7 +416,6 @@ require_once('partials/head.php');
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
-                                                $cnt = 1;
                                                 while ($cr = $res->fetch_object()) {
                                                 ?>
                                                     <div class="col-md-4">

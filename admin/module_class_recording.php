@@ -81,20 +81,47 @@ require_once('partials/head.php');
                                     <!-- Module Side Menu -->
                                     <div class="col-md-9">
                                         <div class="row">
-                                            <div class="row">
-                                                <div class="card card-primary card-outline">
-                                                    <div class="card-body">
-                                                        <div class='embed-responsive embed-responsive-16by9'>
-                                                            <video controls width='300px' height='200px' class='embed-responsive-item' id='uploaded_video' src='../Data/Class_Recordings/<?php echo $cr->video; ?>' allowfullscreen>
+                                            <?php
+                                            if ($cr->clip_type =='Clip') {
+                                                echo "
+                                                <div class='row'>
+                                                    <div class='card card-primary card-outline'>
+                                                        <div class='card-body'>
+                                                            <div class='embed-responsive embed-responsive-16by9'>
+                                                                <video controls width='300px' height='200px' class='embed-responsive-item' id='uploaded_video' src='../Data/Class_Recordings/$cr->video' allowfullscreen>
+                                                            </div>
+                                                            <br>
+                                                            <h5 class=text-center>Class Recording Transcription</h5>
+                                                            <p>
+                                                                $cr->details
+                                                            </p>
                                                         </div>
-                                                        <br>
-                                                        <h5 class="text-center">Class Recording Transcription</h5>
-                                                        <p>
-                                                            <?php echo $cr->details; ?>
-                                                        </p>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            ";
+                                            }else{
+                                                echo 
+                                                "
+                                                <div class='row'>
+                                                    <div class='card card-primary card-outline'>
+                                                        <div class='card-body'>
+                                                            <div class='text-center'>
+                                                                <a target='_blank' href= '$cr->external_link' class='btn btn-outline-success'>
+                                                                    Open  Attached Class Recording Link
+                                                                </a>
+                                                            </div>
+                                                            <br>
+                                                            <h5 class=text-center>Class Recording Transcription</h5>
+                                                            <p>
+                                                                $cr->details
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                ";
+                                            }
+                                            ?>                                            
+
                                             <h5 class="text-center card-header">Module Reading Materials</h5>
                                             <div class="col-md-12 col-lg-12">
                                                 <div class="row">
