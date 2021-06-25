@@ -146,7 +146,7 @@ if (isset($_POST['update_class_recording'])) {
         $details  = $_POST['details'];
         $created_at  = date('d M Y');
         /* Clip Handling Logic */
-        $video = $_FILES['video']['name'];
+        $video =  $time . $_FILES['video']['name'];
         $target_dir = "../Data/Class_Recordings/";
         $target_file = $target_dir . $time . $_FILES["video"]["name"];
 
@@ -426,7 +426,7 @@ require_once('partials/head.php');
                                                                     <img class="img-thumbnail" src="../assets/img/play_clip.jpeg" class="card-img-top">
                                                                     <br>
                                                                     <div class="text-center">
-                                                                        <h5 class="card-title"><?php echo substr($cr->class_name, 0, 25); ?>...</h5>
+                                                                        <h5 class="card-title"><?php echo substr($cr->class_name, 0, 25); ?>...</h5><br>
                                                                         <small class="text-muted">Uploaded: <?php echo $cr->created_at; ?></small><br>
                                                                         <?php
                                                                         /* If Shared Via Link Just Show */
