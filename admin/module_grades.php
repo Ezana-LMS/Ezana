@@ -25,6 +25,102 @@ require_once('../config/config.php');
 require_once('../config/checklogin.php');
 admin_checklogin();
 require_once('../config/codeGen.php');
+require_once('../config/DataSource.php');
+require_once('../vendor/autoload.php');
+$time = time();
+
+/* Bulk Import Marks */
+use EzanaLmsAPI\DataSource;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
+$db = new DataSource();
+$conn = $db->getConnection();
+
+if (isset($_POST["upload"])) {
+
+    $allowedFileType = [
+        'application/vnd.ms-excel',
+        'text/xls',
+        'text/xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ];
+
+    /* Where Magic Happens */
+    if (in_array($_FILES["file"]["type"], $allowedFileType)) {
+        $targetPath = '../Data/XLSFiles/' . $time . $_FILES['file']['name'];
+        move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
+
+        $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+
+        $spreadSheet = $Reader->load($targetPath);
+        $excelSheet = $spreadSheet->getActiveSheet();
+        $spreadSheetAry = $excelSheet->toArray();
+        $sheetCount = count($spreadSheetAry);
+
+        for ($i = 1; $i <= $sheetCount; $i++) {
+
+            $id = "";
+            if (isset($spreadSheetAry[$i][0])) {
+                /* Load Mumble Jumble Here */
+                $id = sha1(md5(rand(mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]), date('Y'))));
+            }
+
+            $regno = "";
+            if (isset($spreadSheetAry[$i][1])) {
+                $regno = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
+            }
+
+            $name = "";
+            if (isset($spreadSheetAry[$i][2])) {
+                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
+            }
+
+            $assignment_name = "";
+            if (isset($spreadSheetAry[$i][3])) {
+                $assignment_name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
+            }
+
+            $marks = "";
+            if (isset($spreadSheetAry[$i][4])) {
+                $marks = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
+            }
+            
+
+            /* Constant Values */
+            $module_code = $_POST['module_code'];
+            $module_name = $_POST['module_name'];
+            $semester  = $_POST['semester'];
+            $academic_year = $_POST['academic_year'];
+            $course_id = $_POST['course_id'];
+         
+
+            if (!empty($name) || !empty($regno) || !empty($marks) || !empty($assignment_name)) {
+                $query = "INSERT INTO ezanaLMS_StudentModuleGrades (id, regno, name, module_code, module_name, assignment_name, marks, semester, academic_year, course_id) VALUES(?,?,?,?,?,?,?,?,?,?)";
+                $paramType = "ssssssssss";
+                $paramArray = array(
+                    $id,
+                    $regno,
+                    $name,
+                    $module_code,
+                    $module_name,
+                    $assignment_name,
+                    $marks,
+                    $semester,
+                    $academic_year,
+                    $course_id
+                );
+                $insertId = $db->insert($query, $paramType, $paramArray);
+                if (!empty($insertId)) {
+                    $err = "Error Occured While Importing Data";
+                }
+                $err = "Student Marks / Grade Imported";
+            }
+        }
+    }
+} else {
+    $info = "Invalid File Type. Upload Excel File.";
+}
+
 
 /* Add Student Grades */
 if (isset($_POST['add_grade'])) {
@@ -160,6 +256,7 @@ require_once('partials/head.php');
                                 <br>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-export">Export Marks Entries</button>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Enter Marks | Grade</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-bulk-import">Bulk Import Marks</button>
                             </div>
                             <!-- Add Marks / Module Grades -->
                             <div class="modal fade" id="modal-default">

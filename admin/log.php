@@ -133,7 +133,7 @@ require_once('partials/head.php');
                                                     // Decode JSON response
                                                     $ipwhois_result = json_decode($json, true);
                                                     ?>
-                                                    <table class='table table-hover'>
+                                                    <table class='table table-bordered table-striped'>
                                                         <thead>
                                                             <tr>
                                                                 <th>IP Address</th>
@@ -159,7 +159,7 @@ require_once('partials/head.php');
 
                                                         </tbody>
                                                     </table>
-                                                    <table class='table table-hover'>
+                                                    <table class='table table-bordered table-striped'>
                                                         <thead>
                                                             <tr>
                                                                 <th>City</th>
