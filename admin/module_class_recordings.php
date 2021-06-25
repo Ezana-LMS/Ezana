@@ -422,7 +422,7 @@ require_once('partials/head.php');
                                                     <div class="col-md-4">
                                                         <div class="card card-primary card-outline">
                                                             <div class="card-body">
-                                                                <a href="play_class_recording.php?clip=<?php echo $cr->id; ?>&view=<?php echo $mod->id; ?>">
+                                                                <a href="module_class_recording?clip=<?php echo $cr->id; ?>&view=<?php echo $mod->id; ?>">
                                                                     <img class="img-thumbnail" src="../assets/img/play_clip.jpeg" class="card-img-top">
                                                                     <br>
                                                                     <div class="text-center">
