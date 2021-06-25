@@ -74,7 +74,7 @@ if (isset($_POST['update_grade'])) {
     if (mysqli_num_rows($res) > 0) {
         $row = mysqli_fetch_assoc($res);
         if ($password == $row['password'] && $email == $row['email']) {
-            $query = "UPDATE  ezanaLMS_StudentModuleGrades SET assignment_name=?,  academic_year = ?, semester = ?, module_code =?, module_name =?, regno =?, name =?, marks =? WHERE id = ?";
+            $query = "UPDATE  ezanaLMS_StudentModuleGrades SET  academic_year = ?, semester = ?, module_code =?, module_name =?, regno =?, name =?, marks =? WHERE id = ?";
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('ssssssss', $academic_year, $semester, $module_code, $module_name, $regno, $name, $marks, $id);
             $stmt->execute();
@@ -89,21 +89,34 @@ if (isset($_POST['update_grade'])) {
     }
 }
 
-/* Delete Student Grade */
-if (isset($_GET['delete'])) {
-    $delete = $_GET['delete'];
+
+
+/* Delete Student Module Marks */
+if (isset($_POST['delete_grade'])) {
     $view = $_GET['view'];
-    $adn = "DELETE FROM ezanaLMS_StudentModuleGrades WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $delete);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=module_grades?view=$view");
+    $email = $_POST['email'];
+    $id = $_POST['id'];
+    $password = sha1(md5($_POST['password']));
+    $sql = "SELECT * FROM  ezanaLMS_Admins  WHERE  password = '$password' AND email = '$email' ";
+    $res = mysqli_query($mysqli, $sql);
+    if (mysqli_num_rows($res) > 0) {
+        $row = mysqli_fetch_assoc($res);
+        if ($password == $row['password'] && $email == $row['email']) {
+            $query = "DELETE FROM  ezanaLMS_StudentModuleGrades WHERE id = ?";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('s', $id);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Deleted" && header("refresh:1; url=module_grades?view=$view");
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
     } else {
-        $info = "Please Try Again Or Try Later";
+        $err = "Incorrect Password";
     }
 }
+
 
 require_once('partials/head.php');
 ?>
@@ -373,16 +386,25 @@ require_once('partials/head.php');
                                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                                         <div class="modal-content">
                                                                             <div class="modal-header">
-                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM DELETION</h5>
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                     <span aria-hidden="true">&times;</span>
                                                                                 </button>
                                                                             </div>
                                                                             <div class="modal-body text-center text-danger">
                                                                                 <h4>Delete <?php echo $grade->admno . " " . $grade->name; ?> Marks Entry ?</h4>
-                                                                                <br>
-                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="module_grades?delete=<?php echo $grade->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                <br><br>
+                                                                                <form method="post">
+                                                                                    <input type="hidden" name="view" value="<?php echo $mod->id; ?>">
+                                                                                    <input type="hidden" name="id" value="<?php echo $grade->id; ?>">
+                                                                                    <input type="hidden" name="email" value="<?php echo $_SESSION['email']; ?>">
+                                                                                    <div class="form-group col-md-12">
+                                                                                        <label class="text-danger">Administrator Password</label>
+                                                                                        <input type="password" required name="password" class="form-control">
+                                                                                    </div>
+                                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                    <input type="submit" value="Delete" name="delete_grade" class="text-center btn btn-danger">
+                                                                                </form>
                                                                             </div>
                                                                         </div>
                                                                     </div>
