@@ -142,9 +142,7 @@
                 ['height', ['height']],
                 ['view', ['fullscreen', 'codeview', 'help']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-
+                ['insert', ['link', 'video']],
             ]
         });
     });
