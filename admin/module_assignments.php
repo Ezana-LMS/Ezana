@@ -113,10 +113,9 @@ require_once('partials/head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Assignments</h1>
                             </div>
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                     <li class="breadcrumb-item"><a href="modules">Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
@@ -128,8 +127,9 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="col-md-12 text-center">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?></h1>
+                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Assignments</h1>
                                 <br>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Upload Assignment</button>
                             </div>
                             <!-- Add Asssignment Modal -->
                             <div class="modal fade" id="modal-default">
@@ -180,8 +180,6 @@ require_once('partials/head.php');
                             </div>
                             <!-- End Modal -->
 
-
-
                             <hr>
                             <div class="row">
                                 <!-- Module Side Menu -->
@@ -219,7 +217,7 @@ require_once('partials/head.php');
                                                                     </a>
                                                                     <a href="module_assignments_attemps?view=<?php echo $mod->id; ?>&assignment=<?php echo $assignments->id; ?>" class="badge badge-primary">
                                                                         <i class="fas fa-check"></i>
-                                                                        Student Attemps
+                                                                        Student Attempts
                                                                     </a>
                                                                     <a class="badge badge-warning" data-toggle="modal" href="#edit-<?php echo $assignments->id; ?>">
                                                                         <i class="fas fa-edit"></i>
