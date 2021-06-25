@@ -449,6 +449,9 @@ require_once('partials/head.php');
                                                                 ?>
                                                                 <a class="badge badge-danger" href="#delete-<?php echo $cr->id; ?>" data-toggle="modal">Delete</a>
                                                             </div>
+                                                            <!-- Load Update And Delete Modals -->
+                                                            <?php require_once('partials/class_recording_modals.php'); ?>
+                                                            <!-- End Load Modals -->
                                                         </div>
                                                     </div>
                                                 <?php } ?>
