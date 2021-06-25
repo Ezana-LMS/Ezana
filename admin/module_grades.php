@@ -66,16 +66,26 @@ if (isset($_POST['update_grade'])) {
     $semester = $_POST['semester'];
     $academic_year = $_POST['academic_year'];
     $assignment_name = $_POST['assignment_name'];
-
-
-    $query = "UPDATE  ezanaLMS_StudentModuleGrades SET assignment_name=?,  academic_year = ?, semester = ?, module_code =?, module_name =?, regno =?, name =?, marks =? WHERE id = ?";
-    $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssssssss', $academic_year, $semester, $module_code, $module_name, $regno, $name, $marks, $id);
-    $stmt->execute();
-    if ($stmt) {
-        $success = "$name Grade / Marks  For $assignment_name Updated";
+    $email = $_POST['email'];
+    /* Password */
+    $password = sha1(md5($_POST['password']));
+    $sql = "SELECT * FROM  ezanaLMS_Admins  WHERE  password = '$password' AND email = '$email' ";
+    $res = mysqli_query($mysqli, $sql);
+    if (mysqli_num_rows($res) > 0) {
+        $row = mysqli_fetch_assoc($res);
+        if ($password == $row['password'] && $email == $row['email']) {
+            $query = "UPDATE  ezanaLMS_StudentModuleGrades SET assignment_name=?,  academic_year = ?, semester = ?, module_code =?, module_name =?, regno =?, name =?, marks =? WHERE id = ?";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ssssssss', $academic_year, $semester, $module_code, $module_name, $regno, $name, $marks, $id);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "$name Grade / Marks  For $assignment_name Updated";
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
     } else {
-        $info = "Please Try Again Or Try Later";
+        $err = "Incorrect Password";
     }
 }
 
@@ -341,6 +351,7 @@ require_once('partials/head.php');
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label class="text-danger">Administrator Password</label>
                                                                                                 <input type="password" required name="password" class="form-control">
+                                                                                                <input type="hidden" required name="email" value="<?php echo $_SESSION['email']; ?>" class="form-control">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
