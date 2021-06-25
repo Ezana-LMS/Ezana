@@ -27,6 +27,73 @@ admin_checklogin();
 require_once('../config/codeGen.php');
 $time = time();
 
+/* Add Group Member */
+if (isset($_POST['add_member'])) {
+    $error = 0;
+    if (isset($_POST['student_admn']) && !empty($_POST['student_admn'])) {
+        $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_admn']));
+    } else {
+        $error = 1;
+        $err = "Student Admission Number Cannot Be Empty";
+    }
+    if (isset($_POST['student_name']) && !empty($_POST['student_name'])) {
+        $student_name = mysqli_real_escape_string($mysqli, trim($_POST['student_name']));
+    } else {
+        $error = 1;
+        $err = "Student Name Cannot Be Empty";
+    }
+    if (isset($_POST['group_code']) && !empty($_POST['group_code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['group_code']));
+    } else {
+        $error = 1;
+        $err = "Group Code Cannot Be Empty";
+    }
+
+    if (!$error) {
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_StudentsGroups  WHERE  (code = '$code' AND student_admn ='$student_admn')   ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if (($code  && $student_admn) == ($row['code'] && $row['student_admn'])) {
+                $err = "Student Already Added To Group";
+            }
+        } else {
+            $id = $_POST['id'];
+            $group_name = $_POST['group_name'];
+            $view = $_POST['view'];/* Module ID */
+            $group = $_POST['group'];/* gROUP iD */
+            $faculty = $_POST['faculty'];
+
+            $query = "INSERT INTO ezanaLMS_StudentsGroups (id, faculty_id, name, code, student_admn, student_name) VALUES(?,?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ssssss', $id, $faculty, $group_name, $code, $student_admn, $student_name);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "$student_admn : $student_name Added";
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+
+/* Remove Member */
+if (isset($_GET['remove'])) {
+    $view = $_GET['view'];
+    $group = $_GET['group'];
+    $remove = $_GET['remove'];
+    $adn = "DELETE FROM ezanaLMS_StudentsGroups WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $remove);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Removed" && header("refresh:1; url=module_std_group_details?view=$view&group=$group");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 
 /* Add Group Announcements */
 if (isset($_POST['add_notice'])) {
@@ -72,73 +139,6 @@ if (isset($_POST['update_notice'])) {
     }
 }
 
-/* Add Group Member */
-if (isset($_POST['add_member'])) {
-    $error = 0;
-    if (isset($_POST['student_admn']) && !empty($_POST['student_admn'])) {
-        $student_admn = mysqli_real_escape_string($mysqli, trim($_POST['student_admn']));
-    } else {
-        $error = 1;
-        $err = "Student Admission Number Cannot Be Empty";
-    }
-    if (isset($_POST['student_name']) && !empty($_POST['student_name'])) {
-        $student_name = mysqli_real_escape_string($mysqli, trim($_POST['student_name']));
-    } else {
-        $error = 1;
-        $err = "Student Name Cannot Be Empty";
-    }
-    if (isset($_POST['group_code']) && !empty($_POST['group_code'])) {
-        $code = mysqli_real_escape_string($mysqli, trim($_POST['group_code']));
-    } else {
-        $error = 1;
-        $err = "Group Code Cannot Be Empty";
-    }
-
-    if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_StudentsGroups  WHERE  (code = '$code' AND student_admn ='$student_admn')   ";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if (($code  && $student_admn) == ($row['code'] && $row['student_admn'])) {
-                $err = "Student Already Added To Group";
-            }
-        } else {
-            $id = $_POST['id'];
-            $group_name = $_POST['group_name'];
-            $view = $_POST['view'];/* Module ID */
-            $group = $_POST['group'];/* gROUP iD */
-            $faculty = $_POST['faculty'];
-
-            $query = "INSERT INTO ezanaLMS_StudentsGroups (id, faculty_id, name, code, student_admn, student_name) VALUES(?,?,?,?,?,?)";
-            $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssss', $id, $faculty, $group_name, $group_code, $student_admn, $student_name);
-            $stmt->execute();
-            if ($stmt) {
-                $success = "$student_admn : $student_name  Added To group";
-            } else {
-                $info = "Please Try Again Or Try Later";
-            }
-        }
-    }
-}
-
-/* Remove Member */
-if (isset($_GET['remove'])) {
-    $view = $_GET['view'];
-    $group = $_GET['group'];
-    $remove = $_GET['remove'];
-    $adn = "DELETE FROM ezanaLMS_StudentsGroups WHERE id=?";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $remove);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Removed" && header("refresh:1; url=module_std_group_details?view=$view&group=$group");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
 
 /* Delete Announcements */
 if (isset($_GET['delete_Announcement'])) {
@@ -256,10 +256,9 @@ require_once('partials/head.php');
                         <div class="container-fluid">
                             <div class="row mb-2">
                                 <div class="col-sm-6">
-                                    <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Student Groups</h1>
                                 </div>
                                 <div class="col-sm-6">
-                                    <ol class="breadcrumb float-sm-right">
+                                    <ol class="breadcrumb float-sm-right small">
                                         <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                         <li class="breadcrumb-item"><a href="modules">Modules</a></li>
                                         <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
@@ -271,7 +270,8 @@ require_once('partials/head.php');
                         <section class="content">
                             <div class="container-fluid">
                                 <div class="col-md-12 text-center">
-                                    <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Student Groups</h1>
+                                    <h1 class="m-0 text-dark"><?php echo $g->code; ?> - <?php echo $g->name; ?> Details</h1>
+
                                     <br>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Group Announcement</button>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-assignment">Group Assignment</button>
@@ -394,11 +394,7 @@ require_once('partials/head.php');
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="card card-primary card-outline">
-                                                            <div class="card-header">
-                                                                <h3 class="card-title">
-                                                                    <?php echo $g->code; ?> - <?php echo $g->name; ?> Created On <span class="text-success"> <?php echo date('d M Y g:ia', strtotime($g->created_at)); ?></span> And Updated On <span class="text-warning"><?php echo $g->updated_at; ?></span>
-                                                                </h3>
-                                                            </div>
+
                                                             <div class="card-body">
                                                                 <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
                                                                     <li class="nav-item">
@@ -421,7 +417,7 @@ require_once('partials/head.php');
 
                                                                     <div class="tab-pane fade " id="custom-content-below-members" role="tabpanel" aria-labelledby="custom-content-below-profile-tab">
                                                                         <br>
-                                                                        <table id="example1" class="table table-bordered table-striped">
+                                                                        <table class="table table-bordered table-striped">
                                                                             <thead>
                                                                                 <tr>
                                                                                     <th>Admission No</th>
@@ -436,7 +432,6 @@ require_once('partials/head.php');
                                                                                 $stmt = $mysqli->prepare($ret);
                                                                                 $stmt->execute(); //ok
                                                                                 $res = $stmt->get_result();
-                                                                                $cnt = 1;
                                                                                 while ($stdGroup = $res->fetch_object()) {
                                                                                 ?>
                                                                                     <tr>
@@ -444,13 +439,13 @@ require_once('partials/head.php');
                                                                                         <td><?php echo $stdGroup->student_name; ?></td>
                                                                                         <td><?php echo date('d M Y', strtotime($stdGroup->created_at)); ?></td>
                                                                                         <td>
-                                                                                            <a class="badge badge-danger" href="group_details.php?remove=<?php echo $stdGroup->id; ?>&group=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">
+                                                                                            <a class="badge badge-danger" href="module_std_group_details?remove=<?php echo $stdGroup->id; ?>&group=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">
                                                                                                 <i class="fas fa-user-times"></i>
                                                                                                 Remove Member
                                                                                             </a>
                                                                                         </td>
                                                                                     </tr>
-                                                                                <?php $cnt = $cnt + 1;
+                                                                                <?php
                                                                                 } ?>
                                                                             </tbody>
                                                                         </table>
@@ -492,7 +487,7 @@ require_once('partials/head.php');
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="card-footer text-right">
+                                                                            <div class="text-right">
                                                                                 <button type="submit" name="add_member" class="btn btn-primary">Add Member</button>
                                                                             </div>
                                                                         </form>
@@ -507,12 +502,11 @@ require_once('partials/head.php');
                                                                                 $stmt = $mysqli->prepare($ret);
                                                                                 $stmt->execute(); //ok
                                                                                 $res = $stmt->get_result();
-                                                                                $cnt = 1;
                                                                                 while ($ga = $res->fetch_object()) {
                                                                                 ?>
                                                                                     <div class="d-flex w-100 justify-content-between">
                                                                                         <h5 class="mb-1"></h5>
-                                                                                        <small><b><?php echo date('d M Y', strtotime($ga->created_at)); ?></b></small>
+                                                                                        <small><b><?php echo date('d-M-Y g:ia', strtotime($ga->created_at)); ?></b></small>
                                                                                     </div>
                                                                                     <?php
                                                                                     echo $ga->announcement;
@@ -553,13 +547,10 @@ require_once('partials/head.php');
                                                                                                                     </div>
                                                                                                                 </div>
                                                                                                             </div>
-                                                                                                            <div class="card-footer text-right">
+                                                                                                            <div class="text-right">
                                                                                                                 <button type="submit" name="update_notice" class="btn btn-primary">Update Notice</button>
                                                                                                             </div>
                                                                                                         </form>
-                                                                                                    </div>
-                                                                                                    <div class="modal-footer justify-content-between">
-                                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -583,7 +574,7 @@ require_once('partials/head.php');
                                                                                                         <h4>Delete Announcement ?</h4>
                                                                                                         <br>
                                                                                                         <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                        <a href="group_details.php?delete_Announcement=<?php echo $ga->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                        <a href="module_std_group_details?delete_Announcement=<?php echo $ga->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -591,7 +582,7 @@ require_once('partials/head.php');
                                                                                         <!-- End Delete Confirmation Modal -->
                                                                                     </div>
                                                                                     <hr>
-                                                                                <?php $cnt = $cnt + 1;
+                                                                                <?php
                                                                                 } ?>
                                                                             </div>
                                                                         </div>
@@ -621,7 +612,7 @@ require_once('partials/head.php');
                                                                                         <td><?php echo date('d M Y g:ia', strtotime($ass->created_at)); ?></td>
 
                                                                                         <td>
-                                                                                            <a class="badge badge-success" href="group_assignment_attempts.php?view=<?php echo $mod->id; ?>&code=<?php echo $ass->group_code; ?>">
+                                                                                            <a class="badge badge-success" href="module_std_group_assignment_attempts?view=<?php echo $mod->id; ?>&code=<?php echo $ass->group_code; ?>">
                                                                                                 <i class="fas fa-eye"></i>
                                                                                                 View Attempts
                                                                                             </a>
@@ -658,7 +649,7 @@ require_once('partials/head.php');
                                                                                                                             <label for="">Upload Group Assignment (PDF Or Docx)</label>
                                                                                                                             <div class="input-group">
                                                                                                                                 <div class="custom-file">
-                                                                                                                                    <input name="attachments" accept=".pdf, .doc, .docx" type="file" class="custom-file-input">
+                                                                                                                                    <input name="attachments" required accept=".pdf, .doc, .docx" type="file" class="custom-file-input">
                                                                                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                                 </div>
                                                                                                                             </div>
@@ -671,14 +662,10 @@ require_once('partials/head.php');
                                                                                                                         </div>
                                                                                                                     </div>
                                                                                                                 </div>
-                                                                                                                <div class="card-footer text-right">
+                                                                                                                <div class="text-right">
                                                                                                                     <button type="submit" name="edit_group_project" class="btn btn-primary">Submit</button>
                                                                                                                 </div>
                                                                                                             </form>
-
-                                                                                                        </div>
-                                                                                                        <div class="modal-footer justify-content-between">
-                                                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
@@ -701,7 +688,7 @@ require_once('partials/head.php');
                                                                                                             <h4>Delete?</h4>
                                                                                                             <br>
                                                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                                            <a href="group_details.php?delete_assignment=<?php echo $ass->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                                            <a href="module_std_group_details?delete_assignment=<?php echo $ass->id; ?>&view=<?php echo $mod->id; ?>&group=<?php echo $g->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
