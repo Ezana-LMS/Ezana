@@ -354,13 +354,13 @@ require_once('partials/head.php');
                                                             <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
                                                             <div class="form-group col-md-6">
                                                                 <label for="exampleInputPassword1">Submission Date </label>
-                                                                <input type="date" required name="submitted_on" class="form-control">
+                                                                <input type="text" required name="submitted_on" class="availability form-control">
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Upload Group Assignment (PDF Or Docx)</label>
                                                                 <div class="input-group">
                                                                     <div class="custom-file">
-                                                                        <input name="attachments" accept=".pdf, .doc, .docx" type="file" class="custom-file-input">
+                                                                        <input name="attachments" required accept=".pdf, .doc, .docx" type="file" class="custom-file-input">
                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                     </div>
                                                                 </div>
@@ -506,7 +506,7 @@ require_once('partials/head.php');
                                                                                 ?>
                                                                                     <div class="d-flex w-100 justify-content-between">
                                                                                         <h5 class="mb-1"></h5>
-                                                                                        <small><b><?php echo date('d-M-Y g:ia', strtotime($ga->created_at)); ?></b></small>
+                                                                                        <small class="text-success"><b><?php echo date('d-M-Y g:ia', strtotime($ga->created_at)); ?></b></small>
                                                                                     </div>
                                                                                     <?php
                                                                                     echo $ga->announcement;
@@ -643,7 +643,7 @@ require_once('partials/head.php');
                                                                                                                         <input type="hidden" required name="group" value="<?php echo $g->id; ?>" class="form-control">
                                                                                                                         <div class="form-group col-md-6">
                                                                                                                             <label for="exampleInputPassword1">Submission Date </label>
-                                                                                                                            <input type="date" required name="submitted_on" value="<?php echo $ass->submitted_on; ?>" class="form-control">
+                                                                                                                            <input type="text"  required name="submitted_on" value="<?php echo $ass->submitted_on; ?>" class="availability form-control">
                                                                                                                         </div>
                                                                                                                         <div class="form-group col-md-6">
                                                                                                                             <label for="">Upload Group Assignment (PDF Or Docx)</label>
