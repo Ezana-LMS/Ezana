@@ -16,7 +16,7 @@ while ($sys = $res->fetch_object()) {
         <title><?php echo $sys->sysname; ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- SEO META TAGS -->
-        <meta name="title" content="<?php echo $sys->sysname;?>">
+        <meta name="title" content="<?php echo $sys->sysname; ?>">
         <meta name="description" content="Powered By Ezana Learning Management System">
 
         <!-- Open Graph / Facebook -->
@@ -40,7 +40,8 @@ while ($sys = $res->fetch_object()) {
         <!-- Icons CSS -->
         <link rel="stylesheet" href="../assets/css/icons.css">
         <!-- Data Tables -->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css" />
         <!-- Scroll Bars -->
         <link rel="stylesheet" href="../assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
         <!-- Summernote -->

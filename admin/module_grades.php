@@ -254,10 +254,14 @@ require_once('partials/head.php');
                             <div class="modal fade" id="modal-export">
                                 <div class="modal-dialog  modal-xl">
                                     <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
                                         <div class="modal-body">
-
                                             <!--Export DT -->
-                                            <table id="export-dt" class="table table-bordered table-striped">
+                                            <table id="export-data-table" class="table-bordered table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>Student Details</th>
