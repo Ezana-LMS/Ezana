@@ -46,11 +46,9 @@ if (isset($_POST['upload_class_recording'])) {
     if (!$error) {
         $id = $_POST['id'];
         $view = $_POST['view'];
-        $external_link = $_POST['external_link'];
         $details  = $_POST['details'];
         $created_at  = date('d M Y');
         $faculty = $_POST['faculty'];
-        $details = $_POST['details'];
         /* Clip Handling Logic */
         $video = $time . $_FILES['video']['name'];
         $target_dir = "public/uploads/EzanaLMSData/ClassVideos/";
@@ -71,9 +69,9 @@ if (isset($_POST['upload_class_recording'])) {
                 // Upload
                 if (move_uploaded_file($_FILES['video']['tmp_name'], $target_file)) {
                     // Insert record
-                    $query = "INSERT INTO ezanaLMS_ClassRecordings (id, faculty_id, module_id, class_name, lecturer_name, external_link, details, created_at, video) VALUES(?,?,?,?,?,?,?,?,?)";
+                    $query = "INSERT INTO ezanaLMS_ClassRecordings (id, faculty_id, module_id, class_name, lecturer_name, details, created_at, video) VALUES(?,?,?,?,?,?,?,?)";
                     $stmt = $mysqli->prepare($query);
-                    $rc = $stmt->bind_param('sssssssss', $id, $faculty, $view, $class_name, $lecturer_name, $external_link, $details, $created_at, $video);
+                    $rc = $stmt->bind_param('sssssssss', $id, $faculty, $view, $class_name, $lecturer_name, $details, $created_at, $video);
                     $stmt->execute();
                     mysqli_query($mysqli, $query);
                     if ($stmt) {
@@ -109,21 +107,18 @@ if (isset($_POST['add_class_recording'])) {
         $details  = $_POST['details'];
         $created_at  = date('d M Y');
         $faculty = $_POST['faculty'];
-        $details = $_POST['details'];
-
 
         // Insert record
-        $query = "INSERT INTO ezanaLMS_ClassRecordings (id, faculty_id, module_id, class_name, lecturer_name, external_link, details, created_at, video) VALUES(?,?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_ClassRecordings (id, faculty_id, module_id, class_name, lecturer_name, external_link, details, created_at) VALUES(?,?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('sssssssss', $id, $faculty, $view, $class_name, $lecturer_name, $external_link, $details, $created_at, $video);
+        $rc = $stmt->bind_param('ssssssss', $id, $faculty, $view, $class_name, $lecturer_name, $external_link, $details, $created_at);
         $stmt->execute();
         mysqli_query($mysqli, $query);
         if ($stmt) {
-            $success = "$class_name Clip Uploaded";
+            $success = "$class_name Class Recording Link Shared";
         }
     }
 }
-
 
 
 /* Update Class Recordings   */
@@ -147,10 +142,8 @@ if (isset($_POST['update_class_recording'])) {
     if (!$error) {
         $id = $_POST['id'];
         $view = $_POST['view'];
-        $external_link = $_POST['external_link'];
         $details  = $_POST['details'];
         $created_at  = date('d M Y');
-        $details = $_POST['details'];
         /* Clip Handling Logic */
         $video = $_FILES['video']['name'];
         $target_dir = "public/uploads/EzanaLMSData/ClassVideos/";
@@ -170,13 +163,12 @@ if (isset($_POST['update_class_recording'])) {
                 // Upload
                 if (move_uploaded_file($_FILES['video']['tmp_name'], $target_file)) {
                     // Insert record
-                    $query = "UPDATE ezanaLMS_ClassRecordings SET class_name =?, lecturer_name =?, external_link =?, details =?, created_at =?, video =? WHERE id = ?";
+                    $query = "UPDATE ezanaLMS_ClassRecordings SET class_name =?, details =?, created_at =?, video =? WHERE id = ?";
                     $stmt = $mysqli->prepare($query);
-                    $rc = $stmt->bind_param('sssssss', $class_name, $lecturer_name, $external_link, $details, $created_at, $video, $id);
+                    $rc = $stmt->bind_param('sssss', $class_name, $details, $created_at, $video, $id);
                     $stmt->execute();
                     mysqli_query($mysqli, $query);
                     if ($stmt) {
-                        //inject alert that post is shared  
                         $success = "$class_name Clip Updated";
                     }
                 }
@@ -186,6 +178,40 @@ if (isset($_POST['update_class_recording'])) {
         }
     }
 }
+
+/* Update Class Recording Via Link */
+if (isset($_POST['add_class_recording_link'])) {
+    $error = 0;
+    if (isset($_POST['class_name']) && !empty($_POST['class_name'])) {
+        $class_name = mysqli_real_escape_string($mysqli, trim($_POST['class_name']));
+    } else {
+        $error = 1;
+        $err = "Class Name Cannot Be Empty";
+    }
+    if (isset($_POST['lecturer_name']) && !empty($_POST['lecturer_name'])) {
+        $lecturer_name = mysqli_real_escape_string($mysqli, trim($_POST['lecturer_name']));
+    } else {
+        $error = 1;
+        $err = "Lectuer Name Cannot Be Empty";
+    }
+    if (!$error) {
+        $id = $_POST['id'];
+        $external_link = $_POST['external_link'];
+        $details  = $_POST['details'];
+        $created_at  = date('d M Y');
+
+        // Insert record
+        $query = "UPDATE ezanaLMS_ClassRecordings SET class_name =?, external_link =?, details =?, created_at =? WHERE id = ?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssss', $class_name, $external_link, $details, $created_at, $id);
+        $stmt->execute();
+        mysqli_query($mysqli, $query);
+        if ($stmt) {
+            $success = "$class_name Class Recording Link Updated";
+        }
+    }
+}
+
 
 /* Delete Class Recordings  */
 if (isset($_GET['delete'])) {
@@ -243,6 +269,8 @@ require_once('partials/head.php');
                                 <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Course Recordings</h1>
                                 <br>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Upload Class Recording</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-class-link">Share Class Recording Link</button>
+
                             </div>
                             <!-- Add Clip Modal -->
                             <div class="modal fade" id="modal-default">
@@ -267,7 +295,7 @@ require_once('partials/head.php');
                                                             <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Allocate Module Lecturer Name</label>
+                                                            <label for="">Allocated Module Lecturer Name</label>
                                                             <select type="text" required name="lecturer_name" class="form-control basic">
                                                                 <!-- Load Lecs -->
                                                                 <?php
@@ -285,15 +313,10 @@ require_once('partials/head.php');
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label for="">Class External Link *Recomended <small class="text-danger">If In YouTube, Vimeo, Google Drive, etc</small></label>
-                                                            <input type="text" name="external_link" class="form-control">
-                                                        </div>
-                                                        <h5 class="text-center"> Or </h5>
-                                                        <div class="form-group col-md-12">
                                                             <label for="exampleInputFile">Upload Video</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
-                                                                    <input name="video" type="file" accept=".mp4, .WebM" class="custom-file-input" id="exampleInputFile">
+                                                                    <input name="video" required type="file" accept=".mp4, .WebM" class="custom-file-input" id="exampleInputFile">
                                                                     <label class="custom-file-label" for="exampleInputFile">Choose Video File</label>
                                                                 </div>
                                                             </div>
@@ -306,13 +329,73 @@ require_once('partials/head.php');
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer text-right">
-                                                    <button type="submit" name="add_class_recording" class="btn btn-primary">Upload Class Recording</button>
+                                                <div class="text-right">
+                                                    <button type="submit" name="upload_class_recording" class="btn btn-primary">Upload Class Recording</button>
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Modal -->
+
+                            <!-- Add Clip Modal -->
+                            <div class="modal fade" id="modal-class-link">
+                                <div class="modal-dialog  modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Fill All Required Values </h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Form -->
+                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Class Name</label>
+                                                            <input type="text" required name="class_name" class="form-control" value="<?php echo $mod->name; ?>" id="exampleInputEmail1">
+                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                            <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
+                                                            <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Allocated Module Lecturer Name</label>
+                                                            <select type="text" required name="lecturer_name" class="form-control basic">
+                                                                <!-- Load Lecs -->
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_ModuleAssigns` WHERE module_code = '$mod->code'  ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($lec = $res->fetch_object()) {
+                                                                ?>
+                                                                    <option><?php echo $lec->lec_name; ?></option>
+                                                                <?php
+                                                                } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="">Class External Link <small class="text-danger">If In YouTube, Vimeo, Google Drive, etc</small></label>
+                                                            <input type="text" required name="external_link" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <label for="exampleInputPassword1">Description | Clip Transcription</label>
+                                                            <textarea type="text" rows="10" name="details" class="form-control Summernote"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-right">
+                                                    <button type="submit" name="add_class_recording" class="btn btn-primary">Share Class Recording Link</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -336,7 +419,7 @@ require_once('partials/head.php');
                                                 while ($cr = $res->fetch_object()) {
                                                 ?>
                                                     <div class="col-md-4">
-                                                        <div class="card">
+                                                        <div class="card card-primary card-outline">
                                                             <div class="card-body">
                                                                 <a href="play_class_recording.php?clip=<?php echo $cr->id; ?>&view=<?php echo $mod->id; ?>">
                                                                     <h5 class="card-title"><?php echo $cr->class_name; ?></h5>
@@ -424,7 +507,7 @@ require_once('partials/head.php');
                                                                                 <h4>Delete <?php echo $cr->class_name; ?> Class Recording ?</h4>
                                                                                 <br>
                                                                                 <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="class_recordings.php?delete=<?php echo $cr->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                <a href="module_class_recordings?delete=<?php echo $cr->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
