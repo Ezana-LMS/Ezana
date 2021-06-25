@@ -1,6 +1,6 @@
 <!-- Update Clip Link Modal -->
 <div class="modal fade" id="update-clip-link-<?php echo $cr->id; ?>">
-    <div class="modal-dialog  modal-lg">
+    <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Fill All Required Values </h4>
@@ -25,7 +25,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label for="">Class External Link <small class="text-danger">If In YouTube, Vimeo, Google Drive, etc</small> *Recomended</label>
+                                <label for="">Class External Link <small class="text-danger">If In YouTube, Vimeo, Google Drive, etc</small></label>
                                 <input type="text" name="external_link" value="<?php echo $cr->external_link; ?>" class="form-control">
                             </div>
                         </div>
@@ -36,8 +36,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer text-right">
-                        <button type="submit" name="add_class_recording_link" class="btn btn-primary">Update Link</button>
+                    <div class="text-right">
+                        <button type="submit" name="update_class_recording_link" class="btn btn-primary">Update Link</button>
                     </div>
                 </form>
             </div>
@@ -48,7 +48,7 @@
 
 <!-- Update Clip Recording Modal -->
 <div class="modal fade" id="update-clip-recording-<?php echo $cr->id; ?>">
-    <div class="modal-dialog  modal-lg">
+    <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Fill All Required Values </h4>

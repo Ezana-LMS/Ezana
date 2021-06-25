@@ -51,7 +51,7 @@ if (isset($_POST['upload_class_recording'])) {
         $faculty = $_POST['faculty'];
         /* Clip Handling Logic */
         $video = $time . $_FILES['video']['name'];
-        $target_dir = "public/uploads/EzanaLMSData/ClassVideos/";
+        $target_dir = "../Data/Class_Recordings/";
         $target_file = $target_dir . $time . $_FILES["video"]["name"];
         $clip_type = 'Clip'; /* Diffrentiate If Class Recording Is A Clip Or Link */
 
@@ -72,7 +72,7 @@ if (isset($_POST['upload_class_recording'])) {
                     // Insert record
                     $query = "INSERT INTO ezanaLMS_ClassRecordings (id, clip_type, faculty_id, module_id, class_name, lecturer_name, details, created_at, video) VALUES(?,?,?,?,?,?,?,?,?)";
                     $stmt = $mysqli->prepare($query);
-                    $rc = $stmt->bind_param('ssssssssss', $id, $clip_type, $faculty, $view, $class_name, $lecturer_name, $details, $created_at, $video);
+                    $rc = $stmt->bind_param('sssssssss', $id, $clip_type, $faculty, $view, $class_name, $lecturer_name, $details, $created_at, $video);
                     $stmt->execute();
                     mysqli_query($mysqli, $query);
                     if ($stmt) {
@@ -147,7 +147,7 @@ if (isset($_POST['update_class_recording'])) {
         $created_at  = date('d M Y');
         /* Clip Handling Logic */
         $video = $_FILES['video']['name'];
-        $target_dir = "public/uploads/EzanaLMSData/ClassVideos/";
+        $target_dir = "../Data/Class_Recordings/";
         $target_file = $target_dir . $time . $_FILES["video"]["name"];
 
         // Select file type
@@ -181,7 +181,7 @@ if (isset($_POST['update_class_recording'])) {
 }
 
 /* Update Class Recording Via Link */
-if (isset($_POST['add_class_recording_link'])) {
+if (isset($_POST['update_class_recording_link'])) {
     $error = 0;
     if (isset($_POST['class_name']) && !empty($_POST['class_name'])) {
         $class_name = mysqli_real_escape_string($mysqli, trim($_POST['class_name']));
@@ -255,7 +255,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                             </div>
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                     <li class="breadcrumb-item"><a href="modules">Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
@@ -426,13 +426,14 @@ require_once('partials/head.php');
                                                                     <img class="img-thumbnail" src="../assets/img/play_clip.jpeg" class="card-img-top">
                                                                     <br>
                                                                     <div class="text-center">
-                                                                        <h5 class="card-title"><?php echo $cr->class_name; ?></h5>
+                                                                        <h5 class="card-title"><?php echo substr($cr->class_name, 0, 25); ?>...</h5>
                                                                         <small class="text-muted">Uploaded: <?php echo $cr->created_at; ?></small><br>
                                                                         <?php
                                                                         /* If Shared Via Link Just Show */
                                                                         if ($cr->clip_type == 'Link') {
                                                                             echo "<span class='badge badge-success'>Link Available</span>";
                                                                         } else {
+                                                                            echo "<span class='badge badge-success'>Clip Available</span>";
                                                                         }
                                                                         ?>
                                                                     </div>
