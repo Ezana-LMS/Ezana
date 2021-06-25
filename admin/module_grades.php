@@ -456,7 +456,6 @@ require_once('partials/head.php');
                                 <!-- Module Side Menu -->
                                 <?php require_once('partials/module_menu.php'); ?>
                                 <!-- Module Side Menu -->
-
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12">
