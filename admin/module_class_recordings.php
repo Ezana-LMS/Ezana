@@ -53,6 +53,7 @@ if (isset($_POST['upload_class_recording'])) {
         $video = $time . $_FILES['video']['name'];
         $target_dir = "public/uploads/EzanaLMSData/ClassVideos/";
         $target_file = $target_dir . $time . $_FILES["video"]["name"];
+        $clip_type = 'Clip'; /* Diffrentiate If Class Recording Is A Clip Or Link */
 
         // Select file type
         $videoFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -69,9 +70,9 @@ if (isset($_POST['upload_class_recording'])) {
                 // Upload
                 if (move_uploaded_file($_FILES['video']['tmp_name'], $target_file)) {
                     // Insert record
-                    $query = "INSERT INTO ezanaLMS_ClassRecordings (id, faculty_id, module_id, class_name, lecturer_name, details, created_at, video) VALUES(?,?,?,?,?,?,?,?)";
+                    $query = "INSERT INTO ezanaLMS_ClassRecordings (id, clip_type, faculty_id, module_id, class_name, lecturer_name, details, created_at, video) VALUES(?,?,?,?,?,?,?,?,?)";
                     $stmt = $mysqli->prepare($query);
-                    $rc = $stmt->bind_param('sssssssss', $id, $faculty, $view, $class_name, $lecturer_name, $details, $created_at, $video);
+                    $rc = $stmt->bind_param('ssssssssss', $id, $clip_type, $faculty, $view, $class_name, $lecturer_name, $details, $created_at, $video);
                     $stmt->execute();
                     mysqli_query($mysqli, $query);
                     if ($stmt) {
@@ -107,11 +108,12 @@ if (isset($_POST['add_class_recording'])) {
         $details  = $_POST['details'];
         $created_at  = date('d M Y');
         $faculty = $_POST['faculty'];
+        $clip_type = 'Link';
 
         // Insert record
-        $query = "INSERT INTO ezanaLMS_ClassRecordings (id, faculty_id, module_id, class_name, lecturer_name, external_link, details, created_at) VALUES(?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_ClassRecordings (id, clip_type, faculty_id, module_id, class_name, lecturer_name, external_link, details, created_at) VALUES(?,?,?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssssss', $id, $faculty, $view, $class_name, $lecturer_name, $external_link, $details, $created_at);
+        $rc = $stmt->bind_param('sssssssss', $id, $clip_type, $faculty, $view, $class_name, $lecturer_name, $external_link, $details, $created_at);
         $stmt->execute();
         mysqli_query($mysqli, $query);
         if ($stmt) {
@@ -119,7 +121,6 @@ if (isset($_POST['add_class_recording'])) {
         }
     }
 }
-
 
 /* Update Class Recordings   */
 if (isset($_POST['update_class_recording'])) {
@@ -422,97 +423,31 @@ require_once('partials/head.php');
                                                         <div class="card card-primary card-outline">
                                                             <div class="card-body">
                                                                 <a href="play_class_recording.php?clip=<?php echo $cr->id; ?>&view=<?php echo $mod->id; ?>">
-                                                                    <h5 class="card-title"><?php echo $cr->class_name; ?></h5>
+                                                                    <img class="img-thumbnail" src="../assets/img/play_clip.jpeg" class="card-img-top">
+                                                                    <br>
+                                                                    <div class="text-center">
+                                                                        <h5 class="card-title"><?php echo $cr->class_name; ?></h5>
+                                                                        <small class="text-muted">Uploaded: <?php echo $cr->created_at; ?></small><br>
+                                                                        <?php
+                                                                        /* If Shared Via Link Just Show */
+                                                                        if ($cr->clip_type == 'Link') {
+                                                                            echo "<span class='badge badge-success'>Link Available</span>";
+                                                                        } else {
+                                                                        }
+                                                                        ?>
+                                                                    </div>
                                                                 </a>
-                                                                <br>
                                                             </div>
-                                                            <div class="card-footer">
-                                                                <small class="text-muted">Uploaded: <?php echo $cr->created_at; ?><br></small>
-                                                                <a class="badge badge-warning" data-toggle="modal" href="#update-clip-<?php echo $cr->id; ?>">Update</a>
-
-                                                                <!-- Upload Solution Modal -->
-                                                                <div class="modal fade" id="update-clip-<?php echo $cr->id; ?>">
-                                                                    <div class="modal-dialog  modal-lg">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title">Fill All Required Values </h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <!-- Update Form -->
-                                                                                <form method="post" enctype="multipart/form-data" role="form">
-                                                                                    <div class="card-body">
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Class Name</label>
-                                                                                                <input type="text" value="<?php echo $cr->class_name; ?>" required name="class_name" class="form-control" id="exampleInputEmail1">
-                                                                                                <input type="hidden" required name="id" value="<?php echo $cr->id; ?>" class="form-control">
-                                                                                                <input type="hidden" required name="view" value="<?php echo $mod->id; ?>" class="form-control">
-                                                                                            </div>
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Lecturer Name</label>
-                                                                                                <input type="text" value="<?php echo $cr->lecturer_name; ?>" required name="lecturer_name" class="form-control">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-12">
-                                                                                                <label for="">Class External Link <small class="text-danger">If In YouTube, Vimeo, Google Drive, etc</small> *Recomended</label>
-                                                                                                <input type="text" name="external_link" value="<?php echo $cr->external_link; ?>" class="form-control">
-                                                                                            </div>
-                                                                                            <h5 class="text-center"> Or </h5>
-                                                                                            <div class="form-group col-md-12">
-                                                                                                <label for="exampleInputFile">Upload Video</label>
-                                                                                                <div class="input-group">
-                                                                                                    <div class="custom-file">
-                                                                                                        <input name="video" type="file" class="custom-file-input" id="exampleInputFile">
-                                                                                                        <label class="custom-file-label" for="exampleInputFile">Choose Video File</label>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                            <div class="form-group col-md-12">
-                                                                                                <label for="exampleInputPassword1">Description</label>
-                                                                                                <textarea type="text" rows="10" name="details" class="form-control Summernote"><?php echo $cr->details; ?></textarea>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="card-footer text-right">
-                                                                                        <button type="submit" name="update_class_recording" class="btn btn-primary">Submit</button>
-                                                                                    </div>
-                                                                                </form>
-                                                                                <!-- End Form -->
-                                                                            </div>
-                                                                            <div class="modal-footer justify-content-between">
-                                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- End  Modal -->
+                                                            <div class="card-footer text-center">
+                                                                <?php
+                                                                /* If Shared Via Link Just Show */
+                                                                if ($cr->clip_type == 'Link') {
+                                                                    echo "<a class='badge badge-warning' data-toggle='modal' href='#update-clip-link-$cr->id'>Update</a>";
+                                                                } else {
+                                                                    echo "<a class='badge badge-warning' data-toggle='modal' href='#update-clip-recording-$cr->id'>Update</a>";
+                                                                }
+                                                                ?>
                                                                 <a class="badge badge-danger" href="#delete-<?php echo $cr->id; ?>" data-toggle="modal">Delete</a>
-                                                                <!-- Delete Confirmation Modal -->
-                                                                <div class="modal fade" id="delete-<?php echo $cr->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body text-center text-danger">
-                                                                                <h4>Delete <?php echo $cr->class_name; ?> Class Recording ?</h4>
-                                                                                <br>
-                                                                                <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                <a href="module_class_recordings?delete=<?php echo $cr->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- End Delete Confirmation Modal -->
                                                             </div>
                                                         </div>
                                                     </div>
