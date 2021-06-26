@@ -45,7 +45,7 @@ require_once('partials/head.php');
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right small">
-                                <li class="breadcrumb-item"><a href="dashboar">Home</a></li>
+                                <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                 <li class="breadcrumb-item"><a href="reports">Reports</a></li>
                                 <li class="breadcrumb-item active">Departments</li>
                             </ol>

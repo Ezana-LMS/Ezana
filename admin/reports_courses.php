@@ -20,11 +20,14 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+
+
 session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
 admin_checklogin();
-require_once('../partials/head.php');
+
+require_once('partials/head.php');
 ?>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -34,14 +37,14 @@ require_once('../partials/head.php');
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php require_once('partials/aside.php');?>
+        <?php require_once('partials/aside.php'); ?>
 
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Courses</h1>
+                            <h1 class="m-0 text-dark">Courses </h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right small">
@@ -55,62 +58,90 @@ require_once('../partials/head.php');
 
                 <section class="content">
                     <div class="container-fluid">
-                        <hr>
-                        <div class="row">
-                            <div class="col-12">
-                                <table id="export-data-table" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Course Code</th>
-                                            <th>Course Name</th>
-                                            <th>Course Head</th>
-                                            <th>COurse Head Email</th>
-                                            <th>Department Name</th>
-                                            <th>Number Of Modules</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                        <div class="d-flex justify-content-center">
+                            <form method="post" enctype="multipart/form-data" role="form">
+                                <div class="text-center form-group col-md-12">
+                                    <label for="">Department Name</label>
+                                    <select name="DepartmentName" class='form-control basic'>
+                                        <option selected>Select Department Name</option>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Courses` ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Departments` ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
-                                        $cnt = 1;
-                                        while ($course = $res->fetch_object()) {
+                                        while ($department = $res->fetch_object()) {
                                         ?>
+                                            <option><?php echo $department->name; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" name="SearchCourseByDepartmentName" class="btn btn-primary">Search Courses</button>
+                                </div>
+                            </form>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table id="example1" class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Code</th>
+                                                    <th>Name</th>
+                                                    <th>Course Head</th>
+                                                    <th>Course Head Email</th>
+                                                    <th>Number Of Modules</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                if (isset($_POST['SearchCourseByDepartmentName'])) {
+                                                    $DepartmentName = $_POST['DepartmentName'];
+                                                    $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE department_name = '$DepartmentName'";
+                                                    $stmt = $mysqli->prepare($ret);
+                                                    $stmt->execute(); //ok
+                                                    $res = $stmt->get_result();
+                                                    while ($courses = $res->fetch_object()) {
+                                                ?>
+                                                        <tr>
+                                                            <td><?php echo $courses->code; ?></td>
+                                                            <td><?php echo $courses->name; ?></td>
+                                                            <td><?php echo $courses->head; ?></td>
+                                                            <td><?php echo $courses->email; ?></td>
+                                                            <td>
+                                                                <?php
+                                                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE course_id = '$course->id' ";
+                                                                $stmt = $mysqli->prepare($query);
+                                                                $stmt->execute();
+                                                                $stmt->bind_result($module);
+                                                                $stmt->fetch();
+                                                                $stmt->close();
+                                                                echo $module;
+                                                                ?>
+                                                            </td>
 
-                                            <tr>
-                                                <td><?php echo $course->code; ?></td>
-                                                <td><?php echo $course->name; ?></td>
-                                                <td><?php echo $course->head; ?></td>
-                                                <td><?php echo $course->email; ?></td>
-                                                <td><?php echo $course->department_name; ?></td>
-                                                <td>
-                                                    <?php
-                                                    $query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE course_id = '$course->id' ";
-                                                    $stmt = $mysqli->prepare($query);
-                                                    $stmt->execute();
-                                                    $stmt->bind_result($module);
-                                                    $stmt->fetch();
-                                                    $stmt->close();
-                                                    echo $module;
-                                                    ?>
-                                                </td>
-                                            </tr>
-                                        <?php 
-                                        } ?>
-                                    </tbody>
-                                </table>
+                                                        </tr>
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </section>
                 <!-- Main Footer -->
-                <?php require_once('public/partials/_footer.php'); ?>
+                <?php require_once('partials/footer.php'); ?>
             </div>
         </div>
         <!-- ./wrapper -->
-        <?php require_once('public/partials/_scripts.php'); ?>
+        <?php require_once('partials/scripts.php'); ?>
 </body>
 
 </html>
