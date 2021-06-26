@@ -1218,7 +1218,7 @@ require_once('partials/head.php');
                                                         </a>
                                                     </div>
                                                     <br>
-                                                    <table class="table table-bordered table-striped responsive">
+                                                    <table id="export-data-table" class=" table-bordered table-striped responsive">
                                                         <thead>
                                                             <tr>
                                                                 <th>Module</th>

@@ -44,7 +44,7 @@ require_once('partials/head.php');
                             <h1 class="m-0 text-dark">Overall Time Table</h1>
                         </div>
                         <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
+                            <ol class="breadcrumb float-sm-right small">
                                 <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                 <li class="breadcrumb-item"><a href="reports">Reports</a></li>
                                 <li class="breadcrumb-item active">School Time Table</li>
@@ -58,7 +58,7 @@ require_once('partials/head.php');
                         <hr>
                         <div class="row">
                             <div class="col-12">
-                                <table id="export-data-table" class="table table-bordered table-striped responsive">
+                                <table id="export-data-table" class="table-bordered table-striped responsive">
                                     <thead>
                                         <tr>
                                             <th>Course</th>
