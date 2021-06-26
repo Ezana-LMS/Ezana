@@ -168,7 +168,7 @@ require_once('partials/head.php');
                                                     <h3>Enrollments</h3>
                                                 </div>
                                                 <div class="icon">
-                                                    <i class="fas fa-user-add"></i>
+                                                    <i class="fas fa-calendar-check"></i>
                                                 </div>
                                                 <div class="small-box-footer">
                                                     <i class="fas fa-arrow-circle-right"></i>
@@ -201,7 +201,7 @@ require_once('partials/head.php');
                                                     <h3>Student Perfomances</h3>
                                                 </div>
                                                 <div class="icon">
-                                                    <i class="fas fa-user-tag"></i>
+                                                    <i class="fas fa-file-signature"></i>
                                                 </div>
                                                 <div class="small-box-footer">
                                                     <i class="fas fa-arrow-circle-right"></i>
