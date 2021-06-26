@@ -20,7 +20,6 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
@@ -36,18 +35,19 @@ require_once('partials/head.php');
 
         <!-- Main Sidebar Container -->
         <?php require_once('partials/aside.php'); ?>
+
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Overall  Important Dates</h1>
+                            <h1 class="m-0 text-dark">Overall Time Table</h1>
                         </div>
                         <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right small">
+                            <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                 <li class="breadcrumb-item"><a href="reports">Reports</a></li>
-                                <li class="breadcrumb-item active">Important Dates</li>
+                                <li class="breadcrumb-item active">School Time Table</li>
                             </ol>
                         </div>
                     </div>
@@ -58,30 +58,40 @@ require_once('partials/head.php');
                         <hr>
                         <div class="row">
                             <div class="col-12">
-                                <table id="export-data-table" class="table-bordered table-striped">
+                                <table id="export-data-table" class="table table-bordered table-striped responsive">
                                     <thead>
                                         <tr>
-                                            <th>Academic Year</th>
-                                            <th>Semester</th>
-                                            <th>Start Date </th>
-                                            <th>End Date </th>
-                                            <th>Description</th>
+                                            <th>Course</th>
+                                            <th>Module Code</th>
+                                            <th>Module Name </th>
+                                            <th>Lecturer</th>
+                                            <th>Day</th>
+                                            <th>Time</th>
+                                            <th>Room</th>
+                                            <th>Link</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Calendar`   ORDER BY `ezanaLMS_Calendar`.`semester_start` ASC   ";
+                                        $ret = "SELECT * FROM `ezanaLMS_TimeTable` ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
-                                        while ($cal = $res->fetch_object()) {
+                                        while ($tt = $res->fetch_object()) {
                                         ?>
+
                                             <tr>
-                                                <td><?php echo $cal->academic_yr; ?></td>
-                                                <td><?php echo $cal->semester_name; ?></td>
-                                                <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
-                                                <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
-                                                <td><?php echo $cal->details; ?></td>
+                                                <td><?php echo $tt->course_name; ?></td>
+                                                <td><?php echo $tt->module_code; ?></td>
+                                                <td><?php echo $tt->module_name; ?></td>
+                                                <td><?php echo $tt->lecturer; ?></td>
+                                                <td><?php echo $tt->day; ?></td>
+                                                <td><?php echo $tt->time; ?></td>
+                                                <td><?php echo $tt->room; ?></td>
+
+                                                <td>
+                                                    <?php echo $tt->link; ?>
+                                                </td>
                                             </tr>
                                         <?php
                                         } ?>
