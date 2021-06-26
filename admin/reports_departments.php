@@ -24,6 +24,7 @@ session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
 admin_checklogin();
+require_once('../config/codeGen.php');
 require_once('partials/head.php');
 ?>
 
@@ -40,13 +41,13 @@ require_once('partials/head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Faculties</h1>
+                            <h1 class="m-0 text-dark">Departments</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right small">
-                                <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
+                                <li class="breadcrumb-item"><a href="dashboar">Home</a></li>
                                 <li class="breadcrumb-item"><a href="reports">Reports</a></li>
-                                <li class="breadcrumb-item active">Faculties</li>
+                                <li class="breadcrumb-item active">Departments</li>
                             </ol>
                         </div>
                     </div>
@@ -60,35 +61,37 @@ require_once('partials/head.php');
                                 <table id="export-data-table" class="table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Faculty Code Number</th>
-                                            <th>Faculty Name</th>
-                                            <th>Faculty Head</th>
-                                            <th>Faculty Head Email</th>
-                                            <th>Number Of Departments</th>
+                                            <th>Department Code / Number</th>
+                                            <th>Department Name</th>
+                                            <th>Depeartment Head</th>
+                                            <th>Depeartment Head  Email</th>
+                                            <th>Department Faculty</th>
+                                            <th>Number Of Courses</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
+                                        $ret = "SELECT * FROM `ezanaLMS_Departments`  ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
-                                        while ($faculty = $res->fetch_object()) {
+                                        while ($dep = $res->fetch_object()) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $faculty->code; ?></td>
-                                                <td><?php echo $faculty->name; ?></td>
-                                                <td><?php echo $faculty->head; ?></td>
-                                                <td><?php echo $faculty->email; ?></td>
+                                                <td><?php echo $dep->code; ?></td>
+                                                <td><?php echo $dep->name; ?></td>
+                                                <td><?php echo $dep->hod; ?></td>
+                                                <td><?php echo $dep->email; ?></td>
+                                                <td><?php echo $dep->faculty_name; ?></td>
                                                 <td>
                                                     <?php
-                                                    $query = "SELECT COUNT(*)  FROM `ezanaLMS_Departments` WHERE faculty_id='$faculty->id' ";
+                                                    $query = "SELECT COUNT(*)  FROM `ezanaLMS_Courses` WHERE department_id = '$dep->id' ";
                                                     $stmt = $mysqli->prepare($query);
                                                     $stmt->execute();
-                                                    $stmt->bind_result($department);
+                                                    $stmt->bind_result($course);
                                                     $stmt->fetch();
                                                     $stmt->close();
-                                                    echo $department
+                                                    echo $course;
                                                     ?>
                                                 </td>
                                             </tr>
