@@ -98,7 +98,7 @@ require_once('partials/head.php');
                                     <?php
                                     if (isset($_POST['SearchByAcademicYear'])) {
                                         $AcademicYear = $_POST['AcademicYear'];
-                                        $querry = $mysqli->query("SELECT  * FROM `ezanaLMS_Enrollments` WHERE academic_year = '$AcademicYear'");
+                                        $querry = $mysqli->query("SELECT  * FROM `ezanaLMS_Enrollments` WHERE academic_year_enrolled = '$AcademicYear'");
                                         while ($enrollment = $querry->fetch_array()) {
                                     ?>
                                             <tr>
