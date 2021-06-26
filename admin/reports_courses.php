@@ -85,14 +85,16 @@ require_once('partials/head.php');
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-12">
-                                        <table id="example1" class="table table-bordered table-striped">
+                                        <table id="export-data-table" class="table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>Code</th>
                                                     <th>Name</th>
-                                                    <th>Course Head</th>
-                                                    <th>Course Head Email</th>
+                                                    <th>Head</th>
+                                                    <th>Head Email</th>
                                                     <th>Number Of Modules</th>
+                                                    <th>Faculty</th>
+                                                    <th>Department</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -108,11 +110,11 @@ require_once('partials/head.php');
                                                         <tr>
                                                             <td><?php echo $courses->code; ?></td>
                                                             <td><?php echo $courses->name; ?></td>
-                                                            <td><?php echo $courses->head; ?></td>
+                                                            <td><?php echo $courses->hod; ?></td>
                                                             <td><?php echo $courses->email; ?></td>
                                                             <td>
                                                                 <?php
-                                                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE course_id = '$course->id' ";
+                                                                $query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE course_id = '$courses->id' ";
                                                                 $stmt = $mysqli->prepare($query);
                                                                 $stmt->execute();
                                                                 $stmt->bind_result($module);
@@ -121,13 +123,13 @@ require_once('partials/head.php');
                                                                 echo $module;
                                                                 ?>
                                                             </td>
-
+                                                            <td><?php echo $courses->department_name; ?></td>
+                                                            <td><?php echo $courses->faculty_name; ?></td>
                                                         </tr>
                                                 <?php
                                                     }
                                                 }
                                                 ?>
-
                                             </tbody>
                                         </table>
                                     </div>
