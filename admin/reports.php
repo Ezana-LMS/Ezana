@@ -100,7 +100,7 @@ require_once('partials/head.php');
                                                     <h3>Courses</h3>
                                                 </div>
                                                 <div class="icon">
-                                                    <i class="fas fa-chalkboard-teacher"></i>
+                                                    <i class="fas fa-chalkboard"></i>
                                                 </div>
                                                 <div class="small-box-footer">
                                                     <i class="fas fa-arrow-circle-right"></i>
@@ -117,7 +117,7 @@ require_once('partials/head.php');
                                                     <h3>Modules</h3>
                                                 </div>
                                                 <div class="icon">
-                                                    <i class="fas fa-chalkboard"></i>
+                                                    <i class="fas fa-cubes"></i>
                                                 </div>
                                                 <div class="small-box-footer">
                                                     <i class="fas fa-arrow-circle-right"></i>
@@ -168,7 +168,7 @@ require_once('partials/head.php');
                                                     <h3>Enrollments</h3>
                                                 </div>
                                                 <div class="icon">
-                                                    <i class="fas fa-user-tag"></i>
+                                                    <i class="fas fa-user-add"></i>
                                                 </div>
                                                 <div class="small-box-footer">
                                                     <i class="fas fa-arrow-circle-right"></i>
@@ -201,7 +201,7 @@ require_once('partials/head.php');
                                                     <h3>Student Perfomances</h3>
                                                 </div>
                                                 <div class="icon">
-                                                    <i class="fas fa-file"></i>
+                                                    <i class="fas fa-user-tag"></i>
                                                 </div>
                                                 <div class="small-box-footer">
                                                     <i class="fas fa-arrow-circle-right"></i>
@@ -216,7 +216,7 @@ require_once('partials/head.php');
                                                     <h3>Lecturers</h3>
                                                 </div>
                                                 <div class="icon">
-                                                    <i class="fas fa-user-tie"></i>
+                                                    <i class="fas fa-chalkboard-teacher"></i>
                                                 </div>
                                                 <div class="small-box-footer">
                                                     <i class="fas fa-arrow-circle-right"></i>
