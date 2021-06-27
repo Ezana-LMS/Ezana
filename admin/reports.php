@@ -178,7 +178,7 @@ require_once('partials/head.php');
                                     </div>
 
                                     <div class="col-lg-4 col-6">
-                                        <a href="reports_courses_details">
+                                        <a href="reports_module_allocations">
 
                                             <div class="small-box bg-info">
                                                 <div class="inner">
