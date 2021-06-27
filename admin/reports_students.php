@@ -81,12 +81,7 @@ require_once('partials/head.php');
                                 <table id="export-data-table" class="table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Adm No</th>
-                                            <th>Name</th>
-                                            <th>Gender</th>
-                                            <th>D.O.B</th>
-                                            <th>Email</th>
-                                            <th>Address</th>
+                                            <th>Student Details</th>
                                             <th>School</th>
                                             <th>Department</th>
                                             <th>Course</th>
@@ -105,17 +100,15 @@ require_once('partials/head.php');
                                             while ($std = $res->fetch_object()) {
                                         ?>
                                                 <tr>
-                                                    <td><?php echo $std->admno; ?></td>
-                                                    <td><?php echo $std->name; ?></td>
-                                                    <td><?php echo $std->gender; ?></td>
-                                                    <td><?php echo date('d-M-Y', strtotime($std->dob)); ?></td>
-                                                    <td><?php echo $std->email; ?></td>
-                                                    <td><?php echo $std->adr; ?></td>
+                                                    <td>
+                                                        Reg No: <?php echo $std->admno . "<br> Name: " . $std->name . "<br>Gender: " . $std->gender . "<br>"; ?>
+                                                        D.O.B: <?php echo date('d-M-Y', strtotime($std->dob)) . "<br> Email: " . $std->email . "<br>Address: " . $std->adr; ?>
+                                                    </td>
                                                     <td><?php echo $std->school; ?></td>
                                                     <td><?php echo $std->department; ?></td>
                                                     <td><?php echo $std->course; ?></td>
                                                     <td><?php echo $std->current_year; ?></td>
-                                                    <td><?php echo date('d-M-Y',strtotime($std->day_enrolled)); ?></td>
+                                                    <td><?php echo date('d-M-Y', strtotime($std->day_enrolled)); ?></td>
                                                 </tr>
                                         <?php
                                             }
