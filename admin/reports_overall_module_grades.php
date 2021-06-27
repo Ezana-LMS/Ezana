@@ -42,13 +42,13 @@ require_once('partials/head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Lecturer Module Assigns</h1>
+                            <h1 class="m-0 text-dark">Overall Student Module Grades / Marks</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right small">
                                 <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                 <li class="breadcrumb-item"><a href="reports">Reports</a></li>
-                                <li class="breadcrumb-item active">Module Assigns</li>
+                                <li class="breadcrumb-item active">Module Grades</li>
                             </ol>
                         </div>
                     </div>
@@ -86,26 +86,31 @@ require_once('partials/head.php');
                             <table id="export-data-table" class="table-bordered table-striped">
                                 <thead>
                                     <tr>
+                                        <th>Admission Number</th>
+                                        <th>Name</th>
                                         <th>Module Code</th>
                                         <th>Module Name</th>
-                                        <th>Lecturer Name</th>
+                                        <th>Marks Attained</th>
+                                        <th>Semester</th>
                                         <th>Academic Year</th>
-                                        <th>Semester Assigned</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     if (isset($_POST['SearchByAcademicYear'])) {
                                         $AcademicYear = $_POST['AcademicYear'];
-                                        $querry = $mysqli->query("SELECT  * FROM `ezanaLMS_ModuleAssigns` WHERE academic_year = '$AcademicYear'");
+                                        $querry = $mysqli->query("SELECT  * FROM `ezanaLMS_StudentModuleGrades` WHERE academic_year = '$AcademicYear'");
                                         while ($allocation = $querry->fetch_array()) {
                                     ?>
                                             <tr>
+                                                <td><?php echo $allocation['regno']; ?></td>
+                                                <td><?php echo $allocation['name']; ?></td>
                                                 <td><?php echo $allocation['module_code']; ?></td>
                                                 <td><?php echo $allocation['module_name']; ?></td>
-                                                <td><?php echo $allocation['lec_name']; ?></td>
-                                                <td><?php echo $allocation['academic_year']; ?></td>
+                                                <td><?php echo $allocation['marks']; ?></td>
                                                 <td><?php echo $allocation['semester']; ?></td>
+                                                <td><?php echo $allocation['academic_year']; ?></td>
                                             </tr>
                                     <?php
                                         }
