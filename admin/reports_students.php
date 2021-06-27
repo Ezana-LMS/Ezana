@@ -98,7 +98,6 @@ require_once('partials/head.php');
                                         <?php
                                         if (isset($_POST['SearchLecturers'])) {
                                             $School = $_POST['School'];
-
                                             $ret = "SELECT * FROM `ezanaLMS_Students`  WHERE school = '$School' ";
                                             $stmt = $mysqli->prepare($ret);
                                             $stmt->execute(); //ok
@@ -109,14 +108,14 @@ require_once('partials/head.php');
                                                     <td><?php echo $std->admno; ?></td>
                                                     <td><?php echo $std->name; ?></td>
                                                     <td><?php echo $std->gender; ?></td>
-                                                    <td><?php echo $std->dob; ?></td>
+                                                    <td><?php echo date('d-M-Y', strtotime($std->dob)); ?></td>
                                                     <td><?php echo $std->email; ?></td>
                                                     <td><?php echo $std->adr; ?></td>
                                                     <td><?php echo $std->school; ?></td>
                                                     <td><?php echo $std->department; ?></td>
                                                     <td><?php echo $std->course; ?></td>
                                                     <td><?php echo $std->current_year; ?></td>
-                                                    <td><?php echo $std->day_enrolled; ?></td>
+                                                    <td><?php echo date('d-M-Y',strtotime($std->day_enrolled)); ?></td>
                                                 </tr>
                                         <?php
                                             }
