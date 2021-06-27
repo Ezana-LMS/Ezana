@@ -30,11 +30,11 @@ require_once('partials/head.php');
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
         <!-- Navbar -->
-        <?php require_once('public/partials/header.php'); ?>
+        <?php require_once('partials/header.php'); ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <?php require_once('partials/aside.php');?>
+        <?php require_once('partials/aside.php'); ?>
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
@@ -55,9 +55,9 @@ require_once('partials/head.php');
                 <section class="content">
                     <div class="container-fluid">
                         <div class="container-fluid">
-                            <form method="POST">
-                                <div class="d-flex justify-content-center">
-                                    <select name="School" class='col-md-6 form-control basic mr-sm-2'>
+                            <div class="d-flex justify-content-center">
+                                <form method="post" enctype="multipart/form-data" role="form">
+                                    <select name="School" class='col-md-12 form-control basic mr-sm-2'>
                                         <option selected>Select Faculty / School Name</option>
                                         <?php
                                         $ret = "SELECT * FROM `ezanaLMS_Faculties` ";
@@ -69,16 +69,16 @@ require_once('partials/head.php');
                                             <option><?php echo $faculty->name; ?></option>
                                         <?php } ?>
                                     </select>
-                                    <div class="text-right">
+                                    <div class="text-center">
                                         <button name="SearchLecturers" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search By School / Faculty</button>
                                     </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                         <hr>
                         <div class="row">
                             <div class="col-12">
-                                <table id="export-dt" class="table table-bordered table-striped">
+                                <table id="export-data-table" class="table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Number</th>
