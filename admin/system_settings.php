@@ -139,6 +139,32 @@ if (isset($_POST['CurrentAcademicTerm'])) {
     }
 }
 
+/* Mark As Current */
+if (isset($_GET['Current'])) {
+    $delete = $_GET['Current'];
+    $status = 'Current';
+    /* Update Initial Current First */
+    $clear_initial_current = "UPDATE  ezanaLMS_AcademicSettings SET status = '' ";
+    $current = "UPDATE  ezanaLMS_AcademicSettings SET status =? WHERE id = ?";
+
+    $clear_stmt = $mysqli->prepare($clear_initial_current);
+    $current_stmt = $mysqli->prepare($current);
+
+    $current_stmt->bind_param('ss', $status, $delete);
+
+    $clear_stmt->execute();
+    $current_stmt->execute();
+
+    $clear_stmt->close();
+    $current_stmt->close();
+
+    if ($clear_stmt && $current_stmt) {
+        $success = "Set Current" && header("refresh:1; url=academic_dates_settings");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
 require_once('partials/head.php');
 ?>
 
@@ -230,42 +256,153 @@ require_once('partials/head.php');
                                                     </div>
 
                                                     <div class="tab-pane fade" id="academic_settings" role="tabpanel">
-                                                        <?php
-                                                        /* Persisit Academic Settings */
-                                                        $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
-                                                        $stmt = $mysqli->prepare($ret);
-                                                        $stmt->execute(); //ok
-                                                        $res = $stmt->get_result();
-                                                        while ($academic_settings = $res->fetch_object()) {
-                                                        ?>
-                                                            <form method="post" enctype="multipart/form-data" role="form">
-                                                                <div class="card-body">
-                                                                    <div class="row">
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">Current Academic Year</label>
-                                                                            <input type="text" required value="<?php echo $academic_settings->current_academic_year; ?> " name="current_academic_year" class="form-control">
-                                                                            <input type="hidden" required name="id" value="<?php echo $academic_settings->id ?>" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">Current Semester</label>
-                                                                            <input type="text" required value="<?php echo $academic_settings->current_semester; ?>" name="current_semester" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">Current Semester Opening Date</label>
-                                                                            <input type="date" required value="<?php echo $academic_settings->start_date; ?>" name="start_date" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group col-md-6">
-                                                                            <label for="">Current Semester Closing Dates</label>
-                                                                            <input type="date" required value="<?php echo $academic_settings->end_date; ?>" name="end_date" class="form-control">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="text-right">
-                                                                    <button type="submit" name="CurrentAcademicTerm" class="btn btn-primary">Submit</button>
-                                                                </div>
-                                                            </form>
-                                                        <?php
-                                                        } ?>
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Academic Year</th>
+                                                                    <th>Semester</th>
+                                                                    <th>Start Date </th>
+                                                                    <th>End Date </th>
+                                                                    <th>Manage</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_AcademicSettings`  ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($cal = $res->fetch_object()) {
+                                                                ?>
+
+                                                                    <tr>
+                                                                        <td>
+                                                                            <?php
+                                                                            echo $cal->current_academic_year;
+                                                                            /* Show If Its Current */
+                                                                            if ($cal->status == 'Current') {
+                                                                                echo "<br> <span class='badge badge-success'>Current</span> ";
+                                                                            } else {
+                                                                                /* Nothing */
+                                                                            }
+                                                                            ?>
+                                                                        </td>
+                                                                        <td><?php echo $cal->current_semester; ?></td>
+                                                                        <td><?php echo date('d M Y', strtotime($cal->start_date)); ?></td>
+                                                                        <td><?php echo  date('d M Y', strtotime($cal->end_date)); ?></td>
+                                                                        <td>
+                                                                            <?php
+                                                                            if ($cal->status == 'Current') {
+                                                                                /* Nothing */
+                                                                            } else {
+                                                                                echo "
+                                                                                    <a class='badge badge-success' data-toggle='modal' href='#mark-as-current-$cal->id'>
+                                                                                        <i class='fas fa-check'></i>
+                                                                                        Mark As Current
+                                                                                    </a>
+                                                                                ";
+                                                                            }
+                                                                            ?>
+
+
+                                                                            <a class="badge badge-primary" data-toggle="modal" href="#update-calendar-<?php echo $cal->id; ?>">
+                                                                                <i class="fas fa-edit"></i>
+                                                                                Update
+                                                                            </a>
+                                                                            <!-- Update Modal -->
+                                                                            <div class="modal fade" id="update-calendar-<?php echo $cal->id; ?>">
+                                                                                <div class="modal-dialog  modal-xl">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h4 class="modal-title">Update <?php echo $cal->current_academic_year; ?> <?php echo $cal->current_semester; ?> Dates </h4>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body">
+                                                                                            <form method="post" enctype="multipart/form-data" role="form">
+                                                                                                <div class="card-body">
+                                                                                                    <div class="row">
+                                                                                                        <div class="form-group col-md-6">
+                                                                                                            <label for="">Academic Year</label>
+                                                                                                            <input type="text" required name="current_academic_year" value="<?php echo $cal->current_academic_year; ?>" class="form-control">
+                                                                                                            <input type="hidden" required name="id" value="<?php echo $cal->id; ?>" class="form-control">
+                                                                                                        </div>
+                                                                                                        <div class="form-group col-md-6">
+                                                                                                            <label for="">Semester</label>
+                                                                                                            <input type="text" required name="current_semester" value="<?php echo $cal->current_semester; ?>" class="form-control">
+                                                                                                        </div>
+                                                                                                        <div class="form-group col-md-6">
+                                                                                                            <label for="">Semester Opening Date</label>
+                                                                                                            <input type="date" required value="<?php echo $cal->start_date; ?>" name="start_date" class="form-control">
+                                                                                                        </div>
+                                                                                                        <div class="form-group col-md-6">
+                                                                                                            <label for=""> Semester Closing Dates</label>
+                                                                                                            <input type="date" value="<?php echo $cal->end_date; ?>" required name="end_date" class=" form-control">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="text-right">
+                                                                                                    <button type="submit" name="update_academic_years" class="btn btn-primary">Submit</button>
+                                                                                                </div>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- End Update Modal -->
+                                                                            <a class="badge badge-danger" href="#delete-<?php echo $cal->id; ?>" data-toggle="modal">
+                                                                                <i class="fas fa-trash"></i>
+                                                                                Delete
+                                                                            </a>
+                                                                            <!-- Delete Confirmation Modal -->
+                                                                            <div class="modal fade" id="delete-<?php echo $cal->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body text-center text-danger">
+                                                                                            <h4>Delete Dates?</h4>
+                                                                                            <br>
+                                                                                            <p>Heads Up, You Are About To Delete This Academic Dates, This Operation Is Irreversible</p>
+                                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                            <a href="academic_dates_settings?delete=<?php echo $cal->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- End Delete Confirmation Modal -->
+
+                                                                            <!-- Mark As Current Confirmation Modal -->
+                                                                            <div class="modal fade" id="mark-as-current-<?php echo $cal->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body text-center text-danger">
+                                                                                            <h4>Mark Academic Year:<?php echo $cal->current_academic_year . " And Semester : " . $cal->current_semester; ?> As Current</h4>
+                                                                                            <br>
+                                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                            <a href="academic_dates_settings?Current=<?php echo $cal->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- End Mark As Current Confirmation Modal -->
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php
+                                                                } ?>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
 
                                                     <div class="tab-pane fade" id="calendar" role="tabpanel">
