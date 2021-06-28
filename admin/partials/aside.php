@@ -100,6 +100,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="system_bulk_delete" class="nav-link">
+                                <i class="fas fa-angle-right nav-icon"></i>
+                                <p>Bulk Delete</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="system_settings" class="nav-link">
                                 <i class="fas fa-angle-right nav-icon"></i>
                                 <p>System Settings</p>
