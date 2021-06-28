@@ -159,7 +159,7 @@ if (isset($_GET['Current'])) {
     $current_stmt->close();
 
     if ($clear_stmt && $current_stmt) {
-        $success = "Set Current" && header("refresh:1; url=academic_dates_settings");
+        $success = "Set Current" && header("refresh:1; url=system_settings");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -391,7 +391,7 @@ require_once('partials/head.php');
                                                                                             <h4>Mark Academic Year:<?php echo $cal->current_academic_year . " And Semester : " . $cal->current_semester; ?> As Current</h4>
                                                                                             <br>
                                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                            <a href="academic_dates_settings?Current=<?php echo $cal->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                            <a href="system_settings?Current=<?php echo $cal->id; ?>" class="text-center btn btn-danger"> Yes Set As Current </a>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
