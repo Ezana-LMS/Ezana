@@ -47,3 +47,20 @@ $paycode = substr(str_shuffle("QWERTYUIOPLKJHGFDSAZXCVBNM1234567890"), 1, $alpha
 /* System Admin Default Password */
 $length = 8;
 $defaultPass = substr(str_shuffle("QWERTYUIOPwertyuioplkjLKJHGFDSAZXCVBNM1234567890qhgfdsazxcvbnm"), 1, $length);
+
+
+/* Faculty Batch Addition Codes */
+$facultyalpha = substr(str_shuffle("QWERTYUIOPLKJHGFDSAZXCVBNM"), 1, 5);
+$facultybeta = substr(str_shuffle("1234567890"), 1, 5);
+
+/* Department Batch Addition */
+$departmentalpha = substr(str_shuffle("QWERTYUIOPLKJHGFDSAZXCVBNM"), 1, 5);
+$departmentbeta = substr(str_shuffle("1234567890"), 1, 5);
+
+/* Courses Batch Addition */
+$coursealpha = substr(str_shuffle("QWERTYUIOPLKJHGFDSAZXCVBNM"), 1, 5);
+$coursebeta = substr(str_shuffle("1234567890"), 1, 5);
+
+/* Modules Batch Addition  */
+$modulealpha = substr(str_shuffle("QWERTYUIOPLKJHGFDSAZXCVBNM"), 1, 5);
+$modulebeta = substr(str_shuffle("1234567890"), 1, 5);

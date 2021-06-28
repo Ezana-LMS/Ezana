@@ -64,7 +64,7 @@ require_once('partials/head.php');
                                         <option selected>Select Academic Year </option>
                                         <?php
                                         /* Persisit Academic Settings */
-                                        $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                                        $ret = "SELECT DISTINCT current_academic_year FROM `ezanaLMS_AcademicSettings` ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();

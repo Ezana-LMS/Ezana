@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Tue Jun 22 2021
+ * Created on Mon Jun 28 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -20,117 +20,58 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+
 session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
 require_once('../config/codeGen.php');
 admin_checklogin();
 
-/* Add Important Dates */
-if (isset($_POST['add_school_calendar'])) {
-    //Error Handling and prevention of posting double entries
+/* Add Academic Years */
+if (isset($_POST['add_academic_years'])) {
     $error = 0;
-    if (isset($_POST['academic_yr']) && !empty($_POST['academic_yr'])) {
-        $academic_yr = mysqli_real_escape_string($mysqli, trim($_POST['academic_yr']));
+    if (isset($_POST['current_academic_year']) && !empty($_POST['current_academic_year'])) {
+        $current_academic_year = mysqli_real_escape_string($mysqli, trim($_POST['current_academic_year']));
     } else {
         $error = 1;
         $err = "Academic Year Cannot Be Empty";
     }
-    if (isset($_POST['semester_name']) && !empty($_POST['semester_name'])) {
-        $semester_name = mysqli_real_escape_string($mysqli, trim($_POST['semester_name']));
+    if (isset($_POST['current_semester']) && !empty($_POST['current_semester'])) {
+        $current_semester = mysqli_real_escape_string($mysqli, trim($_POST['current_semester']));
     } else {
         $error = 1;
         $err = "Semester Name Cannot Be Empty";
     }
-    if (isset($_POST['semester_start']) && !empty($_POST['semester_start'])) {
-        $semester_start = mysqli_real_escape_string($mysqli, trim($_POST['semester_start']));
+    if (isset($_POST['start_date']) && !empty($_POST['start_date'])) {
+        $start_date = mysqli_real_escape_string($mysqli, trim($_POST['start_date']));
     } else {
         $error = 1;
         $err = "Semester Opening Dates Cannot Be Empty";
     }
-    if (isset($_POST['semester_end']) && !empty($_POST['semester_end'])) {
-        $semester_end = mysqli_real_escape_string($mysqli, trim($_POST['semester_end']));
+    if (isset($_POST['end_date']) && !empty($_POST['end_date'])) {
+        $end_date = mysqli_real_escape_string($mysqli, trim($_POST['end_date']));
     } else {
         $error = 1;
         $err = "Semester Closing  Dates Cannot Be Empty";
     }
-    /*  if (isset($_POST['view']) && !empty($_POST['view'])) {
-        $view = mysqli_real_escape_string($mysqli, trim($_GET['view']));
-    } else {
-        $error = 1;
-        $err = "Faculty ID  Dates Cannot Be Empty";
-    } */
+
     if (!$error) {
-        /* //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Calendar WHERE  (semester_name='$semester_name' AND academic_yr = '$academic_yr'   ";
+        $sql = "SELECT * FROM  ezanaLMS_AcademicSettings WHERE current_academic_year = '$current_academic_year' AND  current_semester = '$current_semester' ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
-            if (($semester_name == $row['semester_name']) && ($academic_yr == $row['academic_yr']) ) {
-                $err =  "Important Dates Already Added";
-            }
-        } else { */
-        $id = $_POST['id'];
-        $details = $_POST['details'];
-
-        $query = "INSERT INTO ezanaLMS_Calendar (id,  academic_yr, semester_start, semester_name, semester_end, details) VALUES(?,?,?,?,?,?)";
-        $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssss', $id,  $academic_yr, $semester_start, $semester_name, $semester_end, $details);
-        $stmt->execute();
-        if ($stmt) {
-            $success = "Educational Dates Added";
-        } else {
-            $info = "Please Try Again Or Try Later";
-        }
-    }
-}
-
-
-/* Update Important Dates */
-if (isset($_POST['update_school_calendar'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['academic_yr']) && !empty($_POST['academic_yr'])) {
-        $academic_yr = mysqli_real_escape_string($mysqli, trim($_POST['academic_yr']));
-    } else {
-        $error = 1;
-        $err = "Academic Year Cannot Be Empty";
-    }
-    if (isset($_POST['semester_name']) && !empty($_POST['semester_name'])) {
-        $semester_name = mysqli_real_escape_string($mysqli, trim($_POST['semester_name']));
-    } else {
-        $error = 1;
-        $err = "Semester Name Cannot Be Empty";
-    }
-    if (isset($_POST['semester_start']) && !empty($_POST['semester_start'])) {
-        $semester_start = mysqli_real_escape_string($mysqli, trim($_POST['semester_start']));
-    } else {
-        $error = 1;
-        $err = "Semester Opening Dates Cannot Be Empty";
-    }
-    if (isset($_POST['semester_end']) && !empty($_POST['semester_end'])) {
-        $semester_end = mysqli_real_escape_string($mysqli, trim($_POST['semester_end']));
-    } else {
-        $error = 1;
-        $err = "Semester Closing  Dates Cannot Be Empty";
-    }
-    if (!$error) {
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_Calendar WHERE  (semester_name='$semester_name' AND academic_yr = '$academic_yr' AND faculty_id = '$view' AND details = '$details' )   ";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if (($semester_name == $row['semester_name']) && ($academic_yr == $row['academic_yr']) && ($view == $row['faculty_id']) && ($details  == $row['details'])) {
-                $err =  "Academic Dates Already Added";
+            if (($current_semester == $row['current_semester']) && ($current_academic_year == $row['current_academic_year'])) {
+                $err =  "$current_academic_year Already Has $current_semester Semester ";
+            } else {
+                $err =  "$current_academic_year Already Has $current_semester Semester";
             }
         } else {
-            $id = $_POST['id'];
-            $query = "INSERT INTO ezanaLMS_Calendar (id, faculty_id,  academic_yr, semester_start, semester_name, semester_end, details) VALUES(?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_AcademicSettings (current_academic_year, current_semester, start_date, end_date) VALUES(?,?,?,?)";
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssssss', $id, $view,  $academic_yr, $semester_start, $semester_name, $semester_end, $details);
+            $rc = $stmt->bind_param('ssss', $current_academic_year, $current_semester, $start_date, $end_date);
             $stmt->execute();
             if ($stmt) {
-                $success = "Educational Dates Updated";
+                $success = "Academic Dates Added";
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -138,16 +79,65 @@ if (isset($_POST['update_school_calendar'])) {
     }
 }
 
+/* Update Academic Settings  */
+if (isset($_POST['update_academic_years'])) {
+    $error = 0;
+    if (isset($_POST['current_academic_year']) && !empty($_POST['current_academic_year'])) {
+        $current_academic_year = mysqli_real_escape_string($mysqli, trim($_POST['current_academic_year']));
+    } else {
+        $error = 1;
+        $err = "Academic Year Cannot Be Empty";
+    }
+    if (isset($_POST['current_semester']) && !empty($_POST['current_semester'])) {
+        $current_semester = mysqli_real_escape_string($mysqli, trim($_POST['current_semester']));
+    } else {
+        $error = 1;
+        $err = "Semester Name Cannot Be Empty";
+    }
+    if (isset($_POST['start_date']) && !empty($_POST['start_date'])) {
+        $start_date = mysqli_real_escape_string($mysqli, trim($_POST['start_date']));
+    } else {
+        $error = 1;
+        $err = "Semester Opening Dates Cannot Be Empty";
+    }
+    if (isset($_POST['end_date']) && !empty($_POST['end_date'])) {
+        $end_date = mysqli_real_escape_string($mysqli, trim($_POST['end_date']));
+    } else {
+        $error = 1;
+        $err = "Semester Closing  Dates Cannot Be Empty";
+    }
+    if (isset($_POST['id']) && !empty($_POST['id'])) {
+        $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
+    } else {
+        $error = 1;
+        $err = "ID Cannot Be Empty";
+    }
+
+    if (!$error) {
+        $query = "UPDATE  ezanaLMS_AcademicSettings SET current_academic_year =?, current_semester =?, start_date =?, end_date =? WHERE id = ?";
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param('sssss', $current_academic_year, $current_semester, $start_date, $end_date, $id);
+        $stmt->execute();
+        if ($stmt) {
+            $success = "Academic Dates Updated";
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
+
+
 /* Delete Important Dates */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
-    $adn = "DELETE FROM ezanaLMS_Calendar WHERE id=?";
+    /* Dont Accidentally Delete Current Semester */
+    $adn = "DELETE FROM ezanaLMS_AcademicSettings WHERE id=? && status !='Current'";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=important_dates");
+        $success = "Deleted" && header("refresh:1; url=academic_dates_settings");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -169,12 +159,12 @@ require_once('partials/head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Overall School Important Dates</h1>
+                            <h1 class="m-0 text-dark">Academic Calendar Settings</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                <li class="breadcrumb-item active">Important Dates</li>
+                                <li class="breadcrumb-item active">Academic Dates</li>
                             </ol>
                         </div>
                     </div>
@@ -192,7 +182,7 @@ require_once('partials/head.php');
                                     <div class="modal-dialog  modal-xl">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Add Important Dates </h4>
+                                                <h4 class="modal-title">Add Academic Dates </h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -200,44 +190,27 @@ require_once('partials/head.php');
                                             <div class="modal-body">
                                                 <form method="post" enctype="multipart/form-data" role="form">
                                                     <div class="card-body">
-                                                        <?php
-                                                        /* Persisit Academic Settings */
-                                                        $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` WHERE status = 'Current' ";
-                                                        $stmt = $mysqli->prepare($ret);
-                                                        $stmt->execute(); //ok
-                                                        $res = $stmt->get_result();
-                                                        while ($academic_settings = $res->fetch_object()) {
-                                                        ?>
-                                                            <div class="row">
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Academic Year </label>
-                                                                    <input type="text" readonly required value="<?php echo $academic_settings->current_academic_year; ?>" name="academic_yr" class="form-control">
-                                                                </div>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="">Semester </label>
-                                                                    <input type="text" readonly required value="<?php echo $academic_settings->current_semester; ?>" name="semester_name" class="form-control" id="exampleInputEmail1">
-                                                                    <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                        <?php
-                                                        } ?>
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
-                                                                <label for="">Start Date</label>
-                                                                <input type="date" required name="semester_start" class="form-control" id="exampleInputEmail1">
+                                                                <label for="">Academic Year</label>
+                                                                <input type="text" required name="current_academic_year" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-6">
-                                                                <label for="">End Date</label>
-                                                                <input type="date" required name="semester_end" class="form-control">
+                                                                <label for="">Semester</label>
+                                                                <input type="text" required name="current_semester" class="form-control">
                                                             </div>
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Description</label>
-                                                                <textarea rows="3" type="text" required name="details" class="form-control Summernote"></textarea>
+                                                            <div class="form-group col-md-6">
+                                                                <label for="">Semester Opening Date</label>
+                                                                <input type="date" required name="start_date" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label for=""> Semester Closing Dates</label>
+                                                                <input type="date" required name="end_date" class=" form-control">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="text-right">
-                                                        <button type="submit" name="add_school_calendar" class="btn btn-primary">Submit</button>
+                                                        <button type="submit" name="add_academic_years" class="btn btn-primary">Submit</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -253,20 +226,19 @@ require_once('partials/head.php');
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-12">
-                                                <table id="example1" class="table table-bordered table-striped">
+                                                <table class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th>Academic Year</th>
                                                             <th>Semester</th>
                                                             <th>Start Date </th>
                                                             <th>End Date </th>
-                                                            <th>Description</th>
                                                             <th>Manage</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_Calendar`  ORDER BY `ezanaLMS_Calendar`.`semester_start` ASC   ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_AcademicSettings`  ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
@@ -274,11 +246,20 @@ require_once('partials/head.php');
                                                         ?>
 
                                                             <tr>
-                                                                <td><?php echo $cal->academic_yr; ?></td>
-                                                                <td><?php echo $cal->semester_name; ?></td>
-                                                                <td><?php echo date('d M Y', strtotime($cal->semester_start)); ?></td>
-                                                                <td><?php echo  date('d M Y', strtotime($cal->semester_end)); ?></td>
-                                                                <td><?php echo $cal->details; ?></td>
+                                                                <td>
+                                                                    <?php
+                                                                    echo $cal->current_academic_year;
+                                                                    /* Show If Its Current */
+                                                                    if ($cal->status == 'Current') {
+                                                                        echo "<br> <span class='badge badge-success'>Current</span> ";
+                                                                    } else {
+                                                                        /* Nothing */
+                                                                    }
+                                                                    ?>
+                                                                </td>
+                                                                <td><?php echo $cal->current_semester; ?></td>
+                                                                <td><?php echo date('d M Y', strtotime($cal->start_date)); ?></td>
+                                                                <td><?php echo  date('d M Y', strtotime($cal->end_date)); ?></td>
                                                                 <td>
                                                                     <a class="badge badge-primary" data-toggle="modal" href="#update-calendar-<?php echo $cal->id; ?>">
                                                                         <i class="fas fa-edit"></i>
@@ -289,7 +270,7 @@ require_once('partials/head.php');
                                                                         <div class="modal-dialog  modal-xl">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
-                                                                                    <h4 class="modal-title">Update <?php echo $cal->academic_yr; ?> <?php echo $cal->semester_name; ?> Important Dates </h4>
+                                                                                    <h4 class="modal-title">Update <?php echo $cal->current_academic_year; ?> <?php echo $cal->current_semester; ?> Dates </h4>
                                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                         <span aria-hidden="true">&times;</span>
                                                                                     </button>
@@ -299,33 +280,26 @@ require_once('partials/head.php');
                                                                                         <div class="card-body">
                                                                                             <div class="row">
                                                                                                 <div class="form-group col-md-6">
-                                                                                                    <label for="">Academic Year Name</label>
-                                                                                                    <input type="text" readonly value="<?php echo $cal->academic_yr; ?>" required name="academic_yr" class="form-control">
-                                                                                                </div>
-                                                                                                <div class="form-group col-md-6">
-                                                                                                    <label for="">Semester Name</label>
-                                                                                                    <input type="text" readonly value="<?php echo $cal->semester_name; ?>" required name="semester_name" class="form-control" id="exampleInputEmail1">
+                                                                                                    <label for="">Academic Year</label>
+                                                                                                    <input type="text" required name="current_academic_year" value="<?php echo $cal->current_academic_year; ?>" class="form-control">
                                                                                                     <input type="hidden" required name="id" value="<?php echo $cal->id; ?>" class="form-control">
                                                                                                 </div>
-
-                                                                                            </div>
-                                                                                            <div class="row">
                                                                                                 <div class="form-group col-md-6">
-                                                                                                    <label for="">Start Date</label>
-                                                                                                    <input type="date" value="<?php echo $cal->semester_start; ?>" required name="semester_start" class="form-control" id="exampleInputEmail1">
+                                                                                                    <label for="">Semester</label>
+                                                                                                    <input type="text" required name="current_semester" value="<?php echo $cal->current_semester; ?>" class="form-control">
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-6">
-                                                                                                    <label for="">End Date</label>
-                                                                                                    <input type="date" value="<?php echo $cal->semester_end; ?>" required name="semester_end" class="form-control">
+                                                                                                    <label for="">Semester Opening Date</label>
+                                                                                                    <input type="date" required value="<?php echo $cal->start_date; ?>" name="start_date" class="form-control">
                                                                                                 </div>
-                                                                                                <div class="form-group col-md-12">
-                                                                                                    <label for="">Description</label>
-                                                                                                    <textarea rows="3" type="text" required name="details" class="form-control Summernote"><?php echo $cal->details; ?></textarea>
+                                                                                                <div class="form-group col-md-6">
+                                                                                                    <label for=""> Semester Closing Dates</label>
+                                                                                                    <input type="date" value="<?php echo $cal->end_date; ?>" required name="end_date" class=" form-control">
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="text-right">
-                                                                                            <button type="submit" name="update_school_calendar" class="btn btn-primary">Submit</button>
+                                                                                            <button type="submit" name="update_academic_years" class="btn btn-primary">Submit</button>
                                                                                         </div>
                                                                                     </form>
                                                                                 </div>
@@ -333,7 +307,6 @@ require_once('partials/head.php');
                                                                         </div>
                                                                     </div>
                                                                     <!-- End Update Modal -->
-
                                                                     <a class="badge badge-danger" href="#delete-<?php echo $cal->id; ?>" data-toggle="modal">
                                                                         <i class="fas fa-trash"></i>
                                                                         Delete
@@ -351,8 +324,9 @@ require_once('partials/head.php');
                                                                                 <div class="modal-body text-center text-danger">
                                                                                     <h4>Delete Dates?</h4>
                                                                                     <br>
+                                                                                    <p>Heads Up, You Are About To Delete This Academic Dates, This Operation Is Irreversible</p>
                                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                    <a href="important_dates?delete=<?php echo $cal->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                    <a href="academic_dates_settings?delete=<?php echo $cal->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

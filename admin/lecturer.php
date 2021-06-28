@@ -474,7 +474,7 @@ require_once('partials/head.php');
                                                         <div class="row">
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Module Name</label>
-                                                                <select class='form-control basic' id="ModuleCode" onchange="OptimizedModuleDetails(this.value);" name="module_code">
+                                                                <select class='form-control basic' style="width: 100%" id="ModuleCode" onchange="OptimizedModuleDetails(this.value);" name="module_code">
                                                                     <option selected>Select Module Code </option>
                                                                     <?php
                                                                     $ret = "SELECT * FROM `ezanaLMS_Modules`  WHERE ass_status = '0' AND faculty_id = '$lec->faculty_id'  ";
@@ -502,7 +502,7 @@ require_once('partials/head.php');
                                                             </div>
                                                             <?php
                                                             /* Persisit Academic Settings */
-                                                            $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` WHERE status = 'Current' ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();

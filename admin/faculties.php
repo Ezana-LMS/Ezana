@@ -147,7 +147,7 @@ require_once('partials/head.php');
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Faculty Number / Code</label>
-                                                                <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                                <input type="text" readonly required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -168,7 +168,7 @@ require_once('partials/head.php');
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Faculty Head Email</label>
-                                                                <input type="email" required name="email" id="FacultyHeadEmail" class="form-control">
+                                                                <input type="email" readonly required name="email" id="FacultyHeadEmail" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
