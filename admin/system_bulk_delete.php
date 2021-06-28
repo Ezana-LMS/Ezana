@@ -148,13 +148,13 @@ require_once('partials/head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-danger">Bulk Delete Operations</h1>
+                            <h1 class="m-0 text-danger">Delete Operations</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right small">
                                 <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                <li class="breadcrumb-item"><a href="courses">System Settings</a></li>
-                                <li class="breadcrumb-item active">Bulk Delete</li>
+                                <li class="breadcrumb-item"><a href="">System Settings</a></li>
+                                <li class="breadcrumb-item active">Delete Operations</li>
                             </ol>
                         </div>
                     </div>
@@ -540,12 +540,11 @@ require_once('partials/head.php');
                                                         <table class="table table-bordered table-striped">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Adm No</th>
-                                                                    <th>Name</th>
+                                                                    <th>Name & Admission</th>
                                                                     <th>Email</th>
                                                                     <th>Phone</th>
                                                                     <th>ID/Passport</th>
-                                                                    <th>Gender</th>
+                                                                    <th>Course Taking</th>
                                                                     <th>Manage</th>
                                                                 </tr>
                                                             </thead>
@@ -558,12 +557,11 @@ require_once('partials/head.php');
                                                                 while ($std = $res->fetch_object()) {
                                                                 ?>
                                                                     <tr>
-                                                                        <td><?php echo $std->admno; ?></td>
-                                                                        <td><?php echo $std->name; ?></td>
+                                                                        <td><?php echo $std->admno . "<br>". $std->name; ?></td>
                                                                         <td><?php echo $std->email; ?></td>
                                                                         <td><?php echo $std->phone; ?></td>
                                                                         <td><?php echo $std->idno; ?></td>
-                                                                        <td><?php echo $std->gender; ?></td>
+                                                                        <td><?php echo $std->course;?></td>
                                                                         <td>
                                                                             <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $std->id; ?>">
                                                                                 <i class="fas fa-trash"></i>
