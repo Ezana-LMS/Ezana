@@ -162,7 +162,7 @@ require_once('partials/head.php');
                                                     <a class="nav-link" data-toggle="pill" href="#academic_settings" role="tab">Academic Settings</a>
                                                     <a class="nav-link" data-toggle="pill" href="#calendar" role="tab">Calendar Plugin Url</a>
                                                     <a class="nav-link" data-toggle="pill" href="#mailer" role="tab">Mailing Settings</a>
-
+                                                    <a class="nav-link" data-toggle="pill" href="#utilities" role="tab"> System Utilities</a>
 
                                                 </div>
                                             </div>
@@ -356,7 +356,13 @@ require_once('partials/head.php');
                                                         <?php
                                                         } ?>
                                                     </div>
-
+                                                    <div class="tab-pane fade" id="utilities" role="tabpanel">
+                                                        <br><br><br>
+                                                        <div class="text-center">
+                                                            <a href="system_settings_database_backup" target="_blank" class="btn btn-primary">Backup System Database</a>
+                                                            <a href="../FileManager/" target="_blank" class="btn btn-primary">Ezana LMS Files Explorer</a>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
