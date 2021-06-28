@@ -20,12 +20,216 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
-
 session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
+require_once('../config/codeGen.php');
 admin_checklogin();
+
+/* Add Faculty */
+if (isset($_POST['add_faculty'])) {
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Faculty Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Faculty Name Cannot Be Empty";
+    }
+    if (!$error) {
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_Faculties WHERE  code='$code' || name ='$name' ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($code == $row['code']) {
+                $err =  "Faculty With This Code Already Exists";
+            } else {
+                $err = "Faculty Name Already Exists";
+            }
+        } else {
+            $id = $_POST['id'];
+            $details = $_POST['details'];
+            $head = $_POST['head'];
+            $email = $_POST['email'];
+
+            $query = "INSERT INTO ezanaLMS_Faculties (id, code, name, details, head, email) VALUES(?,?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ssssss', $id, $code, $name, $details, $head, $email);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Faculty Added" && header("refresh:1; url=system_batch_addition");
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+
+/* Add Departments */
+if (isset($_POST['add_dept'])) {
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Department Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Department Name Cannot Be Empty";
+    }
+    if (!$error) {
+        $sql = "SELECT * FROM  ezanaLMS_Departments WHERE  code='$code' || name ='$name' ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($code == $row['code']) {
+                $err =  "Department With This Code Already Exists";
+            } else {
+                $err = "Department Name Already Exists";
+            }
+        } else {
+            $id = $_POST['id'];
+            $faculty = $_POST['faculty'];
+            $details = $_POST['details'];
+            $hod = $_POST['hod'];
+            $faculty_name = $_POST['faculty_name'];
+            $email = $_POST['email'];
+
+            $query = "INSERT INTO ezanaLMS_Departments (id, code, name, faculty_id, faculty_name, details, hod, email) VALUES(?,?,?,?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ssssssss', $id, $code, $name, $faculty, $faculty_name, $details, $hod, $email);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "$name Added" && header("refresh:1; url=system_batch_addition");
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+
+/* Add Course */
+if (isset($_POST['add_course'])) {
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Couse  Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Course Name Cannot Be Empty";
+    }
+    if (isset($_POST['department_id']) && !empty($_POST['department_id'])) {
+        $department_id = mysqli_real_escape_string($mysqli, trim($_POST['department_id']));
+    } else {
+        $error = 1;
+        $err = "Department Name / ID  Cannot Be Empty";
+    }
+    if (!$error) {
+        $sql = "SELECT * FROM  ezanaLMS_Courses WHERE  code='$code' || name ='$name' ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($code == $row['code']) {
+                $err =  "Course With This Code Already Exists";
+            } else {
+                $err = "Course Name Already Exists";
+            }
+        } else {
+            $id = $_POST['id'];
+            $details = $_POST['details'];
+            $department_name = $_POST['department_name'];
+            $faculty_id = $_POST['faculty_id'];
+            $faculty_name = $_POST['faculty_name'];
+            $hod = $_POST['hod'];
+            $email = $_POST['email'];
+            $query = "INSERT INTO ezanaLMS_Courses (id, hod, email, code, name, details, department_id, faculty_id, faculty_name, department_name) VALUES(?,?,?,?,?,?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ssssssssss', $id, $hod, $email, $code, $name, $details, $department_id, $faculty_id, $faculty_name,  $department_name);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "$name Added" && header("refresh:1; url=system_batch_addition");
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+
+/* Add Module */
+if (isset($_POST['add_module'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Module Code Cannot Be Empty";
+    }
+    if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
+        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['course_name']));
+    } else {
+        $error = 1;
+        $err = "Course Name Cannot Be Empty";
+    }
+    if (isset($_POST['course_id']) && !empty($_POST['course_id'])) {
+        $course_id = mysqli_real_escape_string($mysqli, trim($_POST['course_id']));
+    } else {
+        $error = 1;
+        $err = "Course ID Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Module Name Cannot Be Empty";
+    }
+    if (!$error) {
+        //prevent Double entries
+        $sql = "SELECT * FROM  ezanaLMS_Modules WHERE  code='$code' || name ='$name' ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($code == $row['code']) {
+                $err =  "Module With This Code Already Exists";
+            } else {
+                $err = "Module  Name Already Exists";
+            }
+        } else {
+            $id = $_POST['id'];
+            $details = $_POST['details'];
+            $course_duration = $_POST['course_duration'];
+            $exam_weight_percentage = $_POST['exam_weight_percentage'];
+            $cat_weight_percentage = $_POST['cat_weight_percentage'];
+            $lectures_number = $_POST['lectures_number'];
+            $created_at = date('d M Y');
+            $faculty_id = $_POST['faculty_id'];
+
+            $query = "INSERT INTO ezanaLMS_Modules (id, name, code, details, course_name, course_id, course_duration, exam_weight_percentage, cat_weight_percentage, lectures_number, created_at, faculty_id) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('ssssssssssss', $id, $name, $code, $details, $course_name, $course_id, $course_duration, $exam_weight_percentage, $cat_weight_percentage, $lectures_number, $created_at, $faculty_id);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "$name Module Added" && header("refresh:1; url=system_batch_addition");
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
 
 require_once('partials/head.php');
 ?>
