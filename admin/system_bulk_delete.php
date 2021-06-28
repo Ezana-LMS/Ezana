@@ -281,7 +281,7 @@ require_once('partials/head.php');
                                                                                         <div class="modal-body text-center text-danger">
                                                                                             <h4>Delete <?php echo $dep->name; ?> ?</h4>
                                                                                             <br>
-                                                                                            <p>Heads Up, You Are About To Delete <?php echo $dep->name;?>. This Operation Is Irreversible.</p>
+                                                                                            <p>Heads Up, You Are About To Delete <?php echo $dep->name; ?>. This Operation Is Irreversible.</p>
                                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
                                                                                             <a href="system_bulk_delete?department=<?php echo $dep->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                         </div>
@@ -295,9 +295,67 @@ require_once('partials/head.php');
                                                                 } ?>
                                                             </tbody>
                                                         </table>
-                                                        </table>
                                                     </div>
+
+
                                                     <div class="tab-pane fade" id="courses" role="tabpanel">
+                                                        <table id="courses" class="table table-bordered table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Code</th>
+                                                                    <th>Name</th>
+                                                                    <th>Course Head</th>
+                                                                    <th>Course Head Email</th>
+                                                                    <th>Department</th>
+                                                                    <th>Manage</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_Courses`";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($courses = $res->fetch_object()) {
+                                                                ?>
+                                                                    <tr>
+                                                                        <td><?php echo $courses->code; ?></td>
+                                                                        <td><?php echo $courses->name; ?></td>
+                                                                        <td><?php echo $courses->head; ?></td>
+                                                                        <td><?php echo $courses->email; ?></td>
+                                                                        <td><?php echo $courses->department_name; ?></td>
+                                                                        <td>
+                                                                            <a class="badge badge-danger" href="#delete-<?php echo $courses->id; ?>" data-toggle="modal">
+                                                                                <i class="fas fa-trash"></i>
+                                                                                Delete
+                                                                            </a>
+                                                                            <!-- Delete Confirmation Modal -->
+                                                                            <div class="modal fade" id="delete-<?php echo $courses->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body text-center text-danger">
+                                                                                            <h4>Delete <?php echo $courses->name; ?> ?</h4>
+                                                                                            <br>
+                                                                                            <p>Heads Up, You Are About To Delete <?php echo $courses->name; ?>. This Operation Is Irreversible.</p>
+                                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                            <a href="system_bulk_delete?course=<?php echo $courses->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- End Delete Confirmation Modal -->
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php
+                                                                } ?>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                     <div class="tab-pane fade" id="modules" role="tabpanel">
                                                     </div>
