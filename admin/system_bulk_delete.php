@@ -41,7 +41,6 @@ if (isset($_GET['faculty'])) {
     }
 }
 
-
 /* Delete Departments */
 if (isset($_GET['department'])) {
     $delete = $_GET['department'];
@@ -185,7 +184,7 @@ require_once('partials/head.php');
                                             <div class="col-7 col-sm-9">
                                                 <div class="tab-content" id="vert-tabs-tabContent">
                                                     <div class="tab-pane text-left fade show active" id="faculties" role="tabpanel">
-                                                        <table id="faculties" class=" table table-bordered table-striped">
+                                                        <table class=" table table-bordered table-striped">
                                                             <thead>
                                                                 <tr>
                                                                     <th>Code</th>
@@ -238,7 +237,65 @@ require_once('partials/head.php');
                                                             </tbody>
                                                         </table>
                                                     </div>
+
                                                     <div class="tab-pane fade" id="departments" role="tabpanel">
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Code</th>
+                                                                    <th>Name</th>
+                                                                    <th>HOD</th>
+                                                                    <th>Email</th>
+                                                                    <th>Manage</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_Departments` ORDER BY `name` ASC   ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($dep = $res->fetch_object()) {
+                                                                ?>
+                                                                    <tr>
+                                                                        <td><?php echo $dep->code; ?></td>
+                                                                        <td><?php echo $dep->name; ?></td>
+                                                                        <td><?php echo $dep->hod; ?></td>
+                                                                        <td><?php echo $dep->email; ?></td>
+                                                                        <td>
+
+                                                                            <a class="badge badge-danger" href="#delete-<?php echo $dep->id; ?>" data-toggle="modal">
+                                                                                <i class="fas fa-trash"></i>
+                                                                                Delete
+                                                                            </a>
+                                                                            <!-- Delete Confirmation Modal -->
+                                                                            <div class="modal fade" id="delete-<?php echo $dep->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body text-center text-danger">
+                                                                                            <h4>Delete <?php echo $dep->name; ?> ?</h4>
+                                                                                            <br>
+                                                                                            <p>Heads Up, You Are About To Delete <?php echo $dep->name;?>. This Operation Is Irreversible.</p>
+                                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                            <a href="system_bulk_delete?department=<?php echo $dep->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- End Delete Confirmation Modal -->
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php
+                                                                } ?>
+                                                            </tbody>
+                                                        </table>
+                                                        </table>
                                                     </div>
                                                     <div class="tab-pane fade" id="courses" role="tabpanel">
                                                     </div>
