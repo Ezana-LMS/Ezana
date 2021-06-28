@@ -167,8 +167,23 @@ require_once('partials/head.php');
                                             </div>
 
                                             <div class="col-lg-4 col-6">
-                                                <a href="important_dates">
+                                                <a href="academic_dates_settings">
+                                                    <div class="small-box bg-info">
+                                                        <div class="inner">
+                                                            <h3>Academic Yr Settings</h3>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="fas fa-cogs"></i>
+                                                        </div>
+                                                        <div class="small-box-footer">
+                                                            <i class="fas fa-arrow-circle-right"></i>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
 
+                                            <div class="col-lg-4 col-6">
+                                                <a href="important_dates">
                                                     <div class="small-box bg-info">
                                                         <div class="inner">
                                                             <h3>Important Dates</h3>
