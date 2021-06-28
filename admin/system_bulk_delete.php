@@ -26,6 +26,111 @@ session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
 admin_checklogin();
+/* Delete Faculties */
+if (isset($_GET['faculty'])) {
+    $delete = $_GET['faculty'];
+    $adn = "DELETE FROM ezanaLMS_Faculties WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=system_bulk_delete");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+
+/* Delete Departments */
+if (isset($_GET['department'])) {
+    $delete = $_GET['department'];
+    $adn = "DELETE FROM ezanaLMS_Departments WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=system_bulk_delete");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete Courses */
+if (isset($_GET['course'])) {
+    $delete = $_GET['course'];
+    $adn = "DELETE FROM ezanaLMS_Courses WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=system_bulk_delete");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete Modules */
+if (isset($_GET['module'])) {
+    $delete = $_GET['module'];
+    $adn = "DELETE FROM ezanaLMS_Modules WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=system_bulk_delete");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete Student */
+if (isset($_GET['student'])) {
+    $delete = $_GET['student'];
+    $adn = "DELETE FROM ezanaLMS_Students WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=system_bulk_delete");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete Lecturers */
+if (isset($_GET['lecturer'])) {
+    $delete = $_GET['lecturer'];
+    $adn = "DELETE FROM ezanaLMS_Lecturers WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=system_bulk_delete");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
+
+/* Delete On Non Teaching Staff */
+if (isset($_GET['staff'])) {
+    $delete = $_GET['staff'];
+    $adn = "DELETE FROM ezanaLMS_Admins WHERE id=?";
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $delete);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Deleted" && header("refresh:1; url=system_bulk_delete");
+    } else {
+        $info = "Please Try Again Or Try Later";
+    }
+}
 
 require_once('partials/head.php');
 ?>
@@ -80,25 +185,70 @@ require_once('partials/head.php');
                                             <div class="col-7 col-sm-9">
                                                 <div class="tab-content" id="vert-tabs-tabContent">
                                                     <div class="tab-pane text-left fade show active" id="faculties" role="tabpanel">
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada lacus ullamcorper dui molestie, sit amet congue quam finibus. Etiam ultricies nunc non magna feugiat commodo. Etiam odio magna, mollis auctor felis vitae, ullamcorper ornare ligula. Proin pellentesque tincidunt nisi, vitae ullamcorper felis aliquam id. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin id orci eu lectus blandit suscipit. Phasellus porta, ante et varius ornare, sem enim sollicitudin eros, at commodo leo est vitae lacus. Etiam ut porta sem. Proin porttitor porta nisl, id tempor risus rhoncus quis. In in quam a nibh cursus pulvinar non consequat neque. Mauris lacus elit, condimentum ac condimentum at, semper vitae lectus. Cras lacinia erat eget sapien porta consectetur.
+                                                        <table id="faculties" class=" table table-bordered table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Code</th>
+                                                                    <th>Name</th>
+                                                                    <th>Head</th>
+                                                                    <th>Email</th>
+                                                                    <th>Manage</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_Faculties`  ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($faculty = $res->fetch_object()) {
+                                                                ?>
+                                                                    <tr>
+                                                                        <td><?php echo $faculty->code; ?></td>
+                                                                        <td><?php echo $faculty->name; ?></td>
+                                                                        <td><?php echo $faculty->head; ?></td>
+                                                                        <td><?php echo $faculty->email; ?></td>
+                                                                        <td>
+                                                                            <!-- End Update Modal -->
+                                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $faculty->id; ?>"> <i class="fas fa-trash"></i> Delete</a>
+                                                                            <!-- Delete Confirmation Modal -->
+                                                                            <div class="modal fade" id="delete-<?php echo $faculty->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body text-center text-danger">
+                                                                                            <h4>Delete <?php echo $faculty->name; ?> ?</h4>
+                                                                                            <br>
+                                                                                            <p>Heads Up, You are about to delete <?php echo $faculty->name; ?>. This action is irrevisble.</p>
+                                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                            <a href="system_bulk_delete?faculty=<?php echo $faculty->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php
+                                                                } ?>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                     <div class="tab-pane fade" id="departments" role="tabpanel">
-                                                        Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam.
                                                     </div>
                                                     <div class="tab-pane fade" id="courses" role="tabpanel">
-                                                        Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare magna.
                                                     </div>
                                                     <div class="tab-pane fade" id="modules" role="tabpanel">
-                                                        Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis.
                                                     </div>
                                                     <div class="tab-pane fade" id="non-teaching-staff" role="tabpanel">
-                                                        Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis.
                                                     </div>
                                                     <div class="tab-pane fade" id="lecturers" role="tabpanel">
-                                                        Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis.
                                                     </div>
                                                     <div class="tab-pane fade" id="students" role="tabpanel">
-                                                        Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis.
                                                     </div>
                                                 </div>
                                             </div>
