@@ -297,7 +297,6 @@ require_once('partials/head.php');
                                                         </table>
                                                     </div>
 
-
                                                     <div class="tab-pane fade" id="courses" role="tabpanel">
                                                         <table class="table table-bordered table-striped">
                                                             <thead>
@@ -357,6 +356,7 @@ require_once('partials/head.php');
                                                             </tbody>
                                                         </table>
                                                     </div>
+
                                                     <div class="tab-pane fade" id="modules" role="tabpanel">
                                                         <table class="table table-bordered table-striped">
                                                             <thead>
@@ -414,6 +414,7 @@ require_once('partials/head.php');
                                                             </tbody>
                                                         </table>
                                                     </div>
+
                                                     <div class="tab-pane fade" id="non-teaching-staff" role="tabpanel">
                                                         <table class="table table-bordered table-striped">
                                                             <thead>
@@ -446,7 +447,6 @@ require_once('partials/head.php');
                                                                                 Delete
                                                                             </a>
                                                                             <!-- Delete Confirmation Modal -->
-
                                                                             <div class="modal fade" id="delete-<?php echo $admin->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                                                                     <div class="modal-content">
@@ -459,13 +459,13 @@ require_once('partials/head.php');
                                                                                         <div class="modal-body text-center text-danger">
                                                                                             <h4>Delete <?php echo $admin->name; ?> Details ?</h4>
                                                                                             <br>
+                                                                                            <p>Heads Up, You Are About To Delete <?php echo $admin->rank . " " . $admin->name; ?>. This Operation Is Irreversible.</p>
                                                                                             <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
                                                                                             <a href="system_bulk_delete?staff=<?php echo $admin->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-
                                                                             <!-- End Delete Confirmation Modal -->
                                                                         </td>
                                                                     </tr>
@@ -474,9 +474,127 @@ require_once('partials/head.php');
                                                             </tbody>
                                                         </table>
                                                     </div>
+
                                                     <div class="tab-pane fade" id="lecturers" role="tabpanel">
+                                                        <table id="lecturers" class="table table-bordered table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Number</th>
+                                                                    <th>Name</th>
+                                                                    <th>Email</th>
+                                                                    <th>Phone</th>
+                                                                    <th>ID/Passport</th>
+                                                                    <th>Manage</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers`  ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($lec = $res->fetch_object()) {
+                                                                ?>
+                                                                    <tr>
+                                                                        <td><?php echo $lec->number; ?></td>
+                                                                        <td><?php echo $lec->name; ?></td>
+                                                                        <td><?php echo $lec->email; ?></td>
+                                                                        <td><?php echo $lec->phone; ?></td>
+                                                                        <td><?php echo $lec->idno; ?></td>
+                                                                        <td>
+
+                                                                            <!-- End Lec Modal -->
+                                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $lec->id; ?>">
+                                                                                <i class="fas fa-trash"></i>
+                                                                                Delete
+                                                                            </a>
+                                                                            <!-- Delete Confirmation Modal -->
+                                                                            <div class="modal fade" id="delete-<?php echo $lec->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body text-center text-danger">
+                                                                                            <h4>Delete <?php echo $lec->name; ?> Details ?</h4>
+                                                                                            <br>
+                                                                                            <p>Heads Up, You Are About To Delete <?php echo $lec->name; ?>. This Operation Is Irreversible.</p>
+                                                                                            <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                            <a href="system_bulk_delete?lecturer=<?php echo $lec->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- End Delete Confirmation Modal -->
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php
+                                                                } ?>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                     <div class="tab-pane fade" id="students" role="tabpanel">
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Adm No</th>
+                                                                    <th>Name</th>
+                                                                    <th>Email</th>
+                                                                    <th>Phone</th>
+                                                                    <th>ID/Passport</th>
+                                                                    <th>Gender</th>
+                                                                    <th>Manage</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `ezanaLMS_Students` ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($std = $res->fetch_object()) {
+                                                                ?>
+                                                                    <tr>
+                                                                        <td><?php echo $std->admno; ?></td>
+                                                                        <td><?php echo $std->name; ?></td>
+                                                                        <td><?php echo $std->email; ?></td>
+                                                                        <td><?php echo $std->phone; ?></td>
+                                                                        <td><?php echo $std->idno; ?></td>
+                                                                        <td><?php echo $std->gender; ?></td>
+                                                                        <td>
+                                                                            <a class="badge badge-danger" data-toggle="modal" href="#delete-<?php echo $std->id; ?>">
+                                                                                <i class="fas fa-trash"></i>
+                                                                                Delete
+                                                                            </a>
+                                                                            <!-- Delete Confirmation Modal -->
+                                                                            <div class="modal fade" id="delete-<?php echo $std->id; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                <span aria-hidden="true">&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body text-center text-danger">
+                                                                                            <h4>Delete <?php echo $std->name; ?> Details ?</h4>
+                                                                                            <br>
+                                                                                            <p>Heads Up, You Are About To Delete <?php echo $std->admno . " " . $std->name; ?>. This Operation Is Irrevisible.</p> <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                                            <a href="system_bulk_delete?student=<?php echo $std->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- End Delete Confirmation Modal -->
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php
+                                                                } ?>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </div>
