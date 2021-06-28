@@ -54,20 +54,16 @@ if (isset($_POST['add_academic_years'])) {
         $error = 1;
         $err = "Semester Closing  Dates Cannot Be Empty";
     }
-    if (isset($_POST['id']) && !empty($_POST['id'])) {
-        $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
-    } else {
-        $error = 1;
-        $err = "ID Cannot Be Empty";
-    }
 
     if (!$error) {
-        $sql = "SELECT * FROM  ezanaLMS_AcademicSettings";
+        $sql = "SELECT * FROM  ezanaLMS_AcademicSettings WHERE current_academic_year = '$current_academic_year' AND  current_semester = '$current_semester' ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
             if (($current_semester == $row['current_semester']) && ($current_academic_year == $row['current_academic_year'])) {
-                $err =  "$current_academic_year Already Has $current_semester ";
+                $err =  "$current_academic_year Already Has $current_semester Semester ";
+            } else {
+                $err =  "$current_academic_year Already Has $current_semester Semester";
             }
         } else {
             $query = "INSERT INTO ezanaLMS_AcademicSettings (current_academic_year, current_semester, start_date, end_date) VALUES(?,?,?,?)";
@@ -75,7 +71,7 @@ if (isset($_POST['add_academic_years'])) {
             $rc = $stmt->bind_param('ssss', $current_academic_year, $current_semester, $start_date, $end_date);
             $stmt->execute();
             if ($stmt) {
-                $success = "$current_academic_year Added With $current_semester";
+                $success = "Academic Dates Added";
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -110,15 +106,20 @@ if (isset($_POST['update_academic_years'])) {
         $error = 1;
         $err = "Semester Closing  Dates Cannot Be Empty";
     }
+    if (isset($_POST['id']) && !empty($_POST['id'])) {
+        $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
+    } else {
+        $error = 1;
+        $err = "ID Cannot Be Empty";
+    }
 
     if (!$error) {
-
         $query = "UPDATE  ezanaLMS_AcademicSettings SET current_academic_year =?, current_semester =?, start_date =?, end_date =? WHERE id = ?";
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param('sssss', $current_academic_year, $current_semester, $start_date, $end_date, $id);
         $stmt->execute();
         if ($stmt) {
-            $success = "$current_academic_year Added With $current_semester Updated";
+            $success = "Academic Dates Updated";
         } else {
             $info = "Please Try Again Or Try Later";
         }
@@ -225,7 +226,7 @@ require_once('partials/head.php');
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="col-12">
-                                                <table id="example1" class="table table-bordered table-striped">
+                                                <table class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th>Academic Year</th>
@@ -245,11 +246,20 @@ require_once('partials/head.php');
                                                         ?>
 
                                                             <tr>
-                                                                <td><?php echo $cal->current_academic_year; ?></td>
+                                                                <td>
+                                                                    <?php
+                                                                    echo $cal->current_academic_year;
+                                                                    /* Show If Its Current */
+                                                                    if ($cal->status == 'Current') {
+                                                                        echo "<br> <span class='badge badge-success'>Current</span> ";
+                                                                    } else {
+                                                                        /* Nothing */
+                                                                    }
+                                                                    ?>
+                                                                </td>
                                                                 <td><?php echo $cal->current_semester; ?></td>
                                                                 <td><?php echo date('d M Y', strtotime($cal->start_date)); ?></td>
                                                                 <td><?php echo  date('d M Y', strtotime($cal->end_date)); ?></td>
-                                                                <td><?php echo $cal->details; ?></td>
                                                                 <td>
                                                                     <a class="badge badge-primary" data-toggle="modal" href="#update-calendar-<?php echo $cal->id; ?>">
                                                                         <i class="fas fa-edit"></i>
@@ -272,7 +282,7 @@ require_once('partials/head.php');
                                                                                                 <div class="form-group col-md-6">
                                                                                                     <label for="">Academic Year</label>
                                                                                                     <input type="text" required name="current_academic_year" value="<?php echo $cal->current_academic_year; ?>" class="form-control">
-                                                                                                    <input type="hiddden" required name="id" value="<?php echo $cal->id; ?>" class="form-control">
+                                                                                                    <input type="hidden" required name="id" value="<?php echo $cal->id; ?>" class="form-control">
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-6">
                                                                                                     <label for="">Semester</label>
@@ -289,7 +299,7 @@ require_once('partials/head.php');
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="text-right">
-                                                                                            <button type="submit" name="add_academic_years" class="btn btn-primary">Submit</button>
+                                                                                            <button type="submit" name="update_academic_years" class="btn btn-primary">Submit</button>
                                                                                         </div>
                                                                                     </form>
                                                                                 </div>
@@ -297,7 +307,6 @@ require_once('partials/head.php');
                                                                         </div>
                                                                     </div>
                                                                     <!-- End Update Modal -->
-
                                                                     <a class="badge badge-danger" href="#delete-<?php echo $cal->id; ?>" data-toggle="modal">
                                                                         <i class="fas fa-trash"></i>
                                                                         Delete
