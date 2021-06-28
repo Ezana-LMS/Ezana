@@ -280,7 +280,7 @@ require_once('partials/head.php');
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="">Faculty Number / Code</label>
-                                                        <input type="text" readonly required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                        <input type="text" readonly required name="code" value="<?php echo $facultyalpha . $facultybeta; ?>" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -301,7 +301,7 @@ require_once('partials/head.php');
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="">Faculty Head Email</label>
-                                                        <input type="email" required  readonly name="email" id="FacultyHeadEmail" class="form-control">
+                                                        <input type="email" required readonly name="email" id="FacultyHeadEmail" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -316,7 +316,74 @@ require_once('partials/head.php');
                                             </div>
                                         </form>
                                         <hr>
-                                        
+                                        <div class="text-center">
+                                            <h5>Add Department</h5>
+                                        </div>
+                                        <form method="post" enctype="multipart/form-data" role="form">
+                                            <div class="card-body">
+                                                <div class="row border-primary">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Faculty Code</label>
+                                                        <select class='form-control basic' id="FacultyCode" onchange="OptimizedFacultyDetails(this.value);">
+                                                            <option selected>Select Faculty Code</option>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_Faculties` ORDER BY `code` ASC  ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($fac = $res->fetch_object()) {
+                                                            ?>
+                                                                <option><?php echo $fac->code; ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                    <input type="hidden" required name="faculty" id="FacultyID" class="form-control">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Faculty Name</label>
+                                                        <input type="text" required name="faculty_name" readonly class="form-control" id="FacultyName">
+                                                    </div>
+
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Department Name</label>
+                                                        <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                        <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Department Number / Code</label>
+                                                        <input type="text" required readonly name="code" value="<?php echo $departmentalpha . $departmentbeta; ?>" class="form-control">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">HOD</label>
+                                                        <select class='form-control basic' id="DepartmentHead" name="hod" onchange="getDepartmentHeadDetails(this.value);">
+                                                            <option selected>Select HOD</option>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($hods = $res->fetch_object()) {
+                                                            ?>
+                                                                <option><?php echo $hods->name; ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Email</label>
+                                                        <input type="email" required readonly name="email" id="DepartmentHeadEmail" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="exampleInputPassword1">Department Description</label>
+                                                        <textarea name="details" rows="10" class="form-control Summernote"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <button type="submit" name="add_dept" class="btn btn-primary">Add Department</button>
+                                            </div>
+                                        </form>
+                                        <hr>
                                     </div>
                                     <!-- /.card -->
                                 </div>
