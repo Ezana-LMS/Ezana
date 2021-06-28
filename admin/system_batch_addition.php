@@ -267,7 +267,56 @@ require_once('partials/head.php');
                             <div class="col-md-12">
                                 <div class="card card-primary card-outline">
                                     <div class="card-body">
-
+                                        <div class="text-center">
+                                            <h5>Add Faculty</h5>
+                                        </div>
+                                        <form method="post" enctype="multipart/form-data" role="form">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Faculty Name</label>
+                                                        <input type="text" required name="name" class="form-control" id="exampleInputEmail1">
+                                                        <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Faculty Number / Code</label>
+                                                        <input type="text" readonly required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Faculty Head</label>
+                                                        <select class='form-control basic' style="width: 100%;" id="FacultyHead" name="head" onchange="getFacultyHeadDetails(this.value);">
+                                                            <option selected>Select Faculty Head</option>
+                                                            <?php
+                                                            $ret = "SELECT * FROM `ezanaLMS_Admins` ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($admins = $res->fetch_object()) {
+                                                            ?>
+                                                                <option><?php echo $admins->name; ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Faculty Head Email</label>
+                                                        <input type="email" required  readonly name="email" id="FacultyHeadEmail" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="exampleInputPassword1">Faculty Description</label>
+                                                        <textarea id="addFaculty" name="details" rows="10" class="form-control Summernote"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <button type="submit" name="add_faculty" class=" btn btn-primary">Add Faculty</button>
+                                            </div>
+                                        </form>
+                                        <hr>
+                                        
                                     </div>
                                     <!-- /.card -->
                                 </div>
