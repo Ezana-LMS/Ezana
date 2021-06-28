@@ -357,8 +357,11 @@ require_once('partials/head.php');
                                                         } ?>
                                                     </div>
                                                     <div class="tab-pane fade" id="utilities" role="tabpanel">
-                                                        <a href="system_settings_database_backup" target="_blank" class="btn btn-primary">Backup System Database</a>
-                                                        <a href="../FileManager/" target="_blank" class="btn btn-primary">Ezana LMS Files Explorer</a>
+                                                        <br><br><br>
+                                                        <div class="text-center">
+                                                            <a href="system_settings_database_backup" target="_blank" class="btn btn-primary">Backup System Database</a>
+                                                            <a href="../FileManager/" target="_blank" class="btn btn-primary">Ezana LMS Files Explorer</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
