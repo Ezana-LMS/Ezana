@@ -38,7 +38,7 @@
                             </div>
                             <?php
                             /* Persisit Academic Settings */
-                            $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                            $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` WHERE status = 'Current' ";
                             $stmt = $mysqli->prepare($ret);
                             $stmt->execute(); //ok
                             $res = $stmt->get_result();
@@ -110,7 +110,7 @@
                             <hr>
                             <?php
                             /* Persisit Academic Settings */
-                            $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                            $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` WHERE status = 'Current' ";
                             $stmt = $mysqli->prepare($ret);
                             $stmt->execute(); //ok
                             $res = $stmt->get_result();

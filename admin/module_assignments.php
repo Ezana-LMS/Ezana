@@ -209,7 +209,7 @@ require_once('partials/head.php');
                                                             <tr>
                                                                 <td><?php echo $assignments->title; ?></td>
                                                                 <td><?php echo date('d M Y - g:ia', strtotime($assignments->created_at)); ?></td>
-                                                                <td><?php echo date('d M Y', strtotime($assignments->submission_deadline)); ?></td>
+                                                                <td><?php echo date('d M Y - g:ia', strtotime($assignments->submission_deadline)); ?></td>
                                                                 <td>
                                                                     <a target="_blank" href="../Data/Module_Assignments/<?php echo $assignments->attachments; ?>" class="badge badge-secondary">
                                                                         <i class="fas fa-eye"></i>
