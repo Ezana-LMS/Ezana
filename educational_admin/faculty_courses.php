@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Mon Jun 21 2021
+ * Created on Tue Jun 29 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -21,10 +21,11 @@
  */
 
 
+
 session_start();
 require_once('../config/config.php');
-require_once('../config/checklogin.php');
-admin_checklogin();
+require_once('../config/edu_admn_checklogin.php');
+edu_admn_checklogin();
 require_once('../config/codeGen.php');
 
 /* Add Course */
@@ -142,7 +143,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculties">Faculties</a></li>
+                                    <li class="breadcrumb-item"><a href="faculty?view=<?php echo $faculty->id; ?>">Faculty</a></li>
                                     <li class="breadcrumb-item active">Courses</li>
                                 </ol>
                             </div>
@@ -153,7 +154,7 @@ require_once('partials/head.php');
                         <div class="container-fluid">
                             <div class="col-md-12">
                                 <div class="text-center">
-                                    <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Courses</h1>
+                                    <h1 class="m-0 text-bold"><?php echo $faculty->name; ?> Courses</h1>
                                     <br>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
                                 </div>
@@ -213,7 +214,7 @@ require_once('partials/head.php');
                                                             <select class='form-control basic' id="CourseHead" name="hod" onchange="getCourseHeadDetails(this.value);">
                                                                 <option selected>Select Course Head</option>
                                                                 <?php
-                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers`  WHERE faculty_id = '$view'";
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
@@ -303,7 +304,7 @@ require_once('partials/head.php');
                                                                                             </div>
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Course Number / Code</label>
-                                                                                                <input type="text" required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
+                                                                                                <input type="text" required readonly name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="row">
