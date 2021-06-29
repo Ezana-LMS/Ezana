@@ -153,7 +153,6 @@ require_once('partials/head.php');
                                                         <a class="nav-link active" data-toggle="pill" href="#departments" role="tab">Departments</a>
                                                         <a class="nav-link" data-toggle="pill" href="#courses" role="tab">Courses</a>
                                                         <a class="nav-link" data-toggle="pill" href="#modules" role="tab">Modules</a>
-                                                        <a class="nav-link" data-toggle="pill" href="#non-teaching-staff" role="tab">Non Teaching Staff</a>
                                                         <a class="nav-link" data-toggle="pill" href="#lecturers" role="tab">Lecturers</a>
                                                         <a class="nav-link" data-toggle="pill" href="#students" role="tab">Students</a>
 
@@ -163,8 +162,7 @@ require_once('partials/head.php');
                                                 <div class="col-7 col-sm-9">
                                                     <div class="tab-content" id="vert-tabs-tabContent">
 
-
-                                                        <div class="tab-pane fade active" id="departments" role="tabpanel">
+                                                        <div class="show active tab-pane fade" id="departments" role="tabpanel">
                                                             <table class="table table-bordered table-striped">
                                                                 <thead>
                                                                     <tr>
@@ -177,7 +175,7 @@ require_once('partials/head.php');
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$view' ORDER BY `name` ASC   ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Departments` WHERE faculty_id = '$view'   ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
@@ -295,7 +293,7 @@ require_once('partials/head.php');
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$faculty'  ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$view'  ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
