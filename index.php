@@ -50,7 +50,7 @@
                         <a class="nav-link" href="admin/">Admin Portal</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="admin/">Educational Admin Portal</a>
+                        <a class="nav-link" href="educational_admin/">Educational Admin Portal</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="lecturer/">Lecturer Portal</a>

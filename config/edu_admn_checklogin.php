@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Mon Jun 21 2021
+ * Created on Tue Jun 29 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -20,11 +20,14 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
-require_once('../config/config.php');
-
-$rowCount = count($_POST["notifications"]);
-for ($i = 0; $i < $rowCount; $i++) {
-    mysqli_query($mysqli, "DELETE FROM ezanaLMS_Notifications WHERE id='" . $_POST["notifications"][$i] . "'");
+function edu_admn_checklogin()
+{
+    if ((strlen($_SESSION['email']) == 0) || (strlen($_SESSION['id']) == 0)) {
+        $host = $_SERVER['HTTP_HOST'];
+        $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+        $extra = "index";
+        $_SESSION["id"] = "";
+        $_SESSION["email"] = "";
+        header("Location: http://$host$uri/$extra");
+    }
 }
-header("Location:notifications");

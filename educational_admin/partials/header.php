@@ -1,7 +1,6 @@
 <?php
-$id  = $_SESSION['id'];
-$email = $_SESSION['email'];
-$ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id ='$id' || email = '$email' ";
+$email  = $_SESSION['email'];
+$ret = "SELECT * FROM `ezanaLMS_Admins` WHERE email ='$email' ";
 $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
@@ -12,7 +11,7 @@ while ($admin = $res->fetch_object()) {
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" data-enable-remember="true" href="#"><i class="text-primary fas fa-bars"></i></a>
+                <a class="nav-link" data-widget="pushmenu" data-enable-remember="true" href="#"><i class="fas fa-bars"></i></a>
             </li>
         </ul>
         <!-- Right navbar links -->
@@ -21,13 +20,13 @@ while ($admin = $res->fetch_object()) {
             <!-- Emails Dropdown Menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" target="_blank" href="../webmail/">
-                    <i class="text-primary far fa-envelope"></i>
+                    <i class="far fa-envelope"></i>
                 </a>
             </li>
             <!-- Notifications Dropdown Menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="text-primary far fa-bell"></i>
+                    <i class="far fa-bell"></i>
                     <?php
                     /* Count Unread Notifications */
                     $query = "SELECT COUNT(*)  FROM `ezanaLMS_Notifications` WHERE status = 'Unread' ";
@@ -65,22 +64,25 @@ while ($admin = $res->fetch_object()) {
 
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="text-primary fas fa-user"></i>
+                    <i class="fas fa-user"></i>
                     Hello <i><?php echo $admin->name; ?></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <a href="profile" class="dropdown-item">
-                        <i class="text-primary fas fa-user mr-2"></i>
+                        <i class="fas fa-user mr-2"></i>
                         Profile
                     </a>
                     <a href="calendar" class="dropdown-item">
-                        <i class="text-primary fas fa-calendar mr-2"></i>
+                        <i class="fas fa-calendar mr-2"></i>
                         Calendar
                     </a>
-
+                    <a href="report_bug" class="dropdown-item">
+                        <i class="fas fa-bug mr-2"></i>
+                        Bug Reports
+                    </a>
                     <div class="dropdown-divider"></div>
                     <a href="logout" class="dropdown-item">
-                        <i class="text-primary fas fa-power-off mr-2"></i>
+                        <i class="fas fa-power-off mr-2"></i>
                         Log Out
                     </a>
                 </div>
