@@ -65,7 +65,7 @@ if (isset($_POST['add_dept'])) {
             $rc = $stmt->bind_param('ssssssss', $id, $code, $name, $faculty, $faculty_name, $details, $hod, $email);
             $stmt->execute();
             if ($stmt) {
-                $success = "$name Added" && header("refresh:1; url=system_batch_addition");
+                $success = "$name Added" && header("refresh:1; url=system_batch_addition?view=$faculty_id");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -117,7 +117,7 @@ if (isset($_POST['add_course'])) {
             $rc = $stmt->bind_param('ssssssssss', $id, $hod, $email, $code, $name, $details, $department_id, $faculty_id, $faculty_name,  $department_name);
             $stmt->execute();
             if ($stmt) {
-                $success = "$name Added" && header("refresh:1; url=system_batch_addition");
+                $success = "$name Added" && header("refresh:1; url=system_batch_addition?view=$faculty_id");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -179,7 +179,7 @@ if (isset($_POST['add_module'])) {
             $rc = $stmt->bind_param('ssssssssssss', $id, $name, $code, $details, $course_name, $course_id, $course_duration, $exam_weight_percentage, $cat_weight_percentage, $lectures_number, $created_at, $faculty_id);
             $stmt->execute();
             if ($stmt) {
-                $success = "$name Module Added" && header("refresh:1; url=system_batch_addition");
+                $success = "$name Module Added" && header("refresh:1; url=system_batch_addition?view=$faculty_id");
             } else {
                 $info = "Please Try Again Or Try Later";
             }
@@ -252,7 +252,7 @@ require_once('partials/head.php');
                                                             <select class='form-control basic' style="width: 100%;" id="DepartmentHead" name="hod" onchange="getDepartmentHeadDetails(this.value);">
                                                                 <option selected>Select HOD</option>
                                                                 <?php
-                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id ='$view' ";
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
