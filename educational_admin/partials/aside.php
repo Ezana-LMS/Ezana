@@ -8,7 +8,7 @@
     while ($sys = $res->fetch_object()) {
     ?>
         <a href="" class="brand-link">
-            <img src="public/dist/img/<?php echo $sys->logo; ?>" alt="<?php echo $sys->sysname; ?> Logo" class="brand-image img-circle elevation-3">
+            <img src="../Data/SystemLogo/<?php echo $sys->logo; ?>" alt="<?php echo $sys->sysname; ?> Logo" class="brand-image img-circle elevation-3">
             <span class="brand-text font-weight-light"><?php echo $sys->sysname; ?></span>
         </a>
     <?php
@@ -25,7 +25,7 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <li class="nav-item">
-                        <a href="edu_admn_dashboard.php" class="nav-link">
+                        <a href="dashboard" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
@@ -34,7 +34,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="edu_admn_faculties.php?view=<?php echo $admin->school_id; ?>" class="nav-link">
+                        <a href="faculties?view=<?php echo $admin->school_id; ?>" class="nav-link">
                             <i class="nav-icon fas fa-university"></i>
                             <p>
                                 Faculties
@@ -42,7 +42,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="edu_admn_departments.php?view=<?php echo $admin->school_id; ?>" class="nav-link">
+                        <a href="departments?view=<?php echo $admin->school_id; ?>" class="nav-link">
                             <i class="nav-icon fas fa-building"></i>
                             <p>
                                 Departments
@@ -50,31 +50,31 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="edu_admn_courses.php?view=<?php echo $admin->school_id; ?>" class="nav-link">
-                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                        <a href="courses?view=<?php echo $admin->school_id; ?>" class="nav-link">
+                            <i class="nav-icon fas fas fa-chalkboard"></i>
                             <p>
                                 Courses
                             </p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="edu_admn_modules.php?view=<?php echo $admin->school_id; ?>" class="nav-link">
-                            <i class="nav-icon fas fa-chalkboard"></i>
+                        <a href="modules?view=<?php echo $admin->school_id; ?>" class="nav-link">
+                            <i class="nav-icon fas fa-cubes"></i>
                             <p>
                                 Modules
                             </p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="edu_admn_lecturers.php?view=<?php echo $admin->school_id; ?>" class="nav-link">
-                            <i class="nav-icon fas fa-user-tie"></i>
+                        <a href="lecturers?view=<?php echo $admin->school_id; ?>" class="nav-link">
+                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
                             <p>
                                 Lecturers
                             </p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="edu_admn_students.php?view=<?php echo $admin->school_id; ?>" class="nav-link">
+                        <a href="students?view=<?php echo $admin->school_id; ?>" class="nav-link">
                             <i class="nav-icon fas fa-user-graduate"></i>
                             <p>
                                 Students
@@ -91,13 +91,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="edu_admn_reports.php" class="nav-link">
+                                <a href="reports" class="nav-link">
                                     <i class="fas fa-angle-right nav-icon"></i>
                                     <p>Reports</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="edu_admn_system_settings.php" class="nav-link">
+                                <a href="system_settings" class="nav-link">
                                     <i class="fas fa-angle-right nav-icon"></i>
                                     <p>System Settings</p>
                                 </a>

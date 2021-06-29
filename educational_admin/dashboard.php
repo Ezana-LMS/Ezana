@@ -22,7 +22,7 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/checklogin.php');
+require_once('../config/edu_admn_checklogin.php');
 edu_admn_checklogin();
 require_once('../config/codeGen.php');
 require_once('partials/analytics.php');
@@ -88,7 +88,7 @@ require_once('partials/head.php');
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="edu_admn_faculties.php?view=<?php echo $admin->school_id; ?>">
+                                                    <a href="faculties?view=<?php echo $admin->school_id; ?>">
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
                                                                 <h3>Faculties</h3>
@@ -104,7 +104,7 @@ require_once('partials/head.php');
                                                     </a>
                                                 </div>
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="edu_admn_departments.php?view=<?php echo $admin->school_id; ?>">
+                                                    <a href="departments?view=<?php echo $admin->school_id; ?>">
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
                                                                 <h3>Departments</h3>
@@ -121,13 +121,13 @@ require_once('partials/head.php');
                                                 </div>
 
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="edu_admn_courses.php?view=<?php echo $admin->school_id; ?>">
+                                                    <a href="courses?view=<?php echo $admin->school_id; ?>">
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
                                                                 <h3>Courses</h3>
                                                             </div>
                                                             <div class="icon">
-                                                                <i class="fas fa-chalkboard-teacher"></i>
+                                                                <i class="fas fa-chalkboard"></i>
                                                             </div>
                                                             <div class="small-box-footer">
                                                                 <i class="fas fa-arrow-circle-right"></i>
@@ -138,13 +138,13 @@ require_once('partials/head.php');
                                                 </div>
 
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="edu_admn_modules.php?view=<?php echo $admin->school_id; ?>">
+                                                    <a href="modules?view=<?php echo $admin->school_id; ?>">
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
                                                                 <h3>Modules</h3>
                                                             </div>
                                                             <div class="icon">
-                                                                <i class="fas fa-chalkboard"></i>
+                                                                <i class="fas fa-cubes"></i>
                                                             </div>
                                                             <div class="small-box-footer">
                                                                 <i class="fas fa-arrow-circle-right"></i>
@@ -155,7 +155,7 @@ require_once('partials/head.php');
                                                 </div>
 
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="edu_admn_overall_school_calendar.php?view=<?php echo $admin->school_id; ?>">
+                                                    <a href="overall_school_calendar?view=<?php echo $admin->school_id; ?>">
 
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
@@ -173,14 +173,14 @@ require_once('partials/head.php');
 
 
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="edu_admn_lecturers.php?view=<?php echo $admin->school_id; ?>">
+                                                    <a href="lecturers?view=<?php echo $admin->school_id; ?>">
 
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
                                                                 <h3>Lecturers</h3>
                                                             </div>
                                                             <div class="icon">
-                                                                <i class="fas fa-user-tie"></i>
+                                                                <i class="fas fa-chalkboard-teacher"></i>
                                                             </div>
                                                             <div class="small-box-footer">
                                                                 <i class="fas fa-arrow-circle-right"></i>
@@ -191,7 +191,7 @@ require_once('partials/head.php');
                                                 </div>
 
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="edu_admn_students.php?view=<?php echo $admin->school_id; ?>">
+                                                    <a href="students?view=<?php echo $admin->school_id; ?>">
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
                                                                 <h3>Students</h3>
@@ -206,7 +206,6 @@ require_once('partials/head.php');
                                                         </div>
                                                     </a>
                                                 </div>
-
                                             </div>
                                             <hr>
                                             <div class="col-md-12">
@@ -229,8 +228,8 @@ require_once('partials/head.php');
                                                                 while ($req = $res->fetch_object()) {
                                                                 ?>
                                                                     <li>
-                                                                        <a href="edu_admn_user_requests.php?view=<?php echo $req->id; ?>">
-                                                                            <span class="text"><?php echo $req->request; ?></span>
+                                                                        <a href="requests?view=<?php echo $req->id; ?>">
+                                                                            <span class="text"><?php echo substr($req->request, 0, 50); ?>...</span>
                                                                             <small class="badge badge-success"><i class="far fa-clock"></i> <?php echo date('d M Y - g:ia', strtotime($req->created_at)); ?></small>
                                                                             <div class="progress">
                                                                                 <div class="progress-bar" style="width: <?php echo $req->progress; ?>%"></div>
@@ -240,7 +239,7 @@ require_once('partials/head.php');
                                                                             </span>
                                                                         </a>
                                                                     </li>
-                                                                    </a>
+                                                                    <br>
                                                                 <?php
                                                                 } ?>
                                                             </ul>
