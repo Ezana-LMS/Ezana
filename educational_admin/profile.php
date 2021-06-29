@@ -27,7 +27,6 @@ require_once('../config/edu_admn_checklogin.php');
 edu_admn_checklogin();
 $time = time();
 
-
 /* Update Profile Picture */
 if (isset($_POST['update_picture'])) {
     $id = $_SESSION['id'];
@@ -163,6 +162,10 @@ require_once('partials/head.php');
         <!-- Navbar -->
         <?php
         require_once('partials/header.php');
+        ?>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <?php require_once('partials/aside.php');
 
         $email  = $_SESSION['email'];
         $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE email ='$email' ";
@@ -175,10 +178,8 @@ require_once('partials/head.php');
                 $dpic = "<img height='150' width = '150' class='img-fluid' src='../assets/img/no-profile.png' alt='User profile picture'>";
             } else {
                 $dpic = "<img class='img-fluid img-square' height='150' width = '150' src='../Data/User_Profiles/admins/$admin->profile_pic' alt='User profile picture'>";
-            } ?>
-            <!-- /.navbar -->
-            <!-- Main Sidebar Container -->
-            <?php require_once('partials/aside.php'); ?>
+            }
+        ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
