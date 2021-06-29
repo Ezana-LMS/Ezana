@@ -77,10 +77,10 @@ require_once('partials/head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Advanced Courses Search</h1>
+                            <h1 class="m-0 text-bold">Advanced Courses Search</h1>
                         </div>
                         <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
+                            <ol class="breadcrumb float-sm-right small">
                                 <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                 <li class="breadcrumb-item"><a href="courses">Courses</a></li>
                                 <li class="breadcrumb-item active">Advanced Search</li>
@@ -174,7 +174,7 @@ require_once('partials/head.php');
                                                                                             </div>
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Course Number / Code</label>
-                                                                                                <input type="text" required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
+                                                                                                <input type="text" readonly required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="row">
