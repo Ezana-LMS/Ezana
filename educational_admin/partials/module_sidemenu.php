@@ -1,6 +1,6 @@
 <div class="col-md-3">
     <?php
-    $ret = "SELECT * FROM `ezanaLMS_Modules`  ORDER BY RAND()  LIMIT 8";
+    $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE faculty_id = '$view' ORDER BY RAND()  LIMIT 8";
     $stmt = $mysqli->prepare($ret);
     $stmt->execute(); //ok
     $res = $stmt->get_result();
