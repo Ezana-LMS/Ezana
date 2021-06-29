@@ -91,7 +91,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="reports" class="nav-link">
+                                <a href="reports?view=<?php echo $admin->school_id; ?>" class="nav-link">
                                     <i class="fas fa-angle-right nav-icon"></i>
                                     <p>Reports</p>
                                 </a>
