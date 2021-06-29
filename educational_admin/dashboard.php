@@ -87,7 +87,7 @@ require_once('partials/head.php');
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-lg-4 col-6">
-                                                    <a href="faculties?view=<?php echo $admin->school_id; ?>">
+                                                    <a href="faculty?view=<?php echo $admin->school_id; ?>">
                                                         <div class="small-box bg-info">
                                                             <div class="inner">
                                                                 <h3>Faculties</h3>
