@@ -37,7 +37,7 @@
                         <a href="faculty?view=<?php echo $admin->school_id; ?>" class="nav-link">
                             <i class="nav-icon fas fa-university"></i>
                             <p>
-                                Faculties
+                                Faculty
                             </p>
                         </a>
                     </li>
