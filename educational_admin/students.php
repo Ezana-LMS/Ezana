@@ -331,7 +331,7 @@ require_once('partials/head.php');
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $ret = "SELECT * FROM `ezanaLMS_Students` WHERE facuty_id = '$view' ";
+                                            $ret = "SELECT * FROM `ezanaLMS_Students` WHERE faculty_id = '$view' ";
                                             $stmt = $mysqli->prepare($ret);
                                             $stmt->execute(); //ok
                                             $res = $stmt->get_result();
