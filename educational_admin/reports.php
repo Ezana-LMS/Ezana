@@ -118,7 +118,7 @@ require_once('partials/head.php');
                                         </div>
 
                                         <div class="col-lg-4 col-6">
-                                            <a href="reports_overall_school_calendar">
+                                            <a href="reports_overall_school_calendar?view=<?php echo $faculty->id; ?>">
 
                                                 <div class="small-box bg-info">
                                                     <div class="inner">
