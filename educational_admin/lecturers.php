@@ -231,7 +231,6 @@ require_once('partials/head.php');
                                 <div class="text-left">
                                     <a class="btn btn-primary" href="bulk_import_lecturers?view=<?php echo $view; ?>">Bulk Import Lecturers</a>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Lecturer</button>
-                                    <a class="btn btn-primary" href="advance_search_lecturers?view=<?php echo $view; ?>">Advance Search</a>
                                 </div>
 
                                 <!-- Add Lec Modal -->
@@ -478,7 +477,7 @@ require_once('partials/head.php');
                                                                     <h4>Give <?php echo $lec->name; ?> Leave ?</h4>
                                                                     <br>
                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                    <a href="lecturers?leave=<?php echo $lec->id; ?>&view=<?php echo $view;?>" class="text-center btn btn-danger"> Yes </a>
+                                                                    <a href="lecturers?leave=<?php echo $lec->id; ?>&view=<?php echo $view; ?>" class="text-center btn btn-danger"> Yes </a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -499,7 +498,7 @@ require_once('partials/head.php');
                                                                 <div class="modal-body text-center text-danger">
                                                                     <h4>Set <?php echo $lec->name; ?> To Be On Work ?</h4>
                                                                     <br>
-                                                                    <a href="lecturers?onwork=<?php echo $lec->id; ?>&view=<?php echo $view;?>" class="text-center btn btn-success"> Confirm </a>
+                                                                    <a href="lecturers?onwork=<?php echo $lec->id; ?>&view=<?php echo $view; ?>" class="text-center btn btn-success"> Confirm </a>
                                                                 </div>
                                                             </div>
                                                         </div>
