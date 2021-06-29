@@ -92,7 +92,6 @@ if (isset($_POST['mailSettings'])) {
 }
 
 
-
 /* Mark As Current */
 if (isset($_GET['Current'])) {
     $delete = $_GET['Current'];

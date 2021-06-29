@@ -186,10 +186,10 @@ require_once('partials/head.php');
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0 text-dark">Bulk Import Non Teaching Staffs</h1>
+                            <h1 class="m-0 text-bold">Bulk Import Non Teaching Staffs</h1>
                         </div>
                         <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
+                            <ol class="breadcrumb float-sm-right small">
                                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="non_teaching_staff">Non Teaching Staffs</a></li>
                                 <li class="breadcrumb-item active">Bulk Import</li>
@@ -202,7 +202,7 @@ require_once('partials/head.php');
                     <hr>
                     <div class="row">
                         <div class="col-12">
-                            <h4 class="text-center">Select On Any Faculty To Import Non Teaching Staffs </h4>
+                            <h6 class="text-center">Select On Any Faculty To Import Non Teaching Staffs </h6>
                             <table id="example1" class=" table table-bordered table-striped">
                                 <thead>
                                     <tr>

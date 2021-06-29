@@ -149,7 +149,7 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="col-md-12 text-center">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Past Papers</h1>
+                                <h1 class="m-0 text-bold"><?php echo $mod->name; ?> Past Papers</h1>
                                 <br>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Past Paper</button>
                                 <a title="View <?php echo $mod->name; ?> Past Papers In List" href="module_pastpapers?view=<?php echo $mod->id; ?>" class="btn btn-primary"><i class="fas fa-list"></i></a>

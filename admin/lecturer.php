@@ -260,10 +260,10 @@ require_once('partials/head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1><?php echo $lec->name; ?> Profile </h1>
+                                <h1 class="text-bold"> <?php echo $lec->name; ?> Profile </h1>
                             </div>
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                     <li class="breadcrumb-item"><a href="lecturers">Lecturers</a></li>
                                     <li class="breadcrumb-item active">Profile</li>
