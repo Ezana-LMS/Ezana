@@ -125,7 +125,7 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="col-md-12 text-center">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Reading Materials</h1>
+                                <h1 class="m-0 text-bold"><?php echo $mod->name; ?> Reading Materials</h1>
                                 <br>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Reading Materials</button>
                             </div>

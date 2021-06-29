@@ -407,7 +407,7 @@ require_once('partials/head.php');
                             <div class="container-fluid">
                                 <div class="col-md-12">
                                     <div class="text-center">
-                                        <h1 class="m-0 text-dark"><?php echo $department->name; ?> Dashboard</h1>
+                                        <h1 class="m-0 text-bold"><?php echo $department->name; ?> Dashboard</h1>
                                         <br>
                                         <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="departments" class="text-white"> Back</a></span>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-hod">Edit Department HOD</button>

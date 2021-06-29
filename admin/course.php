@@ -639,7 +639,7 @@ require_once('partials/head.php');
                         <div class="container-fluid">
                             <div class="text-left">
                                 <div class="col-md-12 text-center">
-                                    <h1 class="m-0 text-dark"><?php echo $course->name; ?> Dashboard</h1>
+                                    <h1 class="m-0 text-bold"><?php echo $course->name; ?> Dashboard</h1>
                                     <br>
                                     <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="courses" class="text-white"> Back</a></span>
 
