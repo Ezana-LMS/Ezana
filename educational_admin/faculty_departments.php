@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Mon Jun 21 2021
+ * Created on Tue Jun 29 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -20,10 +20,11 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+
 session_start();
 require_once('../config/config.php');
-require_once('../config/checklogin.php');
-admin_checklogin();
+require_once('../config/edu_admn_checklogin.php');
+edu_admn_checklogin();
 require_once('../config/codeGen.php');
 
 /* Add Departments */
@@ -42,7 +43,6 @@ if (isset($_POST['add_dept'])) {
         $err = "Department Name Cannot Be Empty";
     }
     if (!$error) {
-        //prevent Double entries
         $sql = "SELECT * FROM  ezanaLMS_Departments WHERE  code='$code' || name ='$name' ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
@@ -76,7 +76,6 @@ if (isset($_POST['add_dept'])) {
 
 /*  Update Department*/
 if (isset($_POST['update_dept'])) {
-    //Error Handling and prevention of posting double entries
     $error = 0;
     if (isset($_POST['code']) && !empty($_POST['code'])) {
         $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
@@ -117,6 +116,11 @@ require_once('partials/head.php');
         <!-- Navbar -->
         <?php
         require_once('partials/header.php');
+        ?>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <?php require_once('partials/aside.php');
         $view = $_GET['view'];
         $ret = "SELECT * FROM `ezanaLMS_Faculties` WHERE id= '$view' ";
         $stmt = $mysqli->prepare($ret);
@@ -124,10 +128,6 @@ require_once('partials/head.php');
         $res = $stmt->get_result();
         while ($faculty = $res->fetch_object()) {
         ?>
-            <!-- /.navbar -->
-
-            <!-- Main Sidebar Container -->
-            <?php require_once('partials/aside.php'); ?>
 
             <div class="content-wrapper">
                 <div class="content-header">
@@ -138,7 +138,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="faculties">Faculties</a></li>
+                                    <li class="breadcrumb-item"><a href="faculty?view=<?php echo $faculty->id; ?>">Faculty</a></li>
                                     <li class="breadcrumb-item active">Departments</li>
                                 </ol>
                             </div>
@@ -152,7 +152,6 @@ require_once('partials/head.php');
                                     <h1 class="m-0 text-bold"><?php echo $faculty->name; ?> Departments</h1>
                                     <br>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Department</button>
-
                                 </div>
                             </div>
                             <div class="text-left">
@@ -186,7 +185,8 @@ require_once('partials/head.php');
                                                                 <select class='form-control basic' id="DepartmentHead" name="hod" onchange="getDepartmentHeadDetails(this.value);">
                                                                     <option selected>Select HOD</option>
                                                                     <?php
-                                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                    /* Get Lecs On This Faculty */
+                                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$view' ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
@@ -198,7 +198,7 @@ require_once('partials/head.php');
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Email</label>
-                                                                <input type="email" readonly required name="email" id="DepartmentHeadEmail" class="form-control">
+                                                                <input type="email" required readonly name="email" id="DepartmentHeadEmail" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -225,7 +225,7 @@ require_once('partials/head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-12">
-                                            <table id="example1" class="table table-bordered table-striped">
+                                            <table class="table table-bordered table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>Code</th>
@@ -275,18 +275,11 @@ require_once('partials/head.php');
                                                                                             </div>
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Department Number / Code</label>
-                                                                                                <input readonly type="text" required name="code" value="<?php echo $dep->code; ?>" class="form-control">
+                                                                                                <input type="text" readonly required name="code" value="<?php echo $dep->code; ?>" class="form-control">
                                                                                                 <input type="hidden" required name="id" value="<?php echo $dep->id; ?>" class="form-control">
                                                                                                 <input type="hidden" required name="view" value="<?php echo $dep->faculty_id; ?>" class="form-control">
                                                                                             </div>
-                                                                                            <!-- <div class="form-group col-md-6">
-                                                                                                <label for="">Department HOD</label>
-                                                                                                <input type="text" required value="<?php echo $dep->hod; ?>" name="hod" class="form-control">
-                                                                                            </div>
-                                                                                            <div class="form-group col-md-6">
-                                                                                                <label for="">Department HOD Email</label>
-                                                                                                <input type="text" required value="<?php echo $dep->email; ?>" name="email" class="form-control">
-                                                                                            </div> -->
+
                                                                                         </div>
                                                                                         <div class="row">
                                                                                             <div class="form-group col-md-12">
