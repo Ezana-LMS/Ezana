@@ -108,12 +108,12 @@
                                     <p>Delete Operations</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="system_settings?view=<?php echo $admin->school_id; ?>" class="nav-link">
                                     <i class="fas fa-angle-right nav-icon"></i>
                                     <p>System Settings</p>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
                 </ul>
