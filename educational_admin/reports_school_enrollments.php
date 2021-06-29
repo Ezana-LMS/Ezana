@@ -93,8 +93,9 @@ require_once('partials/head.php');
                                 <table id="export-data-table" class="table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Adm</th>
-                                            <th>Name</th>
+                                            <th>Student</th>
+                                            <th>Course</th>
+                                            <th>Module</th>
                                             <th>Year</th>
                                             <th>Academic Yr</th>
                                             <th>Sem Enrolled</th>
@@ -110,8 +111,9 @@ require_once('partials/head.php');
                                             while ($enrollment = $querry->fetch_array()) {
                                         ?>
                                                 <tr>
-                                                    <td><?php echo $enrollment['student_adm']; ?></td>
-                                                    <td><?php echo $enrollment['student_name']; ?></td>
+                                                    <td><?php echo $enrollment['student_adm']."<br>".$enrollment['student_name']; ?></td>
+                                                    <td><?php echo $enrollment['course_code']."<br>".$enrollment['course_name'] ?></td>
+                                                    <td><?php echo $enrollment['module_code']."<br>".$enrollment['module_name'] ?></td>
                                                     <td><?php echo $enrollment['stage']; ?></td>
                                                     <td><?php echo $enrollment['academic_year_enrolled']; ?></td>
                                                     <td><?php echo $enrollment['semester_enrolled']; ?></td>
