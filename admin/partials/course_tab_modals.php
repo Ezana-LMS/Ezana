@@ -47,7 +47,7 @@ while ($admin = $res->fetch_object()) {
                                     <label for="">Upload Memo (PDF Or Docx)</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input name="attachments" accept=".pdf, .docx, .doc" type="file" class="custom-file-input">
+                                            <input name="attachments" required accept=".pdf, .docx, .doc" type="file" class="custom-file-input">
                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                             <input type="hidden" required name="course_id" value="<?php echo $course->id; ?>" class="form-control">
                                             <input type="hidden" required name="course_name" value="<?php echo $course->name; ?>" class="form-control">
