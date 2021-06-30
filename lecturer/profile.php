@@ -22,7 +22,7 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/checklogin.php');
+require_once('../config/lec_checklogin.php');
 lec_check_login();
 $time = date("d-M-Y") . "-" . time();
 
@@ -145,7 +145,7 @@ require_once('partials/head.php');
     <div class="wrapper">
         <!-- Navbar -->
         <?php
-        require_once('public/partials/_lec_nav.php');
+        require_once('partials/header.php');
         $id  = $_SESSION['id'];
         $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id ='$id' ";
         $stmt = $mysqli->prepare($ret);
@@ -210,7 +210,7 @@ require_once('partials/head.php');
                                                                 <div class="col-sm-12">
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
-                                                                            <input type="file" required name="profile_pic" class="custom-file-input" id="exampleInputFile">
+                                                                            <input type="file" required accept=".png, .jpeg, .jpg" name="profile_pic" class="custom-file-input" id="exampleInputFile">
                                                                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                         </div>
                                                                     </div>

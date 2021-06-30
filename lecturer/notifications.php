@@ -22,8 +22,8 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/edu_admn_checklogin.php');
-edu_admn_checklogin();
+require_once('../config/lec_checklogin.php');
+lec_check_login();
 
 /* Mark All Notications As Read */
 if (isset($_GET['notification'])) {
