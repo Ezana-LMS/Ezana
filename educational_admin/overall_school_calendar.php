@@ -273,7 +273,7 @@ require_once('partials/head.php');
                                                         </thead>
                                                         <tbody>
                                                             <?php
-                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar`  ORDER BY `ezanaLMS_Calendar`.`semester_start` ASC   ";
+                                                            $ret = "SELECT * FROM `ezanaLMS_Calendar` WHERE faculty_id = '$view'  ORDER BY `ezanaLMS_Calendar`.`semester_start` ASC   ";
                                                             $stmt = $mysqli->prepare($ret);
                                                             $stmt->execute(); //ok
                                                             $res = $stmt->get_result();
@@ -359,7 +359,7 @@ require_once('partials/head.php');
                                                                                         <h4>Delete Dates?</h4>
                                                                                         <br>
                                                                                         <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                        <a href="important_dates?delete=<?php echo $cal->id; ?>&view=<?php echo $view; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                        <a href="overall_school_calendar?delete=<?php echo $cal->id; ?>&view=<?php echo $view; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
