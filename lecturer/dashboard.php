@@ -22,49 +22,29 @@
 
 
 session_start();
-require_once('configs/config.php');
-require_once('configs/checklogin.php');
+require_once('../config/config.php');
+require_once('../config/lec_checklogin.php');
 lec_check_login();
-require_once('configs/codeGen.php');
-require_once('public/partials/_lec_analytics.php');
-/* Mark All Notications As Read */
-if (isset($_GET['notification'])) {
-    $notification = $_GET['notification'];
-    $adn = "UPDATE   ezanaLMS_Notifications SET  status = 'Read' ";
-    $stmt = $mysqli->prepare($adn);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=lec_dashboard.php");
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
-require_once('public/partials/_head.php');
+require_once('../config/codeGen.php');
+require_once('partials/analytics.php');
+require_once('partials/_head.php');
 ?>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
         <!-- Navbar -->
-        <?php require_once('public/partials/_lec_nav.php'); ?>
+        <?php require_once('partials/header.php'); ?>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <?php require_once('public/partials/_brand.php'); ?>
-            <!-- Sidebar -->
-            <?php require_once('public/partials/_lec_sidebar.php');
-            /* Load This Page With Logged In User Session */
-            $id  = $_SESSION['id'];
-            $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id ='$id' ";
-            $stmt = $mysqli->prepare($ret);
-            $stmt->execute(); //ok
-            $res = $stmt->get_result();
-            while ($admin = $res->fetch_object()) {
-            ?>
-
-        </aside>
+        <?php require_once('partials/aside.php');
+        $id  = $_SESSION['id'];
+        $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id ='$id' ";
+        $stmt = $mysqli->prepare($ret);
+        $stmt->execute(); //ok
+        $res = $stmt->get_result();
+        while ($admin = $res->fetch_object()) {
+        ?>
 
         <div class="content-wrapper">
             <div class="content-header">
