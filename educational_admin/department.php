@@ -377,6 +377,11 @@ require_once('partials/head.php');
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($department = $res->fetch_object()) {
+
+        ?>
+
+            <!-- Main Sidebar Container -->
+            <?php require_once('partials/aside.php');
             /* Load Logged In User Session */
             $id  = $_SESSION['id'];
             $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id ='$id' ";
@@ -384,10 +389,7 @@ require_once('partials/head.php');
             $stmt->execute(); //ok
             $res = $stmt->get_result();
             while ($admin = $res->fetch_object()) {
-        ?>
-
-                <!-- Main Sidebar Container -->
-                <?php require_once('partials/aside.php'); ?>
+            ?>
                 <div class="content-wrapper">
                     <div class="content-header">
                         <div class="container-fluid">
@@ -441,7 +443,7 @@ require_once('partials/head.php');
                                                                             </div>
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Department Number / Code</label>
-                                                                                <input type="text" required name="code" value="<?php echo $department->code; ?>" class="form-control">
+                                                                                <input type="text" readonly required name="code" value="<?php echo $department->code; ?>" class="form-control">
                                                                             </div>
                                                                             <!-- <div class="form-group col-md-4">
                                                                                 <label for="">Department HOD</label>
@@ -483,7 +485,7 @@ require_once('partials/head.php');
                                                                             <select class='form-control basic' id="DepartmentHead" name="hod" onchange="getDepartmentHeadDetails(this.value);">
                                                                                 <option selected>Select HOD</option>
                                                                                 <?php
-                                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers`  WHERE faculty_id = '$department->faculty_id' ";
                                                                                 $stmt = $mysqli->prepare($ret);
                                                                                 $stmt->execute(); //ok
                                                                                 $res = $stmt->get_result();
@@ -495,7 +497,7 @@ require_once('partials/head.php');
                                                                         </div>
                                                                         <div class="form-group col-md-6">
                                                                             <label for="">Email</label>
-                                                                            <input type="email" required name="email" id="DepartmentHeadEmail" class="form-control">
+                                                                            <input type="email" readonly required name="email" id="DepartmentHeadEmail" class="form-control">
                                                                         </div>
                                                                     </div>
 
@@ -533,7 +535,7 @@ require_once('partials/head.php');
                                                                                 <label for="">Upload Departmental Memo (PDF Or Docx)</label>
                                                                                 <div class="input-group">
                                                                                     <div class="custom-file">
-                                                                                        <input name="attachments" accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
+                                                                                        <input name="attachments" required accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                     </div>
                                                                                 </div>
@@ -603,7 +605,7 @@ require_once('partials/head.php');
                                                                                 <label for="">Upload Departmental Document (PDF Or Docx)</label>
                                                                                 <div class="input-group">
                                                                                     <div class="custom-file">
-                                                                                        <input name="attachments" accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
+                                                                                        <input name="attachments" required accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                     </div>
                                                                                 </div>
@@ -648,16 +650,16 @@ require_once('partials/head.php');
                                                                         <div class="row" style="display:none">
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Department Code</label>
-                                                                                <input type="text" value="<?php echo $department->code; ?>" required name="department_name" class="form-control">
+                                                                                <input type="text" readonly value="<?php echo $department->code; ?>" required name="department_name" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Department Name</label>
-                                                                                <input type="text" value="<?php echo $department->name; ?>" required name="department_name" class="form-control">
+                                                                                <input type="text" readonly value="<?php echo $department->name; ?>" required name="department_name" class="form-control">
                                                                                 <input type="hidden" value="<?php echo $department->id; ?>" readonly required name="department_id" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="">Faculty Name</label>
-                                                                                <input type="text" value="<?php echo $department->faculty_name; ?>" required name="faculty_name" class="form-control">
+                                                                                <input type="text" readonly value="<?php echo $department->faculty_name; ?>" required name="faculty_name" class="form-control">
                                                                                 <input type="hidden" value="<?php echo $department->faculty_id; ?>" readonly required name="faculty_id" class="form-control">
                                                                             </div>
                                                                         </div>
@@ -679,7 +681,7 @@ require_once('partials/head.php');
                                                                                 <select class='form-control basic' id="CourseHead" name="hod" onchange="getCourseHeadDetails(this.value);">
                                                                                     <option selected>Select Course Head</option>
                                                                                     <?php
-                                                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$department->faculty_id' ";
                                                                                     $stmt = $mysqli->prepare($ret);
                                                                                     $stmt->execute(); //ok
                                                                                     $res = $stmt->get_result();
@@ -1006,7 +1008,7 @@ require_once('partials/head.php');
                                                                                                                                 <label for="">Upload Memo | Notice (PDF r Docx)</label>
                                                                                                                                 <div class="input-group">
                                                                                                                                     <div class="custom-file">
-                                                                                                                                        <input name="attachments" accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
+                                                                                                                                        <input name="attachments" required accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
                                                                                                                                         <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
                                                                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                                     </div>
@@ -1178,7 +1180,7 @@ require_once('partials/head.php');
                                                                                                                                 <label for="">Upload Departmental Document (PDF Or Docx)</label>
                                                                                                                                 <div class="input-group">
                                                                                                                                     <div class="custom-file">
-                                                                                                                                        <input name="attachments" accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
+                                                                                                                                        <input name="attachments" required accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
                                                                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                                     </div>
                                                                                                                                 </div>
