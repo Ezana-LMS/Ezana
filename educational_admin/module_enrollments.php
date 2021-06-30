@@ -198,7 +198,6 @@ require_once('partials/head.php');
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        $cnt = 1;
         while ($mod = $res->fetch_object()) {
             $ModuleCourseId  = $mod->course_id;
             /* Course dETAILS */
@@ -206,7 +205,6 @@ require_once('partials/head.php');
             $stmt = $mysqli->prepare($ret);
             $stmt->execute(); //ok
             $res = $stmt->get_result();
-            $cnt = 1;
             while ($course = $res->fetch_object()) {
         ?>
                 <!-- /.navbar -->
@@ -222,7 +220,7 @@ require_once('partials/head.php');
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right small">
                                         <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="courses?view=<?php echo $mod->id;?>">Modules</a></li>
+                                        <li class="breadcrumb-item"><a href="courses?view=<?php echo $mod->id; ?>">Modules</a></li>
                                         <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
                                     </ol>
                                 </div>
@@ -421,15 +419,16 @@ require_once('partials/head.php');
                             </div>
                         </section>
                         <!-- Main Footer -->
-                <?php
-                require_once('partials/footer.php');
-            }
-        }
-                ?>
+                        <?php
+                        require_once('partials/footer.php');
+
+                        ?>
                     </div>
                 </div>
                 <!-- ./wrapper -->
-                <?php require_once('partials/scripts.php'); ?>
+        <?php    }
+        }
+        require_once('partials/scripts.php'); ?>
 </body>
 
 </html>
