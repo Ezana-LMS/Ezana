@@ -22,8 +22,8 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/checklogin.php');
-admin_checklogin();
+require_once('../config/edu_admn_checklogin.php');
+edu_admn_checklogin();
 require_once('../config/codeGen.php');
 $time = time();
 
@@ -67,7 +67,6 @@ if (isset($_POST['add_reading_materials'])) {
 }
 
 /* Update Course Materials  */
-
 if (isset($_POST['update_reading_materials'])) {
     $id = $_POST['id'];
     $visibility = $_POST['visibility'];
@@ -89,7 +88,6 @@ if (isset($_POST['update_reading_materials'])) {
         $info = "Please Try Again Or Try Later";
     }
 }
-
 
 /* Delete Course Materials */
 if (isset($_GET['delete'])) {
@@ -135,7 +133,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="modules">Modules</a></li>
+                                    <li class="breadcrumb-item"><a href="modules?view=<?php echo $mod->faculty_code;?>">Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
                                 </ol>
                             </div>
