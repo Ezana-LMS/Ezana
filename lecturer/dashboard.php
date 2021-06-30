@@ -46,93 +46,93 @@ require_once('partials/_head.php');
         while ($admin = $res->fetch_object()) {
         ?>
 
-        <div class="content-wrapper">
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0 text-dark"><?php echo $admin->name; ?> Dashboard</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="lec_dashboard.php">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard</li>
-                            </ol>
+            <div class="content-wrapper">
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1 class="m-0 text-bold"><?php echo $admin->name; ?> Dashboard</h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right small">
+                                    <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
+                                    <li class="breadcrumb-item active">Dashboard</li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <section class="content">
-                    <div class="container-fluid">
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-6">
-                                                <a href="lec_allocated_modules.php">
-                                                    <div class="small-box bg-info">
-                                                        <div class="inner">
-                                                            <h3>Assigned Modules</h3>
+                    <section class="content">
+                        <div class="container-fluid">
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-6">
+                                                    <a href="modules">
+                                                        <div class="small-box bg-info">
+                                                            <div class="inner">
+                                                                <h3>Assigned Modules</h3>
+                                                            </div>
+                                                            <div class="icon">
+                                                                <i class="fas fa-chalkboard"></i>
+                                                            </div>
+                                                            <div class="small-box-footer">
+                                                                <i class="fas fa-arrow-circle-right"></i>
+                                                                <?php echo $modules; ?>
+                                                            </div>
                                                         </div>
-                                                        <div class="icon">
-                                                            <i class="fas fa-chalkboard"></i>
-                                                        </div>
-                                                        <div class="small-box-footer">
-                                                            <i class="fas fa-arrow-circle-right"></i>
-                                                            <?php echo $modules; ?>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
+                                                    </a>
+                                                </div>
 
-                                            <div class="col-lg-4 col-6">
-                                                <a href="lec_important_dates.php">
-                                                    <div class="small-box bg-info">
-                                                        <div class="inner">
-                                                            <h3>Important Dates</h3>
+                                                <div class="col-lg-4 col-6">
+                                                    <a href="important_dates">
+                                                        <div class="small-box bg-info">
+                                                            <div class="inner">
+                                                                <h3>Important Dates</h3>
+                                                            </div>
+                                                            <div class="icon">
+                                                                <i class="fas fa-calendar"></i>
+                                                            </div>
+                                                            <div class="small-box-footer">
+                                                                <i class="fas fa-arrow-circle-right"></i>
+                                                            </div>
                                                         </div>
-                                                        <div class="icon">
-                                                            <i class="fas fa-calendar"></i>
-                                                        </div>
-                                                        <div class="small-box-footer">
-                                                            <i class="fas fa-arrow-circle-right"></i>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
+                                                    </a>
+                                                </div>
 
 
-                                            <div class="col-lg-4 col-6">
-                                                <a href="lec_time_table.php">
-                                                    <div class="small-box bg-info">
-                                                        <div class="inner">
-                                                            <h3>Time Table</h3>
+                                                <div class="col-lg-4 col-6">
+                                                    <a href="time_table">
+                                                        <div class="small-box bg-info">
+                                                            <div class="inner">
+                                                                <h3>Time Table</h3>
+                                                            </div>
+                                                            <div class="icon">
+                                                                <i class="fas fa-table"></i>
+                                                            </div>
+                                                            <div class="small-box-footer">
+                                                                <i class="fas fa-arrow-circle-right"></i>
+                                                            </div>
                                                         </div>
-                                                        <div class="icon">
-                                                            <i class="fas fa-table"></i>
-                                                        </div>
-                                                        <div class="small-box-footer">
-                                                            <i class="fas fa-arrow-circle-right"></i>
-                                                        </div>
-                                                    </div>
-                                                </a>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-                <!-- Main Footer -->
-                <?php require_once('public/partials/_footer.php'); ?>
+                    </section>
+                    <!-- Main Footer -->
+                    <?php require_once('partials/footer.php'); ?>
+                </div>
             </div>
-        </div>
-        <!-- ./wrapper -->
-    <?php require_once('public/partials/_scripts.php');
-            } ?>
+            <!-- ./wrapper -->
+        <?php require_once('partials/scripts.php');
+        } ?>
 </body>
 
 </html>
