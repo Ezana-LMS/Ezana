@@ -88,7 +88,7 @@
                                 <select class='form-control basic' id="lecNumber" onchange="getGuestLec(this.value);" name="">
                                     <option selected>Select Lecturer Number</option>
                                     <?php
-                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$course->faculty_id'  ";
+                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$mod->faculty_id'  ";
                                     $stmt = $mysqli->prepare($ret);
                                     $stmt->execute(); //ok
                                     $res = $stmt->get_result();
