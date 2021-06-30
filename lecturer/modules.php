@@ -83,7 +83,7 @@ require_once('partials/head.php');
                                                 <td><?php echo $assigns->semester; ?></td>
                                                 <td><?php echo $assigns->created_at; ?></td>
                                                 <td>
-                                                    <a class="badge badge-success" href="module?view=<?php echo $assigns->module_code; ?>">
+                                                    <a class="badge badge-success" href="module?view=<?php echo $assigns->module_id; ?>">
                                                         <i class="fas fa-eye"></i>
                                                         View Module Details
                                                     </a>
