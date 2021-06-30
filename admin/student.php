@@ -250,7 +250,7 @@ require_once('partials/head.php');
                                             </li>
                                             <hr>
                                             <li class="list-group-item">
-                                                <b>Date Enrolled: </b> <a class="float-right"><?php echo $std->day_enrolled; ?></a>
+                                                <b>Date Enrolled: </b> <a class="float-right"><?php echo date('d-M-Y', strtotime($std->day_enrolled)); ?></a>
                                             </li>
 
                                             <li class="list-group-item">
