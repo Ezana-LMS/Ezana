@@ -22,8 +22,8 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/edu_admn_checklogin.php');
-edu_admn_checklogin();
+require_once('../config/lec_checklogin.php');
+lec_check_login();
 require_once('../config/codeGen.php');
 $time = time();
 
@@ -257,7 +257,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="modules?view=<?php echo $mod->faculty_id;?>">Modules</a></li>
+                                    <li class="breadcrumb-item"><a href="modules">Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
                                 </ol>
                             </div>

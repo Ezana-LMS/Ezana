@@ -20,7 +20,7 @@
                             </div>
                             <div class="form-group col-md-6" style="display:none">
                                 <label for="">Lecturer Name</label>
-                                <input type="text" value="<?php echo $cr->lecturer_name; ?>" required name="lecturer_name" class="form-control">
+                                <input type="text"  value="<?php echo $cr->lecturer_name; ?>" required name="lecturer_name" class="form-control">
                             </div>
                         </div>
                         <div class="row">
