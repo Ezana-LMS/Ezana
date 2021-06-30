@@ -43,11 +43,11 @@
                             Grades
                         </a>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a href="module_pastpapers?view=<?php echo $mod->id; ?>">
                             Past Papers
                         </a>
-                    </li>
+                    </li> -->
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a href="module_student_groups?view=<?php echo $mod->id; ?>">
                             Student Groups

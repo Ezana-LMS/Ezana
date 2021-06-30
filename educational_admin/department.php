@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Wed Jun 23 2021
+ * Created on Wed Jun 30 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -22,9 +22,10 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/checklogin.php');
+require_once('../config/edu_admn_checklogin.php');
 require_once('../config/codeGen.php');
-admin_checklogin();
+edu_admn_checklogin();
+
 /* Timestamp Everything */
 $time = time();
 
@@ -376,6 +377,11 @@ require_once('partials/head.php');
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($department = $res->fetch_object()) {
+
+        ?>
+
+            <!-- Main Sidebar Container -->
+            <?php require_once('partials/aside.php');
             /* Load Logged In User Session */
             $id  = $_SESSION['id'];
             $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id ='$id' ";
@@ -383,10 +389,7 @@ require_once('partials/head.php');
             $stmt->execute(); //ok
             $res = $stmt->get_result();
             while ($admin = $res->fetch_object()) {
-        ?>
-
-                <!-- Main Sidebar Container -->
-                <?php require_once('partials/aside.php'); ?>
+            ?>
                 <div class="content-wrapper">
                     <div class="content-header">
                         <div class="container-fluid">
@@ -396,7 +399,7 @@ require_once('partials/head.php');
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right small">
                                         <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="departments">Departmentents</a></li>
+                                        <li class="breadcrumb-item"><a href="departments?view=<?php echo $department->faculty_id; ?>">Departmentents</a></li>
                                         <li class="breadcrumb-item active"><?php echo $department->name; ?></li>
                                     </ol>
                                 </div>
@@ -409,7 +412,7 @@ require_once('partials/head.php');
                                     <div class="text-center">
                                         <h1 class="m-0 text-bold"><?php echo $department->name; ?> Dashboard</h1>
                                         <br>
-                                        <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="departments" class="text-white"> Back</a></span>
+                                        <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="departments?view=<?php echo $department->faculty_id; ?>" class="text-white"> Back</a></span>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-hod">Edit Department HOD</button>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-<?php echo $department->id; ?>">Edit Department</button>
                                     </div>
@@ -482,7 +485,7 @@ require_once('partials/head.php');
                                                                             <select class='form-control basic' id="DepartmentHead" name="hod" onchange="getDepartmentHeadDetails(this.value);">
                                                                                 <option selected>Select HOD</option>
                                                                                 <?php
-                                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers`  WHERE faculty_id = '$department->faculty_id' ";
                                                                                 $stmt = $mysqli->prepare($ret);
                                                                                 $stmt->execute(); //ok
                                                                                 $res = $stmt->get_result();
@@ -678,7 +681,7 @@ require_once('partials/head.php');
                                                                                 <select class='form-control basic' id="CourseHead" name="hod" onchange="getCourseHeadDetails(this.value);">
                                                                                     <option selected>Select Course Head</option>
                                                                                     <?php
-                                                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                                    $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$department->faculty_id' ";
                                                                                     $stmt = $mysqli->prepare($ret);
                                                                                     $stmt->execute(); //ok
                                                                                     $res = $stmt->get_result();

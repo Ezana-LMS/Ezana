@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Tue Jun 22 2021
+ * Created on Wed Jun 30 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -22,9 +22,9 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/checklogin.php');
+require_once('../config/edu_admn_checklogin.php');
 require_once('../config/codeGen.php');
-admin_checklogin();
+edu_admn_checklogin();
 $time = time();
 
 /* Update Profile Picture */
@@ -169,7 +169,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="students">Students</a></li>
+                                    <li class="breadcrumb-item"><a href="students?view=<?php echo $std->faculty_id; ?>">Students</a></li>
                                     <li class="breadcrumb-item active">Profile</li>
                                 </ol>
                             </div>
@@ -206,7 +206,7 @@ require_once('partials/head.php');
                                                                 <div class="col-sm-12">
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
-                                                                            <input type="file" name="profile_pic" class="custom-file-input" id="exampleInputFile">
+                                                                            <input type="file" required name="profile_pic" class="custom-file-input" id="exampleInputFile">
                                                                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                         </div>
                                                                     </div>
@@ -391,7 +391,7 @@ require_once('partials/head.php');
                                                         ?>
 
                                                             <tr>
-                                                                <td><?php echo $en->module_code . "<br>" . $en->module_name; ?></td>
+                                                                <td><?php echo $en->module_code . " " . $en->module_name; ?></td>
                                                                 <td><?php echo $en->stage; ?></td>
                                                                 <td><?php echo $en->semester_enrolled; ?></td>
                                                                 <td><?php echo $en->academic_year_enrolled; ?></td>
@@ -423,7 +423,7 @@ require_once('partials/head.php');
                                                         ?>
 
                                                             <tr>
-                                                                <td><?php echo $marks->module_code . " " . $marks->module_name; ?></td>
+                                                                <td><?php echo $marks->module_code . "<br>" . $marks->module_name; ?></td>
                                                                 <td><?php echo $marks->academic_year; ?></td>
                                                                 <td><?php echo $marks->semester; ?></td>
                                                                 <td><?php echo $marks->marks; ?></td>
@@ -443,7 +443,7 @@ require_once('partials/head.php');
                                                             <select class='form-control basic' id="CourseCode" onchange="getStudentCourseDetails(this.value);">
                                                                 <option selected>Select Course Code </option>
                                                                 <?php
-                                                                $ret = "SELECT * FROM `ezanaLMS_Courses` ";
+                                                                $ret = "SELECT * FROM `ezanaLMS_Courses` WHERE faculty_id = '$std->faculty_id' ";
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();

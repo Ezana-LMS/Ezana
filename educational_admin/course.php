@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Wed Jun 23 2021
+ * Created on Wed Jun 30 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -22,8 +22,8 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/checklogin.php');
-admin_checklogin();
+require_once('../config/edu_admn_checklogin.php');
+edu_admn_checklogin();
 require_once('../config/codeGen.php');
 $time = time();
 
@@ -628,7 +628,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="courses">Courses</a></li>
+                                    <li class="breadcrumb-item"><a href="courses?view=<?php echo $course->faculty_id;?>">Courses</a></li>
                                     <li class="breadcrumb-item active"><?php echo $course->name; ?></li>
                                 </ol>
                             </div>
@@ -641,7 +641,7 @@ require_once('partials/head.php');
                                 <div class="col-md-12 text-center">
                                     <h1 class="m-0 text-bold"><?php echo $course->name; ?> Dashboard</h1>
                                     <br>
-                                    <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="courses" class="text-white"> Back</a></span>
+                                    <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="courses?view=<?php echo $course->faculty_id;?>" class="text-white"> Back</a></span>
 
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-<?php echo $course->id; ?>">Edit Course</button>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-head">Edit Course Head</button>
@@ -708,7 +708,7 @@ require_once('partials/head.php');
                                                             <select class='form-control basic' id="CourseHead" name="hod" onchange="getCourseHeadDetails(this.value);">
                                                                 <option selected>Select Course Head</option>
                                                                 <?php
-                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers` ";
+                                                                $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE faculty_id = '$course->faculty_id' ";
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();

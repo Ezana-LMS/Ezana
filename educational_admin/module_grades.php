@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Fri Jun 25 2021
+ * Created on Wed Jun 30 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -22,8 +22,8 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/checklogin.php');
-admin_checklogin();
+require_once('../config/edu_admn_checklogin.php');
+edu_admn_checklogin();
 require_once('../config/codeGen.php');
 require_once('../config/DataSource.php');
 require_once('../vendor/autoload.php');
@@ -243,7 +243,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="modules">Modules</a></li>
+                                    <li class="breadcrumb-item"><a href="modules?view=<?php echo $mod->id; ?>">Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
                                 </ol>
                             </div>
@@ -381,7 +381,7 @@ require_once('partials/head.php');
 
                                                         <tr>
                                                             <td><?php echo $grade->regno . "<br>" . $grade->name; ?></td>
-                                                            <td><?php echo $grade->module_code . "<br>" . $grade->module_name; ?></td>
+                                                            <td><?php echo $grade->module_code . "<br> " . $grade->module_name; ?></td>
                                                             <td><?php echo $grade->academic_year; ?></td>
                                                             <td><?php echo $grade->semester; ?></td>
                                                             <td><?php echo $grade->assignment_name; ?></td>
