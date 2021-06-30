@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Jun 24 2021
+ * Created on Wed Jun 30 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -22,8 +22,8 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/checklogin.php');
-admin_checklogin();
+require_once('../config/lec_checklogin.php');
+lec_check_login();
 require_once('../config/codeGen.php');
 $time =  time();
 
@@ -64,132 +64,6 @@ if (isset($_POST['update_module'])) {
     }
 }
 
-/* Assign Module Lec */
-if (isset($_POST['assign_module'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
-        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
-    } else {
-        $error = 1;
-        $err = "Module Code Cannot Be Empty";
-    }
-    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
-        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
-    } else {
-        $error = 1;
-        $err = "Module Name Cannot Be Empty";
-    }
-    if (isset($_POST['lec_id']) && !empty($_POST['lec_id'])) {
-        $lec_id = mysqli_real_escape_string($mysqli, trim($_POST['lec_id']));
-    } else {
-        $error = 1;
-        $err = "Lec ID Cannot Be Empty";
-    }
-    if (isset($_POST['lec_name']) && !empty($_POST['lec_name'])) {
-        $lec_name = mysqli_real_escape_string($mysqli, trim($_POST['lec_name']));
-    } else {
-        $error = 1;
-        $err = "Lec Name Cannot Be Empty";
-    }
-    if (!$error) {
-
-        //prevent Double entries
-        $sql = "SELECT * FROM  ezanaLMS_ModuleAssigns WHERE  (lec_id='$lec_id' AND module_code ='$module_code') ";
-        $res = mysqli_query($mysqli, $sql);
-        if (mysqli_num_rows($res) > 0) {
-            $row = mysqli_fetch_assoc($res);
-            if (($lec_id == $row['lec_id']) && ($module_code == $row['module_code'])) {
-                $err =  "Module Already Assigned Lecturer";
-            }
-        } else {
-            $id = $_POST['id'];
-            $created_at = date('d M Y');
-            $view = $_GET['view'];
-            $faculty = $_POST['faculty'];
-            $academic_year = $_POST['academic_year'];
-            $semester = $_POST['semester'];
-            $module_id = $_POST['module_id'];
-
-            //On Assign, Update Module Status to Assigned
-            $ass_status = 1;
-
-            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, module_id, faculty_id, course_id, academic_year, semester, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-            $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
-            $stmt = $mysqli->prepare($query);
-            $modstmt = $mysqli->prepare($modUpdate);
-            $rc = $stmt->bind_param('sssssssssss', $id,  $module_id, $faculty, $view, $academic_year, $semester, $module_code, $module_name, $lec_id, $lec_name, $created_at);
-            $rc = $modstmt->bind_param('is', $ass_status, $module_code);
-            $stmt->execute();
-            $modstmt->execute();
-            if ($stmt && $modstmt) {
-                $success = "$lec_name Has Been Assigned To $module_code-$module_name";
-            } else {
-                $info = "Please Try Again Or Try Later";
-            }
-        }
-    }
-}
-
-/* Guest Lec Allocation */
-if (isset($_POST['assign_guest_lec'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['module_code']) && !empty($_POST['module_code'])) {
-        $module_code = mysqli_real_escape_string($mysqli, trim($_POST['module_code']));
-    } else {
-        $error = 1;
-        $err = "Module Code Cannot Be Empty";
-    }
-    if (isset($_POST['module_name']) && !empty($_POST['module_name'])) {
-        $module_name = mysqli_real_escape_string($mysqli, trim($_POST['module_name']));
-    } else {
-        $error = 1;
-        $err = "Module Name Cannot Be Empty";
-    }
-    if (isset($_POST['lec_id']) && !empty($_POST['lec_id'])) {
-        $lec_id = mysqli_real_escape_string($mysqli, trim($_POST['lec_id']));
-    } else {
-        $error = 1;
-        $err = "Lec ID Cannot Be Empty";
-    }
-    if (isset($_POST['lec_name']) && !empty($_POST['lec_name'])) {
-        $lec_name = mysqli_real_escape_string($mysqli, trim($_POST['lec_name']));
-    } else {
-        $error = 1;
-        $err = "Lec Name Cannot Be Empty";
-    }
-    if (!$error) {
-
-        $id = $_POST['id'];
-        $created_at = date('d M Y');
-        $view = $_GET['view'];
-        $faculty = $_POST['faculty'];
-        $status = 'Guest Lecturer';
-
-        //On Assign, Update Module Status to Assigned
-        $ass_status = 1;
-
-        $academic_year = $_POST['academic_year'];
-        $semester = $_POST['semester'];
-        $module_id = $_POST['module_id'];
-
-
-        $query = "INSERT INTO ezanaLMS_ModuleAssigns (academic_year, module_id,  semester, id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at, status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-        $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
-        $stmt = $mysqli->prepare($query);
-        $modstmt = $mysqli->prepare($modUpdate);
-        $rc = $stmt->bind_param('ssssssssssss', $academic_year, $module_id, $semester, $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at, $status);
-        $rc = $modstmt->bind_param('is', $ass_status, $module_code);
-        $stmt->execute();
-        $modstmt->execute();
-        if ($stmt && $modstmt) {
-            $success = "$lec_name Has Been Assigned As Guest Lecturer To $module_code - $module_name";
-        } else {
-            $info = "Please Try Again Or Try Later";
-        }
-    }
-}
 require_once('partials/head.php');
 ?>
 
@@ -227,102 +101,12 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="col-md-12 text-center">
-                                <h1 class="m-0 text-bold"><?php echo $mod->name; ?></h1>
+                                <h1 class="m-0 text-bold"><?php echo  $mod->code."-".$mod->name; ?></h1>
                                 <br>
                                 <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="modules" class="text-white">Back</a></span>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-module-<?php echo $mod->id; ?>">Edit Module</button>
-                                <!-- Allocate Module Lecturer Or Guest Lec -->
-                                <?php
-                                /* Check If This Module Is Allocated A Lecturer If Yes Give A Guest Lecturer */
-                                if ($mod->ass_status == '0') {
-                                    /* Allocate Lecturer Or Guest Lecturer */
-                                    echo
-                                    "
-                                        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_lect'>Assign Lecturer</button>
-                                        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_guest_lect'>Assign Guest Lecturer</button>
-                                    ";
-                                } else {
-                                    /* Only Allocate Lecturer */
-                                    echo
-                                    "
-                                        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_guest_lect'>Assign Guest Lecturer</button>
-                                    ";
-                                }
-                                ?>
                             </div>
-
-                            <!-- <div class="text-left">
-                                <nav class="navbar navbar-light bg-light col-md-12">
-                                    <form class="form-inline" action="search_result_module" method="GET">
-                                        <input class="form-control mr-sm-2" type="search" name="query" placeholder="Module Name Or Code">
-                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                                    </form>
-                                </nav>
-                            </div> -->
-
-                            <!-- Add Module Notice Modal-->
-                            <div class="modal fade" id="modal-default">
-                                <div class="modal-dialog  modal-xl">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Fill All Required Values </h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Add Module Notices Form -->
-                                            <form method="post" enctype="multipart/form-data" role="form">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Announcement Posted By</label>
-                                                            <?php
-                                                            $id = $_SESSION['id'];
-                                                            $ret = "SELECT * FROM `ezanaLMS_Admins` WHERE id = '$id'  ";
-                                                            $stmt = $mysqli->prepare($ret);
-                                                            $stmt->execute(); //ok
-                                                            $res = $stmt->get_result();
-                                                            while ($user = $res->fetch_object()) {
-                                                            ?>
-                                                                <input type="text" required name="created_by" value="<?php echo $user->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                            <?php
-                                                            } ?>
-                                                        </div>
-
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Upload Module Memo (PDF Or Docx)</label>
-                                                            <div class="input-group">
-                                                                <div class="custom-file">
-                                                                    <input name="attachments" required accept=".pdf, .docx, .doc" type="file" class="custom-file-input">
-                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group col-md-12">
-                                                            <label for="exampleInputPassword1">Type Module Announcement</label>
-                                                            <textarea name="announcements" placeholder="Type Module Announcement" rows="20" class="form-control Summernote"></textarea>
-                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                            <input type="hidden" value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
-                                                            <input type="hidden" value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
-                                                            <input type="hidden" required name="faculty_id" value="<?php echo $mod->faculty_id; ?>" class="form-control">
-                                                            <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class=" text-right">
-                                                    <button type="submit" name="add_notice" class="btn btn-primary">Post</button>
-                                                </div>
-                                            </form>
-                                            <!-- End Module Notice Form -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Module Notice Modal -->
-
+                            
                             <!-- Update Module Modal -->
                             <div class="modal fade" id="update-module-<?php echo $mod->id; ?>">
                                 <div class="modal-dialog  modal-xl">
@@ -339,12 +123,12 @@ require_once('partials/head.php');
                                                     <div class="row">
                                                         <div class="form-group col-md-4">
                                                             <label for="">Module Name</label>
-                                                            <input type="text" value="<?php echo $mod->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
+                                                            <input type="text" readonly value="<?php echo $mod->name; ?>" required name="name" class="form-control" id="exampleInputEmail1">
                                                             <input type="hidden" required name="id" value="<?php echo $mod->id; ?>" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="">Module Number / Code</label>
-                                                            <input type="text" required name="code" value="<?php echo $mod->code; ?>" class="form-control">
+                                                            <input type="text" readonly required name="code" value="<?php echo $mod->code; ?>" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="">Course Name</label>
@@ -387,9 +171,6 @@ require_once('partials/head.php');
                                 </div>
                             </div>
                             <!--End Update Module Modal -->
-
-                            <?php require_once('partials/module_assign_lec.php'); ?>
-
                             <hr>
                             <div class="row">
                                 <!-- Module Side Menu -->

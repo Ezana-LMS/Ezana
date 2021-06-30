@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Fri Jun 25 2021
+ * Created on Wed Jun 30 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -22,8 +22,8 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/checklogin.php');
-admin_checklogin();
+require_once('../config/lec_checklogin.php');
+lec_check_login();
 require_once('../config/codeGen.php');
 $time = time();
 

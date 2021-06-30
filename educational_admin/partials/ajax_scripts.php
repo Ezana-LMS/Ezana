@@ -251,6 +251,15 @@
                 $('#moduleName').val(data);
             }
         });
+        $.ajax({
+            type: "POST",
+            url: "ajax.php",
+            data: 'moduleName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#moduleId').val(data);
+            }
+        });
     }
 
     /* Lecturer Details */
