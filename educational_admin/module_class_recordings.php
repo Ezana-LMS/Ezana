@@ -267,7 +267,7 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="col-md-12 text-center">
-                                <h1 class="m-0 text-bold"><?php echo $mod->name; ?> Course Recordings</h1>
+                                <h1 class="m-0 text-bold"><?php echo $mod->name; ?> Class Recordings</h1>
                                 <br>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Upload Class Recording</button>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-class-link">Share Class Recording Link</button>
