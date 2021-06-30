@@ -248,7 +248,7 @@ require_once('partials/head.php');
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-6">
                                                                                                     <label for="">Submission Deadline</label>
-                                                                                                    <input type="text" name="submission_deadline" value="<?php echo $assignments->submission_deadline; ?>" required class="availability form-control">
+                                                                                                    <input type="text" required name="submission_deadline" value="<?php echo $assignments->submission_deadline; ?>" required class="availability form-control">
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-6">
                                                                                                     <label for="exampleInputFile">Upload Assignment ( PDF / Docx )</label>
