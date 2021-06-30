@@ -101,75 +101,12 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="col-md-12 text-center">
-                                <h1 class="m-0 text-bold"><?php echo $mod->name; ?></h1>
+                                <h1 class="m-0 text-bold"><?php echo  $mod->code."-".$mod->name; ?></h1>
                                 <br>
                                 <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="modules" class="text-white">Back</a></span>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-module-<?php echo $mod->id; ?>">Edit Module</button>
                             </div>
-
-                            <!-- Add Module Notice Modal-->
-                            <div class="modal fade" id="modal-default">
-                                <div class="modal-dialog  modal-xl">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Fill All Required Values </h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Add Module Notices Form -->
-                                            <form method="post" enctype="multipart/form-data" role="form">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Announcement Posted By</label>
-                                                            <?php
-                                                            $id  = $_SESSION['id'];
-                                                            $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id ='$id' ";
-                                                            $stmt = $mysqli->prepare($ret);
-                                                            $stmt->execute(); //ok
-                                                            $res = $stmt->get_result();
-                                                            while ($lec = $res->fetch_object()) {
-                                                            ?>
-                                                                <input type="text" readonly required name="created_by" value="<?php echo $lec->name; ?>" class="form-control" id="exampleInputEmail1">
-                                                            <?php
-                                                            } ?>
-                                                        </div>
-
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Upload Module Memo (PDF Or Docx)</label>
-                                                            <div class="input-group">
-                                                                <div class="custom-file">
-                                                                    <input name="attachments" required accept=".pdf, .docx, .doc" type="file" class="custom-file-input">
-                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group col-md-12">
-                                                            <label for="exampleInputPassword1">Type Module Announcement</label>
-                                                            <textarea name="announcements" placeholder="Type Module Announcement" rows="20" class="form-control Summernote"></textarea>
-                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                            <input type="hidden" value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
-                                                            <input type="hidden" value="<?php echo $mod->code; ?>" required name="module_code" class="form-control">
-                                                            <input type="hidden" required name="faculty_id" value="<?php echo $mod->faculty_id; ?>" class="form-control">
-                                                            <input type="hidden" required name="module_id" value="<?php echo $mod->id; ?>" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class=" text-right">
-                                                    <button type="submit" name="add_notice" class="btn btn-primary">Post</button>
-                                                </div>
-                                            </form>
-                                            <!-- End Module Notice Form -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Module Notice Modal -->
-
+                            
                             <!-- Update Module Modal -->
                             <div class="modal fade" id="update-module-<?php echo $mod->id; ?>">
                                 <div class="modal-dialog  modal-xl">
