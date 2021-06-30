@@ -109,15 +109,16 @@ if (isset($_POST['assign_module'])) {
             $faculty = $_POST['faculty'];
             $academic_year = $_POST['academic_year'];
             $semester = $_POST['semester'];
+            $module_id = $_POST['module_id'];
 
             //On Assign, Update Module Status to Assigned
             $ass_status = 1;
 
-            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, course_id, academic_year, semester, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, module_id, faculty_id, course_id, academic_year, semester, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
             $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
             $stmt = $mysqli->prepare($query);
             $modstmt = $mysqli->prepare($modUpdate);
-            $rc = $stmt->bind_param('ssssssssss', $id, $faculty, $view, $academic_year, $semester, $module_code, $module_name, $lec_id, $lec_name, $created_at);
+            $rc = $stmt->bind_param('sssssssssss', $id,  $module_id, $faculty, $view, $academic_year, $semester, $module_code, $module_name, $lec_id, $lec_name, $created_at);
             $rc = $modstmt->bind_param('is', $ass_status, $module_code);
             $stmt->execute();
             $modstmt->execute();
@@ -171,13 +172,14 @@ if (isset($_POST['assign_guest_lec'])) {
 
         $academic_year = $_POST['academic_year'];
         $semester = $_POST['semester'];
+        $module_id = $_POST['module_id'];
 
 
-        $query = "INSERT INTO ezanaLMS_ModuleAssigns (academic_year, semester, id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at, status) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_ModuleAssigns (academic_year, module_id,  semester, id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at, status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
         $stmt = $mysqli->prepare($query);
         $modstmt = $mysqli->prepare($modUpdate);
-        $rc = $stmt->bind_param('sssssssssss', $academic_year, $semester, $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at, $status);
+        $rc = $stmt->bind_param('ssssssssssss', $academic_year, $module_id, $semester, $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at, $status);
         $rc = $modstmt->bind_param('is', $ass_status, $module_code);
         $stmt->execute();
         $modstmt->execute();

@@ -34,6 +34,7 @@
                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                 <input type="hidden" readonly readonly value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
                                 <input class='form-control' value="<?php echo $mod->code; ?>" type="hidden" name="module_code">
+                                <input class='form-control' value="<?php echo $mod->id; ?>" type="hidden" name="module_id">
                                 <input type="hidden" required name="faculty" value="<?php echo $mod->faculty_id; ?>" class="form-control">
                             </div>
                             <?php
@@ -105,6 +106,7 @@
                                 <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                 <input type="hidden" readonly readonly value="<?php echo $mod->name; ?>" required name="module_name" class="form-control">
                                 <input class='form-control' value="<?php echo $mod->code; ?>" type="hidden" name="module_code">
+                                <input class='form-control' value="<?php echo $mod->id; ?>" type="hidden" name="module_id">
                                 <input type="hidden" required name="faculty" value="<?php echo $course->faculty_id; ?>" class="form-control">
                             </div>
                             <hr>
