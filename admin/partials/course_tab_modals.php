@@ -208,7 +208,7 @@ while ($admin = $res->fetch_object()) {
                                 <div class="form-group col-md-6">
                                     <label for="">Module Name</label>
                                     <input type="text" readonly id="ModuleName" required name="module_name" class="form-control">
-                                    <input type="text" readonly id="ModuleID" required name="module_id" class="form-control">
+                                    <input type="hidden" readonly id="ModuleID" required name="module_id" class="form-control">
 
                                 </div>
                                 <?php
