@@ -1,7 +1,6 @@
 <?php
-
 /*
- * Created on Thu Jun 24 2021
+ * Created on Wed Jun 30 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -20,10 +19,11 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 session_start();
 require_once('../config/config.php');
-require_once('../config/checklogin.php');
-admin_checklogin();
+require_once('../config/edu_admn_checklogin.php');
+edu_admn_checklogin();
 require_once('../config/codeGen.php');
 
 /* Add Student Grades */
@@ -48,10 +48,10 @@ if (isset($_POST['add_assignment'])) {
     }
 }
 
-
 /* Delete Student Attempt */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
+    $view = $_GET['view'];
     $adn = "DELETE FROM ezanaLMS_AssignmentsAttempts WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
@@ -92,7 +92,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="modules">Modules</a></li>
+                                    <li class="breadcrumb-item"><a href="modules?view=<?php echo $mod->faculty_id;?>">Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
                                 </ol>
                             </div>
@@ -165,7 +165,7 @@ require_once('partials/head.php');
                                                                                     <h4>Delete?</h4>
                                                                                     <br>
                                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                    <a href="module_assignments_attemps?delete=<?php echo $attempts->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                    <a href="module_assignments_attemps?delete=<?php echo $attempts->id; ?>&view=<?php echo $mod->id;?>" class="text-center btn btn-danger"> Delete </a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
