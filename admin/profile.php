@@ -225,7 +225,7 @@ require_once('partials/head.php');
                                                                 <div class="col-sm-12">
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
-                                                                            <input type="file" name="profile_pic" class="custom-file-input" id="exampleInputFile">
+                                                                            <input type="file" required accept=".png, .jpeg, .jpg" name="profile_pic" class="custom-file-input" id="exampleInputFile">
                                                                             <label class="custom-file-label " for="exampleInputFile">Choose file</label>
                                                                         </div>
                                                                     </div>
