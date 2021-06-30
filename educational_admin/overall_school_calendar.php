@@ -72,10 +72,12 @@ if (isset($_POST['add_school_calendar'])) {
         } else { */
         $id = $_POST['id'];
         $details = $_POST['details'];
+        $faculty_id = $_POST['faculty_id'];
 
-        $query = "INSERT INTO ezanaLMS_Calendar (id,  academic_yr, semester_start, semester_name, semester_end, details) VALUES(?,?,?,?,?,?)";
+
+        $query = "INSERT INTO ezanaLMS_Calendar (id, faculty_id,  academic_yr, semester_start, semester_name, semester_end, details) VALUES(?,?,?,?,?,?,?)";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssssss', $id,  $academic_yr, $semester_start, $semester_name, $semester_end, $details);
+        $rc = $stmt->bind_param('sssssss', $id, $faculty_id,  $academic_yr, $semester_start, $semester_name, $semester_end, $details);
         $stmt->execute();
         if ($stmt) {
             $success = "Educational Dates Added";
@@ -141,13 +143,14 @@ if (isset($_POST['update_school_calendar'])) {
 /* Delete Important Dates */
 if (isset($_GET['delete'])) {
     $delete = $_GET['delete'];
+    $view = $_GET['view'];
     $adn = "DELETE FROM ezanaLMS_Calendar WHERE id=?";
     $stmt = $mysqli->prepare($adn);
     $stmt->bind_param('s', $delete);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted" && header("refresh:1; url=overall_school_calendar");
+        $success = "Deleted" && header("refresh:1; url=overall_school_calendar?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -224,6 +227,8 @@ require_once('partials/head.php');
                                                                         <label for="">Semester </label>
                                                                         <input type="text" readonly required value="<?php echo $academic_settings->current_semester; ?>" name="semester_name" class="form-control" id="exampleInputEmail1">
                                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                                        <input type="hidden" required name="faculty_id" value="<?php echo $view; ?>" class="form-control">
+
                                                                     </div>
                                                                 </div>
                                                             <?php
