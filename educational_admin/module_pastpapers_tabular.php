@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Thu Jun 24 2021
+ * Created on Wed Jun 30 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -22,8 +22,8 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/checklogin.php');
-admin_checklogin();
+require_once('../config/edu_admn_checklogin.php');
+edu_admn_checklogin();
 require_once('../config/codeGen.php');
 $time = time(); /* Timestamp Everything */
 
@@ -139,7 +139,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="modules">Modules</a></li>
+                                    <li class="breadcrumb-item"><a href="modules?view=<?php echo $mod->faculty_id;?>">Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
                                 </ol>
                             </div>
@@ -192,11 +192,11 @@ require_once('partials/head.php');
 
                                                         <div class="form-group col-md-6">
                                                             <label for="">Exam Paper Name</label>
-                                                            <input type="text"  required name="paper_name" class="form-control">
+                                                            <input type="text" required name="paper_name" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Exam Paper Visibility / Availability </label>
-                                                            <input type="text" required  name="paper_visibility" class="form-control availability">
+                                                            <input type="text" required name="paper_visibility" class="form-control availability">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -204,7 +204,7 @@ require_once('partials/head.php');
                                                             <label for="exampleInputFile">Upload Past Exam Paper ( PDF / Docx )</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
-                                                                    <input required name="pastpaper" accept=".pdf, .docx, .doc" type="file" class="custom-file-input" id="exampleInputFile">
+                                                                    <input required name="pastpaper"  accept=".pdf, .docx, .doc" type="file" class="custom-file-input" id="exampleInputFile">
                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                 </div>
                                                             </div>
@@ -288,7 +288,7 @@ require_once('partials/head.php');
                                                                                             <div class="row">
                                                                                                 <div class="form-group col-md-12">
                                                                                                     <label for="">Exam Paper Solution Visibility / Availability</label>
-                                                                                                    <input type="text" name="solution_visibility" class="form-control availability">
+                                                                                                    <input type="text" required name="solution_visibility" class="form-control availability">
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-12">
                                                                                                     <label for="exampleInputFile">Upload Past Exam Paper Solution ( PDF / Docx )</label>
@@ -349,7 +349,7 @@ require_once('partials/head.php');
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-6">
                                                                                                     <label for="">Exam Paper Solution Visibility / Availability</label>
-                                                                                                    <input type="text" required name="solution_visibility" class="form-control availability" value="<?php echo $pastExas->solution_visibility; ?>">
+                                                                                                    <input type="text" required  name="solution_visibility" class="form-control availability" value="<?php echo $pastExas->solution_visibility; ?>">
                                                                                                 </div>
                                                                                             </div>
 
