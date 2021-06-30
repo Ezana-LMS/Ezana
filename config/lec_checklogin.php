@@ -23,7 +23,7 @@
 /* Lecturer Check Login */
 function lec_check_login()
 {
-    if ((strlen($_SESSION['work_email']) == 0) || (strlen($_SESSION['id']))) {
+    if ( (strlen($_SESSION['work_email']) == 0) || (strlen($_SESSION['id']) == 0 )) {
         $host = $_SERVER['HTTP_HOST'];
         $uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
         $extra = "index";

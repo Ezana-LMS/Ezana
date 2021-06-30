@@ -20,14 +20,13 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 session_start();
 require_once('../config/config.php');
 require_once('../config/lec_checklogin.php');
 lec_check_login();
 require_once('../config/codeGen.php');
 require_once('partials/analytics.php');
-require_once('partials/_head.php');
+require_once('partials/head.php');
 ?>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
