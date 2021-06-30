@@ -41,7 +41,7 @@ while ($admin = $res->fetch_object()) {
 
             <!-- Emails Dropdown Menu -->
             <li class="nav-item dropdown">
-                <a class="nav-link" target="_blank" href="ezanamail/">
+                <a class="nav-link" target="_blank" href="../webmail/">
                     <i class="text-primary far fa-envelope"></i>
                 </a>
             </li>
