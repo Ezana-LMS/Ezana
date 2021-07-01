@@ -8,7 +8,7 @@
             <div class="card-body">
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="module?view=<?php echo $mod->id; ?>">
+                        <a href="module?view=<?php echo $mod->code; ?>">
                             Module Home
                         </a>
                     </li>
