@@ -53,7 +53,7 @@ if (isset($_POST['login'])) {
             $loginTime = date('Y-m-d');
 
             /* Persist Auth Logs */
-            mysqli_query($mysqli, "INSERT INTO ezanaLMS_UserLog(user_id, name, ip, User_Rank, loginTime) values('" . $_SESSION['id'] . "','" . $_SESSION['email'] . "','$uip', '$User_Rank', '$loginTime')");
+            mysqli_query($mysqli, "INSERT INTO ezanaLMS_UserLog(user_id, name, ip, User_Rank, loginTime) values('" . $_SESSION['id'] . "','" . $_SESSION['work_email'] . "','$uip', '$User_Rank', '$loginTime')");
             $extra = "dashboard";
             $host = $_SERVER['HTTP_HOST'];
             $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
