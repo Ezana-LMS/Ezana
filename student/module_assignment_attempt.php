@@ -154,8 +154,7 @@ require_once('partials/head.php');
                                                 <button type='button' class='btn btn-danger'>Assignment Deadline Already Elapsed</button>
                                             ";
                                         }
-                                    ?>
-                                    <?php } ?>
+                                    } ?>
                                 </div>
                                 <hr>
                                 <div class="row">

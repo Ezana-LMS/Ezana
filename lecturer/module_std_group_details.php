@@ -587,6 +587,7 @@ require_once('partials/head.php');
                                                                             </div>
                                                                         </div>
                                                                     </div>
+
                                                                     <div class="tab-pane fade show " id="custom-content-below-notices-assignments" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                                         <br>
                                                                         <table id="faculties" class="table table-bordered table-striped">
@@ -701,6 +702,7 @@ require_once('partials/head.php');
                                                                         </table>
 
                                                                     </div>
+                                                                    
                                                                     <div class="tab-pane fade show " id="custom-content-below-notices-details" role="tabpanel" aria-labelledby="custom-content-below-home-tab">
                                                                         <br>
                                                                         <?php echo  $g->details; ?>

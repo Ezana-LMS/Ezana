@@ -22,9 +22,8 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/checklogin.php');
+require_once('../config/std_checklogin.php');
 std_checklogin();
-require_once('../config/codeGen.php');
 require_once('partials/head.php');
 ?>
 
@@ -67,7 +66,7 @@ require_once('partials/head.php');
                         <section class="content">
                             <div class="container-fluid">
                                 <div class="col-md-12 text-center">
-                                    <h1 class="m-0 text-bold"><?php echo $mod->name; ?> Student Groups</h1>
+                                    <h1 class="m-0 text-bold"><?php echo $mod->name; ?> Groups</h1>
                                     <br>
                                 </div>
                                 <hr>
@@ -99,7 +98,7 @@ require_once('partials/head.php');
                                                                 <td><?php echo $g->code . "<br>" . $g->name; ?></td>
                                                                 <td><?php echo date('d M Y, g:ia', strtotime($g->created_at)); ?></td>
                                                                 <td>
-                                                                    <a class="badge badge-success" href="std_module_group_details.php?group=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">
+                                                                    <a class="badge badge-success" href="module_student_groups_details?group=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">
                                                                         <i class="fas fa-eye"></i>
                                                                         View Group Details
                                                                     </a>
