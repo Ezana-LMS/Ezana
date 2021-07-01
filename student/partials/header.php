@@ -59,6 +59,10 @@ while ($std = $res->fetch_object()) {
                         <i class="text-primary fas fa-calendar mr-2"></i>
                         Calendar
                     </a>
+                    <a href="requests" class="dropdown-item">
+                        <i class="text-primary fas fa-user-clock mr-2"></i>
+                        User Requests
+                    </a>
                     <a href="report_bug" class="dropdown-item">
                         <i class="text-primary fas fa-bug mr-2"></i>
                         Bug Reports
