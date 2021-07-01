@@ -107,7 +107,6 @@ require_once('partials/head.php');
                                                         </a>
                                                     </div>
 
-
                                                     <div class="col-lg-4 col-6">
                                                         <a href="modules">
                                                             <div class="small-box bg-info">
@@ -140,7 +139,6 @@ require_once('partials/head.php');
             }
         }
         require_once('partials/scripts.php');
-
         ?>
 </body>
 

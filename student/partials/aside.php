@@ -58,15 +58,6 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="memos" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            Memos
-                        </p>
-                    </a>
-                </li>
-
             </ul>
         </nav>
     </div>
