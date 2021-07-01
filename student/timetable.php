@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Wed Jun 30 2021
+ * Created on Thu Jul 01 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -22,8 +22,8 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/lec_checklogin.php');
-lec_check_login();
+require_once('../config/std_checklogin.php');
+std_checklogin();
 require_once('../config/codeGen.php');
 require_once('partials/head.php');
 ?>
@@ -36,11 +36,11 @@ require_once('partials/head.php');
         <!-- Main Sidebar Container -->
         <?php require_once('partials/aside.php');
         $id  = $_SESSION['id'];
-        $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id ='$id' ";
+        $ret = "SELECT * FROM `ezanaLMS_Students` WHERE id ='$id' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($lec = $res->fetch_object()) {
+        while ($std = $res->fetch_object()) {
         ?>
 
             <div class="content-wrapper">
@@ -77,7 +77,7 @@ require_once('partials/head.php');
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $ret = "SELECT * FROM `ezanaLMS_TimeTable`  WHERE faculty_id  = '$lec->faculty_id'  ";
+                                            $ret = "SELECT * FROM `ezanaLMS_TimeTable`  WHERE faculty_id  = '$std->faculty_id'  ";
                                             $stmt = $mysqli->prepare($ret);
                                             $stmt->execute(); //ok
                                             $res = $stmt->get_result();

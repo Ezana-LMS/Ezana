@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Wed Jun 30 2021
+ * Created on Thu Jul 01 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -22,38 +22,35 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/lec_checklogin.php');
-lec_check_login();
-require_once('../config/codeGen.php');
+require_once('../config/std_checklogin.php');
+std_checklogin();
 require_once('partials/head.php');
 ?>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
         <!-- Navbar -->
-        <?php require_once('partials/header.php'); ?>
-        <!-- /.navbar -->
-        <!-- Main Sidebar Container -->
-        <?php require_once('partials/aside.php');
+        <?php
+        require_once('partials/header.php');
+        require_once('partials/aside.php');
         $id  = $_SESSION['id'];
-        $ret = "SELECT * FROM `ezanaLMS_Lecturers` WHERE id ='$id' ";
+        $ret = "SELECT * FROM `ezanaLMS_Students` WHERE id ='$id' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($lec = $res->fetch_object()) {
+        while ($student = $res->fetch_object()) {
         ?>
-
             <div class="content-wrapper">
                 <div class="content-header">
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0 text-bold">School Time Table</h1>
+                                <h1 class="m-0 text-dark">Module Grades</h1>
                             </div>
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right small">
-                                    <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                    <li class="breadcrumb-item active">Time Table</li>
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><a href="std_dashboard.php">Home</a></li>
+                                    <li class="breadcrumb-item active">Module Grades</li>
                                 </ol>
                             </div>
                         </div>
@@ -67,34 +64,27 @@ require_once('partials/head.php');
                                     <table id="export-data-table" class="table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Module Details</th>
-                                                <th>Lecturer</th>
-                                                <th>Day</th>
-                                                <th>Time</th>
-                                                <th>Room</th>
-                                                <th>Link</th>
+                                                <th>Student Details</th>
+                                                <th>Module Details </th>
+                                                <th>Enrolled Academic Year</th>
+                                                <th>Enrolled Semester</th>
+                                                <th>Grade / Marks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $ret = "SELECT * FROM `ezanaLMS_TimeTable`  WHERE faculty_id  = '$lec->faculty_id'  ";
+                                            $ret = "SELECT * FROM `ezanaLMS_StudentModuleGrades` WHERE regno = '$student->admno' ";
                                             $stmt = $mysqli->prepare($ret);
                                             $stmt->execute(); //ok
                                             $res = $stmt->get_result();
-                                            while ($tt = $res->fetch_object()) {
+                                            while ($marks = $res->fetch_object()) {
                                             ?>
-
                                                 <tr>
-                                                    <td><?php echo $tt->module_code . "<br>" . $tt->module_name;  ?></td>
-                                                    <td><?php echo $tt->lecturer; ?></td>
-                                                    <td><?php echo $tt->day; ?></td>
-                                                    <td><?php echo $tt->time; ?></td>
-                                                    <td><?php echo $tt->room; ?></td>
-                                                    <td>
-                                                        <?php if ($tt->link != '') {
-                                                            echo "<a href='$tt->link' target='_blank'>Open Link</a>";
-                                                        } ?>
-                                                    </td>
+                                                    <td><?php echo $marks->regno . "<br>" . $marks->name; ?></td>
+                                                    <td><?php echo $marks->module_code . "<br>" . $marks->module_name; ?></td>
+                                                    <td><?php echo  $marks->academic_year; ?></td>
+                                                    <td><?php echo $marks->semester . " Semester"; ?></td>
+                                                    <td><?php echo $marks->marks; ?></td>
                                                 </tr>
                                             <?php
                                             } ?>

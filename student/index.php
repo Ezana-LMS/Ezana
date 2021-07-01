@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Wed Jun 30 2021
+ * Created on Thu Jul 01 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -40,20 +40,20 @@ if (isset($_POST['login'])) {
         $err = "Password Cannot  Be Empty";
     }
     if (!$error) {
-        $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Lecturers WHERE work_email='$email'  AND password='$password'");
+        $ret = mysqli_query($mysqli, "SELECT * FROM ezanaLMS_Students WHERE email='$email'  AND password='$password'");
         $num = mysqli_fetch_array($ret);
         if ($num > 0) {
             /* Load Sessions */
             $_SESSION['id'] = $num['id'];
-            $_SESSION['work_email'] = $email;
+            $_SESSION['email'] = $email;
 
             /* Load Login Logs */
             $uip = $_SERVER['REMOTE_ADDR'];
-            $User_Rank = 'Lecturer';
+            $User_Rank = 'Student';
             $loginTime = date('Y-m-d');
 
             /* Persist Auth Logs */
-            mysqli_query($mysqli, "INSERT INTO ezanaLMS_UserLog(user_id, name, ip, User_Rank, loginTime) values('" . $_SESSION['id'] . "','" . $_SESSION['work_email'] . "','$uip', '$User_Rank', '$loginTime')");
+            mysqli_query($mysqli, "INSERT INTO ezanaLMS_UserLog(user_id, name, ip, User_Rank, loginTime) values('" . $_SESSION['id'] . "','" . $_SESSION['email'] . "','$uip', '$User_Rank', '$loginTime')");
             $extra = "dashboard";
             $host = $_SERVER['HTTP_HOST'];
             $uri = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -88,7 +88,7 @@ while ($sys = $res->fetch_object()) {
                         <div class="wrap-input100 validate-input" data-validate="Valid email is required: user@mail.com">
                             <input class="input100" type="email" name="email">
                             <span class="focus-input100"></span>
-                            <span class="label-input100">Work Email</span>
+                            <span class="label-input100">Student Email</span>
                         </div>
                         <div class="wrap-input100 validate-input" data-validate="Password is required">
                             <input class="input100" type="password" name="password">

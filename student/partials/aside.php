@@ -29,7 +29,7 @@
                     <a href="memos" class="nav-link">
                         <i class="nav-icon fas fa-file"></i>
                         <p>
-                            Department Memos
+                            Memos
                         </p>
                     </a>
                 </li>
@@ -37,7 +37,15 @@
                     <a href="modules" class="nav-link">
                         <i class="nav-icon fas fa-chalkboard"></i>
                         <p>
-                            Allocated Modules
+                            Enrolled Modules
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="grades" class="nav-link">
+                        <i class="nav-icon fas fa-file-alt"></i>
+                        <p>
+                            Module Grades
                         </p>
                     </a>
                 </li>
@@ -50,14 +58,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="time_table" class="nav-link">
+                    <a href="timetable" class="nav-link">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
                             Time Table
                         </p>
                     </a>
                 </li>
-
             </ul>
         </nav>
     </div>
