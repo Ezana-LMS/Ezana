@@ -23,7 +23,7 @@
 session_start();
 require_once('../config/config.php');
 require_once('../config/std_checklogin.php');
-require_once('../configs/codeGen.php');
+require_once('../config/codeGen.php');
 std_checklogin();
 $time = date("d-M-Y") . "-" . time();
 
@@ -308,7 +308,7 @@ require_once('partials/head.php');
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="">Gender</label>
-                                                            <select type="text" required name="gender" class="form-control basic">
+                                                            <select type="text" style="width: 100%;" required name="gender" class="form-control basic">
                                                                 <option>Male</option>
                                                                 <option>Female</option>
                                                             </select>
@@ -374,7 +374,7 @@ require_once('partials/head.php');
 
         <?php
             require_once("partials/footer.php");
-            require_once("partials/_scripts.php");
+            require_once("partials/scripts.php");
         }
         ?>
 </body>
