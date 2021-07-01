@@ -48,12 +48,6 @@
                             Student Groups
                         </a>
                     </li>
-
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="module_enrollments?view=<?php echo $mod->id; ?>">
-                            Module Enrollments
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
