@@ -82,11 +82,13 @@ require_once('partials/head.php');
                                                         <tr>
                                                             <th data-toggle="true">Paper</th>
                                                             <th data-toggle="true">Date Uploaded</th>
+                                                            <th data-toggle="true">Manage</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name'   ";
+                                                        $now =  date('m/d/Y g:ia', strtotime("now"));
+                                                        $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name' AND paper_visibility <= '$now' AND solution_visibility <= '$now'  ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
@@ -96,6 +98,10 @@ require_once('partials/head.php');
                                                                 <td><?php echo $pastExas->paper_name; ?> </td>
                                                                 <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
                                                                 <td>
+                                                                    <a target="_blank" href="../Data/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="badge badge-secondary">
+                                                                        <i class="fas fa-eye"></i>
+                                                                        View Paper
+                                                                    </a>
                                                                     <?php
                                                                     if ($pastExas->solution == '') {
                                                                         /* Nothing */
@@ -108,10 +114,7 @@ require_once('partials/head.php');
                                                                         </a>
                                                                         ";
                                                                     } ?>
-                                                                    <a target="_blank" href="../Data/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="badge badge-secondary">
-                                                                        <i class="fas fa-eye"></i>
-                                                                        View Paper
-                                                                    </a>
+
                                                                 </td>
                                                             </tr>
                                                         <?php

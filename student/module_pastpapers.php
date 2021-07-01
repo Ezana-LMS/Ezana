@@ -77,7 +77,8 @@ require_once('partials/head.php');
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name'   ";
+                                                $now =  date('m/d/Y g:ia', strtotime("now"));
+                                                $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name' AND paper_visibility <= '$now' AND solution_visibility <= '$now'  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
