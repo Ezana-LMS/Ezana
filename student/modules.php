@@ -103,8 +103,7 @@ require_once('partials/head.php');
                         </div>
                     </section>
                     <!-- Main Footer -->
-                    <?php require_once('partials/footer.php');
-                    ?>
+                    <?php require_once('partials/footer.php'); ?>
                 </div>
             </div>
             <!-- ./wrapper -->
