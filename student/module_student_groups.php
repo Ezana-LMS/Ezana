@@ -22,8 +22,9 @@
 
 session_start();
 require_once('../config/config.php');
-require_once('../config/std_checklogin.php');
+require_once('../config/checklogin.php');
 std_checklogin();
+require_once('../config/codeGen.php');
 require_once('partials/head.php');
 ?>
 
@@ -32,12 +33,14 @@ require_once('partials/head.php');
         <!-- Navbar -->
         <?php
         require_once('partials/header.php');
+        require_once('partials/aside.php');
         $view = $_GET['view'];
         $ret = "SELECT * FROM `ezanaLMS_Modules` WHERE id ='$view'  ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         while ($mod = $res->fetch_object()) {
+            /* Load Student Details */
             $id = $_SESSION['id'];
             $ret = "SELECT * FROM `ezanaLMS_Students` WHERE id ='$id' ";
             $stmt = $mysqli->prepare($ret);
@@ -45,10 +48,6 @@ require_once('partials/head.php');
             $res = $stmt->get_result();
             while ($std = $res->fetch_object()) {
         ?>
-                <!-- /.navbar -->
-                <!-- Main Sidebar Container -->
-                <?php require_once('partials/aside.php'); ?>
-
                 <div class="content-wrapper">
                     <div class="content-header">
                         <div class="container-fluid">
@@ -58,8 +57,8 @@ require_once('partials/head.php');
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-right small">
                                         <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="modules">Modules</a></li>
-                                        <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
+                                        <li class="breadcrumb-item"><a href="modules">Enrolled Modules</a></li>
+                                        <li class="breadcrumb-item active"><?php echo $mod->name; ?> Groups</li>
                                     </ol>
                                 </div>
                             </div>
@@ -68,7 +67,7 @@ require_once('partials/head.php');
                         <section class="content">
                             <div class="container-fluid">
                                 <div class="col-md-12 text-center">
-                                    <h1 class="m-0 text-bold"><?php echo $mod->name; ?> Grades</h1>
+                                    <h1 class="m-0 text-bold"><?php echo $mod->name; ?> Student Groups</h1>
                                     <br>
                                 </div>
                                 <hr>
@@ -78,32 +77,33 @@ require_once('partials/head.php');
                                     <!-- Module Side Menu -->
                                     <div class="col-md-9">
                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <table id="export-data-table" class="table-bordered table-striped">
+                                            <div class="col-md-12 col-lg-12">
+                                                <table class="table table-bordered table-striped">
                                                     <thead>
                                                         <tr>
-                                                            <th>Student Details</th>
-                                                            <th>Assignment Name</th>
-                                                            <th>Marks / Grade </th>
-                                                            <th>Academic Yr</th>
-                                                            <th>Semester</th>
+                                                            <th>Group Code & Name</th>
+                                                            <th>Added On</th>
+                                                            <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $ret = "SELECT * FROM `ezanaLMS_StudentModuleGrades` WHERE module_code = '$mod->code' AND regno = '$std->admno' ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_StudentsGroups` WHERE student_admn = '$std->admno'  ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
-                                                        while ($grade = $res->fetch_object()) {
+                                                        while ($g = $res->fetch_object()) {
                                                         ?>
 
                                                             <tr>
-                                                                <td><?php echo $grade->regno . "<br>" . $grade->name; ?></td>
-                                                                <td><?php echo $grade->assignment_name; ?></td>
-                                                                <td><?php echo $grade->marks; ?></td>
-                                                                <td><?php echo $grade->academic_year; ?></td>
-                                                                <td><?php echo $grade->semester; ?></td>
+                                                                <td><?php echo $g->code . "<br>" . $g->name; ?></td>
+                                                                <td><?php echo date('d M Y, g:ia', strtotime($g->created_at)); ?></td>
+                                                                <td>
+                                                                    <a class="badge badge-success" href="std_module_group_details.php?group=<?php echo $g->id; ?>&view=<?php echo $mod->id; ?>">
+                                                                        <i class="fas fa-eye"></i>
+                                                                        View Group Details
+                                                                    </a>
+                                                                </td>
                                                             </tr>
                                                         <?php
                                                         } ?>
@@ -116,15 +116,14 @@ require_once('partials/head.php');
                             </div>
                         </section>
                         <!-- Main Footer -->
-                        <?php
-                        require_once('partials/footer.php'); ?>
+                        <?php require_once('partials/footer.php');
+                        ?>
                     </div>
                 </div>
                 <!-- ./wrapper -->
-        <?php
+        <?php require_once('partials/scripts.php');
             }
-        }
-        require_once('partials/scripts.php'); ?>
+        } ?>
 </body>
 
 </html>
