@@ -78,7 +78,7 @@ require_once('partials/head.php');
                                             <div class="row">
                                                 <?php
                                                 $now =  date('m/d/Y g:ia', strtotime("now"));
-                                                $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name' AND paper_visibility <= '$now' AND solution_visibility <= '$now'  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name'";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
@@ -91,18 +91,45 @@ require_once('partials/head.php');
                                                                 <br>
                                                                 <hr>
                                                                 <div class="text-center">
-                                                                    <a target="_blank" href="../Data/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="btn btn-outline-success">
-                                                                        View Paper
-                                                                    </a>
                                                                     <?php
-                                                                    if ($pastExas->solution == '') {
-                                                                        /* Nothing */
+                                                                    if ($pastExas->paper_visibility <= $now) {
+                                                                        echo
+                                                                        "
+                                                                            <a target='_blank' href='../Data/PastPapers/$pastExas->pastpaper' class='btn btn-outline-success'>
+                                                                                View Paper
+                                                                            </a>
+                                                                        ";
                                                                     } else {
                                                                         echo
                                                                         "
-                                                                        <a target='_blank' href= '../Data/PastPapers/$pastExas->solution' class='btn btn-outline-success'>
-                                                                            View Solution
-                                                                        </a>
+                                                                        <button class='btn btn-outline-danger'>
+                                                                            Paper Not Available 
+                                                                        </button>
+                                                                        ";
+                                                                    }
+                                                                    if ($pastExas->solution != '') {
+
+                                                                        if ($pastExas->solution_visibility <= $now) {
+                                                                            echo
+                                                                            "
+                                                                                <a target='_blank' href= '../Data/PastPapers/$pastExas->solution' class='btn btn-outline-success'>
+                                                                                    View Solution
+                                                                                </a>
+                                                                            ";
+                                                                        } else {
+                                                                            echo
+                                                                            "
+                                                                                <button class='btn btn-outline-danger'>
+                                                                                    Solution Not Available
+                                                                                </button>
+                                                                            ";
+                                                                        }
+                                                                    } else {
+                                                                        echo
+                                                                        "
+                                                                            <button class='btn btn-outline-danger'>
+                                                                                Solution Not Available
+                                                                            </button>
                                                                         ";
                                                                     }
                                                                     ?>

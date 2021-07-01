@@ -88,7 +88,7 @@ require_once('partials/head.php');
                                                     <tbody>
                                                         <?php
                                                         $now =  date('m/d/Y g:ia', strtotime("now"));
-                                                        $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name' AND paper_visibility <= '$now' AND solution_visibility <= '$now'  ";
+                                                        $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name'  ";
                                                         $stmt = $mysqli->prepare($ret);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
@@ -98,23 +98,48 @@ require_once('partials/head.php');
                                                                 <td><?php echo $pastExas->paper_name; ?> </td>
                                                                 <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
                                                                 <td>
-                                                                    <a target="_blank" href="../Data/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="badge badge-secondary">
-                                                                        <i class="fas fa-eye"></i>
-                                                                        View Paper
-                                                                    </a>
                                                                     <?php
-                                                                    if ($pastExas->solution == '') {
-                                                                        /* Nothing */
+                                                                    if ($pastExas->paper_visibility <= $now) {
+                                                                        echo
+                                                                        "
+                                                                            <a target='_blank' href='../Data/PastPapers/$pastExas->pastpaper' class='badge badge-success'>
+                                                                                View Paper
+                                                                            </a>
+                                                                        ";
                                                                     } else {
                                                                         echo
                                                                         "
-                                                                        <a target='_blank' href= '../Data/PastPapers/$pastExas->solution' class='badge badge-success'>
-                                                                        <i class='fas fa-eye'></i>
-                                                                            View Solution
-                                                                        </a>
+                                                                            <span class='badge badge-danger'>
+                                                                                Paper Not Available
+                                                                            </span>
                                                                         ";
-                                                                    } ?>
+                                                                    }
+                                                                    if ($pastExas->solution != '') {
 
+                                                                        if ($pastExas->solution_visibility <= $now) {
+                                                                            echo
+                                                                            "
+                                                                                <a target='_blank' href= '../Data/PastPapers/$pastExas->solution' class='badge badge-success'>
+                                                                                    View Solution
+                                                                                </a>
+                                                                            ";
+                                                                        } else {
+                                                                            echo
+                                                                            "
+                                                                                <span class='badge badge-danger'>
+                                                                                    Solution Not Available
+                                                                                </span>
+                                                                            ";
+                                                                        }
+                                                                    } else {
+                                                                        echo
+                                                                        "
+                                                                            <span class='badge badge-danger'>
+                                                                                Solution Not Available
+                                                                            </span>
+                                                                        ";
+                                                                    }
+                                                                    ?>
                                                                 </td>
                                                             </tr>
                                                         <?php
