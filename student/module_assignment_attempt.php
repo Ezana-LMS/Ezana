@@ -114,7 +114,6 @@ require_once('partials/head.php');
                 <div class="content-wrapper">
                     <div class="content-header">
                         <div class="container-fluid">
-                            <hr>
                             <div class="row mb-2">
                                 <div class="col-sm-6">
                                 </div>
@@ -131,9 +130,32 @@ require_once('partials/head.php');
                         <section class="content">
                             <div class="container-fluid">
                                 <div class="col-md-12 text-center">
-                                    <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Assignments Attempts</h1>
+                                    <h1 class="m-0 text-bold"><?php echo $mod->name; ?> Assignments Attempts</h1>
                                     <br>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Assignment Attempt</button>
+                                    <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="module_assignments?view=<?php echo $mod->id; ?>" class="text-white">Back</a></span>
+                                    <?php
+                                    /* Limit User To Not Submit If Deadline Has Passed */
+                                    $assignment_id = $_GET['assignment'];
+                                    $now =  date('m/d/Y g:ia', strtotime("now"));
+                                    $ret = "SELECT * FROM `ezanaLMS_ModuleAssignments` WHERE id = '$assignment_id'";
+                                    $stmt = $mysqli->prepare($ret);
+                                    $stmt->execute(); //ok
+                                    $res = $stmt->get_result();
+                                    while ($attempts = $res->fetch_object()) {
+                                        $deadline = date('m/d/Y g:ia', strtotime($attempts->submission_deadline));
+                                        if ($deadline > $now) {
+                                            echo
+                                            "
+                                                <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal-default'>Add Assignment Attempt</button>
+                                            ";
+                                        } else {
+                                            echo
+                                            "
+                                                <button type='button' class='btn btn-danger'>Assignment Deadline Already Elapsed</button>
+                                            ";
+                                        }
+                                    ?>
+                                    <?php } ?>
                                 </div>
                                 <hr>
                                 <div class="row">
