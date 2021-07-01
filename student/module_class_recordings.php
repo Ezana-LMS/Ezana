@@ -104,17 +104,6 @@ require_once('partials/head.php');
                                                                     </div>
                                                                 </a>
                                                             </div>
-                                                            <div class="card-footer text-center">
-                                                                <?php
-                                                                /* If Shared Via Link Just Show */
-                                                                if ($cr->clip_type == 'Link') {
-                                                                    echo "<a class='badge badge-warning' data-toggle='modal' href='#update-clip-link-$cr->id'>Update</a>";
-                                                                } else {
-                                                                    echo "<a class='badge badge-warning' data-toggle='modal' href='#update-clip-recording-$cr->id'>Update</a>";
-                                                                }
-                                                                ?>
-                                                                <a class="badge badge-danger" href="#delete-<?php echo $cr->id; ?>" data-toggle="modal">Delete</a>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 <?php } ?>

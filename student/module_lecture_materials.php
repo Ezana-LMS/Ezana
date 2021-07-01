@@ -77,7 +77,7 @@ require_once('partials/head.php');
                                         <div class="col-md-12 col-lg-12">
                                             <div class="row">
                                                 <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_ModuleRecommended` WHERE module_code ='$mod->code'  ORDER BY `created_at` ASC  ";
+                                                $ret = "SELECT * FROM `ezanaLMS_ModuleRecommended` WHERE module_code ='$mod->code' AND visibility != 'Hidden'  ORDER BY `created_at` ASC  ";
                                                 $stmt = $mysqli->prepare($ret);
                                                 $stmt->execute(); //ok
                                                 $res = $stmt->get_result();
@@ -120,12 +120,8 @@ require_once('partials/head.php');
                                                             </div>
                                                             <div class="card-footer">
                                                                 <small class="text-muted">
-                                                                    Uploaded On : <?php echo date('d-M-Y g:ia', strtotime($rm->created_at));
-                                                                                    if ($rm->visibility == 'Hidden') {
-                                                                                        echo "<span class='text-right badge badge-primary'>$rm->visibility</span>";
-                                                                                    } else {
-                                                                                        /* Nothing */
-                                                                                    }; ?>
+                                                                    Uploaded On : <?php echo date('d-M-Y g:ia', strtotime($rm->created_at)); ?>
+
                                                                 </small>
                                                             </div>
                                                         </div>
