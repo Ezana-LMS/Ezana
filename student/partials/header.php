@@ -52,20 +52,20 @@ while ($std = $res->fetch_object()) {
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <a href="profile" class="dropdown-item">
-                        <i class="fas fa-user mr-2"></i>
+                        <i class="text-primary fas fa-user mr-2"></i>
                         Profile
                     </a>
                     <a href="calendar" class="dropdown-item">
-                        <i class="fas fa-calendar mr-2"></i>
+                        <i class="text-primary fas fa-calendar mr-2"></i>
                         Calendar
                     </a>
                     <a href="report_bug" class="dropdown-item">
-                        <i class="fas fa-bug mr-2"></i>
+                        <i class="text-primary fas fa-bug mr-2"></i>
                         Bug Reports
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="logout" class="dropdown-item">
-                        <i class="fas fa-power-off mr-2"></i>
+                        <i class="text-primary fas fa-power-off mr-2"></i>
                         Log Out
                     </a>
                 </div>

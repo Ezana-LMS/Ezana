@@ -91,7 +91,7 @@ require_once('partials/head.php');
                                                     </div>
 
                                                     <div class="col-lg-4 col-6">
-                                                        <a href="important_">
+                                                        <a href="important_dates">
                                                             <div class="small-box bg-info">
                                                                 <div class="inner">
                                                                     <h3>Academic Yr & Semester</h3>
@@ -109,7 +109,7 @@ require_once('partials/head.php');
 
 
                                                     <div class="col-lg-4 col-6">
-                                                        <a href="std_enrolled_modules.php">
+                                                        <a href="modules">
                                                             <div class="small-box bg-info">
                                                                 <div class="inner">
                                                                     <h3>Enrolled Modules</h3>
