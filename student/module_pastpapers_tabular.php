@@ -24,8 +24,8 @@ session_start();
 require_once('../config/config.php');
 require_once('../config/std_checklogin.php');
 std_checklogin();
+require_once('../config/codeGen.php');
 $time = time(); /* Timestamp Everything */
-
 require_once('partials/head.php');
 ?>
 
@@ -65,8 +65,9 @@ require_once('partials/head.php');
                             <div class="col-md-12 text-center">
                                 <h1 class="m-0 text-bold"><?php echo $mod->name; ?> Past Papers</h1>
                                 <br>
-                                <a title="View <?php echo $mod->name; ?> Past Papers In Tabular Formart" href="module_pastpapers_tabular?view=<?php echo $mod->id; ?>" class="btn btn-primary"><i class="fas fa-table"></i> List View</a>
+                                <a title="View <?php echo $mod->name; ?> Past Papers In List" href="module_pastpapers?view=<?php echo $mod->id; ?>" class="btn btn-primary"><i class="fas fa-list"></i> Card View</a>
                             </div>
+
                             <hr>
                             <div class="row">
                                 <!-- Module Side Menu -->
@@ -75,45 +76,48 @@ require_once('partials/head.php');
                                 <div class="col-md-9">
                                     <div class="row">
                                         <div class="col-md-12 col-lg-12">
-                                            <div class="row">
-                                                <?php
-                                                $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name'   ";
-                                                $stmt = $mysqli->prepare($ret);
-                                                $stmt->execute(); //ok
-                                                $res = $stmt->get_result();
-                                                while ($pastExas = $res->fetch_object()) {
-                                                ?>
-                                                    <div class="col-md-6">
-                                                        <div class="card card-primary card-outline">
-                                                            <div class="card-body">
-                                                                <h5 class="card-title"><?php echo $pastExas->paper_name; ?></h5>
-                                                                <br>
-                                                                <hr>
-                                                                <div class="text-center">
-                                                                    <a target="_blank" href="../Data/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="btn btn-outline-success">
-                                                                        View Paper
-                                                                    </a>
+                                            <div class="card-box">
+                                                <table id="demo-foo-filtering" class="table table-bordered table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th data-toggle="true">Paper</th>
+                                                            <th data-toggle="true">Date Uploaded</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $ret = "SELECT * FROM `ezanaLMS_PastPapers` WHERE module_name = '$mod->name'   ";
+                                                        $stmt = $mysqli->prepare($ret);
+                                                        $stmt->execute(); //ok
+                                                        $res = $stmt->get_result();
+                                                        while ($pastExas = $res->fetch_object()) {
+                                                        ?>
+                                                            <tr>
+                                                                <td><?php echo $pastExas->paper_name; ?> </td>
+                                                                <td><?php echo date('d M Y - g:i', strtotime($pastExas->created_at)); ?></td>
+                                                                <td>
                                                                     <?php
                                                                     if ($pastExas->solution == '') {
                                                                         /* Nothing */
                                                                     } else {
                                                                         echo
                                                                         "
-                                                                        <a target='_blank' href= '../Data/PastPapers/$pastExas->solution' class='btn btn-outline-success'>
+                                                                        <a target='_blank' href= '../Data/PastPapers/$pastExas->solution' class='badge badge-success'>
+                                                                        <i class='fas fa-eye'></i>
                                                                             View Solution
                                                                         </a>
                                                                         ";
-                                                                    }
-                                                                    ?>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card-footer">
-                                                                <small class="text-muted">Uploaded: <?php echo date('d-M-Y g:ia', strtotime($pastExas->created_at)); ?></small>
-                                                                <br>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <?php } ?>
+                                                                    } ?>
+                                                                    <a target="_blank" href="../Data/PastPapers/<?php echo $pastExas->pastpaper; ?>" class="badge badge-secondary">
+                                                                        <i class="fas fa-eye"></i>
+                                                                        View Paper
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        <?php
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
