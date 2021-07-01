@@ -248,9 +248,6 @@ require_once('partials/head.php');
                                                                                             </div>
                                                                                         </form>
                                                                                     </div>
-                                                                                    <div class="justify-content-between">
-                                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
