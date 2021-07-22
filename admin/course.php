@@ -641,14 +641,15 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="text-left">
-                                <div class="col-md-12 text-center">
-                                    <h1 class="m-0 text-bold"><?php echo $course->name; ?> Dashboard</h1>
-                                    <br>
-                                    <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="courses" class="text-white"> Back</a></span>
-
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-<?php echo $course->id; ?>">Edit Course</button>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-head">Edit Course Head</button>
-                                </div>
+                                <nav class="navbar col-md-12">
+                                    <form class="form-inline" method="GET">
+                                        <h1 class="m-0 text-bold"><?php echo $course->name; ?> Dashboard</h1>
+                                    </form>
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-<?php echo $course->id; ?>">Edit Course</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-head">Edit Course Head</button>
+                                    </div>
+                                </nav>
                             </div>
                             <hr>
                             <!-- Update Course Modal -->
