@@ -406,13 +406,16 @@ require_once('partials/head.php');
                         <section class="content">
                             <div class="container-fluid">
                                 <div class="col-md-12">
-                                    <div class="text-center">
-                                        <h1 class="m-0 text-bold"><?php echo $department->name; ?> Dashboard</h1>
-                                        <br>
-                                        <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="departments" class="text-white"> Back</a></span>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-hod">Edit Department HOD</button>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-<?php echo $department->id; ?>">Edit Department</button>
-                                    </div>
+                                    <nav class="navbar col-md-12">
+                                        <form class="form-inline" method="GET">
+                                            <h1 class="m-0 text-bold"><?php echo $department->name; ?> Dashboard</h1>
+                                        </form>
+                                        <div class="text-right">
+                                            <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="departments" class="text-white"> Back</a></span>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-hod">Edit Department HOD</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-<?php echo $department->id; ?>">Edit Department</button>
+                                        </div>
+                                    </nav>
                                 </div>
 
                                 <hr>
