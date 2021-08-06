@@ -107,15 +107,12 @@ require_once('partials/head.php');
                                             <h1 class="m-0 text-bold"><?php echo $mod->name; ?></h1>
                                         </form>
                                         <div class="text-right">
-                                            <h1 class="m-0 text-bold"><?php echo  $mod->code . "-" . $mod->name; ?></h1>
-                                            <br>
                                             <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="modules" class="text-white">Back</a></span>
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-module-<?php echo $mod->id; ?>">Edit Module</button>
                                         </div>
                                     </nav>
                                 </div>
                             </div>
-                            <br>
                         </div>
 
                         <!-- Update Module Modal -->

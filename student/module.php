@@ -67,10 +67,9 @@ require_once('partials/head.php');
                                 <div class="text-left">
                                     <nav class="navbar col-md-12">
                                         <form class="form-inline" method="GET">
+                                            <h1 class="m-0 text-bold"><?php echo  $mod->code . "-" . $mod->name; ?></h1>
                                         </form>
                                         <div class="text-right">
-                                            <h1 class="m-0 text-bold"><?php echo  $mod->code . "-" . $mod->name; ?></h1>
-                                            <br>
                                             <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="modules" class="text-white">Back</a></span>
                                         </div>
                                     </nav>

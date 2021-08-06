@@ -302,7 +302,7 @@ require_once('partials/head.php');
                                                                 <div class="col-sm-12">
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
-                                                                            <input type="file" required  accept=".png, .jpeg, .jpg" name="profile_pic" class="custom-file-input" id="exampleInputFile">
+                                                                            <input type="file" required accept=".png, .jpeg, .jpg" name="profile_pic" class="custom-file-input" id="exampleInputFile">
                                                                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                         </div>
                                                                     </div>
@@ -605,7 +605,6 @@ require_once('partials/head.php');
                                                             <div class="form-group col-md-6">
                                                                 <label for="">New Password</label>
                                                                 <input type="text" value="<?php echo $defaultPass; ?>" required name="new_password" class="form-control">
-                                                                <input type="hidden" required name="faculty_id" value="<?php echo $faculty->id; ?>" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Confirm Password</label>
