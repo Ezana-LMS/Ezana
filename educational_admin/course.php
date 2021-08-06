@@ -630,7 +630,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="courses?view=<?php echo $course->faculty_id;?>">Courses</a></li>
+                                    <li class="breadcrumb-item"><a href="courses?view=<?php echo $course->faculty_id; ?>">Courses</a></li>
                                     <li class="breadcrumb-item active"><?php echo $course->name; ?></li>
                                 </ol>
                             </div>
@@ -640,14 +640,15 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="text-left">
-                                <div class="col-md-12 text-center">
-                                    <h1 class="m-0 text-bold"><?php echo $course->name; ?> Dashboard</h1>
-                                    <br>
-                                    <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="courses?view=<?php echo $course->faculty_id;?>" class="text-white"> Back</a></span>
-
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-<?php echo $course->id; ?>">Edit Course</button>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-head">Edit Course Head</button>
-                                </div>
+                                <nav class="navbar col-md-12">
+                                    <form class="form-inline" method="GET">
+                                        <h1 class="m-0 text-bold"><?php echo $course->name; ?> Dashboard</h1>
+                                    </form>
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-<?php echo $course->id; ?>">Edit Course</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-head">Edit Course Head</button>
+                                    </div>
+                                </nav>
                             </div>
                             <hr>
                             <!-- Update Course Modal -->
@@ -747,23 +748,23 @@ require_once('partials/head.php');
                                             <ul class="nav flex-column">
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
-                                                        Code : <span class="float-right "><?php echo $course->code; ?></span>
+                                                        Code : <span class="float-right text-dark"><?php echo $course->code; ?></span>
                                                     </span>
                                                 </li>
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
-                                                        Head : <span class="float-right "><?php echo $course->hod; ?></span>
+                                                        Head : <span class="float-right text-dark"><?php echo $course->hod; ?></span>
                                                     </span>
                                                 </li>
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
-                                                        Head Email : <a href="mailto:<?php echo $course->email; ?>"><span class="float-right "><?php echo $course->email; ?></a></span>
+                                                        Head Email : <a href="mailto:<?php echo $course->email; ?>"><span class="float-right text-dark"><?php echo $course->email; ?></a></span>
                                                     </span>
                                                 </li>
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
                                                         Enrolled Students :
-                                                        <span class="float-right ">
+                                                        <span class="float-right text-dark">
                                                             <?php
                                                             /* Get Enrolled Students To This Course */
                                                             $course_code = $course->code;
@@ -782,7 +783,7 @@ require_once('partials/head.php');
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
                                                         Modules :
-                                                        <span class="float-right ">
+                                                        <span class="float-right text-dark">
                                                             <?php
                                                             /* Get All Modules Under Respective Course */
                                                             $query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE course_id = '$view' ";
@@ -808,13 +809,13 @@ require_once('partials/head.php');
                                                 ?>
                                                     <li class="nav-item">
                                                         <span class="nav-link text-primary">
-                                                            Department Code : <span class="float-right "><?php echo $department->code; ?></span>
+                                                            Department Code : <span class="float-right text-dark"><?php echo $department->code; ?></span>
                                                         </span>
                                                     </li>
 
                                                     <li class="nav-item">
                                                         <span class="nav-link text-primary">
-                                                            Department Name : <span class="float-right "><?php echo $department->name; ?></span>
+                                                            Department Name : <span class="float-right text-dark"><?php echo $department->name; ?></span>
                                                         </span>
                                                     </li>
                                                 <?php }
@@ -827,13 +828,13 @@ require_once('partials/head.php');
                                                 ?>
                                                     <li class="nav-item">
                                                         <span class="nav-link text-primary">
-                                                            Faculty / School Code : <span class="float-right "><?php echo $faculty->code; ?></span>
+                                                            Faculty / School Code : <span class="float-right text-dark"><?php echo $faculty->code; ?></span>
                                                         </span>
                                                     </li>
 
                                                     <li class="nav-item">
                                                         <span class="nav-link text-primary">
-                                                            Faculty / School Name : <span class="float-right "><?php echo $faculty->name; ?></span>
+                                                            Faculty / School Name : <span class="float-right text-dark"><?php echo $faculty->name; ?></span>
                                                         </span>
                                                     </li>
                                                 <?php

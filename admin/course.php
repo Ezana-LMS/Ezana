@@ -749,23 +749,23 @@ require_once('partials/head.php');
                                             <ul class="nav flex-column">
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
-                                                        Code : <span class="float-right "><?php echo $course->code; ?></span>
+                                                        Code : <span class="float-right text-dark "><?php echo $course->code; ?></span>
                                                     </span>
                                                 </li>
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
-                                                        Head : <span class="float-right "><?php echo $course->hod; ?></span>
+                                                        Head : <span class="float-right text-dark "><?php echo $course->hod; ?></span>
                                                     </span>
                                                 </li>
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
-                                                        Head Email : <a href="mailto:<?php echo $course->email; ?>"><span class="float-right "><?php echo $course->email; ?></a></span>
+                                                        Head Email : <a href="mailto:<?php echo $course->email; ?>"><span class="float-right text-dark "><?php echo $course->email; ?></a></span>
                                                     </span>
                                                 </li>
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
                                                         Enrolled Students :
-                                                        <span class="float-right ">
+                                                        <span class="float-right  text-dark">
                                                             <?php
                                                             /* Get Enrolled Students To This Course */
                                                             $course_code = $course->code;
@@ -784,7 +784,7 @@ require_once('partials/head.php');
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
                                                         Modules :
-                                                        <span class="float-right ">
+                                                        <span class="float-right text-dark ">
                                                             <?php
                                                             /* Get All Modules Under Respective Course */
                                                             $query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE course_id = '$view' ";
@@ -810,13 +810,13 @@ require_once('partials/head.php');
                                                 ?>
                                                     <li class="nav-item">
                                                         <span class="nav-link text-primary">
-                                                            Department Code : <span class="float-right "><?php echo $department->code; ?></span>
+                                                            Department Code : <span class="float-right  text-dark"><?php echo $department->code; ?></span>
                                                         </span>
                                                     </li>
 
                                                     <li class="nav-item">
                                                         <span class="nav-link text-primary">
-                                                            Department Name : <span class="float-right "><?php echo $department->name; ?></span>
+                                                            Department Name : <span class="float-right  text-dark "><?php echo $department->name; ?></span>
                                                         </span>
                                                     </li>
                                                 <?php }
@@ -829,13 +829,13 @@ require_once('partials/head.php');
                                                 ?>
                                                     <li class="nav-item">
                                                         <span class="nav-link text-primary">
-                                                            Faculty / School Code : <span class="float-right "><?php echo $faculty->code; ?></span>
+                                                            Faculty / School Code : <span class="float-right  text-dark "><?php echo $faculty->code; ?></span>
                                                         </span>
                                                     </li>
 
                                                     <li class="nav-item">
                                                         <span class="nav-link text-primary">
-                                                            Faculty / School Name : <span class="float-right "><?php echo $faculty->name; ?></span>
+                                                            Faculty / School Name : <span class="float-right  text-dark "><?php echo $faculty->name; ?></span>
                                                         </span>
                                                     </li>
                                                 <?php
