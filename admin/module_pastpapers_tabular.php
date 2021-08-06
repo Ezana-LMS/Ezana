@@ -149,7 +149,7 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="col-md-12 text-center">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Past Papers</h1>
+                                <h1 class="m-0 text-bold"><?php echo $mod->name; ?> Past Papers</h1>
                                 <br>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Past Paper</button>
                                 <a title="View <?php echo $mod->name; ?> Past Papers In List" href="module_pastpapers?view=<?php echo $mod->id; ?>" class="btn btn-primary"><i class="fas fa-list"></i></a>
@@ -192,11 +192,11 @@ require_once('partials/head.php');
 
                                                         <div class="form-group col-md-6">
                                                             <label for="">Exam Paper Name</label>
-                                                            <input type="text" name="paper_name" class="form-control">
+                                                            <input type="text"  required name="paper_name" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Exam Paper Visibility / Availability </label>
-                                                            <input type="text" name="paper_visibility" class="form-control availability">
+                                                            <input type="text" required  name="paper_visibility" class="form-control availability">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -341,15 +341,15 @@ require_once('partials/head.php');
                                                                                             <div class="row">
                                                                                                 <div class="form-group col-md-12">
                                                                                                     <label for="">Exam Paper Name</label>
-                                                                                                    <input type="text" value="<?php echo $pastExas->paper_name; ?>" name="paper_name" class="form-control">
+                                                                                                    <input type="text" required value="<?php echo $pastExas->paper_name; ?>" name="paper_name" class="form-control">
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-6">
                                                                                                     <label for="">Exam Paper Visibility / Availability</label>
-                                                                                                    <input type="text" name="paper_visibility" class="form-control availability" value="<?php echo $pastExas->paper_visibility; ?>">
+                                                                                                    <input type="text" required name="paper_visibility" class="form-control availability" value="<?php echo $pastExas->paper_visibility; ?>">
                                                                                                 </div>
                                                                                                 <div class="form-group col-md-6">
                                                                                                     <label for="">Exam Paper Solution Visibility / Availability</label>
-                                                                                                    <input type="text" name="solution_visibility" class="form-control availability" value="<?php echo $pastExas->solution_visibility; ?>">
+                                                                                                    <input type="text" required name="solution_visibility" class="form-control availability" value="<?php echo $pastExas->solution_visibility; ?>">
                                                                                                 </div>
                                                                                             </div>
 

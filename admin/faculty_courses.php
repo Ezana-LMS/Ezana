@@ -153,7 +153,7 @@ require_once('partials/head.php');
                         <div class="container-fluid">
                             <div class="col-md-12">
                                 <div class="text-center">
-                                    <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Courses</h1>
+                                    <h1 class="m-0 text-bold"><?php echo $faculty->name; ?> Courses</h1>
                                     <br>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Course</button>
                                 </div>
@@ -303,7 +303,7 @@ require_once('partials/head.php');
                                                                                             </div>
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Course Number / Code</label>
-                                                                                                <input type="text" required name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
+                                                                                                <input type="text" required readonly name="code" value="<?php echo $courses->code; ?>"" class=" form-control">
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="row">

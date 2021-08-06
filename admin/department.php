@@ -406,13 +406,16 @@ require_once('partials/head.php');
                         <section class="content">
                             <div class="container-fluid">
                                 <div class="col-md-12">
-                                    <div class="text-center">
-                                        <h1 class="m-0 text-dark"><?php echo $department->name; ?> Dashboard</h1>
-                                        <br>
-                                        <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="departments" class="text-white"> Back</a></span>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-hod">Edit Department HOD</button>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-<?php echo $department->id; ?>">Edit Department</button>
-                                    </div>
+                                    <nav class="navbar col-md-12">
+                                        <form class="form-inline" method="GET">
+                                            <h1 class="m-0 text-bold"><?php echo $department->name; ?> Dashboard</h1>
+                                        </form>
+                                        <div class="text-right">
+                                            <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="departments" class="text-white"> Back</a></span>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-hod">Edit Department HOD</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-department-<?php echo $department->id; ?>">Edit Department</button>
+                                        </div>
+                                    </nav>
                                 </div>
 
                                 <hr>
@@ -440,7 +443,7 @@ require_once('partials/head.php');
                                                                             </div>
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Department Number / Code</label>
-                                                                                <input type="text" required name="code" value="<?php echo $department->code; ?>" class="form-control">
+                                                                                <input type="text" readonly required name="code" value="<?php echo $department->code; ?>" class="form-control">
                                                                             </div>
                                                                             <!-- <div class="form-group col-md-4">
                                                                                 <label for="">Department HOD</label>
@@ -494,7 +497,7 @@ require_once('partials/head.php');
                                                                         </div>
                                                                         <div class="form-group col-md-6">
                                                                             <label for="">Email</label>
-                                                                            <input type="email" required name="email" id="DepartmentHeadEmail" class="form-control">
+                                                                            <input type="email" readonly required name="email" id="DepartmentHeadEmail" class="form-control">
                                                                         </div>
                                                                     </div>
 
@@ -532,7 +535,7 @@ require_once('partials/head.php');
                                                                                 <label for="">Upload Departmental Memo (PDF Or Docx)</label>
                                                                                 <div class="input-group">
                                                                                     <div class="custom-file">
-                                                                                        <input name="attachments" accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
+                                                                                        <input name="attachments" required accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                     </div>
                                                                                 </div>
@@ -602,7 +605,7 @@ require_once('partials/head.php');
                                                                                 <label for="">Upload Departmental Document (PDF Or Docx)</label>
                                                                                 <div class="input-group">
                                                                                     <div class="custom-file">
-                                                                                        <input name="attachments" accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
+                                                                                        <input name="attachments" required accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                     </div>
                                                                                 </div>
@@ -647,16 +650,16 @@ require_once('partials/head.php');
                                                                         <div class="row" style="display:none">
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Department Code</label>
-                                                                                <input type="text" value="<?php echo $department->code; ?>" required name="department_name" class="form-control">
+                                                                                <input type="text" readonly value="<?php echo $department->code; ?>" required name="department_name" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-6">
                                                                                 <label for="">Department Name</label>
-                                                                                <input type="text" value="<?php echo $department->name; ?>" required name="department_name" class="form-control">
+                                                                                <input type="text" readonly value="<?php echo $department->name; ?>" required name="department_name" class="form-control">
                                                                                 <input type="hidden" value="<?php echo $department->id; ?>" readonly required name="department_id" class="form-control">
                                                                             </div>
                                                                             <div class="form-group col-md-12">
                                                                                 <label for="">Faculty Name</label>
-                                                                                <input type="text" value="<?php echo $department->faculty_name; ?>" required name="faculty_name" class="form-control">
+                                                                                <input type="text" readonly value="<?php echo $department->faculty_name; ?>" required name="faculty_name" class="form-control">
                                                                                 <input type="hidden" value="<?php echo $department->faculty_id; ?>" readonly required name="faculty_id" class="form-control">
                                                                             </div>
                                                                         </div>
@@ -1005,7 +1008,7 @@ require_once('partials/head.php');
                                                                                                                                 <label for="">Upload Memo | Notice (PDF r Docx)</label>
                                                                                                                                 <div class="input-group">
                                                                                                                                     <div class="custom-file">
-                                                                                                                                        <input name="attachments" accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
+                                                                                                                                        <input name="attachments" required accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
                                                                                                                                         <input type="hidden" required name="faculty" value="<?php echo $department->faculty_id; ?>" class="form-control">
                                                                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                                     </div>
@@ -1177,7 +1180,7 @@ require_once('partials/head.php');
                                                                                                                                 <label for="">Upload Departmental Document (PDF Or Docx)</label>
                                                                                                                                 <div class="input-group">
                                                                                                                                     <div class="custom-file">
-                                                                                                                                        <input name="attachments" accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
+                                                                                                                                        <input name="attachments" required accept='.pdf, .docx, .doc' type="file" class="custom-file-input">
                                                                                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                                     </div>
                                                                                                                                 </div>

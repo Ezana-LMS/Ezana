@@ -296,15 +296,16 @@ if (isset($_POST['assign_module'])) {
             $faculty = $_POST['faculty'];
             $academic_year = $_POST['academic_year'];
             $semester = $_POST['semester'];
+            $module_id = $_POST['module_id'];
 
             //On Assign, Update Module Status to Assigned
             $ass_status = 1;
 
-            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, course_id, academic_year, semester, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, module_id, faculty_id, course_id, academic_year, semester, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
             $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
             $stmt = $mysqli->prepare($query);
             $modstmt = $mysqli->prepare($modUpdate);
-            $rc = $stmt->bind_param('ssssssssss', $id, $faculty, $view, $academic_year, $semester, $module_code, $module_name, $lec_id, $lec_name, $created_at);
+            $rc = $stmt->bind_param('sssssssssss', $id, $module_id, $faculty, $view, $academic_year, $semester, $module_code, $module_name, $lec_id, $lec_name, $created_at);
             $rc = $modstmt->bind_param('is', $ass_status, $module_code);
             $stmt->execute();
             $modstmt->execute();
@@ -358,13 +359,15 @@ if (isset($_POST['assign_guest_lec'])) {
 
         $academic_year = $_POST['academic_year'];
         $semester = $_POST['semester'];
+        $module_id = $_POST['module_id'];
 
 
-        $query = "INSERT INTO ezanaLMS_ModuleAssigns (academic_year, semester, id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at, status) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+
+        $query = "INSERT INTO ezanaLMS_ModuleAssigns (module_id, academic_year, semester, id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at, status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
         $stmt = $mysqli->prepare($query);
         $modstmt = $mysqli->prepare($modUpdate);
-        $rc = $stmt->bind_param('sssssssssss', $academic_year, $semester, $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at, $status);
+        $rc = $stmt->bind_param('ssssssssssss', $module_id, $academic_year, $semester, $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at, $status);
         $rc = $modstmt->bind_param('is', $ass_status, $module_code);
         $stmt->execute();
         $modstmt->execute();
@@ -638,14 +641,15 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="text-left">
-                                <div class="col-md-12 text-center">
-                                    <h1 class="m-0 text-dark"><?php echo $course->name; ?> Dashboard</h1>
-                                    <br>
-                                    <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="courses" class="text-white"> Back</a></span>
-
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-<?php echo $course->id; ?>">Edit Course</button>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-head">Edit Course Head</button>
-                                </div>
+                                <nav class="navbar col-md-12">
+                                    <form class="form-inline" method="GET">
+                                        <h1 class="m-0 text-bold"><?php echo $course->name; ?> Dashboard</h1>
+                                    </form>
+                                    <div class="text-right">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-<?php echo $course->id; ?>">Edit Course</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-course-head">Edit Course Head</button>
+                                    </div>
+                                </nav>
                             </div>
                             <hr>
                             <!-- Update Course Modal -->
@@ -745,23 +749,23 @@ require_once('partials/head.php');
                                             <ul class="nav flex-column">
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
-                                                        Code : <span class="float-right "><?php echo $course->code; ?></span>
+                                                        Code : <span class="float-right text-dark "><?php echo $course->code; ?></span>
                                                     </span>
                                                 </li>
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
-                                                        Head : <span class="float-right "><?php echo $course->hod; ?></span>
+                                                        Head : <span class="float-right text-dark "><?php echo $course->hod; ?></span>
                                                     </span>
                                                 </li>
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
-                                                        Head Email : <a href="mailto:<?php echo $course->email; ?>"><span class="float-right "><?php echo $course->email; ?></a></span>
+                                                        Head Email : <a href="mailto:<?php echo $course->email; ?>"><span class="float-right text-dark "><?php echo $course->email; ?></a></span>
                                                     </span>
                                                 </li>
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
                                                         Enrolled Students :
-                                                        <span class="float-right ">
+                                                        <span class="float-right  text-dark">
                                                             <?php
                                                             /* Get Enrolled Students To This Course */
                                                             $course_code = $course->code;
@@ -780,7 +784,7 @@ require_once('partials/head.php');
                                                 <li class="nav-item">
                                                     <span class="nav-link text-primary">
                                                         Modules :
-                                                        <span class="float-right ">
+                                                        <span class="float-right text-dark ">
                                                             <?php
                                                             /* Get All Modules Under Respective Course */
                                                             $query = "SELECT COUNT(*)  FROM `ezanaLMS_Modules` WHERE course_id = '$view' ";
@@ -806,13 +810,13 @@ require_once('partials/head.php');
                                                 ?>
                                                     <li class="nav-item">
                                                         <span class="nav-link text-primary">
-                                                            Department Code : <span class="float-right "><?php echo $department->code; ?></span>
+                                                            Department Code : <span class="float-right  text-dark"><?php echo $department->code; ?></span>
                                                         </span>
                                                     </li>
 
                                                     <li class="nav-item">
                                                         <span class="nav-link text-primary">
-                                                            Department Name : <span class="float-right "><?php echo $department->name; ?></span>
+                                                            Department Name : <span class="float-right  text-dark "><?php echo $department->name; ?></span>
                                                         </span>
                                                     </li>
                                                 <?php }
@@ -825,13 +829,13 @@ require_once('partials/head.php');
                                                 ?>
                                                     <li class="nav-item">
                                                         <span class="nav-link text-primary">
-                                                            Faculty / School Code : <span class="float-right "><?php echo $faculty->code; ?></span>
+                                                            Faculty / School Code : <span class="float-right  text-dark "><?php echo $faculty->code; ?></span>
                                                         </span>
                                                     </li>
 
                                                     <li class="nav-item">
                                                         <span class="nav-link text-primary">
-                                                            Faculty / School Name : <span class="float-right "><?php echo $faculty->name; ?></span>
+                                                            Faculty / School Name : <span class="float-right  text-dark "><?php echo $faculty->name; ?></span>
                                                         </span>
                                                     </li>
                                                 <?php
@@ -970,7 +974,7 @@ require_once('partials/head.php');
                                                                                                             <label for="">Upload Memo | Notice (PDF r Docx)</label>
                                                                                                             <div class="input-group">
                                                                                                                 <div class="custom-file">
-                                                                                                                    <input name="attachments" accept=".pdf, .docx, .doc" type="file" class="custom-file-input">
+                                                                                                                    <input name="attachments" required accept=".pdf, .docx, .doc" type="file" class="custom-file-input">
                                                                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                                                                 </div>
                                                                                                             </div>
@@ -1088,7 +1092,7 @@ require_once('partials/head.php');
                                                                                                     </div>
                                                                                                     <div class="form-group col-md-6">
                                                                                                         <label for="">Module Number / Code</label>
-                                                                                                        <input type="text" required name="code" value="<?php echo $mod->code; ?>" class="form-control">
+                                                                                                        <input type="text" readonly required name="code" value="<?php echo $mod->code; ?>" class="form-control">
                                                                                                     </div>
                                                                                                 </div>
 

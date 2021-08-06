@@ -58,7 +58,7 @@ if (isset($_GET['delete'])) {
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Deleted";
+        $success = "Deleted" && header("refresh:1; url=module_assignments_attemps?view=$view");
     } else {
         $info = "Please Try Again Or Try Later";
     }
@@ -102,7 +102,7 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="col-md-12 text-center">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Assignments Attempts</h1>
+                                <h1 class="m-0 text-bold"><?php echo $mod->name; ?> Assignments Attempts</h1>
                                 <br>
                                 <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="module_assignments?view=<?php echo $mod->id; ?>" class="text-white">Back</a></span>
 
@@ -165,7 +165,7 @@ require_once('partials/head.php');
                                                                                     <h4>Delete?</h4>
                                                                                     <br>
                                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                                    <a href="module_assignments_attemps?delete=<?php echo $attempts->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                                    <a href="module_assignments_attemps?delete=<?php echo $attempts->id; ?>&view=<?php echo $mod->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

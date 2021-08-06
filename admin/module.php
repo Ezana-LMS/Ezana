@@ -109,15 +109,16 @@ if (isset($_POST['assign_module'])) {
             $faculty = $_POST['faculty'];
             $academic_year = $_POST['academic_year'];
             $semester = $_POST['semester'];
+            $module_id = $_POST['module_id'];
 
             //On Assign, Update Module Status to Assigned
             $ass_status = 1;
 
-            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, faculty_id, course_id, academic_year, semester, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO ezanaLMS_ModuleAssigns (id, module_id, faculty_id, course_id, academic_year, semester, module_code , module_name, lec_id, lec_name, created_at) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
             $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
             $stmt = $mysqli->prepare($query);
             $modstmt = $mysqli->prepare($modUpdate);
-            $rc = $stmt->bind_param('ssssssssss', $id, $faculty, $view, $academic_year, $semester, $module_code, $module_name, $lec_id, $lec_name, $created_at);
+            $rc = $stmt->bind_param('sssssssssss', $id,  $module_id, $faculty, $view, $academic_year, $semester, $module_code, $module_name, $lec_id, $lec_name, $created_at);
             $rc = $modstmt->bind_param('is', $ass_status, $module_code);
             $stmt->execute();
             $modstmt->execute();
@@ -171,13 +172,14 @@ if (isset($_POST['assign_guest_lec'])) {
 
         $academic_year = $_POST['academic_year'];
         $semester = $_POST['semester'];
+        $module_id = $_POST['module_id'];
 
 
-        $query = "INSERT INTO ezanaLMS_ModuleAssigns (academic_year, semester, id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at, status) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        $query = "INSERT INTO ezanaLMS_ModuleAssigns (academic_year, module_id,  semester, id, faculty_id, course_id, module_code , module_name, lec_id, lec_name, created_at, status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         $modUpdate = "UPDATE ezanaLMS_Modules SET ass_status =?  WHERE code = ?";
         $stmt = $mysqli->prepare($query);
         $modstmt = $mysqli->prepare($modUpdate);
-        $rc = $stmt->bind_param('sssssssssss', $academic_year, $semester, $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at, $status);
+        $rc = $stmt->bind_param('ssssssssssss', $academic_year, $module_id, $semester, $id, $faculty, $view, $module_code, $module_name, $lec_id, $lec_name, $created_at, $status);
         $rc = $modstmt->bind_param('is', $ass_status, $module_code);
         $stmt->execute();
         $modstmt->execute();
@@ -224,29 +226,37 @@ require_once('partials/head.php');
 
                     <section class="content">
                         <div class="container-fluid">
-                            <div class="col-md-12 text-center">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?></h1>
+                            <div class="col-md-12">
+                                <div class="text-left">
+                                    <nav class="navbar col-md-12">
+                                        <form class="form-inline" method="GET">
+                                            <h1 class="m-0 text-bold"><?php echo $mod->name; ?></h1>
+                                        </form>
+                                        <div class="text-right">
+                                            <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="modules" class="text-white">Back</a></span>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-module-<?php echo $mod->id; ?>">Edit Module</button>
+                                            <!-- Allocate Module Lecturer Or Guest Lec -->
+                                            <?php
+                                            /* Check If This Module Is Allocated A Lecturer If Yes Give A Guest Lecturer */
+                                            if ($mod->ass_status == '0') {
+                                                /* Allocate Lecturer Or Guest Lecturer */
+                                                echo
+                                                "
+                                                    <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_lect'>Assign Lecturer</button>
+                                                    <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_guest_lect'>Assign Guest Lecturer</button>
+                                                ";
+                                            } else {
+                                                /* Only Allocate Lecturer */
+                                                echo
+                                                "
+                                                    <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_guest_lect'>Assign Guest Lecturer</button>
+                                                ";
+                                            }
+                                            ?>
+                                        </div>
+                                    </nav>
+                                </div>
                                 <br>
-                                <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="modules" class="text-white">Back</a></span>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-module-<?php echo $mod->id; ?>">Edit Module</button>
-                                <!-- Allocate Module Lecturer Or Guest Lec -->
-                                <?php
-                                /* Check If This Module Is Allocated A Lecturer If Yes Give A Guest Lecturer */
-                                if ($mod->ass_status == '0') {
-                                    /* Allocate Lecturer Or Guest Lecturer */
-                                    echo
-                                    "
-                                        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_lect'>Assign Lecturer</button>
-                                        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_guest_lect'>Assign Guest Lecturer</button>
-                                    ";
-                                } else {
-                                    /* Only Allocate Lecturer */
-                                    echo
-                                    "
-                                        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_guest_lect'>Assign Guest Lecturer</button>
-                                    ";
-                                }
-                                ?>
                             </div>
 
                             <!-- <div class="text-left">
@@ -292,7 +302,7 @@ require_once('partials/head.php');
                                                             <label for="">Upload Module Memo (PDF Or Docx)</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
-                                                                    <input name="attachments" accept=".pdf, .docx, .doc" type="file" class="custom-file-input">
+                                                                    <input name="attachments" required accept=".pdf, .docx, .doc" type="file" class="custom-file-input">
                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file </label>
                                                                 </div>
                                                             </div>

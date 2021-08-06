@@ -234,8 +234,8 @@ if (isset($_POST['add_lec'])) {
             $mailed_password = $_POST['password'];
             /* Persist Encrypted Password */
             $password = sha1(md5($mailed_password));
-            $profile_pic = $time . $_FILES['profile_pic']['name'];
-            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "../Data/User_Profiles/lecturers/" . $time . $_FILES["profile_pic"]["name"]);
+            $profile_pic = time() .  $_FILES['profile_pic']['name'];
+            move_uploaded_file($_FILES["profile_pic"]["tmp_name"], "../Data/User_Profiles/lecturers/" . time()  . $_FILES["profile_pic"]["name"]);
 
             $query = "INSERT INTO ezanaLMS_Lecturers (id, faculty_id, gender, faculty_name, work_email, employee_id, date_employed, name, email, phone, idno, adr, profile_pic, created_at, password, number) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $mysqli->prepare($query);
@@ -382,7 +382,7 @@ require_once('partials/head.php');
                         <div class="container-fluid">
                             <div class="col-md-12">
                                 <div class="text-center">
-                                    <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Lecturers</h1>
+                                    <h1 class="m-0 text-bold"><?php echo $faculty->name; ?> Lecturers</h1>
                                     <br>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-import-lecs">Bulk Import Lecturers</button>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Lecturer</button>

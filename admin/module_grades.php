@@ -253,7 +253,7 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="col-md-12 text-center">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Student Grades</h1>
+                                <h1 class="m-0 text-bold"><?php echo $mod->name; ?> Student Grades</h1>
                                 <br>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-export">Export Marks Entries</button>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Enter Marks | Grade</button>
@@ -380,8 +380,8 @@ require_once('partials/head.php');
                                                     ?>
 
                                                         <tr>
-                                                            <td><?php echo $grade->regno . " " . $grade->name; ?></td>
-                                                            <td><?php echo $grade->module_code . " " . $grade->module_name; ?></td>
+                                                            <td><?php echo $grade->regno . "<br>" . $grade->name; ?></td>
+                                                            <td><?php echo $grade->module_code . "<br>" . $grade->module_name; ?></td>
                                                             <td><?php echo $grade->academic_year; ?></td>
                                                             <td><?php echo $grade->semester; ?></td>
                                                             <td><?php echo $grade->assignment_name; ?></td>
@@ -425,7 +425,7 @@ require_once('partials/head.php');
                                                                     <input type="hidden" required name="module_name" class="form-control" value="<?php echo $mod->name; ?>">
                                                                     <?php
                                                                     /* Persisit Academic Settings */
-                                                                    $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` ";
+                                                                    $ret = "SELECT * FROM `ezanaLMS_AcademicSettings` WHERE status ='Current' ";
                                                                     $stmt = $mysqli->prepare($ret);
                                                                     $stmt->execute(); //ok
                                                                     $res = $stmt->get_result();
@@ -480,7 +480,7 @@ require_once('partials/head.php');
                                                     ?>
 
                                                         <tr>
-                                                            <td><?php echo $grade->regno . " " . $grade->name; ?></td>
+                                                            <td><?php echo $grade->regno . "<br>" . $grade->name; ?></td>
                                                             <td><?php echo $grade->assignment_name; ?></td>
                                                             <td><?php echo $grade->marks; ?></td>
                                                             <td><?php echo $grade->academic_year; ?></td>

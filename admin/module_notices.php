@@ -130,8 +130,8 @@ require_once('partials/head.php');
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right small">
-                                    <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="modules.php">Modules</a></li>
+                                    <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="modules">Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
                                 </ol>
                             </div>
@@ -141,7 +141,7 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="col-md-12 text-center">
-                                <h1 class="m-0 text-dark"><?php echo $mod->name; ?> Notices, Announcements & Memos</h1>
+                                <h1 class="m-0 text-bold"><?php echo $mod->name; ?> Notices, Announcements & Memos</h1>
                                 <br>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Module Notice</button>
                             </div>

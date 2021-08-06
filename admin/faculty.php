@@ -117,14 +117,18 @@ require_once('partials/head.php');
                     <section class="content">
                         <div class="container-fluid">
                             <div class="col-md-12">
-                                <div class="text-center">
-                                    <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Dashboard</h1>
-                                    <br>
-                                    <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="faculties" class="text-white"> Back</a></span>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit_faculty_head">Edit Faculty Head</button>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit_faculty">Edit Faculty</button>
-                                </div>
+                                <nav class="navbar col-md-12">
+                                    <form class="form-inline" method="GET">
+                                        <h1 class="m-0 text-bold"><?php echo $faculty->name; ?> Dashboard</h1>
+                                    </form>
+                                    <div class="text-right">
+                                        <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="faculties" class="text-white"> Back</a></span>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit_faculty_head">Edit Faculty Head</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit_faculty">Edit Faculty</button>
+                                    </div>
+                                </nav>
                             </div>
+                            
                             <!-- Edit Faculty Modal -->
                             <div class="modal fade" id="edit_faculty">
                                 <div class="modal-dialog  modal-xl">

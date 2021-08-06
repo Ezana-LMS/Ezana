@@ -178,7 +178,7 @@ require_once('partials/head.php');
                         <div class="container-fluid">
                             <div class="col-md-12">
                                 <div class="text-center">
-                                    <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Important Dates</h1>
+                                    <h1 class="m-0 text-bold"><?php echo $faculty->name; ?> Important Dates</h1>
                                     <br>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add Faculty Important Dates</button>
                                 </div>

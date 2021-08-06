@@ -184,10 +184,10 @@ require_once('partials/head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1><?php echo $admin->name; ?> Profile</h1>
+                                <h1 class="text-bold"><?php echo $admin->name; ?> Profile</h1>
                             </div>
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                     <li class="breadcrumb-item active">User Profile</li>
                                 </ol>
@@ -225,7 +225,7 @@ require_once('partials/head.php');
                                                                 <div class="col-sm-12">
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
-                                                                            <input type="file" name="profile_pic" class="custom-file-input" id="exampleInputFile">
+                                                                            <input type="file" required accept=".png, .jpeg, .jpg" name="profile_pic" class="custom-file-input" id="exampleInputFile">
                                                                             <label class="custom-file-label " for="exampleInputFile">Choose file</label>
                                                                         </div>
                                                                     </div>

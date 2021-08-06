@@ -149,7 +149,7 @@ require_once('partials/head.php');
                         <div class="container-fluid">
                             <div class="col-md-12">
                                 <div class="text-center">
-                                    <h1 class="m-0 text-dark"><?php echo $faculty->name; ?> Departments</h1>
+                                    <h1 class="m-0 text-bold"><?php echo $faculty->name; ?> Departments</h1>
                                     <br>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Add New Department</button>
 
@@ -179,7 +179,7 @@ require_once('partials/head.php');
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Department Number / Code</label>
-                                                                <input type="text" required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
+                                                                <input type="text" readonly required name="code" value="<?php echo $a; ?><?php echo $b; ?>" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">HOD</label>
@@ -198,7 +198,7 @@ require_once('partials/head.php');
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Email</label>
-                                                                <input type="email" required name="email" id="DepartmentHeadEmail" class="form-control">
+                                                                <input type="email" readonly required name="email" id="DepartmentHeadEmail" class="form-control">
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -275,7 +275,7 @@ require_once('partials/head.php');
                                                                                             </div>
                                                                                             <div class="form-group col-md-6">
                                                                                                 <label for="">Department Number / Code</label>
-                                                                                                <input type="text" required name="code" value="<?php echo $dep->code; ?>" class="form-control">
+                                                                                                <input readonly type="text" required name="code" value="<?php echo $dep->code; ?>" class="form-control">
                                                                                                 <input type="hidden" required name="id" value="<?php echo $dep->id; ?>" class="form-control">
                                                                                                 <input type="hidden" required name="view" value="<?php echo $dep->faculty_id; ?>" class="form-control">
                                                                                             </div>

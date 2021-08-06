@@ -164,10 +164,10 @@ require_once('partials/head.php');
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1><?php echo $std->name; ?> Profile</h1>
+                                <h1 class="text-bold"><?php echo $std->name; ?> Profile</h1>
                             </div>
                             <div class="col-sm-6">
-                                <ol class="breadcrumb float-sm-right">
+                                <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
                                     <li class="breadcrumb-item"><a href="students">Students</a></li>
                                     <li class="breadcrumb-item active">Profile</li>
@@ -206,7 +206,7 @@ require_once('partials/head.php');
                                                                 <div class="col-sm-12">
                                                                     <div class="input-group">
                                                                         <div class="custom-file">
-                                                                            <input type="file" name="profile_pic" class="custom-file-input" id="exampleInputFile">
+                                                                            <input type="file" accept=".png, .jpeg, .jpg" required name="profile_pic" class="custom-file-input" id="exampleInputFile">
                                                                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                         </div>
                                                                     </div>
@@ -250,7 +250,7 @@ require_once('partials/head.php');
                                             </li>
                                             <hr>
                                             <li class="list-group-item">
-                                                <b>Date Enrolled: </b> <a class="float-right"><?php echo $std->day_enrolled; ?></a>
+                                                <b>Date Enrolled: </b> <a class="float-right"><?php echo date('d-M-Y', strtotime($std->day_enrolled)); ?></a>
                                             </li>
 
                                             <li class="list-group-item">
@@ -391,7 +391,7 @@ require_once('partials/head.php');
                                                         ?>
 
                                                             <tr>
-                                                                <td><?php echo $en->module_code . " " . $en->module_name; ?></td>
+                                                                <td><?php echo $en->module_code . "<br>" . $en->module_name; ?></td>
                                                                 <td><?php echo $en->stage; ?></td>
                                                                 <td><?php echo $en->semester_enrolled; ?></td>
                                                                 <td><?php echo $en->academic_year_enrolled; ?></td>
