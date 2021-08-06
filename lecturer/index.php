@@ -82,7 +82,7 @@ while ($sys = $res->fetch_object()) {
                 <div class="wrap-login100">
                     <form method="POST" class="login100-form validate-form">
                         <div class="text-center">
-                            <img height="150" width="160" src="../Data/SystemLogo/<?php echo $sys->logo; ?>" alt="wrapkit">
+                            <img height="150" width="160" src="../Data/SystemLogo/<?php echo $sys->login_logo; ?>" alt="wrapkit">
                         </div>
                         <h2 class="mt-3 text-center">Log In</h2>
                         <div class="wrap-input100 validate-input" data-validate="Valid email is required: user@mail.com">
@@ -108,7 +108,7 @@ while ($sys = $res->fetch_object()) {
                             </button>
                         </div>
                     </form>
-                    <div class="login100-more" style="background-image: url('../Data/SystemLogo/<?php echo $sys->logo; ?>');">
+                    <div class="login100-more" style="background-image: url('../Data/SystemLogo/<?php echo $sys->login_logo; ?>');">
                     </div>
                 </div>
             </div>
