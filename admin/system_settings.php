@@ -41,12 +41,16 @@ if (isset($_POST['systemSettings'])) {
         $id = $_POST['id'];
         $version = $_POST['version'];
         $sysname = $_POST['sysname'];
+
         $logo = $time . $_FILES['logo']['name'];
         move_uploaded_file($_FILES["logo"]["tmp_name"], "../Data/SystemLogo/" . $time . $_FILES["logo"]["name"]);
 
-        $query = "UPDATE ezanaLMS_Settings SET sysname =?, logo =?, version=? WHERE id = ?";
+        $login_logo = $time . $_FILES['login_logo']['name'];
+        move_uploaded_file($_FILES["login_logo"]["tmp_name"], "../Data/SystemLogo/" . $time . $_FILES["login_logo"]["name"]);
+
+        $query = "UPDATE ezanaLMS_Settings SET sysname =?, logo =?, login_logo=?, version=? WHERE id = ?";
         $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param('ssss',  $sysname,  $logo, $version, $id);
+        $rc = $stmt->bind_param('sssss',  $sysname,  $logo, $login_logo, $version, $id);
         $stmt->execute();
         if ($stmt) {
             $success = "System Settings" && header("refresh:1; url=system_settings");
@@ -180,20 +184,29 @@ require_once('partials/head.php');
                                                             <form method="post" enctype="multipart/form-data" role="form">
                                                                 <div class="card-body">
                                                                     <div class="row">
-                                                                        <div class="form-group col-md-4">
+                                                                        <div class="form-group col-md-6">
                                                                             <label for="">System Name</label>
                                                                             <input type="text" required name="sysname" value="<?php echo $sys->sysname; ?>" class="form-control">
                                                                             <input type="hidden" required name="id" value="<?php echo $sys->id ?>" class="form-control">
                                                                         </div>
-                                                                        <div class="form-group col-md-4">
+                                                                        <div class="form-group col-md-6">
                                                                             <label for="">System Version</label>
                                                                             <input type="text" required name="version" value="<?php echo $sys->version; ?>" class="form-control">
                                                                         </div>
-                                                                        <div class="form-group col-md-4">
+                                                                        <div class="form-group col-md-6">
                                                                             <label for="">System Logo</label>
                                                                             <div class="input-group">
                                                                                 <div class="custom-file">
                                                                                     <input required name="logo" type="file" class="custom-file-input">
+                                                                                    <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="">System Login Logo</label>
+                                                                            <div class="input-group">
+                                                                                <div class="custom-file">
+                                                                                    <input required name="login_logo" type="file" class="custom-file-input">
                                                                                     <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                                 </div>
                                                                             </div>
