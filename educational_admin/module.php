@@ -218,7 +218,7 @@ require_once('partials/head.php');
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right small">
                                     <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="modules?view=<?php echo $mod->faculty_id;?>">Modules</a></li>
+                                    <li class="breadcrumb-item"><a href="modules?view=<?php echo $mod->faculty_id; ?>">Modules</a></li>
                                     <li class="breadcrumb-item active"><?php echo $mod->name; ?></li>
                                 </ol>
                             </div>
@@ -227,29 +227,37 @@ require_once('partials/head.php');
 
                     <section class="content">
                         <div class="container-fluid">
-                            <div class="col-md-12 text-center">
-                                <h1 class="m-0 text-bold"><?php echo $mod->name; ?></h1>
+                            <div class="col-md-12">
+                                <div class="text-left">
+                                    <nav class="navbar col-md-12">
+                                        <form class="form-inline" method="GET">
+                                            <h1 class="m-0 text-bold"><?php echo $mod->name; ?></h1>
+                                        </form>
+                                        <div class="text-right">
+                                            <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="modules?view=<?php echo $mod->faculty_id; ?>" class="text-white">Back</a></span>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-module-<?php echo $mod->id; ?>">Edit Module</button>
+                                            <!-- Allocate Module Lecturer Or Guest Lec -->
+                                            <?php
+                                            /* Check If This Module Is Allocated A Lecturer If Yes Give A Guest Lecturer */
+                                            if ($mod->ass_status == '0') {
+                                                /* Allocate Lecturer Or Guest Lecturer */
+                                                echo
+                                                "
+                                                    <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_lect'>Assign Lecturer</button>
+                                                    <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_guest_lect'>Assign Guest Lecturer</button>
+                                                ";
+                                            } else {
+                                                /* Only Allocate Lecturer */
+                                                echo
+                                                "
+                                                    <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_guest_lect'>Assign Guest Lecturer</button>
+                                                ";
+                                            }
+                                            ?>
+                                        </div>
+                                    </nav>
+                                </div>
                                 <br>
-                                <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="modules?view=<?php echo $mod->faculty_id;?>" class="text-white">Back</a></span>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update-module-<?php echo $mod->id; ?>">Edit Module</button>
-                                <!-- Allocate Module Lecturer Or Guest Lec -->
-                                <?php
-                                /* Check If This Module Is Allocated A Lecturer If Yes Give A Guest Lecturer */
-                                if ($mod->ass_status == '0') {
-                                    /* Allocate Lecturer Or Guest Lecturer */
-                                    echo
-                                    "
-                                        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_lect'>Assign Lecturer</button>
-                                        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_guest_lect'>Assign Guest Lecturer</button>
-                                    ";
-                                } else {
-                                    /* Only Allocate Lecturer */
-                                    echo
-                                    "
-                                        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#assign_guest_lect'>Assign Guest Lecturer</button>
-                                    ";
-                                }
-                                ?>
                             </div>
 
                             <!-- <div class="text-left">
