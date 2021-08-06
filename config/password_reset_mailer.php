@@ -94,7 +94,7 @@ while ($sys = $res->fetch_object()) {
                                                 style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
                                             <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                                 Hi there, <br>
-                                                You recently requested to reset the password for your ' . $sys->sys_name . ' account.
+                                                You recently requested to reset the password for your ' . $sys->sysname . ' account.
                                             </p>
                                             <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
                                                This is your new password: <br>
