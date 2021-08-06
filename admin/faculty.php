@@ -120,7 +120,6 @@ require_once('partials/head.php');
                                 <nav class="navbar col-md-12">
                                     <form class="form-inline" method="GET">
                                         <h1 class="m-0 text-bold"><?php echo $faculty->name; ?> Dashboard</h1>
-
                                     </form>
                                     <div class="text-right">
                                         <span class="btn btn-primary"><i class="fas fa-arrow-left"></i><a href="faculties" class="text-white"> Back</a></span>
@@ -129,6 +128,7 @@ require_once('partials/head.php');
                                     </div>
                                 </nav>
                             </div>
+                            
                             <!-- Edit Faculty Modal -->
                             <div class="modal fade" id="edit_faculty">
                                 <div class="modal-dialog  modal-xl">
